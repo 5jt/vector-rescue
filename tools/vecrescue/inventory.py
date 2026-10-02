@@ -66,3 +66,17 @@ def xhtml_source(record):
         if s["fmt"] == "XHTML" and s["exists"]:
             return s["path"]
     return None
+
+
+def read_issues(root):
+    """The issue catalogue, ROOT/issues/index.xml, in file order."""
+    issues = []
+    for el in ET.parse(Path(root) / "issues" / "index.xml").iter("issue"):
+        files = {s.get("fmt"): (s.text or "").strip().strip('"') or None for s in el.findall("source")}
+        issues.append({
+            "volume": el.get("volume"), "issue": el.get("issue"),
+            "year": el.get("year"), "month": el.get("month"),
+            "title": el.get("title"), "span": int(el.get("span") or 1),
+            "pdf": files.get("PDF"), "doc": files.get("DOC"),
+        })
+    return issues

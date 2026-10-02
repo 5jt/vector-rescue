@@ -22,7 +22,7 @@ def main(argv=None):
         elif step == "convert":
             print("convert:", len(pipeline.run_convert(a.src, a.out)), "articles")
         elif step == "site":
-            print("site:", pipeline.run_site(a.out, a.config))
+            print("site:", pipeline.run_site(a.src, a.out, a.config))
         elif step == "report":
             t = run_report(a.src, a.out)["totals"]
             print(f"report: {a.out / 'report.md'}: {t['articles']} articles, "

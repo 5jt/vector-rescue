@@ -2,10 +2,13 @@
 
 import json
 import shutil
+import subprocess
+import sys
 from pathlib import Path
 
 from .convert import convert
-from .inventory import read_index, xhtml_source
+from .inventory import read_index, read_issues, xhtml_source
+from .pages import write_home_page, write_issue_pages
 from .links import LinkIndex
 
 
@@ -47,41 +50,21 @@ def run_convert(src, out):
     return written
 
 
-def _issue_key(r):
-    def num(s):
-        try:
-            return float(s)
-        except (TypeError, ValueError):
-            return float("inf")
-    return (num(r.get("volume")), num(r.get("issue")))
-
-
-def write_home_page(inventory, docs):
-    """A plain list of converted articles, by issue. Issue #9 replaces it."""
-    docs = Path(docs)
-    have = [r for r in inventory if r.get("id") and (docs / f"art{r['id']}" / "index.md").exists()]
-    lines = ["# Vector archive (development)", ""]
-    current = object()
-    for r in sorted(have, key=_issue_key):
-        key = (r.get("volume"), r.get("issue"))
-        if key != current:
-            current = key
-            label = f"{key[0]}:{key[1]}" if key[0] else "Online only"
-            lines += ["", f"## {label}", ""]
-        lines.append(f"- [{r['title']}](art{r['id']}/)")
-    path = docs / "index.md"
-    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    return path
-
-
-def run_site(out, config):
-    """Copy CONFIG into OUT and build OUT/docs into OUT/site with Zensical."""
-    import shutil
-    import subprocess
-    import sys
-    out = Path(out)
-    write_home_page(load_inventory(out), out / "docs")
+def run_site(src, out, config):
+    """Write the home and issue pages, copy the site files from CONFIG's
+    folder, and build OUT/docs into OUT/site with Zensical."""
+    src, out, config = Path(src), Path(out), Path(config)
+    docs = out / "docs"
+    inventory, issues = load_inventory(out), read_issues(src)
+    write_issue_pages(inventory, issues, src, docs)
+    write_home_page(inventory, issues, docs)
     shutil.copy(config, out / "zensical.toml")
+    shutil.rmtree(out / "overrides", ignore_errors=True)
+    shutil.copytree(config.parent / "overrides", out / "overrides")
+    shutil.copytree(config.parent / "assets", docs / "assets", dirs_exist_ok=True)
+    fonts = docs / "assets" / "fonts"
+    fonts.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(src / "Apl385.ttf", fonts / "Apl385.ttf")
     zensical = Path(sys.executable).with_name("zensical")
     subprocess.run([str(zensical), "build"], cwd=out, check=True)
     return out / "site"

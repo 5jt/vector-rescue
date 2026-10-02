@@ -132,3 +132,9 @@ def test_link_check(tmp_path):
                    '<a href="http://x.org">ext</a><a href="#r">in-page</a></article></body></html>')
     assert link_check(rendered, site / "art1", site) == {
         "links": 5, "broken": ["../art3/", "../24/1/"]}
+
+
+def test_text_check_ignores_the_article_header_from_the_template():
+    rendered = RENDERED.replace('<h1 id="__skip">', '<p class="prefix">Series</p><h1 id="__skip">').replace(
+        '<p class="byline">', '<p class="printed"><a href="../25/1/">Vector 25:1</a>, page 74</p><p class="byline">')
+    assert text_check(doc(SOURCE), doc(rendered), RECORD)["differing"] == 0
