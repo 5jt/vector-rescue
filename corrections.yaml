@@ -1,0 +1,153 @@
+# Curated corrections for source defects (issue #23).
+#
+# Applied by the pipeline to an article's decoded source text before parsing;
+# sources/ is never changed. Each correction needs `why` and `decided`.
+#
+#   articles:
+#     "<art ID>":
+#       - find: <exact text in the source>     # replace it (all occurrences,
+#         replace: <new text>                  #   the first `count`, or only the `nth`)
+#       - encoding: <codec>                    # read the source in this encoding
+#       - hold: true                           # do not convert (yet)
+#       - release: true                        # convert despite the mapped-APL checks
+#   catalogue:
+#     "<vol>:<issue>": { title, year, month, pdf, doc }   # correct or add an issue
+#
+# A `find` that is no longer in its source is reported as stale in build/report.md.
+#
+# `decided` records who ruled. "Claude (evidence)" marks a fix whose evidence
+# leaves no real choice; "proposed by Claude" marks a judgement awaiting a ruling.
+
+articles:
+
+  # In-page references -------------------------------------------------------
+
+  "10500140":   # Kendall, 24:1
+    - find: <a name="ref1"> </a>
+      replace: <a name="ref2"> </a>
+      nth: 2
+      why: The second reference is labelled ref1; the text links #ref2 to it.
+      decided: Claude (evidence)
+
+  "10500260":   # Reader, 24:2
+    - find: <a name="ref3"> </a>
+      replace: <a name="ref2"> </a>
+      why: The second reference is labelled ref3; the text links #ref2 and nothing links #ref3.
+      decided: Claude (evidence)
+
+  "10500430":   # McCormick, 24:4
+    - find: <a name="ref12"> </a>
+      replace: <a name="ref2"> </a>
+      why: Typo; the second reference is the target of the text's #ref2.
+      decided: Claude (evidence)
+
+  "10000360":   # Joy, 21:4
+    - find: href="#noet2"
+      replace: href="#note2"
+      why: Typo for #note2.
+      decided: Claude (evidence)
+
+  "10001730":   # Gérard Langlet: A Man of Distinction, 22:2
+    - find: <a href="#ref">5</a>
+      replace: <a href="#ref5">5</a>
+      why: Link to reference 5 written without its number.
+      decided: Claude (evidence)
+
+  "10003230":   # Matrix, 20:1
+    - find: "<blockquote\n<a name=note1>"
+      replace: "<blockquote>\n<a name=note1>"
+      why: A missing > made the parser swallow the note1 anchor into the blockquote's attributes.
+      decided: Claude (evidence)
+
+  "10500220":   # Boss, 24:2
+    - find: <a href="ref4">
+      replace: <a href="#ref4">
+      why: In-page reference written without its #.
+      decided: Claude (evidence)
+
+  # Links to the old site ---------------------------------------------------------
+
+  "10500110":   # Industry news, 24:1
+    - find: <a href="?vol=24&amp;no=1&amp;art=conf">
+      replace: <a href="http://archive.vector.org.uk/art10500030">
+      why: '"Adrian Smith’s conference review in this issue", beside news of Dyalog''s taped conference sessions: Adrian Smith''s "Dyalog 2008 at Lo-skolen" (24:1).'
+      decided: proposed by Claude
+
+  "10500270":   # In Session, 24:2
+    - find: <a href="?area=about">
+      replace: <a href="https://web.archive.org/web/20080701182900/http://www.vector.org.uk/?area=about">
+      why: The old site's "About the APLs" page; captured by the Wayback Machine in 2008.
+      decided: proposed by Claude
+
+  "10003930":   # Ken Iverson Quotations and Anecdotes, 22:3
+    - find: <a href="http://www.vector.org.uk/?area=kei&amp;page=hui">
+      replace: <a href="https://web.archive.org/web/20050305220413/http://www.vector.org.uk/?area=kei&page=hui">
+      why: Roger Hui's "Remembering Ken Iverson" on the old site; captured by the Wayback Machine in 2005.
+      decided: proposed by Claude
+
+  # Typos the parser reads as tags --------------------------------------------------
+
+  "10010520":   # J-ottings 38, 20:2
+    - find: <tt+/</tt>
+      replace: <tt>+/</tt>
+      why: Typo; the malformed tag also kept a <pre> open over the rest of the article.
+      decided: Claude (evidence)
+    - find: <tt_:</tt>
+      replace: <tt>_:</tt>
+      why: Typo for <tt>_:</tt> (the constant function for infinity).
+      decided: Claude (evidence)
+
+  "10006680":   # Peelle, 20:2
+    - find: <t>p</tt>
+      replace: <tt>p</tt>
+      why: Typo.
+      decided: Claude (evidence)
+
+  "10007220":   # Hyperbolic Symmetry is a Breeze, 17:3
+    - find: <ttS2</tt>
+      replace: <tt>S2</tt>
+      why: Typo.
+      decided: Claude (evidence)
+
+  "10012320":   # Pearson, 10:1
+    - find: Instead of <I2[ ] (corresponding
+      replace: Instead of <tt>&lt;I2[ ]</tt> (corresponding
+      why: The literal argument type <I2[ ] was read as a tag and hidden.
+      decided: Claude (evidence)
+
+  "10003740":   # Celtic Knotwork in J, 21:1
+    - find: (<m><a href="mailto:mhorton@utas.edu.au">mhorton@utas.edu.au</a></m>)
+      replace: (<a href="mailto:mhorton@utas.edu.au">mhorton@utas.edu.au</a>)
+      why: Stray made-up tag <m> around the address.
+      decided: Claude (evidence)
+
+  "10007210":   # Reiter, 17:2
+    - find: (<mailto:"reiterc@lafayette.edu">reiterc@lafayette.edu>)
+      replace: (<a href="mailto:reiterc@lafayette.edu">reiterc@lafayette.edu</a>)
+      why: Malformed mailto link.
+      decided: Claude (evidence)
+
+  "10012530":   # Camacho, 10:3
+    - find: <A.M.Sykes@swansea.ac.uk>
+      replace: <a href="mailto:A.M.Sykes@swansea.ac.uk">A.M.Sykes@swansea.ac.uk</a>
+      why: An address in angle brackets, read as a tag.
+      decided: Claude (evidence)
+
+  # Encoding ----------------------------------------------------------------------
+
+  "10003000":   # Dueren, 11:3
+    - hold: true
+      why: Not Windows-1252 (quotes come out as Î…Ù, a dash as Š); the old site showed �. Needs the right encoding or per-character fixes.
+      decided: proposed by Claude
+
+catalogue:
+
+  "26:2":
+    title: Nos.2&3
+    why: issues/v262.pdf is headed "Vol.26 No.2&3" throughout; no index has an article in 26:3.
+    decided: Claude (evidence)
+
+  "26:4":
+    year: "2016"
+    why: Missing from the catalogue. The year is certain (articles online 2016-05-05; PDF made 2016-06-24); the month (March, as recalled?) awaits a ruling.
+    decided: proposed by Claude

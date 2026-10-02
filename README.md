@@ -94,4 +94,6 @@ The conversion is a rerunnable pipeline (Python, managed with `uv`). It reads `s
 
 The run report compares the visible text and every code block of each built page with its source, and summarises what passed through as raw HTML and why. Each run keeps the previous report (`build/report.prev.json`) and shows the change, so a revised rule can be measured against the last run.
 
+Source defects that need judgement are fixed in `corrections.yaml`, not by converter rules: text replacements applied to an article's source before parsing, an encoding override, holding back or releasing an article, and corrections to the issue catalogue. Each says why and who decided; a correction whose text is no longer found is reported as stale.
+
 Conversion rules are provisional and tracked as GitHub issues. Each rule is written test-first; an element without a rule passes through as raw HTML so nothing is lost.

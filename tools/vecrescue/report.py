@@ -172,7 +172,7 @@ def _add(total, part):
         total[k] = total.get(k, 0) + v
 
 
-def run_report(src, out):
+def run_report(src, out, corrections=None):
     src, out = Path(src), Path(out)
     inventory = json.loads((out / "inventory.json").read_text(encoding="utf-8"))
     notes = json.loads((out / "notes.json").read_text(encoding="utf-8"))
@@ -188,8 +188,8 @@ def run_report(src, out):
         if not (found and page.exists()):
             continue
         fmt, source = found
-        sdoc = load_source(src, fmt, source, [])
-        rdoc = lxml.html.fromstring(page.read_bytes())
+        sdoc = load_source(src, fmt, source, [], record["id"], corrections)
+        rdoc = lxml.html.fromstring(page.read_bytes().decode("utf-8", errors="replace"))
         art = {"title": record["title"], "source": source,
                **_summarise(notes.get(record["id"], [])),
                "text": text_check(sdoc, rdoc, record),
@@ -198,7 +198,7 @@ def run_report(src, out):
                "anchors": anchor_check(rdoc),
                "links": link_check(rdoc, page.parent, out / "site")}
         if record.get("captured") and (src / record["captured"]).is_file():
-            art["capture"] = capture_check(lxml.html.fromstring((src / record["captured"]).read_bytes()), rdoc)
+            art["capture"] = capture_check(lxml.html.fromstring((src / record["captured"]).read_bytes().decode("utf-8", errors="replace")), rdoc)
         articles[record["id"]] = art
         totals["articles"] += 1
         for k in ("raw_html", "table_raw", "notes"):
@@ -224,7 +224,9 @@ def run_report(src, out):
     if path.exists():
         previous = json.loads(path.read_text(encoding="utf-8"))["totals"]
         path.replace(prev_path)
-    report = {"totals": totals, "previous": previous, "articles": articles, "skipped": skipped}
+    stale = {vid: [n for n in ns if n["kind"] == "correction-stale"] for vid, ns in notes.items()}
+    report = {"totals": totals, "previous": previous, "articles": articles, "skipped": skipped,
+              "stale": {k: v for k, v in stale.items() if v}}
     path.write_text(json.dumps(report, indent=1, ensure_ascii=False), encoding="utf-8")
     (out / "report.md").write_text(render_markdown(report), encoding="utf-8")
     return report
@@ -286,6 +288,11 @@ def render_markdown(report):
         lines += ["## Images with no file", ""]
         for vid, a in broken:
             lines.append(f"- art{vid}: {', '.join(a['images']['broken'])}")
+        lines.append("")
+    stale = [(vid, n["find"]) for vid, ns in report.get("stale", {}).items() for n in ns]
+    if stale:
+        lines += ["## Corrections no longer found in their source", ""]
+        lines += [f"- art{vid}: `{find[:100]}`" for vid, find in stale]
         lines.append("")
     dangling = [(vid, a) for vid, a in arts.items() if a.get("anchors", {}).get("missing")]
     if dangling:
