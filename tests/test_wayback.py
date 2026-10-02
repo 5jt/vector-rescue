@@ -150,3 +150,10 @@ def test_a_saved_file_that_fails_the_check_is_fetched_again(tmp_path):
     f = Fetcher(tmp_path, get=lambda url: b'<div id="article">ok</div>', pause=0)
     assert f.fetch_all({"http://archive.vector.org.uk/art1": ["2017"]},
                        accept=lambda d: b'id="article"' in d) == 1
+
+
+def test_is_complete_pdf():
+    from vecrescue.wayback import is_complete_pdf
+    assert is_complete_pdf(b"%PDF-1.4\n...\n%%EOF\n")
+    assert not is_complete_pdf(b"%PDF-1.4\n" + b"0" * 1048567)   # truncated at 1 MiB
+    assert not is_complete_pdf(b"<html>not a pdf</html>")

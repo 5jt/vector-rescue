@@ -141,10 +141,14 @@ def read_issues(root):
     issues = []
     for el in ET.parse(Path(root) / "issues" / "index.xml").iter("issue"):
         files = {s.get("fmt"): (s.text or "").strip().strip('"') or None for s in el.findall("source")}
+        span = int(el.get("span") or 1)
+        named = re.findall(r"\d+", el.get("title") or "") if re.match(r"Nos?\.", el.get("title") or "") else []
+        numbers = named or [str(int(el.get("issue")) + k) for k in range(span)] \
+            if (el.get("issue") or "").isdigit() else [el.get("issue")]
         issues.append({
             "volume": el.get("volume"), "issue": el.get("issue"),
             "year": el.get("year"), "month": el.get("month"),
-            "title": el.get("title"), "span": int(el.get("span") or 1),
+            "title": el.get("title"), "span": span, "numbers": numbers,
             "pdf": files.get("PDF"), "doc": files.get("DOC"),
         })
     return issues

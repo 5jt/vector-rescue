@@ -6,11 +6,13 @@ others shown as not yet online. A combined issue (e.g. 24:2&3) also has
 a page at its second number, pointing to the first.
 """
 
+import re
 import shutil
 from collections import defaultdict
 from pathlib import Path
 
 from .markdown import escape
+from .wayback import is_complete_pdf
 
 MONTHS = ["January", "February", "March", "April", "May", "June", "July",
           "August", "September", "October", "November", "December"]
@@ -32,9 +34,7 @@ def _converted(docs, vid):
 
 
 def _label(issue):
-    if issue.get("span", 1) > 1:
-        return f"{issue['issue']}&{int(issue['issue']) + issue['span'] - 1}"
-    return issue["issue"]
+    return "&".join(issue.get("numbers") or [issue["issue"]])
 
 
 def _date(issue):
@@ -47,18 +47,41 @@ def _catalogue(issues):
     """{(vol, issue): issue} and {(vol, alias issue): (vol, issue)}."""
     catalogue, alias = {}, {}
     for i in issues:
-        key = (i["volume"], i["issue"])
-        catalogue[key] = i
-        for extra in range(1, i.get("span", 1)):
-            alias[(i["volume"], str(int(i["issue"]) + extra))] = key
+        catalogue[(i["volume"], i["issue"])] = i
+    for i in issues:  # a combined issue's other numbers point to where it is filed
+        for n in i.get("numbers") or [i["issue"]]:
+            if (i["volume"], n) not in catalogue:
+                alias[(i["volume"], n)] = (i["volume"], i["issue"])
     return catalogue, alias
+
+
+PDF_NAMES = (
+    re.compile(r"^VOL\.(\d+)-NO\.(\d+)\b.*\.pdf$", re.I),   # VOL.1-NO.1-MAY-1984.pdf
+    re.compile(r"^v(\d\d)(\d)(?:-\d)?\.pdf$", re.I),          # v241-1.pdf, v252-3.pdf
+    re.compile(r"^Vector(\d\d)(\d)\.pdf$", re.I),             # Vector264.pdf
+)
+
+
+def wayback_issue_pdfs(wayback_root):
+    """{(volume, issue): path} of whole-issue PDFs published on vector.org.uk
+    (uploaded to its WordPress site in 2022 and 2024; some, like 26:4, were
+    made in the PHP era), as captured by the Wayback Machine."""
+    found = {}
+    uploads = Path(wayback_root) / "vector.org.uk" / "wp-content" / "uploads"
+    for path in sorted(uploads.rglob("*.pdf")) if uploads.is_dir() else []:
+        for pattern in PDF_NAMES:
+            m = pattern.match(path.name)
+            if m and is_complete_pdf(path.read_bytes()):  # some captures are truncated
+                found.setdefault((str(int(m.group(1))), m.group(2)), path)
+                break
+    return found
 
 
 def _front(title):
     return f"---\ntitle: {title}\n---\n\n"
 
 
-def write_issue_pages(inventory, issues, root, docs):
+def write_issue_pages(inventory, issues, root, docs, more_pdfs=None):
     docs = Path(docs)
     catalogue, alias = _catalogue(issues)
     articles = defaultdict(list)
@@ -78,11 +101,20 @@ def write_issue_pages(inventory, issues, root, docs):
         lines.append(f"Volume {vol}, No. {_label(issue)}" +
                      (f" · {_date(issue)}" if _date(issue) else ""))
         lines.append("")
+        have_pdf = False
         for kind, text in (("pdf", "PDF"), ("doc", "Word document")):
             name = issue.get(kind)
             if name and (Path(root) / "issues" / name).is_file():
                 shutil.copyfile(Path(root) / "issues" / name, folder / name)
                 lines += [f"[{text} of the whole issue]({name})", ""]
+                have_pdf |= kind == "pdf"
+        if not have_pdf:  # the copy published on vector.org.uk, if captured
+            for n in issue.get("numbers") or [no]:
+                pdf = (more_pdfs or {}).get((vol, n))
+                if pdf:
+                    shutil.copyfile(pdf, folder / pdf.name)
+                    lines += [f"[PDF of the whole issue]({pdf.name})", ""]
+                    break
         rows = sorted(articles.get(key, []), key=lambda r: (_num(r.get("page")), r.get("title") or ""))
         if rows:
             lines += ["| Page | Article | Author |", "| ---: | --- | --- |"]
