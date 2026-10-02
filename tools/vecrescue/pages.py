@@ -63,8 +63,9 @@ PDF_NAMES = (
 
 
 def wayback_issue_pdfs(wayback_root):
-    """{(volume, issue): path} of whole-issue PDFs the WordPress site
-    published, as captured by the Wayback Machine."""
+    """{(volume, issue): path} of whole-issue PDFs published on vector.org.uk
+    (uploaded to its WordPress site in 2022 and 2024; some, like 26:4, were
+    made in the PHP era), as captured by the Wayback Machine."""
     found = {}
     uploads = Path(wayback_root) / "vector.org.uk" / "wp-content" / "uploads"
     for path in sorted(uploads.rglob("*.pdf")) if uploads.is_dir() else []:
@@ -107,7 +108,7 @@ def write_issue_pages(inventory, issues, root, docs, more_pdfs=None):
                 shutil.copyfile(Path(root) / "issues" / name, folder / name)
                 lines += [f"[{text} of the whole issue]({name})", ""]
                 have_pdf |= kind == "pdf"
-        if not have_pdf:  # the copy the WordPress site published, if captured
+        if not have_pdf:  # the copy published on vector.org.uk, if captured
             for n in issue.get("numbers") or [no]:
                 pdf = (more_pdfs or {}).get((vol, n))
                 if pdf:
