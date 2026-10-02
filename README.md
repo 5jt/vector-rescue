@@ -76,3 +76,17 @@ Project structure
     sources/        recovered files from which to work (read-only)
 
 
+
+
+Pipeline
+--------
+
+The conversion is a rerunnable pipeline (Python, managed with `uv`). It reads `sources/sjt/Vector` and never writes there; everything it produces goes in `build/`, which is not committed.
+
+    make test        # run the tests
+    make all         # inventory → convert → site
+    make inventory   # build/inventory.json from index.xml
+    make convert     # build/docs/art<ID>.md
+    make site        # build/site with Zensical
+
+Conversion rules are provisional and tracked as GitHub issues. Each rule is written test-first; an element without a rule passes through as raw HTML so nothing is lost.
