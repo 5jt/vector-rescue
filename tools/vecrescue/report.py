@@ -8,6 +8,7 @@ against the last run.
 import copy
 import difflib
 import json
+import re
 from collections import Counter
 from pathlib import Path
 
@@ -92,6 +93,18 @@ def code_check(source_doc, rendered_doc):
     }
 
 
+def image_check(source_doc, rendered_doc, page_dir):
+    """Count images on both sides and list rendered ones with no file."""
+    srcs = [i.get("src") or "" for i in _article(rendered_doc).iter("img")]
+    local = [s for s in srcs if not re.match(r"^[a-z]+:|^/", s, re.I)]
+    return {
+        "source_images": sum(1 for _ in source_doc.iter("img")),
+        "rendered_images": len(srcs),
+        "external": len(srcs) - len(local),
+        "broken": [s for s in local if not (Path(page_dir) / s).is_file()],
+    }
+
+
 def _summarise(notes):
     return {
         "raw_html": dict(Counter(n["tag"] for n in notes if n["kind"] == "raw-html")),
@@ -112,7 +125,8 @@ def run_report(src, out):
     notes = json.loads((out / "notes.json").read_text(encoding="utf-8"))
     articles = {}
     totals = {"articles": 0, "raw_html": {}, "table_raw": {}, "notes": {},
-              "text_differing_words": 0, "code_mismatched": 0}
+              "text_differing_words": 0, "code_mismatched": 0,
+              "images": 0, "images_broken": 0, "images_lost": 0}
     for record in inventory:
         page = out / "site" / f"art{record['id']}" / "index.html"
         source = xhtml_source(record) if record.get("id") else None
@@ -123,13 +137,18 @@ def run_report(src, out):
         art = {"title": record["title"], "source": source,
                **_summarise(notes.get(record["id"], [])),
                "text": text_check(sdoc, rdoc, record),
-               "code": code_check(sdoc, rdoc)}
+               "code": code_check(sdoc, rdoc),
+               "images": image_check(sdoc, rdoc, page.parent)}
         articles[record["id"]] = art
         totals["articles"] += 1
         for k in ("raw_html", "table_raw", "notes"):
             _add(totals[k], art[k])
         totals["text_differing_words"] += art["text"]["differing"]
         totals["code_mismatched"] += art["code"]["mismatched"]
+        im = art["images"]
+        totals["images"] += im["rendered_images"]
+        totals["images_broken"] += len(im["broken"])
+        totals["images_lost"] += max(0, im["source_images"] - im["rendered_images"])
 
     path, prev_path = out / "report.json", out / "report.prev.json"
     previous = None
@@ -168,6 +187,9 @@ def render_markdown(report):
              f"| Articles | {t['articles']} | {_change(t['articles'], get('articles'))} |",
              f"| Differing words | {t['text_differing_words']} | {_change(t['text_differing_words'], get('text_differing_words'))} |",
              f"| Code blocks mismatched | {t['code_mismatched']} | {_change(t['code_mismatched'], get('code_mismatched'))} |",
+             *[f"| {label} | {t.get(k, 0)} | {_change(t.get(k, 0), get(k))} |"
+               for label, k in (("Images", "images"), ("Images with no file", "images_broken"),
+                                ("Images lost", "images_lost"))],
              ""]
     lines += _counts_table("Passed through as raw HTML", t["raw_html"], get("raw_html"))
     lines += _counts_table("Tables kept as raw HTML, by reason", t["table_raw"], get("table_raw"))
@@ -185,6 +207,12 @@ def render_markdown(report):
             for s in a["text"]["samples"]:
                 lines.append(f"- source: `{s['source'][:120]}` → rendered: `{s['rendered'][:120]}`")
             lines.append("")
+    broken = [(vid, a) for vid, a in arts.items() if a.get("images", {}).get("broken")]
+    if broken:
+        lines += ["## Images with no file", ""]
+        for vid, a in broken:
+            lines.append(f"- art{vid}: {', '.join(a['images']['broken'])}")
+        lines.append("")
     bad = [(vid, a) for vid, a in arts.items() if a["code"]["mismatched"]]
     if bad:
         lines += ["## Code block mismatches", ""]

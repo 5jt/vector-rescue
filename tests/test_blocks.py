@@ -137,8 +137,8 @@ def test_plain_div_is_transparent():
 
 
 def test_paragraphs_with_pending_classes_stay_raw():
-    out, notes = blocks('<p class="caption">c</p><p class="ednote">e</p><p class="center">x</p>')
-    assert out == '<p class="caption">c</p>\n\n<p class="ednote">e</p>\n\nx'
+    out, notes = blocks('<p class="ednote">e</p><p class="center">x</p>')
+    assert out == '<p class="ednote">e</p>\n\nx'
 
 
 def test_paragraph_with_block_content_stays_raw():

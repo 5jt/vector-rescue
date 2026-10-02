@@ -99,3 +99,14 @@ def test_markdown_report_shows_deltas():
         "articles": {}})
     assert "| p | 3 | −2 |" in md
     assert "| Differing words | 5 | −4 |" in md
+
+
+def test_image_check(tmp_path):
+    from vecrescue.report import image_check
+    (tmp_path / "a.png").write_bytes(b"x")
+    rendered = doc('<html><body><article><img src="a.png"/><img src="gone.png"/>'
+                   '<img src="http://x.org/y.png"/></article></body></html>')
+    source = doc('<html><body><img src="a.png"/><img src="gone.png"/>'
+                 '<img src="http://x.org/y.png"/><img src="dropped.png"/></body></html>')
+    r = image_check(source, rendered, tmp_path)
+    assert r == {"source_images": 4, "rendered_images": 3, "external": 1, "broken": ["gone.png"]}
