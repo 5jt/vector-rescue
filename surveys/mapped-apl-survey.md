@@ -7,7 +7,7 @@ Before Unicode, APL was typed in fonts that put APL glyphs at the codes of ordin
 ## Short answers
 
 1. **One mapping covers nearly everything: APL2741.** About 85 of the 94 articles declare APL2741 or APLSans (or use their codes without declaring them). The two fonts share one layout; only codes `FD` and `FF` differ.
-2. **The fonts themselves are in the recovered tree** (`resource/apl2741.zip`, `apl2741a.ttf`, `aplsans.zip`), so the mapping comes from the glyphs, not from memory: charts of every glyph were rendered and read, and each code checked against how the articles use it. Result: `mappings/apl2741.tsv`, 88 codes, 70 of high confidence, 15 medium, 3 low.
+2. **The fonts themselves are in the recovered tree** (`resource/apl2741.zip`, `apl2741a.ttf`, `aplsans.zip`), so the mapping comes from the glyphs, not from memory: charts of every glyph were rendered and read, and each code checked against how the articles use it. Result: `mappings/apl2741.tsv`, 88 codes, 75 of high confidence (A1, A5, D0, F0, FF confirmed by Stephen Taylor), 11 medium, 2 low. The rest are listed for investigation in #34.
 3. **APL2741 changes only codes above 0x7F.** ASCII is untouched (its letters are merely italic).
 4. **Mapped text survives in three states,** all recoverable with the same table:
    - Windows-1252 bytes (most cp1252 files: `„` at 0x84 is ←);
@@ -41,14 +41,12 @@ Exact lists: run the survey script in the issue (#33) against `build/skipped.jso
 
 `mappings/apl2741.tsv`: byte, the character it becomes as Windows-1252, the APL character, Unicode code and name, confidence, evidence.
 
-Codes still uncertain:
+Codes still uncertain (now tracked in #34, with the other mappings):
 
 | Code | Reading | Why uncertain |
 |---|---|---|
 | `CB` | `∪`? | Glyph resembles ∪, which is also at 9E |
-| `F0` | `⍤` | Glyph clear; 115 uses in 3 articles not yet read in context |
-| `FD` | `⍣`? | Three dots in APL2741, ý in APLSans; one use |
-| `FF` | `⍥`? | ÿ in APLSans; 48 uses in one article |
+| `FD` | `⍣`? | Three dots in APL2741, ý in APLSans; in De Kerf `→(ý/R)/LAB` suggests ∨, from another font |
 | `D2`–`D5` | duplicates of `8C`–`8F` | Same glyphs at two codes |
 
 ## Plan
@@ -61,3 +59,9 @@ Convert one representative of each state for review (#33), then the rest:
 4. `kai213.htm` (21:3), which confirmed `AB` as ⍬.
 
 The mapping is chosen per article in `corrections.yaml` (`apl: apl2741`), which also releases it from the hold, so every choice is visible and reviewable.
+
+## After review (2026-10-02)
+
+- The four representatives were reviewed by Stephen Taylor: "The converted sections look right."
+- Langlet's *Paritons and Cognitons* uses another mapping (ISIAPL or VectorAPL fonts, neither in the tree); it stays held (#34).
+- The site's APL font is now APL387 Unicode (`site/assets/fonts/APL387.ttf`, public domain), a later version of APL385 Unicode.

@@ -85,10 +85,7 @@ def run_site(src, out, config, wayback=None, corrections=None):
     shutil.copy(config, out / "zensical.toml")
     shutil.rmtree(out / "overrides", ignore_errors=True)
     shutil.copytree(config.parent / "overrides", out / "overrides")
-    shutil.copytree(config.parent / "assets", docs / "assets", dirs_exist_ok=True)
-    fonts = docs / "assets" / "fonts"
-    fonts.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(src / "Apl385.ttf", fonts / "Apl385.ttf")
+    shutil.copytree(config.parent / "assets", docs / "assets", dirs_exist_ok=True)  # incl. fonts
     zensical = Path(sys.executable).with_name("zensical")
     subprocess.run([str(zensical), "build"], cwd=out, check=True)
     return out / "site"
