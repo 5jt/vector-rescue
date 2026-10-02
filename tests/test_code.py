@@ -109,3 +109,8 @@ def test_tabs_in_a_raw_pre_are_expanded_to_eight_columns():
 
 def test_text_after_a_comment_in_inline_code_is_kept():
     assert inline(frag("<p><code>a<!-- note -->b<br/>c</code></p>")) == "<code>ab<br>c</code>"
+
+
+def test_adjacent_code_elements_are_merged():
+    assert inline(frag("<p>use <code>f</code><code>⍤</code> and <tt>a</tt><code>b</code>.</p>")) == \
+        "use `f⍤` and `ab`."

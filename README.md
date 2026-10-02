@@ -96,4 +96,6 @@ The run report compares the visible text and every code block of each built page
 
 Source defects that need judgement are fixed in `corrections.yaml`, not by converter rules: text replacements applied to an article's source before parsing, an encoding override, holding back or releasing an article, and corrections to the issue catalogue. Each says why and who decided; a correction whose text is no longer found is reported as stale.
 
+APL is shown in **APL387 Unicode** (Adám Brudzewsky; public domain), the project's preferred APL font, kept in `site/assets/fonts/APL387.ttf`. It is a later version of Adrian Smith's APL385 Unicode, by way of APL386 Unicode; all three have open licences.
+
 Conversion rules are provisional and tracked as GitHub issues. Each rule is written test-first; an element without a rule passes through as raw HTML so nothing is lost.

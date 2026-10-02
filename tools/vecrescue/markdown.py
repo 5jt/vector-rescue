@@ -75,12 +75,12 @@ def raw_inline(el):
     return raw_html(el)
 
 
-_MD_CHARS = re.compile(r"([\\`*_\[\]])")
+_MD_CHARS = re.compile(r"([\\`*_\[\]{}])")
 
 
 def escape(text):
     """Escape characters Markdown would otherwise interpret."""
-    text = re.sub(r"([\\`*_\[\]])", r"\\\1", text)
+    text = re.sub(r"([\\`*_\[\]{}])", r"\\\1", text)  # { } would be attribute lists
     text = re.sub(r"&(?=#?\w+;)", "&amp;", text)
     return text.replace("<", "&lt;")
 
@@ -132,6 +132,7 @@ def inline(el):
     Text is whitespace-collapsed as a browser would and escaped; output
     from inline rules is kept exactly. <br> becomes a hard line break.
     """
+    _merge_adjacent_code(el)
     pieces = [el.text or ""]
     for child in el:
         if not isinstance(child.tag, str):  # comment
@@ -166,6 +167,22 @@ def inline(el):
     md = "".join(out).strip(" ")
     md = re.sub(f" *{_BR}+ *", lambda m: "  \n" * 1, md)
     return md.strip(" \n")
+
+
+CODE_TAGS = ("code", "tt")
+
+
+def _merge_adjacent_code(el):
+    """Join code elements with nothing between them (`f` `⍤` would
+    otherwise become f``⍤, which Markdown misreads)."""
+    for child in list(el):
+        nxt = child.getnext()
+        while (child.tag in CODE_TAGS and nxt is not None and nxt.tag in CODE_TAGS
+               and not child.tail and not len(child) and not len(nxt)):
+            child.text = (child.text or "") + (nxt.text or "")
+            child.tail = nxt.tail
+            el.remove(nxt)
+            nxt = child.getnext()
 
 
 def inline_flat(el):

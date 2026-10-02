@@ -183,3 +183,8 @@ def test_definition_starting_with_code_puts_the_fence_on_its_own_line():
 def test_container_holding_raw_html_says_so():
     _, notes = blocks("<blockquote><table><tr><td>1</td></tr></table></blockquote>")
     assert notes[-1] == {"kind": "raw-html", "tag": "blockquote", "reason": "contains-raw-html"}
+
+
+def test_braces_in_text_are_escaped():
+    assert inline(frag('<p><img src="q.gif" alt="q" width="16"/>known as {quad}, but</p>')) == \
+        '![q](q.gif){ width="16" }known as \\{quad\\}, but'
