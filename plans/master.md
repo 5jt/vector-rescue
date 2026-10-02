@@ -25,7 +25,7 @@ Revised 2026-10-02 after the filetree surveys (`surveys/filetree-survey-claude.m
 
 | # | Blocker | Blocks | Owner / action |
 |---|---|---|---|
-| B1 | **A copy of the WordPress database export** | All articles after the PHP site's end (2014–2022), and the old-versus-WP duplicate comparison | Await Paul Grosvenor's reply; ask Jake Jacob as a second route. |
+| B1 | **A copy of the WordPress database export** | All articles after the PHP site's end (2016–2022), and the old-versus-WP duplicate comparison | Await Paul Grosvenor's reply; ask Jake Jacob as a second route. **Fallback:** about 229 WordPress posts and pages captured by the Wayback Machine (`surveys/wayback-survey.md`); rendered HTML, so the export remains preferable. |
 | B2 | **Use of the `archive.vector.org.uk` URL** (DNS control; today it points at WordPress) | Publishing under the original hostname | BAA (Paul). Not needed for the first publication; see Phase 5. |
 
 Neither blocks Phases 0–4 on the existing PHP-era content.
@@ -33,7 +33,8 @@ Neither blocks Phases 0–4 on the existing PHP-era content.
 ## Phase 0: Retrieve sources: done for the PHP tree; WordPress export outstanding
 
 - PHP filetree: recovered into `sources/sjt/Vector` (338 MB, excluded from git until a safe public home exists; see below).
-- Still wanted (B1): WP database export. Also useful: Wayback Machine captures of `archive.vector.org.uk` and `vector.org.uk`, to recover the lost rewrite rule and check how pages looked.
+- Still wanted (B1): WP database export.
+- Wayback Machine (`surveys/wayback-survey.md`, 2026-10-02): an `index.xml` of 2021 adds Vol. 26 No. 4 and in-press articles to Nov 2016; captured pages for 19 articles newer than our tree (to 2018); whole-issue PDFs for volumes 1–23 and 26:4 from the WordPress site; renderings of the non-UTF-8 `trad/` articles; WordPress posts from 2017. Fetched into `sources/wayback/` (issues #24–#27).
 - Decide soon where `sources/sjt` is archived safely and publicly (Dyalog Gitea, a GitHub release or a data repo). **Before publishing it, exclude the logs and `members/`.**
 
 ## Phase 1: Survey: done for the filetree
