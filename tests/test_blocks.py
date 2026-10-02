@@ -46,7 +46,7 @@ def test_inline(html, out):
     ('<p><a href="#ref2">[2]</a></p>', "[\\[2\\]](#ref2)"),
     ('<p><a href="http://x.org/a b">s</a></p>', '<a href="http://x.org/a%20b">s</a>'),
     ('<p><a href="x" title=\'say "hi"\'>s</a></p>', '<a href="x" title=\'say "hi"\'>s</a>'),
-    ('<p><a name="ref1"> </a>Text</p>', '<a name="ref1"> </a>Text'),
+    ('<p><a name="ref1"> </a>Text</p>', '<a id="ref1"></a>Text'),
 ])
 def test_links(html, out):
     assert inline(frag(html)) == out
@@ -106,7 +106,7 @@ def test_list_item_with_blocks_makes_a_loose_list():
 def test_list_with_unmarkdownable_numbering_stays_raw():
     out, notes = blocks('<ol class="alpha"><li>a</li></ol>')
     assert out.startswith('<ol class="alpha">')
-    assert notes == [{"kind": "raw-html", "tag": "ol"}]
+    assert notes == [{"kind": "raw-html", "tag": "ol", "reason": "numbering"}]
 
 
 def test_blockquote():
@@ -136,14 +136,14 @@ def test_plain_div_is_transparent():
     assert md("<div><p>a</p><div class='clear'></div></div>") == "a"
 
 
-def test_paragraphs_with_pending_classes_stay_raw():
+def test_paragraph_classes_with_meaning_are_kept_and_layout_dropped():
     out, notes = blocks('<p class="ednote">e</p><p class="center">x</p>')
-    assert out == '<p class="ednote">e</p>\n\nx'
+    assert out == 'e\n{ .ednote }\n\nx'
 
 
 def test_paragraph_with_block_content_stays_raw():
-    out, _ = blocks('<p>See <object data="v"></object></p>')
-    assert out.startswith("<p>See <object")
+    out, _ = blocks('<p>See <svg:svg><svg:text>x</svg:text></svg:svg></p>')
+    assert out.startswith("<p>See <svg:svg")
 
 
 def test_empty_paragraph_is_dropped():
@@ -178,3 +178,8 @@ def test_list_item_starting_with_code_puts_the_fence_on_its_own_line():
 def test_definition_starting_with_code_puts_the_fence_on_its_own_line():
     assert md("<dl><dt>T</dt><dd><pre>\ncode</pre><p>after</p></dd></dl>") == \
         "T\n:   \n    ```\n    code\n    ```\n\n    after"
+
+
+def test_container_holding_raw_html_says_so():
+    _, notes = blocks("<blockquote><table><tr><td>1</td></tr></table></blockquote>")
+    assert notes[-1] == {"kind": "raw-html", "tag": "blockquote", "reason": "contains-raw-html"}
