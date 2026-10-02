@@ -65,7 +65,7 @@ def test_byline_from_p_author_keeps_email():
     assert lead == ["by Chris (c@x.com)\n{ .byline }"]
 
 
-def test_publication_and_validation_are_dropped_anywhere():
+def test_publication_and_validation_are_dropped_wherever_they_are():
     _, _, rest, _ = run('<ul id="publication"><li>x</li></ul>'
                         '<div><p id="validation"><a href="v">&#160;</a></p></div>')
     assert rest == ["div", "p"]
@@ -124,5 +124,11 @@ def test_two_subtitles_are_both_kept():
     fm, lead, rest, _ = run('<h1 id="title">T</h1><h1 class="subtitle">One</h1>'
                             '<h1 class="subtitle"><em>or</em> Two</h1><h1 id="author">A</h1>')
     assert fm["subtitle"] == "One / or Two"
-    assert lead[:2] == ["One\n{ .subtitle }", "<em>or</em> Two\n{ .subtitle }"]
+    assert lead[:2] == ["One\n{ .subtitle }", "*or* Two\n{ .subtitle }"]
     assert fm["byline"] == "A" and rest == ["p"]
+
+
+def test_empty_byline_and_abstract_leave_no_lead_paragraph():
+    fm, lead, _, _ = run('<h1 id="title">T</h1><h1 id="author"> </h1><p id="abstract"> </p>')
+    assert lead == []
+    assert "byline" not in fm and "abstract" not in fm

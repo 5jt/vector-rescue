@@ -10,7 +10,7 @@ import re
 
 from .markdown import inline
 
-DROP = ('//*[@id="publication"]', '//*[@id="validation"]')
+DROP = ('//ul[@id="publication"]', '//p[@id="validation"]')
 META = ("received", "online", "editor", "description", "keywords")
 CHECK = ("vid", "volume", "issue", "page")
 HEAD_ONLY = ("meta", "title", "link")  # belong in <head>; stray markup can push them into <body>
@@ -94,7 +94,7 @@ def extract_head(doc, record, notes):
         fm["subtitle"] = " / ".join(_text(el) for el in found["subtitle"])
     if record.get("authors"):
         fm["authors"] = record["authors"]
-    if "byline" in found:
+    if "byline" in found and _text(found["byline"]):
         fm["byline"] = _text(found["byline"])
     for k in ("volume", "issue", "page"):
         if record.get(k) is not None:
@@ -105,17 +105,22 @@ def extract_head(doc, record, notes):
             value = [w.strip() for w in value.split(",") if w.strip()]
         if value:
             fm[k] = value
-    if "abstract" in found:
+    if "abstract" in found and _text(found["abstract"]):
         fm["abstract"] = _text(found["abstract"])
 
+    def lead_para(el, cls):
+        md = inline(el)
+        if md:
+            lead.append(f"{md}\n{{ .{cls} }}")
+
     for el in found.get("subtitle", []):
-        lead.append(f"{inline(el)}\n{{ .subtitle }}")
+        lead_para(el, "subtitle")
     if "byline" in found:
-        lead.append(f"{inline(found['byline'])}\n{{ .byline }}")
+        lead_para(found["byline"], "byline")
     if "abstract" in found:
         el = found["abstract"]
-        paras = el.findall("p") if el.tag == "div" else [el]
-        lead += [f"{inline(p)}\n{{ .abstract }}" for p in paras]
+        for p in (el.findall("p") if el.tag == "div" else [el]):
+            lead_para(p, "abstract")
 
     for k in CHECK:
         index = record["id"] if k == "vid" else record.get(k)

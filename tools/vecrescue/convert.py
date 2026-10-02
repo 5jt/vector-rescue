@@ -1,53 +1,23 @@
 """Convert one hand-coded XHTML article to Markdown.
 
-Each element is handled by a rule. An element without a rule is passed
-through unchanged as raw HTML, so nothing is lost while rules are still
-being written; the notes list what passed through.
+Each element is handled by a rule (blocks.py, markdown.py, code.py). An
+element without a rule is passed through unchanged as raw HTML, so nothing
+is lost while rules are still being written; the notes list what passed
+through.
 """
 
 import lxml.html
 import yaml
 
 from . import __version__
-from .code import pre_block
+from . import code  # noqa: F401  registers inline <code> and <tt>
+from .blocks import render_blocks
 from .head import extract_head
 from .inventory import xhtml_source
-from .markdown import INLINE_RULES, inline, raw_html
-
-
-def para(el):
-    return inline(el)
-
-
-def stray_h1(el, notes):
-    """An H1 left after the head block; the page title is the only H1."""
-    text = inline(el)
-    notes.append({"kind": "h1-demoted", "text": " ".join(el.text_content().split())})
-    return f"## {text}"
-
-
-BLOCK_RULES = {"p": para, "h1": stray_h1, "pre": pre_block}
-NEEDS_NOTES = {stray_h1, pre_block}
-INLINE_RULES.update({})
 
 
 def body_blocks(body, notes):
-    blocks = []
-    for el in body:
-        if not isinstance(el.tag, str):  # comments, processing instructions
-            continue
-        rule = BLOCK_RULES.get(el.tag)
-        if rule is None:
-            notes.append({"kind": "raw-html", "tag": el.tag})
-        if rule is None:
-            block = raw_html(el)
-        elif rule in NEEDS_NOTES:
-            block = rule(el, notes)
-        else:
-            block = rule(el)
-        if block:
-            blocks.append(block)
-    return blocks
+    return render_blocks(body, {"notes": notes, "raw": False})
 
 
 def front_matter(fm):
