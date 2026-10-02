@@ -16,6 +16,7 @@ from urllib.parse import parse_qs, quote, unquote, urlsplit
 OLD_SITE = re.compile(
     r"^https?:/{1,2}(?:(?:(?:www|archive|linux)\.)?vector\.org\.uk"
     r"|vector\.johnbutlerassociates\.co\.uk)(?=/|$|\?)", re.I)
+DOMAIN = re.compile(r"^(?:www\.|(?:[a-z0-9-]+\.)+(?:org|com|net|edu|uk|de|fr|nl|se|dk)/)", re.I)
 EMAIL = re.compile(r"[\w.+-]+@[\w-]+(?:\.[\w-]+)+")
 OTHER = re.compile(r"^(?:[a-z][a-z0-9+.-]*:|#)", re.I)  # another scheme, or in-page
 
@@ -104,6 +105,9 @@ def resolve(href, root, source, index, notes, assets):
     if EMAIL.fullmatch(href):  # an address without mailto:
         notes.append({"kind": "link-repaired", "href": href, "to": "mailto:" + href})
         return "mailto:" + href
+    if DOMAIN.match(href):  # a web address without http://, broken on the old site too
+        notes.append({"kind": "link-repaired", "href": href, "to": "http://" + href})
+        return "http://" + href
     if OLD_SITE.match(href):
         u = urlsplit(OLD_SITE.sub("http://old", href))
         return _site_path(href, u.path, u.query, u.fragment, root, index, notes, assets)
@@ -121,9 +125,11 @@ def resolve(href, root, source, index, notes, assets):
             return quote(rel) + tail
         # Not where the link says: the old folders were reorganised. Try the
         # article's own folder, then the path from the root of the tree.
-        for found, rel in ((base / Path(u.path).name, Path(u.path).name),
+        name = Path(unquote(u.path)).name
+        for found, rel in ((base / name, name),
                            (Path(re.sub(r"^(?:\.\.?/)+", "", u.path)),
-                            re.sub(r"^(?:\.\.?/)+", "", u.path))):
+                            re.sub(r"^(?:\.\.?/)+", "", u.path)),
+                           (Path("resource") / name, f"resource/{name}")):  # the old site's downloads
             if (root / found).is_file() and "." in Path(rel).name:
                 assets[rel] = root / found
                 notes.append({"kind": "link-repaired", "href": href, "to": rel + tail})

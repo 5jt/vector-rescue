@@ -90,7 +90,8 @@ def load_source(root, fmt, path, notes, vid=None, corrections=None):
     if fmt == "HTML":
         normalise(doc, notes)
     if apl:
-        apply_mapping(doc, load_table(apl), notes, apl)
+        apply_mapping(doc, load_table(apl), notes, apl,
+                      ascii_quotes=corrections.quotes(vid) == "ascii")
     if corrections and corrections.boxes(vid) == "varch-j":
         for pre in doc.iter("pre"):
             if pre.text and not len(pre):

@@ -75,12 +75,12 @@ def raw_inline(el):
     return raw_html(el)
 
 
-_MD_CHARS = re.compile(r"([\\`*_\[\]])")
+_MD_CHARS = re.compile(r"([\\`*_\[\]{}])")
 
 
 def escape(text):
     """Escape characters Markdown would otherwise interpret."""
-    text = re.sub(r"([\\`*_\[\]])", r"\\\1", text)
+    text = re.sub(r"([\\`*_\[\]{}])", r"\\\1", text)  # { } would be attribute lists
     text = re.sub(r"&(?=#?\w+;)", "&amp;", text)
     return text.replace("<", "&lt;")
 

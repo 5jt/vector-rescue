@@ -84,3 +84,17 @@ def test_varch_j_nested_boxes_and_trees():
              "└─┴───────┘\n"
              "──┼─ %")
     assert repair_varch_boxes(before) == after
+
+
+def test_curly_quotes_as_apl_quotes():
+    d = doc("<pre>‘f’ ŒWC ‘Form’ – 1</pre><p>He said ‘hello’.</p>")
+    apply_mapping(d, load_table("apl2741"), [], ascii_quotes=True)
+    assert body(d) == "<pre>'f' ⎕WC 'Form' - 1</pre><p>He said ‘hello’.</p>"
+
+
+def test_quad_names_in_prose_are_mapped():
+    d = doc("<p>Only ŒCR and Œnl are done; Œuvre is French.</p><pre>Œio„1</pre>")
+    notes = []
+    apply_mapping(d, load_table("apl2741"), notes)
+    assert body(d) == "<p>Only ⎕CR and ⎕nl are done; ⎕uvre is French.</p><pre>⎕io←1</pre>"
+    assert {"kind": "apl-quad-in-prose", "count": 3} in notes

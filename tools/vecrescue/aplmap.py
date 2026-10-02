@@ -20,6 +20,7 @@ MAPPINGS = Path(__file__).resolve().parents[2] / "mappings"
 CONTEXT_TAGS = {"pre", "tt", "code"}
 APL_ATTR = re.compile(r"apl", re.I)
 # characters that in prose are only ever mapped APL, never ordinary text
+QUAD_IN_PROSE = re.compile(r"\u0152(?=[A-Za-z])")
 TELLTALE = set("„Œœ½¼¾©«»ª¬®°±²³´µº¹¦§ˆ‰‹›ƒ†‡šŠžŽŸ")
 
 
@@ -40,11 +41,17 @@ def to_byte(ch):
     return b[0] if len(b) == 1 and b[0] >= 0x80 else None
 
 
-def _map(text, table, count):
+ASCII_QUOTES = {"‘": "'", "’": "'", "“": '"', "”": '"', "–": "-"}
+
+
+def _map(text, table, count, ascii_quotes=False):
     if not text:
         return text
     out = []
     for ch in text:
+        if ascii_quotes and ch in ASCII_QUOTES:  # Word's autocorrect, not APL2741
+            out.append(ASCII_QUOTES[ch])
+            continue
         b = to_byte(ch)
         new = table.get(b, ch) if b is not None else ch
         if new != ch:
@@ -62,7 +69,7 @@ def _inside_context(el):
     return any(_is_context(a) for a in el.iterancestors() if isinstance(a.tag, str))
 
 
-def apply_mapping(doc, table, notes, name="apl2741"):
+def apply_mapping(doc, table, notes, name="apl2741", ascii_quotes=False):
     body = doc.find("body") if doc.find("body") is not None else doc
     count = [0]
     roots = [el for el in body.iter() if isinstance(el.tag, str) and el is not body
@@ -71,9 +78,28 @@ def apply_mapping(doc, table, notes, name="apl2741"):
         for el in root.iter():
             if not isinstance(el.tag, str):
                 continue
-            el.text = _map(el.text, table, count)
+            el.text = _map(el.text, table, count, ascii_quotes)
             if el is not root:
-                el.tail = _map(el.tail, table, count)
+                el.tail = _map(el.tail, table, count, ascii_quotes)
+    quads = [0]  # ⎕ names typed in the APL font in running text: Œ before a name
+
+    def quad(text):
+        if not text:
+            return text
+        new, n = QUAD_IN_PROSE.subn("⎕", text)
+        quads[0] += n
+        return new
+
+    for el in body.iter():
+        if isinstance(el.tag, str) and not _is_context(el) and not _inside_context(el):
+            el.text = quad(el.text)
+            for child in el:
+                if not _is_context(child):
+                    child.tail = quad(child.tail)
+                elif child.tail:
+                    child.tail = quad(child.tail)
+    if quads[0]:
+        notes.append({"kind": "apl-quad-in-prose", "count": quads[0]})
     for el in [e for e in body.iter("font") if APL_ATTR.search(e.get("face") or "")]:
         el.drop_tag()  # the text is Unicode now; the site's APL font shows it
     notes.append({"kind": "apl-mapped", "table": name, "characters": count[0]})

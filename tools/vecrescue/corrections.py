@@ -79,6 +79,11 @@ class Corrections:
         found = self._entries(vid, "boxes")
         return found[0]["boxes"] if found else None
 
+    def quotes(self, vid):
+        """'ascii' if curly quotes in an article's code are APL quote marks."""
+        found = self._entries(vid, "quotes")
+        return found[0]["quotes"] if found else None
+
     def apl(self, vid):
         """The mapping table for an article's APL, if it was typed in a mapped font."""
         found = self._entries(vid, "apl")

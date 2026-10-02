@@ -146,3 +146,20 @@ def test_percent_encoded_file_names_are_found(root):
     new, assets, _ = run(root, "Example%20of%20X.htm")
     assert new == "Example%20of%20X.htm"
     assert assets == {"Example of X.htm": root / "content/printed/251/sykes/Example of X.htm"}
+
+
+def test_downloads_are_found_in_the_old_sites_resource_folder(root):
+    (root / "resource/apl2741.zip").write_bytes(b"z")
+    new, assets, notes = run(root, "../apl2741.zip")
+    assert new == "resource/apl2741.zip"
+    assert assets == {"resource/apl2741.zip": root / "resource/apl2741.zip"}
+    assert notes[-1]["kind"] == "link-repaired"
+
+
+@pytest.mark.parametrize("href, out", [
+    ("www.milinta.com/english", "http://www.milinta.com/english"),
+    ("en.wikipedia.org/wiki/Duck_typing", "http://en.wikipedia.org/wiki/Duck_typing"),
+])
+def test_web_addresses_without_a_scheme(root, href, out):
+    new, _, notes = run(root, href)
+    assert new == out and notes[-1]["kind"] == "link-repaired"
