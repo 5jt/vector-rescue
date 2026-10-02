@@ -39,6 +39,7 @@ Resources
 
 1.  The filetree that the PHP site served. From memory: the article bodies were stored as XHTML fragments that the PHP wrapped in chrome using an XML index to the archive. The XHTML was encoded as UTF-8.
 2.  An export of the WordPress database. This will contain articles published since the WP site went live, completing the archive as publication has ended.
+3.  Control of the archive.vector.org.uk DNS -- presumed with Jake.
 
 ### Old Microsoft Word documents
 
@@ -52,4 +53,26 @@ Ian Clark worked for years to convert the DOCs to Unicode. If the filetree holds
 -   John “Jake” Jacob, current editor of *Vector*
 -   Paul Grosvenor, chair of the BAA 
 -   Stephen Taylor, previous editor of *Vector*, who converted it to online publication and designed and built the PHP site.
--   
+
+
+Decisions and status
+--------------------
+
+1.  **Sources.** Retrieving them is the first step. Paul Grosvenor has been emailed to ask what he can supply.
+2.  **First deliverable.** A survey of what has been retrieved.
+3.  **Hosting.** Open. The `art` URLs are essential. If neither Gitea nor GitHub Pages can handle them cleanly, a less generic solution is acceptable, for example hosting behind HTTPD on dyalog.com.
+4.  **URLs.** Restoring the old `art` URLs exactly is the top priority.
+5.  **WordPress overlap.** WP articles duplicate some old-site articles. Diffs will be examined before ruling, and the choice may be made article by article.
+6.  **Pre-Unicode APL.** Mapping pre-Unicode Word sources to Unicode is in scope.
+
+
+Project structure
+-----------------
+
+	plans/          plans for the project
+	progress/       daily record of work done
+	reviews/        reviews of tests and implementations, 
+	                and responses to them
+    sources/        recovered files from which to work (read-only)
+
+
