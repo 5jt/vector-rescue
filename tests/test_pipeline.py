@@ -19,7 +19,7 @@ def test_convert_writes_notes_per_article(tmp_path):
     run_inventory(SRC, tmp_path)
     run_convert(SRC, tmp_path)
     notes = json.loads((tmp_path / "notes.json").read_text())
-    assert notes["10500650"] == [{"kind": "raw-html", "tag": "blink"}]
+    assert notes["10500650"] == [{"kind": "raw-html", "tag": "blink", "reason": "no-rule"}]
 
 
 def test_convert_starts_from_an_empty_docs_folder(tmp_path):

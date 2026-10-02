@@ -110,3 +110,11 @@ def test_image_check(tmp_path):
                  '<img src="http://x.org/y.png"/><img src="dropped.png"/></body></html>')
     r = image_check(source, rendered, tmp_path)
     assert r == {"source_images": 4, "rendered_images": 3, "external": 1, "broken": ["gone.png"]}
+
+
+def test_anchor_check_lists_in_page_links_with_no_target():
+    from vecrescue.report import anchor_check
+    rendered = doc('<html><body><article><a id="ref1"></a><h2 id="intro">I</h2>'
+                   '<a href="#ref1">1</a><a href="#ref2">2</a><a href="#intro">i</a>'
+                   '<a name="old"></a><a href="#old">o</a><a href="#">top</a></article></body></html>')
+    assert anchor_check(rendered) == {"links": 4, "missing": ["#ref2"]}

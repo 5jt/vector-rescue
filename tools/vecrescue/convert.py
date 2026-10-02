@@ -15,10 +15,12 @@ from .blocks import render_blocks
 from .head import extract_head
 from .images import localise_images
 from .inventory import xhtml_source
+from .markdown import collecting
 
 
 def body_blocks(body, notes):
-    return render_blocks(body, {"notes": notes, "raw": False})
+    with collecting(notes):
+        return render_blocks(body, {"notes": notes, "raw": False})
 
 
 def front_matter(fm):

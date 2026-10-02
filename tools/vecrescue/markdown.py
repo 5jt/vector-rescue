@@ -1,13 +1,35 @@
 """Shared Markdown helpers: escaping, raw HTML and inline conversion."""
 
 import copy
+import html
 import re
+from contextvars import ContextVar
 
 import lxml.html
 
 # HTML collapses ASCII whitespace only; a non-breaking space is content.
 _WS = re.compile(r"[ \t\n\r\f]+")
 _BR = "\x00"  # placeholder for <br>, resolved after whitespace collapsing
+
+_NOTES = ContextVar("notes", default=None)
+
+
+def collecting(notes):
+    """Context for rules to add notes: `with collecting(notes): ...`."""
+    class _Ctx:
+        def __enter__(self):
+            self.token = _NOTES.set(notes)
+
+        def __exit__(self, *exc):
+            _NOTES.reset(self.token)
+    return _Ctx()
+
+
+def note(n):
+    notes = _NOTES.get()
+    if notes is not None:
+        notes.append(n)
+
 
 INLINE_TAGS = {
     "a", "abbr", "acronym", "b", "big", "br", "cite", "code", "dfn", "em",
@@ -130,10 +152,21 @@ def span(el):
     return raw_inline(el)
 
 
+def anchor_html(name):
+    return f'<a id="{html.escape(name, quote=True)}"></a>'
+
+
 def link(el):
     href, title = el.get("href"), el.get("title")
+    name = el.get("name") or el.get("id")
+    if name:  # a link target: an empty anchor, then the content
+        el = copy.deepcopy(el)
+        for k in ("name", "id"):
+            el.attrib.pop(k, None)
+        rest = link(el) if href else inline(el)
+        return anchor_html(name) + rest
     text = inline(el)
-    unsafe = (href is None or el.get("name") or el.get("id") or not text
+    unsafe = (href is None or not text
               or re.search(r"[\s<>]", href) or href.count("(") != href.count(")")
               or (title and '"' in title))
     if unsafe:
@@ -147,5 +180,22 @@ for tag in ("em", "i", "cite", "dfn", "var"):
     INLINE_RULES[tag] = _wrap("*")
 for tag in ("strong", "b"):
     INLINE_RULES[tag] = _wrap("**")
+def embedded(el):
+    """<object>/<embed> (e.g. a video): a link to what it shows."""
+    url = el.get("data") or el.get("src")
+    for p in el.iter("param"):
+        if (p.get("name") or "").lower() in ("movie", "src"):
+            url = url or p.get("value")
+    for e in el.iter("embed"):
+        url = url or e.get("src")
+    if not url:
+        return raw_inline(el)
+    note({"kind": "embed-replaced", "url": url})
+    return f"[Video: {escape(url)}]({url})"
+
+
 INLINE_RULES["span"] = span
+INLINE_RULES["object"] = embedded
+INLINE_RULES["embed"] = embedded
+INLINE_RULES["math"] = raw_inline
 INLINE_RULES["a"] = link
