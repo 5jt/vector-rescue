@@ -75,7 +75,7 @@ Scope: indexed articles whose source is valid UTF-8 (XHTML first, then UTF-8 `tr
 
 Static hosting has two limits to plan around:
 
-1. **Extensionless paths.** `/art10500650` can be served from `art10500650/index.html`, but GitHub Pages will redirect it to `/art10500650/`. Alternatively a flat file named `art10500650` (no extension) could be served, but the content type is then uncertain. Test both. If a trailing slash is the best we can do, that must be accepted or the hosting reconsidered.
+1. **Extensionless paths (tested 2026-10-02, issue #9).** A file with no extension is served as `application/octet-stream`, so browsers download it: exact `/art<ID>` pages are not possible on GitHub Pages. But `/art10500650` returns **301 → `/art10500650/`**, so old inbound links still reach the page through one redirect, provided the site is at the root of the domain those links use.
 2. **Query-string URLs** (`?vol=&no=&art=`, the old `redirector.php` scheme) cannot be handled by Pages. A small client-side script on the home page could map them to `/art<ID>` using a generated lookup table.
 
 Also needed: stub redirects for any IDs that map to external (HTTP-only) sources, and a page for each metadata-only record explaining that the article is not online.
