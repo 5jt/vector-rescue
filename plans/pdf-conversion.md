@@ -63,7 +63,4 @@ Priority: the more interesting articles first (practical how-to and theoretical 
 
 - Articles excused from review still carry a "not reviewed" note (caution).
 - Reviewers use GitHub only, for now.
-
-## Not decided
-
-- Whether the PDFs' existing OCR text layer should be offered for articles not yet transcribed: shown (folded away, labelled "unedited OCR text"), indexed for site search only, or not at all. Its prose is readable but run-together and its APL wrong.
+- Until an article is transcribed, its page shows the PDF's OCR text folded away (a closed `<details>` section labelled as unedited machine-read text), so site search can find it, imperfectly.
