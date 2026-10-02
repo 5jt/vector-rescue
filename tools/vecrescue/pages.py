@@ -81,6 +81,23 @@ def _front(title):
     return f"---\ntitle: {title}\n---\n\n"
 
 
+def issue_pdfs(issues, root, more_pdfs=None):
+    """{(vol, issue): source PDF} for each catalogued issue: the PHP tree's
+    copy where the catalogue names one, else one published on vector.org.uk."""
+    out = {}
+    for i in issues:
+        key = (i["volume"], i["issue"])
+        if i.get("pdf") and (Path(root) / "issues" / i["pdf"]).is_file():
+            out[key] = Path(root) / "issues" / i["pdf"]
+            continue
+        for n in i.get("numbers") or [i["issue"]]:
+            pdf = (more_pdfs or {}).get((i["volume"], n))
+            if pdf:
+                out[key] = pdf
+                break
+    return out
+
+
 def write_issue_pages(inventory, issues, root, docs, more_pdfs=None):
     docs = Path(docs)
     catalogue, alias = _catalogue(issues)
@@ -122,6 +139,9 @@ def write_issue_pages(inventory, issues, root, docs, more_pdfs=None):
                 title = _cell(r.get("title"))
                 if _converted(docs, r.get("id")):
                     title = f"[{title}](../../art{r['id']}/)"
+                    page_md = (docs / f"art{r['id']}" / "index.md").read_text(encoding="utf-8")
+                    if "\nstatus: not online\n" in page_md:
+                        title += " (PDF only)" if "](../" in page_md.split("---", 2)[2] else " (not online)"
                 lines.append(f"| {r.get('page') or ''} | {title} | {_cell(', '.join(r.get('authors') or []))} |")
         else:
             lines.append("No articles are indexed for this issue.")

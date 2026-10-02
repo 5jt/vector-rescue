@@ -142,3 +142,15 @@ def test_truncated_wayback_pdfs_are_not_used(tmp_path):
     (d / "VOL.3-NO.4-APRIL-1987.pdf").write_bytes(b"%PDF-1.3\n" + b"0" * 100)        # no %%EOF
     (d / "VOL.3-NO.3-JANUARY-1987.pdf").write_bytes(b"%PDF-1.3\n...\n%%EOF\n")
     assert list(wayback_issue_pdfs(tmp_path)) == [("3", "3")]
+
+
+def test_issue_page_marks_articles_only_in_the_pdf(tmp_path):
+    from vecrescue.stubs import write_stub
+    docs = tmp_path / "docs"
+    for i in CONVERTED:
+        (docs / f"art{i}").mkdir(parents=True)
+        (docs / f"art{i}" / "index.md").write_text("x")
+    write_stub(INVENTORY[2], docs, "25/1/v251.pdf#page=32")
+    write_issue_pages(INVENTORY, read_issues(SRC), SRC, docs)
+    text = (docs / "25" / "1" / "index.md").read_text(encoding="utf-8")
+    assert "| 30 | [Not online](../../art2/) (PDF only) |  |" in text

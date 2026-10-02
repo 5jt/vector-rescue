@@ -176,6 +176,8 @@ def run_report(src, out, corrections=None):
     src, out = Path(src), Path(out)
     inventory = json.loads((out / "inventory.json").read_text(encoding="utf-8"))
     notes = json.loads((out / "notes.json").read_text(encoding="utf-8"))
+    stubs_path = out / "stubs.json"
+    stubs = json.loads(stubs_path.read_text(encoding="utf-8")) if stubs_path.exists() else {}
     articles = {}
     totals = {"articles": 0, "raw_html": {}, "table_raw": {}, "notes": {},
               "text_differing_words": 0, "code_mismatched": 0,
@@ -185,7 +187,7 @@ def run_report(src, out, corrections=None):
     for record in inventory:
         page = out / "site" / f"art{record['id']}" / "index.html"
         found = article_source(record) if record.get("id") else None
-        if not (found and page.exists()):
+        if not (found and page.exists()) or record["id"] in stubs:
             continue
         fmt, source = found
         sdoc = load_source(src, fmt, source, [], record["id"], corrections)
@@ -218,6 +220,8 @@ def run_report(src, out, corrections=None):
     skipped_path = out / "skipped.json"
     skipped = json.loads(skipped_path.read_text(encoding="utf-8")) if skipped_path.exists() else {}
     totals["skipped"] = dict(Counter(v["reason"] for v in skipped.values()))
+    totals["stubs"] = {"pages": len(stubs), "with_pdf": sum(1 for v in stubs.values() if v["pdf"]),
+                       "title_not_found": sum(1 for v in stubs.values() if v["match"] == "not found")}
 
     path, prev_path = out / "report.json", out / "report.prev.json"
     previous = None
@@ -226,6 +230,7 @@ def run_report(src, out, corrections=None):
         path.replace(prev_path)
     stale = {vid: [n for n in ns if n["kind"] == "correction-stale"] for vid, ns in notes.items()}
     report = {"totals": totals, "previous": previous, "articles": articles, "skipped": skipped,
+              "stubs": stubs, "titles": {r["id"]: r["title"] for r in inventory if r.get("id") in stubs},
               "stale": {k: v for k, v in stale.items() if v}}
     path.write_text(json.dumps(report, indent=1, ensure_ascii=False), encoding="utf-8")
     (out / "report.md").write_text(render_markdown(report), encoding="utf-8")
@@ -266,6 +271,16 @@ def render_markdown(report):
                                 ("Articles checked against the old site's rendering", "capture_checked"),
                                 ("Words differing from the old site's rendering", "capture_differing_words"))],
              ""]
+    st = t.get("stubs") or {}
+    if st:
+        lines += ["## Pages without text", "",
+                  f"{st['pages']} indexed articles have a page but no text; {st['with_pdf']} link to their "
+                  f"first page in the issue PDF. For {st['title_not_found']} the title was not found on or "
+                  "next to the computed page:", ""]
+        inv_titles = report.get("titles", {})
+        lines += [f"- art{vid}: {inv_titles.get(vid, '')} → `{v['pdf']}`"
+                  for vid, v in sorted(report.get("stubs", {}).items()) if v["match"] == "not found"]
+        lines.append("")
     lines += _counts_table("Not converted yet, by reason", t.get("skipped", {}), get("skipped"))
     lines += _counts_table("Passed through as raw HTML", t["raw_html"], get("raw_html"))
     lines += _counts_table("Tables kept as raw HTML, by reason", t["table_raw"], get("table_raw"))
