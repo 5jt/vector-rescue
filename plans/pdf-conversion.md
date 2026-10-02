@@ -59,8 +59,11 @@ Reviewing happens through GitHub, open to anyone interested:
 
 Priority: the more interesting articles first (practical how-to and theoretical work); meeting minutes, editorials and news last.
 
+## Decided (Stephen Taylor, 2026-10-02)
+
+- Articles excused from review still carry a "not reviewed" note (caution).
+- Reviewers use GitHub only, for now.
+
 ## Not decided
 
-- Whether OCR text should be offered for articles not yet transcribed (labelled, for search only).
-- Whether excused articles still carry a "not reviewed" note.
-- Whether reviewers need anything beyond GitHub (a simpler web form, for instance).
+- Whether the PDFs' existing OCR text layer should be offered for articles not yet transcribed: shown (folded away, labelled "unedited OCR text"), indexed for site search only, or not at all. Its prose is readable but run-together and its APL wrong.
