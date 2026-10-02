@@ -28,8 +28,8 @@ def test_sources_with_format_and_existence():
         {"fmt": "XHTML", "path": "content/printed/251/sample.htm",
          "exists": True, "utf8": True}
     ]
-    missing = records()["News from Sustaining Members"]["sources"][0]
-    assert missing["exists"] is False and missing["utf8"] is None
+    legacy = records()["News from Sustaining Members"]["sources"][0]
+    assert legacy["exists"] is True and legacy["utf8"] is True
 
 
 def test_corporate_creator():
@@ -44,3 +44,14 @@ def test_metadata_only_and_empty_id():
 def test_online_only_has_no_issue():
     r = records()["Online only"]
     assert r["volume"] is None and r["online"] == "2016-01-22"
+
+
+def test_article_source_prefers_xhtml_then_utf8_html():
+    from vecrescue.inventory import article_source
+    rec = {"sources": [{"fmt": "HTML", "path": "a.htm", "exists": True, "utf8": True},
+                       {"fmt": "XHTML", "path": "b.htm", "exists": True, "utf8": True}]}
+    assert article_source(rec) == ("XHTML", "b.htm")
+    rec["sources"][1]["exists"] = False
+    assert article_source(rec) == ("HTML", "a.htm")
+    rec["sources"][0]["utf8"] = False
+    assert article_source(rec) is None

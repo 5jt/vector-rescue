@@ -60,6 +60,18 @@ def read_index(root):
     return records
 
 
+def article_source(record):
+    """(format, path) of the source to convert: XHTML if present, else
+    HTML that is valid UTF-8; None if neither."""
+    for s in record["sources"]:
+        if s["fmt"] == "XHTML" and s["exists"]:
+            return "XHTML", s["path"]
+    for s in record["sources"]:
+        if s["fmt"] == "HTML" and s["exists"] and s["utf8"]:
+            return "HTML", s["path"]
+    return None
+
+
 def xhtml_source(record):
     """The existing XHTML source path of RECORD, or None."""
     for s in record["sources"]:

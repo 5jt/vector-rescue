@@ -29,7 +29,7 @@ def md(html):
     ("<p><strong>s</strong> <b>t</b></p>", "**s** **t**"),
     ("<p>x<em> y </em>z</p>", "x *y* z"),
     ("<p>a<em></em>b</p>", "ab"),
-    ("<p><strong>a <em>b</em></strong></p>", "**a *b***"),
+    ("<p><strong>a <em>b</em></strong></p>", "<strong>a <em>b</em></strong>"),
     ("<p><tt>⍳10</tt></p>", "`⍳10`"),
     ("<p>x<sup>2</sup> H<sub>2</sub>O <q>q</q></p>", "x<sup>2</sup> H<sub>2</sub>O <q>q</q>"),
     ("<p><span class='nowrap'>a<sup>2</sup></span></p>", "a<sup>2</sup>"),
@@ -67,7 +67,7 @@ def test_text_is_escaped(text, out):
     ("- not a list", "\\- not a list"),
     ("+ x", "\\+ x"),
     ("> not quote", "\\> not quote"),
-    ("=====", "\\====="),
+    ("=====", "&#61;===="),
 ])
 def test_block_start_is_escaped(text, out):
     assert md(f"<p>{text}</p>") == out
@@ -141,9 +141,9 @@ def test_paragraph_classes_with_meaning_are_kept_and_layout_dropped():
     assert out == 'e\n{ .ednote }\n\nx'
 
 
-def test_paragraph_with_block_content_stays_raw():
+def test_paragraph_with_block_content_is_split_around_it():
     out, _ = blocks('<p>See <svg:svg><svg:text>x</svg:text></svg:svg></p>')
-    assert out.startswith("<p>See <svg:svg")
+    assert out == "See\n\n<svg:svg><svg:text>x</svg:text></svg:svg>"
 
 
 def test_empty_paragraph_is_dropped():

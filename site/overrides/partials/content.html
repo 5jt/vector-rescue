@@ -1,11 +1,11 @@
 {#- Article header: series prefix above the title, then where it was printed.
-    Based on Zensical's partials/content.html. -#}
+    Based on Zensical's partials/content.html, but the title is always shown:
+    the converter never writes a Markdown title, and a raw block kept from a
+    malformed source may contain an h1. -#}
 {% include "partials/actions.html" %}
 {% set m = page.meta or {} %}
 {% if m.prefix %}<p class="prefix">{{ m.prefix }}</p>{% endif %}
-{% if "<h1" not in page.content %}
-  <h1 id="__skip">{{ page.title | d(config.site_name, true)}}</h1>
-{% endif %}
+<h1 id="__skip">{{ page.title | d(config.site_name, true)}}</h1>
 {% if m.vid %}
   <p class="printed">
     {%- if m.volume %}<a href="../{{ m.volume }}/{{ m.issue }}/">Vector {{ m.volume }}:{{ m.issue }}</a>{% if m.page %}, page {{ m.page }}{% endif %}

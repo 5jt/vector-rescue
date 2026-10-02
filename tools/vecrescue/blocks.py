@@ -9,18 +9,20 @@ passed through whole.
 
 import copy
 import re
+from html import unescape as html_unescape
 
 from .code import pre_block
 from .images import figure
 from .tables import table
-from .markdown import (INLINE_TAGS, anchor_html, escape_line_starts, inline,
-                       inline_flat, note, raw_html)
+from .markdown import (INLINE_TAGS, anchor_html, classed, escape_line_starts, inline,
+                       inline_flat, made_up, made_up_as_text, note, raw_html)
 
 # paragraph classes that carry meaning, and the class they become
 P_CLASSES = {"ednote": "ednote", "math": "math", "fright": "right", "fleft": "left"}
 LAYOUT_DIV = {"clear", "center", "centred", "pad", "plain", "small"}
 PANEL_DIV = {"panel", "fright", "fleft"}
 PLAIN_LIST_CLASSES = {None, "", "bullet", "references"}
+NUMBERING = re.compile(r"list-style(?:-type)?\s*:\s*(?:lower|upper|decimal-leading|[a-z]+-(?:roman|alpha|latin|greek))", re.I)
 PHRASING = INLINE_TAGS | {"math", "object", "embed", "param"}
 OPAQUE = {"math", "object"}  # their insides are not examined
 
@@ -36,8 +38,8 @@ def _inside_opaque(k, top):
 
 def _has_block_content(el):
     """Whether EL holds anything a Markdown paragraph cannot."""
-    return any(isinstance(k.tag, str) and k.tag not in PHRASING and not _inside_opaque(k, el)
-               for k in el.iterdescendants())
+    return any(isinstance(k.tag, str) and k.tag not in PHRASING and not made_up(k.tag)
+               and not _inside_opaque(k, el) for k in el.iterdescendants())
 
 
 def _raw(el, ctx, reason="no-rule"):
@@ -83,7 +85,19 @@ def render_blocks(container, ctx):
     for el in container:
         if not isinstance(el.tag, str):
             pass
-        elif el.tag in INLINE_TAGS:
+        elif (el.tag in INLINE_TAGS or made_up(el.tag)) and _has_block_content(el):
+            # malformed: an inline element (or an unclosed made-up tag) wrapping blocks
+            inner = el
+            if made_up(el.tag):
+                add_inline(text=html_unescape(made_up_as_text(el)) + (el.text or ""))
+                inner = copy.copy(el)
+                inner.text = None
+            flush()
+            name = el.get("name") or el.get("id") if el.tag == "a" else None
+            if name:
+                blocks.append(anchor_html(name))
+            blocks.extend(render_blocks(inner, ctx))
+        elif el.tag in INLINE_TAGS or made_up(el.tag):
             item = copy.deepcopy(el)
             item.tail = None
             add_inline(item)
@@ -120,15 +134,15 @@ def para(el, ctx):
     cls = (el.get("class") or "").split()
     if "caption" in cls:
         return figure(el, ctx)
-    if _has_block_content(el):
-        return _raw(el, ctx, "block-content")
+    if _has_block_content(el):  # malformed: a paragraph left open over blocks
+        note({"kind": "p-holding-blocks"})
+        return "\n\n".join(render_blocks(el, ctx))
     md = escape_line_starts(inline(el))
     keep = [P_CLASSES[c] for c in cls if c in P_CLASSES]
     if md and keep:
-        if md.startswith("<"):  # a line opening with HTML takes no { .class }
+        if md.startswith("<"):
             ctx["raw"] = True
-            return f'<p class="{" ".join(keep)}" markdown="span">{md}</p>'
-        md += "\n{ " + " ".join("." + c for c in keep) + " }"
+        return classed(md, keep)
     return md
 
 
@@ -173,9 +187,13 @@ def _is_list(md):
     return bool(re.match(r"(- |\d+\. )", md))
 
 
+def _numbered_differently(el):
+    """An ordered list Markdown cannot number: letters or roman numerals."""
+    return el.tag == "ol" and ((el.get("type") or "1") != "1" or NUMBERING.search(el.get("style") or ""))
+
+
 def a_list(el, ctx):
-    if (el.get("class") or None) not in PLAIN_LIST_CLASSES or el.get("style") \
-            or el.get("type"):
+    if (el.get("class") or None) not in PLAIN_LIST_CLASSES or _numbered_differently(el):
         return _raw(el, ctx, "numbering")
     items = []
     n = int(el.get("start") or 1) if el.tag == "ol" else None
@@ -187,12 +205,25 @@ def a_list(el, ctx):
         blocks = _inner(li, ctx)
         if blocks is None:
             return _raw(el, ctx, "contains-raw-html")
+        if (li.tail or "").strip():  # malformed: text after </li>, inside the list
+            note({"kind": "list-stray-text"})
+            blocks = (blocks or []) + [escape_line_starts(inline(_text_holder(li, li.tail)))]
         marker = "- " if n is None else f"{n}. "
         if n is not None:
             n += 1
         items.append(_item(marker, blocks or [""]))
     loose = any("\n\n" in item for item in items)
     return ("\n\n" if loose else "\n").join(items)
+
+
+def _text_holder(el, text):
+    holder = el.makeelement("p", {})
+    holder.text = text
+    return holder
+
+
+def address(el, ctx):
+    return escape_line_starts(inline(el))
 
 
 def blockquote(el, ctx):
@@ -256,7 +287,7 @@ def pre(el, ctx):
 
 BLOCK_RULES = {
     "p": para, "h1": stray_h1, "pre": pre, "blockquote": blockquote,
-    "ul": a_list, "ol": a_list, "dl": dlist, "div": div,
+    "ul": a_list, "ol": a_list, "dl": dlist, "div": div, "address": address,
     "hr": lambda el, ctx: "***", "table": table, "math": math,
     **{f"h{n}": heading for n in range(2, 7)},
 }

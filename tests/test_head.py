@@ -149,3 +149,28 @@ def test_removed_lists_exactly_what_was_taken_out():
     extract_head(doc, RECORD, [], removed)
     assert [k for k, _ in removed] == ["title", "byline"]
     assert [el.tag for el in doc.find("body")] == ["h1", "p"]
+
+
+@pytest.mark.parametrize("html", ['<h1 class="author">Stephen Taylor</h1>',
+                                  '<p class="author" align="center"><i>by Stephen Taylor</i></p>'])
+def test_legacy_byline_classes(html):
+    fm, _, rest, _ = run('<h1>T</h1>' + html)
+    assert fm["byline"].endswith("Stephen Taylor") and rest == ["p"]
+
+
+@pytest.mark.parametrize("html", ['<p><i>by Phil Chastney</i></p>', '<p>By Phil Chastney</p>',
+                                  '<p><em>from Phil Chastney</em></p>'])
+def test_by_paragraph_after_the_title_is_the_byline(html):
+    fm, _, rest, notes = run('<h1>T</h1>' + html)
+    assert fm["byline"].lower().endswith("phil chastney") and rest == ["p"]
+    assert "by-paragraph-as-byline" in [n["kind"] for n in notes]
+
+
+def test_ordinary_first_paragraph_is_not_a_byline():
+    _, _, rest, _ = run('<h1>T</h1><p>Bystanders were many.</p>')
+    assert rest == ["p", "p"]
+
+
+def test_byline_of_only_a_non_breaking_space_is_empty():
+    fm, lead, _, _ = run('<h1 id="title">T</h1><p class="author">&#160;</p>')
+    assert lead == [] and "byline" not in fm

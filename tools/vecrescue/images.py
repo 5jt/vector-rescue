@@ -9,7 +9,7 @@ import os
 import re
 from pathlib import Path
 
-from .markdown import INLINE_RULES, escape, escape_line_starts, inline, raw_html, raw_inline
+from .markdown import INLINE_RULES, classed, escape, escape_line_starts, inline, raw_html, raw_inline
 
 OLD_SITE = re.compile(
     r"^https?://(?:(?:www|archive|linux)\.)?vector\.org\.uk/|"
@@ -92,7 +92,7 @@ def figure(el, ctx):
     imgs = el.findall(".//img")
     if not imgs:
         md = escape_line_starts(inline(el))
-        return f"{md}\n{{ .caption }}" if md else ""
+        return classed(md, ["caption"]) if md else ""
     children = [k for k in el if isinstance(k.tag, str)]
     media = children[0]
     reason = None
