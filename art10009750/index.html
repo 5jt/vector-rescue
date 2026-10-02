@@ -1,0 +1,591 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Principles of writing software that is clear to read, and some practices derived from them">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10009750/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Three Principles of Coding Clarity - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-first-principle-shorten-lines-of-communication" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Three Principles of Coding Clarity
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-first-principle-shorten-lines-of-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The first principle: shorten lines of communication
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-second-principle-semantic-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The second principle: semantic consistency
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The second principle: semantic consistency">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-cannon-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Cannon Test:
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-third-principle-dont-repeat-yourself" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The third principle: don’t repeat yourself
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#macromania" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Macromania
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#control-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Control structures
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shy-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Shy arguments
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conclusion
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Notes
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Three Principles of Coding Clarity</h1>
+
+  <p class="printed"><a href="../18/4/">Vector 18:4</a>, page 113</p>
+
+<p class="byline">by Stephen Taylor (<a href="mailto:sjt@lambenttechnology.com">sjt@lambenttechnology.com)</a></p>
+<p>For most of my professional life I’ve heard that 80% of a system’s lifetime costs are spent on maintenance. More strictly, on modifying and extending what it does. I don’t know any references for this; I’m just going to take it as so.</p>
+<p>The immediate implication is that the clarity of the software we write is probably its most important property, after accuracy and acceptable performance.</p>
+<p>I’ve read more articles and heard more lore on APL coding practice than I care to remember. I’ve found many useful rules, but none so useful that I haven’t also found an occasion when it seemed right to break it. So in this article I’m looking <em>behind</em> the rules-of-thumb for underlying <em>principles</em>, principles of coding clarity.</p>
+<p>I’m not attempting here to derive practices from first principles. Instead I’ve been looking for a while at what I do that promotes clarity, and what I avoid that weakens it, and to induce from that some underlying principles. This is a venerable method. The mathematical forms of symbolic logic emerged not from <em>a priori</em> reasoning, but were induced and formalised from our intuitions about whether an argument is valid or not.</p>
+<p>So with programming clarity. We all recognise clear code, and obscure code, and degrees of clarity in between. Discovering principles of clarity would look like this: we’d recognise that our good practices are informed by them, our bad practices contravene them, and they would also suggest further practices for writing clearly.</p>
+<p>To my surprise, I’ve identified only three principles. I’d expected more. But I find them powerfully productive of ways to improve the clarity of my code. Here’s an idea of the results I get from clear coding.</p>
+<p>My present practice looks like this. I’ll write an entire module of the system I’m working on, for example, a module that produces a report. During this time I’ll occasionally test individual expressions, to ensure that some dense piece of array manipulation works the way I think it does. Mostly I just write. At a certain point, I’m satisfied that I’ve written a complete draft: I’ve written code for all the system’s function. None of it is tested. This is about my half-way point. I now read all the code, looking for ways to clarify to the human reader what’s going on. I might make several passes, reorganising, renaming, labelling fragments of code as ‘macro’ functions – I’ll come back later to these practices. I spend as much time reading and revising the code as I do writing it in the first place.</p>
+<p>Now I’m nearly done. I’ll run the code. Typically I’ll encounter 2-5 typos I’ve overlooked, fix them and keep going. One or two test runs eliminate these oversights. Now I’m done. The code does what I think it does. Any remaining problems reflect my misunderstanding of the specification. They are not coding problems.</p>
+<p>What’s distinctive about this is that my practice ensures that the code does what I think it does. How can I know this? This is a point of some subtlety. I have seen work over the years on code-proving mathematics and software to demonstrate that software matches its specification. Nothing useful seems to have resulted. I can run tests to show that the code executes and that the output is as required. But in most cases the combinations of possible inputs are too large to test exhaustively. In the end my best assurance that the code is correct is that I can <em>see</em> that it is so. What would it take to be able to <em>see</em> that code is correct?</p>
+<p>Now there is a level at which any APL programmer can see directly that a piece of code does what he thinks it does. To take an extreme example, I see, as you do, that the expression</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>2+2
+</span></code></pre></div>
+<p>adds 2 and 2 and will return 4. As we write code of greater and greater complexity, how can we retain, and how <em>much</em> can we retain, of this quality of clear, direct vision?</p>
+<p>Before we proceed to look at that, let me make a disclaimer. I don’t write perfect code. Even with careful reading and revising I miss typos. Sometimes, aspects of a specification elude me and I have to rethink and rewrite. My point is not that I write perfect code but that I know what my code does. ‘Debugging’ reveals and removes typos, that’s all.</p>
+<p>A couple of other disclaimers. Some people, horrified by obscure ‘one-liners’, have made a virtue of breaking all code up into ‘easy pieces’. Not me: I love dense, fast, and viciously economical expressions. This is where we get to use APL’s power. My practice is to write code so that where such expressions occur, <em>what</em> they do can be clear to the reader independently of <em>how</em> they do it. I’ll have more to say on this under the heading of semantic domain.</p>
+<p>The other disclaimer: it will sound in what follows as if I don’t pay much attention to performance. That’s true, I don’t. PCs are fast enough these days that most code runs acceptably fast. I optimise code only when performance is a problem. But I notice that clarifying and revising almost always reduces execution time.</p>
+<h2 id="the-first-principle-shorten-lines-of-communication">The first principle: shorten lines of communication<a class="headerlink" href="#the-first-principle-shorten-lines-of-communication" title="Permanent link">&para;</a></h2>
+<p>Fantasise a moment. Imagine that you’re a law-enforcement agent investigating a drug gang. What are its members up to? How do they take decisions, and how do they communicate them? When and where does money change hands? Where are goods moved and exchanged? Who knows what, and when and how do they know it?</p>
+<p>In reading someone else’s code, you make a similar investigation. Lord help me, in reading my <em>own</em> code I’m doing it – I can’t remember from one week to another how everything works.</p>
+<p>Now suppose you are a member of such a gang, under surveillance, and want to obscure all these matters from an investigator. What would you do? Why, you’d do what everyone knows to do. You’d use code words to disguise what you talk about. When you have to gather with your colleagues in a meeting room, while you talk, you’d also communicate covertly, passing notes beneath the table, hidden from unseen cameras. You’d use cutouts, so that you never exchange money for drugs, but had other people do that in places far from you. You wouldn’t have important messages delivered to your home in the post; you would have them left in obscure places for covert collection by someone else, who would bring them to you discreetly.</p>
+<p>Why the fantasy? In his book <cite>Visual Explanations</cite><a href="#fn1"><sup>1</sup></a>, Edward Tufte describes how, to examine what makes a process <em>clear</em> to an observer, he looked first at the practices of those dedicated to making it <em>obscure</em>. So in order to distinguish practices to promote clarity, he looked at what conjurors and illusionists do to defeat it.</p>
+<p>The imaginary drugs gang has similar lessons for us. The practices distinguished above all have their analogues in coding. We can look at them to learn something about what makes code clear, what obscure.</p>
+<p>The first analogue is between a defined function and the meeting room, wired for sound and vision. As the investigator, I’d like all communication in the room to be clearly expressed, to be about a single matter, and to be in plain sight – no notes under the table or left in hollow tree in the car park outside!</p>
+<p>Central to all this is a notion of ‘place’. We intuit that matters handled in the same APL function are being handled in the same ‘place’. Implicit in ‘place’ are concepts of closure and distance. This is encouraging: these are powerful concepts for theory construction <a href="#fn2"><sup>2</sup></a>.</p>
+<p>Distance is our second analogue. Here are some examples to check against your own intuitions. Data passed between functions as arguments and results are like money or drugs passed from hand to hand: the distances – in time and space – are short. Data assigned to a global variable to be read sometime later by some function is like a message left in a ‘drop’ in a hollow tree, to be picked up sometime later by someone: the separation of parties – in time and space – is great.</p>
+<p>Naming a function or value saves it for use later and further away. It’s a way to communicate across ‘distance’ – time and space. The nearer and sooner we use it, the more clearly our investigator sees what’s going on. We have an interest here in shortening our communication paths, even if it’s still unclear exactly what is shorter than what.</p>
+<p>Let’s try to formalise our intuitions about distances within the workspace by ranking different instances of distance.</p>
+<p>The expression being executed is where the action is. So our first metric is distance within an expression. Consider the following two equivalent function lines.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[1] rows←2⊃⍴format ⋄ selection←(rows⍴0 1)/⍳rows
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>[2] selection←(rows⍴0 1)/⍳rows←2⊃⍴format
+</span></code></pre></div>
+<p>It’s clear that the distance in the second expression between setting and reading the value <em>rows</em> is less than in the first expression. Now consider a third equivalent.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>[3] selection←{(⍵⍴0 1)/⍳⍵}2⊃⍴format
+</span></code></pre></div>
+<p>Here an unnamed function is used, carrying the value in its argument <var>⍵</var>, which is local to its function, and thus clearly extinguished when the function has been evaluated. Because it’s clear that no further use will be made of this stored value, [3] is clearer than [2], where <em>rows</em> might have had some later use.</p>
+<p>Our second intuition of ‘distance’ is between lines in a function. The more function lines separate the naming and the using of an object, the further apart they are, and the longer is the communication path. Any two name references in the same line of code are closer together than any two references on different lines.</p>
+<p>Our third intuition of distance is between levels on the state indicator, or execution stack. References on different levels of the state indicator are further apart than references in the same function or operator.</p>
+<p>These intuited distances seem to combine according to discernible rules. Consider: function <em>F</em> calls <em>G</em>, then <em>H</em>. <em>G</em> sets a variable <em>a</em>, and <em>H</em> reads it. (I do <em>not</em> recommend this design.)</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>    r←F y
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>[1] G y
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>[2] r←H
+</span></code></pre></div>
+<p>The distance between naming <em>a</em> in <em>G</em> and reading it in <em>H</em> is something like the sum of the distance in <em>F</em> between lines [1] and [2], and the 1-level differences in the state indicator between <em>G</em> and <em>F</em>, and <em>H</em> and <em>F</em>.</p>
+<p>Shortening the line of communication increases clarity. Having <em>G</em> return <em>a</em> as a result, and <em>H</em> take it as an argument gives us:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>    r←F y
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>[1] r←H G y
+</span></code></pre></div>
+<p>And even better:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>F←H∘G
+</span></code></pre></div>
+<p>where the distances between symbols <em>F</em>, <em>G</em> and <em>H</em> are even shorter. Here we see that the principle of shortening lines of communication at least recommends to us practices we already know promote clarity.</p>
+<p>Shortening lines of communication underlies several well-known rules-of-thumb. We’ve already noted the good practice of passing values between functions as arguments and results.</p>
+<p>We can also see that where named values are to be shared by functions that cannot pass them as arguments and results, we do well to localise those names as near as possible to where they are used. For example, if the functions <em>G</em> and <em>H</em> have to communicate through variable <em>a</em>, then it were better to localise <em>a</em> to <em>F</em> than to define it as a global variable. Thus <em>a</em> would be external to both <em>G</em> and <em>H</em>, but local to <em>F</em>. Our first principle explains why. Localising <em>a</em> to <em>F</em> doesn’t itself shorten the line of communication, but it shows the reader that communication through <em>a</em> goes no deeper into the stack, and ends when <em>F</em> has been evaluated. That equates to an increase in clarity.</p>
+<p>There is no difference in principle here between assigning names to data and assigning names to functions. We shall see some practices suggested by this insight after we have looked at the second principle.</p>
+<h2 id="the-second-principle-semantic-consistency">The second principle: semantic consistency<a class="headerlink" href="#the-second-principle-semantic-consistency" title="Permanent link">&para;</a></h2>
+<p>Consider our investigator again. Let’s suppose that he’s a newcomer to the world of drugs, arms-smuggling and international finance. He could easily get confused listening to a conversation that switched between these subjects. Here’s a danger: in the middle of a discussion of planned drug movements, someone wants to settle questions regarding the use of bank accounts in the Caribbean. Our poor agent could miss some important detail.</p>
+<p>Luckily for him the gang bosses send aides into another conference room to work out the banking details. Our agent has a separate tape recorder in there; he will be able to review their conversation later. Both conversations will be clearer and he won’t get confused between them.</p>
+<p>The analogy with writing code is obvious, and the practice of ‘subordinating detail’ is well known. One has an intuitive sense of what is the ‘main story’ of a function. But here is a formalisation of it that yields new practices.</p>
+<p>Consider the concept of <em>semantic domain</em>. Words belong to the same semantic domain when they are about the same subject.</p>
+<p>A function has complete semantic consistency when all its referents (what its names refer to) belong to the same semantic domain. For example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>    document←Report record
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>[1] document←CoverLetter record
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>[2] document,←Page1 record
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>[3] document,←Page2 record
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>[4] document,←Page3 record
+</span></code></pre></div>
+<p>The function’s referents — all but one — share a semantic domain. The referents are parts of a document that reports facts from <em>record</em>, which is the exception. The exception, the argument <em>record</em>, belongs to a different semantic domain. It contains facts about someone or something; it is not a part of a document.</p>
+<p>The function <em>Report</em> describes a relationship between two domains, the facts and the document reporting them. As a rule-of-thumb, functions which relate two semantic domains are more interesting than functions with one. But adding semantic domains pays in clarity for any gain in interest.</p>
+<p>There is something slightly misleading about the above. Semantic domains do not exist in nature, nor are they precisely individuated. The concept is useful only as a way to marshall and sharpen your intuitions about the organisation of your code.</p>
+<p>Here is a powerful practice generated by the principle of semantic consistency: use names that relate to the semantic domain. That seems obvious, but Ray Cannon proposed a test of it which I have found an extraordinary source of clarity.</p>
+<h3 id="the-cannon-test">The Cannon Test:<a class="headerlink" href="#the-cannon-test" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Are there numeric constants in the body of the function?</p>
+</blockquote>
+<p>If the answer is Yes, consider assigning the constants to local names that show the meaning of the value in the relevant semantic domain, then using the name instead.</p>
+<p>For example (in a function that generates RTF code for tables in Microsoft Word documents) I set up a rank-3 control array of cell properties. Planes of the array correspond to properties like alignment, width, background shading and so on. The third plane specifies background shading, so</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>[10] format[3;((2⊃⍴format)⍴0 1)/⍳2⊃⍴format;]←5
+</span></code></pre></div>
+<p>specifies a 5% background shading on alternate rows. Applying the Cannon Test led me to declare local names for the planes:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>align width shading←1 2 3
+</span></code></pre></div>
+<p>which changed line 10 to</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>[10] format[shading;((2⊃⍴format)⍴0 1)/⍳2⊃⍴format;]←5
+</span></code></pre></div>
+<p>with a rise in clarity. <em>Shading</em> shares a semantic domain with <em>format</em>. But numeric constants remain. The reshape of 0 and 1 refers to a stripe effect I want on alternate rows of the table. Declaring a variable in the ‘set up’ of the function makes this clear:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>alternateRows←((2⊃⍴format)⍴0 1)/⍳2⊃⍴format
+</span></code></pre></div>
+<p>enjoys a semantic consistency of its own: <em>alternateRows</em> is a function of the size of <em>format</em>. We can clarify it by removing repetition:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>alternateRows←{(⍵⍴0 1)/⍳⍵}2⊃⍴format
+</span></code></pre></div>
+<p>Now line 10 gets even clearer:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>[10] format[shading;alternateRows;]←5
+</span></code></pre></div>
+<p>The last numeric constant is 5. Should that go too? Absolutely. The 5 denotes a 5% background shading. But in the world (semantic domain) of report appearances we don’t make a hundred distinctions of shading. What we mean here is pale grey. So a declaration in ‘set up’ of</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>paleGrey←5 ⍝ 5% background shading
+</span></code></pre></div>
+<p>leaves us finally with</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>[10] format[shading;alternateRows;]←paleGrey
+</span></code></pre></div>
+<p>Function code and web pages have something in common: they are rarely read, mostly skimmed. The kind of clarification achieved above aids skimming. Skim-reading the assignment to <em>alternateRows</em> without analysing it, one sees that its value is a function of the size of <em>format</em>, which seems right. On line 10, we can see what is specified for alternate rows (shade background 5%) without being distracted by how alternate rows are selected. (Compare the separation of the gangsters’ two conversations.) Should we ever be concerned about how alternate rows are selected, we can examine it as an isolated proposition.</p>
+<p>Here’s an even more extreme example. In working with RTF, I convert between inches, half points, points and twips (twenty twips to a point; 12 points to an inch). To a programmer immersed in this subject, the numbers 12, 20, 2, 72 and 1440 are clear signs of units being converted. To a casual reader, or the next programmer struggling to master the subject, they’re just numbers. So functions that convert units declare some local names:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>insToTwips←1440∘× ⋄ twipsToPts←÷∘20 ⋄ ptsToHalves←2∘×
+</span></code></pre></div>
+<p>Even the humble <em>double</em> function <code>2∘×</code> here gets assigned a local name to clarify its semantics! Humble 1s and 0s suffer even more semantic ambiguity, which we can helpfully clarify:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>do dont←on off←true false←1 0
+</span></code></pre></div>
+<p>Compare this practice with the alternative of adding comments. Comments are not always maintained with the code they relate to, and can get out of step with it. I systematically prefer to clarify code than to comment on it.</p>
+<p>In the examples above, semantic consistency led us to reduce code density slightly: we added symbols and lines. This is not a general argument for reducing code density! If I seem to be belabouring the obvious, it is because the principle of semantic consistency leads me to vary code density in ways that are otherwise not at all obvious.</p>
+<p>For example, in another function I combine specifications for the row properties of an RTF table with specifications for the cell properties. We’re here manipulating arrays of RTF code strings with the sort of speed that makes us glad to have APL:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>    TABULATE←{
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>[1] ⎕ML←1
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>[2] rProps←PageWidth rowProperties ⍺
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>[3] cProps←(cellProperties ⍺){0=⍴⍺:'' ⋄ ⍺,GROUP ⍵,'\cell '}¨⍵
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>[4] ∊rProps tableRow∘∊¨⊂[2] cProps
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>    }
+</span></code></pre></div>
+<p>The original code is a 1-liner. I’ve relineated it here for <em>Vector</em>’s page width. Semantic consistency is complete and suggests no changes to improve clarity. The relineation has lightened the burden of parsing a long line, but at the cost of slightly lengthening the lines of communication. I doubt the 5-line version is any clearer than the 1-line version.</p>
+<p>In this example, the code is just dense, that’s all. It describes some moderately fancy array manipulations. Any difficulty in reading is the difficulty inherent in reading and envisaging the array transformations. The semantics of what is being done is already clear: table row properties are being combined with table cell properties. Style has nothing further to add here to clarity.</p>
+<p>Would <em>TABULATE</em> be clearer if laid out in loops? It would — to a programmer who thinks in loops. To a programmer who thinks in arrays, a looped description is laborious and less clear. We write in APL because machines are good at manipulating arrays, and we gain mastery of their power by thinking and writing in arrays. A looped version of <em>TABULATE</em> would reduce both machine and programmer efficiency.</p>
+<p>If this works for you, then the principle of semantic consistency can help you to use dense code without losing clarity.</p>
+<h2 id="the-third-principle-dont-repeat-yourself">The third principle: don’t repeat yourself<a class="headerlink" href="#the-third-principle-dont-repeat-yourself" title="Permanent link">&para;</a></h2>
+<p>People who repeat themselves bore us and lose our attention. We then risk losing important detail in a flood of repetition.</p>
+<p>Don’t do that to others! This is such a general principle of programming that it hardly bears including. All programmers do this; arguably, it is what programming <em>is</em>.</p>
+<p>I’ve included it as our third principle, because, combined with our first two principles it produces coding practices I value but have not seen in common use. One of these is extensive use of localised code fragments or ‘macros’.</p>
+<h2 id="macromania">Macromania<a class="headerlink" href="#macromania" title="Permanent link">&para;</a></h2>
+<p>Wherever I see a pattern repeated in code, I consider defining it as a function, named for semantic consistency and localised to minimise the communication path. Direct definition and the <em>composition</em> and <em>each</em> operators are powerful tools here.</p>
+<p>We’ve already seen above the examples of the unit conversions and the pre-selection of alternate rows of a table. Even for one-time use these were worth giving local names to, if only as a substitute for comments.</p>
+<p>The same trick is good for any recurring code fragment. For example, it’s a simple piece of code to format a number as a sterling amount to include in text:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>'up to ',({(∨\⍵≠' ')/⍵},'P⊂£⊃CI2'⎕FMT max),' a year'
+</span></code></pre></div>
+<p>I would declare at the beginning of my function:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>stg←{(∨\⍵≠' ')/⍵}∘,∘('P⊂£⊃CF12.2'∘⎕FMT)
+</span></code></pre></div>
+<p>and use the local function <em>stg</em></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>'up to ',(stg max),' a year'
+</span></code></pre></div>
+<p>So my application functions often begin by assigning names to some local functions and constants. (Note that this practice is as often indicated by semantic consistency as by avoiding repetition.)</p>
+<p>Compare this practice with defining, naming and using a ‘global’ utility function for the whole workspace. The global utility will have more complex arguments to handle many more cases, will thus be less efficient, and will have some name that distinguishes it as belonging to the class of global utilities. In contrast, the macro has just enough code for the job at hand and is named for semantic consistency.</p>
+<h2 id="control-structures">Control structures<a class="headerlink" href="#control-structures" title="Permanent link">&para;</a></h2>
+<p>Control structures like If-Then-Else and Select-Case lengthen communication paths by adding function lines. I use them rarely and happily to group blocks of code which are not minor variations of each other. But keeping communication paths short leads me to get If-Then-Else handled in a single line where possible.</p>
+<p>Here are three handy macros and illustrations of their use:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>IF←/⍨ ⋄ BUT←{×⍴⍵:⍵ ⋄ ⍺} ⋄ WITH←{⍺}
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>→0 IF 0=⍴argument
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>→(0 WITH r←'') IF 0=⍴argument
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>z←34 45 56 BUT 25 50 75 IF argument=3
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>herhim herhis←'her' 'her' BUT 'him' 'his' IF sex='M'
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>txt,←'to consult ',herhim,' about ',herhis,' pension'
+</span></code></pre></div>
+<h2 id="shy-arguments">Shy arguments<a class="headerlink" href="#shy-arguments" title="Permanent link">&para;</a></h2>
+<p>Supplying a default for an omitted shy left argument seems too small a job to warrant branches or control structures. Try this D-function instead:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>defaultsTo←{×⎕NC ⍺:⍎⍺ ⋄ ⍵}
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>left←'left' defaultsTo 0
+</span></code></pre></div>
+<p>The use of <em>defaultsTo</em> has the virtue of making an explicit assignment to <em>left</em>, clear to be marked by an automatic code analyser.</p>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>Notice that our three principles often tug is in different directions! For example, naming a code fragment in a ‘set up’ section at the start of a function <em>lengthens</em> communication paths by separating definition from use. It is finally perhaps only an æsthetic judgement how to weigh the clarity gained by semantic consistency against that lost by introducing a new ‘path of communication’, even a short one, within a single function.</p>
+<p>This, in my view, is why the many practices I’ve seen proposed as rules for clear code are fragile guides at best. In æsthetics it is helpful to distinguish principles, and futile to legislate.</p>
+<p>These three principles are offered for sharpening your intuitions about the clarity of code. APL shares this with the natural languages: there are useful guides to writing clearly, but no formula for it. <q lang="la" style="font-style:italic">De gustibus non disputandem est.</q></p>
+<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a id="fn1"></a> Edward R. Tufte, <em>Visual Explanations: images and quantities, evidence and narrative</em>, Graphics Press, Cheshire, Connecticut, 1997</li>
+<li><a id="fn2"></a> Enclosure: <q>Distinction is perfect continence,</q> wrote G. Spencer-Brown as his first assertion in <em>Laws of Form</em> (Crown, 1972) and went on to derive the fundamentals of mathematics. Distance: we’re unable to even think about cause-and-effect without using distance as an analogue for time. Julian Jaynes: <q>history is impossible without the spatialization of time 
+            that is characteristic of consciousness.</q> <em>The Origin Of Consciousness In The Breakdown Of The Bicameral Mind</em>, Houghton Mifflin, 1982, p. 251.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

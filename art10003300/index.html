@@ -1,0 +1,742 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10003300/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>A VSAM Simulation for APL*PLUS II - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              A VSAM Simulation for APL*PLUS II
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introduction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        I. Overview
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="I. Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Features
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ii-ksdss-real-and-simulated" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        II. KSDSs, real and simulated
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="II. KSDSs, real and simulated">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-ksds" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What is a KSDS?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-simulated-ksds" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A simulated KSDS
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-master-index-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Master Index Component
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buffering-the-effects-of-a-fluctuating-record-count" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Buffering the effects of a fluctuating record count
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#record-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Record components
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iii-using-the-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        III. Using the simulation
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="III. Using the simulation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Functions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#programming-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Programming considerations
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#converting-a-migrated-mainframe-workspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Converting a migrated mainframe workspace
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conversion-is-a-manual-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conversion is a manual process.
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returncodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Returncodes
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#size" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Size
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iv-migrating-a-mainframe-ksds" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        IV. Migrating a mainframe KSDS
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IV. Migrating a mainframe KSDS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#migrating-a-ksds-to-the-pc" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Migrating a KSDS to the PC
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-a-ksds-builder" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Writing a KSDS builder
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v-conclusions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        V. Conclusions
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="V. Conclusions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">A VSAM Simulation for APL*PLUS II</h1>
+
+  <p class="printed"><a href="../10/3/">Vector 10:3</a>, page 133</p>
+
+<p class="byline">by Allan Gay <span class="affil"></span> <span class="email"></span></p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>This article describes a VSAM simulation programmed in APL*PlusII/386 and used by some recently-migrated mainframe APL2/TSO applications.</p>
+<p>For convenience, the discussion is divided into the following sections:</p>
+<p>I Overview<br />
+II KSDSs, real and simulated<br />
+III Using the simulation<br />
+IV Migrating a mainframe KSDS<br />
+V Conclusion</p>
+<h2 id="i-overview">I. Overview<a class="headerlink" href="#i-overview" title="Permanent link">&para;</a></h2>
+<p>The simulation comprises a workspace which may be copied into an application workspace to provide means of operating simulated VSAM key sequenced datasets (KSDSs) which reside on PC.</p>
+<p>The workspace includes a set of public functions corresponding to the documented AP123 opcodes [VSAPLTUG].</p>
+<p>A simulated KSDS is an APL*PlusII/386 component file containing a mandatory arrangement of control components. Each VSAM data record is stored as a separate component.</p>
+<h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h3>
+<p>A separate APL*PlusII/386 component file is used for each simulated KSDS.</p>
+<p>Alternate indexes are supported. If declared, they are imbedded in the component file concerned. A simulated KSDS’ base cluster and its alternate indexes may be open and accessed concurrently if desired. Multiple simulated KSDSs may be open concurrently, too.</p>
+<p>Only key-sequenced datasets (KSDS) are simulated. VSAM’s entry-sequenced and relative-record dataset types are not supported.</p>
+<p>The full repertoire of access opcodes offered by mainframe AP123 is implemented. Operations to open, position and close a KSDS are provided. Records may be read, written and erased. Access may be sequential as well as by key. Also programmed is a bogus read-backwards opcode "B".</p>
+<p>Each AP123 opcode is simulated by a corresponding APL*PlusII/386 function. The function arguments and results serve the role of the auxiliary processor’s CTL and DAT shared variables. This makes converting migrated mainframe application code a straightforward clerical task. During our own migration project, we typically spent about two hours per workspace reviewing and recasting AP123 calls.</p>
+<h2 id="ii-ksdss-real-and-simulated">II. KSDSs, real and simulated<a class="headerlink" href="#ii-ksdss-real-and-simulated" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-a-ksds">What is a KSDS?<a class="headerlink" href="#what-is-a-ksds" title="Permanent link">&para;</a></h3>
+<p>From the application standpoint, a KSDS is a matrix (perhaps with a ragged right-hand edge) with a keyfield stripe running from top to bottom of it. If the KSDS has any alternate indexes, they are just extra keyfield stripes down this imaginary matrix. Each row of the matrix is a separate record, and access is on an individual record basis.</p>
+<p>Records can be read both sequentially and directly. When you read a record directly, you present a keyfield value and receive the record which bears that value in its keyfield. The applicable keyfield is established when the KSDS is allocated: if you allocate the base cluster, the primary keyfield is active, and if you allocate an alternate index, the relevant alternative keyfield applies.</p>
+<p>When you read sequentially, the records are returned to you one by one in ascending sequence per the applicable keyfield.</p>
+<h3 id="a-simulated-ksds">A simulated KSDS<a class="headerlink" href="#a-simulated-ksds" title="Permanent link">&para;</a></h3>
+<p>A simulated KSDS is an APL*PlusII/386 component file. The first ten components are reserved for control information and documentation, and include some spare components in case of future design extensions. Each subsequent component hosts one KSDS data record.</p>
+<p>When adding a new record, any component released by a prior record deletion will be re-used; if there are no such components, a new component is appended to the file. Record ordering is therefore roughly chronological, with some inconsistencies.</p>
+<p>The first ten components are: (1) freeform documentation, (2) the master index relating keys to component numbers, (3) a standard character vector identifying the file as a simulated KSDS and checked by the simulation at open time, and (4-10) empty vector spares.</p>
+<h3 id="the-master-index-component">The Master Index Component<a class="headerlink" href="#the-master-index-component" title="Permanent link">&para;</a></h3>
+<p>The master index component keeps the component number for each record key. Access is always via the master index, even when an application is accessing the simulated KSDS sequentially and is not supplying keys.</p>
+<p>The component is a five-item nested vector. The first two items map the record keys to the corresponding components, being respectively a text matrix of keys and a vector of component numbers. The third and fourth items identify the positions of keyfields within the matrix of keys and within the records themselves. The fifth item contains padding and is used to buffer the effects of recordcount fluctuations upon the size of the master index component.</p>
+<h3 id="buffering-the-effects-of-a-fluctuating-record-count">Buffering the effects of a fluctuating record count<a class="headerlink" href="#buffering-the-effects-of-a-fluctuating-record-count" title="Permanent link">&para;</a></h3>
+<p>As users of component filing systems will know, the "expanding replace" is a phenomonon which can waste a lot of space in a component file. An expanding replace occurs when an enlarged component is refiled. Because the component is too large to fit into the space it previously occupied, it is written elsewhere, within the file’s free space, and the space which it previously occupied becomes orphaned until a file reorganisation is instigated by the user.</p>
+<p>When a simulated KSDS is growing, new keys are being added to the master index component. This component is refiled after each addition. If the component were larger, an expanding replace would occur. Eventually, the component file would reach an enormous size, although much of the space it contained would be orphaned.</p>
+<p>It is to prevent this that the master index component is overallocated by including a padding item. By adjusting the size of the padding item, the overall size of the master index component is mostly maintained at a constant figure. The effect is to buffer the effects of recordcount fluctuations, minimising the number of expanding replaces occurring when the master index component is refiled.</p>
+<p>A manifest constant held in a global variable specifies the overallocation percentage required. For example, imagine we create a simulated KSDS with 100 records and specify a 10% overallocation. We get a padding item which is 10% the size of the rest of the master index. We can add ten more records before all the padding is used up. When we add the eleventh record, padding sufficient for eleven more records (10% of 111 records) is added and the first expanding replace occurs.</p>
+<p>Similarly, if the simulated KSDS were to shrink through record deletion, the padding item would expand until the number of records fell below 90, at which time it would be reduced commensurately. Space thus released would be reclaimable via ŒFDUP.</p>
+<p>In a file with a steadily growing recordcount, a large overallocation percentage gives advantages. In a file which is oscillating about some mean recordcount, a well-chosen percentage can completely eliminate expanding replaces of the master index component.</p>
+<p>Internal consistency of the various filed components is not jeopardised by ŒFDUP.</p>
+<h3 id="record-components">Record components<a class="headerlink" href="#record-components" title="Permanent link">&para;</a></h3>
+<p>Record components contain character vectors. Applications may deem the records to be composed of fields, and may deem those fields to contain many forms of data. However, the VSAM simulation merely stores the bytes and leaves their interpretation to the applications.</p>
+<p>From the application viewpoint, record fields can hold data in any of the mainframe formats - EBCDIC text, packed decimal, binary fullword, etc. This is unlikely to present any additional problem to a migrated mainframe application, provided that the records have been migrated correctly. Routines which encoded and decoded non-EBCDIC data on the mainframe should still work, in converted form, on the PC. Of course, this is not a VSAM-related issue: the same points apply to any dataset migrated from the mainframe regardless of access method.</p>
+<h2 id="iii-using-the-simulation">III. Using the simulation<a class="headerlink" href="#iii-using-the-simulation" title="Permanent link">&para;</a></h2>
+<h3 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h3>
+<p>The functions supplied in the simulation workspace are classed as public or private. The public functions are identifiable by their naming convention. The private functions operate directly upon temporary global variables and should not be used explicitly by applications.</p>
+<p>The simulation provides a corresponding public function for each AP123 opcode. These functions are named in the form "VSKS..", where ".." is the AP123 opcode. For example, mainframe opcode RU (Read for Update) becomes function VSKSRU in the APL*PlusII/386 context.</p>
+<p>In addition to the opcode functions, public functions VSAMchk, VSKSB, and VSKSSF are provided. The first may be used to filter returncodes, the second is a pseudo-opcode "B" (for Backwards read), and the last enables the application to switch between open simulated KSDS indexes.</p>
+<p>The public functions are:</p>
+<table><tb>
+<tr>
+<th>   FUNCTION   PURPOSE              ⍺-ARG              ⍵-ARG</th>
+
+</tr>
+<tr>
+<td>   --------   ------------------   ----------------   ---------------</td>
+
+</tr>
+<tr>
+<td>   VSAMchk -  Check rc             acceptable rcs     rc to check</td>
+
+</tr>
+<tr>
+<td>   VSKSB   -  Backwards read                          generic key *</td>
+
+</tr>
+<tr>
+<td>   VSKSC   -  Close current view</td>
+
+</tr>
+<tr>
+<td>   VSKSE   -  Erase record                            recordkey</td>
+
+</tr>
+<tr>
+<td>   VSKSKF  -  Key Feedback</td>
+
+</tr>
+<tr>
+<td>   VSKSOC  -  Open &amp; Clear         indexno (1=base)   libno filename</td>
+
+</tr>
+<tr>
+<td>   VSKSOR  -  Open for Read        indexno (1=base)   libno filename</td>
+
+</tr>
+<tr>
+<td>   VSKSOU  -  Open for Update      indexno (1=base)   libno filename</td>
+
+</tr>
+<tr>
+<td>   VSKSOW  -  Open for Write       indexno (1=base)   libno filename</td>
+
+</tr>
+<tr>
+<td>   VSKSPO  -  Position                                generic key **</td>
+
+</tr>
+<tr>
+<td>   VSKSR   -  Read                                    recordkey *</td>
+
+</tr>
+<tr>
+<td>   VSKSRU  -  Read for Update                         recordkey *</td>
+
+</tr>
+<tr>
+<td>   VSKSSF  -  Switch File                             fileno</td>
+
+</tr>
+<tr>
+<td>   VSKSW   -  Write                                   record</td>
+
+</tr>
+</tb></table>
+
+<p>* when arg is empty, read next record in indicated direction. ** when arg is empty, position to first record in view.</p>
+<h3 id="programming-considerations">Programming considerations<a class="headerlink" href="#programming-considerations" title="Permanent link">&para;</a></h3>
+<p>Because the concept of preallocating files does not exist in the PC context, the openfile operations (AP123’s OC OR OU OW opcodes) take a component filename specification instead of a DDname. The spec must be in the form "libno filename", which means library numbers must be predefined in the APL*PlusII/386 configuration file used at APL*PlusII/386 startup.</p>
+<p>Shared variables are not available in the APL*PlusII/386 environment. Since there is no AP123 to record the state of play, temporary global variables are used instead. There is no ŒSVO analogue: instead the open is simply issued (by running the function corresponding to the desired opcode), specifying APL*PlusII/386 library number and component filename as function arguments. A file-number is returned from the OC OR OU OW services and must be retained for the simulation to use in indexing the temporary global variables.</p>
+<p>The simulation uses the temporary global variables to host control-data for the simulated KSDSs which are currently open. It is not necessary explicitly to pre-create these variables. They are automatically created when the first simulated KSDS is opened. They are automatically expunged when the last simulated KSDS is closed.</p>
+<p>In mainframe AP123 programming, services are accessed by specifying one- or two-letter opcodes via the shared control variable, parameter information being preassigned to the shared data variable. The choice of shared variable pair determines which KSDS (whether base-cluster or alternate-index) of those currently open is accessed.</p>
+<p>In the simulation, there are no shared variables. Instead, the opcode is implied by the application’s choice of public function, and the parameter information is specified via that function’s arguments. The current "view" is always accessed.</p>
+<p>Every open base-cluster or alternate-index is termed a view, and every view has a unique file-number which was assigned when it was opened. The application should capture this number (returned by the open routines VSKSOC, VSKSOR, VSKSOU and VSKSOW).</p>
+<p>One view (by default, the latest opened) is deemed current, and it is upon the current view that all I/O operations are transacted. To make another view current, the application specifies its number to the VSKSSF "Switch File" function.</p>
+<p>When a simulated KSDS is first opened, its master index component is read into the workspace, and some additional view-related information is built. If another of that simulated KSDS’ indexes is subsequently opened, the same copy of the master index is re-used, and another set of view-related information is built. This approach enables an application to modify a simulated KSDS via any of its open indexes without the risk of conflicting updates. Logic to synchronise view-related information is included.</p>
+<h3 id="converting-a-migrated-mainframe-workspace">Converting a migrated mainframe workspace<a class="headerlink" href="#converting-a-migrated-mainframe-workspace" title="Permanent link">&para;</a></h3>
+<h3 id="conversion-is-a-manual-process">Conversion is a manual process.<a class="headerlink" href="#conversion-is-a-manual-process" title="Permanent link">&para;</a></h3>
+<p>First, all TSO ALLOC commands and ŒSVOs are removed completely.</p>
+<p>Next, each use of the AP123 opcodes is replaced by the equivalent simulation function. Assignments to DAT become function args, and assignments from DAT are now taken from function results. CTL returncodes are also taken from function results. If multiple pairs of shared variables were used, the VSKSSF function is added to select the appropriate file-number.</p>
+<p>Next, each open function call is recoded to supply a libno and a filename (instead of supplying a DDname). An additional integer argument designates the index to be used. The indexes are numbered with the origin-1 indices of their respective keyfields in the master index component. The base cluster is always index number 1.</p>
+<p>Finally, paired calls to functions VSKSSF and VSKSC are coded in place of every ŒSVR for which no prior close was issued, and all ŒSVRs are removed.</p>
+<h3 id="returncodes">Returncodes<a class="headerlink" href="#returncodes" title="Permanent link">&para;</a></h3>
+<p>Where appropriate, the returncodes documented for AP123 are used [VSAPLTUG]. Additional codes are provided for attempts to access nonexistent indexes or views. The extra codes form a new series associated with a new major returncode by which they are differentiated from the standard repertoire.</p>
+<h3 id="size">Size<a class="headerlink" href="#size" title="Permanent link">&para;</a></h3>
+<p>The simulation requires 127K of ŒWA when no simulated KSDSs have yet been opened.</p>
+<p>Because the master index component of each open KSDS is held in global variables, the operating space requirement depends on the number of KSDSs open, their keylengths and their recordcounts, plus some additional penalty for each open alternate index. In short, the simulation trades space for speed.</p>
+<p>For one application which we migrated, opening the base cluster on a 7,459-record simulated KSDS with 32-byte keys, took 593K of ŒWA. Going on to open that KSDS’ sole alternate index, which featured 8-byte keys, took an extra 119K of ŒWA.</p>
+<p>Another similarly configured simulated KSDS contained 7,487 records and yielded proportionately similar results. Because the PC had 16MB of RAM (the limit for that particular machine but not, of course, for APL*PlusII/386) and the application workspace amounted to only 815K including all simulations, there was no hint of a ŒWA problem.</p>
+<h2 id="iv-migrating-a-mainframe-ksds">IV. Migrating a mainframe KSDS<a class="headerlink" href="#iv-migrating-a-mainframe-ksds" title="Permanent link">&para;</a></h2>
+<h3 id="migrating-a-ksds-to-the-pc">Migrating a KSDS to the PC<a class="headerlink" href="#migrating-a-ksds-to-the-pc" title="Permanent link">&para;</a></h3>
+<p>The records should first be dumped to a flat sequential file via the Access Method Services REPRO utility. The sequential file should then be transferred to PC, using a product such as IRMA or PC3270. Finally, APL*PlusII/386 must be used to build a component file containing the correct arrangement of components.</p>
+<p>If the KSDS records contain only EBCDIC text, translation to ASCII should be selected during transfer of the sequential file to the PC. If, however, the KSDS records contain numeric fields or APL expressions, translation must not be selected there. Instead, translation must be performed on a field by field basis when the records are loaded into the simulated KSDS.</p>
+<p>Treating numerical quantities (packed decimal, binary fullword, and so on) as if they were EBCDIC text and translating their bytes to ASCII is definitely a mistake.</p>
+<p>Matters can also get interesting if the records actually contain executable APL statements. Translation from EBCDIC to ASCII is then inappropriate. Translation from APL2’s ŒAV to APL*PlusII/386’s ŒAV is required instead.</p>
+<h3 id="writing-a-ksds-builder">Writing a KSDS builder<a class="headerlink" href="#writing-a-ksds-builder" title="Permanent link">&para;</a></h3>
+<p>Writing a function to build a simulated ksds from a sequential file is conceptually quite straightforward.</p>
+<p>First, the function should write the standard ten preliminary components, the second being a dummy as placeholder for the master index.</p>
+<p>Second, the records should be read, processed, and appended as individual components. Processing a record entails translating any EBCDIC or APL fields within it, and then noting its key (or keys, if the KSDS includes alternate indexes).</p>
+<p>Third, the master index component should be constructed from the accumulated key data, filed in the position occupied by its placeholder, and the component file reorganised via ŒFDUP.</p>
+<p>As ever, the devil is in the detail. When a KSDS contains multiple record types, each incorporating many fields and using many data formats, the record-processing logic will be extensive.</p>
+<h2 id="v-conclusions">V. Conclusions<a class="headerlink" href="#v-conclusions" title="Permanent link">&para;</a></h2>
+<p>The migration of a given mainframe KSDS is a one-time affair. Given good record layout documentation, writing the record conversion logic is merely a tedious matter of coding the right field indices against the record vector. This is true for all types of file, not just VSAM.</p>
+<p>This is a comprehensive simulation and its internals are necessarily complex. However, its external interface is systematic and largely preserves the look of its mainframe precursor. This keeps the work of converting migrated mainframe logic to a minimum.</p>
+<p>Performance was not quantified, but it was certainly adequate on the top-end ’486 machines employed.</p>
+<p>Next: simulating Defined Operators.</p>
+<h3 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h3>
+<ol>
+<li>[VSAPLTUG] VSAPL for TSO Terminal User’s Guide,</li>
+<li>IBM, SH20-9180.</li>
+</ol>
+<p>(webpage generated: 5 March 2006, 18:07)</p>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,748 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Phil Last tries to explain some of his more unusual or obscure programming techniques in Dyalog APL.">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10500750/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>A way to write functions - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ambivalence" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              A way to write functions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ambivalence" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ambivalence
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ambivalence-in-d-fns" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ambivalence in D-fns
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assigning-a-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Assigning a default
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-ambivalence" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        More ambivalence
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#differential-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Differential processing
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conditions-and-multi-line-expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conditions and multi-line expressions
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commented-one-liners" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Commented one-liners
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#naming-operands" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Naming operands
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#separating-operands-and-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Separating operands and arguments
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boolean-equivalents" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Boolean equivalents
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iteration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Iteration
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#applying-a-monad-to-one-of-a-pair" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Applying a monad to one of a pair
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#afterword" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Afterword
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">A way to write functions</h1>
+
+  <p class="printed"><a href="../25/3/">Vector 25:3</a>, page 67</p>
+
+<p class="byline">by Phil Last (phil.last@ntlworld.com)</p>
+<p class="abstract">A companion article to Phil Last’s Co-operators paper to explain some of his more unusual or obscure programming techniques.</p>
+<p>Someone recently stopped to look at my Dyalog development session. But only for a moment. He made a gesture to indicate his bewilderment and moved on. This is a man who writes most of his code in the direct (formerly known as “dynamic”) functional subset of Dyalog APL (D-fns or D:).</p>
+<p>As do I.</p>
+<p>So what was the problem?</p>
+<p>Having bewildered many more in a presentation at Dyalog’11 at Boston and having been rebuked by a number of them since, I’ve come to the conclusion that it’s because I’ve discovered and use various techniques for doing common tasks in APL that have more verbose and perhaps more familiar counterparts.</p>
+<p>As I’ve come to value all of these idioms and now find them highly recognisable I’d come to assume their self-explanatory nature but now accept that they present a relative impenetrability to many. This is hopefully to counter the latter and realise the former. As mentioned above almost all of my code is in D notation about which you can read in John Scholes' paper, “Dynamic Functions in Dyalog APL” <a href="#ref1">[1]</a> so I’ll only mention here the parts whose possible unfamiliarity is the reason for this article.</p>
+<h2 id="ambivalence">Ambivalence<a class="headerlink" href="#ambivalence" title="Permanent link">&para;</a></h2>
+<p>I probably should start where most of my functions do. All D-fns are potentially ambivalent: they can be called with or without a left argument. Whether the code actually refers to that argument is another matter. The simplest D-fn is: <code>{}</code> that doesn’t refer to either of its arguments or anything else for that matter. Nevertheless most functions need to do something and if they expect a left argument the avoidance of a value error is something to be considered.</p>
+<p>Traditional ways of doing this mostly check the name-class <code>⎕NC</code> of the argument name for zero and conditionally assign an array value.</p>
+<p>When I started using IBM’s APL2, which was the first time the problem arose for me, an earlier observation made me realise that a more generally useful course would be to attempt to fix a right identity function with the argument name:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>         ∇ RES←LARG F00 RARG
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>      [1]  0 0⍴⎕FX,⊂'R←LARG R'
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>      ...
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>         ∇
+</span></code></pre></div>
+<p>If <code>LARG</code> is supplied, <code>⎕FX</code> fails gracefully returning <code>⎕IO</code> because it won’t fix a function in place of an array. But if <code>LARG</code> has been elided then <code>⎕FX</code> creates it as an identity function and any use of the name within <code>F00</code> as a left argument behaves as if it isn’t there. In <code>[2]</code> below if <code>LARG</code>is an identity function, <code>F01</code> has no left argument and its result is passed to <code>RES</code>. So for elided <code>LARG</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>      [2] RES←LARG F01 RARG
+</span></code></pre></div>
+<p>is exactly the same as:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>      [2] RES←F01 RARG
+</span></code></pre></div>
+<p>I went so far as to create a utility function whose argument was the left argument-name of the function that called it:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>         ∇ AMBIVALENT AMBIVALENT
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>      [1]  AMBIVALENT←⎕FX,⊂'R←',AMBIVALENT,' R'
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>         ∇
+</span></code></pre></div>
+<p>It reassigns its eponymous argument with the result of <code>⎕FX</code> possibly having created a semi-global identity function with the name contained in that argument.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>         ∇ R←LEFT F02 RIGHT
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>      [1]  AMBIVALENT'LEFT'
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>      [2]  R←LEFT F03 …
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>      …
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>         ∇
+</span></code></pre></div>
+<p>It was published in Vector 6.2 as a tongue-in-cheek response to something much worse in Vector 5.4 but didn’t go down well with the other correspondents. I thought it was nicely declarative and self-documenting.</p>
+<p>I have to admit there are some who are surprised by the fact that what they expect to be an array could be a function instead. Given the flexibility of infix notation what surprises me is that most will immediately assume the expression <code>e t y</code>, which constitutes three letters randomly chosen from the line above, to represent a three item vector rather than any of the other eleven valid three-fold array or function expressions that can be formed from permutations of arrays, functions or operators.</p>
+<h2 id="ambivalence-in-d-fns">Ambivalence in D-fns<a class="headerlink" href="#ambivalence-in-d-fns" title="Permanent link">&para;</a></h2>
+<p>The D method to accommodate an elided left argument <code>⍺</code> is a single assignment that is executed conditionally on the argument’s absence.</p>
+<p>I believe John Scholes was surprised to find that the equivalent of the above:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>      [1] ⍺←{⍵}
+</span></code></pre></div>
+<p>actually worked. It has exactly the same effect creating the identity function as <code>⎕FX</code> did. I used this until Dyalog Version 13.0 finally introduced the right function <code>⊢</code> that implements the right identity as a primitive. Thus many of my functions now start with the even more terse but equally useful and recognisable:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>      [1] ⍺←⊢
+</span></code></pre></div>
+<p>In twenty-five years I’ve found no situation where this technique fails to work and none where any other excels it.</p>
+<h2 id="assigning-a-default">Assigning a default<a class="headerlink" href="#assigning-a-default" title="Permanent link">&para;</a></h2>
+<p>Some might object here that it’s easier to assign a known value to the argument as default.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>      [2] ⍺←default
+</span></code></pre></div>
+<p>This can still be done after <code>[1]</code> above if we are content to use another name:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>      [2] larg←⍺⊣default
+</span></code></pre></div>
+<p>This uses the other new identity function of Dyalog 13.0, left <code>⊣</code> that returns its left argument if it has one or its right otherwise – following the J implementation of left <code>[</code> that I believe was Ken Iverson’s later preference, rather than that of SAPL and APLX that don’t return a result from the monad. Thus in our D-fn if <code>⍺</code> is supplied then <code>⊣</code> in the above expression gets its value as left argument and returns it to be assigned as <code>larg</code>; if not then <code>⍺</code> is <code>⊢</code> from <code>[1]</code>; <code>⊣</code> is called as a monad and returns its right argument default instead, to be passed by <code>⊢</code> and assigned to <code>larg</code>.</p>
+<p>Very often though, assigning a default to be passed to another function is not the best thing to do. If a called function <code>f04</code> is designed to be ambivalent we can assume it must be able to take care of its own defaults. Were an ambivalent caller <code>f03</code> to provide another default it would override whatever was the intention of the author of <code>f04</code>. This must be decided case by case.</p>
+<p>All this becomes much more important in the case of operators. If a derived function, an operator with its operand(s), is called without a left argument it very reasonably can be inferred that, all else being equal, the function operand is also expected to be called as a monad. Each <code>¨</code> is a primitive case in point.</p>
+<h2 id="more-ambivalence">More ambivalence<a class="headerlink" href="#more-ambivalence" title="Permanent link">&para;</a></h2>
+<p>We usually apply the word <em>ambivalent</em> to functions permitting the optional elision of left argument <code>⍺</code>: argument ambivalence. The dichotomy above where <code>⍺</code> can be an array or a function (supplied or assigned) also occurs in operators' accepting either an array or a function as operand <code>⍺⍺</code> and/or <code>⍵⍵</code>. Hence: operand ambivalence. The left operand of the <code>/</code> operator of APL2 and the right of the power <code>⍣</code> operator of Dyalog both have this property.</p>
+<p>In:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>      [4] ... ⍺⍺⊣⍵
+</span></code></pre></div>
+<p>the use of left <code>⊣</code> allows us to supply left operand <code>⍺⍺</code> as either a function or an array without our having to code separate cases for either of them. If <code>⍺⍺</code> is an array then <code>⍺⍺⊣⍵</code> is just <code>⍺⍺</code>, the left argument of <code>⊣</code>. If it’s a function then it’s applied to the result of monadic <code>⊣</code> which is <code>⍵</code>.</p>
+<h2 id="differential-processing">Differential processing<a class="headerlink" href="#differential-processing" title="Permanent link">&para;</a></h2>
+<p>Perhaps unusually, different processing is sometimes required for the monadic case of a function than the dyadic. Unusually in defined functions, that is; we should be surprised if primitives didn’t exhibit this behaviour. In a D-fn this would probably entail the using a guard. What should be the condition?</p>
+<p>In:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>      [2] ⍺←⊢
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>      [3] 1≡⍺ 1: expression
+</span></code></pre></div>
+<p><code>1≡⍺ 1</code> returns true and invokes <code>expression</code> if the value 1 matches the value of <code>⍺ 1</code>. This might seem unlikely. How can a scalar 1 match a two item vector? Obviously it can’t but if <code>⍺</code> is <code>⊢</code> then <code>⍺ 1</code> is <code>⊢ 1</code> which is just 1. In fact this works equally well for any array replacing the 1 on both sides of the equality so, for instance, to make it more explicit:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>      [3] 'monad'≡⍺'monad': expression
+</span></code></pre></div>
+<p>Scripting languages from very early on have permitted similar constructs:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>      If . = . %1 Then expression-for-missing-%1
+</span></code></pre></div>
+<p>which behaved identically after parameter substitution for optional <code>%1</code> though the explanation would be somewhat different.</p>
+<h2 id="conditions-and-multi-line-expressions">Conditions and multi-line expressions<a class="headerlink" href="#conditions-and-multi-line-expressions" title="Permanent link">&para;</a></h2>
+<p>It’s possible to break any D-fn inside its enclosing left or right brace. The next two D-fns are equivalent:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>      {single expression}
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>      {
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>            single expression
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>      }
+</span></code></pre></div>
+<p>Not only this but long lines embedding anonymous D-fns can also be broken:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>      {this long line{embeds another D-fn}within it}
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>      {this long line{
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>            embeds another D-fn
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>      }within it}
+</span></code></pre></div>
+<p>Guards sometimes present a problem in that a quite long line is required for the terminating expression to run when the condition is true. By embedding the expression in an anonymous D-fn we can extend the statement onto more than one line:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>      conditional expression: ⍺{
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>            long terminating expression to be triggered when true
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>      }⍵
+</span></code></pre></div>
+<p>Sometimes we want to run an expression conditionally or perhaps one expression or another to extract the value within, rather than terminating, the current function. In this case embedding the entire guard with its conditional, consequent and alternative expressions in an anonymous D-fn serves very well:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>      value←⍺{condition: expression if true
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>            expression if false
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>      }⍵
+</span></code></pre></div>
+<p>In both these cases it’s worth supplying the original arguments so that all names and tokens inside the inner D-fn reflect those outside.</p>
+<h2 id="commented-one-liners">Commented one-liners<a class="headerlink" href="#commented-one-liners" title="Permanent link">&para;</a></h2>
+<p>The following doesn’t define a D-fn:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>      f03←{expression ⍝ comment}
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>SYNTAX ERROR
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>      f03←{expression ⍝ comment}
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>                                ∧
+</span></code></pre></div>
+<p>The reason is that the final brace is a part of the comment and doesn’t actually close the D-fn. This has unfortunately and unjustifiably caused some to claim that D promotes uncommented code. The ability to create functions – D-fns or otherwise – without comments; believing them to be unnecessary; or that one doesn’t have time to write them promotes uncommented code.</p>
+<p>Fortunately the left <code>⊣</code> function comes to the rescue yet again. We can use:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>      f03←{expression⊣'comment'}
+</span></code></pre></div>
+<p>or the prettier:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>      f03←{expression⊣'⍝ comment'}
+</span></code></pre></div>
+<p>or even:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>      nb←⊣
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>      f03←{expression nb' comment'}
+</span></code></pre></div>
+<h2 id="naming-operands">Naming operands<a class="headerlink" href="#naming-operands" title="Permanent link">&para;</a></h2>
+<p>This is something I’ve relearned to do only very recently having gone perhaps too far down the road of designing algorithms that required no assignments whatsoever.</p>
+<p>It’s always useful and very often necessary or desirable to be able to define anonymous D-fns embedded within the coding of a D-fn or D-op. This entails another level of parameter substitution so for instance, operator <code>where</code>, that needn’t be understood, contains two levels of embedded operations:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>      where←{
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>            (⍴⍵)⍴⍺⍺{⍵ ⍺⍺{⍵⊖⍺,[-0.1]⍵\⍺⍺ ⍵/⍺},⍵⍵⊣⍵}⍵⍵,⍵
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>      }
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>                   ↑                             ↑
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>                        ↑                  ↑
+</span></code></pre></div>
+<p>In order that the operands <code>⍺⍺</code>and <code>⍵⍵</code> continue to refer to the same thing they must be passed in as operands at each level making the inner operations operators also. It is also quite difficult to see that the innermost operation is a monadic operator deriving a dyadic function while the next out is a dyadic operator deriving a monadic function as is the outer, named, D-op. The following version appears much simpler merely by naming the operands:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>      where←{f←⍺⍺ ⋄ g←⍵⍵
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>            (⍴⍵)⍴{⍵{⍵⊖⍺,[-0.1]⍵\f ⍵/⍺},g⊣⍵},⍵
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>      }
+</span></code></pre></div>
+<p>Lexical scope rules mean that named items are visible to any D-fn or D-op defined within the one wherein they are named. Thus they don’t have to be respecified for the inner levels so we actually reduce the number of tokens in the line as well as avoiding the added complication of the embedded operations’ being promoted to D-ops.</p>
+<h2 id="separating-operands-and-arguments">Separating operands and arguments<a class="headerlink" href="#separating-operands-and-arguments" title="Permanent link">&para;</a></h2>
+<p>Operator operands can be either functions or arrays. The power <code>⍣</code> operator takes either a terminating function or an iteration count as its right operand. In the latter case we have an array (scalar integer) operand and an array right argument. This brings up the question of the relative strengths of operand- versus vector-binding. Implementors chose differently in this regard, vector binding being the strongest of all in Dyalog APL and NARS2000, while both bracket- and right-operand binding exceed it in APL2 and APLX.</p>
+<p>Consequently we have the following dichotomy. The expression:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>      f dop a b c
+</span></code></pre></div>
+<p>where <code>f</code> is a function, <code>dop</code> is a dyadic operator and <code>a, b</code> and <code>c</code> are arrays, is parsed as follows:</p>
+<p>APL2, APLX &amp;c.:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>      f dop a b c ←→ (f dop a)(b c)
+</span></code></pre></div>
+<p>an array expression; function with argument; <code>a</code> is the operand and <code>b c</code> is the argument.</p>
+<p>Dyalog, NARS2000 &amp;c.:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>      f dop a b c ←→ f dop(a b c)
+</span></code></pre></div>
+<p>a function expression without an argument; <code>a b c</code> is the right operand.</p>
+<p>This difference adds an extra complication to Dyalog which is well worth the cost considering the alternative:</p>
+<p>APL2:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>      f dop 1 2 3 ←→ (f dop 1) 2 3
+</span></code></pre></div>
+<p>what appears to be a numeric vector is treated as a scalar separated from the remainder.</p>
+<p>So in Dyalog we need to separate the array right operand from the argument. The surest way to do it is to parenthesise the entire function expression:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>      (f dop operand)argument
+</span></code></pre></div>
+<p>But a neater way is to insert an identity function between the operand and argument. Right-operand binding is stronger than left-argument so the identity is parsed as monadic:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>      f dop operand+argument
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>      f dop operand,vector
+</span></code></pre></div>
+<p>Until recently plus <code>+</code> as above was common as a separator because its monadic definition was to return the right argument unchanged. But Dyalog 13.0 has complex numbers and monadic plus is now redefined as conjugate for that domain:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>      + 12J34 'zxc'  →  12J¯34 'zxc'
+</span></code></pre></div>
+<p>so it is no longer a reliable identity in all cases. Fortunately and in part consequently Dyalog 13.0 also includes the two new identities mentioned above: <code>⊣</code> and<code>⊢</code>; either of which suffices for our purpose:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>      f op operand⊢argument
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>      f op operand⊣argument
+</span></code></pre></div>
+<h2 id="boolean-equivalents">Boolean equivalents<a class="headerlink" href="#boolean-equivalents" title="Permanent link">&para;</a></h2>
+<p>We learn that there are ten scalar dyadic boolean functions in APL: <code>&lt; ≤ = ≥ &gt; ≠ ∨ ∧ ⍱ ⍲</code>. Each one maps each of the four pairs (0 0)(0 1)(1 0)(1 1) onto one of the pair 0 1 in a different way. So there should be exactly sixteen such functions; there are six others missing from APL. And given that there is that mapping it must be possible to enumerate them in a standard way.</p>
+<p>Applying <code>r ← ,0 1 ∘.f 0 1</code> gives us the four results. Applying <code>2⊥r</code> gives us a number between 0 and 15. Here they are put into the order dictated by that result:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>   .---.--------------.---------.----.
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>   | ∧ | ,0 1 ∘.∧ 0 1 | 0 0 0 1 |  1 |
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>   | &gt; | ,0 1 ∘.&gt; 0 1 | 0 0 1 0 |  2 |
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>   | &lt; | ,0 1 ∘.&lt; 0 1 | 0 1 0 0 |  4 |
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>   | ≠ | ,0 1 ∘.≠ 0 1 | 0 1 1 0 |  6 |
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>   | ∨ | ,0 1 ∘.∨ 0 1 | 0 1 1 1 |  7 |
+</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>   | ⍱ | ,0 1 ∘.⍱ 0 1 | 1 0 0 0 |  8 |
+</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>   | = | ,0 1 ∘.= 0 1 | 1 0 0 1 |  9 |
+</span><span id="__span-31-9"><a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>   | ≥ | ,0 1 ∘.≥ 0 1 | 1 0 1 1 | 11 |
+</span><span id="__span-31-10"><a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>   | ≤ | ,0 1 ∘.≤ 0 1 | 1 1 0 1 | 13 |
+</span><span id="__span-31-11"><a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a>   | ⍲ | ,0 1 ∘.⍲ 0 1 | 1 1 1 0 | 14 |
+</span><span id="__span-31-12"><a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a>   '---'--------------'---------'----'
+</span></code></pre></div>
+<p>Alternatively we can define the operator or adverb:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>      fnum←{2⊥,0 1 ∘.⍺⍺ 0 1}
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>      ∧fnum 0
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>1
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>      ∨fnum 0
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>7
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>      ...
+</span></code></pre></div>
+<p>The six missing would be scalar pervasive equivalents of: 0:<code>{0}</code>; 3: <code>⊣</code>; 5: <code>⊢</code>; 10: <code>{~⍵}</code>; 12: <code>{~⍺}</code>; and 15: <code>{1}</code>.</p>
+<p>Given so many boolean dyads it seems odd that much of the time only two of them get used. We’ve all seen such as:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>      :If p∨~q ⋄ ...
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>      :If (~p)∧q ⋄ ...
+</span></code></pre></div>
+<p>Applying fnum to each of these:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>      {⍺∨~⍵}fnum''
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>11
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>      {(~⍺)∧⍵}fnum''
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>4
+</span></code></pre></div>
+<p>we find that <code>{⍺∨~⍵}</code> is function 11, <code>≥</code> while <code>{(~⍺)∧⍵}</code> is function 4, <code>&lt;</code> so why don’t we see:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>      :If p≥q ⋄ ...
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>      :If p&lt;q ⋄ ...
+</span></code></pre></div>
+<p>for boolean <code>p</code> and <code>q</code>? I’ve been told that they’re unfamiliar in this context. But so was most of APL to each one of us when we started. Nevertheless many such equivalences exist. And the reason we don’t automatically associate them with the logical domain is because of their common names.</p>
+<p>Most people refer to <code>≥</code> as <em>greater than or equal</em> and some as <em>not less than</em>; just two obvious ways to say the same thing. Very few if any call it <em>or not</em> or <em>implied by</em> but if the comparands are propositions or logicals with boolean values 1 or 0 then it makes complete sense.</p>
+<p>Below are some of the more common boolean equivalents many of which I’ve seen in use. This is not just a matter of terseness versus verbosity. If <code>p</code> and <code>q</code> are large then applying two, three or even four functions to them rather than one is significant.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>   .-------------.--------------.----.---.-----.
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>   | expression  | D-fn         |fnum| f | exp |
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>   |-------------+--------------+----+---+-----|
+</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>   | ~p∧q        | {~⍺∧⍵}       | 14 | ⍲ | p⍲q |
+</span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>   | ~p∨q        | {~⍺∨⍵}       | 8  | ⍱ | p⍱q |
+</span><span id="__span-36-6"><a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a>   | p∧~q        | {⍺∧~⍵}       | 2  | &gt; | p&gt;q |
+</span><span id="__span-36-7"><a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a>   | p∨~q        | {⍺∨~⍵}       | 11 | ≥ | p≥q |
+</span><span id="__span-36-8"><a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a>   | ~p∧~q       | {~⍺∧~⍵}      | 13 | ≤ | p≤q |
+</span><span id="__span-36-9"><a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a>   | ~p∨~q       | {~⍺∨~⍵}      | 4  | &lt; | p&lt;q |
+</span><span id="__span-36-10"><a id="__codelineno-36-10" name="__codelineno-36-10" href="#__codelineno-36-10"></a>   | (~p)∧q      | {(~⍺)∧⍵}     | 4  | &lt; | p&lt;q |
+</span><span id="__span-36-11"><a id="__codelineno-36-11" name="__codelineno-36-11" href="#__codelineno-36-11"></a>   | (~p)∨q      | {(~⍺)∨⍵}     | 13 | ≤ | p≤q |
+</span><span id="__span-36-12"><a id="__codelineno-36-12" name="__codelineno-36-12" href="#__codelineno-36-12"></a>   | (~p)∧~q     | {(~⍺)∧~⍵}    | 8  | ⍱ | p⍱q |
+</span><span id="__span-36-13"><a id="__codelineno-36-13" name="__codelineno-36-13" href="#__codelineno-36-13"></a>   | (~p)∨~q     | {(~⍺)∨~⍵}    | 14 | ⍲ | p⍲q |
+</span><span id="__span-36-14"><a id="__codelineno-36-14" name="__codelineno-36-14" href="#__codelineno-36-14"></a>   | ~(~p)∧~q    | {~(~⍺)∧~⍵}   | 7  | ∨ | p∨q |
+</span><span id="__span-36-15"><a id="__codelineno-36-15" name="__codelineno-36-15" href="#__codelineno-36-15"></a>   | ~(~p)∨~q    | {~(~⍺)∨~⍵}   | 1  | ∧ | p∧q |
+</span><span id="__span-36-16"><a id="__codelineno-36-16" name="__codelineno-36-16" href="#__codelineno-36-16"></a>   | (p∨q)∧~p∧q  | {(⍺∨⍵)∧~⍺∧⍵} | 6  | ≠ | p≠q |
+</span><span id="__span-36-17"><a id="__codelineno-36-17" name="__codelineno-36-17" href="#__codelineno-36-17"></a>   | (p∧q)∨~p∨q  | {(⍺∧⍵)∨~⍺∨⍵} | 9  | = | p=q |
+</span><span id="__span-36-18"><a id="__codelineno-36-18" name="__codelineno-36-18" href="#__codelineno-36-18"></a>   '-------------'--------------'----'---'-----'
+</span></code></pre></div>
+<h2 id="iteration">Iteration<a class="headerlink" href="#iteration" title="Permanent link">&para;</a></h2>
+<p>It’s often necessary to be able to repeat a function sequentially with one argument different but each time using the result of a previous iteration as the other argument. Say we have prototype <code>p</code> and vector <code>v</code> of items to be applied in order <code>a b c d e</code>. Depending which way round our function requires its arguments this will be:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>      ((((p flr a)flr b)flr c)flr d)flr e
+</span></code></pre></div>
+<p>or:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>      e frl(d frl(c frl(b frl(a frl p))))
+</span></code></pre></div>
+<p>where: <code>frl ←→ flr⍨</code></p>
+<p>Given the likely variable length of our vector most will code this as:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>      :For i :In v
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>            p←p flr i   ⍝ or: p←i frl p
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>      :End
+</span></code></pre></div>
+<p>but look again at the expression with repeated <code>frl</code>. Not everyone will recognise it immediately but this is a precise definition of reduction:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>      ⊃frl/e d c b a p
+</span></code></pre></div>
+<p>The right argument of the reduction is merely <code>v</code> reversed and with <code>p</code> stuck on the end:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>      ⊃frl/(⌽v),⊂p
+</span></code></pre></div>
+<h2 id="applying-a-monad-to-one-of-a-pair">Applying a monad to one of a pair<a class="headerlink" href="#applying-a-monad-to-one-of-a-pair" title="Permanent link">&para;</a></h2>
+<p>Given a 2-vector it’s required occasionally to keep the first item intact while running a function between the two preferably without having to prise the two apart beforehand. The description might not immediately suggest scan but that’s exactly what it requires:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>      f\x y ←→ x(x f y)
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>      f\two ←→ (0⌷two),f/two
+</span></code></pre></div>
+<p>At least as often I find that what I really want to do is to keep the first while applying a monad to the second. All D-fns are ambivalent. But in this case I want the monadic definition of the function to apply. If the function ignores its left argument then the above is all we need:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>      {2×⍵}\two ←→ (0⌷two),{2×⍵}/two
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>                ←→ (0⌷two),{2×⍵}1⌷two ⍝ for a de facto monad
+</span></code></pre></div>
+<p>But if our function is properly ambivalent and works differently in the two cases this will always use the dyad. We need a way to force an ambivalent function to act as a <em>de facto</em> monad. Composing it with right <code>⊢</code> as <code>⊢∘{…}</code> pushes the left argument out to become that of <code>⊢</code> which it will ignore. Our function never sees the argument at all:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>      minus←{⍺←⊢ ⋄ ⍺-⍵}
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>      minus 5           ⍝ monad: negate
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>¯5
+</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>      8 minus 5         ⍝ dyad: subtract
+</span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>3
+</span><span id="__span-44-6"><a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>      8 ⊢∘minus 5       ⍝ de facto monad: negate
+</span><span id="__span-44-7"><a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a>¯5
+</span><span id="__span-44-8"><a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a>      minus\8 5
+</span><span id="__span-44-9"><a id="__codelineno-44-9" name="__codelineno-44-9" href="#__codelineno-44-9"></a>8 3
+</span><span id="__span-44-10"><a id="__codelineno-44-10" name="__codelineno-44-10" href="#__codelineno-44-10"></a>      ⊢∘minus\8 5
+</span><span id="__span-44-11"><a id="__codelineno-44-11" name="__codelineno-44-11" href="#__codelineno-44-11"></a>8 ¯5
+</span></code></pre></div>
+<h2 id="afterword">Afterword<a class="headerlink" href="#afterword" title="Permanent link">&para;</a></h2>
+<p>We all have our own favourite tricks and tips. The first version of this was a preamble to a presentation I gave at Dyalog’11 in Boston and this lengthier version is designed to accompany a re-presentation of that paper that appears in the same edition of <em>Vector</em> as this. I hope it’s been of some use.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a id="ref1"></a> http://dyalog.com/download/dfns.pdf</li>
+</ol>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

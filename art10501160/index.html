@@ -1,0 +1,718 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Nickolov describes ngnAPL giving an overview of the project and its dialect of APL">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10501160/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Compiling APL to JavaScript - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Compiling APL to JavaScript
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introduction
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#function-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Function definition
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-scoping" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Variable scoping
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phrasal-forms" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Phrasal forms
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-privileged-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Non-privileged primitives
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#index-origin-fixed-to-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Index origin fixed to 0
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#line-terminator-ambiguity" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Line terminator ambiguity
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#absence-of-control-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Absence of control structures
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parsing-apl-expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Parsing APL expressions
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#representation-of-n-dimensional-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Representation of n-dimensional arrays
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Representation of n-dimensional arrays">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nested-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Nested representation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flat-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Flat representation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strided-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Strided representation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#continuation-passing-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Continuation-passing style
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Compiling APL to JavaScript</h1>
+
+  <p class="printed"><a href="../26/1/">Vector 26:1</a>, page 54</p>
+
+<p class="byline">Nick Nickolov (nick.nickolov@gmail.com)</p>
+<p class="abstract">This article is about github.com/ngn/apl<a href="#ref1">[1]</a>, an APL to JavaScript compiler written in CoffeeScript. It gives an overview of the project and its dialect of APL, then proceeds to describe three major implementational obstacles and the design decisions taken to overcome them.</p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>The list of languages that compile to JavaScript is growing steadily for a good reason: almost every modern consumer device can run a browser with a JavaScript interpreter in it. And for the server there’s NodeJS. As a language, JavaScript has its subset of good parts and if you restrict your coding to them, it’s actually a very decent language. The execution model is reminiscent of Lisp with its lambdas and lexical closures, despite the superficially C-like syntax. As a matter of fact, getting rid of those curly braces, semicolons, and other noise is easy thanks to CoffeeScript, which gives a comfortable layer of syntactic sugar over raw JavaScript.</p>
+<p>I started an open source project for an APL compiler targeting JavaScript. Though incomplete and of poor performance, it’s good enough for experimenting with short programs, such as the Game of Life or the N Queens problem.</p>
+<p>I made a conscious decision to deviate from the APL tradition in several ways.</p>
+<h3 id="function-definition">Function definition<a class="headerlink" href="#function-definition" title="Permanent link">&para;</a></h3>
+<p>Lambdas are supported (function literals enclosed in curly braces, a.k.a. dfns) but the del (<code>∇</code>) syntax for function definition is not. So, instead of</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>    ∇R←A f B
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>        R←...
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    ∇
+</span></code></pre></div>
+<p>one is forced to write</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>    f←{...}
+</span></code></pre></div>
+<h3 id="variable-scoping">Variable scoping<a class="headerlink" href="#variable-scoping" title="Permanent link">&para;</a></h3>
+<p>Scoping is always lexical. This means that the two occurrences of <code>a</code> below</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>    f←{a←123}
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    g←{a←456}
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    h←{...}
+</span></code></pre></div>
+<p>are different variables and neither of them is accessible from within <code>h</code>, regardless of the order and nesting of <code>f</code>, <code>g</code>, <code>h</code> invocations.</p>
+<p>A variable is considered to belong to the outermost ancestor scope where it is mentioned. So, the first two occurrences of <code>a</code> below are the same variable and the third <code>a</code> is distinct from them:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>    f←{
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>        a←123
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>        g←{a←456}
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    }
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    h←{a←789}
+</span></code></pre></div>
+<p>Note that assignment doesn’t necessarily create a local variable. If the variable is already present in any enclosing scope, assignment will set <em>that</em> variable.</p>
+<p>A variable must not be used before it is assigned a value. The compiler can detect most violations of that:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>    ⎕←⍳ a      ⍝ compiler error
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    a←5
+</span></code></pre></div>
+<h3 id="phrasal-forms">Phrasal forms<a class="headerlink" href="#phrasal-forms" title="Permanent link">&para;</a></h3>
+<p>Expressions consisting of a sequence of two or three functions are said to form a hook or a fork respectively and the result is a new function defined as follows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>     (fg)⍵    ←→   ⍵fg⍵
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    ⍺(fg)⍵    ←→   ⍺fg⍵
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>     (fgh)⍵   ←→   (f⍵)g(h⍵)
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    ⍺(fgh)⍵   ←→   (⍺f⍵)g(⍺h⍵)
+</span></code></pre></div>
+<p>Examples usages of phrasal forms are the arithmetic mean written as <code>+/ ÷ ⍴</code> and continued fraction evaluation as <code>(+÷)\</code>.</p>
+<h3 id="non-privileged-primitives">Non-privileged primitives<a class="headerlink" href="#non-privileged-primitives" title="Permanent link">&para;</a></h3>
+<p>Primitives are just like any other variable, only as if implicitly defined in the root scope. As a side effect, they can be overridden:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>    3⍟4          ⍝ returns 1.2618595071429148
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    ⍟←{⍺+2×⍵}
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    3⍟4          ⍝ returns 11
+</span></code></pre></div>
+<p>One use of this fact might be to introduce comparison tolerance, which isn’t supported by default:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>    ⎕CT←1e¯13
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    =←{(|⍺-⍵)≤⎕CT×(|⍺)⌈|⍵}
+</span></code></pre></div>
+<p>It’s okay to use single non-alphabetic characters as variable names, so the language can be augmented as one sees fit:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>    π←○1
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    √←{⍵*.5}
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    ∑←+/
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    ½←{⍵÷2}
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    ±←+,-
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    €←{exchangeRate×⍵}
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    ≈←{(|⍺-⍵)≤⎕CT×(|⍺)⌈|⍵}
+</span></code></pre></div>
+<h3 id="index-origin-fixed-to-0">Index origin fixed to 0<a class="headerlink" href="#index-origin-fixed-to-0" title="Permanent link">&para;</a></h3>
+<p>I took a side in this Holy War.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>    ⍳3      ⍝ returns 0 1 2
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    ⎕IO←0   ⍝ ok, no effect
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    ⎕IO←1   ⍝ error
+</span></code></pre></div>
+<h3 id="line-terminator-ambiguity">Line terminator ambiguity<a class="headerlink" href="#line-terminator-ambiguity" title="Permanent link">&para;</a></h3>
+<p>A line terminator is treated as a statement separator if it occurs within <code>{}</code> or at the topmost level, but is considered whitespace if it’s inside <code>()</code> or <code>[]</code>.</p>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>    glider←{
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>        a←3 3⍴(
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>            0 1 0
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>            0 0 1
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>            1 1 1
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        )
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        ⍵ ⍵↑a
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>    }
+</span></code></pre></div>
+<h3 id="absence-of-control-structures">Absence of control structures<a class="headerlink" href="#absence-of-control-structures" title="Permanent link">&para;</a></h3>
+<p>Control structures such as <code>:If ... :Else ... :EndIf</code> are not supported but can be emulated using lambdas, guards, and APL primitives. For instance</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>    :If x
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>        y
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    :Else
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>        z
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    :EndIf
+</span></code></pre></div>
+<p>can be replaced with</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>    {x:y⋄z}0
+</span></code></pre></div>
+<p>and</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>    :While x
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>        y
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    :EndWhile
+</span></code></pre></div>
+<p>with</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>    {~x:1⋄y⋄0}⍣⊢ 0
+</span></code></pre></div>
+<p>The rest of this article describes three challenging problems which I came across during the implementation of APL. Two of them I solved and the third one is yet to be taken care of.</p>
+<h2 id="parsing-apl-expressions">Parsing APL expressions<a class="headerlink" href="#parsing-apl-expressions" title="Permanent link">&para;</a></h2>
+<p>Consider the APL expression</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>    a b c
+</span></code></pre></div>
+<p>Depending on context, it could mean different things:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>    a←0  ⋄ b←{} ⋄ c←0  ⋄ a b c    ⍝ a dyadic application of b
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    a←{} ⋄ b←{} ⋄ c←0  ⋄ a b c    ⍝ two nested monadic applications
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    a←0  ⋄ b←0  ⋄ c←{} ⋄ a b c    ⍝ compiler error
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    a←0  ⋄ b←0  ⋄ c←0  ⋄ a b c    ⍝ construction of a new vector
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    a←{} ⋄ b←{} ⋄ c←{} ⋄ a b c    ⍝ a fork
+</span></code></pre></div>
+<p>So, it seems the semantics depend on what <code>a</code>, <code>b</code>, and <code>c</code> represent at runtime, verbs or nouns, and building a complete AST is impossible before we have that knowledge.</p>
+<p>Fortunately, there exists a way around this at the cost of imposing a small restriction on variable usage. The restriction is as follows:</p>
+<ul>
+<li>Once we assign a noun to a variable, we are only allowed to assign nouns to it later.</li>
+<li>Once we assign a verb to a variable, we are only allowed to assign verbs to it later.</li>
+</ul>
+<p>In other words, variables must preserve their lexical category.</p>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>    x ← 0
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    x ← 1     ⍝ OK
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    x ← {}    ⍝ Compiler error
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>    f ← {}
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>    f ← +/    ⍝ OK
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>    f ← 2 3   ⍝ Compiler error
+</span></code></pre></div>
+<p>This restriction separates the worlds of nouns and verbs at compile time. Every expression can then be inferred one of the two lexical categories so the compiler know what JavaScript code to render for it.</p>
+<h2 id="representation-of-n-dimensional-arrays">Representation of n-dimensional arrays<a class="headerlink" href="#representation-of-n-dimensional-arrays" title="Permanent link">&para;</a></h2>
+<p>During the evolution of the project I went through a couple of different implementations of the basic APL data structure.</p>
+<h3 id="nested-representation">Nested representation<a class="headerlink" href="#nested-representation" title="Permanent link">&para;</a></h3>
+<p>My first take on this was to use n nested levels of JavaScript arrays to represent an n-dimensional APL array. For instance:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>    APL: 2 3⍴⍳6
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>    JS: [[0, 1, 2], [3, 4, 5]]
+</span></code></pre></div>
+<p>Thus, subscripting maps nicely between the two languages:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>    APL: a[i;j;k]
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    JS: a[i][j][k]
+</span></code></pre></div>
+<p>but many of the primitives’ implementations had to involve recursion or multiple loops, which apart from being inefficient was complicating matters unnecessarily, so I transitioned to a flat representation.</p>
+<h3 id="flat-representation">Flat representation<a class="headerlink" href="#flat-representation" title="Permanent link">&para;</a></h3>
+<p>A flat representation is a single JavaScript array which contains all items of the APL array in lexicographic order of their indices (a.k.a. ravel order). Additional meta-information about the shape must be stored, too.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>    APL: 2 3⍴⍳6
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>    JS:
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>        var a = [0, 1, 2, 3, 4, 5];
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>        a.shape = [2, 3];
+</span></code></pre></div>
+<p>This way, indexing is not as plain as before:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>    APL: a[i;j;k]
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>    JS: a[
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>            i * a.shape[0] * a.shape[1] +
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>            j * a.shape[0] +
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>            k
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>        ]
+</span></code></pre></div>
+<p>but it’s still worth it, as the implementation of most primitives gets simpler and more efficient.</p>
+<p>There turns out to be an even better data structure which I was lucky to come across.</p>
+<h3 id="strided-representation">Strided representation<a class="headerlink" href="#strided-representation" title="Permanent link">&para;</a></h3>
+<p>In a strided representation, an APL array is a record of:</p>
+<dl>
+    <dd>
+        <code>data</code>: the elements, not necessarily in ravel order
+    </dd>
+    <dd>
+        <code>shape</code>: as usual, an integer array
+    </dd>
+    <dd>
+        <code>stride</code>: an integer for each axis, indicating how many items of <code>data</code> we
+        have to skip over in order to move to an adjacent cell along that axis.
+        Strides can be positive, negative, or zero.
+    </dd>
+    <dd>
+        <code>offset</code>: the position in <code>data</code> where element <code>[0;0;...;0]</code> is located
+    </dd>
+</dl>
+
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>    APL: 2 3⍴⍳6
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>    JS:
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>        {
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>            data:   [0, 1, 2, 3, 4, 5],
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>            shape:  [2, 3],
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>            stride: [3, 1],
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>            offset: 0
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>        }
+</span></code></pre></div>
+<p>and this is another representation of the same APL array</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>    JS:
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>        {
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>            data:   [2, 1, 0, 5, 4, 3],
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>            shape:  [2, 3],
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>            stride: [3, -1],
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>            offset: 2
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>        }
+</span></code></pre></div>
+<p>Indexing is relatively straightforward:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>    APL: a[i;j;k]
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>    JS:
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>        data[
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>            offset
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>            + i * stride[0]
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>            + j * stride[1]
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>            + k * stride[2]
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>        ]
+</span></code></pre></div>
+<p>The advantage of this strided representation becomes apparent when working with large volumes of data. Functions like transpose (<code>⍉⍵</code>), reverse (<code>⌽⍵</code>), or drop (<code>⍺↓⍵</code>) can reuse the <code>data</code> array and only care to give a new <code>shape</code>, <code>stride</code>, and <code>offset</code> to their result. A reshaped scalar, e.g. <code>1000000⍴0</code>, can only occupy a constant amount of memory, exploiting the fact that strides can be 0.</p>
+<h2 id="continuation-passing-style">Continuation-passing style<a class="headerlink" href="#continuation-passing-style" title="Permanent link">&para;</a></h2>
+<p>The third problem, one which I haven’t solved in code yet, arose from the way NodeJS does I/O. While in some cases NodeJS allows you to do</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>    var content = fs.readFileSync('a.txt');
+</span></code></pre></div>
+<p>it strongly encourages the so-called continuation-passing style (CPS), demanding a callback:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>    fs.readFile('a.txt', function (content) {
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>        // ... Invoked later, after content becomes available
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>    });
+</span></code></pre></div>
+<p>It’s not only that. In a browser environment, if we want to be properly mimicking I/O, we again need CPS. Of course, we can use the blocking functions <code>prompt()</code> and <code>alert()</code>, but most users find those annoying because they prevent them from using other parts of the UI while entering text.</p>
+<p>This is what happens when reading from <code>⎕</code>, for instance:</p>
+<ol>
+<li>APL code tries to get the value of variable <code>⎕</code>.</li>
+<li>The user is prompted to type something in an <code>&lt;input/&gt;</code>.</li>
+<li>APL execution is suspended while the user is typing, looking up help information, using the on-screen keyboard, etc.</li>
+<li>The user presses enter.</li>
+<li>APL execution is resumed and the value obtained from <code>⎕</code> is processed.</li>
+</ol>
+<p>The trouble is in step 3. How do we suspend execution to resume it later? We might as well try to make the compiler output CPS JavaScript code, but that appears get complicated rather quickly.</p>
+<p>If only JavaScript had a <code>call-with-current-continuation</code> primitive like Scheme, we would be able to do just this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>    var content = callcc(fs.readFile.bind(fs, 'a.txt'));
+</span></code></pre></div>
+<p>but alas, it doesn’t. We can amend that through implementing a virtual machine (VM) in JavaScript with a <code>callcc</code> instruction that suspends execution, captures the current state with all its stack and variable bindings and presents it as a callable <em>resume</em> function. The compiler can then produce some intermediate bytecode for the VM instead of pure JavaScript.</p>
+<p>What if we also expose <code>callcc</code> as an APL primitive? This would be so powerful that it could be used to implement an exception mechanism, break/continue, coroutines, generators, Prolog-style backtracking, etc in APL itself. Therefore, adding a VM looks like a lucrative prospect for ngn/apl.</p>
+<ol>
+<li><a id="ref1"></a>ngnAPL <a href="http://www.7-zip.org/">https://github.com/ngn/apl</a></li>
+</ol>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

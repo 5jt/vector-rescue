@@ -1,0 +1,569 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10013650/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>R.net: A Reverse Polish Interpreter for .Net - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              R.net: A Reverse Polish Interpreter for .Net
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introduction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Arrays
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions-and-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Functions and Variables
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#control-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Control Structures
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-net" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Using .Net
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exception-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exception Handling
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dictionaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dictionaries
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Namespaces
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loading-and-saving" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Loading and Saving
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conclusion
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">R.net: A Reverse Polish Interpreter for .Net</h1>
+
+  <p class="printed"><a href="../21/1/">Vector 21:1</a>, page 999</p>
+
+<p class="byline"><em>by Richard Smith (<a href="mailto:richard@redcorona.com">richard@redcorona.com</a>)</em></p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>Some of you may already know about the original R, which was essentially my ‘learning exercise’ for Java. For those of you (probably most) who haven’t, I will run through the basic features of the language here. (If you want to try it out as you go through, you can download the latest copy from <a href="http://www.apl-385.demon.co.uk/rcs/programs/r/net.htm">http://www.apl.com/rcs/programs/r/net.htm</a>.)</p>
+<p>Firstly, it is a reverse Polish (or stack-based) interpreter, like PostScript, meaning that everything is pushed onto a stack and functions run on the items at the top of the stack. For example, to perform 3+5 in R, you would type <code>3 5 +</code>. This pushes a 3, pushes a 5, and then runs the function <code>+</code> on the top two items, pushing the result (8) onto the stack as a result. (In effect, everything only has left arguments.) This is because (a) it is much easier to program, and (b) it is nice to be different. I don’t believe it would be too hard to adapt Roger Hui’s amazing technicolor parse table (<em>Vector</em> 9.4, p.85) to get APL syntax.</p>
+<p>Secondly, it has native support for vectors (as befits a language written in a house exposed to APL for so many years). For example, try <code>[3 4][2 3] *</code> and you will see <code>(6 12)</code>. It will scalar extend, too; <code>5 #i 1 +</code> will produce <code>(2 3 4 5 6)</code> as you would expect.</p>
+<p>Finally, because it is in genuine .Net assemblies, you have access to all the classes in the Framework; for example <code>$System.Console "Hello, world" :WriteLine</code> will work just as it should.</p>
+<h2 id="arrays">Arrays<a class="headerlink" href="#arrays" title="Permanent link">&para;</a></h2>
+<p>Arrays in R are bounded by <em>square brackets</em>, and can be nested as deeply as you like. You can create heterogeneous arrays – such as <code>["Richard Smith" 19 "Gilling"]</code> – but there is little you can do with these apart from use them as a data store. Homogenous arrays (which are vectors, vectors of vectors etc), particularly of numbers, are much more useful as any simple primitives will also work on arbitrarily nested arrays; for example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>   [2 3 4 [5 6 7]] [[3 4 5] 1 1 [2 1 [2 1]]] *
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a> [(6 8 10) 3 4 [10 6 (14 7) ] ]
+</span></code></pre></div>
+<p>R has the usual array-manipulation features - <code>#get</code>, <code>#take</code>, <code>#drop</code>, <code>#resize</code> and <code>#reverse</code> do what you would expect. You can also flatten an array with <code>#apop</code> (effectively removing one level of nesting), and wrap up a number of values with <code>#apush</code>, making it possible to build arrays in the code as well.</p>
+<h2 id="functions-and-variables">Functions and Variables<a class="headerlink" href="#functions-and-variables" title="Permanent link">&para;</a></h2>
+<p>Of course no language is practical without being able to store and process data. R’s workhorse equivalent to the assignment arrow is <code>#def</code>, which is used in exactly the same way to define variables (<code>"qq" 13.5 #def</code>) and functions (<code>"AddTwo" {2 +} #def</code>). The difference is that function blocks are delimited by <em>curly brackets</em>; any assignment of a function block results in a function. When a token is resolved, a variable will have its content placed on the stack, whereas a function will be run.</p>
+<p>You may well want to create multi-line functions, and both the command-line and windowed versions of R let you do this at the session (as long as there is a brace open, anything you type is added to the block). You can also use <code>#ed</code> in the windowed version, which lets you edit pre-existing code as well as create new functions.</p>
+<p>Function blocks have other uses besides simply being assigned to names, although that is the most common. Control structures also use them, as do operators (e.g. <code>10 #i {+} #reduce</code>) and exception handlers (see Using .Net).</p>
+<h2 id="control-structures">Control Structures<a class="headerlink" href="#control-structures" title="Permanent link">&para;</a></h2>
+<p>R supports two flow-of-control functions (<code>#if</code> and <code>#ifelse</code>) and four types of loop (<code>#for</code>, <code>#forall</code>, <code>#loop</code> and <code>#repeat</code>). If and if-else blocks should be familiar (for example <code>1000 &gt; {$System.OutOfMemoryException "You can't ask for that many!" #create #error} #if</code>), but some of the loops will be less so (except to PostScript aficionados). <code>#for</code> takes 3 numbers – a start value, a step and an end value – rather like Basic’s <code>FOR I = 1 TO 10 STEP 2</code>. For example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>   1 2.5 8 {} #for
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> 1 3.5 6
+</span></code></pre></div>
+<p><code>#forall</code> works like a C# <code>foreach</code> statement, executing the block once for each item in an array. For example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>   [1 2.5 8] {2 +} #forall
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a> 3 4.5 10
+</span></code></pre></div>
+<p><code>#loop</code> repeats the block indefinitely, and <code>#repeat</code> repeats it a given number of times. Now, at this point you may well be saying “Why would you want to run an infinite loop?”, and yes, you can work the CPU quite hard with <code>{} #loop</code>. Of course, the answer is that you may well want to keep going until something happens, and when it does you will want to escape. The escape is provided by <code>#exit</code>, which leaves the innermost enclosing loop (think <code>break</code> in C); you can also use <code>#continue</code> which jumps back to the start of the loop (once again, think of the C <code>continue</code>).</p>
+<h2 id="using-net">Using .Net<a class="headerlink" href="#using-net" title="Permanent link">&para;</a></h2>
+<p>Because R.net is in real .Net assemblies, you can get at all the classes Microsoft kindly provides as part of the Framework. The name of a class starts with a $ sign (e.g. <code>$System.Console</code>), and you can access static methods and fields directly using <em>colon syntax</em>; for example <code>$System.Console "Hello, world, from R!" :WriteLine</code> will call the WriteLine method with one parameter, the string <em>Hello, world, from R!</em>. If you want to supply more than one parameter, use an array. For example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>   "System" #using
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>   $Int32 ["7F" $Globalization.NumberStyles:HexNumber] :Parse
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a> 127
+</span></code></pre></div>
+<p>This example also shows that you can reference fields without including a parameter list between the class and the colon (this works for methods with no argument list too), and the <code>#using</code> function, similar to C#’s <code>using</code> statement, to make use of the <code>System</code> namespace.</p>
+<p>Of course you will want to do more than just use static members of classes – you also need to be able to instantiate a class (create an object). You do this with the <code>#create</code> function, which takes a class and the arguments to its constructor and returns an instance of that class. You can then use colon syntax to get at the non-static members of the object. For example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>   "RCS" $System.DateTime [1983 10 04] #create #def
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>   RCS
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>04/10/1983 00:00:00
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>   RCS:Year
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>1983
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>   RCS 20:AddYears
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>04/10/2003 00:00:00
+</span></code></pre></div>
+<h2 id="exception-handling">Exception Handling<a class="headerlink" href="#exception-handling" title="Permanent link">&para;</a></h2>
+<p>All errors in R.net are thrown as .Net exceptions. For example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>   2 "a" +
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>System.InvalidCastException: Operands of type String and Integer cannot be passed to Plus
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>   at R.CoreFunctionality.FastPrimitives.Plus(IEngine engine, Symbol op1, Symbol op2, Boolean invert) in c:\DATA\SharpDevelop\R\CoreFunctionality\FastPrimitives.cs:line 523
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>   at R.CoreFunctionality.ExposedInterface.Plus(IEngine engine) in c:\DATA\SharpDevelop\R\CoreFunctionality\ExposedInterface.cs:line 23
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>   at R.Interpreter.Engine.ExecuteBlock(ArrayList tokens) in c:\DATA\SharpDevelop\R\Interpreter\R.cs:line 492
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>   at Session[1]
+</span></code></pre></div>
+<p>This is a complete .Net exception stack trace (including debugging info for the actual C# code), followed by the R function stack at the moment the exception was thrown. It may seem trivial here, but if we have an error somewhere deep in our code it can be very useful:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>System.MissingMemberException: Undefined token .exit
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>   at R.Interpreter.Engine.ExecSymbol(String name) in c:\DATA\SharpDevelop\R\Interpreter\R.cs:line 405
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>   at R.Interpreter.Engine.ExecuteBlock(ArrayList tokens) in c:\DATA\SharpDevelop\R\Interpreter\R.cs:line 489
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>   at #if[1]
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>   at #loop[2]
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>   at Eratos[13]
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>   at Session[1]
+</span></code></pre></div>
+<p>This also means that exceptions from external calls fit into the R error model, and produce a similar stack trace:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>   $System.Int32 "hello" :Parse
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>System.FormatException: Input string was not in a correct format.
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>   at R.Interpreter.Engine.ExecuteBlock(ArrayList tokens) in c:\DATA\SharpDevelop\R\Interpreter\R.cs:line 573
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>   at Session[1]
+</span></code></pre></div>
+<p>Now, as well as seeing what you did wrong, you might want to catch the exception and do some other processing. This is accomplished with the <code>#trap</code> function, which works in a similar way to the <code>try</code> ... <code>catch</code> blocks in other languages – you can trap for a number of different exceptions and provide handlers for each. A good example is reading properties that are supposed to be numbers, where you might do something like <code>{ "num" $Int32 str :Parse #def } [[$FormatException { "num" 0 #def}]] #trap</code> to use a default value where it was not numeric. Or you might want a file loading routine like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>"LoadFile" {
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a> // Load a text file and return its content
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a> #pushdict
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a> "fnm" #exch #def
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a> {
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>  "sr" $IO.File fnm :OpenText #def
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>  "res" "" #def
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>  {
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>   "thisline" sr:ReadLine #def
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>   thisline #null = {#exit}{"res" res thisline ; '\n' ; #def} #ifelse
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>  } #loop
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>  res
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a> } [ [$IO.FileNotFoundException { "File " fnm ; " was not found" ; #output "" }]
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>   [$Exception {"Unexpected error occured!" #output ""} ] ] #trap
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a> #popdict } #def
+</span></code></pre></div>
+<h2 id="dictionaries">Dictionaries<a class="headerlink" href="#dictionaries" title="Permanent link">&para;</a></h2>
+<p>The <code>LoadFile</code> example also shows how scope is managed in R. Instead of having localisation at the function level, it uses <em>dictionary scope</em> (like PostScript), where names are saved in the topmost dictionary. The <code>#pushdict</code> function pushes a new dictionary onto the top of the stack, effectively localising everything following it, and <code>#popdict</code> removes the dictionary <em>and its contents</em>, leaving the symbol table in the state it was before <code>#pushdict</code> was run.</p>
+<p>This means that you can control (and see) exactly where localised areas of code are; however, it has a couple of bad points – firstly, if an error occurs inside a local region, you have to manually <code>#popdict</code> the dictionaries; and secondly, it is not possible to save data in the base dictionary from within a local region (you have to leave it on the stack until the region is left, and then save it). Neither of these drawbacks is terribly severe.</p>
+<h2 id="namespaces">Namespaces<a class="headerlink" href="#namespaces" title="Permanent link">&para;</a></h2>
+<p>R.net supports ‘shallow’ namespaces, i.e. there is only one symbol table and system state, which pervades all the namespaces. In fact a namespace is just a way of avoiding name clashes, and a namespace exists only because it contains data. For example, type <code>"one.qq" 23 #def</code> and you will automatically create a <code>one</code> namespace (it appears in the tree in the IDE); erase the variable and it will disappear again.</p>
+<p>A function can call functions and variables in other namespaces by using a relative path between them (using dots to separate namespaces, <code>@</code> for root and <code>@@</code> for parent) – for example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>   "base" { one.fn } #def
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>   "one.fn" { two.fn } #def
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>   "one.two.fn" { @@.var } #def
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>   "one.var" 17 #def
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>   base
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a> 17
+</span></code></pre></div>
+<p>You can move around the namespace tree using <code>#cs</code> (similar to Dyalog’s <code>)cs</code>), and find out where you are with <code>#curns</code>. For example, you could have coded the previous example as:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>   "base" { one.fn } #def
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>   "one" #cs
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>   "fn" { two.fn } #def
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>   "two" #cs
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>   "fn" { @@.var } #def
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>   "@@.var" 17 #def
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>   "@" #cs
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>   base
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a> 17
+</span></code></pre></div>
+<p>You can see what namespaces are defined by using <code>#spaces</code>, or by looking at the tree in the IDE.</p>
+<h2 id="loading-and-saving">Loading and Saving<a class="headerlink" href="#loading-and-saving" title="Permanent link">&para;</a></h2>
+<p>R uses scripts as its storage system, and a script is just a plain text file containing executable R code. For example, here is a script which gets prime numbers by a very well-known route:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>// R Script created by the ScriptWriter 2.1
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>// Saved at 07/09/2003 20:48:39
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>"@" #cs
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>"Eratos" {#pushdict
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>"max" #exch #def
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>"primes" [1] #def
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>"candidates" max #i 1 #drop #def
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>{
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a> candidates #size [0] = {#exit} #if
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a> "check" candidates 1 #get #def
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a> check "" ;#setstatus
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a> "primes" primes check , #def
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a> "candidates" 0 candidates check % &lt; candidates #exch #compress #def
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>} #loop
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>primes
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>#popdict} #def
+</span></code></pre></div>
+<p>As you can see, this one was actually saved by the ScriptWriter (the <code>#save</code> function in the interpreter), which saves all functions and variables present in a script file. You can also see that it is perfectly possible to edit the scripts in a standard text editor. To run a script, use the <code>#run</code> function.</p>
+<p>Of course, there is no reason why a script cannot contain executable code as well as (or instead of) <code>#def</code> calls – in this case the code will be run when <code>#run</code> is executed, and then discarded.</p>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>R.net has certainly fulfilled its primary objective, which was to teach me how to use C# and get to grips with the .Net Framework. I think it also does quite well on its secondary, namely to be a moderately useful programming tool. With its support for vectors and native calls to the Framework it fills a gap which is currently unfilled, since although Dyadic are moving towards .Net they do not yet have a fully managed, small (the whole of R is only 220Kb, 50Kb of which is the documentation) interpreter in which it is easy to call the rest of the Framework.</p>
+<p>There are a few things still on the wish list – support for delegates, multidimensional arrays and deep arrays in the interface to the Framework, images in the treeview in the IDE (although this is actually SharpDevelop’s bug!) and better resumption of execution after an error – but overall I am pleased with it.</p>
+<p>20th September 2003</p>
+<hr />
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

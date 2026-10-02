@@ -1,0 +1,243 @@
+NB.                    topcoderfarfromprimeEG.txt
+
+[from http://www.topcoder.com/stat?c=problem_statement&pm=6074&rd=9812]
+Problem Statement for FarFromPrimes
+Problem Statement
+
+A prime number is an integer greater than 1 that has no positive
+divisors other than 1 and itself. The first prime numbers are 2, 3, 5,
+7, 11, 13, 17, ...
+
+The number N is considered far from primes if there are no prime
+numbers between N-10 and N+10, inclusive, i.e., all numbers N-10, N-9,
+..., N-1, N, N+1, ..., N+9, N+10 are not prime.
+
+You are given an int A and an int B. Return the number of far from
+primes numbers between A and B, inclusive.
+
+Definition
+Class:FarFromPrimes
+Method:count
+Parameters:int, int
+Returns:int
+Method signature:int count(int A, int B)
+(be sure your methodis public)
+
+Constraints
+-A will be between 10 and 100000, inclusive.
+-B will be between A and 100000, inclusive.
+-(B - A) will be between 0 and 1000, inclusive.
+
+Examples:
+
+0)
+3328
+4100
+Returns: 4
+The far from primes numbers are 3480, 3750, 3978 and 4038.
+
+1)
+10
+1000
+Returns: 0
+
+2)
+19240
+19710
+Returns: 53
+
+3)
+23659
+24065
+Returns: 20
+
+4)
+97001
+97691
+Returns: 89
+
+
+            +.--------------------+.
+    Statistics
+    ----------
+ Problem Name:  	 FarFromPrimes
+Used In: 	SRM 291
+Used As: 	Division II Level One
+Categories: 	Brute Force, Math
+
+ Competitors  	494
+Opens 	482
+Percent Open 	97.57%
+Percent Submitted 	84.44%
+Overall Accuracy 	51.82%
+
+ 	Java  	C ++  	C#  	VB  	Overall
+Problems Submitted 	165 	199 	33 	10 	407
+Problems Correct 	99 	135 	16 	6 	256
+Submission Accuracy 	60.00% 	67.84% 	48.48% 	60.00% 	62.90%
+Problems Failed by Challenge 	24 	21 	5 	0 	50
+Problems Failed by System Test 	42 	43 	12 	4 	101
+Challenge Attempts Made 	89 	85 	11 	0 	185
+Challenge Accuracy 	26.97% 	24.71% 	45.45% 	0.00% 	27.03%
+Best Time 	0:03:41.731 	0:02:24.493 	0:03:33.782 	0:10:28.505 	0:02:24.493
+High Scorer 	the_real_janski 	fpavetic 	Skipy 	Archimedean1 	fpavetic
+Top Submission 	view 	view 	view 	view 	view
+Average Correct Time 	0:19:28.695 	0:18:08.615 	0:15:05.521 	0:16:12.882 	0:18:25.179
+
+            +.--------------------+.
+ Problem Statistics for Single Round Match 291 > Round 1 > Room 30 > the_real_janski
+	Class Name 	Method Name 	Difficulty 	Status 	Points 	
+	[ FarFromPrimes ] 	count 	Level One 	Passed System Test 	245.85 	
+	Snowflakes 	flareOut 	Level Two 	Passed System Test 	381.58 	
+	CrazySwitches 	minimumActions 	Level Three 	Failed System Test 	492.85 	
+View FarFromPrimes  Problem Statement
+public class FarFromPrimes {
+ 
+  public boolean prime(int n) {
+        for (int i = 2; i*i <= n; i++)
+          if (n % i == 0)
+            return false;
+        return true;
+  }
+  
+  public boolean far(int n) { 
+    for (int i = n-10; i <= n+10; i++) {
+       if (prime(i))
+         return false;
+    }
+    return true;      
+  }
+  
+  public int count(int A, int B) {
+    int count = 0;
+    for (int i = A; i <= B; i++) {
+      if (far(i)) 
+        count++;
+    }
+    return count;
+  }
+}
+ System Test Results
+	Test Arguments 		Expected Results 		Success 	
+	3328, 4100 		4 		Passed 	
+	10, 1000 		0 		Passed 	
+	19240, 19710 		53 		Passed 	
+	23659, 24065 		20 		Passed 	
+...
+	3480, 3750 		2 		Passed 	
+	9000, 9713 		21 		Passed 	
+
+            +.--------------------+.
+ Problem Statistics for Single Round Match 291 > Round 1 > Room 27 > fpavetic
+	Class Name 	Method Name 	Difficulty 	Status 	Points 	
+	[ FarFromPrimes ] 	count 	Level One 	Passed System Test 	248.21 	
+	Snowflakes 	flareOut 	Level Two 	Passed System Test 	360.49 	
+	CrazySwitches 	minimumActions 	Level Three 	Opened 	0.00 	
+View FarFromPrimes  Problem Statement
+#include <iostream>
+#include <cstdio>
+#include <vector>
+#include <set>
+#include <map>
+#include <string>
+#include <algorithm>
+#include <sstream>
+#include <functional>
+#include <utility>
+#include <cstring>
+#include <cmath>
+#include <cstdlib>
+
+using namespace std; 
+ 
+ class FarFromPrimes { 
+ public: 
+    int isprime( int a ) {
+        if( a < 2 ) return 0;
+        if( a == 2 ) return 1;
+        if( a % 2 == 0 ) return 0;
+
+        for( int i = 3; i * i <= a; i += 2 )
+            if( a % i == 0 )
+                return 0;
+        return 1;
+    }
+    int ok( int a ) {
+        for( int i = a-10; i <= a+10; ++i )
+            if( isprime( i ) )
+                return 0;
+        return 1;
+    }
+    int count( int A, int B ) { 
+    int c = 0;
+     for( int i = A; i <= B; ++i )
+        c += ok( i );
+        return c;
+   } 
+     
+   
+  
+ }; 
+ 
+// Powered by FileEdit
+// Powered by TZTester 1.01 [25-Feb-2003]
+// Powered by CodeProcessor
+            +.--------------------+.
+
+
+   qts''
+2006 2 24 9 29 28.637
+
+   p: 10
+31
+   p: i.10
+2 3 5 7 11 13 17 19 23 29
+   prms=. p: i. 2000
+   p: 2000
+17393
+   prms=. prms#~prms<:10000
+   $prms
+1229
+   difs=. 2-~/\prms
+   >./difs
+36
+
+   prms=. prmsBtw 3328 4100
+   I. 20<difs=. 2-~/\prms
+18 53 80 88
+   0 1+/I. 20<difs=. 2-~/\prms
+18 53 80 88
+19 54 81 89
+   prms{~0 1+/I. 20<difs=. 2-~/\prms
+3469 3739 3967 4027
+3491 3761 3989 4049
+   -:+/prms{~0 1+/I. 20<difs=. 2-~/\prms
+3480 3750 3978 4038
+   prms=. prmsBtw 19240 19710
+
+   +/<:-~/10 _10+"(0 1)prms{~0 1+/I. 23<difs=. 2-~/\prms
+53
+   ffp
+3 : '+/_21+-~/prms{~0 1+/I. 22<2-~/\prms=. crnumvec y.'
+   ffp=: 3 : '+/<:-~/10 _10+"(0 1)prms{~0 1+/I. 22<2-~/\prms=. crnumvec y.'
+   ffp&.>3328 4100;10 1000;19240 19710;23659 24065;97001 97691
++-+-+--+--+--+
+|0|0|53|19|87|
++-+-+--+--+--+
+   ffp=: 3 : '+/<:-~/10 _10+"(0 1)prms{~0 1+/I. 21<2-~/\prms=. crnumvec y.'
+   ffp&.>3328 4100;10 1000;19240 19710;23659 24065;97001 97691
++-+-+--+--+--+
+|4|0|53|20|89|
++-+-+--+--+--+
+
+ffp=: 3 : '+/<:-~/10 _10+"(0 1)prms{~0 1+/I. 21<2-~/\prms=. crnumvec y.'
+
+crnumvec=: 3 : '(<./y.),(>./y.),~prmsBtw (<./,>./)y.'
+
+prmsBtw=: 3 : 0
+   y.=. (<./,>./)y.
+   pt=. p: nt=. >. 1.2*(1{y.)%^.1{y.
+   while. pt<1{y. do. pt=. p: nt=. nt+100 end.
+   prms=. p: i. nt
+   prms=. prms#~(prms>:0{y.)*.prms<:1{y.
+)

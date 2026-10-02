@@ -1,0 +1,1963 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10000480/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Developer Productivity with APLX v3 and SQL - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#code-re-use-with-na" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Developer Productivity with APLX v3 and SQL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code-re-use-with-na" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Code re-use with <span class="APLU">⎕na</span>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#charts-using-chart" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Charts using <span class="APLU">⎕chart</span>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structured-query-language-using-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Structured Query Language using <span class="APLU">⎕sql</span>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typical-dsn-less-connection-strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Typical DSN-less Connection Strings
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connecting-to-the-data-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Connecting to the Data Source
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#db2-can-connect-either-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        DB2 can connect either way
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Working with Tables
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Working with SQL
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#text-files-as-relational-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Text Files as Relational Tables
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#excel-workbooks-as-relational-data-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Excel Workbooks as Relational Data Sources
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-browser-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Browser Object
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#navigating-sql-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Navigating SQL Results
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#on-do-and-fetch" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        On ‘Do’ and ‘Fetch’
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-purpose-of-named-result-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What is the Purpose of Named Result Sets?
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What is the Purpose of Named Result Sets?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multiple-named-result-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Multiple Named Result Sets
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamic-parameter-substitution" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dynamic Parameter Substitution
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#email-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Email Management
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finally" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Finally
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Developer Productivity with APLX v3 and SQL</h1>
+
+  <p class="printed"><a href="../21/4/">Vector 21:4</a>, page 117</p>
+
+<p class="byline">by Ajay Askoolum</p>
+<p>MicroAPL have released version 3.0 of their APLX interpreter; this version offers major (unique) enhancements in the way APL can handle data in the workspace and manage its transfer and acquisition to and from other applications/resources available in the host environment.</p>
+<p>All the enhancements are exposed using new <span class="APLU">⎕</span> functions and new objects for the <span class="APLU">⎕wi</span> function. This may seem like pandering to the APL developer who does not want to stray beyond the comfort zone of the workspace. However, APLX is a cross-platform interpreter and <span class="APLU">⎕</span> functions, where the interpreter transparently manages the internal differences, are a clean way of providing consistent facilities.</p>
+<p>Should the developer choose to build for a single platform, say, Windows, APLX can also harness platform-specific features such as Win32 APIs. The deployment of APIs not only makes an application robust (and endows APLX with behaviour consistent with other applications that deploy the same APIs) but also saves the overhead of writing, testing, and maintaining APL code for the same purpose.</p>
+<h2 id="code-re-use-with-na">Code re-use with <span class="APLU">⎕na</span><a class="headerlink" href="#code-re-use-with-na" title="Permanent link">&para;</a></h2>
+<p>Consider the following task: programmatically verify the existence of an Access database and if it does not exist, create it – bear in mind that an MDB file has a custom internal structure. The application expects a database named C:\MYLOC\QTR1\MYDB.MDB. The likely scenarios are as follows:</p>
+<ul>
+<li>One or more levels in the path tree, and therefore the file, do not exist.</li>
+<li>The path exists but the file does not.</li>
+<li>Neither the path nor the file exists.</li>
+</ul>
+<p>A pure APL solution will not only be verbose but also require the Access application (used as a COM server) to create the file if it does not exist. A solution based on APIs is simpler – in this instance, neither the path nor the file exists.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>       ∇CreateMDB
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a> [1]   File←'C:\MYLOC\QTR1\MYDB.MDB' ⍝ File to create
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a> [2]   Path←(⌽∨\'\'=⌽R)/R
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a> [3]   'MakeSureDirectoryPathExists' ⎕na
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>             'I4 imagehlp|MakeSureDirectoryPathExists &lt;CT[*]'
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a> [4]   0 0⍴MakeSureDirectoryPathExists Path
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a> [5]   'PathFileExists' ⎕na 'I4 shlwapi|PathFileExistsA &lt;CT[*]'
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a> [6]   :If ~×PathFileExists File
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a> [7]     'SQLConfigDataSource' ⎕na
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>              'odbccp32|SQLConfigDataSource U4 U2 &lt;CT[*] &lt;CT[*]'
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a> [8]     SQLConfigDataSource 0 4
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>              'Microsoft Access Driver (*.mdb)'('CREATE_DB=',File)
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a> [9]   :EndIf
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>       ∇  2005-05-07 9.12.09
+</span></code></pre></div>
+<p>The Internet and the APLX manuals, respectively, document and clarify the deployment of Win32 APIs. After running this function, it would be possible to verify the existence of the database using the PathFileExists function. A more robust test is to verify whether Access can open the file.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>       'AC' ⎕wi 'Create' 'Access.Application'
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>       'AC' ⎕wi 'XOpenCurrentDataBase' 'C:\MYLOC\QTR1\MYDB.MDB'
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>       'AC' ⎕wi 'XCurrentProject.FullName 'C:\MYLOC\QTR1\MYDB.MDB
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>       'AC' ⎕wi 'Quit'
+</span></code></pre></div>
+<p>Access does indeed recognise the new file. This demonstrates how close APL comes to application development by the collation of existing building blocks.</p>
+<h2 id="charts-using-chart">Charts using <span class="APLU">⎕chart</span><a class="headerlink" href="#charts-using-chart" title="Permanent link">&para;</a></h2>
+<p>In his book, <em>Les APL Étendus</em> (Masson, 1994, ISBN 2-225-84579-4), B. Legrand discusses the area and perimeter of 2-D surfaces using a chart example. In a single expression, APLX draws the surface, as shown in <a href="#fig1">Figure 1</a>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>'type=line' 'x=First' 'title=Les APL Étendus' ⎕chart ⊃x y
+</span></code></pre></div>
+<p>This function provides a powerful tool for visualising data on demand: for example, a menu option can read any highlighted data from any source – the grid object, a text file, or an HTML page in the browser object – and provide a chart, and allow the user complete control on its presentation via the standard menu.</p>
+<table border="0" cellspacing="0" cellpadding="4" width="100%">
+
+  <tr>
+
+    <td width="40%" valign="top">
+
+
+      <p class="Bodytext">The x-y coordinates of the surface are:</p>
+
+      <pre class="APLU"> x←0 2   2  1 ¯1 ¯1 ¯2 ¯1 0
+ y←2 0 ¯2 ¯3 ¯1  0  1  2 2</pre>
+
+      <p class="Bodytext">The menu options allow further dynamic
+  refinements and the saving of the chart as a free-standing file. Even Excel
+  requires multiple steps and programming to achieve the same result!</p>
+    </td>
+    <td width="59%" valign="top">
+
+
+      <p class="Picture">
+          <a name="fig1"></a>
+
+          <img width="355" height="235" src="./ajay214_files/image002.jpg" v:shapes="_x0000_i1025">
+
+          </p>
+
+      <p align="center"><b>Figure 1. Legrand’s Chart</b></p>
+    </td>
+  </tr>
+
+</table>
+
+<p>This is a powerful demonstration of APLX’s ability to enhance programmer productivity. Besides the system function <span class="APLU">⎕chart</span> there is a chart and a series object, accessible via the standard <span class="APLU">⎕wi</span> function, for more sophisticated graphical representation of workspace data.</p>
+<h2 id="structured-query-language-using-sql">Structured Query Language using <span class="APLU">⎕sql</span><a class="headerlink" href="#structured-query-language-using-sql" title="Permanent link">&para;</a></h2>
+<p>This system function provides a platform independent means of accessing any ODBC-compliant data source (USER/SYSTEM Data Source Names (DSNs) or DSN-less connections are supported but not provider connections.) It takes an optional left-hand argument, and returns a 3-element nested result; the right-hand argument varies depending on the first element of the right-hand argument.</p>
+<p>It is not as flexible/powerful as raw ODBC API calls or as ActiveX Data Object (ADO). However, <span class="APLU">⎕sql</span> is much simpler to use and fits with traditional APL programmer expectations: all the code and data is in the workspace.</p>
+<p>I would recommend that the optional-left-hand argument is always specified, and that DSN-less connections be used for the following reasons:</p>
+<p>The left-hand argument is an integer that represents the handle of an ODBC connection. Should multiple concurrent connections be necessary, it is advisable to specify the left-hand argument: it provides the context for <span class="APLU">⎕sql</span> operations. The default tie number is 0 and both positive and negative numbers may be used.</p>
+<p>Both USER (accessible only by the user who creates it) and SYSTEM (accessible by any user of the computer on which it exists) DSNs are stored in the Windows Registry: besides the overhead of reading the Registry, such DSNs are not easily distributable with an application. FILE DSNs (held in the filing system and therefore easily distributable) are not supported.</p>
+<p>In order to be able to associate the left-hand argument with a data source, you might consider using an implicit numbering convention such as the one listed in Table 1.</p>
+<table border="1" cellspacing="0" cellpadding="2">
+
+  <tr>
+
+    <td width="200" valign="top" bgcolor="#E0E0E0">
+
+
+      Left-Hand Argument</td>
+    <td width="409" valign="top" bgcolor="#E0E0E0">
+
+
+      Data Source</td>
+  </tr>
+
+  <tr>
+
+    <td width="200" valign="top">
+
+
+      16</td>
+    <td width="409" valign="top">
+
+
+      Text files, including CSV files</td>
+  </tr>
+
+  <tr>
+
+    <td width="200" valign="top">
+
+
+      32 </td>
+    <td width="409" valign="top">
+
+
+      Excel workbooks</td>
+  </tr>
+
+  <tr>
+
+    <td width="200" valign="top">
+
+
+      64 </td>
+    <td width="409" valign="top">
+
+
+      Access databases</td>
+  </tr>
+
+  <tr>
+
+    <td width="200" valign="top">
+
+
+      128 </td>
+    <td width="409" valign="top">
+
+
+      Oracle databases</td>
+  </tr>
+
+  <tr>
+
+    <td width="200" valign="top">
+
+
+      256</td>
+    <td width="409" valign="top">
+
+
+      SQL Server databases</td>
+  </tr>
+
+  <tr>
+
+    <td width="200" valign="top">
+
+
+      512</td>
+    <td width="409" valign="top">
+
+
+      DB2 databases</td>
+  </tr>
+  <caption align="bottom"><a name="table1"><b>Table 1. Making tie numbers intuitive</b></a></caption>
+</table>
+
+<p>This numbering scheme bestows the tie numbers with clues as to their respective data sources; should multiple tie numbers be required, increment the base tie number by one (subject to not exceeding the base number for the next data source). This may be especially helpful when an application supports several data sources: given the tie number, the help desk will know what data source is involved. If this convention is used, the following function will return the association of tie number to data source (note: the function does not verify whether the elements of its right-hand argument actually exist as tie numbers):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>      ∇Z←L Tie R
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>[1]   (Z L)←R(R≠0)
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>[2]   Z←L/Z
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>[3]   Z←('Text' 'Excel' 'Access' 'Oracle' 'SQL Server' 'DB2' 'Unknown')
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>          [16 32 64 128 256 512⍳2*⌊2⍟|Z]
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>[4]   Z←L\Z
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>[5]   ((~L)/Z)←⊂'Unknown'
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>[6]   Z←(⊃,¨R),⊃Z ⍝ TIP: ,¨ turns simple vectors into nested vectors
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>      ∇  2005-05-22 9.08.34
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>         ⎕sql 'Connections'
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>   129 258 0 ¯512 513 512
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>         Tie (⎕sql 'Connections'),8982
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>     129 Oracle
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>     258 SQL Server
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>       0 Unknown
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    ¯512 DB2
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>     513 DB2
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>     512 DB2
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    8982 Unknown
+</span></code></pre></div>
+<h2 id="typical-dsn-less-connection-strings">Typical DSN-less Connection Strings<a class="headerlink" href="#typical-dsn-less-connection-strings" title="Permanent link">&para;</a></h2>
+<p>Table 2 lists typical connection strings for the data sources considered:</p>
+<table border="1" cellspacing="0" cellpadding="2">
+
+  <tr>
+
+    <td valign="top" bgcolor="#E0E0E0" width="104">
+
+
+      Data Source</td>
+    <td width="534" valign="top" bgcolor="#E0E0E0">
+
+
+      Connection String
+    </td>
+  </tr>
+
+  <tr>
+
+    <td width="104" valign="top">
+
+
+      Text
+    </td>
+    <td width="534" valign="top">
+
+
+      Driver={Microsoft Text Driver (*.txt;
+  *.csv)};DBQ=C:\;
+    </td>
+  </tr>
+
+  <tr>
+
+    <td width="104" valign="top">
+
+
+      Excel
+    </td>
+    <td width="534" valign="top">
+
+
+      Driver={Microsoft Excel Driver
+  (*.xls)};DBQ=C:\APLX.XLS;
+    </td>
+  </tr>
+
+  <tr>
+
+    <td width="104" valign="top">
+
+
+      Access
+    </td>
+    <td width="534" valign="top">
+
+
+      Driver={Microsoft Access Driver
+  (*.mdb)};DBQ=C:\APLX.MDB;
+    </td>
+  </tr>
+
+  <tr>
+
+    <td width="104" valign="top">
+
+
+      Oracle
+    </td>
+    <td width="534" valign="top">
+
+
+      Driver={Oracle in
+  OraHome9};Server=D2K1Z01J;Database=hr;UID=@;PWD=#;
+    </td>
+  </tr>
+
+  <tr>
+
+    <td width="104" valign="top">
+
+
+      SQL Server
+    </td>
+    <td width="534" valign="top">
+
+
+      Driver={SQL
+  Server};Server=D2K1Z01J;Database=pubs;UID=@;PWD=#;
+    </td>
+  </tr>
+
+  <tr>
+
+    <td width="104" valign="top">
+
+
+      DB2
+    </td>
+    <td width="534" valign="top">
+
+
+      Driver={IBM DB2 ODBC DRIVER};UID= @;PWD=
+  #;DBALIAS=SAMPLE;
+    </td>
+  </tr>
+  <caption align="bottom"><b>Table 2. Connection strings</b></caption>
+</table>
+
+<p>Some aspects of the connection strings need clarification:</p>
+<p>Parts of connection string will vary depending on your setup; @ denotes the user ID, # denotes the password; if either or both of these parameters are blank, they can be omitted, alternatively, use =; as their respective values.</p>
+<p>For the Text driver, DBQ denotes the location but for the Excel and Access drivers, it denotes a fully qualified file name.</p>
+<p>For Oracle, HR is a supplied database as is PUBS for SQL Server.</p>
+<p>For DB2, SAMPLE is an alias for the default TOOLSDB database created during setup; DBALIAS= is a hybrid of the Microsoft DBQ= and Oracle Database= parameters.</p>
+<p>For Oracle, the driver name is likely to vary, depending on the version installed.</p>
+<p>For Oracle and SQL Server, the server name will vary.</p>
+<p>For MSDE2000 (found on the Office 2000 Professional CD) and SQLExpress (the beta version is freely downloadable subject to end user license agreement from Microsoft) use the SQL Server connection string. These work with SQL Server databases but have restrictions on size and the number of concurrent users; they can be used for development and the databases can be upgraded to SQL Server.</p>
+<p>On the Windows platform, ODBC compliant data sources include:</p>
+<p>Text files, including CSV files; fixed and ragged edge records are supported.</p>
+<p>Excel workbooks.</p>
+<p>File based databases such as Access.</p>
+<p>Server based databases such as Oracle, SQL Server, DB2, etc.</p>
+<p><span class="APLU">⎕sql</span> can enumerate the DB2 databases that are available: for DB2, the dedicated syntax for connection does not rely on the specification of a driver.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>           ⎕sql 'DataSources' 'aplxdb2'
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>      0 0 0 0    TOOLSDB
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>                 SAMPLE
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>           ⎕sql 'DataSources' 'aplxodbc'
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>      0 0 0 0    MQIS                   SQL Server
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>                 Visio Database Samples Microsoft Access Driver (*.MDB)
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>                 MS Access Database     Microsoft Access Driver (*.mdb)
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>                 Excel Files            Microsoft Excel Driver (*.xls)
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>                 dBASE Files            Microsoft dBase Driver (*.dbf)
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>                 LocalServer            SQL Server
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>                 ORACLE9                Oracle in OraHome9
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>                 Text Driver            Microsoft Text Driver (*.txt; *.csv)
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>                 MYACCESS               Microsoft Access Driver (*.mdb)
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>                 IBM                    IBM DB2 ODBC DRIVER
+</span></code></pre></div>
+<p>It can also enumerate the ODBC drivers installed on a computer. On Linux and MacOS platforms, use unixODBC and iODBC drivers and data sources.</p>
+<h2 id="connecting-to-the-data-source">Connecting to the Data Source<a class="headerlink" href="#connecting-to-the-data-source" title="Permanent link">&para;</a></h2>
+<p>Without a connection to an underlying data source, <span class="APLU">⎕sql</span> is not of much use. Table 3 lists its parameters.</p>
+<table border="1" cellspacing="0" cellpadding="2">
+
+  <tr>
+
+    <td width="13%" valign="top" bgcolor="#E0E0E0">
+
+
+      Parameters</td>
+    <td width="21%" valign="top" bgcolor="#E0E0E0">
+
+
+      Value</td>
+    <td width="64%" valign="top" bgcolor="#E0E0E0">
+
+
+      Notes</td>
+  </tr>
+
+  <tr>
+
+    <td width="13%" valign="top">
+
+
+      First</td>
+    <td width="21%" valign="top">
+
+
+      'Connect'</td>
+    <td width="64%" valign="top">
+
+
+      Always the same string. This is not as
+  senseless as it might first appear.</td>
+  </tr>
+
+  <tr>
+
+    <td width="13%" valign="top">
+
+
+      Second</td>
+    <td width="21%" valign="top">
+
+
+      'aplxodbc' or 'aplxdb2' </td>
+    <td width="64%" valign="top">
+
+
+      MicroAPL use aplxodbc for ODBC data
+  sources and aplxdb2 for DB2: Either may be used for DB2, depending on the
+  third argument.</td>
+  </tr>
+
+  <tr>
+
+    <td width="13%" valign="top">
+
+
+      Third</td>
+    <td width="21%" valign="top">
+
+
+      Connection String or DSN name</td>
+    <td width="64%" valign="top">
+
+
+      The connections string and DSN may
+  include the additional UID and PWD parameters.</td>
+  </tr>
+
+  <tr>
+
+    <td width="13%" valign="top">
+
+
+      [Fourth]</td>
+    <td width="21%" valign="top">
+
+
+      Other value </td>
+    <td width="64%" valign="top">
+
+
+      Optional. If necessary, specify UID.</td>
+  </tr>
+
+  <tr>
+
+    <td width="13%" valign="top">
+
+
+      [Fifth]</td>
+    <td width="21%" valign="top">
+
+
+      Other value</td>
+    <td width="64%" valign="top">
+
+
+      Optional. If necessary, specify PWD.</td>
+  </tr>
+  <caption align="bottom"><b>Table 3 Parameters</b></caption>
+</table>
+
+<p>Should the parameters specified be incomplete, <span class="APLU">⎕sql</span> invokes the ODBC administrator dialogues to request additional information in order to establish a successful connection.</p>
+<h2 id="db2-can-connect-either-way">DB2 can connect either way<a class="headerlink" href="#db2-can-connect-either-way" title="Permanent link">&para;</a></h2>
+<p>Although MicroAPL have suggested the use of ‘aplxdb2’ for connection to DB2, ‘aplxodbc’ may also be used to access DB2 databases. This function demonstrates that it is possible to connect to DB2 databases using either ‘aplxodbc’ or ‘aplxdb2’:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>     ∇IBM
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>[1] ⍝ Disconnect from all sources
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>[2]  0 0⍴∊(OEsql 'Connections')OEsql¨⊂'Disconnect'
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>[3] ⍝ Connect using aplxodbc
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>[4]  0 0⍴∊512 OEsql 'Connect' 'aplxodbc' 'Driver={IBM DB2 ODBC DRIVER};UID= ;PWD= ;DBALIAS=SAMPLE;'
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>[5] ⍝ Connect using aplxdb2
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>[6]  0 0⍴∊513 OEsql 'Connect' 'aplxdb2' 'SAMPLE'
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>[7]  (RC RM DataODBC)←512 OEsql 'Do' "SELECT * FROM EMP_ACT where PROJNO LIKE 'IF%' AND ACTNO&lt;100;"
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>[8]  (RC RM DataDB2)←513 OEsql 'Do' "SELECT * FROM EMP_ACT where PROJNO LIKE 'IF%' AND ACTNO&lt;100;"
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>     ∇ 2005-05-22 8.24.05
+</span></code></pre></div>
+<p>The two results – one based on ‘aplxodbc’ and the other on ‘aplxdb2’ – are identical. The data is returned as a nested matrix as shown in Figure 2.</p>
+<p>The variables RC and RM return debugging information; in this specific instance, I know that there is nothing to debug as the expressions have worked.</p>
+<p>Line [7] shows how to record the return values from <span class="APLU">⎕sql</span>.</p>
+<p>The connection syntax is simpler, as seen in line [6], when using ‘aplxdb2’; however, the syntax in line [4] is more generic.</p>
+<p>All the records resulting from the SQL is returned to the workspace: runtime workspace full errors are likely when processing a large number of records. On the other hand, as the data is in the workspace, it can easily be presented in the grid object. Moreover, if APLX is used to query databases interactively, it is preferable to have all the data in the workspace.</p>
+<table border="0" cellspacing="0" cellpadding="4" width="750">
+
+  <tr>
+
+    <td width="466" valign="top">
+
+      <pre class="APLU" style="line-height:100%;">
+┌→───────────────────────────────────────────────────┐
+↓ ┌→─────┐ ┌→─────┐        ┌→─────────┐ ┌→─────────┐ │
+│ │000030│ │IF1000│ 10 0.5 │1982-06-01│ │1983-01-01│ │
+│ └──────┘ └──────┘        └──────────┘ └──────────┘ │
+│ ┌→─────┐ ┌→─────┐        ┌→─────────┐ ┌→─────────┐ │
+│ │000030│ │IF2000│ 10 0.5 │1982-01-01│ │1983-01-01│ │
+│ └──────┘ └──────┘        └──────────┘ └──────────┘ │
+│ ┌→─────┐ ┌→─────┐        ┌→─────────┐ ┌→─────────┐ │
+│ │000130│ │IF1000│ 90 1   │1982-01-01│ │1982-10-01│ │
+│ └──────┘ └──────┘        └──────────┘ └──────────┘ │
+│ ┌→─────┐ ┌→─────┐        ┌→─────────┐ ┌→─────────┐ │
+│ │000140│ │IF1000│ 90 0.5 │1982-10-01│ │1983-01-01│ │
+│ └──────┘ └──────┘        └──────────┘ └──────────┘ │
+└∊───────────────────────────────────────────────────┘</pre>
+
+
+      <p align="center"><b>Figure 1 <span class="APLU">⎕sql</span> result</b></p>
+    </td>
+    <td width="282" valign="top" class="indent">
+
+
+      <p>There is an inconsistency: numeric values are simple scalars and
+  strings are nested vectors. This has the potential of causing unexpected
+  runtime errors.</p>
+
+      <p>Date values are returned as string in ISO 8601 format, that is, YYYY-MM-DD HH:MM:SS.</p>
+
+      <pre class="APLU">     ⍴⊃DataDB2[1;5] ⍝ This is a Date
+10
+     DataDB2[1;5]
+1982-06-01</pre>
+
+    </td>
+  </tr>
+
+  <tr>
+
+    <td width="466" valign="top">
+
+
+      <pre class="APLU">
+
+           DataODBC⌷DataDB2
+1
+     ⌷DataDB2 ⍝ I expected it to be  3!
+2
+     ⌷DataDB2[1;1]
+2
+     ⌷DataDB2[1;3]
+0</pre>
+
+
+
+      <pre class="APLU">&amp;nbsp;
+    </pre>
+
+    </td>
+    <td width="282" valign="top">
+
+
+      <pre class="APLU">
+
+        ⌷¨DataODBC
+  1 1 0 0 1 1
+  1 1 0 0 1 1
+  1 1 0 0 1 1
+  1 1 0 0 1 1
+  </pre>
+
+
+</td>
+  </tr>
+
+</table>
+
+<p>It is easy to cope with a consistent YYYY-MM-DD format: either use SQL or APL code for the transformation into any other format. In order to provide consistency between the representation of dates retrieved from a database and those acquired from the user interface – which would be in the local regional format – some transformation will be necessary.</p>
+<p>In contrast, ActiveX Data Object (ADO) returns dates as scalars, which have to be converted with code or SQL: it may be messy if the reference date is unknown or variable as it would be when several data sources are used. The following function extracts the same data as the function IBM above:</p>
+<pre class="APLU">      ∇Z←ADO;Cns;Sql
+[1]   Cns←'Driver={IBM DB2 ODBC DRIVER};UID= ;PWD= ;DBALIAS=SAMPLE;'
+[2]   Sql←∆SELECT * FROM EMP_ACT WHERE PROJNO LIKE 'IF%' AND ACTNO&lt;100∆
+[3]   0 0⍴'ADORS' ⎕wi 'Create' 'ADODB.RecordSet'
+[4]   0 0⍴'ADORS' ⎕wi 'XOpen' Sql Cns
+[5]   Z←'ADORS' ⎕wi 'XGetRows'
+[6]   'ADORS' ⎕wi 'XClose'
+[7]   'ADORS' ⎕wi 'Delete'
+      ∇  2005-05-17 17.57.31<p></p></pre>
+
+<table border="0" cellspacing="0" cellpadding="4">
+
+  <tr>
+
+    <td valign="top" width="554">
+
+
+      <p class="Bodytext">The result is shown in Figure 3.</p>
+
+      <p class="Bodytext">Note the need for transformation (<span class="APLU">⍉</span>) to present the data in row-major tabulation and, as stated, the dates are scalars.</p>
+
+      <p class="Bodytext">In order to present the dates in the user
+  interface and for data arithmetic, it is necessary to convert the scalars to
+  a date format. The conversion must use the same date reference as that used
+  by the tool used to retrieve the records, in this case ADO.</p>
+    </td>
+    <td valign="top" width="298">
+
+
+      <pre class="APLU" style="line-height:100%;">
+
+
+  ┌→─────────────────────────────────────┐
+  ↓ ┌→─────┐ ┌→─────┐                    │
+  │ │000030│ │IF1000│ 10 0.5 30103 30317 │
+  │ └──────┘ └──────┘                    │
+  │ ┌→─────┐ ┌→─────┐                    │
+  │ │000030│ │IF2000│ 10 0.5 29952 30317 │
+  │ └──────┘ └──────┘                    │
+  │ ┌→─────┐ ┌→─────┐                    │
+  │ │000130│ │IF1000│ 90 1   29952 30225 │
+  │ └──────┘ └──────┘                    │
+  │ ┌→─────┐ ┌→─────┐                    │
+  │ │000140│ │IF1000│ 90 0.5 30225 30317 │
+  │ └──────┘ └──────┘                    │
+  └∊─────────────────────────────────────┘</pre>
+
+      <p align="center"><b>Figure 3. ADO result</b></p>
+    </td>
+  </tr>
+
+</table>
+
+<p>The <span class="APLU">⎕sql</span> dates correspond to the scalar dates upon conversion: this is seen by sending the data to Excel and applying the date format:</p>
+<pre class="APLU">
+     ∇Z←ADO2;Cns;Sql
+[1]   Cns←'Driver={IBM DB2 ODBC DRIVER};UID= ;PWD= ;DBALIAS=SAMPLE;'
+[2]   Sql←∆SELECT * FROM EMP_ACT WHERE PROJNO LIKE 'IF%' AND ACTNO&lt;100∆
+[3]   0 0⍴'ADORS' ⎕wi 'Create' 'ADODB.RecordSet'
+[4]   0 0⍴'ADORS' ⎕wi 'XOpen' Sql Cns
+[5]   0 0⍴'xl' ⎕wi 'Create' 'Excel.Application'
+[6]   0 0⍴'xl' ⎕wi 'XWorkbooks.Add'
+[7]   'xl' ⎕wi 'Range().Value' 'A1:F4'(⍉'ADORS' ⎕wi 'GetRows')
+[8]   'xl' ⎕wi 'Range().NumberFormat' 'E1:F4' ∆yyyy-mm-dd∆
+[9]   'xl' ⎕wi 'visible' 1
+[10]  'ADORS' ⎕wi 'XClose'
+[11]  'ADORS' ⎕wi 'Delete'
+[12]  'xl' ⎕wi 'Delete'
+      ∇  2005-05-21 13.14.29<p></p></pre>
+
+<table border="0" cellspacing="0" cellpadding="4">
+
+  <tr>
+
+    <td width="375" valign="top">
+
+
+      <p class="Picture">
+
+
+          <img width="328" height="200" src="./ajay214_files/image004.jpg" v:shapes="_x0000_i1026">
+
+          </p>
+
+      <p align="center"><b>Figure 4. Results in Excel</b></p>
+    </td>
+    <td width="323" valign="top">
+
+      <p>
+Figures 2, 3 and 4 show the same set
+of records.
+</p>
+
+      <p>Use the APLX built-in grid object to
+present the results of <span class="APLU">⎕sql</span> in the
+user interface, where necessary,
+because:
+</p>
+
+      <p>Additional steps to re-format data
+will not be necessary.
+Data will remain as retrieved from
+the data source – note that column
+A is numeric in Excel but is
+character in the data source.
+
+
+      </p>
+    </td>
+  </tr>
+
+</table>
+
+<h2 id="working-with-tables">Working with Tables<a class="headerlink" href="#working-with-tables" title="Permanent link">&para;</a></h2>
+<p>A database contains tables (a collection of records), which in turn, contain columns. Although it is convenient to visualize tables as the ubiquitous Excel worksheet, tables are different in several respects:</p>
+<p>Tables contain raw data – there is no data formatting.</p>
+<p>Records and columns do not have any relationships except those defined by constraints.</p>
+<p>The database manages the addition and deletion of records: the developer is oblivious of the exact position or sequence of records.</p>
+<p>The deletion of values in a column does not affect other values; for example, values in adjacent columns do not shift.</p>
+<p>The developer will need to query whether a particular table exists, or enumerate the tables that exist, and the columns that each table has. <span class="APLU">⎕sql</span> provides intrinsic facilities for such queries. The syntax is:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a> [Tie] ⎕sql 'Tables' [Catalog] [Schema] [Table] [Types]
+</span></code></pre></div>
+<p>Beneath the surface, <span class="APLU">⎕sql</span> is managing a very complex SQL statement that is database vendor specific.</p>
+<p>The first two optional arguments, Catalog and Schema respectively define the owner and the table space: from the point of view of the developer, these can be ignored, usually. Different vendors have different names for the terms adopted by MicroAPL.</p>
+<p>The third argument, Table, is the placeholder for a specific table name or, if omitted, for all table names.</p>
+<p>The fourth optional argument, Types, allows the developer to enumerate subsets of tables that exist within the database.</p>
+<p>During the maintenance cycle of an application, that is, when the application has acquired a legacy in the field, it is may be necessary to add new tables to existing databases. The application needs to check for the existence of a table before it creates it.</p>
+<table border="0" cellspacing="0" cellpadding="4">
+
+  <tr>
+
+    <td width="243" valign="top">
+
+
+      <p class="Bodytext">Does the table EMPLOYEES exist in the HR database in ORACLE?</p>
+    </td>
+    <td width="373" valign="top">
+
+
+
+      <pre class="APLU" style="line-height:100%;">           ⎕display 128 ⎕sql 'Tables' '' '' 'Employees' ''
+
+      ┌→─────────────────────────────────────────────────────┐
+      │ ┌→──────┐ ┌⊖┐ ┌→───────────────────────────────────┐ │
+      │ │0 0 0 0│ │ │ ↓ ┌⊖┐ ┌→─┐ ┌→────────┐ ┌→──────┐ ┌⊖┐ │ │
+      │ └~──────┘ └─┘ │ │0│ │OE│ │EMPLOYEES│ │SYNONYM│ │0│ │ │
+      │               │ └~┘ └──┘ └─────────┘ └───────┘ └~┘ │ │
+      │               │ ┌⊖┐ ┌→─┐ ┌→────────┐ ┌→────┐   ┌⊖┐ │ │
+      │               │ │0│ │HR│ │EMPLOYEES│ │TABLE│   │0│ │ │
+      │               │ └~┘ └──┘ └─────────┘ └─────┘   └~┘ │ │
+      │               └∊───────────────────────────────────┘ │
+      └∊─────────────────────────────────────────────────────┘</pre>
+
+
+    </td>
+  </tr>
+
+</table>
+
+<p>Yes, there are two tables, one each in the OE and HR schemas of the ORACLE connection.</p>
+<table border="0" cellspacing="0" cellpadding="4">
+
+  <tr>
+
+    <td width="247" valign="top">
+
+
+
+
+
+      <p class="Bodytext">Does a table EMPLOYEES of type TABLE exist?</p>
+    </td>
+    <td width="369" valign="top">
+
+
+      <pre class="APLU" style="line-height:100%;">
+           ⎕display 128 ⎕sql 'Tables' '' '' 'Employees'
+      'TABLE'
+
+      ┌→───────────────────────────────────────────────────┐
+      │ ┌→──────┐ ┌⊖┐ ┌→─────────────────────────────────┐ │
+      │ │0 0 0 0│ │ │ ↓ ┌⊖┐ ┌→─┐ ┌→────────┐ ┌→────┐ ┌⊖┐ │ │
+      │ └~──────┘ └─┘ │ │0│ │HR│ │EMPLOYEES│ │TABLE│0│ │ │ │
+      │               │ └~┘ └──┘ └─────────┘ └─────┘ └~┘ │ │
+      │               └∊─────────────────────────────────┘ │
+      └∊───────────────────────────────────────────────────┘</pre>
+
+
+      </td>
+  </tr>
+
+</table>
+
+<p>The previous two examples use the SQL tie number 128, defined using the connection string given above. In the latter example, if the first dimension of the third element is zero, the table does not exist.</p>
+<p>It may also be necessary to add new columns to existing tables. APLX provides a means of doing so:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>[Tie] ⎕SQL 'Columns' [Catalog] [Schema] [Table] [Column]
+</span></code></pre></div>
+<p>What columns exist in the AUTHORS table in the SQL SERVER PUBS database? This is using a different SQL tie number – 256.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>           2↓256 ⎕sql 'Columns' '' '' 'AUTHORS' ''
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>       pubs dbo authors au_id    12 id      11 11       0                 12    11  1 NO  39
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>       pubs dbo authors au_lname 12 varchar 40 40       0                 12    40  2 NO  39
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>       pubs dbo authors au_fname 12 varchar 20 20       0                 12    20  3 NO  39
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>       pubs dbo authors phone     1 char    12 12       0    ('UNKNOWN')   1    12  4 NO  47
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>       pubs dbo authors address  12 varchar 40 40       1                 12    40  5 YES 39
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>       pubs dbo authors city     12 varchar 20 20       1                 12    20  6 YES 39
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>       pubs dbo authors state     1 char     2  2       1                  1     2  7 YES 39
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>       pubs dbo authors zip       1 char     5  5       1                  1     5  8 YES 39
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>       pubs dbo authors contract ¯7 bit      1  1  0    0                 ¯7        9 NO  50
+</span></code></pre></div>
+<p>Note that all the details relating to the definition of the table is returned. This is just short of creating the actual SQL script for the creation of the table:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>      CREATE TABLE [authors] (
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>           [au_id] [id] NOT NULL ,
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>           [au_lname] [varchar] (40) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>           [au_fname] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>           [phone] [char] (12) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL CONSTRAINT
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>      [DF__authors__phone__78B3EFCA] DEFAULT ('UNKNOWN'),
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>           [address] [varchar] (40) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>           [city] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>           [state] [char] (2) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>           [zip] [char] (5) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>           [contract] [bit] NOT NULL ,
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>           CONSTRAINT [UPKCL_auidind] PRIMARY KEY  CLUSTERED
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>           (
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>                [au_id]
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>           )  ON [PRIMARY] ,
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>            CHECK ([au_id] like '[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]'),
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>            CHECK ([zip] like '[0-9][0-9][0-9][0-9][0-9]')
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a> ) ON [PRIMARY]
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a> GO
+</span></code></pre></div>
+<p>This script was created by SQLDMO; it contains default details that are normally omitted from an SQL statement – note the correspondence between the script and what <span class="APLU">⎕sql</span> returns. The provision of the scripts for tables must be on the wish list of the next release: scripts would enable a hassle free distribution of applications during the maintenance cycle.</p>
+<p>Does a column STATE exist in the table AUTHORS in the PUBS database?</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>     256 ⎕sql 'Columns' '' '' 'AUTHORS' 'STATE'
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a> 0 0 0 0    pubs dbo authors state 1 char 2 2      1      1    2 7 YES 39
+</span></code></pre></div>
+<p>Yes, it does. Does a column named APLX exist in the same table?</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>     ⍴3⊃256 ⎕sql 'Columns' '' '' 'AUTHORS' 'aplx'
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>0 19
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>     ⍴3⊃256 ⎕sql 'Columns' '' '' 'AUTHORS' 'STATE'
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>1 19
+</span></code></pre></div>
+<p>The first dimension of the third element of the result is zero if the column does not exist.</p>
+<h2 id="working-with-sql">Working with SQL<a class="headerlink" href="#working-with-sql" title="Permanent link">&para;</a></h2>
+<p>SQL is an acronym for Structured Query Language, not Standard Query Language: that means that each driver exposes it own SQL engine. Although all SQL engines comply with most of the SQL92 standard, they also have vendor specific enhancements that are exclusive, inconsistent, or completely different, that is, elusive.</p>
+<ul>
+<li>The Microsoft drivers allow a number of Visual Basic/Visual Basic for Applications keywords as standard.</li>
+<li>The Microsoft T-SQL (SQL Server) and Oracle drivers allow the replacement of null values within the SQL statement but they use different keywords, ISNULL and NVL, respectively.</li>
+<li>Remember to use algebraic rather than APL relational operators within SQL statements; that is use &lt;&gt; instead of <span class="APLU">≠</span> ‘not equal to’, etc.</li>
+<li>SQL has a null data type (a null value is not equal to any other value, not even another null value) that has no corresponding equivalent in APL. Use IS NULL or IS NOT NULL instead of = NULL or &lt;&gt; NULL.</li>
+<li>SQL has its own conventions:  use uppercase, enclose embedded strings in single quotes, and end with a semi-colon. However, SQL statements are not case-sensitive.</li>
+</ul>
+<p>Although SQL presents exciting opportunities for APL software development, it presents new challenges especially for applications designed to support several data sources – for example, one client may choose SQL Server while another opts for Oracle.</p>
+<p>A generic SQL reference, preferably one that compares SQL dialects is a new requirement for APLX developers, that is, in addition to the APLX documentation. The reference should cover the following:</p>
+<ul>
+<li>The Data Query Language (DQL) component of SQL deals with the retrieval of data from a database – it is based on a single command SELECT. This is the most widely-used component of SQL. Although there is a single command, it is probably the most complex of all SQL commands that developers would deploy routinely.</li>
+<li>The Data Manipulation Language (DML) component of SQL deals with the modification of existing data in a database. The primary commands include INSERT, UPDATE, and DELETE.</li>
+<li>The Data Definition Language (DDL) component of SQL deals with the modification of the structure of existing databases and the creation of new databases. The primary commands include CREATE TABLE, CREATE DATABASE, ALTER TABLE, DROP TABLE, CREATE INDEX, and DROP INDEX.M/li&gt;</li>
+<li>The Data Control Language (DCL) deals with database access permissions and used by database administrators who have unrestricted access. The commands in this component of SQL are ALTER PASSWORD, GRANT, REVOKE, and CREATE SYNONYM.</li>
+</ul>
+<p>In addition to the SQL reference, database vendor specific references are required for working with databases. In essence, some aspects of data management are held in the data-tier (database) itself rather than in the business-tier (application code). Such references should include the following:</p>
+<ul>
+<li>Constraints: These define the relationship of columns in a table and among tables. For example, there may be such constraints as a column requiring a value (cannot be null) or being unique etc. Constraints reinforce data integrity and affect the way SQL acts on the data source.</li>
+<li>Triggers: These define event driven code that is run, triggered, under some circumstances. For example, a trigger may add a timestamp to a record whenever it is altered.</li>
+<li>Stored Procedures: In simplistic terms, these are complex SQL statements that are stored in and run from the database itself. Stored procedures are efficient because they are optimised by the SQL engine before being stored but SQL statements are optimised on demand.</li>
+<li>Indexes: These are metrics that are calculated and held in the database in order to speed up data access.</li>
+</ul>
+<p>Usually, file based databases do not support triggers and stored procedures.</p>
+<p>For a robust deployment of a relational database as the data-tier, a third reference is required – one on transaction processing, record locking and multi-user concurrent access management. This is likely to be vendor specific.</p>
+<h2 id="text-files-as-relational-tables">Text Files as Relational Tables<a class="headerlink" href="#text-files-as-relational-tables" title="Permanent link">&para;</a></h2>
+<p>A large number of APL applications rely on text files for incoming data. With the Microsoft text driver, <span class="APLU">⎕sql</span> can treat text files as relational tables – strictly speaking, they are not relational tables. This means that text file data can be manipulated without APL code, usually with recourse to native file functions, and data conversion routines are not necessary as the text driver returns data in the type that is appropriate. In order to promote robust handling of text files, the following is highly recommended:</p>
+<p><span class="indent">Include column headers in the first row
+of data. </span></p>
+<p><span class="indent">As the driver scans a default number of
+rows in order to determine the data type for the column, the initial rows
+should contain representative data as far as <i>type</i> is concerned.</span></p>
+<p><span class="indent">Learn to creat</span>e the file SCHEMA.INI: this provides a greater degree of control on how the data is handled.</p>
+<p>Consider the example shown in Figure 5:</p>
+<table border="0" cellspacing="0" cellpadding="4">
+
+
+  <tr>
+
+
+    <td valign="top" width="311">
+
+
+
+      <p class="Picture">
+
+
+          <img width="287" height="198" src="./ajay214_files/image006.jpg" v:shapes="_x0000_i1027">
+
+          </p>
+
+      <p align="center"><b>Figure 5. Text data source</b></p>
+    </td>
+    <td valign="top" width="488">
+
+
+
+      <p class="Bodytext">The file contains the types of data routinely encountered in an APL
+  application.</p>
+
+      <p class="Bodytext">There are placeholders for missing values: see the last row in Figure
+  5.</p>
+
+      <p class="Bodytext">For a robust understanding of how to work with text data files and
+  setup their DSNs, research SCHEMA.INI on the Internet.</p>
+    </td>
+  </tr>
+
+
+</table>
+
+<p>Let us connect to the data source; note that the DBQ parameter specifies the location of the actual data source and not the name of the data source itself.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>     16 ⎕sql 'Connect' 'aplxodbc'
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>        'Driver={Microsoft Text Driver (*.txt; *.csv)};DBQ=C:\;'
+</span></code></pre></div>
+<p>Some examples illustrating the power of SQL statements are shown below. Although APL coding can achieve the results of the SQL statements, SQL is far more efficient and has the least overhead.</p>
+<p><em>a. Select the records where the column SEX contains missing values:</em></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>     16 ⎕sql 'Do' 'Select * FROM APLX.TXT WHERE SEX IS NULL;'
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a> 0 0 0 0    2005-04-06 00:00:00    Start_of_tax_year 2005
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>            2005-06-21 00:00:00    Summer_Solstice      4
+</span></code></pre></div>
+<p>This query finds two records.</p>
+<p><em>b. Select the records where ID is in the range 100 to 300:</em></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>     ⎕display 16 ⎕sql 'Do' 'SELECT * FROM APLX.TXT WHERE ID BETWEEN 100 AND 300;'
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>┌→──────────────────────────────────────────────────────────────────┐
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>│ ┌→──────┐ ┌⊖┐ ┌→────────────────────────────────────────────────┐ │
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>│ │0 0 0 0│ │ │ ↓ ┌→──────────────────┐ ┌→┐ ┌→──────────────┐     │ │
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>│ └~──────┘ └─┘ │ │1809-02-12 00:00:00│ │M│ │Abraham Lincoln│ 189 │ │
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>│               │ └───────────────────┘ └─┘ └───────────────┘     │ │
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>│               │ ┌→──────────────────┐ ┌→┐ ┌→─────────────┐      │ │
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>│               │ │1869-10-02 00:00:00│ │M│ │Mahatma Gandhi│  203 │ │
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>│               │ └───────────────────┘ └─┘ └──────────────┘      │ │
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>│               └∊────────────────────────────────────────────────┘ │
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>└∊──────────────────────────────────────────────────────────────────┘
+</span></code></pre></div>
+<p><em>c. Refine the previous query by sorting the records in descending order of NAME.</em></p>
+<p>This illustrates the power of SQL statements and indicates the scope that exists for avoiding APL coding to manipulate source data.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>     ⎕display 16 ⎕sql 'Do' 'SELECT * FROM APLX.TXT WHERE ID BETWEEN 100 AND 300 ORDER BY NAME DESC;'
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>┌→──────────────────────────────────────────────────────────────────┐
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>│ ┌→──────┐ ┌⊖┐ ┌→────────────────────────────────────────────────┐ │
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>│ │0 0 0 0│ │ │ ↓ ┌→──────────────────┐ ┌→┐ ┌→─────────────┐      │ │
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>│ └~──────┘ └─┘ │ │1869-10-02 00:00:00│ │M│ │Mahatma Gandhi│  203 │ │
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>│               │ └───────────────────┘ └─┘ └──────────────┘      │ │
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>│               │ ┌→──────────────────┐ ┌→┐ ┌→──────────────┐     │ │
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>│               │ │1809-02-12 00:00:00│ │M│ │Abraham Lincoln│ 189 │ │
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>│               │ └───────────────────┘ └─┘ └───────────────┘     │ │
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>│               └∊────────────────────────────────────────────────┘ │
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>└∊──────────────────────────────────────────────────────────────────┘
+</span></code></pre></div>
+<p>Data retain their expected type in the workspace:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>     (RC RM Data)←16 ⎕sql 'Do' 'SELECT * FROM APLX.TXT WHERE ID BETWEEN 100 AND 300;'
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>     Data[1;4]×100
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>18900
+</span></code></pre></div>
+<p><em>d. Add an arbitrary column and make NAME uppercase:</em></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>     16 ⎕sql 'Do' ∆Select 'APLX_Demo' as MYVAR,UCASE(NAME) FROM APLX.TXT WHERE ID NOT BETWEEN 100 AND 300 ORDER BY NAME DESC;∆
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>0 0 0 0    APLX_Demo SUMMER_SOLSTICE
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>           APLX_Demo START_OF_TAX_YEAR
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>           APLX_Demo MICHAEL FARADAY
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>           APLX_Demo MARTIN LUTHER KING
+</span></code></pre></div>
+<p>SQL is far more efficient than the traditional approach of using native file functions. However, be wary of the vagaries of SQL dialects: a thorough understanding of SQL dialects will determine the databases that an application decides to support. It is acceptable that an application will contain database specific code: the more numerous the data sources supported, the bigger the overhead.</p>
+<h2 id="excel-workbooks-as-relational-data-sources">Excel Workbooks as Relational Data Sources<a class="headerlink" href="#excel-workbooks-as-relational-data-sources" title="Permanent link">&para;</a></h2>
+<p>I’ll use C:\APL.TXT as the source for an XLS file: Start Excel, <strong>File | Open</strong>, select the file, highlight the range A1:D2 and name it MYTAB, and, finally, <strong>File | SaveAs</strong> an XLS file named APLX.XLS.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>      32 ⎕sql 'Connect' 'aplxodbc' 'Driver={Microsoft Excel Driver (*.xls)};DBQ=C:\APLX.XLS;'
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>      32 ⎕sql 'Tables' '' '' '' ''
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a> 0 0 0 0    C:\APLX    aplx$ SYSTEM TABLE
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>            C:\APLX    MYTAB TABLE
+</span></code></pre></div>
+<p>There are two tables: aplx$ is the sheet name and MYTAB is the named range we defined. Select each table in turn, as follows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>      32 ⎕sql 'Do' 'SELECT * FROM MYTAB;'
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a> 0 0 0 0    12/02/1809 M Abraham Lincoln 189
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>      32 ⎕sql 'Do' 'SELECT * FROM [aplx$];'
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a> 0 0 0 0                         M  Abraham Lincoln     189
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>                                 M  Mahatma Gandhi      203
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>                                 M  Michael Faraday     876
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>            2005-04-06 00:00:00     Start_of_tax_year  2005
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>            1929-01-15 00:00:00  M  Martin Luther King  987
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>            2005-06-21 00:00:00     Summer_Solstice       4
+</span></code></pre></div>
+<p>Note that a sheet name has $ as a suffix and it must be enclosed in square brackets: a name relating to a range is specified as it is.</p>
+<p>What happened to the DOB field in the first three records? Null values are returned because the date range handled by the Excel driver (not Excel) starts 01/01/1900 and those dates were earlier than the start date. This is another quirk of SQL engines.</p>
+<ul>
+<li>Oracle supports dates in the year range ¯4713 to 9999.</li>
+<li>SQL Server has two date data types. The DATETIME type has the range 01/01/1753 to 31/12/9999 and the SMALLDATETIME type has the operational range 01/01/1900 to 06/06/2079.</li>
+<li>Access has a date range between year 100 and 9999.</li>
+<li>Excel uses 01/01/1900 as the default reference date. Optionally, this can be set to 01/01/1904. Dates later than 2078 may not be recognised.</li>
+<li>For text data sources, the Excel ranges apply.</li>
+<li>DB2 has a date range of 1 to 9999.</li>
+</ul>
+<p>Let us select all individuals born after 01/01/1900 and create a flag to indicate whether an underscore exists in their names. The following function returns the SQL statement:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>      ∇Z←GetSQL
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>[1]   Z←''
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>[2]   Z←Z,∆  SELECT NAME, ∆
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>[3]   Z←Z,∆         FORMAT(DOB) AS DOBIRTH,∆
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>[4]   Z←Z,∆         SEX,∆
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>[5]   Z←Z,∆         Format(ID,'0####'),∆
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>[6]   Z←Z,∆         IIF(INSTR(NAME,'_'),'','REAL NAME') AS FLAG ∆
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>[7]   Z←Z,∆    FROM [APLX$] ∆
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>[8]   Z←Z,∆   WHERE DOB &gt; #01 JAN 1900#;∆
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>      ∇  2005-05-15 13.34.33
+</span></code></pre></div>
+<p>The result is shown below:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>       ⎕display 32 ⎕sql 'Do' GetSQL
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>┌→─────────────────────────────────────────────────────────────────────────────┐
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>│ ┌→──────┐ ┌⊖┐ ┌→───────────────────────────────────────────────────────────┐ │
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>│ │0 0 0 0│ │ │ ↓ ┌→────────────────┐  ┌→─────────┐ ┌⊖┐ ┌→────┐ ┌⊖┐          │ │
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>│ └~──────┘ └─┘ │ │Start_of_tax_year│  │06/04/2005│ │0│ │02005│ │ │          │ │
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>│               │ └─────────────────┘  └──────────┘ └~┘ └─────┘ └─┘          │ │
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>│               │ ┌→─────────────────┐ ┌→─────────┐ ┌→┐ ┌→────┐ ┌→────────┐  │ │
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>│               │ │Martin Luther King│ │15/01/1929│ │M│ │00987│ │REAL NAME│  │ │
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>│               │ └──────────────────┘ └──────────┘ └─┘ └─────┘ └─────────┘  │ │
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>│               │ ┌→──────────────┐    ┌→─────────┐ ┌⊖┐ ┌→────┐ ┌⊖┐          │ │
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>│               │ │Summer_Solstice│    │21/06/2005│ │0│ │00004│ │ │          │ │
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>│               │ └───────────────┘    └──────────┘ └~┘ └─────┘ └─┘          │ │
+</span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>│               └∊───────────────────────────────────────────────────────────┘ │
+</span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a>└∊─────────────────────────────────────────────────────────────────────────────┘
+</span></code></pre></div>
+<ul>
+<li>Always construct SQL statements relating to DML as above to keep it readable: there is a vertical column of spaces separating SQL keywords from other text. Use double quotes within APL and reserve single quotes for embedded quotes.</li>
+<li>Note that the embedded INSTR (like <span class="APLU">⍷</span>) uses single quotes: in VBA, double quotes would be used.</li>
+<li>Literal dates are specified unambiguously.</li>
+<li>The date field DOB is transformed to UK short date regional format and has been renamed.</li>
+<li>ID is formatted with leading zeros.</li>
+<li>A number of VBA keywords (FORMAT, IIF, INSTR) are used within the SQL statement.</li>
+</ul>
+<h2 id="the-browser-object">The Browser Object<a class="headerlink" href="#the-browser-object" title="Permanent link">&para;</a></h2>
+<p>The new browser object enables any text file created by APLX and other applications to be viewed within the APL GUI session. This includes some custom format files such as XLS, see Figure 6.</p>
+<table border="0" cellspacing="0" cellpadding="4">
+
+
+  <tr>
+
+
+    <td valign="top">
+
+
+
+      <p class="Picture">
+
+
+          <img width="287" height="188" src="./ajay214_files/image008.jpg" v:shapes="_x0000_i1028">
+
+          </p>
+
+      <p align="center"><b>Figure 6. Workbook in browser object</b></p>
+    </td>
+    <td valign="top">
+
+
+
+      <p class="Bodytext">The code is:</p>
+
+      <pre class="APLU">
+     ∇Browser
+[1]  'BR' ⎕wi 'Create' 'Window'('scale' 5)('size' 470 800)
+[2]  'BR.Web' ⎕wi 'New' 'Browser'('align' ¯1)
+[3]  'BR.Web' ⎕wi 'onReady' ∆'BR' ⎕wi 'title' ('BR.Web' ⎕wi  'title')
+[4]  'BR.Web' ⎕wi 'Load' 'C:\APLX.XLS'
+[5]  0 0⍴⎕WE 'BR'
+     ∇  2005-05-15 14.05.20</pre>
+
+
+      <p> </p>
+    </td>
+  </tr>
+
+
+</table>
+
+<p>Ideally, an application should construct HTML output and show it in the browser: further enhancements, such as printing and searching, are required as children of the browser object to make this type of facility useful.</p>
+<p>Of course, the browser object can show/read web pages: refer to APLX documentation.</p>
+<h2 id="navigating-sql-results">Navigating SQL Results<a class="headerlink" href="#navigating-sql-results" title="Permanent link">&para;</a></h2>
+<p>As the result of the ‘Do’ directive causes the result of SQL statements to be returned to the workspace, the result can be assigned to an APL variable: an application can loop through the result by reference to the first dimension, which is also a count of the number of records returned.</p>
+<p>Should the number of records be likely to cause a workspace-full error, <span class="APLU">⎕sql</span> offers another means of retrieving SQL results that mitigates this likelihood. Assume that the number of records returned is 5 million thereby guaranteeing workspace full errors. How will <span class="APLU">⎕sql</span> cope?</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>      ∇RecordLoop;Cns;Sql;RecordCount
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>[1]   Cns←'Driver={SQL Server};Server=D2K1Z01J;Database=pubs;UID=sa;PWD=;'
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>[2]   Sql←∆SELECT COUNT(*) FROM AUTHORS WHERE STATE IN('UT','MI');∆
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>[3]  ⍝ TIP: use 0 0⍴∊ to absorb nested return values
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>[4]   0 0⍴∊256 ⎕sql 'Disconnect' ⍝ Can disconnect arbitrary tie
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>[5]   0 0⍴∊256 ⎕sql 'Connect' 'aplxodbc' Cns ⍝ I know it will work
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>[6]   (RC RM Debug)←256 ⎕sql 'Describe'
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>[7]   (RC RM RecordCount)←256 ⎕sql 'Do' Sql
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>[8]   Sql←∆SELECT AU_FNAME,AU_LNAME,STATE FROM AUTHORS WHERE STATE IN('UT','MI');∆
+</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>[9]   0 0⍴∊256 ⎕sql 'Close' 'ThisSet' ⍝ Can Close arbitrarily
+</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>[10]  0 0⍴∊256 ⎕sql 'Prepare' 'ThisSet' Sql
+</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>[11]  0 0⍴∊256 ⎕sql 'Execute' 'ThisSet'
+</span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a>[12]  (RC RM Fields)←256 ⎕sql 'Describe' 'ThisSet'
+</span><span id="__span-23-14"><a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a>[13]  :While 0≠,RecordCount
+</span><span id="__span-23-15"><a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a>[14]    (RC RM Data)←256 ⎕sql 'Fetch' 'ThisSet' 1
+</span><span id="__span-23-16"><a id="__codelineno-23-16" name="__codelineno-23-16" href="#__codelineno-23-16"></a>[15]    Fields[1;]Fix Data
+</span><span id="__span-23-17"><a id="__codelineno-23-17" name="__codelineno-23-17" href="#__codelineno-23-17"></a>[16] ⍝ Call function to process variables here
+</span><span id="__span-23-18"><a id="__codelineno-23-18" name="__codelineno-23-18" href="#__codelineno-23-18"></a>[17]    RecordCount←RecordCount-1
+</span><span id="__span-23-19"><a id="__codelineno-23-19" name="__codelineno-23-19" href="#__codelineno-23-19"></a>[18]  :EndWhile
+</span><span id="__span-23-20"><a id="__codelineno-23-20" name="__codelineno-23-20" href="#__codelineno-23-20"></a>[19]  Z←256 ⎕sql 'Close' 'ThisSet'
+</span><span id="__span-23-21"><a id="__codelineno-23-21" name="__codelineno-23-21" href="#__codelineno-23-21"></a>[20]  0 0⍴⎕ex⊃Fields[1;] ⍝ Clear workspace
+</span><span id="__span-23-22"><a id="__codelineno-23-22" name="__codelineno-23-22" href="#__codelineno-23-22"></a>      ∇  2005-05-22 11.14.58
+</span></code></pre></div>
+<p>This function uses two more functions:</p>
+<table border="0" cellspacing="0" cellpadding="4">
+
+  <tr>
+
+    <td width="383" valign="top">
+
+
+      <pre class="APLU">      ∇L Fix R
+[1]   L←EnsureName¨L
+[2]   ⍎'(',(⍕L),')←,R'
+[3]  ⍝TIP ⍕ simpify nested vector using space
+      ∇  2005-05-22 13.06.31</pre>
+
+
+    </td>
+    <td width="248" valign="top">
+
+
+      <pre class="APLU">      ∇R←EnsureName R
+[1]   ((R∊' ')/R)←'∆'
+      ∇  2005-05-22 11.12.37</pre>
+
+
+    </td>
+  </tr>
+
+</table>
+
+<p>The function Fix initialises global variables in the workspace: the variables are the column names extracted by the SQL statement. Since some column names may contain spaces in their names, the function EnsureName replaces embedded spaces by <span class="APLU">∆</span>. Databases allow column names with embedded spaces and such names are enclosed in square bracket within SQL statements. However, APL does not allow embedded spaces in variable names – the replacement of spaces by <span class="APLU">∆</span> makes the column names valid APL variable names, in most cases.</p>
+<table border="0" cellspacing="0" cellpadding="4">
+  <tr>
+    <td valign="top" width="41%">
+
+      <p class="Bodytext">In line [6], details of the driver in use is captured in the variable
+  Debug. <span class="APLU">⊃Debug</span> contains the information
+  shown in the second column of Table 4.</p>
+
+      <p class="Bodytext">This information is vital when debugging unexpected behaviour.</p>
+    </td>
+    <td valign="top" align="center" width="59%">
+
+      <table border="1" cellspacing="0" cellpadding="2">
+
+        <tr>
+
+          <td valign="top" bgcolor="#E0E0E0">
+
+
+            <font face="APLX Upright">Description</font>
+          </td>
+          <td width="50%" valign="top" bgcolor="#E0E0E0">
+
+  <font face="APLX Upright">
+            Value
+  </font>
+                  </td>
+        </tr>
+
+        <tr>
+
+          <td>
+    <font face="APLX Upright">
+    Data source name
+    </font>
+          </td>
+          <td> </td>
+        </tr>
+
+        <tr>
+
+          <td>
+    <font face="APLX Upright">
+
+            Driver ODBC version
+</font>
+                    </td>
+          <td>
+    <font face="APLX Upright">
+
+
+            03.52</font>
+          </td>
+        </tr>
+
+        <tr>
+
+          <td>
+    <font face="APLX Upright">
+
+
+            DBMS name
+
+            </font>
+          </td>
+          <td>
+        <font face="APLX Upright">
+
+            Microsoft
+    SQL Server
+
+            </font>
+          </td>
+        </tr>
+
+        <tr>
+
+          <td>
+        <font face="APLX Upright">
+
+            DBMS
+    version
+
+            </font>
+          </td>
+          <td>
+        <font face="APLX Upright">
+
+            08.00.0194
+
+            </font>
+          </td>
+        </tr>
+
+        <tr>
+
+
+          <td>
+        <font face="APLX Upright">
+
+
+            Driver
+    name
+
+            </font>
+          </td>
+          <td>
+        <font face="APLX Upright">
+
+
+            SQLSRV32.DLL
+
+            </font>
+          </td>
+        </tr>
+
+        <tr>
+
+
+          <td>
+        <font face="APLX Upright">
+
+
+            Driver
+    version
+
+            </font>
+          </td>
+          <td>
+        <font face="APLX Upright">
+
+
+            03.85.1117
+
+            </font>
+          </td>
+        </tr>
+
+        <tr>
+
+
+          <td>
+        <font face="APLX Upright">
+
+            Database name
+
+            </font>
+          </td>
+          <td>
+        <font face="APLX Upright">
+            Pubs
+
+            </font>
+          </td>
+        </tr>
+
+        <tr>
+
+
+          <td>
+        <font face="APLX Upright">
+
+
+            User name
+
+            </font>
+          </td>
+          <td>
+        <font face="APLX Upright">
+
+
+            Dbo
+
+            </font>
+          </td>
+        </tr>
+
+        <tr>
+
+
+          <td>
+        <font face="APLX Upright">
+
+
+            SQL conformance     
+
+            </font>
+          </td>
+          <td>
+        <font face="APLX Upright">
+
+            Core SQL Grammar
+
+            </font>
+          </td>
+        </tr>
+
+      </table>
+
+      <p align="center"><b>Table 4. Connection details</b></p>
+    </td>
+  </tr>
+
+</table>
+
+<p>In line [12] the names of the columns returned by the SQL statement are captured in the variable Fields whose first dimension is four: the rows contain names, descriptions, types, and whether the values can be null. The SQL statements in lines [2] and [8] are identical in terms of the conditions for the selection of records: the SQL statement in line [2] returns a count of the number of records. This is used to loop through the available records: this happens in lines [13] to [18]. The variables are fixed globally in line [15], and in line [16] the application can call any function that will process the variables as required, using global variable names. These names are overwritten at each iteration.</p>
+<p>APLX’s documentation suggests the use of the return code, RC, in line [14] for managing the loop: if the last element is true, there are more records.</p>
+<p>A function such as RecordLoop enables any number of records to be processed without the risk of encountering workspace full errors.</p>
+<h2 id="on-do-and-fetch">On ‘Do’ and ‘Fetch’<a class="headerlink" href="#on-do-and-fetch" title="Permanent link">&para;</a></h2>
+<p>The ‘Fetch’ predicate behaves exactly like ‘Do’ when the named result is not followed by an integer, which indicates the number of records to return.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>      ∇DoFetch;Cns;Sql
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>[1]   Cns←'Driver={SQL Server};Server=D2K1Z01J;Database=pubs;UID=sa;PWD=;'
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>[2]   Sql←∆SELECT AU_FNAME,AU_LNAME,STATE FROM AUTHORS WHERE STATE IN('UT','MI');∆
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>[3]   0 0⍴∊256 ⎕sql 'Disconnect' ⍝ Can disconnect arbitrary tie
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>[4]   0 0⍴∊256 ⎕sql 'Connect' 'aplxodbc' Cns ⍝ I know it will work
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>[5]   (RC RM DO)←256 ⎕sql 'Do' Sql
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>[6]   0 0⍴∊256 ⎕sql 'Close' 'ThisSet' ⍝ Can Close arbitrarily
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>[7]   0 0⍴∊256 ⎕sql 'Prepare' 'ThisSet' Sql
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>[8]   0 0⍴∊256 ⎕sql 'Execute' 'ThisSet'
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>[9]   (RC RM FETCH)←256 ⎕sql 'Fetch' 'ThisSet'
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>[10]  Z←256 ⎕sql 'Close' 'ThisSet'
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>      ∇  2005-05-22 13.27.16
+</span></code></pre></div>
+<p>In line [5], the records are retrieved using the ‘Do’  predicate and the same records are retrieved using the ‘Fetch’ predicate in line [9]. The two sets of results are identical:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>      DO⌷FETCH
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>1
+</span></code></pre></div>
+<p>The reason for providing two pathways is mysterious: I would prefer to use ‘Do’  for  SQL statements that do not return records and ‘Fetch’when the SQL statements do return records.</p>
+<p>The ‘Fetch’predicate moves the record pointer to the next available record. If it is necessary to move to a previous record, it is necessary to re-execute the named result set and to use code to move to the required record. I hope that a future enhancement will provide a less arduous mechanism for moving to the first record or to an absolute position.</p>
+<h2 id="what-is-the-purpose-of-named-result-sets">What is the Purpose of Named Result Sets?<a class="headerlink" href="#what-is-the-purpose-of-named-result-sets" title="Permanent link">&para;</a></h2>
+<p>There are several reasons:</p>
+<p>A single connection may have multiple named SQL result sets. The need for multiple result sets is quite common. Consider an application that produces invoices: it may create one named set for the list of customers and another for their orders.</p>
+<p>When named result sets are ‘Prepare’(d), the SQL engine tokenises the SQL statement: this makes the execution of the SQL more efficient than the execution of SQL statements using ‘Do’. This may make a significant difference in the responsiveness of an application.</p>
+<p>The SQL statement for a named result set may contain placeholders for parameters that will be substituted at run time, with ‘Execute’. Placeholders are denoted by a question mark (?).</p>
+<h3 id="multiple-named-result-sets">Multiple Named Result Sets<a class="headerlink" href="#multiple-named-result-sets" title="Permanent link">&para;</a></h3>
+<p>Depending on the driver, it may not be possible to create more than one named set. There is no mechanism to establish which driver supports multiple named sets and which do not using <span class="APLU">⎕sql</span> the only clue is the driver’s SQL conformance level – see Table 4.</p>
+<p>The SQL Server driver does not appear to support multiple sets:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>      ∇RecordLoop2;Cns
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>[1]   Cns←'Driver={SQL Server};Server=D2K1Z01J;Database=pubs;UID=sa;PWD=;'
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>[2]   0 0⍴∊256 ⎕sql 'Disconnect' ⍝ Can disconnect arbitrary tie
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>[3]   0 0⍴∊256 ⎕sql 'Connect' 'aplxodbc' Cns ⍝ I know it will work
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>[4]   0 0⍴∊256 ⎕sql 'Close' 'A1'
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>[5]   0 0⍴∊Z←256 ⎕sql 'Close' 'A2'
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>[6]   0 0⍴∊256 ⎕sql 'Prepare' 'A1' 'SELECT * FROM AUTHORS;'
+</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>[7]   0 0⍴∊256 ⎕sql 'Execute' 'A1'
+</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>[8]   0 0⍴∊256 ⎕sql 'Prepare' 'A2' 'SELECT * FROM STORES;'
+</span><span id="__span-26-10"><a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>[9]   0 0⍴∊256 ⎕sql 'Execute' 'A2'
+</span><span id="__span-26-11"><a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>[10]  'At A1'
+</span><span id="__span-26-12"><a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>[11]  256 ⎕sql 'Fetch' 'A1' 1
+</span><span id="__span-26-13"><a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a>[12]  'At A2'
+</span><span id="__span-26-14"><a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a>[13]  256 ⎕sql 'Fetch' 'A2' 1
+</span><span id="__span-26-15"><a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a>[14]  'At A1'
+</span><span id="__span-26-16"><a id="__codelineno-26-16" name="__codelineno-26-16" href="#__codelineno-26-16"></a>[15]  256 ⎕sql 'Fetch' 'A1' 1
+</span><span id="__span-26-17"><a id="__codelineno-26-17" name="__codelineno-26-17" href="#__codelineno-26-17"></a>[16]  'At A2'
+</span><span id="__span-26-18"><a id="__codelineno-26-18" name="__codelineno-26-18" href="#__codelineno-26-18"></a>[17]  256 ⎕sql 'Fetch' 'A2' 1
+</span><span id="__span-26-19"><a id="__codelineno-26-19" name="__codelineno-26-19" href="#__codelineno-26-19"></a>      ∇  2005-05-22 14.04.19
+</span></code></pre></div>
+<p>This function creates two named sets.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>      RecordLoop2
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>At A1
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a> 0 0 0 1    172-32-1176 White Johnson 408 496-7223 10932 Bigge Rd. Menlo Park CA 94025 1
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>At A2
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a> 3 0 0 0  [Microsoft][ODBC SQL Server Driver]Connection is busy with results for another hstmt
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>At A1
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a> 0 0 0 1    213-46-8915 Green Marjorie 415 986-7020 309 63rd St. #411 Oakland CA 94618 1
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>At A2
+</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a> 3 0 0 0  [Microsoft][ODBC SQL Server Driver]Connection is busy with results for another hstmt
+</span></code></pre></div>
+<p>As shown above, the second named set, A2, is not accessible.</p>
+<p>The Oracle driver does support multiple sets. Using RecordLoop2 with an Oracle driver and reading from the EMPLOYEES and JOBS table, the result is:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>             RecordLoop3
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>At A1
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a> 0 0 0 1    100 Steven King SKING 515.123.4567 1987-06-17 00:00:00 AD_PRES
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>24000      90
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>At A2
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a> 0 0 0 1    AD_PRES President 20000 40000
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>At A1
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a> 0 0 0 1    101 Neena Kochhar NKOCHHAR 515.123.4568 1989-09-21 00:00:00
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>AD_VP 17000    100 90
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>At A2
+</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a> 0 0 0 1    AD_VP Administration Vice President 15000 30000
+</span></code></pre></div>
+<p>If it is necessary to have multiple named sets with a data source that does not support them, create different connections for each named set. Obviously, this will use additional resources and is probably less efficient but it does enable an application requiring multiple named sets to support a data source whose driver does not support them. However, there is an interesting twist. Here is the adapted function:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>      ∇RecordLoop2A;Cns
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>[1]   Cns←'Driver={SQL Server};Server=D2K1Z01J;Database=pubs;UID=sa;PWD=;'
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>[2]   ⎕wa
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>[3]   0 0⍴∊256 ⎕sql 'Disconnect' ⍝ Can disconnect arbitrary tie
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>[4]   0 0⍴∊257 ⎕sql 'Disconnect'
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>[5]   0 0⍴∊256 ⎕sql 'Connect' 'aplxodbc' Cns ⍝ I know it will work
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>[6]   0 0⍴∊257 ⎕sql 'Connect' 'aplxodbc' Cns ⍝ I know it will work
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>[7]   ⎕wa
+</span><span id="__span-29-9"><a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a>[8]   0 0⍴∊256 ⎕sql 'Close' 'A1'
+</span><span id="__span-29-10"><a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a>[9]   0 0⍴∊Z←257 ⎕sql 'Close' 'A2'
+</span><span id="__span-29-11"><a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a>[10]  0 0⍴∊256 ⎕sql 'Prepare' 'A1' 'SELECT * FROM AUTHORS;'
+</span><span id="__span-29-12"><a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a>[11]  0 0⍴∊256 ⎕sql 'Execute' 'A1'
+</span><span id="__span-29-13"><a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a>[12]  0 0⍴∊257 ⎕sql 'Prepare' 'A2' 'SELECT * FROM STORES;'
+</span><span id="__span-29-14"><a id="__codelineno-29-14" name="__codelineno-29-14" href="#__codelineno-29-14"></a>[13]  0 0⍴∊257 ⎕sql 'Execute' 'A2'
+</span><span id="__span-29-15"><a id="__codelineno-29-15" name="__codelineno-29-15" href="#__codelineno-29-15"></a>[14]  'At A1'
+</span><span id="__span-29-16"><a id="__codelineno-29-16" name="__codelineno-29-16" href="#__codelineno-29-16"></a>[15]  256 ⎕sql 'Fetch' 'A1' 1
+</span><span id="__span-29-17"><a id="__codelineno-29-17" name="__codelineno-29-17" href="#__codelineno-29-17"></a>[16]  'At A2'
+</span><span id="__span-29-18"><a id="__codelineno-29-18" name="__codelineno-29-18" href="#__codelineno-29-18"></a>[17]  257 ⎕sql 'Fetch' 'A2' 1
+</span><span id="__span-29-19"><a id="__codelineno-29-19" name="__codelineno-29-19" href="#__codelineno-29-19"></a>[18]  'At A1'
+</span><span id="__span-29-20"><a id="__codelineno-29-20" name="__codelineno-29-20" href="#__codelineno-29-20"></a>[19]  256 ⎕sql 'Fetch' 'A1' 1
+</span><span id="__span-29-21"><a id="__codelineno-29-21" name="__codelineno-29-21" href="#__codelineno-29-21"></a>[20]  'At A2'
+</span><span id="__span-29-22"><a id="__codelineno-29-22" name="__codelineno-29-22" href="#__codelineno-29-22"></a>[21]  257 ⎕sql 'Fetch' 'A2' 1
+</span><span id="__span-29-23"><a id="__codelineno-29-23" name="__codelineno-29-23" href="#__codelineno-29-23"></a>      ∇  2005-05-22 14.33.56
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>              RecordLoop2A
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>20928230
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>20928230
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>At A1
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a> 0 0 0 1    172-32-1176 White Johnson 408 496-7223 10932 Bigge Rd. Menlo Park CA 94025 1
+</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>At A2
+</span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a> 0 0 0 1    6380 Eric the Read Books 788 Catamaugus Ave. Seattle WA 98056
+</span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>At A1
+</span><span id="__span-30-9"><a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a> 0 0 0 1    213-46-8915 Green Marjorie 415 986-7020 309 63rd St. #411 Oakland CA 94618 1
+</span><span id="__span-30-10"><a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>At A2
+</span><span id="__span-30-11"><a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a> 0 0 0 1    7066 Barnum's 567 Pasadena Ave. Tustin CA 92789
+</span></code></pre></div>
+<p>It works!</p>
+<p>Note the size of the available workspace returned before and after the two connections: they are identical – that’s the twist. Connections appear to use Windows rather than workspace resources.</p>
+<h2 id="dynamic-parameter-substitution">Dynamic Parameter Substitution<a class="headerlink" href="#dynamic-parameter-substitution" title="Permanent link">&para;</a></h2>
+<p>At the start, I created a new Access database; I’ll use it to illustrate dynamic parameter substitution. The function is:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>      ∇Access R
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>[1]   0 0⍴∊64 ⎕sql 'Disconnect'
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>[2]   0 0⍴∊64 ⎕sql 'Connect' 'aplxodbc' 'Driver={Microsoft Access Driver (*.mdb)};DBQ=C:\MYLOC\QTR1\MYDB.MDB;'
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>[3]   :If 0∊⍴3⊃64 ⎕sql 'Tables' '' '' 'OBJECTS'
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>[4]     0 0⍴∊64 ⎕sql 'Do' 'CREATE TABLE OBJECTS(KEYID TEXT (255),NAME TEXT (50), DOB DATE,CONSTRAINT OBJECTS_PK PRIMARY KEY (KEYID));'
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>[5]   :EndIf
+</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>[6]   0 0⍴∊64 ⎕sql 'Prepare' 'Expunge' 'DELETE FROM OBJECTS WHERE KEYID=⊢;'
+</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>[7]   0 0⍴∊64 ⎕sql 'Prepare' 'Insert' 'INSERT INTO OBJECTS (KEYID) VALUES(⊢);'
+</span><span id="__span-31-9"><a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>[8]   0 0⍴∊64 ⎕sql 'Prepare' 'Update' 'UPDATE OBJECTS SET NAME=⊢, DOB=⊢ WHERE KEYID=⊢;'
+</span><span id="__span-31-10"><a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>[9]   0 0⍴∊64 ⎕sql 'Execute' 'Expunge'(1⊃R)
+</span><span id="__span-31-11"><a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a>[10]  0 0⍴∊64 ⎕sql 'Close' 'Expunge'
+</span><span id="__span-31-12"><a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a>[11]  0 0⍴∊64 ⎕sql 'Execute' 'Insert'(1⊃R)
+</span><span id="__span-31-13"><a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a>[12]  0 0⍴∊64 ⎕sql 'Close' 'Insert'
+</span><span id="__span-31-14"><a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a>[13]  0 0⍴∊64 ⎕sql 'Execute' 'Update'(2⊃R)(3⊃R)(1⊃R)
+</span><span id="__span-31-15"><a id="__codelineno-31-15" name="__codelineno-31-15" href="#__codelineno-31-15"></a>[14]  0 0⍴∊64 ⎕sql 'Close' 'Update'
+</span><span id="__span-31-16"><a id="__codelineno-31-16" name="__codelineno-31-16" href="#__codelineno-31-16"></a>[15]  0 0⍴∊64 ⎕sql 'Prepare' 'Select' 'SELECT * FROM OBJECTS WHERE KEYID=⊢;'
+</span><span id="__span-31-17"><a id="__codelineno-31-17" name="__codelineno-31-17" href="#__codelineno-31-17"></a>[16]  0 0⍴∊64 ⎕sql 'Execute' 'Select'(1⊃R)
+</span><span id="__span-31-18"><a id="__codelineno-31-18" name="__codelineno-31-18" href="#__codelineno-31-18"></a>[17]  (RC RM Data)←64 ⎕sql 'Fetch' 'Select'
+</span><span id="__span-31-19"><a id="__codelineno-31-19" name="__codelineno-31-19" href="#__codelineno-31-19"></a>[18]  0 0⍴∊64 ⎕sql 'Close' 'Select'
+</span><span id="__span-31-20"><a id="__codelineno-31-20" name="__codelineno-31-20" href="#__codelineno-31-20"></a>[19]  0 0⍴∊64 ⎕sql 'Disconnect'
+</span><span id="__span-31-21"><a id="__codelineno-31-21" name="__codelineno-31-21" href="#__codelineno-31-21"></a>      ∇  2005-05-22 17.51.31
+</span><span id="__span-31-22"><a id="__codelineno-31-22" name="__codelineno-31-22" href="#__codelineno-31-22"></a>
+</span><span id="__span-31-23"><a id="__codelineno-31-23" name="__codelineno-31-23" href="#__codelineno-31-23"></a>      Access '4122' 'APLXv3' '01/06/2005'
+</span></code></pre></div>
+<p>In line [17], the values inserted in the database are retrieved in the variable Data:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>     Data
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>4122 APLXv3 2005-06-01 00:00:00
+</span></code></pre></div>
+<p>Note that the date is returned in the standard ISO 8601 format although it was passed in DD/MM/YYYY format.</p>
+<p>Dynamic parameters are consumed in the order the placeholders are specified in the original SQL statement: refer to line [13] and compare it to the way the function is called.</p>
+<p>The obvious dividend is that workspace variables can be easily written to database tables. In other words, APL can share data with other applications using databases.</p>
+<h2 id="email-management">Email Management<a class="headerlink" href="#email-management" title="Permanent link">&para;</a></h2>
+<p>The new SendMail and GetMail objects enable the management of emails from within the workspace. It is time to download a free trial copy of version 3.0 from MicroAPL’s web site and to experiment! Incidentally, MicroAPL are the only vendor who have this automated facility and offer the cheapest industry-strength APL. The documentation for APLX can be downloaded freely.</p>
+<h2 id="finally">Finally<a class="headerlink" href="#finally" title="Permanent link">&para;</a></h2>
+<p>The example code in this article is for illustrative purposes only, and does not fully use the return code and message from <span class="APLU">⎕sql</span> in order to make the code robust and assumes index origin 1. In practice, the information returned by the function must be used and, ideally, the code should be index origin independent.</p>
+<p>I invite you to start exploring APLX version 3.0 as it adds powerful features to the developer’s arsenal of tools.</p>
+<ul>
+<li>I would like to see sample workspaces that demonstrate and guide users and developers. At present, there are no sample workspaces. This will address the needs of knowledgeable developers and address some minor shortcomings (the lack of examples in places) in the product documentation.</li>
+<li>I would also like to be able to use provider connections. For text, Excel, and Access data sources, the JET provider is far more powerful than ODBC drivers. Such an enhancement should include support for UDL files (as well as file DSNs for ODBC drivers).</li>
+<li>A means of returning all the name result sets belonging to a given <span class="APLU">⎕sql</span> handle is required.</li>
+<li>I would like the <span class="APLU">⎕sql</span> system function extended so that it produces SQL compliant statements for the creation of tables.</li>
+<li>An omission in the APL documentation is a table providing data types, names, and correspondence among the popular data sources – this is bound to be an onerous task, not least because there are too many data sources.</li>
+<li>A property of the grid object that would allow it to receive data from <span class="APLU">⎕sql</span> directly would be very welcome; alternatively, a means of coercing <span class="APLU">⎕sql</span> to send its data to the grid object would be very effective.</li>
+</ul>
+<p>In this article, I have demonstrated how APLX can work with server and file databases using the new facilities: in this respect, APLX is currently unique.</p>
+<p>I have used the Windows platform as the basis of my exploration: APLX is platform independent. My investigation includes five data sources but not any open source ones: perhaps someone could investigate APLX with such data sources and write up their findings.</p>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

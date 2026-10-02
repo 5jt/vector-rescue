@@ -1,0 +1,411 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10011850/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>SALT: A Simple APL Library Toolkit - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#using-script-files-in-dyalog-apl" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SALT: A Simple APL Library Toolkit
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#using-script-files-in-dyalog-apl" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Using script files in Dyalog APL
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Usage
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#theres-more" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        There’s more
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">SALT: A Simple APL Library Toolkit</h1>
+
+  <p class="printed"><a href="../23/3/">Vector 23:3</a>, page 103</p>
+
+<p class="byline">Dan Baronet<br />
+<a href="mailto:dan@dyalog.com">dan@dyalog.com</a></p>
+<p>The ability to write readable APL code out to text files and read it back has been pretty much out of reach for mere mortals until recently. Reasons for wanting to do such a thing abound:</p>
+<ul>
+<li>Keeping code out of the workspace to conserve memory</li>
+<li>Sharing or sending copies of code to people who don’t have an interpreter</li>
+<li>Storing readable code outside APL</li>
+<li>wanting a copy of the code independently of having an interpreter or being bound to a version of it</li>
+</ul>
+<p>With the advent of Unicode it is now easier to achieve this. APL characters are represented in Unicode, and editors and viewers of Unicode text files are now commonplace.</p>
+<h2 id="using-script-files-in-dyalog-apl">Using script files in Dyalog APL<a class="headerlink" href="#using-script-files-in-dyalog-apl" title="Permanent link">&para;</a></h2>
+<p>Since Version 11 it has been possible to get the source of some namespaces and the (then) new classes/interfaces. If desired, this source could then be written to file in Unicode format using the <code>UnicodeFile</code> class provided in <code>⎕SE</code>. This allowed one to create text files that could then be read or edited with programs such as Notepad, and keep the source out of the workspace:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>      F←⎕NEW UnicodeFile
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>      F.Write 'MyFile.txt' text
+</span></code></pre></div>
+<p>With Version 12 the <code>UnicodeFile</code> class is no longer needed as the new <code>⎕UCS</code> system function can now create UTF-8 strings directly from the Unicode points (APL text/code). This stream can then be written out to file just like any other APL array. Reading back is also easy: read the stream, use <code>⎕UCS</code> to reconstruct the string.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>      (⎕UCS 'UTF-8' ⎕UCS text) ⎕NAPPEND tie    ⍝ write to file
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>      ⎕UCS ⎕NREAD tie 80,⎕NSIZE tie            ⍝ read from file
+</span></code></pre></div>
+<p>Anybody can write two functions to write and read, put them in <code>⎕SE</code> and have the ability to store and retrieve APL code from native Unicode text files anytime they want to.</p>
+<p>Of course, once you start doing something like this you realise it might be a good idea to save multiple versions of a file or script, to be able to retrieve any of those versions, list them, compare them, remove unused versions, and so on.</p>
+<p>And this is exactly what Dyalog did when we came up with SALT: we wrote two functions, <code>Load</code> and <code>Save</code>, and added a few more functions to look up directories and files. We added the ability to store multiple copies of the same file and a function to be able to compare them, even by using your favourite comparison program.</p>
+<p>We went a step further, and added the ability to start APL without a workspace, simply by loading scripts and executing a statement to start the process.</p>
+<p>We modified the editor to generate an event upon fixing an object thus opening the door to intercepting the fix and saving the modified file automatically.</p>
+<p>We wrote a few scripts, besides SALT (itself a script) and made them available.</p>
+<p>And that was pretty much all we did.</p>
+<p>SALT comes bundled with Dyalog and is enabled by default. You can disable it through the configuration menu or through the accompanying SALT workspace. Simply <code>)LOAD SALT</code> and use <code>enableSALT</code> or <code>disableSALT</code>.</p>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<p>SALT functions use a consistent syntax: they all take a string argument which describes the arguments to the action to perform. They make use of switches à la Unix (e.g. <code>-version</code>). All script files have the extension <code>.dyalog</code>. If a relative path is used they are stored under a default directory, which may be changed.</p>
+<p>Here is a list of the main SALT functions: (brackets denote optional switches)</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Save  'object \path\to\file  [-version=x]'
+</span></code></pre></div>
+<p>Saves object in the file specified, with extension <code>.dyalog</code>. If <code>-version</code> is specified the filename will include the version number. Once version numbers are in use there is no further need to specify the version; SALT will attribute a new version number each time an object is resaved.</p>
+<p>If a relative path is supplied SALT will store files under the default SALT path. This default is <code>\dyalog\installation\path\SALT</code> but it may be changed using the <code>Settings</code> function:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Settings  'workdir    \new\path'
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Load  '\path\to\file    [-version=x]'
+</span></code></pre></div>
+<p>Loads the latest version or the version specified.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>List   '\folder\or\file  [-recursive]'
+</span></code></pre></div>
+<p>Lists the scripts in a folder, recursively if <code>–recursive</code> is given.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Compare  'script1  [script2]'
+</span></code></pre></div>
+<p>Compares two scripts or the last two versions of a script if only one is supplied as argument.</p>
+<h2 id="theres-more">There’s more<a class="headerlink" href="#theres-more" title="Permanent link">&para;</a></h2>
+<p>There are other features not listed above: you can:</p>
+<ul>
+<li>skip the confirmation prompts in <code>Save</code></li>
+<li>specify where to define the objects</li>
+<li>disperse their contents instead keeping them in their original namespace</li>
+<li>get the source instead of defining the object</li>
+<li>list the entire tree of a path</li>
+<li>clean the versions</li>
+<li>use external programs to compare objects, etc.</li>
+</ul>
+<p>And it works as well under Unix or Linux.</p>
+<p>If this is interesting, SALT comes with complete documentation which can also be found on Dyalog’s website. Have a look!</p>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,746 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Generating combinations in J efficiently">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10500220/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Generating combinations in J efficiently - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-original-comb" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Generating combinations in J efficiently
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-original-comb" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The original, comb
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comb1-the-first-improvement" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ComB1, the first improvement
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comb2-second-improvement" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ComB2, second improvement
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#new-improvement-combinations-combined" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        New improvement: combinations combined
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epilogue" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Epilogue
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Notes
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Generating combinations in J efficiently</h1>
+
+  <p class="printed"><a href="../24/2/">Vector 24:2</a>, page 75</p>
+
+<p class="byline">by R.E. Boss</p>
+<p class="abstract">The x combinations of y are the unordered x-sets of <code>i.y</code> and their number is <code>x!y</code>. For years the generation of combinations in J was done most efficiently by the verb <code>comb</code> on the <code>for.</code> page of the dictionary <a href="#ref1">[1]</a>. In this article a few ways of generating combinations in J will be considered and the performances are compared. A new and more efficient algorithm is presented.</p>
+<h2 id="the-original-comb">The original, comb<a class="headerlink" href="#the-original-comb" title="Permanent link">&para;</a></h2>
+<p>See also <a href="#ref2">[2]</a> for the definition.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>comb=: 4 : 0
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a> k=. i.&gt;:d=.y-x
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a> z=. (d$&lt;i.0 0),&lt;i.1 0
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a> for. i.x do. z=. k ,.&amp;.&gt; ,&amp;.&gt;/\. &gt;:&amp;.&gt; z end.
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a> ; z
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>)
+</span></code></pre></div>
+<p>At some point in the <code>for.</code>-loop, <code>z</code> represents the combinations boxed according to the starting number, like in the next figure (where <code>k = 0 1 2</code>).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>+---+---+---+
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>|0 1|1 2|2 3|
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>|0 2|1 3|   |
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>|0 3|   |   |
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>+---+---+---+
+</span></code></pre></div>
+<p>Then the expression <code>k ,.&amp;.&gt; ,&amp;.&gt;/\. &gt;:&amp;.&gt; z</code> first increases all numbers by one,</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>    &gt;:&amp;.&gt; z
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>+---+---+---+
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>|1 2|2 3|3 4|
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>|1 3|2 4|   |
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>|1 4|   |   |
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>+---+---+---+
+</span></code></pre></div>
+<p>then rearranges the boxes by</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>    ,&amp;.&gt;/\. &gt;:&amp;.&gt; z
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>+---+---+---+
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>|1 2|2 3|3 4|
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>|1 3|2 4|   |
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>|1 4|3 4|   |
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>|2 3|   |   |
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>|2 4|   |   |
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>|3 4|   |   |
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>+---+---+---+
+</span></code></pre></div>
+<p>and finally stitches <code>k</code> to it:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>    k ,.&amp;.&gt; ,&amp;.&gt;/\. &gt;:&amp;.&gt; z
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>+-----+-----+-----+
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>|0 1 2|1 2 3|2 3 4|
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>|0 1 3|1 2 4|     |
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>|0 1 4|1 3 4|     |
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>|0 2 3|     |     |
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>|0 2 4|     |     |
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>|0 3 4|     |     |
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>+-----+-----+-----+
+</span></code></pre></div>
+<p>As we can see, a lot of boxing is going on. A few remarks on that. We could get rid of the <code>&gt;:&amp;.&gt; z</code> which would lead to</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>    k ,.&amp;.&gt; ,&amp;.&gt;/\. z
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>+-----+-----+-----+
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>|0 0 0|1 1 1|2 2 2|
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>|0 0 1|1 1 2|     |
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>|0 0 2|1 2 2|     |
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>|0 1 1|     |     |
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>|0 1 2|     |     |
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>|0 2 2|     |     |
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>+-----+-----+-----+
+</span></code></pre></div>
+<p>and replace the <code>; z</code> at the end by <code>(i.x)+"0 ; z</code> However this would worsen the efficiency more than a bit.</p>
+<p>On the other hand, one could combine the <code>,</code> and <code>&gt;:</code> by <code>&gt;:@,</code></p>
+<p>This would lead to <code>k ,.&amp;.&gt; &gt;:@,&amp;.&gt;/\. z</code> and, although this is somewhat leaner, it is also slower.</p>
+<h2 id="comb1-the-first-improvement">ComB1, the first improvement<a class="headerlink" href="#comb1-the-first-improvement" title="Permanent link">&para;</a></h2>
+<p>We can do better than <code>comb</code> if we look at the numbers in the different columns. The next verb uses this. Its is a slight modification of the <code>comb1</code> in <a href="#ref3">[3]</a>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>comB1=: 4 : 0
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a> d=. x-~y
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a> k=. |.(&gt;:d),\i.y
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a> z=. (d$&lt;i.0 0),&lt;i.1 0
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a> for_j. k  do. z=. j ,.&amp;.&gt; ,&amp;.&gt;/\. z end.
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a> ; z
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>)
+</span></code></pre></div>
+<p>For <code>'x y' =: 3 5</code> we get</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>   k=.|.(&gt;:2),\i.5
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>2 3 4
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>1 2 3
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>0 1 2
+</span></code></pre></div>
+<p>and these rows are stitched subsequently to the prefixed boxes of <code>z</code> as is shown below. After the first two rows of <code>k</code> are used, we get <code>z</code> equal to</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>+---+---+---+
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>|1 2|2 3|3 4|
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>|1 3|2 4|   |
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>|1 4|   |   |
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>+---+---+---+
+</span></code></pre></div>
+<p>And just like the original, the next row is stitched by <code>j ,.&amp;.&gt;,&amp;.&gt;/\. z</code></p>
+<p>This new method at least made the boxing <code>&gt;:&amp;.&gt; z</code> superfluous. So it is no surprise that it was faster and leaner by some 10% to 30%:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>    rnk2 5&amp;ts&amp;&gt;'x comb y'; 'x comB1 y'['x y'=: 8 24
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>1   1.07 1.13     0.172 7.915e7
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>0   1.00 1.00     0.161 6.998e7
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>    rnk2 5&amp;ts&amp;&gt;'x comb y'; 'x comB1 y'['x y'=: 12 24
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>1   1.20 1.17     1.276 4.513e8
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>0   1.00 1.00     1.067 3.844e8
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>    rnk2 5&amp;ts&amp;&gt;'x comb y'; 'x comB1 y'['x y'=: 16 24
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>1   1.28 1.30     0.644 2.069e8
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>0   1.00 1.00     0.504 1.594e8
+</span></code></pre></div>
+<p>The first column of the performance matrix gives the ranking, the 2nd column gives the relative execution time, the 3rd column the relative execution space and the last two columns give the real time and space <a href="#ref4">[4]</a>.</p>
+<h2 id="comb2-second-improvement">ComB2, second improvement<a class="headerlink" href="#comb2-second-improvement" title="Permanent link">&para;</a></h2>
+<p>In <a href="#ref5">[5]</a> – where it was called <code>comb2</code> – a further improvement on the generation of combinations is given, now even by a complete tacit and rather elegant verb.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>   comB2=: [:; [:(,.&amp;.&gt;&lt;@;\.)/ &gt;:@-~ [\i.@]
+</span></code></pre></div>
+<p>This verb starts with <code>&gt;:@-~[\i.@]</code> by which a matrix is created in which each row contains the numbers which are used in the corresponding column. The matrix</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>      3(&gt;:@-~ [\i.@]) 5
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>0 1 2
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>1 2 3
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>2 3 4
+</span></code></pre></div>
+<p>is used for the combinations</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>   3 comB2 5
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>0 1 2
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>0 1 3
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>0 1 4
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>0 2 3
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>0 2 4
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>0 3 4
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>1 2 3
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>1 2 4
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>1 3 4
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>2 3 4
+</span></code></pre></div>
+<p>The first row of the first matrix gives the numbers used in the first column of the combinations matrix, and likewise for the second and third row and column. From</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>   (,.&amp;.&gt;&lt;@;\.)/_2{. 3(&gt;:@-~ [\i.@]) 5
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>+---+---+---+
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>|1 2|2 3|3 4|
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>|1 3|2 4|   |
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>|1 4|   |   |
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>+---+---+---+
+</span></code></pre></div>
+<p>and</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>   (,.&amp;.&gt;&lt;@;\.)/ 3(&gt;:@-~ [\i.@]) 5
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>+-----+-----+-----+
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>|0 1 2|1 2 3|2 3 4|
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>|0 1 3|1 2 4|     |
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>|0 1 4|1 3 4|     |
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>|0 2 3|     |     |
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>|0 2 4|     |     |
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>|0 3 4|     |     |
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>+-----+-----+-----+
+</span></code></pre></div>
+<p>it is obvious what is happening. This verb <code>comB2</code> could be regarded as finishing the first improvement, which introduced the <code>&gt;:@-~ [\i.@]</code> phrase.</p>
+<p>Notice also that the <code>,&amp;.&gt;/\.</code> from the first two verbs is replaced by the <code>&lt;@;\.</code> phrase. Although this alternative is slower for large numbers, it is of no influence for the relatively small numbers used in combinations.</p>
+<p>If the performances are compared, we get</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>    rnk2 5&amp;ts&amp;&gt;'x comb y'; 'x comB1 y'; 'x comB2 y'['x y'=: 8 24
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>2   1.00 1.13     0.156 7.915e7
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>0   1.01 1.00     0.158 6.998e7
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>1   1.02 1.00     0.159 6.997e7
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>    rnk2 5&amp;ts&amp;&gt;'x comb y'; 'x comB1 y'; 'x comB2 y'['x y'=: 12 24
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>2   1.19 1.17     1.277 4.513e8
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>0   1.00 1.00     1.071 3.844e8
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>1   1.00 1.00     1.073 3.844e8
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>    rnk2 5&amp;ts&amp;&gt;'x comb y'; 'x comB1 y'; 'x comB2 y'['x y'=: 16 24
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>2   1.25 1.30     0.642 2.069e8
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>1   1.06 1.00     0.543 1.594e8
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>0   1.00 1.00     0.513 1.594e8
+</span></code></pre></div>
+<p>which makes <code>comB2</code> the overall champion, be it close to <code>comB1</code>, and almost 50% more efficient as the original.</p>
+<p>A remark must be made that for the trivial combinations with <code>x e. 0 1</code> the answer of <code>comB2</code> is incorrect. For that the verb should be adjusted to</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>   comB2`((!,[)$ i.@])@.(0 1 e.~[)
+</span></code></pre></div>
+<p>which hardly influences the performance. The conclusion is that the performances of <code>comB1</code> and <code>comB2</code> are more or less equal.</p>
+<h2 id="new-improvement-combinations-combined">New improvement: combinations combined<a class="headerlink" href="#new-improvement-combinations-combined" title="Permanent link">&para;</a></h2>
+<p>What is really annoying is the fact that although <code>k comb n</code> and <code>(n-k) comb n</code> are mutually complementary, for relatively small <code>k</code> the calculation of <code>k comb n</code> is much more efficient than that of <code>(n-k) comb n</code>. See the next figures.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>   rnk2 5&amp;ts&amp;&gt;'8 comB2 24'; '16 comB2 24'
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>0   1.00 1.00     0.141 6.997e7
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>1   3.57 2.28     0.503 1.594e8
+</span></code></pre></div>
+<p>Also taking the complement is of no use, performance wise:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>   rnk 5&amp;ts&amp;&gt;'8 comB2 24'; '(i.24)-."1 [8 comB2 24'
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>0 1.00 1.00
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>1 5.66 1.44
+</span></code></pre></div>
+<p>So when writing this article an old idea came up again to reconstruct a combination from two (or more) simpler combinations.</p>
+<p>The questions than are: which combinations can be combined and how to combine them? To answer the first question, let’s have a look at splitting a given combination.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>   4 comb 6
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>0 1 2 3
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>0 1 2 4
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>0 1 2 5
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>0 1 3 4
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>0 1 3 5
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>0 1 4 5
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>0 2 3 4
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>0 2 3 5
+</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>0 2 4 5
+</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>0 3 4 5
+</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>1 2 3 4
+</span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a>1 2 3 5
+</span><span id="__span-23-14"><a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a>1 2 4 5
+</span><span id="__span-23-15"><a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a>1 3 4 5
+</span><span id="__span-23-16"><a id="__codelineno-23-16" name="__codelineno-23-16" href="#__codelineno-23-16"></a>2 3 4 5
+</span></code></pre></div>
+<p>If we subtract 2 from the last two columns we get</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>   0 0 2 2 -~"1[4 comb 6
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>0 1 0 1
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>0 1 0 2
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>0 1 0 3
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>0 1 1 2
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>0 1 1 3
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>0 1 2 3
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>0 2 1 2
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>0 2 1 3
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>0 2 2 3
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>0 3 2 3
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>1 2 1 2
+</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a>1 2 1 3
+</span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a>1 2 2 3
+</span><span id="__span-24-15"><a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a>1 3 2 3
+</span><span id="__span-24-16"><a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a>2 3 2 3
+</span></code></pre></div>
+<p>Boxing according to the first two columns produces</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>   A =: (2&amp;{."1&lt;/.])0 0 2 2 -~"1[4 comb 6
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>   A
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>+-------+-------+-------+-------+-------+-------+
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>|0 1 0 1|0 2 1 2|0 3 2 3|1 2 1 2|1 3 2 3|2 3 2 3|
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>|0 1 0 2|0 2 1 3|       |1 2 1 3|       |       |
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>|0 1 0 3|0 2 2 3|       |1 2 2 3|       |       |
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>|0 1 1 2|       |       |       |       |       |
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>|0 1 1 3|       |       |       |       |       |
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>|0 1 2 3|       |       |       |       |       |
+</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>+-------+-------+-------+-------+-------+-------+
+</span></code></pre></div>
+<p>As we can see <code>4 comb 6</code> appears to be built from two times <code>2 comb 4</code>. First of all, the last 2 columns of the boxes of <code>A</code> appear to be</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>   &lt;@;\.({."1&lt;/.]) 2 comb 4
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>+---+---+---+
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>|0 1|1 2|2 3|
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>|0 2|1 3|   |
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>|0 3|2 3|   |
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>|1 2|   |   |
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>|1 3|   |   |
+</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>|2 3|   |   |
+</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>+---+---+---+
+</span></code></pre></div>
+<p>whereas the first columns in the boxes of <code>A</code> are the rank-1 boxes of <code>2 comb 4</code></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>   &lt;"1[2 comb 4
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>+---+---+---+---+---+---+
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>|0 1|0 2|0 3|1 2|1 3|2 3|
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>+---+---+---+---+---+---+
+</span></code></pre></div>
+<p>So <code>A</code> can be constructed by</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>(&lt;"1[2 comb 4),”1&amp;.&gt;&lt;@;\.({."1&lt;/.]) 2 comb 4
+</span></code></pre></div>
+<p>Generalizing this idea we come to the verb</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>comB3=: 4 : 0
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>  if. x e. 0 1 do. z=.&lt;((x!y),x)$ i.y
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>  else. t=. |.(&lt;.@-:)^:(i.&lt;. 2^.x)x
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>    z=.({.t) ([:(,.&amp;.&gt;&lt;@;\.)/ &gt;:@-~[\i.@]) ({.t)+y-x
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>    for_j. 2[\t do.
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>z=.([ ;@:(&lt;"1@[ (,"1 ({.j)+])&amp;.&gt; ])&amp;.&gt; &lt;@;\.({&amp;.&gt;&lt;)~ (1+({.j)-~{:"1)&amp;.&gt;) z
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>      if. 2|{:j do. z=.(i.1+y-x)(,.&gt;:)&amp;.&gt; &lt;@;\.z end.
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>    end.
+</span><span id="__span-29-9"><a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a>  end.
+</span><span id="__span-29-10"><a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a>  ;z
+</span><span id="__span-29-11"><a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a>)
+</span></code></pre></div>
+<p>We will illustrate the verb in calculating <code>5 comB3 7</code>. We start with a check for <code>x</code> equal to <code>0</code> or <code>1</code>. For other <code>x</code> we floor and halve (<code>&lt;.@-:</code>) until <code>2</code> or <code>3</code> is reached, for <code>x = 5</code> this gives <code>t = 2 5</code>. Then the combinations <code>2 comb 4</code> are determined, such that they are boxed according to the first number:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>   2 ([:(,.&amp;.&gt;&lt;@;\.)/ &gt;:@-~[\i.@]) 4
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>+---+---+---+
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>|0 1|1 2|2 3|
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>|0 2|1 3|   |
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>|0 3|   |   |
+</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>+---+---+---+
+</span></code></pre></div>
+<p>This property will be held invariant for all <code>z</code> to be computed.</p>
+<p>Given such a <code>z</code>, we will combine it with itself as described before, which is written in J as given in the long line of the verb.</p>
+<p>This long line consists of three parts, the left part (<code>[</code>) being <code>z</code> itself. The right-hand side <code>&lt;@;\.({&amp;.&gt;&lt;)~ (1+({.j)-~{:"1)&amp;.&gt;</code> is a bit complicated. Let’s split it first according to</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>   (&lt;@;\. ,&amp;&lt; (1+({.j)-~{:"1)&amp;.&gt;) z
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>+-------------+-------------+
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>|+---+---+---+|+-----+---+-+|
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>||0 1|1 2|2 3|||0 1 2|1 2|2||
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>||0 2|1 3|   ||+-----+---+-+|
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>||0 3|2 3|   ||             |
+</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>||1 2|   |   ||             |
+</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>||1 3|   |   ||             |
+</span><span id="__span-31-9"><a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>||2 3|   |   ||             |
+</span><span id="__span-31-10"><a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>|+---+---+---+|             |
+</span><span id="__span-31-11"><a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a>+-------------+-------------+
+</span></code></pre></div>
+<p>So we see at the left the boxed outfix of <code>z</code>, and at the right, the last columns of the boxes of <code>z</code>, diminished by <code>1</code>. The last are used to select from the first delivering</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>   B =: (&lt;@;\. ({&amp;.&gt;&lt;)~ (1+({.j)-~{:"1)&amp;.&gt;) z
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>   B
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>+-------------+---------+-----+
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>|+---+---+---+|+---+---+|+---+|
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>||0 1|1 2|2 3|||1 2|2 3|||2 3||
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>||0 2|1 3|   |||1 3|   ||+---+|
+</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a>||0 3|2 3|   |||2 3|   ||     |
+</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a>||1 2|   |   ||+---+---+|     |
+</span><span id="__span-32-9"><a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a>||1 3|   |   ||         |     |
+</span><span id="__span-32-10"><a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a>||2 3|   |   ||         |     |
+</span><span id="__span-32-11"><a id="__codelineno-32-11" name="__codelineno-32-11" href="#__codelineno-32-11"></a>|+---+---+---+|         |     |
+</span><span id="__span-32-12"><a id="__codelineno-32-12" name="__codelineno-32-12" href="#__codelineno-32-12"></a>+-------------+---------+-----+
+</span></code></pre></div>
+<p>Now we come to the central part of the long line</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>   ;@:(&lt;"1@[(,"1 ({.j)+])&amp;.&gt; ])&amp;.&gt;
+</span></code></pre></div>
+<p>Each box of <code>z</code> is combined with each box of <code>B</code>, by concatenating a row in a box left with a sub-box in a box of <code>B</code>. The last one has to be increased by <code>2 = ({,j)</code> and the end result should be ravelled. Then the new <code>z</code> is again boxed according to its first column.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>   ([ ;@:(&lt;"1@[ (,"1 ({.j)+])&amp;.&gt; ])&amp;.&gt; &lt;@;\.({&amp;.&gt;&lt;)~ (1+({.j)-~{:"1)&amp;.&gt;) z
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>+-------+-------+-------+
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>|0 1 2 3|1 2 3 4|2 3 4 5|
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>|0 1 2 4|1 2 3 5|       |
+</span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>|0 1 2 5|1 2 4 5|       |
+</span><span id="__span-34-6"><a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a>|0 1 3 4|1 3 4 5|       |
+</span><span id="__span-34-7"><a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a>|0 1 3 5|       |       |
+</span><span id="__span-34-8"><a id="__codelineno-34-8" name="__codelineno-34-8" href="#__codelineno-34-8"></a>|0 1 4 5|       |       |
+</span><span id="__span-34-9"><a id="__codelineno-34-9" name="__codelineno-34-9" href="#__codelineno-34-9"></a>|0 2 3 4|       |       |
+</span><span id="__span-34-10"><a id="__codelineno-34-10" name="__codelineno-34-10" href="#__codelineno-34-10"></a>|0 2 3 5|       |       |
+</span><span id="__span-34-11"><a id="__codelineno-34-11" name="__codelineno-34-11" href="#__codelineno-34-11"></a>|0 2 4 5|       |       |
+</span><span id="__span-34-12"><a id="__codelineno-34-12" name="__codelineno-34-12" href="#__codelineno-34-12"></a>|0 3 4 5|       |       |
+</span><span id="__span-34-13"><a id="__codelineno-34-13" name="__codelineno-34-13" href="#__codelineno-34-13"></a>+-------+-------+-------+
+</span></code></pre></div>
+<p>Since <code>2|{:j</code> because <code>5={:j</code> an extra column has to be added as in the other verbs. And this is also the final result, be it in an unravelled way.</p>
+<p>Now, how about the performances?</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>    rnk2 5&amp;ts&amp;&gt;'x comb y'; 'x comB2 y'; 'x comB3 y'['x y'=: 8 24
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>2   1.14 1.24     0.157 7.915e7
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>1   1.15 1.09     0.158 6.997e7
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a>0   1.00 1.00     0.138 6.396e7
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>    rnk2 5&amp;ts&amp;&gt;'x comb y'; 'x comB2 y'; 'x comB3 y'['x y'=: 12 24
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>2   1.76 1.42     1.277 4.513e8
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>1   1.48 1.21     1.074 3.844e8
+</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>0   1.00 1.00     0.726 3.182e8
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>    rnk2 5&amp;ts&amp;&gt;'x comb y'; 'x comB2 y'; 'x comB3 y'['x y'=: 16 24
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>2   2.24 1.68     0.644 2.069e8
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>1   1.75 1.30     0.504 1.594e8
+</span><span id="__span-37-4"><a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>0   1.00 1.00     0.287 1.230e8
+</span></code></pre></div>
+<p>which is a major difference, even with the last record holder. And as it should be, the difference is bigger in the cases where <code>x</code> is close(r) to <code>y</code>.</p>
+<p>Some other figures are:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>   rnk 5&amp;ts&amp;&gt;'x comb y'; 'x comB2 y'; 'x comB3 y'['x y'=: 20 26
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>2 2.88 2.64
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>1 2.10 1.98
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>0 1.00 1.00
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>   rnk 5&amp;ts&amp;&gt;'x comb y'; 'x comB2 y'; 'x comB3 y'['x y'=: 20 28
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>|out of memory: comb
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>|   z=.k    ,.&amp;.&gt;,&amp;.&gt;/\.&gt;:&amp;.&gt;z
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>   rnk 5&amp;ts&amp;&gt; 'x comB2 y'; 'x comB3 y'['x y'=: 20 28
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>1 1.94 1.55
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>0 1.00 1.00
+</span></code></pre></div>
+<p>So finally a new way of generating combinations in J efficiently is found and described.</p>
+<h2 id="epilogue">Epilogue<a class="headerlink" href="#epilogue" title="Permanent link">&para;</a></h2>
+<p>One could ask the use of spending so much time speeding up a process that takes seconds or less? Even twice as fast – who cares?</p>
+<p>There are other reasons to look for efficiency.</p>
+<p>First of all, it is fun to do. Just as trying to break a world record, it costs you sweat, time, pain and money, and is a uniquely rewarding experience when you succeed. “Why did you climb that mountain?” a mountaineer was asked. “Because it was there.” Was the answer. So performances have to be improved, just like records.</p>
+<p>The second and by no means less important answer is that if you design an algorithm which is faster and leaner than the existing ones, you have understood the problem and its structure deeply. And often that algorithm reveals that structure in using it. This is very rewarding, to see patterns unseen by others.</p>
+<p>Apart from that, J is a language that makes it easy to examine most of the structures you discover. So, as long as there are nice problems for which performance can be improved, I’ll keep on doing it.</p>
+<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a id="ref1"></a> <a href="http://www.jsoftware.com/help/dictionary/cfor.htm">www.jsoftware.com/help/dictionary/cfor.htm</a></li>
+<li><a id="ref2"></a> <a href="http://www.jsoftware.com/jwiki/Essays/Combinations">www.jsoftware.com/jwiki/Essays/Combinations</a></li>
+<li><a id="ref3"></a> <a href="http://www.jsoftware.com/pipermail/programming/2007-August/007819.html">www.jsoftware.com/pipermail/programming/2007-August/007819.html</a></li>
+<li><a id="ref4"></a> <code>rnk2=: 1 7j2 5j2 10j3 8j_3 ": <br>(,.~[: (/:@/:@:({."1),. }."1) (%"1 &lt;./)@:(,.~ </code>*/"1))</li>
+<li><a id="ref5"></a> <a href="http://www.jsoftware.com/pipermail/programming/2008-January/009488.html">www.jsoftware.com/pipermail/programming/2008-January/009488.html</a></li>
+</ol>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

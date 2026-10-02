@@ -1,0 +1,232 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=UTF-8">
+<title>Lucidity through infix notation [Phil Last]</title>
+<link href="../arch.css" type=text/css rel=stylesheet>
+</head>
+
+<body>
+
+<!-- breadcrumbs -->
+<table width=100%><tr>
+  <td><font size=-1>
+	<a href="http://www.vector.org.uk"><img src="../../icons/iconorng.gif" align="middle" alt="VECTOR icon" border=0 title="VECTOR home" /></a> 
+	<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt; 
+	<a href="index.htm">contents of Vector 22.1</a></font></td>
+
+  <td align=right><font size=-1>For best results, install <a href="../../resource/apl385.zip">APL385 Unicode</a> and use Firefox <a href="http://www.mozilla.org/products/firefox/"><img src="../firefox.gif" align="middle" border=0></a></font></td></tr>
+</table>
+
+<div class=Section1> <!-- Start of Galley -->
+<div align=center>
+
+  <h1>Lucidity Through Infix Notation
+</h1>
+
+<h2>or Destructuring APL</h2>
+
+</div>
+
+<p class=author><i>by Phil Last</i></p>
+
+
+  <h2>Abstract</h2>
+
+<p>The napkin, not the first to end up in Italy, I believe, was of superb quality, as evidenced by minimal spread of the ink from John&#146;s fibre tipped pen, as was the meal it was served with. </p>
+
+<h2>Introduction</h2>
+
+<p>What I wrote on it, or tried to write, my hand-eye coordination not being what it had been earlier, recalls a paper by David Eastwood in 1993 [<a href="#e1">E1</a>] suggesting we could use defined operators to abolish the goto &amp; get around the absence of control structures in APL. Something I'd been doing since APL2 arrived 10 years earlier.</p>
+
+  <p>My contention now is that in many situations, using control structures, which were not available in 1993, actually obscures the intent of our programs whereas infix notation using conjunctions is a more lucid way to describe them.</p>
+
+<p>
+      Meaningful sentences don&#146;t start with &#147;If&#148;.</p>
+
+<blockquote>
+&#x201c;Well, it ain&#146;t no use to sit and wonder why, Babe, if you don&#146;t know by now.&#148;[<a href="#d1">D1</a>]</blockquote>
+
+<p>Most people have seen something like this ...</p>
+
+<pre class=APLU>
+   --------------------------
+    else&#x2190;{    | then&#x2190;{
+       &#x237A;:&#x237A;&#x237A; &#x2375; |    &#x237A;&#x237A; &#x2375;:&#x2375;&#x2375; &#x2375;
+       &#x2375;&#x2375; &#x2375;   |    &#x2375;
+    }         | }
+   --------------------------            </pre>
+
+<p>We can do ...</p>
+
+<pre class=APLU>    res&#x2190;test consequence else alternative arg                 (1)</pre>
+
+<p>where <tt>res</tt> is the data result, determined by boolean singleton <tt>test</tt>, of either <tt>consequence</tt> or <tt>alternative</tt> both of which are functions with <tt>arg</tt> in their domains, </p>
+
+<p>and ...</p>
+
+<pre class=APLU>    res&#x2190;proposition then consequence arg                      (2)</pre>
+
+<p>where again both <tt>proposition</tt> &amp; <tt>consequence</tt> have <tt>arg</tt> in their domain, <tt>res</tt> being either <tt>arg</tt> as is or the data result of <tt>consequence </tt>if <tt>proposition&#146;</tt>s boolean result is true.</p>
+
+<p>David Eastwood hoped to combine these two expressions to produce ...</p>
+
+<pre class=APLU>    res&#x2190;proposition then consequence else alternative arg     (3)</pre>
+
+<p>To quote David ...</p>
+
+<blockquote>    The simplified construction:
+      <pre class=APLU>... test THEN expl ELSE exp2 data</pre>
+	  
+      
+    <p>can be written with user-defined operators THEN and ELSE but presents a problem, The order of execution of the expression is:</p>
+
+    <pre class=APLU>... test THEN expl</pre>
+	
+      <p>which will generate the left operand for</p>
+	  
+      <pre class=APLU>... ELSE exp2</pre>
+
+<p>It is difficult to come up with a safe, general return code from THEN which can instruct ELSE to evaluate its right operand ...</p></blockquote>
+
+<p>I suspect that as (proposition then consequence) is the left operand to &#147;else&#148; David was viewing it as atomic. The way operands are passed to operators BEFORE being executed means it is not the business of &#147;then&#148;to instruct &#147;else&#148; to do anything but rather for &#147;else&#148; to call its operand function which is derived from &#147;then&#148;. It can do this or not in any way the coder chooses.</p>
+
+<p>By constructing both operators such that &#147;else&#148; passes an otherwise meaningless left argument to the derived function which becomes &#147;then&#148; &#146;s left argument, &#147;then&#148;can call either its &#147;proposition&#148;or its &#147;consequence&#148;rather than calling &#147;consequence&#148;conditionally on the result of &#147;proposition&#148;.</p>
+
+<p>And we can construct an &#147;if&#148; with commuted syntax (consequence if proposition) and if it is made to rely on &#147;then&#148; then it will also work under &#147;else&#148; giving us, besides a headache ...</p>
+
+<pre class=APLU>    res&#x2190;consequence if proposition arg                        (4)
+    res&#x2190;consequence if proposition else alternative arg       (5)</pre>
+
+<p>Here is what else was written on the napkin ...</p>
+
+<pre class=APLU>----------------------------------------------------------------
+then&#x2190;{                 | else&#x2190;{             | if&#x2190;{
+   &#x237A;&#x2190;'M'               |    &#x237A;&#x2190;'M'           |    &#x237A;&#x2190;{&#x2375;}
+   &#x237A;='Q':({&#x2375;}&#x2218;&#x237A;&#x237A;)&#x2375;     |    &#x237A;=1:({&#x2375;}&#x2218;&#x237A;&#x237A;)&#x2375;   |    &#x237A;(&#x2375;&#x2375; then &#x237A;&#x237A;)&#x2375;
+   &#x237A;='Y':({&#x2375;}&#x2218;&#x2375;&#x2375;)&#x2375;     |    &#x237A;=0:({&#x2375;}&#x2218;&#x2375;&#x2375;)&#x2375;   | }
+   ({&#x2375;}&#x2218;&#x237A;&#x237A;)&#x2375;:({&#x2375;}&#x2218;&#x2375;&#x2375;)&#x2375; |    'Q'&#x237A;&#x237A; &#x2375;:'Y'&#x237A;&#x237A; &#x2375; |
+   &#x2375;                   |    ({&#x2375;}&#x2218;&#x2375;&#x2375;)&#x2375;       |
+}                      | }                  |
+----------------------------------------------------------------</pre>
+
+<p>I use two techniques here that might not be universally recognised ...</p>
+
+<pre class=APLU>    &#x237A;&#x2190;{&#x2375;}</pre>
+
+  <p>allows ambivalent expressions to be coded. It is executed conditionally by the D: interpreter only in a monadic use. In a dyadic use, array (<span class="aplu">&#x237A;</span>) to the left of a function indicates another dyad. In a monadic use, identity function (<span class="aplu">&#x237A;</span>) to the left of a function indicates another monad.</p>
+
+<p>I use this here in &#147;if&#148;, though I missed it from the napkin, so that it can pass on its current valence to &#147;then&#148;, being called monadically in the standalone call (4) and dyadically under &#147;else&#148; in (5).</p>
+
+<p>The other technique uses another type of ambivalence ...</p>
+
+<pre class=APLU>    ({&#x2375;}&#x2218;&#x237A;&#x237A;)&#x2375;</pre>
+
+  <p>is ambivalent in the sense that (<span class="aplu">&#x237A;&#x237A;</span>) can be either an array or a function. If it is a function the <span class="aplu">{&#x2375;}&#x2218; </span>forces a monadic call even in the presence of a left argument. If it is an array (variable) it is the curried right argument to the function <span class="aplu">{&#x2375;}</span>&amp; is therefore returned unchanged.</p>
+
+<p>This is used above wherever an explicitly monadic call is made to an operand and permits the following variations on the above sentences (1&#150;5), using CAPITALS to indicate arrays ...</p>
+
+<pre class=APLU>      RES&#x2190;TEST consequence else alternative ARG                 (1)
+      RES&#x2190;TEST(consequence else OTHER)ARG                       (1.1)
+      RES&#x2190;TEST(VALUE else alternative)ARG                       (1.2)
+      RES&#x2190;TEST(VALUE else OTHER)ARG                             (1.3) *
+
+      RES&#x2190;proposition then consequence ARG                      (2)
+      RES&#x2190;(proposition then VALUE)ARG                           (2.1)
+      RES&#x2190;TEST then consequence ARG                             (2.2)
+      RES&#x2190;(TEST then VALUE)ARG                                  (2.3)
+
+      RES&#x2190;proposition then consequence else alternative ARG     (3)
+      RES&#x2190;(proposition then consequence else OTHER)ARG          (3.1)
+      RES&#x2190;proposition then VALUE else alternative ARG           (3.2)
+      RES&#x2190;(proposition then VALUE else OTHER)ARG                (3.3)
+      RES&#x2190;TEST then consequence else alternative ARG            (3.4)
+      RES&#x2190;(TEST then consequence else OTHER)ARG                 (3.5)
+      RES&#x2190;TEST then VALUE else alternative ARG                  (3.6)
+      RES&#x2190;(TEST then VALUE else OTHER)ARG                       (3.7) *
+
+      RES&#x2190;consequence if proposition ARG                        (4)
+      RES&#x2190;(consequence if TEST)ARG                              (4.1)
+      RES&#x2190;VALUE if proposition ARG                              (4.2)
+      RES&#x2190;(VALUE if TEST)ARG                                    (4.3)
+
+      RES&#x2190;consequence if proposition else alternative ARG       (5)
+      RES&#x2190;(consequence if proposition else OTHER)ARG            (5.1)
+      RES&#x2190;consequence if TEST else alternative ARG              (5.2)
+      RES&#x2190;(consequence if TEST else OTHER)ARG                   (5.3)
+      RES&#x2190;VALUE if proposition else alternative ARG             (5.4)
+      RES&#x2190;(VALUE if proposition else OTHER)ARG                  (5.5)
+      RES&#x2190;VALUE if TEST else alternative ARG                    (5.6)
+      RES&#x2190;(VALUE if TEST else OTHER)ARG                         (5.7) *</pre>
+
+<p>In all the sentences lacking &#147;else&#148;, the standalone expressions in &#147;then&#148; &amp; &#147;if&#148;, it can be correctly inferred that if (TEST) or (proposition ARG) is false then RES is ARG.</p>
+
+  <p>In the sentences marked (<span class="aplu">*</span>) ARG is not referenced and plays no part in the result. It is required only as a syntactic placeholder.</p>
+
+<p>Normal rules of function derivation and grouping with parentheses permit us to add to the complexity without obscuring the sense to produce further constraints as with nested :Ifs or those qualified with :ElseIf and :AndIf but perhaps with greater lucidity. I hesitate to mention :OrIf which I have so far completely failed to circumcapitate (<a href="#i">i</a>) ....</p>
+
+<pre class=APLU>                                                              (6)
+      RES&#x2190;proposition1 then(proposition2 then consequence else alternative2)else alternative1 ARG</pre>
+
+<p>which works as expected.</p>
+
+<p>The ability to write in-line D:fns and if necessary to break them inside of the braces {<br>
+      thus<br>
+  } makes it possible to control the visual representation of clauses which some may consider an advantage ...</p>
+
+<pre class=APLU>    RES&#x2190;proposition1 then{                                    (6.1)
+         proposition2 then consequence else alternative2 &#x2375;
+      }else alternative1 ARG</pre>
+
+<h2>Asides
+
+</h2>
+
+<p>Scarily, we can replace the character flags &#145;M&#146;, &#145;Q&#146;&amp; &#145;Y&#146; in &#147;then&#148; &amp; &#147;else&#148; above with arbitrary numbers 2, 1 &amp; 0 and the operators become nearly indistinguishable though the semantics of the identical lines are quite different.</p>
+
+<pre class=APLU>  ------------------------------------------
+   then&#x2190;{                 | else&#x2190;{
+      &#x237A;&#x2190;2                 |    &#x237A;&#x2190;2
+      &#x237A;=1:({&#x2375;}&#x2218;&#x237A;&#x237A;)&#x2375;       |    &#x237A;=1:({&#x2375;}&#x2218;&#x237A;&#x237A;)&#x2375;
+      &#x237A;=0:({&#x2375;}&#x2218;&#x2375;&#x2375;)&#x2375;       |    &#x237A;=0:({&#x2375;}&#x2218;&#x2375;&#x2375;)&#x2375;
+      ({&#x2375;}&#x2218;&#x237A;&#x237A;)&#x2375;:({&#x2375;}&#x2218;&#x2375;&#x2375;)&#x2375; |    1 &#x237A;&#x237A; &#x2375;:0 &#x237A;&#x237A; &#x2375;
+      &#x2375;                   |    ({&#x2375;}&#x2218;&#x2375;&#x2375;)&#x2375;
+   }                      | }
+  ------------------------------------------      </pre>
+
+<p>Oh yes, and in case anyone has noticed that none of this touches on the most ubiquitous use of &#147;:If&#148;, try ...</p>
+
+<pre class=APLU>   &#x2207; res&#x2190;{larg}f00 rarg;default
+     default&#x2190;42
+     larg&#x2190;(2=&#x2395;NC'larg')then{larg}default
+     ...
+   &#x2207;</pre>
+
+<h2>
+      Conclusions</h2>
+
+<p>I have shown that it is possible to write defined operators that, along with a functional approach to the code being controlled, offer the possibility of a more &#147;natural language&#148; style of programming in place of the commoner control structures. And that writing them on napkins is the quickest way to get them published.</p>
+
+<h2>
+      Note</h2>
+
+  <p><a name="i">(i)</a> circumcapitate - vt - to get one&#146;s head around something</p>
+
+<h2>References:</h2>
+
+  <p class=indent><a name="e1"></a>[E1] David S. Eastwood. &#147;Structuring functions with operators&#148;. <i>ACM SIGAPL APL Quote Quad</i>  Volume 24, Issue 1 (August 1993)</p>
+
+  <p class=indent><a name="d1"></a>[D1] Bob Dylan. &#147;Don&#146;t think twice, it&#146;s alright&#148;.<i>The Freewheeling Bob Dylan</i>. Columbia. (1963)</p>
+
+
+</div>
+
+<hr noshade>
+
+<p><font size=-1>
+	<a href="http://www.vector.org.uk"><img src="../../icons/iconorng.gif" align="middle" alt="VECTOR home" border=0 title="VECTOR home" /></a>
+	<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt;
+	<a href="index.htm">contents of Vector 22.1</a></font></p>
+
+</body>
+</html>

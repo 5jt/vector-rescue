@@ -1,0 +1,513 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A look at the boolean vector reductions - choosing the right one for the job in hand; and some potential speed-ups.">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10501140/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Boolean Reductions - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#some-boolean-scans" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Boolean Reductions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#some-boolean-scans" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Some boolean scans
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reductions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reductions
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sixteen-boolean-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sixteen boolean functions?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#Prelim" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Preliminary results
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trad" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix: Traditional function equivalents
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Boolean Reductions</h1>
+
+  <p class="printed"><a href="../26/1/">Vector 26:1</a>, page 62</p>
+
+<p class="byline">by Phil Last (phil.last@ntlworld.com)</p>
+<p class="abstract">A look at the boolean vector reductions - choosing the right one for the job in hand; and some potential speed-ups.</p>
+<h2 id="some-boolean-scans">Some boolean scans<a class="headerlink" href="#some-boolean-scans" title="Permanent link">&para;</a></h2>
+<p>Most experienced APLers could list a number of boolean scans, some more than others, that they can include in algorithms, confident that they will fulfill a particular task. Some of these scans would not necessarily seem intuitive to a newcomer, even one conversant with the primitive itself.</p>
+<p><em>Less-than</em> and <em>not-equals</em> are possibly the most ubiquitous of these.</p>
+<p>The less-than scan of a boolean vector turns off all ones in the vector except the first.</p>
+<p>The not-equals scan of a boolean vector, reading from the left, flips the corresponding and subsequent items on or off wherever the argument vector is on.</p>
+<p>Once we have learned what these do we tend not to question how they work. Thinking of them in similar terms to the apparent left-to-right processing of <em>and</em> and <em>or</em> scans, the not-equal scan is fairly clear. Not so less-than. This is because not-equals is, and less-than is not, associative over the boolean domain. We can only understand non-associative scans in terms of the individual reductions that constitute their results. The less-than reduction of a boolean vector is true only if the final element is the one-and-only one. Paradoxical except for the fact that the definition of scan demands it, the less-than scan gives the <em>first</em> one precisely because the less-than reduction requires only the <em>last</em>.</p>
+<h2 id="reductions">Reductions<a class="headerlink" href="#reductions" title="Permanent link">&para;</a></h2>
+<p>I don't know how many scans are either particularly useful or easily explicable. But I'd guess that not many of my readers can give natural language descriptions of which boolean vectors will return true for more than a very few of the boolean <em>reductions</em>.</p>
+<p>It may seem that there should be no good answer to this question. For each function infinitely many boolean vectors resolve to one and infinitely many resolve to zero. Is it reasonable to assume a recognisable pattern to distinguish the two sets? Think of and-reduction as <em>all</em> and or-reduction as <em>any</em> and you can deduce two trivial examples.</p>
+<p>I asked myself this question nearly two decades ago and after much experiment found answers to fourteen of the sixteen candidates.</p>
+<p>If the mention of sixteen in the previous statement doesn't surprise you then please skip to the next section - <a href="#Prelim">Preliminary results</a>.</p>
+<h2 id="sixteen-boolean-functions">Sixteen boolean functions?<a class="headerlink" href="#sixteen-boolean-functions" title="Permanent link">&para;</a></h2>
+<p>APL traditionally implements either four, six or ten primitive <em>boolean</em> or <em>logical</em> functions depending on your point-of-view. The four undisputed are <em>and</em>, <em>or</em>, <em>nand</em> and <em>nor</em>. Even two of these now have additional, non-boolean definitions. We can add <em>equals</em> and <em>not-equals</em> by restricting their domains and <em>less-than</em>, <em>less-than-or-equals</em>, <em>greater-than-or-equals</em> and <em>greater-than</em> if we are willing to accept that <code>p&gt;q</code> can be read as <em>p and-not q</em> instead of, and having a different meaning from, <em>p greater-than q</em>. But this still only gives us ten.</p>
+<p>A boolean or logical dyad takes two booleans and returns one. A single function must return a single one or zero for each boolean pair, of which there are four: <code>(0 0)(0 1)(1 0)(1 1)</code>. Representing each of these these resultant four item booleans as a four-digit binary and there being sixteen of those: <code>0000 0001 0010 ... 1111</code>; there must be sixteen functions to produce them.</p>
+<p>Here they are in the order dictated by their results as above:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>    b   n  f
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a> 0000   0
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a> 0001   1  ∧
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a> 0010   2  &gt;
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a> 0011   3
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a> 0100   4  &lt;
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a> 0101   5
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a> 0110   6  ≠
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a> 0111   7  ∨
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a> 1000   8  ⍱
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a> 1001   9  =
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a> 1010  10
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a> 1011  11  ≥
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a> 1100  12
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a> 1101  13  ≤
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a> 1110  14  ⍲
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a> 1111  15
+</span></code></pre></div>
+<p>The six missing, those not implemented as primitives, could be represented in the notation implemented as direct functions (dfns) in Dyalog APL as: <code>{0} {⍺} {⍵} {~⍵} {~⍺} {1}</code>. But these only work for simple scalar arguments as they take no cognizance of the left, the right or, in two cases, either argument. We need to reference both of them to produce an array of the required structure valued as the identity or negation of one boolean function that we apply to the other argument.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>    b   n  f
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> 0000   0  {⍺∧0∧⍵}  ⍝ false
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> 0011   3  {⍺∧1∨⍵}  ⍝ left (left notwithstanding right)
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a> 0101   5  {⍵∧1∨⍺}  ⍝ right (left nevertheless right)
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a> 1010  10  {⍵=0∧⍺}  ⍝ negate right
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a> 1100  12  {⍺=0∧⍵}  ⍝ negate left
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a> 1111  15  {⍺∨1∨⍵}  ⍝ true
+</span></code></pre></div>
+<h2 id="Prelim">Preliminary results<a class="headerlink" href="#Prelim" title="Permanent link">&para;</a></h2>
+<p>In the following list the comment describes the essential character of logical vector <code>⍵</code> when <code>1&lt;⍴⍵</code> and the result of <code>f/⍵</code> is true.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>    b   n     f
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a> 0000   0  {⍺∧0∧⍵}  ⍝ never
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a> 0001   1     ∧     ⍝ all ones
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a> 0010   2     &gt;     ⍝ odd leading ones
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a> 0011   3  {⍺∧1∨⍵}  ⍝ first is one
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a> 0100   4     &lt;     ⍝ last is the only one
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a> 0101   5  {⍵∧1∨⍺}  ⍝ last is one
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a> 0110   6     ≠     ⍝ odd ones
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a> 0111   7     ∨     ⍝ at least one one
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a> 1000   8     ⍱
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a> 1001   9     =     ⍝ even zeros
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a> 1010  10  {⍵=0∧⍺}  ⍝ last is parity of the length
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a> 1011  11     ≥     ⍝ even leading ones
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a> 1100  12  {⍺=0∧⍵}  ⍝ first is zero
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a> 1101  13     ≤     ⍝ last is not the only zero
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a> 1110  14     ⍲
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a> 1111  15  {⍺∨1∨⍵}  ⍝ always
+</span></code></pre></div>
+<p>Those missing descriptions, <em>nand</em> and <em>nor</em>, caused this paper to be delayed by a period approaching two decades.</p>
+<p>At "Iverson College 2012" at Cambridge we were discussing Roger Hui's presentation "How to write an elegant computer program" and moved on to the subject of the semantics of the boolean functions and how many of them can be used in unconventional ways to increase speed and elegance. The reference to <code>p&gt;q</code> being equivalent to <code>p∧~q</code> above being one such. And of course Simon Garland's memorable: <em>To be <code>≥</code> to be, that is the question.</em> being an obvious improvement on the original.</p>
+<p>In conversation afterwards about the topic of this paper Roger mentioned that he had recently come up with efficient definitions for the missing pair.</p>
+<p>These were in the form of an operator that implemented the four reductions: <code>≤/ ≥/ ⍱/ ⍲/</code>. But he had also made an effort to verbalise them. I include only those for my missing pair.</p>
+<p>After many false starts my most concise wording of them is:</p>
+<dl>
+    <dd><code> ⍱/ </code>implies odd leading zeros else the last is the only one.</dd>
+    <dd><code> ⍲/ </code>implies even leading ones else the last is the only zero.</dd>
+</dl>
+
+<p>They can be summed up in these two rank- and origin-independent direct functions:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>      ⍱/ ←→ {(+/∧\~⍵){(2|⍺)=⍺&lt;⍵-1}⊢/⍴⍵}
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>      ⍲/ ←→ {(+/∧\⍵){(2|⍺)≠⍺&lt;⍵-1}⊢/⍴⍵}
+</span></code></pre></div>
+<p>or first-dimension oriented as:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>      ⍱⌿⍵ ←→ {(+⌿∧⍀~⍵){(2|⍺)=⍺&lt;⍵-1}⊣/⍴⍵}
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>      ⍲⌿⍵ ←→ {(+⌿∧⍀⍵){(2|⍺)≠⍺&lt;⍵-1}⊣/⍴⍵}
+</span></code></pre></div>
+<p><em>[ <code>⊢/</code> and <code>⊢/</code> (and <code>⊢⌿</code> and <code>⊢⌿</code>) are idioms for selecting the first and last sub-arrays from an array ]</em></p>
+<p>see <a href="#trad">Appendix: Traditional function equivalents</a> if these are incomprehensible to you.</p>
+<p>So here they are in context:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>    b   n     f
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a> 0000   0  {⍺∧0∧⍵}  ⍝ never
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a> 0001   1     ∧     ⍝ all ones
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a> 0010   2     &gt;     ⍝ odd leading ones
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a> 0011   3  {⍺∧1∨⍵}  ⍝ first is one
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a> 0100   4     &lt;     ⍝ last is the only one
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a> 0101   5  {⍵∧1∨⍺}  ⍝ last is one
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a> 0110   6     ≠     ⍝ odd ones
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a> 0111   7     ∨     ⍝ at least one one
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a> 1000   8     ⍱     ⍝ odd leading zeros else the last is the only one
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a> 1001   9     =     ⍝ even zeros
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a> 1010  10  {⍵=0∧⍺}  ⍝ last is parity of the length
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a> 1011  11     ≥     ⍝ even leading ones
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a> 1100  12  {⍺=0∧⍵}  ⍝ first is zero
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a> 1101  13     ≤     ⍝ last is not the only zero
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a> 1110  14     ⍲     ⍝ even leading ones else the last is the only zero
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a> 1111  15  {⍺∨1∨⍵}  ⍝ always
+</span></code></pre></div>
+<p>All this might seem very esoteric but these can prove useful in very different contexts.</p>
+<dl>
+
+<dd>
+    APL coders can produce simple expressions to validate the resulting pattern
+    of a multiple boolean check.
+</dd>
+
+<dd>
+    Interpreter writers can convert the description into fast code written in their
+    favourite compiled language. Possibly your own interpreter already benefits from this.
+</dd>
+
+<dd>
+    APL coders can anticipate their vendors efforts and produce fast work-arounds
+    for slow implementations.
+</dd>
+
+</dl>
+
+<h2 id="trad">Appendix: Traditional function equivalents<a class="headerlink" href="#trad" title="Permanent link">&para;</a></h2>
+<p>for the <code>⍱/</code> variants:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>     ∇ r←norRed w;n
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a> [1]  ⍝ {(+/∧\~⍵){(2|⍺)=⍺&lt;⍵-1}⊢/⍴⍵}
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a> [2]   n←+/∧\~w
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a> [3]   r←(2|n)=n&lt;¯1+0⊥⍴w
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>     ∇
+</span></code></pre></div>
+<p>for the missing boolean primitives:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>     ∇ r←a left w
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a> [1]  ⍝ {⍺∧⍵=⍵}
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a> [2]   r←a∧w=w
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>     ∇
+</span></code></pre></div>
+<p>The others can easily be inferred as they differ to the same extent as their counterparts.</p>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

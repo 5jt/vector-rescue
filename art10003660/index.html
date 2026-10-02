@@ -1,0 +1,585 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10003660/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Unix APL Power Shootout (Part 2) - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#by-bob-hoekstra-bobhoekstrakhamsindemoncouk" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Unix APL Power Shootout (Part 2)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#by-bob-hoekstra-bobhoekstrakhamsindemoncouk" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        By Bob Hoekstra (Bob.Hoekstra@khamsin.demon.co.uk)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Abstract
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introduction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-on-the-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        More on the installation
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="More on the installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solaris-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Solaris 8
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solaris-26-on-a-tadpole" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Solaris 2.6 on a Tadpole
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apl-speed-comparisons" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        APL speed comparisons
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="APL speed comparisons">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Code performance
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        File performance
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Features
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dyalog-aplm" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dyalog APL/M
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apl2000s-aplunix" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        APL2000's APL+Unix
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solitons-sax" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Soliton's SAX
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommendations" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Recommendations
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thanks" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Thanks
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes-references-and-web-sites" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Notes, References and web sites
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Unix APL Power Shootout (Part 2)</h1>
+
+  <p class="printed"><a href="../17/1/">Vector 17:1</a>, page 48</p>
+
+<h5 id="by-bob-hoekstra-bobhoekstrakhamsindemoncouk">By Bob Hoekstra (<a href="mailto:Bob.Hoekstra@khamsin.demon.co.uk">Bob.Hoekstra@khamsin.demon.co.uk</a>)<a class="headerlink" href="#by-bob-hoekstra-bobhoekstrakhamsindemoncouk" title="Permanent link">&para;</a></h5>
+<h2 id="abstract">Abstract<a class="headerlink" href="#abstract" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Continuing from last issue's article, we compare the compatibility, performance and features of <em>APL+Unix version 5.3.2</em> from APL2000, <em>Dyalog APL/M version 8.2.2</em> from Dyadic Systems and <em>SAX (<b>S</b>HARP <b>A</b>PL for UNI<b>X</b>) version 5.0.0</em> from Soliton.</p>
+</blockquote>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>This article is the second of a two-part series, and completes my reviews of Unix APLs (at least for the moment). It follows on from the article in Vector Vol. 16 No. 4<sup>[<a href="#Note1">1</a>]</sup>.</p>
+<p>For those who missed the previous instalment, it is available on the Vector web site<sup>[<a href="#Note1">1</a>]</sup>.</p>
+<h2 id="more-on-the-installation">More on the installation<a class="headerlink" href="#more-on-the-installation" title="Permanent link">&para;</a></h2>
+<h3 id="solaris-8">Solaris 8<a class="headerlink" href="#solaris-8" title="Permanent link">&para;</a></h3>
+<p>Since part 1 went to press I have upgraded my Sun Ultra 5<sup>[<a href="#Note3">3</a>]</sup> workstation with a new 20GB hard disk containing Solaris 8, the latest version of Sun Microsystems's version of the Unix operating system. Naturally I was curious about any performance differences, so immediately installed the APL interpreters under this new OS.</p>
+<p>Both APL/M and APL+Unix installed under Solaris 8 exactly as they did under Solaris 7, but I had great difficulty with SAX: I never did get the NSVP processor running and thus could not run SAX under Solaris 8. I suspect the problem may be that Solaris 8 is more critical of daemons running on it. I tried installing SAX while running Solaris 8 in 32-bit mode, but this did not help. I did not spend too much time on this, or I would not have made the deadline for this article.</p>
+<p>I completed this article working in Solaris 7. I did some brief comparisons between the two OSes using the other two APLs though, and found no significant differences in performance or any other aspect. I am confident that Soliton will address this problem soon, and I do not see this as a major problem with their interpreter.</p>
+<h3 id="solaris-26-on-a-tadpole">Solaris 2.6 on a Tadpole<a class="headerlink" href="#solaris-26-on-a-tadpole" title="Permanent link">&para;</a></h3>
+<p>I have also recently come into possession of a Tadpole<sup>[<a href="#Note4">4</a>]</sup> SPARCbook 3GX running Solaris 2.6. All the interpreters seemed to install on this machine satisfactorily, but with a previous generation MicroSPARC processor running at only 110 MHz and a mere 32 MB of memory, performance is less than ideal. I did not use this platform except to confirm that it works.</p>
+<h2 id="apl-speed-comparisons">APL speed comparisons<a class="headerlink" href="#apl-speed-comparisons" title="Permanent link">&para;</a></h2>
+<p>Tests were created specifically to compare execution speeds and file system access speeds of the three interpreters. Because of other system activity and the state of workspaces, timings were not constant when tests were repeated, but all tests were repeated enough times to ensure that the results were representative.</p>
+<p>In all cases, I was very careful to run <strong>identical APL code</strong> on the three interpreters, which meant "standard" APL was used. I also tried to level the playing field by creating approximately the sam size of workspace throughout: 4 MB.</p>
+<h3 id="code-performance">Code performance<a class="headerlink" href="#code-performance" title="Permanent link">&para;</a></h3>
+<p>I spent quite a lot of time timing various bits of standard APL code, but there were few conclusive results. Generally, APL+ seems to be the fastest on most code, with APL/M following close on its heels (differences in time taken are typically less than 10%).</p>
+<p>SAX generally came last, but again the difference in expired time (between APL/M and SAX) was only of the order of 10%, and frequently less. SAX seemed to perform worse when there was more looping involved. Some code examples showed a slightly different picture, with SAX coming almost level with APL+, followed closely by APL/M.</p>
+<p>The differences shown here are not conclusive. After the comparison was completed I tweaked some of the APL/M code, converting some of the code to dynamic functions. In all cases I got a significant speed-up with dynamic functions: a minimum of 10% and one case (which lent itself to tail recursion) an reduction in processing time of nearly 50%! I am sure that much of the code could have been improved for the other interpreters as well, but I didn't pursue this as deadlines were looming.</p>
+<p>Furthermore, Soliton is due to come out with a new version of SAX shortly. I have heard that some of the work that has gone into the Linux version has meant that they have got significant performance improvements in the next generation Solaris version. If this is true, then my results could be back to front by the time a reader of this article makes a purchase.</p>
+<p>In any case, I would be very surprised if the differences in performance between these interpreters were significant. By that I mean that these differences would be swamped by the effect of hardware improvements, say adding memory, upgrading the processor speed, or getting an extra processor. Even a new disk drive (say a 10,000 rpm disk replacing a 7,200 rpm disk) could make a difference which would make these performance differences seem irrelevant.</p>
+<p>If there is a lesson here, it is that all three of these interpreters perform adequately. If you have to choose which to buy, basing your choice on performance is unlikely to be a wise decision. Let's face it, if performance were that critical, you would probably want to think about compiling at least part of the APL code to maximize performance.</p>
+<h3 id="file-performance">File performance<a class="headerlink" href="#file-performance" title="Permanent link">&para;</a></h3>
+<p>Here differences were far more marked. I timed (a) the creating, "stuffing" and untying, (b) tying, reading and untying and (c) tying and erasing of component files in a tight loop. To get a reasonable idea, there were two basic file types: "small", where the component contents consisted of the atomic vector, and "large", where the components comprised a 20x20x20 numeric matrix. The loop was such that the product of the number of components and the number of files was 3,000.</p>
+<p>In all cases, APL/M was significantly faster than the other two APLs. APL+ came close on the "small" files, but fared less well when the components were larger. SAX was tested with the two extreme synching modes: no synchronising (fsync=0) and "full" synchronising (fsync=2). The latter was very slow indeed, generally taking 2 to 3 times as long as the former, which in turn was significantly slower than the APL+ performance in most cases. The only exception was the tie/read/untie test, were APL+ and SAX (with fsync=0) were more or less level, but both still slower than APL/M.</p>
+<p>No doubt a very small part of the poor performance of SAX is that it performs less well in loops, but this cannot possibly be all the difference (or even a significant part of it). Perhaps more interesting is a comment in the manual that, after a file has been created, SAX has this as a shared tie, rather than an exclusive tie. I suspect this carries a performance penalty. Note that the tie/read/untie cycle compares quite favourably with APL+. But this does not explain the difference in the tie/erase cycle.</p>
+<p>An interesting point about APL/M's good performance is that the resulting files seem much smaller. I cannot explain why, but a component file containing 100 "large" components was 1,603,788 bytes in the Dyalog component file, but 3,227,428 bytes for SAX and 3,203,856 bytes with APL+.</p>
+<p>This points to a slightly different conclusion than the code performance because the differences in performance are so much greater. For an application where file system performance is critical, APL/M might be a good choice.</p>
+<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
+<h3 id="dyalog-aplm">Dyalog APL/M<a class="headerlink" href="#dyalog-aplm" title="Permanent link">&para;</a></h3>
+<p>This appears at first sight to be the most feature-rich of the three interpreters. Immediately obvious is the GUI development environment. For the developer this is absolutely wonderful, and once you have grown accustomed to it, it is difficult to do without. However, I did come across a few glitches: editing windows would suddenly (and for no good reason) disappear behind the session manager when I opened a traces window on a variable, and my only crash happened while I had many windows open (I think it was more than 30). Furthermore, the syntax sensitive colouring doesn't seem to work quite as well as it does in Windows.</p>
+<p>The GUI environment stretches into the code as well, with the very easy creation of GUI objects which can be used during run-time. Attractive and intuitive applications can result from this, and perhaps the greatest strength of the APL/M GUI area (which neither of the other interpreters have) is that code for Microsoft Windows is so easily ported to Unix (well, actually Motif). Even this has a few little buggettes though, as the Motif widget sizes are not quite the same as those of Windows, ported applications need a little tweaking to get positioning right. Sometimes the automatic positioning gets it a little wrong as well. But these little problems should not detract from what is a great feature.</p>
+<p>Dyadic's APL interpreters are known for their support of namespaces. This is an integral part of APL/M as well, and can help keep code neat, as well as allowing code imports with less fear of name clashes. GUI objects are namespaces in themselves, as are TCP/IP interfaces (the existence of which is a feature in itself).</p>
+<p>But the features do not stop here. My personal favourite is dynamic functions, which could be seen as Dyadic Systems's response to J and direct definition all in one. It can give code which is extremely elegant, easy to maintain and lightning fast.</p>
+<p>There are several other great features, not least the ability to create user defined operators. Personally, I do not use this much, but one feature that I do use constantly while debugging code is the ability to step through code using the windows that can be set up to appear automatically when code crashes. Even the fact that function editors are separate windows (i.e. the session manager is directly available while you are editing a function) can be a great productivity aid.</p>
+<p>APL/M also supports a very full implementation of control structures. This is largely the same as the control structures in APL+.</p>
+<p>Then there is the high degree of compatibility between the different versions. APL written for any Microsoft operating system will usually just run. Of course there are things like different naming conventions for files that might be a problem, but the code (including GUI generation) will run. Component files will have to be ported, but Dyadic Systems provide the tools to do this.</p>
+<p>Lastly, many people might value the compatibility with other APLs. Using the migration level system variable, the developer can tailor the compatibility to APL2, which sets the standard in many ways.</p>
+<h3 id="apl2000s-aplunix">APL2000's APL+Unix<a class="headerlink" href="#apl2000s-aplunix" title="Permanent link">&para;</a></h3>
+<p>By comparison, APL+ seems almost devoid of features. However, this is not quite true. No GUI, no syntax colouring. In fact, a bit like the STSC APL*Plus for DOS many years ago.</p>
+<p>Of course, this is unfair. While there are few cosmetic features, there are many really useful ones, like a good TCP/IP socket interface. The editor has hardly changed since the early STSC days, but it works well. There are several features which point towards compatibility with APL2, and the language features are slowly being extended, e.g. scalar dyadic functions with axis are supported, as is n-wise reduction and APL2-style function attributes.</p>
+<p>There is also support for control structures, more or less identical to those in APL/M. Also, component files have the same structure between Unix, DOS and Windows, meaning that one has data portability between platforms. Note that this is the opposite of Dyadic Systems's implementation, where the workspace has the same format but not the component files.</p>
+<p>The user commands are a very useful feature. One of the many useful sub-features that this creates is the concept of packages. This is somewhat different from the packages of SAM and SAX, but many of the concepts are similar.</p>
+<p>To me the most important thing was that, while there were no features that APL/M didn't have, every feature worked perfectly every time. APL+Unix did not crash once. Not even a hiccup.</p>
+<h3 id="solitons-sax">Soliton's SAX<a class="headerlink" href="#solitons-sax" title="Permanent link">&para;</a></h3>
+<p>SAX also has fewer obvious features. But then, SAX is a slightly special case as the APL is somewhat different. It shows a family resemblance to J in many respects, introducing the concepts of rank, frame and cell which the others don't have.</p>
+<p>The existence of the NSVP is a very strong plus point. This could be invaluable to those who want to access say a DB2 database on a mainframe from a Unix APL session.</p>
+<p>The concept of "intrinsic functions" - essentially an easy interface to compiled code - is also a very strong feature. This can be done in both the other interpreters, but it would appear that the SAX implementation allows the greatest flexibility,</p>
+<p>As yet, there is no GUI implementation, but with the recent announcement of the Java interface for SAX/Linux, I suspect that the other Unix versions will get a Java interface as well.</p>
+<p>SAX is highly compatible with SAM, the mainframe version. This extends to the use of the same rather clumsy editor. This takes some getting used to, but eventually becomes quite usable (although I am still not fond of it). The other powerful feature that both share is packages, which can be used to squeeze large workspaces into only a small amount of space. This might not be all that useful now that memory prices have decreased, but like APL/M's namespaces, packages can also be used as a name clash preventative.</p>
+<p>I suspect that this interpreter will have many enhancements soon and will become a very strong contender indeed. Having said that, it has a language implementation which many will like - it took me a while, but it is definitely growing on me.</p>
+<h2 id="recommendations">Recommendations<a class="headerlink" href="#recommendations" title="Permanent link">&para;</a></h2>
+<p>It is impossible to recommend purchase of one APL above the other. All of the interpreters reviewed are "good", though not necessarily in the same areas.</p>
+<p>If you have used a Dyalog interpreter in the past and liked them, then APL/M is definitely the right choice. You will feel at home immediately. The portability of workspaces from DOS or Windows is also a very strong point. This interpreter might also have some additional benefit if file system performance is critical.</p>
+<p>Alternatively, previous users of STSC, Manugistics or APL2000 interpreters would get on much better with APL+Unix. A particular strong point here is compatibility of component files across architectures. This means that one could keep APL running on multiple operating systems with a single data source.</p>
+<p>Last, but by no means least, SAX would suit those who want to port from SAM on a mainframe. It might also be better for those who have been using J and don't want to give up all the benefits of this advanced APL derivative.</p>
+<p>The only suggestion I can give to the prospective purchaser is to read the features section above carefully and decide which points are applicable in the situation.</p>
+<h2 id="thanks">Thanks<a class="headerlink" href="#thanks" title="Permanent link">&para;</a></h2>
+<p>I thank the manufacturers of the 3 interpreters reviewed. All have helped me at some stage.</p>
+<hr />
+<h2 id="notes-references-and-web-sites">Notes, References and web sites<a class="headerlink" href="#notes-references-and-web-sites" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a id="Note1"></a> Refer to <em><a href="../art10003650/">APL Power Shootout, Part 1</a></em>, <em>Vector</em> Vol. 16 No. 4, <em><a href="../art10003640/">My SAX Experience</a></em>, <em>Vector</em> Vol. 16 No. 3, and <em>Dyalog APL for Motif Version 8.1 Release 2 for Sun Solaris 5.5</em>, <em>Vector</em> Vol. 14 No. 3. all by Bob Hoekstra.</li>
+<li><a id="Note2"></a> The web site for Soliton is <a href="http://www.soliton.com">http://www.soliton.com</a>, APL2000 have a web site at <a href="http://www.apl2000.com/">http://www.apl2000.com/</a> and Dyadic Systems's web site is at <a href="http://www.dyadic.com/">http://www.dyadic.com/</a>.</li>
+<li><a id="Note3"></a> The web site for Sun's Ultra 5 page is <a href="http://www.sun.com/desktop/products/ultra5/">http://www.sun.com/desktop/products/ultra5/</a>.</li>
+<li><a id="Note4"></a> Tadpole and RDI now share their web prescence at <a href="http://www.rdi.com/">http://www.rdi.com/</a>. They were competitors in the portable SPARC market, but joined forces some time ago. Unfortunately my SPARCbook 3GX (being an older machine) gets no mention on the site.</li>
+</ol>
+<hr />
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

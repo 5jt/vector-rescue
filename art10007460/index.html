@@ -1,0 +1,865 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10007460/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Static Exception Handling for APL+Win - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Static Exception Handling for APL+Win
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introduction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preliminary-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Preliminary Notes
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Preliminary Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-of-the-try-catch-control-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Overview of the Try-Catch Control Structure
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#catching-all-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Catching All Exceptions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#catching-specific-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Catching Specific Exceptions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try-catch-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Try-Catch Details
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Try-Catch Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Syntax
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Execution
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extent-of-the-try-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Extent of the try-block
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exceptions-in-the-try-catch-structure-itself" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exceptions in the try-catch structure itself
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-try-catch-control-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Using the Try-Catch Control Structure
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the Try-Catch Control Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#handling-a-single-specific-anticipated-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Handling a Single Specific Anticipated Error
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handling-several-anticipated-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Handling Several Anticipated Errors
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handling-unanticipated-errors-in-a-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Handling Unanticipated Errors in a Transaction
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ignoring-all-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ignoring All Exceptions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handling-exceptions-in-called-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Handling Exceptions in Called Functions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intercepting-an-exception-being-thrown-up-the-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Intercepting an Exception Being Thrown Up the Stack
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#another-way-to-emulate-a-finally-clause" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Another Way to Emulate a <span class="APLU">:Finally</span> Clause
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#suspending-execution-in-a-handler" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Suspending Execution in a Handler
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retrying-after-correcting-an-exception" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Retrying After Correcting an Exception
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-advice" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        General Advice
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prospects" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Prospects
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#some-plagiarized-wisdom" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Some Plagiarized Wisdom
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Static Exception Handling for APL+Win</h1>
+
+  <p class="printed"><a href="../22/2/">Vector 22:2</a>, page 79</p>
+
+<p class="byline">by William Rutiser, APL2000 (<a href="mailto:wru@apl2000.com">wru@apl2000.com</a>)<br />
+Talk given at the 2005 APL2000 Users’ Meeting</p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>This paper introduces try-catch exception handling, a feature recently added to APL+Win.</p>
+<p>Early APL interpreters treated most exceptions by printing an error message and then suspending in immediate execution mode. A branch statement entered from the terminal caused execution to resume. Subsequent to the de facto standardization of the core APL language, each interpreter vendor introduced their own facility for dealing with errors. STSC, APL2000’s corporate ancestor, added the <span class="APLU">⎕ELX</span> and <span class="APLU">⎕DM</span> system variables. In the event of an error, the interpreter sets <span class="APLU">⎕DM</span> to the formerly printed diagnostic message, and then executes the current latent expression assigned to <span class="APLU">⎕ELX</span>. That expression may include a branch statement to resume execution. Two decades of experience have shown this simple facility to be sufficient for implementing both simple and complex exception handlers.</p>
+<p>There are two widely used patterns for the design of <span class="APLU">⎕ELX</span> based handlers. One pattern relies on application wide adherence to protocols for manipulating <span class="APLU">⎕ELX</span>. Local error handlers are dynamically installed by changing <span class="APLU">⎕ELX</span> and removed by restoring or reconstructing the previous handler. In the other pattern, <span class="APLU">⎕ELX</span> is set once and for all to invoke a global exception handling function. This relatively complicated function parses the code near the near the failing statement to locate and execute local handlers. In either case, effective exception handling code is often difficult to write and maintain. And its very presence can conceal the intent of its surroundings.</p>
+<p>Like control structures, this new static textually based exception handling facility is intended to enable clearer and more reliable code.</p>
+<h2 id="preliminary-notes">Preliminary Notes<a class="headerlink" href="#preliminary-notes" title="Permanent link">&para;</a></h2>
+<p>This paper makes no important distinction between exceptions and errors. Errors are exceptions, and the interpreter describes some exceptions as errors. Exceptions may be usefully classified as <em>anticipated</em> or <em>unanticipated</em>. Anticipated exceptions are fully understood, and are known to arise and are essential to handle during a program’s routine execution. Consider a <span class="APLU">FILE INDEX ERROR</span> while sequentially reading components. It is, or should be, an anticipated event that is usually handled by terminating the reading loop and closing the file.</p>
+<p>Contrast that error with the <span class="APLU">XFHOST ERROR</span>. Its diagnostic message includes a 32 bit numeric code and a brief error description, both provided by the host operating system. After days of research you may only have learned that an unknown bad thing happened in a previously unheard of corner of the system. This is an unanticipated exception. Unanticipated exceptions are unknown or incompletely understood before they happen. They are often triggered by a defect or error in the application program or its software and hardware environment.</p>
+<p>This paper uses several forms of the verb “to raise” to refer to the APL interpreter’s initiation of an error report or exception. When passive voice is used, the interpreter is often the intended actor. In APL code, descriptions in <em>italic sans-serif type</em> replace overly specific and irrelevant details. <em>Italic body text</em> indicates both emphasis and definition.</p>
+<h3 id="overview-of-the-try-catch-control-structure">Overview of the Try-Catch Control Structure<a class="headerlink" href="#overview-of-the-try-catch-control-structure" title="Permanent link">&para;</a></h3>
+<p>The try-catch control structure extends the APL+Win control structure family. It is designed to be compatible with and interact with existing <span class="APLU">⎕ELX</span> handlers. Adding a try-catch structure to an existing application should not interfere with anything outside the structure. The structure’s influence is confined to the statements it contains where it always takes precedence over <span class="APLU">⎕ELX</span>. The following brief examples illustrate its two basic forms.</p>
+<h3 id="catching-all-exceptions">Catching All Exceptions<a class="headerlink" href="#catching-all-exceptions" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>:Try
+</span></code></pre></div>
+<p><em>A block of statements to try</em></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>:CatchAll
+</span></code></pre></div>
+<p><em>A block of statements to handle any exception</em></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>:EndTry
+</span></code></pre></div>
+<p>The first block of statements (the <em>try-block</em>) is executed. If an exception should arise, it will be handled by the second block (a <em>catch-block</em>).</p>
+<h3 id="catching-specific-exceptions">Catching Specific Exceptions<a class="headerlink" href="#catching-specific-exceptions" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>:Try
+</span></code></pre></div>
+<p><em>A block of statements to try</em></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>:CatchIf 'FILE' ≡ 4 ↑⎕DM
+</span></code></pre></div>
+<p><em>A block of statements to handle just FILE errors</em></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>:End
+</span></code></pre></div>
+<p>The try-block is executed. If an exception arises, the expression in the <span class="APLU">:CatchIf </span>statement is evaluated. When its value is <span class="APLU">1</span>, the exception is handled by the second block of statements. Otherwise, the exception is passed to the next surrounding exception handler, which may be another try-catch structure or <span class="APLU">⎕ELX</span>.</p>
+<h2 id="try-catch-details">Try-Catch Details<a class="headerlink" href="#try-catch-details" title="Permanent link">&para;</a></h2>
+<h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h3>
+<p>The try-catch structure consists of a sequence of several clauses terminated by an end-statement. Each <em>clause</em> begins with a control statement which is optionally followed by a block of ordinary statements. These blocks may contain try-catch and other control structures which must be correctly nested but are otherwise unrestricted.</p>
+<p>This skeleton structure shows all possible clauses:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>:Try
+</span></code></pre></div>
+<p><em>Statements to try</em></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>:CatchIf first condition expression
+</span></code></pre></div>
+<p><em>Statements to handle exceptions satisfying the first condition</em></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>:CatchIf second condition expression
+</span></code></pre></div>
+<p><em>Statements to handle exceptions satisfying the second condition</em></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>:CatchAll
+</span></code></pre></div>
+<p><em>Statements to handle all other exceptions</em></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>:EndTry
+</span></code></pre></div>
+<p>The structure always begins with a <span class="APLU">:Try</span> clause and ends with a <span class="APLU">:EndTry</span> statement. As with other control structures, the keywords are case insensitive. The <span class="APLU">:End</span> keyword may be used instead of the <span class="APLU">:EndTry</span> keyword.</p>
+<p>There must be at least one <span class="APLU">:CatchIf</span> or <span class="APLU">:CatchAll</span> clause. There may be no more than one <span class="APLU">:CatchAll</span> clause. All <span class="APLU">:CatchI</span>f clauses must precede the <span class="APLU">:CatchAll</span> clause.</p>
+<p>The <span class="APLU">:CatchIf
+</span>statement consists of its keyword followed by an expression that yields <span class="APLU">1</span> or <span class="APLU">0</span>. The other control statements consist of only a keyword.</p>
+<p>Each control statement except <span class="APLU">:EndTry</span> is followed by a block of APL statements (which may be empty). These blocks may contain additional try-catch and other control structures, which must be correctly nested but are otherwise unrestricted.</p>
+<p>As with other control structures, an incomplete or incorrect try-catch structure will cause an <span class="APLU">OUTER SYNTAX ERROR</span>.</p>
+<h3 id="execution">Execution<a class="headerlink" href="#execution" title="Permanent link">&para;</a></h3>
+<p>Execution begins at the first statement in the try-block and continues from statement to statement in the usual way. When control reaches the end of the try-block, control passes out of the try-catch structure. When an exception arises within a try-block statement, the interpreter assigns the usual diagnostic message to <span class="APLU">⎕DM</span>. Control then passes, in turn, to each catch-statement until one <em>accepts</em> the exception. The interpreter’s handling of an <em>accepted</em> exception is complete. If an exception is not accepted by any of the catch-statements, the interpreter passes the exception to a surrounding try-catch structure for handling. When no surrounding structure is present, <span class="APLU">⎕ELX</span> is activated.</p>
+<p>The <span class="APLU">:CatchAll</span> statement accepts any exception that reaches it.</p>
+<p>The <span class="APLU">:CatchIf</span> statement accepts an exception only if its condition expression evaluates to <span class="APLU">1</span>. In most instances, the expression should depend on <span class="APLU">⎕DM</span>.</p>
+<p>When a <span class="APLU">:CatchIf</span> or <span class="APLU">:CatchAll</span> statement accepts an exception, the following block of statements is executed, after which, control passes out of the try-catch structure. When the block is empty, the exception is handled but otherwise ignored.</p>
+<h3 id="extent-of-the-try-block">Extent of the try-block<a class="headerlink" href="#extent-of-the-try-block" title="Permanent link">&para;</a></h3>
+<p>A try-catch structure handles <em>only</em> exceptions arising within:</p>
+<ul>
+<li>Statements <em>textually</em> contained in the try-block.</li>
+<li>Statements contained in arguments to the execute primitive (<span class="APLU">⍎</span>) in statements satisfying these criteria.</li>
+</ul>
+<p>This recursive rule allows executes within executes.</p>
+<p>A try-catch structure <em>does not</em> handle exceptions raised in functions <em>called</em> from its try-block. These may be handled by a try-catch structure in the function where the exception was raised or by its ambient <span class="APLU">⎕ELX</span> setting.</p>
+<p>Exceptions arising directly in immediate execution statements, event handlers, or latent expressions are <em>never handled</em> by try-catch structures.</p>
+<h3 id="exceptions-in-the-try-catch-structure-itself">Exceptions in the try-catch structure itself<a class="headerlink" href="#exceptions-in-the-try-catch-structure-itself" title="Permanent link">&para;</a></h3>
+<p>An exception arising in a catch-block or <span class="APLU">:CatchIf</span> condition is immediately passed to an enclosing try-catch statement or the ambient <span class="APLU">⎕ELX.⎕DM</span> is changed to describe the new exception. The <span class="APLU">⎕DM</span> message for the previous exception is lost.</p>
+<h2 id="using-the-try-catch-control-structure">Using the Try-Catch Control Structure<a class="headerlink" href="#using-the-try-catch-control-structure" title="Permanent link">&para;</a></h2>
+<p>These examples are intended to be illustrative and suggestive rather than complete. Some conclude with a discussion of failure modes, programming style, and other pragmatic matters. The author’s suggestions are stated as imperative prescriptions.</p>
+<h3 id="handling-a-single-specific-anticipated-error">Handling a Single Specific Anticipated Error<a class="headerlink" href="#handling-a-single-specific-anticipated-error" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>∇ ProcessAllComponents ftn;i;eof
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>   i←1
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>   eof←0
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>   :while ~eof
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>     :try
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>        ProcessOneComponent ⎕fread  ftn i
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>        i← i + 1
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>     :catchif 'FILE INDEX' ≡ 10↑⎕dm
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>        eof←1
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>     :end
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>   :end
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>∇
+</span></code></pre></div>
+<p>Here, a <span class="APLU">FILE INDEX</span> error is anticipated. <span class="APLU">A FILE TIE ERROR</span>, probably a consequence of a coding error is not anticipated. Keep in mind that exceptions directly raised in <span class="APLU">ProcessOneComponent</span> will not be seen by this try-catch; they may be handled by a try-catch in the called function or by its ambient <span class="APLU">⎕ELX</span>.</p>
+<h3 id="handling-several-anticipated-errors">Handling Several Anticipated Errors<a class="headerlink" href="#handling-several-anticipated-errors" title="Permanent link">&para;</a></h3>
+<p>Applications involving trigonometry, coordinate geometry, or complex numbers may require the arc tangent of the quotient of a pair of numbers. This example deals with one tricky part of the computation – computing a result when the divisor is very small or zero. The theoretical quotient may be very large or infinite. The division operation can go wrong in two ways: division by zero raises a <span class="APLU">DOMAIN ERROR</span>; division of an extremely large number by an extremely small number raises a <span class="APLU">LIMIT
+ERROR</span>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>∇ z ← x principal_arc_tan y
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>   :Try
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>      z← ¯3 ○ y ÷ x
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>   :CatchIf 'DOMAIN ERROR' ≡ 12 ↑ ⎕DM
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>      z← ○ ÷ 2
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>   :CatchIf 'LIMIT ERROR' ≡ 11 ↑ ⎕DM
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>      z← ○ ÷ 2
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>   :End
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>∇
+</span></code></pre></div>
+<p>This fairly simple example illustrates a pitfall that must be considered for all exception handling code, in every language, using any exception handling features. This example does correctly catch a <span class="APLU">DOMAIN</span> or <span class="APLU">LIMIT ERROR</span> raised in the divide primitive, however this try-catch structure would also catch the same errors if raised by the circular functions primitive. The author is only “pretty sure” that the code is safe as written. But this is an example and not an extract from a real application where the try-block could be much larger and more complicated and consequently harder to analyze with any certainty.</p>
+<p>Therefore, when handling specific exception possibilities make the try-block as small and simple as practical to reduce the risk of errors in your analysis of possible exceptions.</p>
+<p>The text of <span class="APLU">⎕DM</span> contains unused information about the exception’s source. It would be possible, with suitable support utilities, to parse the entire message to verify that the caret points to the divide operation.</p>
+<p>Therefore, make the catch-if selections as specific as necessary to exclude unanticipated exceptions.</p>
+<h3 id="handling-unanticipated-errors-in-a-transaction">Handling Unanticipated Errors in a Transaction<a class="headerlink" href="#handling-unanticipated-errors-in-a-transaction" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>∇ AttemptOneTransaction details
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>   :Try
+</span></code></pre></div>
+<p><em>Statements to do one transaction.</em></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>   :CatchAll
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>     ⎕← "Something bad has happened!!"
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>     ⎕← "⎕DM is:"
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>     ⎕←⎕DM
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>     ⎕← "Abandoning this transaction and"
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>     ⎕← "continuing with the next."
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>     z← "Failed"
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>     :Return
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>   :EndTry
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>   z← "OK"
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>   :Return
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>∇
+</span></code></pre></div>
+<h3 id="ignoring-all-exceptions">Ignoring All Exceptions<a class="headerlink" href="#ignoring-all-exceptions" title="Permanent link">&para;</a></h3>
+<p>This example is supposed to compute the value of a function Foo with given arguments. The code to do this raises one or more known exceptions for some argument values. A specified default result value is to be returned when such an exception arises.</p>
+<pre class="APLU">∇ Z← default_result FindFooWithDefault args
+   Z← default_result
+   :Try
+     <i>Statements to compute and set Z to Foo(args)</i>
+   :CatchAll
+   :EndTry
+∇</pre>
+
+<p>The catchall-statement accepts the exception but its empty handler does nothing, leaving Zset to the desired default result.</p>
+<p>Using a catch-all clause, empty or not, to handle anticipated exceptions is somewhat risky unless you are certain that no unanticipated exceptions are possible. Therefore, reduce the risk by handling anticipated exceptions as specifically as practical.</p>
+<p>Notice that Z is set to the default result before the try-block is executed with the expectations that the try-block will reset it to the correct computed value or leave it unchanged otherwise. A programmer could easily and mistakenly use Z for an intermediate result; after all, it is <em>always</em> assigned a value a few lines (or pages) down the function. This mistake becomes more likely as the try-block becomes larger and the program is passed on to other maintainers. Moving the default result assignment to the catchall-block prevents this particular mistake; it also clarifies the assignment’s purpose.</p>
+<p>A root cause of this programming error is that there are <em>invisible</em> control paths leaving the try-block. Overlooking such paths may invalidate any conclusion based on examination downstream code.</p>
+<p>Therefore, always remember that every primitive operation in the try-block potentially contains an invisible branch to the catch-block. Practice defensive programming where practical.</p>
+<h3 id="handling-exceptions-in-called-functions">Handling Exceptions in Called Functions<a class="headerlink" href="#handling-exceptions-in-called-functions" title="Permanent link">&para;</a></h3>
+<p>This example illustrates a simple global handler for unanticipated errors. It also illustrates <span class="APLU">⎕ELX</span> and the try-catch structure working together. Only two called functions are shown here. Imagine that there are many others.</p>
+<pre class="APLU">∇ FooOne
+   <i>Other stuff</i>
+   FooTwo
+   <i>More other stuff</i>
+∇</pre>
+
+<pre class="APLU">∇ FooTwo
+    <i>Even more other stuff</i>
+    "two" + 2
+    <i>And more other stuff</i>
+∇</pre>
+
+<p>Calling <span class="APLU">FooTwo</span> will yield a <span class="APLU">DOMAIN ERROR</span>. This example just displays the error message and a simple trace-back.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>∇ CatchDeepErrors;⎕ELX
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>   ⎕ELX← " ⎕error '@ ' , ⎕DM"
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>   :Try
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>      FooOne
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>   :CatchIf '@' ≡↑⎕DM
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>      ⎕← ⊃(~ ⎕DM = ⎕TCNL) ⊂ ⎕DM
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>   :CatchAll
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>      ⎕ERROR "PANIC"
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>   :End
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>∇
+</span></code></pre></div>
+<p>Execution produces:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>      CatchDeepErrors
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>@ @ DOMAIN ERROR
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>FooTwo[??]  "two" + 2
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>                 ^
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>FooOne[??]  FooTwo
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>            ^
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>CatchDeepErrors[3]     FooOne
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>                       ^
+</span></code></pre></div>
+<p>At each SI level, <span class="APLU">⎕ELX</span> handles an error by raising a new exception in the preceding SI level. The “<span class="APLU">@</span>” characters indicate the number of stack levels traversed and distinguish exceptions raised in the try-block from those raised in the called functions. Simple parsing of the accumulated diagnostic messages provides the trace-back.</p>
+<p>Some programming language designers have chosen “throw”as the keyword in a statement that programmatically raises an exception. This example <em>throws</em> an exception up (or down as the reader prefers) the call stack.</p>
+<h3 id="intercepting-an-exception-being-thrown-up-the-stack">Intercepting an Exception Being Thrown Up the Stack<a class="headerlink" href="#intercepting-an-exception-being-thrown-up-the-stack" title="Permanent link">&para;</a></h3>
+<p>Suppose, in the preceding example, that FooOne normally takes some action to release a resource before returning.</p>
+<pre class="APLU">∇ FooOne
+   <i>Open a file</i>
+   FooTwo
+   <i>Close the file</i>
+∇</pre>
+
+<p>When an exception is thrown up from <span class="APLU">FooTwo</span>, the file will be left open, perhaps causing trouble in an unrelated part of the application. We can fix this by involving <span class="APLU">FooOne</span> in the exception throwing.</p>
+<pre class="APLU">∇ FooOne
+   :Try
+      <i>Open a file</i>
+      FooTwo
+   :CatchIf '@' ≡↑⎕DM
+      <i>Close the file</i>
+      ⍎⎕ELX
+   :End
+   <i>Close the file</i>
+∇</pre>
+
+<p><span class="APLU">FooOne</span> has been changed to catch the exception that the latent exception throws from <span class="APLU">FooTwo</span>. After closing the file, <span class="APLU">FooOne</span> executes <span class="APLU">⎕ELX</span> to throw the exception to the next level.</p>
+<p>In a real application, careful attention should be given to the possibility of something else going wrong while closing the file. This example does not handle exceptions raised while opening or closing the file.</p>
+<p>Readers familiar with some other popular programming languages will see this example as one where a <span class="APLU">:Finally</span> clause would be helpful. Such an enhancement is under consideration.</p>
+<h3 id="another-way-to-emulate-a-finally-clause">Another Way to Emulate a <span class="APLU">:Finally</span> Clause<a class="headerlink" href="#another-way-to-emulate-a-finally-clause" title="Permanent link">&para;</a></h3>
+<p>In this example, we give the global <span class="APLU">⎕ELX</span> an additional responsibility. It must execute the value of the variable <span class="APLU">∆FINALLY</span> at each level.</p>
+<p>Change <span class="APLU">CatchDeepErrors</span> to set <span class="APLU">⎕ELX</span> with:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>⎕ELX← " ⍎∆FINALLY ⋄ ⎕ERROR '@ ' , ⎕DM "
+</span></code></pre></div>
+<p>With this in place we can use it in <span class="APLU">FooOne</span>.</p>
+<pre class="APLU">∇ FooOne;∆FINALLY
+   ∆FINALLY←" Close the file "
+   <i>Open a file</i>
+   FooTwo
+   ⍎∆FINALLY
+∇</pre>
+
+<p>Again we should think about problems closing the file.</p>
+<p>This idea can be extended and improved in a number of ways. There is a potential <span class="APLU">VALUE ERROR</span> in the reference to <span class="APLU">∆FINALLY</span>. Since the variable will be empty in functions that don’t need its effect, it would be only a small matter of programming to make it optional. The magic variable could be replaced with a magic label or private comment in the function itself. Most of the <span class="APLU">⎕ELX</span> code should be moved into a new function but the <span class="APLU">⎕ERROR</span> invocation must remain in the latent expression. There will be the usual issues with shadowed variables to resolve.</p>
+<h3 id="suspending-execution-in-a-handler">Suspending Execution in a Handler<a class="headerlink" href="#suspending-execution-in-a-handler" title="Permanent link">&para;</a></h3>
+<p>This trick doesn’t really involve exception handling except that a catch-block is a likely place to use it. While experimenting or debugging it may be useful for a program to programmatically suspend for immediate execution. This shows one way to do that. When active, Code Walker will show the stop suspension. The statement label gives, by convention, a convenient common branch target when resuming execution.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>∇ Suspend
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>   :Try
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>      × "do" "something" "wrong"
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>   :CatchAll
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>      0 0 ⍴ (1 + ↑ ⎕lc) ⎕stop 'Suspend'
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>GOON: 0 0 ⍴ "place to stop"
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>   :End
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>∇
+</span></code></pre></div>
+<p>The stop could be set manually; however, it would need to be set manually whenever the function is edited or otherwise redefined.</p>
+<h3 id="retrying-after-correcting-an-exception">Retrying After Correcting an Exception<a class="headerlink" href="#retrying-after-correcting-an-exception" title="Permanent link">&para;</a></h3>
+<p>Some situations require that the try-block be retried after somehow improving the chances of success – perhaps by creating a missing file or waiting for a shared resource to become available.</p>
+<pre class="APLU">∇ TryAndTryAgain
+   :Try
+RETRY:
+      <i>Do something</i>
+   :CatchIfsome condition
+      <i>Fix the problem</i>
+      :GOTO RETRY 
+   :End
+∇</pre>
+
+<p>This use of the dreaded <span class="APLU">:GOTO</span> statement forms a loop. It will never end unless the problem is really fixed. Therefore, consider using a counter or timer to limit retries.</p>
+<pre class="APLU">∇ TrySeveralTimes retry_limit;retry_count
+   retry_count← 0
+   :Try
+RETRY:
+      <i>Do something</i>
+   :CatchIf retry_count ≥ retry_limit
+      ⎕ERROR "Retry limit exceeded"<br>   :CatchIf  <i>some condition</i>
+      <i>Fix the problem</i>
+      retry_count← retry_count + 1
+      :GOTO RETRY 
+   :End
+∇</pre>
+
+<p>The first catch-if condition is unusual in that its condition doesn’t refer to ⎕DM.</p>
+<h2 id="general-advice">General Advice<a class="headerlink" href="#general-advice" title="Permanent link">&para;</a></h2>
+<p>This section, like the suggestions after the examples above, expresses the author’s advice, perhaps with more certainty than is really warranted.</p>
+<p>Serious exception handling may be hard. This is particularly so for exceptions initiated outside the APL interpreter. Correct handlers depend on detailed knowledge of the source and causes of the exception to be handled. Sometimes, such knowledge is not available and may be obtained only through research and experimentation.</p>
+<p>Therefore, carefully consider the costs before attempting to handle situations that can’t be readily reproduced. Where possible, fix root causes instead of trying to recover from their manifestations. Remember that a clean termination is usually better than continuing after a bungled recovery.</p>
+<p>Handlers for unanticipated exceptions should preserve evidence.</p>
+<p>Handle unanticipated exceptions globally; handle anticipated exceptions locally.</p>
+<h2 id="prospects">Prospects<a class="headerlink" href="#prospects" title="Permanent link">&para;</a></h2>
+<p>Prior to this conference and this paper, the try-catch structure has had neither documentation nor significant use in real programs. Reports of testing and experiments by conference participants will help to improve try-catch in its production quality release. Experience and bug reports may be sent to <em><a href="mailto:support@apl2000.com">support@apl2000.com</a></em>. General comments, suggestions, and criticism may be sent to the author at <em><a href="mailto:wru@apl2000.com">wru@apl2000.com</a></em>. (Cash bribes included in an email message envelope are not guaranteed to reach the author.)</p>
+<p>Some extensions being considered:</p>
+<p>• A <span class="APLU">:Finally</span> clause.</p>
+<p>• A variant of catch-if with pattern matching capability.</p>
+<p>• Enabling the use of <span class="APLU">:AndIF</span>and <span class="APLU">:OrIf</span> statements in catch-if clauses.</p>
+<h2 id="some-plagiarized-wisdom">Some Plagiarized Wisdom<a class="headerlink" href="#some-plagiarized-wisdom" title="Permanent link">&para;</a></h2>
+<p>Everyone knows that debugging is twice as hard as writing a program in the first place. So if you’re as clever as you can be when you write it, how will you ever debug it? – <em>Brian Kernighan</em></p>
+<p>There are two ways of constructing a software design. One way is to make it so simple that there are obviously no deficiencies. And the other way is to make it so complicated that there are no obvious deficiencies. – <em>C.A.R. Hoare</em></p>
+<p>Dead programs tell no lies.</p>
+<p>Don’t publish papers when you have no experience with the subject.</p>
+<p>Pay no attention to the grumpy old programmer behind the curtain.</p>
+<hr />
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

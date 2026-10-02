@@ -1,0 +1,981 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Object-oriented statistical tools, as presented at the 2008 Dyalog Conference">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10500580/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>OOStats – A statistics facility for users of Dyalog APL - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-starting-point" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              OOStats – A statistics facility for users of Dyalog APL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-starting-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The starting point
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-database-from-apl" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Creating a database from APL
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#statistical-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Statistical Methods
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-unistats-sub-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Unistats sub-object
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finding-out-about-the-options-available" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Finding out about the options available
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-graphic-user-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Graphic User Interface
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-scope-of-oostats" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The scope of OOStats
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgements" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Acknowledgements
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attachments" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Attachments
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">OOStats – A statistics facility for users of Dyalog APL</h1>
+
+  <p class="printed"><a href="../25/1/">Vector 25:1</a>, page 104</p>
+
+<p class="byline">Alan Sykes</p>
+<p class="abstract">At the Dyalog Users Conference (Elsinore 2008) I reported my first efforts at providing facilities for statistical computing using Dyalog APL’s object-oriented facilities. Since then, the software has expanded and consolidated to such a point that I would like to invite others to use it, suggest suitable extensions to it (and even provide them). This article is therefore a brief introduction to it.</p>
+<h2 id="the-starting-point">The starting point<a class="headerlink" href="#the-starting-point" title="Permanent link">&para;</a></h2>
+<p>From the beginning, I knew that if the software were to be used for real, then it had to cope with missing values. Post retirement, I did some consultancy work, and was invariably given a very messy Excel sheet of data purporting to be a database! Importing this into APL and hitting a column of figures with a simple Mean program had about a 0.1% chance of working! Also, having worked with colleagues into analysing survey data, I knew that as well as system missing values, it was useful to have user-declared missing values for a particular variable (so that analyses of what type of respondents tended to leave a particular database field empty are possible).</p>
+<p>So the starting point was the development of a simple database object that allowed the user to do the usual database operations e.g. selecting cases, computing new variables, deleting cases <em>et cetera</em>. In doing this early work, I soon felt it important to be able to use the graphical user interface (e.g. for declaring variable formats) as well as using the session. (This was fortuitous, as later on, they were incorporated into a full GUI wrap-round that emerged naturally from the object-oriented approach adopted.)</p>
+<h2 id="creating-a-database-from-apl">Creating a database from APL<a class="headerlink" href="#creating-a-database-from-apl" title="Permanent link">&para;</a></h2>
+<p>Creating a database from APL should be easy – it is. Using the object code <code>s_db</code> in the workspace <code>oostats</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>      db←⎕new s_db (('alan' 'adrian')(alan adrian))
+</span></code></pre></div>
+<p>The user variables are referred to by names as listed in the public field:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>      db.UserNames
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> alan  adrian
+</span></code></pre></div>
+<p>In addition, however, there are three variables that keep a track of the case number, whether that case is selected, and the case frequency:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>      db._Cases
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>1 2 3 4
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>      db._CSel
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>1 1 1 1
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>      db._CFreq
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>1 1 1 1
+</span></code></pre></div>
+<p>(Occasionally, it is helpful to be able to declare a case frequency – for example if analysing a contingency table given from external sources.)</p>
+<p>To look at the database:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>      db.View
+</span></code></pre></div>
+<figure>
+<p><img alt="Figure 1" src="fig1.png" /></p>
+<figcaption>Figure 1</figcaption>
+</figure>
+<p>System missing values are kept in a field: <code>db_SM</code></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>      (⎕null)(⊂'')(⊂⍬)('')∊db._SM
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>1 1 1 1
+</span></code></pre></div>
+<p>and the collection of missing values for each of the user variables is contained in</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>      db.MissVals
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a> (⎕null)(⊂'')(⊂⍬)('')  (⎕null)(⊂'')(⊂⍬)('')
+</span></code></pre></div>
+<p>Each of these lists is a string (to make it easier to see just what the missing values are) and may be added to:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>      db.MissVals[1],←⊂'(2)'
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>      db.MissVals
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>(⎕null)(⊂'')(⊂⍬)('')(2)  (⎕null)(⊂'')(⊂⍬)('')
+</span></code></pre></div>
+<p>Alternatively, the method <code>db.GetMissVals</code> provides a grid object for entering further values:</p>
+<figure>
+<p><img alt="Figure 2" src="fig2.png" /></p>
+<figcaption>Figure 2</figcaption>
+</figure>
+<p>After such an allocation, any statistical method using the variable <code>alan</code> would filter out values equal to 2.</p>
+<p>Selecting cases is programmed as a method in <code>s_db</code>, and is straightforward:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>     db.SelectCases '(alan&lt;4)^adrian&lt;5'
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>Cases selected by (alan&lt;4)^adrian&lt;5
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>3 cases not selected
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>     db.View
+</span></code></pre></div>
+<figure>
+<p><img alt="Figure 3" src="fig3.png" /></p>
+<figcaption>Figure 3</figcaption>
+</figure>
+<p>In the grid view of the database, cases not selected are in grey – note that case 3 has not been selected because I take the view that a null value cannot be included in the comparison.</p>
+<h2 id="statistical-methods">Statistical Methods<a class="headerlink" href="#statistical-methods" title="Permanent link">&para;</a></h2>
+<p>As well as the above (and other) database methods, the object code <code>s_db</code> contains a number of statistical methods:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>      db.StatsMethods
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>UniqueFrequency  Unistats  Regress  TwoSampleMeans  CrossTabs  Multistats
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>MatchedPairs  OneWayAnova  Scatterplot  Table Boxplot  TimeSeries
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>OneWayManova
+</span></code></pre></div>
+<p>With one exception (the <code>Unistats</code> method) each statistical method creates a sub-object <code>db.s</code> which has its own fields and methods. For our first example, consider <code>UniqueFrequency</code>, useful when investigating a database for the first time – it lists unique values of a variable and their frequency (missing values are included here):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>      db.UniqueFrequency 'adrian'
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>Sub-object s created from all cases
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>      )cs db
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>#.[s_db]
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>     s.UniqueValues
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>1 2 5  [Null]
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>     s.Frequencies
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>1 1 1 1
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>     #.Tab s.FrequencyTable
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a> ValueLabels  Values  Frequency  Percentage
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>              1               1          25
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>              2               1          25
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>              5               1          25
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>              [Null]          1          25
+</span></code></pre></div>
+<p>(With a view to printing out tables later, a table is returned as a vector of column headings and then the body of the table – <code>#.Tab</code> simply glues them together adjusting lengths as necessary.)</p>
+<h2 id="the-unistats-sub-object">The Unistats sub-object<a class="headerlink" href="#the-unistats-sub-object" title="Permanent link">&para;</a></h2>
+<p>Perhaps the most frequently used statistical method in <code>s_db</code> is the <code>Unistats</code> object which allows you to calculate means and standard deviations etc for a single variable. Using this from the session, I took the view that one might want to do this for more than one variable, so I decided to create an object at the root level called by the name of the variable.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>      db.SelectCases 1
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>(re-instates all cases)
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>      db.Unistats 'adrian'
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>Created object #.adrian.?
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>Currently, # cases excluded = 1
+</span></code></pre></div>
+<p>(In creating this object, any value that is in the list of missing values for the variable is filtered out. The ability to do this automatically when creating a statistical object is really important. For example, when fitting different competing regression models, cases will be included or excluded as each new model is specified.)</p>
+<p>We can now type:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>      adrian.Mean
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>2.66667
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>      adrian.StDev
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>2.08167
+</span></code></pre></div>
+<p>The choice of options for the <code>Unistats</code> method reflects my own personal outlook on the process of statistical data analysis – in particular the important role that graphics plays in understanding what is going on and therefore what analysis is (or is not) relevant. So, for example, with <code>Unistats</code> – there are three graphs – a histogram (<code>Hist</code>), a <code>Boxplot</code> (useful for identifying cases that are outliers) and a <code>Rankitplot</code> (a visual check on whether or not the data is Normally distributed). Other options are easily added.</p>
+<h2 id="finding-out-about-the-options-available">Finding out about the options available<a class="headerlink" href="#finding-out-about-the-options-available" title="Permanent link">&para;</a></h2>
+<p>With any statistical object, it is useful to document what options are available, and also to provide a <em>Script</em> (a nested matrix) for documenting output. This is driven by the function <code>#.Explore</code>. For example, the statistical method <code>UniqueFrequency</code> has a Script matrix</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>      #.Ed.freq
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>1 1  Heading              1   2  Heading
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>1 0  UniqueValues         1   2  'Unique Values'
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>                          1   3  UniqueValues
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>1 0  Frequencies          1   2  'Frequencies'
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>                          1   3  Frequencies
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>1 1  FrequencyTable       1   2  'Frequency Table of all Unique Values'
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>                          1   4  FrequencyTable
+</span></code></pre></div>
+<p>listing options (plus information on left and right arguments) with the last column specifying executable commands for output if that option is selected. (The matrix itself may be constructed through a specially designed GUI nested matrix editor <code>#.Ed.Edit</code>.)</p>
+<p>The object itself accesses this information through a field <code>s.Options</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>      s.Options
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a> Left arg  Option          Right arg
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>           Heading
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>           UniqueValues
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>           Frequencies
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>           FrequencyTable
+</span></code></pre></div>
+<p>To see this working more effectively,</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>     Open 'c:\oostats\student.adb'
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>Object 'db' has been created using s_db from file c:\oostats\student.adb
+</span></code></pre></div>
+<p>(A database is saved in an APL component file together with its attributes.)</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>      db.UserNames
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a> sex  height  weight  age  left  react  sort
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>      db.Unistats 'weight'
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>Created object #.weight.?
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>Currently, # cases excluded = 0
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>      weight.Options
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a> Left arg                   Option               Right arg
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>                            Heading
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>                            Sum
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>                            Mean
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>                            StDev
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>                            StError
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>                            LHinge
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>                            Median
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>                            Uhinge
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>                            Table of Statistics
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>                            Outliers
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>                            ExtremeOutliers
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>                            Ttest                hypval←0
+</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>                            NonParTest           hypval←0
+</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>                            Percentiles          pcts←25 50 75
+</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a>                            FreqTable            start,width←
+</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a>                            ConfInt              conflev%←95
+</span><span id="__span-17-19"><a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a> Normal,Exponential,Gamma…  Hist                 start,width←
+</span><span id="__span-17-20"><a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a>                            Boxplot
+</span><span id="__span-17-21"><a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a>                            Rankitplot
+</span></code></pre></div>
+<p>Right arguments (numeric) are indicated through a text vector, thus the <code>Ttest</code> option has a right argument which specifies the hypothesis value required. Left arguments, where they exist, are a list of names indicating categorical options – thus for the <code>Histogram</code> method, a left argument of <code>'Normal'</code> would add a normal-density overlay to the histogram.</p>
+<p>Here are some examples of the options:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>      weight.Min
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>33
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>      weight.Max
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>96
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>      weight.Hist 30 4
+</span></code></pre></div>
+<figure>
+<p><img alt="Figure 4" src="fig4.png" /></p>
+<figcaption>Figure 4</figcaption>
+</figure>
+<p>Note the menu item <code>View</code> which activates the Causeway viewer, and <code>Overlay</code> which gives you a choice of fitting to the data a Normal, Exponential, Log-Normal, Gamma distribution or a smoothed version of the histogram (the left argument options to <code>Hist</code>).</p>
+<p>If you are unsure of which options to use, then you can use <code>#.Explore</code> with right argument equal to the object to be explored. This allows the user to tick appropriate options and obtain suitably annotated output:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>      #.Explore weight
+</span></code></pre></div>
+<figure>
+<p><img alt="Figure 5" src="fig5.png" /></p>
+<figcaption>Figure 6</figcaption>
+</figure>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Univariate statistics for weight
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a> Statistic    Value
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a> #-cases     100
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a> Sum        6188
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a> Mean         61.88
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a> StDev         9.98107
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>Outliers
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>There are 2 outliers
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a> Case  Value
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>   77     92
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>   95     96
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>Extreme Outliers
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>There are 0 extreme outliers
+</span></code></pre></div>
+<p>If we pursue the information on weight of students further, we can recognise that there are male and female students in the same data set, so this histogram is a mixture of two distributions (one for each sex). To investigate how they differ, we need either a boxplot (see later), or two histograms on one axis (not advisable and so not provided) or two smoothed histograms. Both options are available if we use the statistical method <code>TwoSampleMeans</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>      db.TwoSampleMeans 'weight' 'sex=1' 'sex=2'
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>Sub-Object s created using s_twosamt
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>      db.s.FreqDensities 4
+</span></code></pre></div>
+<p>(The parameter is a smoothing parameter – think of it as a class-width for a histogram.)</p>
+<figure>
+<p><img alt="Figure 6" src="fig6.png" /></p>
+<figcaption>Figure 6</figcaption>
+</figure>
+<p>Note that the labels in the key are produced from the database, which has a field <code>db.ValueLabels</code> – a vector of matrices, one for each user variable:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>      db.ValueLabels
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a> 1  Male
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a> 2  Female
+</span></code></pre></div>
+<p>(n.b. there is only one variable here with value labels)</p>
+<p>The resulting graph gives a clear picture of how the distributions of male and female weights differ – a formal test of the equality of means may be performed (either assuming approximate normality or using a non-parametric test):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>      Tab db.s.EqualVarTest
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a> df1  df2  F-statistic   p-value
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>  53   45      1.21619  0.251715
+</span></code></pre></div>
+<p>which tells us that we can assume equal variances (as suspected from the two densities above)</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>      Tab db.s.Ttest 0
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a> t-Statistic  df      p-value
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>     7.10045  98  1.99094E¯10
+</span></code></pre></div>
+<p>If you prefer to use the <code>#.Explore</code> method, then it is a little easier to see what is going on</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>      #.Explore db.s
+</span></code></pre></div>
+<figure>
+<p><img alt="Figure 7" src="fig7.png" /></p>
+<figcaption>Figure 7</figcaption>
+</figure>
+<p>The chosen options are then performed and reported back with annotations:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>Two-sample analysis for variable weight
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>Group 1 is defined by the statement sex=1
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>Group 2 is defined by the statement sex=2
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>Sample Statistics
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>          group 1  group 2
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a> Means     67.22    55.61
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a> St Devs    8.835    7.265
+</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a> #-cases   54       46
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>Pooled Variance Estimate
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a> Estimate  Degrees of Freedom
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>    66.45                  99
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>Test of Equality of Variances
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a> df1  df2  F-statistic  p-value
+</span><span id="__span-29-9"><a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a>  53   45        1.216   0.2517
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>t-Test of Hypothesis that the means differ by 0
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>The results following assume equal variances
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a> t-Statistic  df    p-value
+</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>         7.1  98  1.991E¯10
+</span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>
+</span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>95% Confidence Interval for Difference of Two Means
+</span><span id="__span-30-9"><a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>
+</span><span id="__span-30-10"><a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>The results following assume equal variances
+</span><span id="__span-30-11"><a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a>
+</span><span id="__span-30-12"><a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a> Lower value  Upper Value
+</span><span id="__span-30-13"><a id="__codelineno-30-13" name="__codelineno-30-13" href="#__codelineno-30-13"></a>        7.89        15.34
+</span></code></pre></div>
+<h2 id="the-graphic-user-interface">The Graphic User Interface<a class="headerlink" href="#the-graphic-user-interface" title="Permanent link">&para;</a></h2>
+<p>Whilst driving a statistical analysis from the keyboard is a familiar environment for statisticians, a GUI interface is also desirable. This is provided by the object code <code>s_guidb</code>, which inherits the properties and methods of <code>s_db</code>. Because of the inheritance, and because all the database facilities already have a GUI interface (e.g. <code>db.GetMissVals</code>) it is straightforward to incorporate them into a menu-driven system.</p>
+<p>For the statistical methods, forms are necessary to declare the appropriate variables to spawn the statistical object – once the object has been created, the grid object used in <code>#.Explore</code>, provides the user choice for the statistical options required from that object, and the output from Explore gives the output required for an RTF-viewer. This is illustrated by using the male and female weights example again.</p>
+<p>Having selected from the <code>Analyse</code> menu, the option <code>Two-sample analysis</code>, we can select the target variable, specify the two groups, and create the object using the <code>Analyse</code> button. The default options can then be executed by pressing <code>Do Options</code> on the tabbed subform. The boxplot is generated on the right-hand tabbed subform as seen below.</p>
+<figure>
+<p><img alt="Figure 8" src="fig8.png" /></p>
+<figcaption>Figure 8</figcaption>
+</figure>
+<p>The hidden tabbed sub-forms reveal the database grid object and the text output:</p>
+<figure>
+<p><img alt="Figure 9" src="fig9.png" /></p>
+<figcaption>Figure 9</figcaption>
+</figure>
+<p>Users wishing to extract output into, say Microsoft Word, can</p>
+<ol>
+<li>copy and paste from the RTF Viewer,</li>
+<li>paste any of the graphs produced (some objects may have up to three different graphs) from the Causeway Viewer available on the <code>View</code> menu and</li>
+<li>print a Newleaf report of all (or selected parts) of the activity in a session.</li>
+</ol>
+<p>The <code>Help</code> menu provides a set of Help files (standard compiled html) produced using Adrian Smith’s documentation software. Other database features not mentioned include formatting the variables (including showing dates and value labels), ordering cases, ordering the variables, using colour in the grid to indicate the spectrum of small to large values, and the ability to edit the grid if required.</p>
+<h2 id="the-scope-of-oostats">The scope of OOStats<a class="headerlink" href="#the-scope-of-oostats" title="Permanent link">&para;</a></h2>
+<p>Currently, OOStats is for APLers using Dyalog 12.1. Some options for further development are obvious:</p>
+<ul>
+<li>the addition of further statistical methods to <code>s_db</code></li>
+<li>the addition of further options to any of the existing statistical methods</li>
+<li>packaging it up to provide a stand-alone product (it would be necessary to provide some cover functions for use in e.g. Case Selection or Computing a new variable)</li>
+<li>Regularising the extended output by the creation of a dictionary thus allowing output in different languages.</li>
+</ul>
+<p>(Readers may wish to extend the list!)</p>
+<p>The table below lists the statistical scope to date – note that all the analytic power of ASLGREG is available (facilitating some quite advanced analyses on multi-way contingency tables, logistic regression etc.) and I would hope that there is much here that statistical APLers could use.</p>
+<table class="left" style="border-collapse: collapse">
+            <tr>
+                <th>Statistical Method</th>
+                <th colspan="3">Options</th>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid gray; vertical-align: top"><strong>Boxplot</strong></td>
+                <td style="border-top: 1px solid gray; vertical-align: top" colspan="3">
+                    <em>Facilitates boxplots for one or more variables including classifying variables</em>
+                    (This is a cover-method to interface with boxplots provided on other sub-objects)
+                </td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    <strong>CrossTabs</strong><br>
+                    <em>Analysis of two-way frequency tables</em>
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    Observed<br>
+                    Table<br>
+                    ProportionsVar1ByVar2<br>
+                    ProportionsVar2ByVar1
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    Expected<br>
+                    StandResid<br>
+                    ChiSquareTest<br>
+                    FullTable
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    ViewFullTable<br>
+                    BarchartVar1ByVar2<br>
+                    BarchartVar2ByVar1<br>
+                    TowerChart
+                </td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    <strong>Table</strong><br>
+                    <em>Provides a table of univariate statistics within groups
+                    specified by one or two variables</em>
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    Table<br>
+                    Boxplot
+                </td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    <strong>MatchedPairs</strong>
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top" colspan="3">
+                    <em>Creates a Unistats object on the difference of two variables – see below</em>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    <strong>MultiStats</strong><br>
+                    <em>Creates an object for the univariate or multivariate
+                    analysis of a group of variables</em>
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    #.Cases<br>
+                    Mean<br>
+                    Std Dev<br>
+                    5%ile<br>
+                    25%ile<br>
+                    50%ile
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    75%ile<br>
+                    95%ile<br>
+                    UnivariateStats<br>
+                    MultivariateStats<br>
+                    CovarianceTable<br>
+                    Outliers
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    ExtremeOutliers<br>
+                    TsquareTest<br>
+                    TestHypEqualMeans<br>
+                    CorrelationMatrix<br>
+                    CorrelationTable
+                </td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    <strong>OneWayAnova</strong><br>
+                    <em>Analysis of one variable split into two or more groups</em>
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    MeansTable<br>
+                    EqualVarTest<br>
+                    AnovaTable<br>
+                    Ftest
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    GroupContrasts<br>
+                    CooksDistance<br>
+                    Outliers
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    FreqDensities<br>
+                    Boxplot<br>
+                    Rankitplot
+                </td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    <strong>OneWayManova</strong><br>
+                    <em>As above, but for a group of correlated variables</em>
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    MeanVector<br>
+                    GroupMeanMatrix<br>
+                    GroupMeansTable<br>
+                    WGCovarianceMatrix
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    BGCovarianceMatrix<br>
+                    HonogeneityTest<br>
+                    WilksLambda<br>
+                    HotellingsTsquare
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    ParallelProfileTest<br>
+                    GroupContrasts<br>
+                    MeansPlot<br>
+                    CanonicalPlot
+                </td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    <strong>Regress</strong><br>
+                    <em>Regression and Generalized Linear Modelling</em>
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    CurrentModel<br>
+                    AnovaTable<br>
+                    Ftest<br>
+                    DevianceTable<br>
+                    EstimateTable<br>
+                    CovarianceMatrix
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    CorrelationMatrix<br>
+                    Outliers<br>
+                    Diagnostics<br>
+                    FittedValues<br>
+                    StandardisedResiduals<br>
+                    TResiduals
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    Leverage<br>
+                    CooksDistance<br>
+                    Stepwise<br>
+                    Parityplot<br>
+                    Fitplot<br>
+                    RankitPlot
+                </td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    <strong>Scatterplot</strong>
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top" colspan="3">
+                    <em>Allows the building of any regression or generalized
+                    linear model involving a y-variable, one regressor variable,
+                    and one factor variable showing a scatterplot with fitted
+                    model</em>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    <strong>TimeSeries</strong><br>
+                    <em>Fits auto-regression or moving average time-series models</em>
+
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    Acf<br>
+                    Pacf
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    ARModel<br>
+                    MAModel
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    ARMAModel<br>
+                    Plot
+                </td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    <strong>TwoSampleMeans</strong>
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    Stats<br>
+                    PooledVar<br>
+                    EqualVarTest<br>
+                    Ttest
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    NonParTest<br>
+                    Outliers<br>
+                    ConfInt<br>
+                    CooksDistance
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    FreqDensities<br>
+                    Boxplot<br>
+                    Rankitplot
+                </td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    <strong>UniqueFrequency</strong><br>
+                    <em>Frequencies of unique values</em>
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    UniqueValues
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    FrequencyTable'
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    Frequencies
+                </td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    <strong>Unistats</strong><br>
+                    <em>Statistics for one variable</em>
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    Sum<br>
+                    Mean<br>
+                    StDev<br>
+                    StError<br>
+                    Min<br>
+                    Lhinge<br>
+                    Median
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    Uhinge<br>
+                    Max<br>
+                    Outliers<br>
+                    ExtremeOutliers<br>
+                    BoxCoxLL<br>
+                    Ttest<br>
+                    NonParTest
+                </td>
+                <td style="border-top: 1px solid gray; vertical-align: top">
+                    Pctile<br>
+                    FreqTable<br>
+                    ConfInt<br>
+                    Hist<br>
+                    Boxplot<br>
+                    Rankitplot
+                </td>
+            </tr>
+        </table>
+
+<h2 id="acknowledgements">Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permanent link">&para;</a></h2>
+<p>I am indebted to Morten Kromberg and Gitte Christensen of Dyalog Ltd for encouraging the work on this project and for the opportunity to present a preliminary version at the 2008 Users Conference. As with nearly all my endeavours in APL, I have benefitted enormously from the large APL toolkit of Adrian Smith. Specifically here, is the use of Rainpro, Newleaf and the Documentation software, but not Causeway – the GUI coding, however inept, is my own!</p>
+<h2 id="attachments">Attachments<a class="headerlink" href="#attachments" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Dyalog APL workspace, and examples of datasets: <a href="oostats.zip"><code>oostats.zip</code></a></li>
+<li>Compiled HTML Help file: <a href="oostats.chm"><code>oostats.chm</code></a></li>
+</ol>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

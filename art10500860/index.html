@@ -1,0 +1,686 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Savitzky-Golay filters used to approximate data and derivatives.">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10500860/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Savitzky-Golay interpolation for smoothing values and derivatives - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Savitzky-Golay interpolation for smoothing values and derivatives
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1. Introduction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-computing-weights" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2. Computing Weights
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-applying-filters-to-oscillations" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3. Applying Filters to Oscillations
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-applying-filters-to-edges" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4. Applying Filters to Edges
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-filtering-a-beaver-photo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5. Filtering a Beaver Photo
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-sobel-and-laplacian-filters-based-upon-savitzky-golay" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        6. Sobel and Laplacian Filters based upon Savitzky-Golay
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-image-processing-a-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        7. Image Processing a Disk
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Savitzky-Golay interpolation for smoothing values and derivatives</h1>
+
+  <p class="printed"><a href="../25/4/">Vector 25:4</a>, page 107</p>
+
+<p class="byline">David Porter (dporter@cissoid.net) &amp;<br />
+Cliff Reiter (reiterc@lafayette.edu)</p>
+<p class="abstract">Savitzky-Golay filters use best least squares fit polynomials to approximate data and derivatives. They can be computed very rapidly. We implement Savitzky-Golay filters in J and explore their behaviour on noisy time series data. Applications to remove noise from images and to detect edges in images are also considered.</p>
+<h2 id="1-introduction">1. Introduction<a class="headerlink" href="#1-introduction" title="Permanent link">&para;</a></h2>
+<p>In a previous note on image processing filters [<a href="#ref1">4</a>] Cliff observed that the Savitzky-Golay filter could be used to smooth data, thereby removing some noise, but also sharpening the edges somewhat. That is a classic image processing application, [<a href="#ref3">3</a>, <a href="#ref8">8</a>, <a href="#ref10">10</a>]. David has noted that filters based on the Savitzky-Golay kernels are really much more general than the case considered in that reference. Besides smoothing values, it can provide smoothed derivatives of many orders. In fact, a classic application is using Savitzky-Golay estimates for the first derivative to pin-point spectral peaks [<a href="#ref2">2</a>, <a href="#ref9">9</a>]. The usefulness of the higher order derivatives is enhanced by the overlapping local-polynomial smoothing inherent in these filters.</p>
+<p>The central idea of Savitzky-Golay filters is to use best least squares polynomial fits to approximate data; then use those polynomials to estimate data or derivatives. The beauty is that weights may be computed ahead of time so that the approximations can be computed very rapidly. In this note we explain how that works, implement it in J [<a href="#ref1">1</a>], and show applications using both value and derivative approximations to image processing.</p>
+<h2 id="2-computing-weights">2. Computing Weights<a class="headerlink" href="#2-computing-weights" title="Permanent link">&para;</a></h2>
+<p>We begin by assuming that we want to estimate a value or derivative at the point <em>u<sub>0</sub>=0</em> and that we know the data values at <em>lr</em> (left radius) uniformly spaced points to the left of <em>u<sub>0</sub></em> and <em>rr</em> (right radius) uniformly spaced points to the right of <em>u<sub>0</sub></em>. Thus, for purposes of our derivation and applications we assume the points at which the data is known are <span style="position:relative;top:3.0pt"><img width="205" height="24" src="image001.png" alt="Formula 1"></span>. Suppose we want to use a polynomial of degree <em>N</em> to approximate the data. We need <span style="position:relative;top:1.5pt"><img width="74" height="19" src="image002.png" alt="Formula 2"></span> for the least squares polynomial to be well defined. Suppose the polynomial has the form <span style="position:relative;top:3.0pt"><img width="233" height="26" src="image003.png" alt="Formula 3"></span> and the corresponding values are given by <em>v<sub>i</sub></em>. That is, we desire the least squares solution to the system of equations <span style="position:relative;top:3.0pt"><img width="68" height="24" src="image004.png" alt="Formula 4"></span>. In matrix-vector form this can be written as <em>U A = V</em> where <em>A</em> is the list of the polynomial coefficients and <em>V</em> is the list of the data values. The matrix <em>U</em> has entries <span style="position:relative;top:3.5pt"><img width="68" height="27" src="image005.png" alt="Formula 5"></span>. Thus, the solution is given by <span style="position:relative;top:1.5pt"><img width="62" height="21" src="image006.png" alt="Formula 6"></span> where <span style="position:relative;top:2.5pt"><img width="96" height="24" src="image007.png" alt="Formula 7"> </span> is the least-square pseudo-inverse. The pseudo-inverse is a primitive in J and APL.</p>
+<p>In order to determine <span style="position:relative;top:3.0pt"><img width="66" height="24" src="image008.png" alt="Formula 8"></span> we matrix multiply (a dot product here) the first row of <em>U<sup>*</sup></em> times the data values <em>V</em>. Thus, the weights we use as a filter to estimate the values are given by the first row of <em>U<sup>*</sup></em>. Likewise, the row with index <em>k</em> estimates <em>a<sub>k</sub></em>. A standard fact about the coefficients for McLaurin polynomials is that <span style="position:relative;top:6.0pt"><img width="86" height="44" src="image009.png" alt="Formula 9"></span>. Thus, to estimate the <em>k<sup>th</sup></em> derivative, the weights we want are given by the row of <em>U<sup>*</sup></em> with index <em>k</em> times <em>k!</em>. We implement this in J as <code>sgw</code> shown below. Its left arguments are the order of the derivative and degree of the polynomial. The right argument is the left and right radii to use. The expression to the right of <code>%.</code> computes the matrix <code>U</code>. The pseudo-inverse is computed. The expression <code>(!@[*{)</code> selects the row and multiplies by the factorial. We see some examples of weights below. The last one of those gives the weights that will approximate the first derivative using a degree three polynomial by utilizing two points to the left and right of the data point of interest.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>   sgw=: 4 : 0
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>({.x)(!@[*{)%. (({.y)-~i.1+({.+{:)y) ^/ i. 1+{:x
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>)
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>   0 1 sgw 2 2
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>0.2 0.2 0.2 0.2 0.2
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>   0 3 sgw 2 2
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>_0.0857143 0.342857 0.485714 0.342857 _0.0857143
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>   1 1 sgw 1 1
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>_0.5 0 0.5
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>   1 3 sgw 2 2
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>0.0833333 _0.666667 4.48235e_17 0.666667 _0.0833333
+</span></code></pre></div>
+<p>Next we define the matrix product and check that when we multiply actual polynomial data times these weights we get the appropriate derivatives. We use the fourth degree polynomial with coefficients <code>5 4 3 2 1</code> for these examples.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>   mp=:+/ . *
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>   p=:5 4 3 2 1&amp;p.
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>   ((0 4 sgw 3 3)mp p i:3); p 0
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>+-+-+
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>|5|5|
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>+-+-+
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>   ((1 4 sgw 3 3)mp p i:3); p d.(1) 0
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>+-+-+
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>|4|4|
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>+-+-+
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>   ((2 4 sgw 3 3)mp p i:3); p d.(2) 0
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>+-+-+
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>|6|6|
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>+-+-+
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>   ((3 4 sgw 3 3)mp p i:3); p d.(3) 0
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>+--+--+
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>|12|12|
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>+--+--+
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>   ((3 4 sgw 2 4)mp p i:3); p d. (3) _1
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>+---+---+
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>|_12|_12|
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>+---+---+
+</span></code></pre></div>
+<p>The last of those illustrates what happens when the left and right radii are different. With two points on the left, a point of interest, and four points on the right and independent variable based on <code>i:3</code>, we see <code>_1</code> is the point of interest in the polynomial's coordinates (which is not the same as the analysis coordinates).</p>
+<h2 id="3-applying-filters-to-oscillations">3. Applying Filters to Oscillations<a class="headerlink" href="#3-applying-filters-to-oscillations" title="Permanent link">&para;</a></h2>
+<p>Before discussing the Savitzky-Golay filter on image data, we will take a look at its behaviour on illustrations that have been modified with some standard normal noise. In this section we consider oscillations of varying frequency. We generate the standard normal values using <code>randsn</code> from <em>povkit2.ijs</em> from the <em>fvj3</em> add-on. Figure 1 shows the oscillations and a noisy variant.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>   require '~addons/graphics/fvj3/povkit2.ijs'
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>   require 'plot'
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>   y=: sin *: 0.01 *i.1000
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>   plot y,:~z=:(0.1* randsn 1000)+y
+</span></code></pre></div>
+<p><img alt="fig. 1" src="fig01.png" width="100%" /></p>
+<p class="caption">Figure 1. Oscillations and added noise.</p>
+<p>Our goal is to, as best possible, recover the original (red) curve from the noisy data (blue).</p>
+<p>In order to compare the data to the result of a Savitzky-Golay filter on the data it is convenient to extend the data and we will extend the data in a constant manner using <code>conext</code>, repeating the first and last values an appropriate number of times. The conjunction <code>SG</code> takes the derivative order and polynomial degree as its left argument and the right argument is the radius. The conjunction extends the data in a constant manner and applies the filter <code>(m sgw n)&amp;mp</code> to all the windows of appropriate size. Below we compute Savitzky-Golay weights with left and right radii <code>15</code> so that we will be using windows of width <code>31</code>. Fifth degree polynomials are being used. The result is shown in Figure 2; this Savitzky-Golay filter (red) smooths the data substantially, but still has some noise and edge artefacts.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>   conext=:1&amp;$: : ((#,:@:{.),],(#,:@:{:))
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>   3 conext i.5
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>0 0 0 0 1 2 3 4 4 4 4
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>   SG=:2 : '(1+2*n)&amp;((m sgw n)&amp;mp\)@:(n&amp;conext)'
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>   f1=: 0 5 SG 15
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>   plot z,:~f1 z
+</span></code></pre></div>
+<p><img alt="fig. 2" src="fig02.png" width="100%" /></p>
+<p class="caption">Figure 2. Savitzky-Golay filter preserves amplitude.</p>
+<p>Note that that Savitzky-Golay filter does a fine job of recovering the proper amplitudes. That is in contrast to what happens when a simple moving average is used instead, as seen below and in Figure 3. Namely, amplitude information is lost. Other filters may damage frequency or phase information. Note that the Savitzky-Golay weights are uniform when linear functions approximate values, so we can obtain a radius 15 moving average with <code>f2</code> below.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>   0 1 sgw 2 2
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>0.2 0.2 0.2 0.2 0.2
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>   f2=: 0 1 SG 15
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>   plot z,:~f2 z
+</span></code></pre></div>
+<p><img alt="fig. 3" src="fig03.png" width="100%" /></p>
+<p class="caption">Figure 3. Ordinary moving averages lose amplitude information on narrow peaks.</p>
+<h2 id="4-applying-filters-to-edges">4. Applying Filters to Edges<a class="headerlink" href="#4-applying-filters-to-edges" title="Permanent link">&para;</a></h2>
+<p>There are three parameters to the Savitzky-Golay algorithm that must be chosen. The following examples of computer generated edges (step functions) help illustrate the behaviours these parameters control. Figure 4 shows two steps, one pure and the other has noise added to it.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>   st=: 100&lt;:i.200
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>   plot rst=: st,st+0.1*randsn 200
+</span></code></pre></div>
+<p><img alt="fig. 4" src="fig04.png" width="60%" /></p>
+<p class="caption">Figure 4. Step functions: pure and noisy.</p>
+<p>Figure 5 show the effects of changing the smoothing window radius when using a Savitzky-Golay filter using the zeroth derivative, a zero degree polynomial, and a smoothing window radii of 5, 10, and 15 pixels. This is equivalent to a running average with 11, 21, and 31 sample points. As can be seen, the noise is reduced with larger radii and the edges become broadened and less steep.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>   plot 0 0 SG 5 rst
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>   plot 0 0 SG 10 rst
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>   plot 0 0 SG 15 rst
+</span></code></pre></div>
+<p><img alt="fig. 5.1" src="fig05_00.png" width="60%" /> <img alt="fig. 5.2" src="fig05_01.png" width="60%" /> <img alt="fig. 5.3" src="fig05_02.png" width="60%" /></p>
+<p class="caption">Figure 5. Smoothed with radius 5, 10, and 15 filters.</p>
+<p>In Figure 6 the Savitzky-Golay parameters are set for zeroth derivative, a 5 point smoothing window radius, and the polynomial order 0, 2 and 4. The noise at higher polynomial orders contains more high frequency components and overshoot is apparent at the pure step.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>   plot 0 0 SG 5 rst
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>   plot 0 2 SG 5 rst
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>   plot 0 4 SG 5 rst
+</span></code></pre></div>
+<p><img alt="fig. 6.1" src="fig06_00.png" width="60%" /> <img alt="fig. 6.2" src="fig06_01.png" width="60%" /> <img alt="fig. 6.3" src="fig06_02.png" width="60%" /></p>
+<p class="caption">Figure 6. Smoothed with radius 5 and polynomials of degree 0, 2 and 4.</p>
+<p>In Figure 7 the first four derivatives are calculated. Each one is calculated with a polynomial one order larger than the derivative and the smoothing window radius is set at 5 pixels. The filter computed first derivative of a step function is a Gaussian. The peak marks the location of the edge very accurately. The zero-crossings of even order derivatives mark the location of the edge. The peaks of odd order derivatives mark the location of the edge. The overshooting skirts of the odd order peaks are a part of the high-order derivative and can be used to help identify them in high noise. The location is preserved to a high degree of accuracy.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>   plot 1 2 SG 5 rst
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>   plot 2 3 SG 5 rst
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>   plot 3 4 SG 5 rst
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>   plot 4 5 SG 5 rst
+</span></code></pre></div>
+<p><img alt="fig. 7.1" src="fig07_00.png" width="60%" /> <img alt="fig. 7.2" src="fig07_01.png" width="60%" /> <img alt="fig. 7.3" src="fig07_02.png" width="60%" /> <img alt="fig. 7.4" src="fig07_03.png" width="60%" /></p>
+<p class="caption">Figure 7. Derivatives of order 1, 2, 3 and 4 and polynomials one degree higher.</p>
+<p>The higher derivatives shown in Figure 7 are almost lost in the noise. Readers are encouraged to retry these experiments using radii 10 and 15 to observe the higher derivatives more clearly while the precise location of the lower derivatives becomes less apparent.</p>
+<p>We have seen that often using a polynomial of degree one higher than the order of the derivative is advantageous because ringing is minimized. However, we also see that in some circumstances, such as the previous section, one may need to use higher degree polynomials in order to retain high frequency information.</p>
+<h2 id="5-filtering-a-beaver-photo">5. Filtering a Beaver Photo<a class="headerlink" href="#5-filtering-a-beaver-photo" title="Permanent link">&para;</a></h2>
+<p>We will consider the application of Savitzky-Golay filters involving values and first and second derivatives. We begin with values. The idea is very similar to the above data filtering except that we apply the filter in two dimensions of a raster image. For simplicity we will use a grayscale image. The <em>image3</em> add-on contains <em>filter1.ijs</em> which has facilities for converting between colour models. In particular, the "Y" component of "YUV" space gives a good grayscale[<a href="#ref5">5</a>]. The image used below may be found at [<a href="#ref6">6</a>] although readers may want to experiment with their own images.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>    require '~addons/media/image3/color_space.ijs'
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>   require '~addons/media/image3/view_m.ijs'
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>   $b=:read_image 'C:/temp/dscf3950.jpg'  NB. modify path/image names
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>2736 3648 3
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>   BW256 view_data g=:0{"1 RGB_to_YUV b
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>3648 2736
+</span></code></pre></div>
+<p>Figure 8 shows the resulting greyscale image. We use <code>view_data</code> with a greyscale palette since it automatically rescales data not in the <code>0</code> to <code>255</code> range. The photo was taken in moderately adverse conditions: the evening light was dim, the beaver was moving, and there were high contrast reflections of sky and clouds.</p>
+<p><img alt="fig. 8" src="fig08.png" width="60%" /></p>
+<p class="caption">Figure 8. A swimming beaver.</p>
+<p>The first of the following filters produces a Savitzky-Golay filter using radius 7 (which gives 15 by 15 blocks of pixels) and degree 7 polynomials. The result is the array <code>sgg</code> which can be viewed. The other examples arise from cubic polynomials with radii 7 and 11 respectively. It is possible to see the improvement in the full scale image, but the differences are somewhat subtle. Instead, we pixel peek at two small portions of the image.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>   sgv=: 1 : 0
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>f=.(0,{.m) SG ({:m)
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>f f"_1 y
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>)
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>   BW256 view_data sgg=:7 7 sgv g
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>3648 2736
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>   zm1=:3 : '200 200{.600 500}.y'
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>   spix=:[##"_1
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>   BW256 view_data 5 spix  g ,.&amp;zm1 sgg
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>2000 1000
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>   BW256 view_data 5 spix  (3 7 sgv g) ,.&amp;zm1 3 11 sgv g
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>2000 1000
+</span></code></pre></div>
+<p>First we peek at a reflection of the sky and clouds using <code>zm1</code> defined above to zoom into a small portion of the image. The function <code>spix</code> replicates pixels in blocks so they become apparent. Figure 9 compares the degree 7 polynomial with radii 7 filtered version with the original. The noise is noticably reduced but the boundary between regions remains distinct, unmoved and slightly clarified. Figure 10 shows the same zoom but with radii 7 and 11 and degree 3 polynomials. Notice these give much more smoothing.</p>
+<p><img alt="fig. 9" src="fig09.png" width="100%" /></p>
+<p class="caption">Figure 9. Cloud boundary before and after filtering.</p>
+<p><img alt="fig. 10" src="fig10.png" width="100%" /></p>
+<p class="caption">Figure 10. Cloud boundary after heavier filtering.</p>
+<p>Similar zooms are used zoom into the edge of the beaver with water where whiskers are visible. In Figure 11 we observe that despite significant smoothing, the whiskers not only remain, but are slightly enhanced. There the degree 7 polynomial with radius 7 filtered version is compared with the original. Figure 12 shows the filters with radii 7 and 11 with degree 3 where damage to the whiskers is observed.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>   zm2=:3 : '200 200{.1050 1400}.y'
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>   BW256 view_data 5 spix  g ,.&amp;zm2 sgg
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>2000 1000
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>   BW256 view_data 5 spix  (3 7 sgv g) ,.&amp;zm2 3 11 sgv g
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>2000 1000
+</span></code></pre></div>
+<p><img alt="fig. 11" src="fig11.png" width="100%" /></p>
+<p class="caption">Figure 11. Beaver and water. Whiskers remain.</p>
+<p><img alt="fig. 12" src="fig12.png" width="100%" /></p>
+<p class="caption">Figure 12. Beaver and water. Whiskers damaged by heavy filtering.</p>
+<p>Thus we see that the desire to enhance different features may affect our choice of filter and no one filter is ideal for all purposes.</p>
+<h2 id="6-sobel-and-laplacian-filters-based-upon-savitzky-golay">6. Sobel and Laplacian Filters based upon Savitzky-Golay<a class="headerlink" href="#6-sobel-and-laplacian-filters-based-upon-savitzky-golay" title="Permanent link">&para;</a></h2>
+<p>A classic method for edge detection is to use length of the gradient vector; namely, the square root of the sum of squares of the first partial derivatives as follows.</p>
+<p><span style="position:relative;top:8.0pt"><img width="115" height="56" src="image010.png" alt="Formula 10"></span></p>
+<p>Usually those partial derivatives are computed using divided differences of nearby pixels. The method is effective, but sensitive to noise in those pixels. We compute the derivatives using 7 by 7 Savitzky-Golay approximations and contrast that with the divided differences from [<a href="#ref6">6</a>]. In Figure 13 we see that the edges are distinctly highlighted. The divided difference version shows many noise artefacts.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>   lxy=:+&amp;.*:
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>   3 lxy 4
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>5
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>   sob=:1 : 0
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>d=.(1,{.m) SG ({:m)
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>(d y)lxy d"_1 y
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>)
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>   BW256 view_data 5 spix zm2 3 7 sob g
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>1000 1000
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>   BW256 view_data 5 spix zm2 3 7 sob g
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>1000 1000
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>   dx=: 1 2 1 */ 1 0 _1
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>   ]dy=: |:dx
+</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a> 1  2  1
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a> 0  0  0
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>_1 _2 _1
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>   filt2=: *&amp;dx +&amp;.:*:&amp;(+/@,) *&amp;dy
+</span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a>
+</span><span id="__span-12-26"><a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a>   sobel=: 3 3&amp;(filt2;._3)
+</span><span id="__span-12-27"><a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a>
+</span><span id="__span-12-28"><a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a>   BW256 view_data 5 spix zm2 sobel g
+</span><span id="__span-12-29"><a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a>1000 1000
+</span></code></pre></div>
+<p><img alt="fig. 13.1" src="fig13_00.png" width="49%" /> <img alt="fig. 13.2" src="fig13_01.png" width="49%" /></p>
+<p class="caption">Figure 13. Sobel edges using Savitzky-Golay derivatives (left) and using classic divided differences (right).</p>
+<p>The Laplacian is the sum of the second order derivatives with respect to the independent variables: <span style="position:relative;top:7.5pt"><img width="72" height="48" src="image011.png" alt="Formula 11"></span>. Again, these are traditionally estimated using nearby pixels and are susceptible to the noise in those pixels. We use Savitzky-Golay estimates to reduce the noise in the second order derivatives. In Figure 14 we see that it detects edges with an up-down band.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>   lap=:1 : 0
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>d=.(2,{.m) SG ({:m)
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>(d y)+d"_1 y
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>)
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>   BW256 view_data 5 spix  zm2 3 5 lap g
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>1000 1000
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>   BW256 view_data 5 spix  g ,.&amp;zm2 g+2 2 lap g
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>2000 1000
+</span></code></pre></div>
+<p><img alt="fig. 14" src="fig14.png" width="50%" /></p>
+<p class="caption">Figure 14. Laplacian shows edges with an up-down band.</p>
+<p>One application of the Laplacian is that when it is added to the original image in some cases the edges can be clarified and noise reduced. Figure 15 shows the original data and the data added to a Laplacian filter with radius and degree 2. Notice that a remarkable amount of noise has been removed.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>      BW256 view_data 5 spix  g ,.&amp;zm2 g+2 2 lap g
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>2000 1000
+</span></code></pre></div>
+<p><img alt="fig. 15" src="fig15.png" width="100%" /></p>
+<p class="caption">Figure 15. Image and image added to its Laplacian.</p>
+<h2 id="7-image-processing-a-disk">7. Image Processing a Disk<a class="headerlink" href="#7-image-processing-a-disk" title="Permanent link">&para;</a></h2>
+<p>We finish by offering a few lines that interested readers could use to investigate these Savitzky-Golay image processing tools on an abstract image of a disk. Readers might enjoy trying to predict the result based upon the discussion earlier in this note.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>   BW256 view_data dot=:1&gt;2*lxy/~(i:%])500
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>1001 1001
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>   BW256 view_data 1 10 sgv dot
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>1001 1001
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>   BW256 view_data 1 30 sgv dot
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>1001 1001
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>   BW256 view_data 3 30 sgv dot
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>1001 1001
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>   BW256 view_data 2 15 sob dot
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>1001 1001
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>   BW256 view_data 5 15 sob dot
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>1001 1001
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>   BW256 view_data 2 2 sob dot
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>1001 1001
+</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>
+</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>   zm3=:3 : '200 200{.500 600}.y'
+</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>   BW256 view_data 3 5 lap dot
+</span><span id="__span-15-19"><a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a>1001 1001
+</span><span id="__span-15-20"><a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a>   BW256 view_data 5 spix dot ,.&amp;zm3 dot+3 2 lap dot
+</span><span id="__span-15-21"><a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a>2000 1000
+</span></code></pre></div>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a id="ref1"></a> Jsoftware, J6.01c, with Image3 and FVJ3 addons, <a href="http://www.jsoftware.com">http://www.jsoftware.com</a>, 2007.</li>
+<li><a id="ref2"></a> Anthony J. Owen, Uses of Derivate Spectroscopy, <a href="http://www.chem.agilent.com/Library/applications/59633940.pdf">http://www.chem.agilent.com/Library/applications/59633940.pdf</a>.</li>
+<li><a id="ref3"></a> William H. Press et al, Numerical recipes: the art of scientific computing, 3rd ed., Cambridge University Press, 2007.</li>
+<li><a id="ref4"></a> Cliff Reiter, With J: Image Processing 1: Smoothing Filters, <em>APL Quote Quad</em>, 34 2 (2004) 9-15.</li>
+<li><a id="ref5"></a> Cliff Reiter, With J: Image Processing 2: Color Spaces, <em>APL Quote Quad</em>, 34 3 (2004) 3-12</li>
+<li><a id="ref6"></a> Cliff Reiter, Fractals, Visualization and J, 3rd ed., Lulu.com, 2007.</li>
+<li><a id="ref7"></a> Cliff Reiter, Beaver image,  <a href="http://webbox.lafayette.edu/~reiterc/j/vector/index.html">http://webbox.lafayette.edu/~reiterc/j/vector/index.html</a>.</li>
+<li><a id="ref8"></a> John C. Russ, The image Processing Handbook, 5th edition, CRC Press, 2006.</li>
+<li><a id="ref9"></a> A. Savitzky and M.J.E. Golay, M.J.E., Smoothing and Differentiation of Data by Simplified Least Squares Procedures, Analytical Chemistry 36 8 (1964) 1627–1639.</li>
+<li><a id="ref10"></a> Wikipedia, Savitzky-Golay smoothing filter  <a href="http://en.wikipedia.org/wiki/Savitzky-Golay_smoothing_filter">http://en.wikipedia.org/wiki/Savitzky-Golay_smoothing_filter</a></li>
+</ol>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

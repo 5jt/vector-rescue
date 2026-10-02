@@ -1,0 +1,813 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10011840/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Using the .NET Dataset Class with Dyalog 12 - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#acknowledgements" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Using the .NET Dataset Class with Dyalog 12
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgements" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Acknowledgements
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Motivation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started-with-the-dataset-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Getting started with the DataSet class
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#playing-with-selections" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Playing with Selections
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-do-we-really-want-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What do we <em>really</em> want here?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farming-out-the-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Farming out the loops
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-a-nameless-class-on-the-fly" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Making a nameless class on the fly
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wrap-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Wrap up
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Using the .NET Dataset Class with Dyalog 12</h1>
+
+  <p class="printed"><a href="../23/3/">Vector 23:3</a>, page 89</p>
+
+<p class="byline">Adrian Smith (<a href="mailto:adrian@apl385.com">adrian@apl385.com</a>)</p>
+<h2 id="acknowledgements">Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permanent link">&para;</a></h2>
+<p>This material was prepared initially for Paul Mansour’s wonderful moot in San Quirico, and was improved during the presentation by several of those present, notably Stefano. Thanks to everyone who mucked in to help.</p>
+<h2 id="motivation">Motivation<a class="headerlink" href="#motivation" title="Permanent link">&para;</a></h2>
+<p>One of the wonders of .Net is just how much stuff you get for nothing. One of the little gifts it gives you is a perfectly usable relational database, which they would love to have you backend onto SQL Server, but which is quite adequate running completely stand-alone. I rather like playing with databases, so I spent half a day fooling with this, partly as a way to explore the Dyalog .Net interface. I quickly discovered that wrapping one of Dyalog’s new classes around it could add quite a bit of fun to the experience, but it also became obvious that handling anything more than a few thousand rows would be amazingly slow unless all the data types were directly mapped into simple APL arrays. As soon as you hit <em>nulls</em> or (worse) <em>dates</em> APL converts each item into a namespace reference and things slow exponentially.</p>
+<p>So this takes on from my note on new tricks for old dogs<sup><a href="#ref1">[1]</a></sup>, and shows how you might actually make use of this stuff in a real working system, at a very reasonable speed. Nervous readers should note that there is some C# code involved, but it is very low on intellectual content, and consists mostly of all the loops that we don’t want to see in APL.</p>
+<h2 id="getting-started-with-the-dataset-class">Getting started with the DataSet class<a class="headerlink" href="#getting-started-with-the-dataset-class" title="Permanent link">&para;</a></h2>
+<p>I am taking it as read that anyone who has read this far knows roughly what a database is, so I will run quickly though how .Net handles the idea of tables and relationships. We will build the little EmpDept example (with random variations) that Oracle shipped back in the 70s.</p>
+<p>The very first thing you need is a <code>DataSet</code> which is a wrapper for your <code>DataTables</code> and the <code>Relationships</code> between them:</p>
+<pre>
+ ⎕USING←'' 'System.Data,System.Data.DLL' 'Causeway,D:\tools\aplc\<a href="smithdat/dbs.dll">dbs.dll</a>'
+ pr←⎕NEW DataSet(⊂'Payroll')
+</pre>
+
+<p>There is very little a <code>DataSet</code> can do on its own, but if you have a quick look at its methods, you will see something rather useful:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a> prps←{⍵.⎕NL ¯2}
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a> meths←{{⍵/⍨~'_'∊¨⍵}⍵.⎕NL ¯3}
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a> meths pr
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  … GetXml … WriteXml …
+</span></code></pre></div>
+<p>When you are done, you can save your entire database to disk in a (remarkably) clean XML format which you can then rebuild later on. For small, self-contained projects, this seems a very good solution, as well as being completely free. By small, I mean anything up to a few hundred thousand rows.</p>
+<p>Of course we need some tables, and the tables need some columns. The .Net <abbr title="software developer’s kit">SDK</abbr> help file is really well written, and walks you through the process at a good pace, if you want to explore this more deeply. For now I just want to get something I can play with in APL, so here we go:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>⍝ The Emp table will need some columns, with type information
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>⍝ Start by collecting the datatypes we will need (String is the default coltype)
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> int32←System.Type.GetType∘⊂'System.Int32'
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a> double←System.Type.GetType∘⊂'System.Double'
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a> datetime←System.Type.GetType∘⊂'System.DateTime'
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a> timespan←System.Type.GetType∘⊂'System.TimeSpan'
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a> empid←et.Columns.Add∘⊂'Id'
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a> empdept←et.Columns.Add∘⊂'Dept'
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a> empname←et.Columns.Add∘⊂'Name'
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a> sal←et.Columns.Add'Salary'int32
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a> sink←et.Columns.Add'Annual Bonus'double'Salary / 10'
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a> join←et.Columns.Add'Joining Date'datetime
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a> service←et.Columns.Add'Length of Service'timespan
+</span></code></pre></div>
+<p>A couple of things to note in passing – getting a <code>Type</code> object in APL is strangely messy. There may be a better way of doing this, but I haven’t found it yet. Also note how bonus is set to salary/10, in the definition of the table. I don’t really see the use of this in a real system, but it is quite surprising that you can do simple arithmetic directly in the table definitions. Finally, under <em>coding habits</em> I suggest you file away the idea of always using a jot against methods where you have to enclose the ‘string’ argument. This is redundant here, but makes it visually obvious that you are not really passing an enclosed array – just flagging it for enclosure by the called function. Also it will allow you to use <em>each</em> on an argument array without swearing. Another good habit is to set up <code>true</code> and <code>false</code> as standard globals to make your APL code look a little more like the examples in the help files. Now we hit a small brick wall and get the first taste of some C# assistance:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>⍝ We need this as APL cannot pass an array of DataColumns here?
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a> Db.SetPrimaryKey(et,1)    ⍝ Static call on the library
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>⍝ This has one primary key which cannot have duplicates
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a> empid.(AllowDBNull Unique)←false true
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>⍝ Just to show we can store custom properties (string type only for XML use)
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a> et.ExtendedProperties.Add'Owner' 'Adrian'
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>⍝ We must have a deptid
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a> empdept.AllowDBNull←false
+</span></code></pre></div>
+<p>In order to set the primary key, I need to pass an array of <code>DataColumn</code> objects. I don’t think there is any way for Dyalog to do this (please prove me wrong, someone) so I dived over to TextPad and wrote a trivial bit of C# to do the job, given the column index or indices:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>// Much more comfortable just to pass column numbers when creating tables!
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a> public static void SetPrimaryKey(DataTable table, int col)
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a> { SetPrimaryKey(table, new int[] {col}); }
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a> public static void SetPrimaryKey(DataTable table, int[] cols)
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a> { DataColumn[] keys = new DataColumn[cols.Length];
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>   for(int ct=0; ct&lt;cols.Length; ct++)
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>     keys[ct] = table.Columns[cols[ct]-1];
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>   table.PrimaryKey = keys;
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a> }
+</span></code></pre></div>
+<p>This code is included in the source for dbs.dll, along with a lot of other stuff I was expecting to have to write. One day it should become redundant.</p>
+<p>Of course the department table will just be more of the same:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a> deptid←dp.Columns.Add∘⊂'DeptId'
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a> sink←dp.Columns.Add∘⊂'Department'
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a> deptid.(AllowDBNull Unique)←false true
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a> Db.SetPrimaryKey(dp,1)
+</span></code></pre></div>
+<p>Finally, we draw a mental line between the tables (a real line if you always sketch these before you start typing) to enforce the link between them:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>⍝ Finally link them up to enforce the foreign-key relationship
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a> aff←ds.Relations.Add'Affiliation'deptid empdept ⍝ Parent-&gt;child
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a> aff.ChildKeyConstraint.DeleteRule←Rule.Cascade  ⍝ Default but say it anyway
+</span></code></pre></div>
+<p>This means that anything you type in the Dept column of the Emp table <em>must</em> match an existing entry in the DeptId column of the Dept table. (And if you delete a department, then all the employees conveniently evaporate. This might not be the best option in production code …)</p>
+<p>As the final step, let’s just add a few random departments and employees:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a> ⎕USING←'' 'System'
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>⍝ Depts must be loaded first
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a> dept←ds.Tables[1]
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a> nr←dept.NewRow
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a> nr[0]←⊂'OR' ⋄ nr[1]←⊂'Operational Research'
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a> dept.Rows.Add nr
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a> nr←dept.NewRow
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a> nr[0]←⊂'GD' ⋄ nr[1]←⊂'General Dogsbody'
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a> dept.Rows.Add nr
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>⍝ Now the employees
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a> emp←ds.Tables[0]
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a> nr←emp.NewRow
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a> nr[0]←⊂'JM'
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a> nr[1]←⊂'OR'
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a> nr[2]←⊂'Jonathan'
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a> nr[3]←24800
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a> nr[5]←DateTime.Parse∘⊂'23/3/1998'
+</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a> nr[6]←TimeSpan.FromDays 678
+</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a> emp.Rows.Add nr
+</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>
+</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a> …
+</span><span id="__span-6-26"><a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a>
+</span><span id="__span-6-27"><a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a>⍝ Now lets try the bulk insertion method
+</span><span id="__span-6-28"><a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a> emp.BeginLoadData
+</span><span id="__span-6-29"><a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a>
+</span><span id="__span-6-30"><a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a> sink←emp.LoadDataRow('MWG' 'OR' 'Marc' 18500 0)true
+</span><span id="__span-6-31"><a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a> sink←emp.LoadDataRow('GMS' 'GD' 'Gill' 13503 0)true
+</span><span id="__span-6-32"><a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a> sink←emp.LoadDataRow('RCS' 'GD' 'Richard')true    ⍝ Default salary
+</span><span id="__span-6-33"><a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a> sink←emp.LoadDataRow('WHO' 'GD')true              ⍝ Default name to DBNull
+</span><span id="__span-6-34"><a id="__codelineno-6-34" name="__codelineno-6-34" href="#__codelineno-6-34"></a>
+</span><span id="__span-6-35"><a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a> emp.EndLoadData
+</span></code></pre></div>
+<p>Note that I bottled out on using the bulk method with <code>DateTime</code> and just allowed our last four employees to have null values here. Bulk insert is much better done with a bit more C# help, so we can walk on by and play with the limited data we have.</p>
+<h2 id="playing-with-selections">Playing with Selections<a class="headerlink" href="#playing-with-selections" title="Permanent link">&para;</a></h2>
+<p>We can do a fair amount of processing in plain APL now, starting from the <code>pr</code> object (the <code>DataSet</code> instance we made at the beginning) and digging down layer by layer:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>      pr
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>System.Data.DataSet
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>      pr.DataSetName
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>Payroll
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>      pr.Tables
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>System.Data.DataTableCollection
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>      ⌷pr.Tables
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a> Emp  Dept
+</span></code></pre></div>
+<p>Note the excellent monadic <em>squad</em> <code>⌷</code>, which converts a collection into an array. (We APLers likes arrays, just like we Pirates always speaks in the present tense – sorry. On we go …)</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>      emp←↑⌷pr.Tables                  ⍝ Just the employee list
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>      ss←emp.Select∘⊂'salary&gt;20000'    ⍝ What have we here?
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>      ss
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a> System.Data.DataRow  System.Data.DataRow
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>      ⊃ss.ItemArray
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a> JM    OR  Jonathan  24800 2480  23/03/1998 00:00:00  678.00:00:00
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a> ACDS  OR  Adrian    36800 3680  30/09/1974 00:00:00  142.21:21:18.9000000
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>      +/4⊃¨ss.ItemArray
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>61600
+</span></code></pre></div>
+<p>The good news is that you can get your data back out again, selected and ordered. The bad news is that you get it back in exactly the way you didn’t want – as an array of <code>DataRow</code> objects. APL will run through these for you grabbing each row as a nested array, but note that each item in the DateTime column is actually a <em>namespace reference</em> so if we have a few thousand employees, this innocent expression is going to run up the fan on your laptop for quite a while. Several years in fact, for a not-unreasonable sample. A more pressing problem is that none of the things an APLer wants to do (like find the median salary) are easy to achieve with this model. Time to step back and have a little think.</p>
+<h2 id="what-do-we-really-want-here">What do we <em>really</em> want here?<a class="headerlink" href="#what-do-we-really-want-here" title="Permanent link">&para;</a></h2>
+<p>Clearly, we wants arrays, and we wants ’em <em>now</em>. It would be really great if the selection could be an instance of a Dyalog class, with all the columns as properties. Something like:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>sel←Select emp 'salary&gt;20000'   ⍝ Get a selection
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>      sel.Salary
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>24800 36800
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>      sel.Salary[2]
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>36800
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>      sel.Salary[2]×←1.05
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>      sel.Salary
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>24800 38640
+</span></code></pre></div>
+<p>This way a column in a selection behaves much like an external variable – we can index it and use any reasonable selective specification to update it. The other things we need are a good strategy for replacing [null] with a chosen numeric value, and a good way to represent <code>DateTime</code> objects and <code>TimeSpan</code> objects:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>      sel.ColumnNames
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a> Id  Dept  Name  Salary  Annual Bonus  Joining Date  Length of Service
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>      sel.JoiningDate
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>35877 27302
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>      sel.LengthofService
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>58579200 12345678.9
+</span></code></pre></div>
+<p>I chose to form the property names by compressing out blanks from the column names, and to represent the dates as the traditional ordinal values. <code>TimeSpan</code>s are trickier, as these are 64-bit integers in .Net and my APL cannot handle these just yet. I chose decimal seconds as the least bad option. If we reselect the whole table and just grab everything, you will see my default null substitutions:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>      sel←Select emp ⋄ sel.GetMatrix  ⍝ Grab the whole table (NB dates/nulls)
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a> ACDS  OR  Adrian     38640   3864   27302 12345678.9
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a> GMS   OR  Gill       13503   1350.3    ¯1        0
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a> JM    OR  Jonathan   24800   2480   35877 58579200
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a> MWG   OR  Marc       18500   1850      ¯1        0
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a> RCS   FD  Richard   ¯32768 ¯32768      ¯1        0
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a> WHO   OR  (null)    ¯32768 ¯32768      ¯1        0
+</span></code></pre></div>
+<p>… but we can change this with another handy property:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>sel.NullFillers[4 5]←0          ⍝ Change how nulls appear
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>sel.GetMatrix                   ⍝ Grab the whole table (NB different nulls)
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a> ACDS  OR  Adrian    38640 3864   27302 12345678.9
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a> GMS   OR  Gill      13503 1350.3    ¯1        0
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a> JM    OR  Jonathan  24800 2480   35877 58579200
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a> MWG   OR  Marc      18500 1850      ¯1        0
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a> RCS   FD  Richard       0    0      ¯1        0
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a> WHO   OR  (null)        0    0      ¯1        0
+</span></code></pre></div>
+<p>Of course the <code>[null]</code> stuff is fully reversible – setting an element to the current filler for that column results in a <code>[null]</code> in the table. The only remaining issue to illustrate is the speedup we can get by farming some of the grunt-work out to C# – I made a simple clone of a typical ‘ticker’ datafeed to give the engine enough data to chew on:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>     LoadTicker 1
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>     sel←Select tk  ⍝ To play with it
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>     sel.ColumnNames
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a> What  When  Value
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>      sel.Rows
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>40000
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>      +/sel.Value
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>200499.74
+</span></code></pre></div>
+<p>This is pretty well instantaneous after the brief delay while the table is populated for the first time. For a rough guide to the alternative, I offer the following chart:</p>
+<figure>
+<p><img alt="Time to read N rows with a DateTime col using native Dyalog technology" src="smithdat/native.png" /></p>
+</figure>
+<p>If you compute the regession equation for 40,000 rows you will get <code>4.3e¯7 × 40000*2</code> giving 688s or a little over 11 minutes just to create the array of rows. Probably you will get a Syserror and your interpreter will exit stage left (pursued by a bear) long before the expression completes. For comparison:</p>
+<figure>
+<p><img alt="Time to read N rows with a DateTime col using the Helper DLL" src="smithdat/helper.png" /></p>
+</figure>
+<p>This one has the added benefit of being linear rather than quadratic – note the x-axis had to be extended by a factor of about 20 to get meaningful times. That will do for showing you around the examples – what we need to do now is to show how the trick is pulled.</p>
+<h2 id="farming-out-the-loops">Farming out the loops<a class="headerlink" href="#farming-out-the-loops" title="Permanent link">&para;</a></h2>
+<p>Whatever you say about conventional languages, they are good at doing simple things quickly. Here is the code that sits at the back of the column reference:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a> public Array GetCol(int cinx)
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a> // Grab whole Column (ensure APL gets the right datatype)
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a> { int col = cinx-1;             // Fix for 1-origin
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>   Type coltype = APLTypes[col];
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>   Array coldata = Array.CreateInstance(coltype,Selection.Length);
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>   for(int row=0;row&lt;coldata.Length;row++)
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>     coldata.SetValue(GetItem(row,col),row);
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>   return coldata;
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a> }
+</span></code></pre></div>
+<p>The full C# source code can be <a href="smithdat/dbs.zip">downloaded</a><sup><a href="#ref2">[2]</a></sup> if you want to read all the preamble. The DLL maintains an array of data-types which APL has for the various columns, and starts by creating an array of the right type and size. It then simply hammers round the elements in the column populating the array, which is returned to APL. This calls the lower-level function:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a> private object GetItem(int row, int col)
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a> // Return one cell, checking for type and null
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a> { object cellvalue = Selection[row][col];
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>   if(System.DBNull.Value == cellvalue)    // APL really hates these
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>     cellvalue = nullFillers[col];         // Plug in current filler instead
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>   else if(isDate[col])
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>     cellvalue = ((DateTime)cellvalue).ToOADate();
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>   else if(isSpan[col])
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>     cellvalue = ((TimeSpan)cellvalue).TotalSeconds;
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>   return cellvalue;
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a> }
+</span></code></pre></div>
+<p>After checking whether the data item is <code>[null]</code>, it special-cases the two complex types that can upset APL and converts the cell content to something that can be returned as a simple numeric value. In the common case where APL can cope, this is just a fall-through which returns the right element from the selection. The code to update the selection when you assign something to the APL property is (if anything) even simpler:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a> public void PutCol(int cinx, object[] newValues)
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a> // Update data colwise (always an entire column)
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a> { int col = cinx-1;
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>   for(int row = 0;row&lt;Selection.Length;row++)
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>     PutItem(row,col,newValues[row]);
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a> }
+</span></code></pre></div>
+<p>This assumes that the APL side returns an array of the right length, which is always the case if you update a property with indexing or selective specification. It just does the reverse conversions:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a> private void PutItem(int row, int col, object newValue)  // Fix one cell
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>        { Selection[row][col] = Dyalog2Data(col,newValue); }
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a> private object Dyalog2Data(int col, object dataitem)
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a> // APL types --&gt; Database types
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a> { Type coltype = APLTypes[col];
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>   object newValue = Convert.ChangeType(dataitem,coltype);
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>   if(NullFillers[col].Equals(newValue))
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>      newValue = System.DBNull.Value;
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>   else if(isDate[col])
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>      newValue = DateTime.FromOADate((double)newValue);
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>   else if (isSpan[col])
+</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>      newValue = TimeSpan.FromSeconds((double)newValue);
+</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>
+</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a>   return newValue;
+</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a> }
+</span></code></pre></div>
+<p>I think that shows you enough of the back-end processing to convince you that there really is no rocket science or magic going on. Now we need to hook up the Dyalog class mechanism to the other end of the process to make it all really developer-friendly.</p>
+<h2 id="making-a-nameless-class-on-the-fly">Making a nameless class on the fly<a class="headerlink" href="#making-a-nameless-class-on-the-fly" title="Permanent link">&para;</a></h2>
+<p>It is a real benefit of working in a dynamic language that you can lay the floor as you walk across it. Old hands are used to the trick of generating functions on the fly (often locally), fixing them and running them. Now we can do the same with classes – by fixing an unnamed class from a localised script, we can return an instance of something which never existed in the workspace at all. This is what happens when you type:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a> sel←Select emp 'Dept=''OR''' 'Salary'
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>      sel
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>Selection from Emp where Dept='OR' (5 rows selected)
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>        sel[3]
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>  ACDS  OR  Adrian  1000 100 27302 12345678.9
+</span></code></pre></div>
+<p>The <em>display form</em> of the class has been set to return a nice description of the selection, just to make it all look like the SQLPLUS command prompt I remember from a previous life. The <code>Select</code> function takes a reference to a table and optionally a selection expression (in SQL) and one or more column names to use as sort keys. It calls the C# code in the constructor for the db helper, passing across the table and the selections. Note that we can localise <code>DB</code> here:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a> ⎕USING←'' 'Causeway,D:\tools\aplc\dbs.dll'    ⍝ Adjust to taste!
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a> DB←⎕NEW Db table
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a> colnames←DB.ColumnNames~¨' ' ⋄ writeable←DB.Writeable
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a> scr←':Class' ':Access Public' ''
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a> scr,←'∇ Create arg' ':Access Public' ':Implements Constructor'
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a> scr,←' DB←arg' ' ⎕DF DB.ToString' '∇ '
+</span></code></pre></div>
+<p>If I temporarily de-localise the script, we can see part of what it wrote for us (indexers are slightly special – we need a <em>shape</em> function so Dyalog knows when to call INDEX ERROR on us):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>:Property Numbered Default DataRows
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>:Access Public
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>∇ value←shape
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a> value←DB.Rows
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>∇
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>∇ value←get arg
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a> value←⊂DB.GetRow arg.Indexers
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>∇
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>∇ set arg
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a> DB.PutRow arg.Indexers (↑arg.NewValue)
+</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>∇
+</span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>:EndProperty
+</span><span id="__span-20-13"><a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>
+</span><span id="__span-20-14"><a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>∇ value←GetMatrix
+</span><span id="__span-20-15"><a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>:Access Public
+</span><span id="__span-20-16"><a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a> value←DB.GetMatrix
+</span><span id="__span-20-17"><a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a>∇
+</span></code></pre></div>
+<p>By setting an indexer as the default property, we can treat the entire selection as a simple vector, so fetching/updating it by row is trivial. There are several other pass-through calls like <code>GetMatrix</code>, and then we come to the only really dynamic part. Because the <code>Select</code> function has the list of (despaced) column names, it can easily make a property definition for every column:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a> :For ct :In ⍳↑⍴colnames
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>  ⍝ Expose all columns read-write unless they are marked readonly
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>   pname←ct⊃colnames
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>   scr,←''(':Property ',pname)':Access Public'
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>   :If ct⊃writeable
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>     scr,←'∇ set arg'(' DB.PutCol ',(⍕ct),' (arg.NewValue)')'∇ '
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>   :End
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>   scr,←'∇ value←get'(' value←DB.GetCol ',⍕ct)'∇ '
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>   scr,←⊂':EndProperty'
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a> :End
+</span></code></pre></div>
+<p>A typical (generated) entry looks like:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>:Property Salary
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>:Access Public
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>∇ set arg
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a> DB.PutCol 4 (arg.NewValue)
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>∇
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>∇ value←get
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a> value←DB.GetCol 4
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>∇
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>:EndProperty
+</span></code></pre></div>
+<p>You may want to add some <code>:Trap</code> blocks, as you may get a crash in the C# on updating the data, and not want to get hung up in Dyalog’s generated setter function, for example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>      sel.Salary←1 2
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>EXCEPTION
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>set_Salary[1] DB.PutCol 4(arg.NewValue)
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>             ∧
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>      )si
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>[#.[[Unnamed]]] #.[Namespace].set_Salary[1]*
+</span></code></pre></div>
+<p>A little more validation on the APL side of the fence would do no harm here either! Having made the entire script, the final act is to make a transient class, and return an instance of it:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a> scr,←'' ':EndClass'
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a> seln←⎕NEW(⎕FIX scr)DB
+</span></code></pre></div>
+<p>As I said before, both <code>scr</code> and <code>DB</code> can be locals, so this is remarkably tidy in its use of the workspace. As a final bit of fun, let’s whistle up a .Net <code>DataGrid</code> and point it at our table. If you download the workspace and try this out, you will see that as you type expressions in the APL session, the grid follows the changes automatically.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a> ⎕USING∪←'System.Collections' 'System'
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a> ⎕USING∪←⊂'System.Windows.Forms,System.Windows.Forms.dll'
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a> f←⎕NEW Form
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a> f.Text←'Hello, world'
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a> f.Visible←1
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a> emp←pr.Tables[0]
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a> ev←emp.DefaultView
+</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a> ev.AllowNew←false
+</span><span id="__span-25-11"><a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a>
+</span><span id="__span-25-12"><a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a> dg←⎕NEW DataGrid
+</span><span id="__span-25-13"><a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a>
+</span><span id="__span-25-14"><a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a> dg.(Top Left)←4 4
+</span><span id="__span-25-15"><a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a> dg.(Width Height)←f.(Width Height)-4 4
+</span><span id="__span-25-16"><a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a> dg.Anchor←AnchorStyles.(Bottom+Top+Left+Right)
+</span><span id="__span-25-17"><a id="__codelineno-25-17" name="__codelineno-25-17" href="#__codelineno-25-17"></a>
+</span><span id="__span-25-18"><a id="__codelineno-25-18" name="__codelineno-25-18" href="#__codelineno-25-18"></a> dg.SetDataBinding ev''       ⍝ Single table view
+</span><span id="__span-25-19"><a id="__codelineno-25-19" name="__codelineno-25-19" href="#__codelineno-25-19"></a>⍝ dg.SetDataBinding pr'Dept'  ⍝  or the drill-down variety
+</span><span id="__span-25-20"><a id="__codelineno-25-20" name="__codelineno-25-20" href="#__codelineno-25-20"></a>
+</span><span id="__span-25-21"><a id="__codelineno-25-21" name="__codelineno-25-21" href="#__codelineno-25-21"></a> f.Controls.Add dg
+</span></code></pre></div>
+<figure>
+<p><img alt="Display and editing in a .Net DataGrid" src="smithdat/datagrid.png" /></p>
+<figcaption>Display and editing in a .Net DataGrid</figcaption>
+</figure>
+<p>Or, of course, you can just use it as a handy editor for the data!</p>
+<h2 id="wrap-up">Wrap up<a class="headerlink" href="#wrap-up" title="Permanent link">&para;</a></h2>
+<p>In summary, there is a very competent relational database sitting on your computer, and it is totally free. To save your work on the nearest hard-drive, all you need to do is:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>pr.WriteXml 'C:\temp\payroll.xml' false  ⍝ Save DataSet (with Schema)
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>emp.WriteXml∘⊂'c:\temp\emp.xml' ⍝ Save table to disk (data only)
+</span></code></pre></div>
+<p>The XML you get is designed to be readable, and indeed editable, for example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>&lt;Payroll&gt;
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>  &lt;Emp&gt;
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>    &lt;Id&gt;JM&lt;/Id&gt;
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>    &lt;Dept&gt;OR&lt;/Dept&gt;
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>    &lt;Name&gt;Jonathan&lt;/Name&gt;
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>    &lt;Salary&gt;24800&lt;/Salary&gt;
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>    &lt;Annual_x0020_Bonus&gt;2480&lt;/Annual_x0020_Bonus&gt;
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>    &lt;Joining_x0020_Date&gt;1998-03-23T00:00:00+00:00&lt;/Joining_x0020_Date&gt;
+</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>    &lt;Length_x0020_of_x0020_Service&gt;P678D&lt;/Length_x0020_of_x0020_Service&gt;
+</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>  &lt;/Emp&gt;
+</span></code></pre></div>
+<p>If I make a trivial change (adding Marc’s middle initial) in Notepad, then start from cold:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>      ⎕USING←'' 'System.Data,System.Data.DLL'
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>      pr←⎕NEW DataSet(⊂'Payroll')
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>      pr
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>System.Data.DataSet
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>      pr.ReadXml∘⊂'C:\temp\payroll.xml'
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>ReadSchema
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>      ⌷pr.Tables
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a> Emp  Dept
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>      emp←↑⌷pr.Tables  ⍝ Recover the employee list
+</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>      sel←Select emp   ⍝ Get a selection
+</span><span id="__span-28-12"><a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>      sel.GetMatrix
+</span><span id="__span-28-13"><a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a> ACDS  OR  Adrian     36800   3680   27302 12345678.9
+</span><span id="__span-28-14"><a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a> GMS   GD  Gill       13503   1350.3    ¯1        0
+</span><span id="__span-28-15"><a id="__codelineno-28-15" name="__codelineno-28-15" href="#__codelineno-28-15"></a> JM    OR  Jonathan   24800   2480   35877 58579200
+</span><span id="__span-28-16"><a id="__codelineno-28-16" name="__codelineno-28-16" href="#__codelineno-28-16"></a> MWG   OR  Marc W     18500   1850      ¯1        0
+</span><span id="__span-28-17"><a id="__codelineno-28-17" name="__codelineno-28-17" href="#__codelineno-28-17"></a> RCS   GD  Richard   ¯32768 ¯32768      ¯1        0
+</span><span id="__span-28-18"><a id="__codelineno-28-18" name="__codelineno-28-18" href="#__codelineno-28-18"></a> WHO   GD  (null)    ¯32768 ¯32768      ¯1        0
+</span></code></pre></div>
+<p>With Dyalog classes, you can put a wrapper around it that makes columns in selections behave almost like variables in the workspace. With a little help from a C# DLL, it can be made to run quite fast enough to support a realistic application. You can download the Dyalog 12 (Unicode) workspace and supporting C# source code (compilation instructions included)<sup><a href="ref2">[2]</a></sup> and use it as you wish. Please let me know of any improvements you make to either side.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a id="ref1"></a> “New Tricks for Old Dogs: Making Sense of Classes and Namespaces”, Smith, A., <em>Vector</em> <strong>23</strong>(1&amp;2) p113-117<br />
+<a href="../art10011620/">http://www.vector.org.uk/archive/v231/smith.htm</a></li>
+<li><a id="ref2"></a> Source code for this article:<br />
+<a href="trad/v233/smithdat/dbs.zip">http://www.vector.org.uk/archive/v233/smithdat/dbs.zip</a></li>
+</ol>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

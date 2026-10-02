@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<link type="text/css" rel="stylesheet" href="/css/paper.css"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Exhibit 2 | Industrial FP: a case study | Stephen Taylor | Vector 21.3</title>
+	<meta name="description" content="VECTOR article">
+	<meta name="author" content="Stephen Taylor">
+	<meta name="generator" content="Notepad2">
+	<link rel="stylesheet" type="text/css" href="../../paper.css">
+</head>
+
+<body>
+
+<div class="exhibit">
+
+<h3>Exhibit 2</h3>
+
+<pre class="apl">
+ parseFile←{
+⍝ ⍵ is a string representing lines of a LIFE70 seam file
+⍝ result is 4 same-length lists describing the fields:
+⍝ (nesting levels)(names)(formats)(data as text)
+     to←{(⍺⍺ ⍵)⍵⍵ ⍵}                                            ⍝ apply ⍵⍵ according to ⍺⍺ ⍵
+     part←{1↓¨(⍺∘⍷)to⊂⍺,⍵}                                      ⍝ partition by ⍺
+     crlf←⎕TC[2 3]                                              ⍝ CONSTANT: CR, LF
+     rtb←{⍵/⍨⌽∨\⌽⍵≠' '}                                         ⍝ remove trailing blanks
+     lineate←{(⊃⍺)part ⍵~1↓⍺}                                   ⍝ distinguish lines by ⍺
+     segment←{('D'∘=∘(⊃¨))to⊂⍵}                                 ⍝ each segment: (descns)(data)(data)(data)...
+     defl datl←3 3                                              ⍝ CONSTANTS: lengths of defn and data segment labels
+     flatten←{⊃,/datl↓¨⍵}                                       ⍝ flatten segment body
+     parsehd←{','part defl↓⍵~')-'}                              ⍝ parse segment header
+     separate←{(parsehd∘⊃¨⍵)(flatten¨1↓¨⍵)}                     ⍝ separate segment headers and bodies
+
+     re←{(⍎⊃⍵)({'#'=⊃⍵:0 ⋄ ~':'∊⍵:1 ⋄ ⍎⍵↓⍨⍵⍳':'}2↓⍵~')')}       ⍝ rep(etition) effect of a defn
+     nrs←{(⍵↑⍨⊃⍺),0~⍨2⊃⍺}                                       ⍝ next rep stack: ⍵ modified by rep effect ⍺
+     crs←1∘{1↓⊃¨nrs/¨(-⍳1+⍴⍵)↑¨⊂⌽(⊂⍺),⍵}                        ⍝ cumulative rep stacks from seed stack 1
+     onflat←{(⊃,/1↑⍨¨⍴¨⍵)⊂⍺⍺⊃,/⍵}                               ⍝ ⍺⍺ on flattened ⍵, then re-enclose result
+
+     blank←{r←⍵ ⋄ m←⊃∨/0 ¯1 ¯2⌽¨⊂'/1:'⍷⍵ ⋄ (m/r)←' ' ⋄ r}       ⍝ blank out '/1:'
+     fp←{×1|⍵:1++/0 10⊤10×⍵ ⋄ ⍵}                                ⍝ floating-point fields: convert real to integer
+     tbl←{(⍵∧.=' ')∨0 1≡'/:'∊⍵}                                 ⍝ tbl declaration? (no corresponding data window)
+     fshp←{tbl ⍵:0 ⋄ ⌽fp¨('N'=⊃⍵){⍵+⍺↑⍨⍴⍵},⍎blank 1↓⍵}          ⍝ 'N' fields have extra leading blank
+
+     flip←↓∘⍉∘↑                                                 ⍝ invert order
+     fretby←{⍵↑¨(0,¯1↓+\⍵)↓¨⊂⍺}                                 ⍝ fret data segment ⍺ by field lengths ⍵
+
+     nstacks←{(crs∘(re¨))onflat ⍵}                              ⍝ nesting stacks
+     nmshp←⊃∘({(⍺)(fshp¨⍵)}/)∘flip∘({2↑'('part ⍵}¨)             ⍝ field names and shapes
+     nstate←{f d←⍵ ⋄ ((nstacks f){⍺ ⍵}¨2↓¨¨f)(d)}               ⍝ infix nesting stacks: ((rs def)(dat)) ((rs def)(dat))
+     parse←{r f←⍺ ⋄ (⊂1↓¨r),ns,⊂⍵ fretby×/¨r,¨2⊃ns←nmshp f}¨    ⍝ parse ((rs defs) data) to (rss names shapes data)
+
+     ⊃,¨/⊃parse/nstate separate segment crlf lineate ⍵
+ }
+</pre>
+
+</div>
+
+</body>
+</html>

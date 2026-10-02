@@ -1,0 +1,547 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10501740/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Conquering recursion - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#background" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Conquering recursion
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Background
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constructing-rec" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Constructing <code>rec[]</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Strategies
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-taxonomy" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Further Taxonomy
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusions-and-future-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conclusions and future work
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Conquering recursion</h1>
+
+  <p class="printed">Published online</p>
+
+<p class="byline">John Earnest (johnearnest@gmail.com)</p>
+<p class="abstract">This article presents a set of combinator patterns which can be used to decompose recursive procedures into smaller, more reusable components. Examples of the resulting programming style are contrasted with their more conventional equivalents. We additionally show that the semantic information gained by using these combinators offers opportunities for improved performance.</p>
+<h2 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h2>
+<p>Vector languages inspire a unique programming ethos. It is considered good style to avoid loops, instead favoring adverbs which capture abstract patterns of iteration. The behavior of the K <em>over</em> could be captured with a <code>do[]</code> loop, but <em>over</em> is far more specific and thus more suggestive to a reader or interpreter. By reducing the number of moving parts in a program, one can avoid would-be bugs before they're written.</p>
+<p>Conditional statements- both the K <code>if[]</code> and <code>$[;;...]</code> (<em>cond</em>)- should likewise be used sparingly. Sometimes a conditional is the most efficient or convenient way to express logic, but there is one context in which conditionals are unavoidable: recursive procedures. With cleverness, many problems which appear to require recursive solutions yield to a vector solution, such as the idiom <code>,//</code> for flattening an arbitrarily-nested structure. For other problems, however, a recursive solution is by far the most natural and concise. How do we solve these problems without using explicit conditionals and recursive calls?</p>
+<p>The <cite>Joy</cite><a href="#ref1">[1]</a> programming language contains an unusual and enticing set of features which are applicable to our problem. Joy offers a variety of <em>combinators</em>- pure, higher-order functions which strictly rearrange and apply their arguments- to express the manipulation of data and control flow. Among these are combinators which capture abstract patterns of recursion.</p>
+<p>Linear- and tail-recursive algorithms, being isomorphic to loops, have straightforward translations to an adverb-based equivalent and are therefore idiomatically expressed in K without recursion. In this discussion we will focus specifically on recursive procedures which exhibit regular "fanout". This occurs when traversing trees or problem spaces which implicitly have a similar structure. Building on ideas from Joy, we will describe a generalization of its <code>binrec</code> combinator which can be expressed neatly in K. The following examples and discussion incorporate a number of suggestions by my friend and colleague Stevan Apter.</p>
+<h2 id="constructing-rec">Constructing <code>rec[]</code><a class="headerlink" href="#constructing-rec" title="Permanent link">&para;</a></h2>
+<p>All the examples in this article will be given in K4, but should be applicable, with minor modifications, to any dialect of the language. As a refresher, <code>.z.s</code> is how K4 references the current function, for self-recursion. K4 lambdas, verbs and adverbs have typecodes (obtained via <code>@:</code>) greater than 99. Dictionaries and tables have type codes 99 and 98, respectively.</p>
+<p>Consider the definition of the following pentad, <code>rm</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>  rm: {[p;f;d;c;x]$[p x;f x;c@.z.s[p;f;d;c]'d x]}
+</span></code></pre></div>
+<p>For clarity, we will refer to the arguments <code>p</code>, <code>f</code>, <code>d</code> and <code>c</code> as <em>predicate</em>, <em>finalize</em>, <em>divide</em> and <em>combine</em>, respectively. If the <em>predicate</em> of <code>x</code> is true, <em>finalize</em> <code>x</code>. Otherwise, <em>combine</em> the results of recursively invoking <code>rm</code> with each of the results of <em>dividing</em> <code>x</code>.</p>
+<p>This combinator is meant to be projected along its first four arguments, yielding a monad. Compare two definitions which recursively calculate the Nth term of the Fibonacci sequence. <code>fib1</code> uses conventional explicit recursion while <code>fib2</code> is written in terms of <code>rm</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>  fib1: {$[2&gt;x;x;+/.z.s'x-1 2]}
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  fib2: rm[2&gt;;::;-2 -1+;+/]
+</span></code></pre></div>
+<p>The first thing you may notice about our <code>rm</code>-based formulation is that it now consists entirely of <em>tacit expressions</em>- there is no need for an explicit variable named <code>x</code>. The same sequence of operations takes place, but we have separated the components of the algorithm in <code>fib1</code>, allowing us to consider their roles separately. <em>predicate</em> distinguishes between the base case and recursive case of the definition, <em>divide</em> identifies the children of the current node of the implied recursive tree, and <em>combine</em> fuses results together. In this particular example, <em>finalize</em> is the identity function, but we will see other situations where it is more complex.</p>
+<p>Sometimes <em>combine</em> needs context lost in the process of <em>dividing</em>. For these situations we'll use a variation on <code>rm</code> which we will call <code>rd</code>, for which <em>combine</em> is a dyad:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>  rd: {[p;f;d;c;x]$[p x;f x;c[.z.s[p;f;d;c]'d x;x]]}
+</span></code></pre></div>
+<p>To illustrate the necessity of <em>rd</em>, consider a procedure <code>incx</code> which increments the atomic leaves of a simple expression tree:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>  incx: rd[@:;1+;1_;{(*y),x}]
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  incx (`plus;(`minus;1;5);8)
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>(`plus;(`minus;2;6);9)
+</span></code></pre></div>
+<p>We can always distinguish between times <code>rm</code> or <code>rd</code> is appropriate by considering the valence of <em>combine</em>. As a matter of tidiness, let's write a single procedure which captures both:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>  @:'({x};{x+y};+/;1;2.0)
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>100 100 107 -7 -9h
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  ambiv: {$[99&lt;@x;x[y];x]}/
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  ambiv[{-x};3 5]
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>-3
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>  ambiv[{x,2*y};3 5]
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>3 10
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>  ra: {[p;f;d;c;x]$[p x;f x;{$[99&lt;@x;x[y];x]}/[c;(.z.s[p;f;d;c]'d x;x)]]}
+</span></code></pre></div>
+<p>Another refinement is to observe that the base case represented by <em>finalize</em> often consists of returning a constant value such as <code>0</code> or <code>()</code>. We can simplify the use of our combinator by dispatching on the type of this argument instead of requiring constant nilads. Bringing everything together, we have <code>rec</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>  {$[99&lt;@x;x 10;x]}'(2*;5)
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>20 5
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  rec: {[p;f;d;c;x]
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>        $[p x;$[99&lt;@f;f x;f];{$[99&lt;@x;x[y];x]}/[c;(.z.s[p;f;d;c]'d x;x)]]}
+</span></code></pre></div>
+<h2 id="strategies">Strategies<a class="headerlink" href="#strategies" title="Permanent link">&para;</a></h2>
+<p>By taking apart the components of recursive procedures using <code>rec</code>, we can begin to make observations about their properties. <em>Predicate</em> and <em>divide</em> capture everything about the way we traverse the concrete or implied recursive tree embodied in our algorithm. We can refer to this pair of functions as a <em>traversal strategy</em>, leaving <em>finalize</em> and <em>combine</em> as a <em>reduction strategy</em>.</p>
+<p>If we write several procedures which operate on the same data structure, we will often be able to reuse the traversal strategy. In the following examples we define a procedure <code>countx</code> which counts the nodes of an expression tree and a procedure <code>razex</code>, which accumulates the leaf values of a similarly structured expression tree. Both routines share code for their traversal strategy, so it is only necessary to specify what to do with leaves and what to do to nodes.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>  walkx:  rec[@:;;1_]
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  countx: walkx[0;1++/]
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  razex:  walkx[::;?,/]
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  s: (`times;(`plus;1;2);(`divide;`x;9))
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>  countx s
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>3
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>  razex s
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>(1;2;`x;9)
+</span></code></pre></div>
+<p>Since the reduction strategy of these procedures does not depend on the structure of the tree (as would have been the case with <code>incx</code>), we can replace the traversal strategy and apply our procedures to a different structure:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>  walkd:  rec[{~|/99 98=\:@x};;{x`args}]
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  countd: walkd[0;1++/]
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  razed:  walkd[::;?,/]
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>  d: `op`args!(`times;+`op`args!(`plus`div;(1 2;(`x;9))))
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>  countd d
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>3
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>  razed d
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>(1;2;`x;9)
+</span></code></pre></div>
+<p>Furthermore, with a traversal strategy established, we can conveniently build up reductions incrementally, in an interactive manner. Fixing <em>finalize</em> and <em>combine</em> as identity functions we see the structure of leaves. Plugging in a more elaborate definition of <em>combine</em> shows the structure of nodes. This is a very pleasant and intuitive way to develop tree-manipulating programs:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>  walkd[::;::]d
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>(1 2
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a> (`x;9))
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>  walkd[::;{(y`op),x}]d
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>(`times
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a> (`plus;1;2)
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a> (`divide;`x;9))
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>  walkd[();{(y`op),x};d]
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>(`times
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a> (`plus;();())
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a> (`divide;();()))
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>  walkd[();{?,/(y`op),x};d]
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>`times `plus `divide
+</span></code></pre></div>
+<h2 id="further-taxonomy">Further Taxonomy<a class="headerlink" href="#further-taxonomy" title="Permanent link">&para;</a></h2>
+<p>Let's look at a few more examples which illustrate additional design patterns. A <em>skeleton vector</em> is a flat representation of a tree's structure. Every item of a skeleton vector contains the index of its parent item in the original tree, and the root contains -1. This representation is highly amenable to vector algorithms- a parallel breadth-first traversal can be performed using dyadic <em>over</em>. <code>skel</code> produces a skeleton vector for a simple list of nested lists. <code>vals</code> extracts leaf items in a flat list corresponding to the skeleton:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>  skel: rec[0&gt;@:;,-1;::;{x,0,(#x)+1_ y}/[,-1;]]
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  vals: rec[0&gt;@:;::;::;`,,/]
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  t: (`a;`b`c;(`d;`e`f);`g`h)
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>  skel t
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>-1 0 0 2 2 0 5 5 7 7 0 10 10
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>  vals t
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>``a``b`c``d``e`f``g`h
+</span></code></pre></div>
+<p>The traversal strategy <code>rec[0&gt;@:;;::;]</code> appears frequently, and for simple trees is equivalent to the conforming behavior of atomic monads like <code>-:</code>. If a K interpreter had special knowledge of <code>rec</code>, it would be relatively simple to recognize common patterns of arguments and use faster specialized implementations of the combinator in these situations, much like J's <cite>Special Combinations</cite><a href="#ref2">[2]</a>. Such an implementation need not even be recursive if it used intermediate data structures instead of the stack. An iterative implementation of <code>rec</code> could allow for traversal of much larger structures than stack limits ordinarily permit.</p>
+<p>Even with more complex problems, decomposing your algorithm into small parts makes them easier to test (and thus develop) independently. Consider the following implementation of a recursive mergesort- The recursive parts of the algorithm are trivially easy to express, leaving the hard parts as well-isolated components.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>  merge: {&amp;/c@'+{y+t=&amp;/t:x@'y}[c:x,\:0W]\[#1_,/x;&amp;,#x]}
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>  msort: rec[2&gt;#:;::;2 0N#;merge]
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>  2 0N#1 5 7 2 3 8
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>(1 5 7
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a> 2 3 8)
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>  merge (1 5 7;2 3 8)
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>1 2 3 5 7 8
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>  msort 1 9 2 3 4 8 0
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>0 1 2 3 4 8 9
+</span></code></pre></div>
+<p>The <code>merge</code> function combines a pair of sorted lists to create a larger sorted list in linear time. It works by performing two passes. First, a <em>scan</em> which walks indices along the input lists, advancing the index pointing to the minimum element at each step. The second pass uses these indices to select the appropriate elements from the input list in sorted order. Input is padded with <code>0W</code> (positive integer infinity) so that indices do not advance past the end of any input lists before all other input values have been consumed. Note that the implementation of <code>merge</code> makes no assumption that it deals with two input lists- if <em>divide</em> is tweaked to divide the input list into smaller segments the algorithm will still work correctly.</p>
+<p>If you're doing enough work during a recursive procedure, you might benefit from making your code parallel. Given a parallel implementation of <em>each</em> (<code>peach</code>), you could create a variant of rec which fans out in parallel for the first few layers and then falls back to the ordinary implementation:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>  prec: {[n;p;f;d;c;x]$[p x;f x;c@($[n&gt;0;.z.s[n-1];rec])[p;f;d;c]peach d x]}
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>  prec[2;2&gt;;::;-2 -1+;+/]'!10
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>0 1 1 2 3 5 8 13 21 34
+</span></code></pre></div>
+<p>Another possibility worth exploring is memoization. If all the components of our recursive algorithm are pure functions, we can safely cache intermediate results in a dictionary and avoid recomputing them. Here's a simple example of an alternate implementation of <code>rm</code> which behaves this way:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>  rmm: {[s;n;p;f;d;c;x]$[~n~s x;:s x;]
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>        @[s;x;:;$[p x;f x;c@.z.s[s;n;p;f;d;c]'d x]]
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>        s x}
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>  mem: (0#0)!0#0
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>  fm:  rmm[`mem;0N;2&gt;;::;-2 -1+;+/]
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>  fm'!10
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>0 1 1 2 3 5 8 13 21 34
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>  mem
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>0 1 2 3 4 5 6 7 8 9!0 1 1 2 3 5 8 13 21 34
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>  \t fm 1000
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>9
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>  \t {$[2&gt;x;x;+/.z.s'x-1 2]}'!30
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>3278
+</span></code></pre></div>
+<h2 id="conclusions-and-future-work">Conclusions and future work<a class="headerlink" href="#conclusions-and-future-work" title="Permanent link">&para;</a></h2>
+<p>We have constructed and explained <code>rec</code>, a combinator which captures a wide variety of useful recursive algorithms. Decomposing these algorithms reveals ways to abstract and reuse code which walks or transforms data structures. Abstracting recursion also frees an implementation to evaluate recursive procedures in a specialized manner, permitting speedup of operations on common structures or given other constraints.</p>
+<p>Nothing about <code>rec</code> is uniquely applicable to K; it could be readily adapted to a variety of other languages. K's flexible support for projection, concise tacit function trains and adverbs do, however, allow many examples to come out nicely. Compare the K definitions of <code>rec</code> and <code>fib2</code> to the equivalent in ECMAScript 6:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>var rec = (p,f,d,c,x) =&gt; p(x)?f(x):c(d(x).map(x =&gt; rec(p,f,d,c,x)));
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>var fib = x =&gt; rec(
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>  x =&gt; 2&gt;x,
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>  x =&gt; x,
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>  x =&gt; [x-2, x-1],
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>  x =&gt; x.reduce((a,b) =&gt; a+b),
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>  x
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>);
+</span></code></pre></div>
+<p>This discussion only scratches the surface of abstract recursion. Some recursive functions are very clumsy to express using <code>rec</code>- consider the mutual recursion of a recursive descent parser. If <code>p</code> and <code>f</code> must identify and handle a variety of possible base cases, they will often end up repeating logic. Furthermore, the Ackermann function is an example of an irregular recursive pattern which <code>rec</code> cannot capture:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>  ack: {$[0=x;y+1; 0=y;.z.s[x-1;1]; .z.s[x-1;.z.s[x;y-1]]]}
+</span></code></pre></div>
+<p>There may be many other variations on the ideas in this paper, as well as totally novel combinators for describing other patterns, waiting to be found.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a id="ref1"></a>The Joy Programming Language <a href="http://www.kevinalbrecht.com/code/joy-mirror/joy.html">http://www.kevinalbrecht.com/code/joy-mirror/joy.html</a></li>
+<li><a id="ref2"></a>Special Combinations <a href="http://code.jsoftware.com/wiki/Vocabulary/SpecialCombinations">http://code.jsoftware.com/wiki/Vocabulary/SpecialCombinations</a></li>
+</ol>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>
