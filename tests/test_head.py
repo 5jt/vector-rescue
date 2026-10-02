@@ -55,7 +55,7 @@ def test_h1_class_title_is_the_title():
 def test_abstract_variants(html):
     fm, lead, rest, _ = run(html)
     assert fm["abstract"] == "Ab x"
-    assert lead == ["Ab <code>x</code>\n{ .abstract }"]
+    assert lead == ["Ab `x`\n{ .abstract }"]
     assert rest == ["p"]
 
 

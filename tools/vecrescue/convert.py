@@ -9,6 +9,7 @@ import lxml.html
 import yaml
 
 from . import __version__
+from .code import pre_block
 from .head import extract_head
 from .inventory import xhtml_source
 from .markdown import INLINE_RULES, inline, raw_html
@@ -25,8 +26,8 @@ def stray_h1(el, notes):
     return f"## {text}"
 
 
-BLOCK_RULES = {"p": para, "h1": stray_h1}
-NEEDS_NOTES = {stray_h1}
+BLOCK_RULES = {"p": para, "h1": stray_h1, "pre": pre_block}
+NEEDS_NOTES = {stray_h1, pre_block}
 INLINE_RULES.update({})
 
 
