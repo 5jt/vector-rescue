@@ -60,7 +60,7 @@ def extract_head(doc, record, notes, removed=None):
     """
     for xpath in DROP:
         for el in doc.xpath(xpath):
-            el.getparent().remove(el)
+            el.drop_tree()  # keeps any text that follows it
     body = doc.find("body")
     meta = _meta(doc)
     for el in list(body.iter(*HEAD_ONLY)):
@@ -95,7 +95,7 @@ def extract_head(doc, record, notes, removed=None):
             found[kind] = el
         if removed is not None:
             removed.append((kind, el))
-        body.remove(el)
+        el.drop_tree()  # keeps any text that follows it (an unwrapped first paragraph)
 
     fm = {"vid": record["id"], "title": record["title"]}
     lead = []

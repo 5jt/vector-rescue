@@ -63,12 +63,12 @@ def read_index(root):
 
 
 def article_source(record):
-    """(format, path) of the source to convert: XHTML if present, else
-    HTML that is valid UTF-8, else a page captured by the Wayback Machine;
+    """(format, path) of the source to convert: XHTML if present, else HTML
+    (decoded by legacy.decode), else a page captured by the Wayback Machine;
     None if none of these."""
     for fmt in ("XHTML", "HTML", "WAYBACK"):
         for s in record["sources"]:
-            if s["fmt"] == fmt and s["exists"] and (fmt != "HTML" or s["utf8"]):
+            if s["fmt"] == fmt and s["exists"]:
                 return fmt, s["path"]
     return None
 
@@ -118,6 +118,10 @@ def merge_wayback(records, wayback_root, src_root):
             by_id[o["id"]] = new
         elif r is not None and r["volume"] is None and o["volume"]:
             r.update(volume=o["volume"], issue=o["issue"], page=o["page"], metadata="index-2021")
+    for r in records:  # the old site's own rendering, for the report to check against
+        page = site / f"art{r['id']}.html"
+        if r["id"] and page.is_file() and not any(s["fmt"] == "WAYBACK" for s in r["sources"]):
+            r["captured"] = os.path.relpath(page, src_root)
     for page in sorted(site.glob("art*.html")):
         vid = page.stem[3:]
         if re.fullmatch(r"\d{8}", vid) and vid not in by_id:

@@ -19,7 +19,7 @@ from .head import extract_head
 from .images import localise_images
 from .links import localise_links
 from .inventory import article_source
-from .legacy import fix_comments, normalise
+from .legacy import decode, fix_comments, normalise
 from .markdown import collecting
 
 
@@ -64,7 +64,10 @@ def load_source(root, fmt, path, notes):
     markup fixed and is normalised; a fragment is given a body."""
     data = (root / path).read_bytes()
     if fmt == "HTML":
-        doc = lxml.html.fromstring(fix_comments(data.decode("utf-8")))
+        text, how = decode(data)
+        if how != "utf-8":
+            notes.append({"kind": "decoded", "how": how})
+        doc = lxml.html.fromstring(fix_comments(text))
     else:
         doc = lxml.html.fromstring(data)
     if fmt == "WAYBACK":

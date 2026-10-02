@@ -81,7 +81,7 @@ def pre_block(el, notes):
 def inline_code(el):
     if _element_children(el):
         for c in [c for c in el if not isinstance(c.tag, str)]:
-            c.getparent().remove(c)
+            c.drop_tree()  # keeps the text after the comment
         return raw_inline(el) if _element_children(el) else inline_code(el)
     text = ws(el.text_content())
     lead = " " if text.startswith(" ") else ""

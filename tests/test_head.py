@@ -174,3 +174,10 @@ def test_ordinary_first_paragraph_is_not_a_byline():
 def test_byline_of_only_a_non_breaking_space_is_empty():
     fm, lead, _, _ = run('<h1 id="title">T</h1><p class="author">&#160;</p>')
     assert lead == [] and "byline" not in fm
+
+
+def test_text_following_a_head_element_is_kept():
+    doc = lxml.html.fromstring('<html><body><h1>T</h1><p class="author">by C</p>\n'
+                               'In the spring of 2002 he wrote.<p>Next.</p></body></html>')
+    extract_head(doc, RECORD, [])
+    assert "In the spring of 2002 he wrote." in doc.find("body").text_content()

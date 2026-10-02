@@ -47,3 +47,7 @@ def test_recovered_article_converts(tmp_path):
     assert "![Fig 1](content/printed/271/ltl/fig01.png)" in md
     assert (tmp_path / "docs/art10501760/content/printed/271/ltl/fig01.png").exists()
     assert "validator" not in md
+
+
+def test_existing_record_with_a_captured_page_records_it():
+    assert merged()["10003600"]["captured"] == "../wayback/archive.vector.org.uk/art10003600.html"

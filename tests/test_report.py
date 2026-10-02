@@ -153,3 +153,13 @@ def test_image_check_ignores_the_dropped_validator_badge(tmp_path):
                  '<img src="http://www.w3.org/Icons/valid-html401"/></a></p></body></html>')
     rendered = doc('<html><body><article><img src="a.png"/></article></body></html>')
     assert image_check(source, rendered, tmp_path)["source_images"] == 1
+
+
+def test_capture_check_compares_with_the_old_sites_rendering():
+    from vecrescue.report import capture_check
+    captured = doc('<html><body><div id="article"><h1>T</h1><p>It’s here – now.</p></div></body></html>')
+    ours = doc('<html><body><article><h1>T</h1><p>It’s here – now.</p></article></body></html>')
+    assert capture_check(captured, ours)["differing"] == 0
+    ours = doc('<html><body><article><h1>T</h1><p>Itâ€™s here now.</p></article></body></html>')
+    r = capture_check(captured, ours)
+    assert r["differing"] == 2
