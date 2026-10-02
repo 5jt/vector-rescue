@@ -17,7 +17,7 @@ def fetch_wayback(argv):
     p = argparse.ArgumentParser(prog="vecrescue fetch-wayback")
     p.add_argument("--sets", nargs="*",
                    default=["index", "new-articles", "issue-pdfs", "crosscheck"])
-    p.add_argument("--dest", type=Path, default=Path("recovered/wayback"))
+    p.add_argument("--dest", type=Path, default=Path("sources/wayback"))
     p.add_argument("--out", type=Path, default=Path("build"))
     a = p.parse_args(argv)
     inventory = json.loads((a.out / "inventory.json").read_text(encoding="utf-8"))

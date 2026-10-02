@@ -14,7 +14,7 @@ test:
 clean:
 	rm -rf build
 
-# Recover captures from the Wayback Machine into recovered/wayback/ (slow, polite,
+# Recover captures from the Wayback Machine into sources/wayback/ (slow, polite,
 # resumable; see surveys/wayback-survey.md). Needs build/inventory.json.
 fetch-wayback:
 	$(RUN) inventory

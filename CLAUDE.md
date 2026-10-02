@@ -24,7 +24,7 @@ Permissions
 
 You may read anything in the project folder.
 
-You may **never** write in the `sources/` folder.
+You may **never** write in the `sources/` folder **except** to `sources/wayback`.
 
 In the `reviews/` folder you may write **only** in the current day's review file, as described in `project-rules.md`.
 

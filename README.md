@@ -90,7 +90,7 @@ The conversion is a rerunnable pipeline (Python, managed with `uv`). It reads `s
     make site        # build/site with Zensical
     make report      # build/report.md: checks every page against its source
     make publish     # push build/site to the gh-pages branch (development review)
-    make fetch-wayback  # recover captures from the Wayback Machine into recovered/wayback/
+    make fetch-wayback  # recover captures from the Wayback Machine into sources/wayback/
 
 The run report compares the visible text and every code block of each built page with its source, and summarises what passed through as raw HTML and why. Each run keeps the previous report (`build/report.prev.json`) and shows the change, so a revised rule can be measured against the last run.
 
