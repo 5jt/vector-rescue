@@ -8,12 +8,13 @@ returns front-matter fields plus the lead blocks to show above the body.
 
 import re
 
-from .markdown import inline
+from .markdown import classed, inline
 
 DROP = ('//ul[@id="publication"]', '//p[@id="validation"]')
 META = ("received", "online", "editor", "description", "keywords")
 CHECK = ("vid", "volume", "issue", "page")
 REPEATABLE = ("subtitle", "abstract")
+BY = re.compile(r"^(?:by|from)\s+\S", re.I)  # a legacy byline paragraph
 HEAD_ONLY = ("meta", "title", "link")  # belong in <head>; stray markup can push them into <body>
 BODY_START = ("p", "h2", "h3", "h4", "h5", "h6", "pre", "ul", "ol", "dl",
               "table", "blockquote", "figure")
@@ -37,10 +38,10 @@ def _kind(el):
             return "title"
         if id_ == "subtitle" or "subtitle" in cls:
             return "subtitle"
-        if id_ == "author":
+        if id_ == "author" or "author" in cls:
             return "byline"
         return "h1"
-    if tag == "p" and id_ == "author":
+    if tag == "p" and (id_ == "author" or "author" in cls):
         return "byline"
     if tag in ("p", "div") and (id_ == "abstract" or "abstract" in cls):
         return "abstract"
@@ -62,15 +63,18 @@ def extract_head(doc, record, notes, removed=None):
             el.getparent().remove(el)
     body = doc.find("body")
     meta = _meta(doc)
-    for el in list(body):
-        if el.tag in HEAD_ONLY:
-            notes.append({"kind": "head-element-in-body", "tag": el.tag})
-            body.remove(el)
+    for el in list(body.iter(*HEAD_ONLY)):
+        notes.append({"kind": "head-element-in-body", "tag": el.tag})
+        el.drop_tree()
     found = {}
     for el in list(body):
         if not isinstance(el.tag, str):
             continue
         kind = _kind(el)
+        if (kind is None and el.tag == "p" and "title" in found and "byline" not in found
+                and BY.match(_text(el))):
+            kind = "byline"
+            notes.append({"kind": "by-paragraph-as-byline", "text": _text(el)})
         if kind is None:
             if el.tag in BODY_START:
                 break
@@ -117,9 +121,9 @@ def extract_head(doc, record, notes, removed=None):
         fm["abstract"] = abstract
 
     def lead_para(el, cls):
-        md = inline(el)
+        md = inline(el).strip(" \n\u00a0")
         if md:
-            lead.append(f"{md}\n{{ .{cls} }}")
+            lead.append(classed(md, [cls]))
 
     for el in found.get("subtitle", []):
         lead_para(el, "subtitle")

@@ -11,11 +11,12 @@ import os
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
-from urllib.parse import parse_qs, urlsplit
+from urllib.parse import parse_qs, quote, unquote, urlsplit
 
 OLD_SITE = re.compile(
     r"^https?:/{1,2}(?:(?:(?:www|archive|linux)\.)?vector\.org\.uk"
     r"|vector\.johnbutlerassociates\.co\.uk)(?=/|$|\?)", re.I)
+EMAIL = re.compile(r"[\w.+-]+@[\w-]+(?:\.[\w-]+)+")
 OTHER = re.compile(r"^(?:[a-z][a-z0-9+.-]*:|#)", re.I)  # another scheme, or in-page
 
 
@@ -76,11 +77,17 @@ def _site_path(href, path, query, fragment, root, index, notes, assets):
             notes.append({"kind": "link-repaired", "href": href, "to": new})
             return new
         return None
-    m = re.fullmatch(r"/?archive/(.+)", path)
+    if path in ("", "/", "/index.php", "/index.htm") and not query or re.fullmatch(r"/\d+/?", path):
+        notes.append({"kind": "link-repaired", "href": href, "to": "../"})
+        return "../"  # the old home page, or a volume: the new home page lists both
+    m = re.fullmatch(r"/?(archive/)?(v\d{3}\w*/.+)", path)
     if m:
-        tree = "trad/" + m.group(1)  # the old site's archive/ is the recovered trad/
+        tree = "trad/" + m.group(2)  # the old site's archive/ is the recovered trad/
         if tree in index.by_source:
-            return _article(index.by_source[tree], fragment, index, notes)
+            new = _article(index.by_source[tree], fragment, index, notes)
+            if not m.group(1):  # /vNNN/… without archive/: an inference
+                notes.append({"kind": "link-repaired", "href": href, "to": new})
+            return new
         if (root / tree).is_file():
             assets[tree] = root / tree
             return tree
@@ -94,6 +101,9 @@ def _site_path(href, path, query, fragment, root, index, notes, assets):
 
 def resolve(href, root, source, index, notes, assets):
     """The new href for HREF, or None if it is left as it is."""
+    if EMAIL.fullmatch(href):  # an address without mailto:
+        notes.append({"kind": "link-repaired", "href": href, "to": "mailto:" + href})
+        return "mailto:" + href
     if OLD_SITE.match(href):
         u = urlsplit(OLD_SITE.sub("http://old", href))
         return _site_path(href, u.path, u.query, u.fragment, root, index, notes, assets)
@@ -103,12 +113,12 @@ def resolve(href, root, source, index, notes, assets):
     if u.path:  # a file beside the article, or elsewhere in the tree
         base = Path(source).parent
         tail = f"#{u.fragment}" if u.fragment else ""
-        full = Path(os.path.normpath(base / u.path))
+        full = Path(os.path.normpath(base / unquote(u.path)))
         if (root / full).is_file():
             rel = os.path.relpath(full, base)
             rel = str(full) if rel.startswith("..") else rel
             assets[rel] = root / full
-            return rel + tail
+            return quote(rel) + tail
         # Not where the link says: the old folders were reorganised. Try the
         # article's own folder, then the path from the root of the tree.
         for found, rel in ((base / Path(u.path).name, Path(u.path).name),

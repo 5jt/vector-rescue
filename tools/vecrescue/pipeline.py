@@ -7,7 +7,8 @@ import sys
 from pathlib import Path
 
 from .convert import convert
-from .inventory import read_index, read_issues, xhtml_source
+from .inventory import article_source, read_index, read_issues
+from .legacy import mapped_apl, read_codingprobs
 from .pages import write_home_page, write_issue_pages
 from .links import LinkIndex
 
@@ -32,7 +33,19 @@ def run_convert(src, out):
     docs.mkdir(parents=True)
     written, notes = [], {}
     inventory = load_inventory(out)
-    todo = [r for r in inventory if r["id"] and xhtml_source(r)]
+    listed = read_codingprobs(src)
+    todo, skipped = [], {}
+    for r in inventory:
+        found = r["id"] and article_source(r)
+        if not found:
+            continue
+        fmt, path = found
+        reason = fmt == "HTML" and mapped_apl((src / path).read_text(encoding="utf-8"), path, listed)
+        if reason:
+            skipped[r["id"]] = {"source": path, "reason": reason}
+        else:
+            todo.append(r)
+    (out / "skipped.json").write_text(json.dumps(skipped, indent=1), encoding="utf-8")
     links = LinkIndex.from_inventory(inventory, {r["id"] for r in todo})
     for record in todo:
         folder = docs / f"art{record['id']}"

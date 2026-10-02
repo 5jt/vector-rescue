@@ -138,3 +138,18 @@ def test_text_check_ignores_the_article_header_from_the_template():
     rendered = RENDERED.replace('<h1 id="__skip">', '<p class="prefix">Series</p><h1 id="__skip">').replace(
         '<p class="byline">', '<p class="printed"><a href="../25/1/">Vector 25:1</a>, page 74</p><p class="byline">')
     assert text_check(doc(SOURCE), doc(rendered), RECORD)["differing"] == 0
+
+
+def test_block_boundaries_separate_words():
+    from vecrescue.report import _words
+    assert _words(doc("<div><p>one.</p><p>Two</p><li>three</li><h2>Four</h2></div>")) == \
+        ["one.", "Two", "three", "Four"]
+
+
+def test_image_check_ignores_the_dropped_validator_badge(tmp_path):
+    from vecrescue.report import image_check
+    (tmp_path / "a.png").write_bytes(b"x")
+    source = doc('<html><body><img src="a.png"/><p id="validation"><a href="v">'
+                 '<img src="http://www.w3.org/Icons/valid-html401"/></a></p></body></html>')
+    rendered = doc('<html><body><article><img src="a.png"/></article></body></html>')
+    assert image_check(source, rendered, tmp_path)["source_images"] == 1

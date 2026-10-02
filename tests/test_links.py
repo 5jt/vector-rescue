@@ -126,3 +126,23 @@ def test_missing_file_found_from_the_tree_root(root):
     new, _, notes = run(root, "../../resource/apl385.ttf")
     assert new == "resource/apl385.ttf"
     assert notes[0]["kind"] == "link-repaired"
+
+
+@pytest.mark.parametrize("href, out", [
+    ("chenriod@vtx.ch", "mailto:chenriod@vtx.ch"),
+    ("http://www.vector.org.uk", "../"),
+    ("/", "../"),
+    ("/21", "../"),
+    ("http://www.vector.org.uk/v234/jot50.htm", "../art10009840/"),
+])
+def test_more_old_site_forms_are_repaired(root, href, out):
+    new, _, notes = run(root, href)
+    assert new == out
+    assert notes[-1]["kind"] == "link-repaired"
+
+
+def test_percent_encoded_file_names_are_found(root):
+    (root / "content/printed/251/sykes/Example of X.htm").write_text("x")
+    new, assets, _ = run(root, "Example%20of%20X.htm")
+    assert new == "Example%20of%20X.htm"
+    assert assets == {"Example of X.htm": root / "content/printed/251/sykes/Example of X.htm"}

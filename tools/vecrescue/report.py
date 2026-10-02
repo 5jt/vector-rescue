@@ -15,18 +15,21 @@ from pathlib import Path
 import lxml.html
 
 from .head import extract_head
-from .inventory import xhtml_source
+from .convert import load_source
+from .inventory import article_source
 
 TAB_WIDTH = 8
 LEAD_KINDS = ("subtitle", "byline", "abstract")
 SAMPLES = 5
+BREAKS = ("br", "td", "th", "dt", "dd", "p", "li", "div", "blockquote", "pre", "hr",
+          "h1", "h2", "h3", "h4", "h5", "h6", "table", "tr", "address")
 
 
 def _words(el):
     el = copy.deepcopy(el)
     for a in el.xpath('.//a[@class="headerlink"]'):
         a.drop_tree()
-    for k in el.iter("br", "td", "th", "dt", "dd"):  # line, cell, term breaks separate words
+    for k in el.iter(*BREAKS):  # line, cell and block boundaries separate words
         k.tail = " " + (k.tail or "")
     return el.text_content().replace(" ", " ").split()
 
@@ -100,7 +103,7 @@ def image_check(source_doc, rendered_doc, page_dir):
     srcs = [i.get("src") or "" for i in _article(rendered_doc).iter("img")]
     local = [s for s in srcs if not re.match(r"^[a-z]+:|^/", s, re.I)]
     return {
-        "source_images": sum(1 for _ in source_doc.iter("img")),
+        "source_images": len(source_doc.xpath('//img[not(ancestor::p[@id="validation"])]')),
         "rendered_images": len(srcs),
         "external": len(srcs) - len(local),
         "broken": [s for s in local if not (Path(page_dir) / s).is_file()],
@@ -161,10 +164,11 @@ def run_report(src, out):
               "anchor_links_missing": 0, "links_broken": 0}
     for record in inventory:
         page = out / "site" / f"art{record['id']}" / "index.html"
-        source = xhtml_source(record) if record.get("id") else None
-        if not (source and page.exists()):
+        found = article_source(record) if record.get("id") else None
+        if not (found and page.exists()):
             continue
-        sdoc = lxml.html.fromstring((src / source).read_bytes())
+        fmt, source = found
+        sdoc = load_source(src, fmt, source, [])
         rdoc = lxml.html.fromstring(page.read_bytes())
         art = {"title": record["title"], "source": source,
                **_summarise(notes.get(record["id"], [])),
@@ -186,12 +190,16 @@ def run_report(src, out):
         totals["anchor_links_missing"] += len(art["anchors"]["missing"])
         totals["links_broken"] += len(art["links"]["broken"])
 
+    skipped_path = out / "skipped.json"
+    skipped = json.loads(skipped_path.read_text(encoding="utf-8")) if skipped_path.exists() else {}
+    totals["skipped"] = dict(Counter(v["reason"] for v in skipped.values()))
+
     path, prev_path = out / "report.json", out / "report.prev.json"
     previous = None
     if path.exists():
         previous = json.loads(path.read_text(encoding="utf-8"))["totals"]
         path.replace(prev_path)
-    report = {"totals": totals, "previous": previous, "articles": articles}
+    report = {"totals": totals, "previous": previous, "articles": articles, "skipped": skipped}
     path.write_text(json.dumps(report, indent=1, ensure_ascii=False), encoding="utf-8")
     (out / "report.md").write_text(render_markdown(report), encoding="utf-8")
     return report
@@ -229,6 +237,7 @@ def render_markdown(report):
                                 ("In-page links with no target", "anchor_links_missing"),
                                 ("Site links with no page or file", "links_broken"))],
              ""]
+    lines += _counts_table("Not converted yet, by reason", t.get("skipped", {}), get("skipped"))
     lines += _counts_table("Passed through as raw HTML", t["raw_html"], get("raw_html"))
     lines += _counts_table("Tables kept as raw HTML, by reason", t["table_raw"], get("table_raw"))
     lines += _counts_table("Other notes", t["notes"], get("notes"))

@@ -6,6 +6,7 @@ import re
 from contextvars import ContextVar
 
 import lxml.html
+from lxml.html import defs
 
 # HTML collapses ASCII whitespace only; a non-breaking space is content.
 _WS = re.compile(r"[ \t\n\r\f]+")
@@ -36,6 +37,18 @@ INLINE_TAGS = {
     "font", "i", "img", "kbd", "q", "s", "samp", "small", "span", "strike",
     "strong", "sub", "sup", "tt", "u", "var",
 }
+
+
+def made_up(tag):
+    """A tag that is not HTML: usually an author's literal <…> that the parser
+    took for markup (e.g. <ctrl+break>, an email address in angle brackets)."""
+    return isinstance(tag, str) and ":" not in tag and tag not in defs.tags
+
+
+def made_up_as_text(el):
+    attrs = "".join(f" {k}" + (f'="{v}"' if v else "") for k, v in el.attrib.items())
+    note({"kind": "made-up-tag-as-text", "tag": el.tag})
+    return escape(f"<{el.tag}{attrs}>")
 
 
 def ws(s):
@@ -73,15 +86,41 @@ def escape(text):
 
 
 def escape_line_starts(md):
-    """Escape characters that would start a heading, list, quote or rule."""
+    """Escape characters that would start a heading, list, quote or rule.
+
+    Python-Markdown has no backslash escape for =, so it becomes an entity.
+    """
     def fix(line):
-        line = re.sub(r"^(\s*)([#>+=-])", r"\1\\\2", line)
+        line = re.sub(r"^(\s*)=", r"\1&#61;", line)
+        line = re.sub(r"^(\s*)([#>+-])", r"\1\\\2", line)
         return re.sub(r"^(\s*\d+)([.)])(?=\s|$)", r"\1\\\2", line)
     return "\n".join(fix(line) for line in md.split("\n"))
 
 
 class Literal(str):
     """Inline Markdown that whitespace collapsing must not touch."""
+
+
+class Emphasis(Literal):
+    """Markdown emphasis, with the raw HTML to use if its neighbours would
+    stop Markdown recognising it (e.g. inside a word: 2<i>n</i>2)."""
+
+    def __new__(cls, md, raw):
+        obj = super().__new__(cls, md)
+        obj.raw = raw
+        return obj
+
+
+OPENERS = "([{“‘\"'"
+CLOSERS = ".,;:!?)]}”’\"'"
+
+
+def _safe(prev, nxt, md):
+    if "*" in (prev, nxt):  # **…*** next to another emphasis will not parse
+        return False
+    before = md[:1].isspace() or prev == "" or prev.isspace() or prev in OPENERS
+    after = md[-1:].isspace() or nxt == "" or nxt.isspace() or nxt in CLOSERS
+    return before and after
 
 
 INLINE_RULES = {}
@@ -99,11 +138,16 @@ def inline(el):
             pass
         elif child.tag == "br":
             pieces.append(Literal(_BR))
+        elif made_up(child.tag):
+            pieces.append(Literal(made_up_as_text(child)))
+            pieces.append(" " if (child.text or "")[:1].isspace() else "")
+            inner = inline(child)
+            pieces.append(Literal(inner) if inner else "")
         else:
             rule = INLINE_RULES.get(child.tag)
             md = rule(child) if rule else raw_inline(child)
             # whitespace-only output (e.g. an empty <code>) is just text
-            pieces.append(Literal(md) if md.strip() else md)
+            pieces.append(md if isinstance(md, Literal) or not md.strip() else Literal(md))
         pieces.append(child.tail or "")
     out, text = [], []
     for p in pieces:
@@ -114,6 +158,11 @@ def inline(el):
         else:
             text.append(p)
     out.append(escape(ws("".join(text))))
+    for i, piece in enumerate(out):
+        if isinstance(piece, Emphasis):
+            prev, nxt = "".join(out[:i])[-1:], "".join(out[i + 1:])[:1]
+            if not _safe(prev, nxt, piece):
+                out[i] = piece.raw
     md = "".join(out).strip(" ")
     md = re.sub(f" *{_BR}+ *", lambda m: "  \n" * 1, md)
     return md.strip(" \n")
@@ -134,12 +183,12 @@ def _edges(el):
 def _wrap(mark):
     def rule(el):
         body = inline(el)
-        if not body:
-            return ""
-        if not re.search(r"\w", body):  # *,* or **.** would not parse
-            return raw_inline(el)
+        if not body:  # keep a space that was only emphasised
+            return " " if el.text_content()[:1].isspace() else ""
+        if not re.search(r"\w", body) or body[:1] == "*" or body[-1:] == "*":
+            return raw_inline(el)  # *,* or **.** or *a *n** would not parse
         lead, trail = _edges(el)
-        return f"{lead}{mark}{body}{mark}{trail}"
+        return Emphasis(f"{lead}{mark}{body}{mark}{trail}", lead + raw_inline(el) + trail)
     return rule
 
 
@@ -150,6 +199,13 @@ def span(el):
     if "nowrap" in cls:
         return inline(el)
     return raw_inline(el)
+
+
+def classed(md, classes):
+    """A paragraph of inline Markdown MD with CSS CLASSES."""
+    if md.startswith("<"):  # a line opening with HTML takes no { .class }
+        return f'<p class="{" ".join(classes)}" markdown="span">{md}</p>'
+    return md + "\n{ " + " ".join("." + c for c in classes) + " }"
 
 
 def anchor_html(name):
@@ -163,8 +219,11 @@ def link(el):
         el = copy.deepcopy(el)
         for k in ("name", "id"):
             el.attrib.pop(k, None)
-        rest = link(el) if href else inline(el)
-        return anchor_html(name) + rest
+        rest = link(el).strip(" ") if href else inline(el)
+        if not rest:  # an empty target, e.g. <a name="ref1"> </a>
+            return anchor_html(name)
+        lead, trail = _edges(el)
+        return lead + anchor_html(name) + rest + trail
     text = inline(el)
     unsafe = (href is None or not text
               or re.search(r"[\s<>]", href) or href.count("(") != href.count(")")

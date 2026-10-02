@@ -26,9 +26,13 @@ def _text_slots(el):
 
 
 def _expand_tabs(pre):
-    """A copy of PRE with tabs expanded to TAB_WIDTH columns, counting
-    columns across child elements. Python-Markdown would use 4."""
-    pre = copy.deepcopy(pre)
+    """A copy of PRE with tabs expanded to TAB_WIDTH columns."""
+    return expand_tabs_in_place(copy.deepcopy(pre))
+
+
+def expand_tabs_in_place(pre):
+    """Expand tabs in PRE to TAB_WIDTH columns, counting columns across
+    child elements. Python-Markdown would use 4."""
     col = 0
     for el, slot in _text_slots(pre):
         text = getattr(el, slot)
