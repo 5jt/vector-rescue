@@ -2,114 +2,95 @@
 
 Goal: recover the entire *Vector* archive and republish it, with every old `art` URL (e.g. `/art10500650`) resolving.
 
-Revised 2026-10-02 after the filetree surveys (`surveys/filetree-survey-claude.md`, `surveys/filetree-survey-codex.md`, `surveys/xhtml-target-survey-results.md`) and decisions by Stephen Taylor.
+Revised 2026-10-02 (evening), after the Wayback survey. Earlier revisions followed the filetree and XHTML surveys (`surveys/`). Decisions by Stephen Taylor.
 
 ## Principles
 
 - Old URLs are the top priority; every design choice is judged against them.
-- Never modify originals. `sources/` is read-only; all work is on derived copies.
+- Never modify originals. `sources/` and `recovered/` are read-only; all work is on derived copies in `build/`.
+- The conversion is a rerunnable pipeline (`make all`). Rules are provisional, written test-first, tracked as GitHub issues, and measured by the run report on every run.
 - Record provenance for every article: which source it came from, and any conversion applied.
 - Overlaps between sources are decided by examining diffs, possibly article by article.
+- Source defects that need judgement are corrected in a curated, visible corrections file (#23), never by guesswork in the converter.
 - Do not publish private data: the request logs (`events*.log`, `icons/events.log`), `members/`, editorial `edit/`, `held/`, `rejected/` material, `info.php`, sandbox and tools.
-- Start with what is cheap and safe, then widen: UTF-8 content first, other encodings later.
+
+## Where we are
+
+| | Status |
+|---|---|
+| Pipeline | `make all`: inventory → convert → site → report. 273 tests. |
+| Articles converted | 432 of 1,484 indexed: all XHTML (vols 24–26, online-only) and the valid-UTF-8 `trad/` HTML (vols 1–23). |
+| Run report | 0 code mismatches, 0 images lost; 36 differing words, all explained (made-up tags shown as text, source typos, check artefacts). |
+| Site | Issue pages for all 100 catalogued issues; development build at https://5jt.github.io/vector-rescue/ (`make publish`). |
+| Held back | 21 `trad/` articles with mapped APL; 162 non-UTF-8 `trad/` articles; 24 PDF-only articles; 838 metadata-only records. |
+| Sources | PHP tree (`sources/sjt/Vector`, to mid-2016); Wayback captures being fetched into `recovered/wayback/` (#24). |
 
 ## What we know (from the surveys)
 
-- The PHP tree has 1,485 index records (1,484 IDs). 616 have HTML/XHTML text on disk; 838 are metadata only. The tree's text is complete for volumes 24–26 and thin before volume 15.
-- It ends with Vol. 26 Nos. 2&3 (printed, 2014) and an online article of 22 Jan 2016. The WordPress export has to supply the later years up to 2022.
-- 443 of the 606 indexed text files are valid UTF-8; 163 are not. APL in older articles is often font-mapped (APL2741, APL385), which byte conversion alone cannot fix.
-- The rule that mapped `/artNNN` to `index.php?id=NNN` is not in the tree. It is inferable, and in a static site we don't need it.
-- Articles carry rich metadata in `index.xml` (title, authors, volume, issue, page, received and online dates, blurb).
+- PHP tree: 1,485 index records (1,484 IDs); 616 with HTML/XHTML text, 838 metadata only. Text complete for volumes 24–26, thin before volume 15.
+- The PHP tree stops at mid-2016. The Wayback Machine has the 2021 index: Vol. 26 No. 4 (9 articles more, plus our 11 "online only" ones) and 6 in-press articles to Nov 2016; captured pages for 4 more to 2018. Index captures in 2022–2025 are unchanged.
+- The WordPress site published whole-issue PDFs for volumes 1–23 (all but 2:2 and 7:2) and 26:4; captured by the Wayback Machine (~350 MB).
+- 443 of the 606 indexed text files are valid UTF-8; 163 are not. APL in older articles is often font-mapped (APL2741, APL385), which byte conversion alone cannot fix; the old site listed suspects in `tools/codingprobs.txt`.
+- On GitHub Pages, `/art<ID>` redirects (301) to `/art<ID>/`; a file with no extension is served for download. Exact extensionless URLs need other hosting.
 
 ## Blocking issues
 
 | # | Blocker | Blocks | Owner / action |
 |---|---|---|---|
-| B1 | **A copy of the WordPress database export** | All articles after the PHP site's end (2016–2022), and the old-versus-WP duplicate comparison | Await Paul Grosvenor's reply; ask Jake Jacob as a second route. **Fallback:** about 229 WordPress posts and pages captured by the Wayback Machine (`surveys/wayback-survey.md`); rendered HTML, so the export remains preferable. |
-| B2 | **Use of the `archive.vector.org.uk` URL** (DNS control; today it points at WordPress) | Publishing under the original hostname | BAA (Paul). Not needed for the first publication; see Phase 5. |
+| B1 | **A copy of the WordPress database export** | Articles published on WordPress (2017–2022), and the old-versus-WP duplicate comparison | Await Paul Grosvenor; ask Jake Jacob as a second route. **Fallback:** ~229 WordPress posts and pages captured by the Wayback Machine (rendered HTML, so the export remains preferable). |
+| B2 | **Use of the `archive.vector.org.uk` URL** (DNS control; today it points at WordPress) | Publishing under the original hostname | BAA (Paul). Not needed until Phase 5. |
 
-Neither blocks Phases 0–4 on the existing PHP-era content.
+## Phases
 
-## Phase 0: Retrieve sources: done for the PHP tree; WordPress export outstanding
+### 0. Retrieve sources: PHP tree done; Wayback in progress; WordPress export outstanding
 
-- PHP filetree: recovered into `sources/sjt/Vector` (338 MB, excluded from git until a safe public home exists; see below).
-- Still wanted (B1): WP database export.
-- Wayback Machine (`surveys/wayback-survey.md`, 2026-10-02): an `index.xml` of 2021 adds Vol. 26 No. 4 and in-press articles to Nov 2016; captured pages for 19 articles newer than our tree (to 2018); whole-issue PDFs for volumes 1–23 and 26:4 from the WordPress site; renderings of the non-UTF-8 `trad/` articles; WordPress posts from 2017. Fetched into `sources/wayback/` (issues #24–#27).
-- Decide soon where `sources/sjt` is archived safely and publicly (Dyalog Gitea, a GitHub release or a data repo). **Before publishing it, exclude the logs and `members/`.**
+- PHP filetree: `sources/sjt/Vector` (338 MB, not in git).
+- Wayback Machine: fetch the 2021 index, the 19 newer articles and their images, the issue PDFs, and the captured renderings of articles we cannot convert directly (#24, `make fetch-wayback`).
+- Still wanted (B1): the WordPress export.
+- Decide where `sources/sjt` (and `recovered/`) are archived safely and publicly. **Before publishing, exclude the logs and `members/`.**
 
-## Phase 1: Survey: done for the filetree
+### 1–2. Surveys and groundwork: done
 
-Deliverables so far: the two filetree surveys. Remaining survey work is folded into Phases 2 and 3.
+Filetree surveys, the XHTML target survey, the Zensical trial, the canonical inventory (`build/inventory.json`), the run report (#10). Wayback survey: `surveys/wayback-survey.md`.
 
-## Phase 2: Early technical groundwork
+### 3. Convert what the PHP tree holds as text: done for UTF-8; non-UTF-8 next
 
-2a. **Canonical inventory.** Extract `index.xml` into a table (CSV or JSON): ID, title, authors, volume, issue, page, dates, source paths and formats, whether the file exists, whether it is valid UTF-8. Add the 1,484 IDs as the *required* `art` URL list. Handle the empty-ID record (`content/printed/244/peelle.htm`), the alias paths and the combined issues. See `plans/xhtml-target-survey.md` for the plan and `surveys/xhtml-target-survey-results.md` for the results.
+- Done: XHTML (#1–#8) and valid-UTF-8 `trad/` HTML (#21).
+- Next: the 163 non-UTF-8 `trad/` articles, decoded as Windows-1252 and checked against the old site's own captured rendering (#27).
+- Corrections file for source defects (#23).
 
-2b. **Survey the hand-coded XHTML to define the Markdown target** (an early, critical step; see `plans/xhtml-target-survey.md`). Standard Markdown and GitHub-flavoured Markdown cannot be assumed to represent it. Find out which structures occur, how often, and how each should be represented.
+### 4. Generate the site and review it on GitHub Pages: done, ongoing
 
-2c. **Choose the renderer.** Evaluate Zensical against the target from 2b. Zensical is from the Material for MkDocs team, is the tool Dyalog uses, is configured by `zensical.toml`, and uses Python Markdown with Material-style extensions **(from its documentation; to be confirmed by trial)**. Questions to settle by experiment:
-   - Can it emit a page at exactly `/art10500650` (a directory with `index.html`, or a flat file)? Can the URL scheme be controlled per page?
-   - Can it handle ~1,500 pages quickly, and carry per-article metadata (authors, volume, issue)?
-   - Does it allow raw HTML or Markdown-in-HTML for the structures Markdown can't express?
-   - How does it handle APL (fonts, `<code>`) and mathematics (MathML or KaTeX; some articles contain mathematical XHTML fragments)?
-   - Alternative candidates if Zensical falls short: MkDocs Material (the same lineage, mature), Eleventy, Hugo, a small custom Python generator.
+- Zensical build with issue pages, home page, article header, APL font (#9). Development site on GitHub Pages for review only; production hosting is Phase 5.
+- Still to add: whole-issue PDFs on every issue page (#26); an "In press (never printed)" section; a statement of what is missing; author pages and search tuning if cheap.
 
-2d. **Fix the encoding strategy.** Start with the 443 valid-UTF-8 files. Study the 163 others separately in Phase 6.
+### 5. Widen the content
 
-## Phase 3: First slice: valid UTF-8 content already in the PHP tree
+- **Wayback-recovered articles:** Vol. 26 No. 4, the in-press articles and the 2017–18 additions (#25), using the 2021 index for metadata.
+- **WordPress content (B1, or its Wayback fallback):** 2017–2022 articles; compare duplicates with the PHP-era versions and rule article by article.
+- **Mapped APL:** the 21 held-back `trad/` articles and any others found; APL2741 and APL385 mappings, with human review.
+- **Volumes 1–21 from the issue PDFs:** check whether they are scans or text; if text, a source for the 838 metadata-only records; otherwise at least every issue is readable as a PDF.
+- **Word documents:** the five `.doc` files (one is really HTML); any further Word issues; Ian Clark's converted versions if they can be found.
+- **Unindexed material:** review the unindexed candidate files in `trad/` and `content/`.
+- **Assets:** convert `.wmz` images, repair images with wrong formats, the 18 images not found.
 
-Scope: indexed articles whose source is valid UTF-8 (XHTML first, then UTF-8 `trad/` HTML).
+### 6. Hosting and domain, after B2
 
-- Convert each to the target Markdown, with front-matter metadata and provenance. Keep the original `vec:source` path and the conversion applied.
-- Check output against the originals (text equality, links, images, counts of structures), with sampled visual comparison.
-- Copy images and assets across; list the missing ones.
-- Pilot first on a few issues (suggest 25:1, which contains `art10500650`), then widen to volumes 24–26, then the other UTF-8 files.
-
-## Phase 4: Generate the site; test it on GitHub Pages
-
-- Build with the renderer chosen in 2c.
-- **Use GitHub Pages in development only, to test rendering the content.** The production hosting and URL are an open question (B2); we are not committing to GitHub Pages.
-- URL design: see "Old URLs on GitHub Pages" below.
-- Add issue and volume indexes, author pages if cheap, search, and an explicit statement of what is missing.
-
-### Old URLs on GitHub Pages
-
-Static hosting has two limits to plan around:
-
-1. **Extensionless paths (tested 2026-10-02, issue #9).** A file with no extension is served as `application/octet-stream`, so browsers download it: exact `/art<ID>` pages are not possible on GitHub Pages. But `/art10500650` returns **301 → `/art10500650/`**, so old inbound links still reach the page through one redirect, provided the site is at the root of the domain those links use.
-2. **Query-string URLs** (`?vol=&no=&art=`, the old `redirector.php` scheme) cannot be handled by Pages. A small client-side script on the home page could map them to `/art<ID>` using a generated lookup table.
-
-Also needed: stub redirects for any IDs that map to external (HTTP-only) sources, and a page for each metadata-only record explaining that the article is not online.
-
-On a project site the base path is `/vec-rescue/…`, not `/`; true root-relative URLs require a custom domain or a user/organisation site. This is another reason B2 matters later.
-
-## Phase 5: Hosting and domain, after B2
-
-When the `archive.vector.org.uk` URL becomes available, re-examine hosting:
-
-- GitHub Pages with a custom domain (DNS CNAME), if the trailing-slash behaviour is acceptable.
+- GitHub Pages with a custom domain: `/art<ID>` reaches the page through one redirect.
 - Dyalog's Gitea, if it can serve static output.
-- HTTPD on dyalog.com, which gives full control of rewrites and redirects and is the fallback if Pages cannot honour the `art` URLs exactly.
-- Also cover `vector.org.uk/art…` and `vector.johnbutlerassociates.co.uk/art…`, which need redirects at those hosts.
+- HTTPD on dyalog.com: full control of rewrites; exact `/art<ID>` and the old `?vol=&no=&art=` URLs. The fallback if one redirect is not acceptable.
+- Redirects at the other hosts that inbound links use (`vector.org.uk/art…`, `vector.johnbutlerassociates.co.uk/art…`).
 
-## Phase 6: Widen the content
+### 7. Verify and hand over
 
-- **WordPress content (needs B1):** import 2014–2022 articles; compare old-versus-WP duplicates by diff and rule on each, article by article.
-- **Other encodings:** the 163 non-UTF-8 files. First Windows-1252, which `lib/present.php` assumed; then APL font-mapped text (APL2741, APL385, `tools/codingprobs.txt` has notes) with human review of the mapping.
-- **Word documents:** the five `.doc` files (one is really HTML) and any further Word issues supplied by Paul or Jake; Ian Clark's converted versions if they can be found.
-- **Unindexed and metadata-only material:** review the unindexed candidate files; find PDFs or other sources for the 838 metadata-only records, especially volumes 1–9 (no online text) and the issues that exist only in print.
-- **Assets:** convert `.wmz` images, repair or replace images with wrong formats, fix case-mismatched image directories.
-
-## Phase 7: Verify and hand over
-
-- Test every required `art` URL, plus the URLs seen in `events.log` and in the README.
-- Document how to rebuild the site and how to add future material.
+- Test every required `art` URL, plus the URLs seen in `events.log`, the README and the Wayback captures.
+- Document how to rebuild the site and add future material.
 - Agree long-term ownership with the BAA, and where the source archive lives.
 
 ## Open questions
 
-- Which hosting option in the end? (Phase 5, after B2.)
+- Which hosting option in the end? (Phase 6, after B2.)
 - Who controls the vector.org.uk DNS and the WordPress site?
 - Licensing and author permissions for republication.
-- Where should `sources/sjt` live safely, and what should be stripped before it goes public?
-- Can Zensical give us `/art<ID>` URLs with at most a trailing slash? (Phase 2c.)
+- Where should `sources/` and `recovered/` live safely, and what is stripped before they go public?
+- Are the WordPress issue PDFs scans or text?

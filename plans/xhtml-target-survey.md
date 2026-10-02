@@ -1,5 +1,7 @@
 # Plan: survey of the hand-coded XHTML (target for the Markdown)
 
+**Status: done** (2026-10-02). Results: `surveys/xhtml-target-survey-results.md`; the rules became issues #1–#8.
+
 Part of Phase 2b of `plans/master.md`.
 
 ## Why
