@@ -100,3 +100,8 @@ def test_spaces_inside_inline_code_are_not_collapsed_by_paragraph_rules():
 def test_trailing_spaces_on_lines_are_removed():
     md, _ = pre("<pre>a  \nb\t\nc\u00a0</pre>")
     assert md == "```\na\nb\nc\u00a0\n```"
+
+
+def test_tabs_in_a_raw_pre_are_expanded_to_eight_columns():
+    md, _ = pre("<pre>\n\t∇ r<b>x</b>\tz\n</pre>")
+    assert md == "<pre>\n        ∇ r<b>x</b>    z\n</pre>"

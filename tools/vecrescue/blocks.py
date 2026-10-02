@@ -117,13 +117,24 @@ def stray_h1(el, ctx):
     return f"## {inline_flat(el)}"
 
 
+def _attach(marker, block):
+    """BLOCK after a list or definition MARKER, continuation lines indented 4.
+
+    A code fence is not recognised on the marker line, so it starts on the
+    next line instead.
+    """
+    if block.startswith("```"):
+        return marker + "\n" + _indent(block)
+    first, _, rest = block.partition("\n")
+    return marker + first + ("\n" + _indent(rest) if rest else "")
+
+
 def _item(marker, blocks):
     """A list item: marker on the first line, the rest indented 4."""
     out = []
     for i, block in enumerate(blocks):
         if i == 0:
-            first, _, rest = block.partition("\n")
-            out.append(marker + first + ("\n" + _indent(rest) if rest else ""))
+            out.append(_attach(marker, block))
         else:
             sep = "\n" if _is_list(block) and i == 1 else "\n\n"
             out.append(sep + _indent(block))
@@ -178,9 +189,7 @@ def dlist(el, ctx):
             blocks = _inner(k, ctx)
             if blocks is None or not current:
                 return _raw(el, ctx)
-            md = "\n\n".join(blocks)
-            first, _, rest = md.partition("\n")
-            current.append(":   " + first + ("\n" + _indent(rest) if rest else ""))
+            current.append(_attach(":   ", "\n\n".join(blocks)))
         else:
             return _raw(el, ctx)
     if current:
