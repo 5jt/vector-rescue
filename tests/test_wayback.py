@@ -85,6 +85,7 @@ def test_plan_chooses_the_sets():
         "archive.vector.org.uk/index.xml": [H, ["20210830085903", "http://archive.vector.org.uk/index.xml", "application/xml", "200"]],
         "archive.vector.org.uk/art*": [H,
             ["2017", "http://archive.vector.org.uk/art10501740", "text/html", "200"],    # new
+            ["2025", "https://archive.vector.org.uk/art10501740", "text/html", "200"],   # same, https
             ["2017", "http://archive.vector.org.uk/art100072301", "text/html", "200"],   # artefact
             ["2016", "http://archive.vector.org.uk/art10000010", "text/html", "200"],    # converted
             ["2016", "http://archive.vector.org.uk/art10000020", "text/html", "200"],    # cp1252
@@ -106,7 +107,22 @@ def test_plan_chooses_the_sets():
     sets = plan(inventory, cdx)
     assert sets["index"] == {"http://archive.vector.org.uk/index.xml": "20210830085903"}
     assert set(sets["new-articles"]) == {"http://archive.vector.org.uk/art10501740",
+                                         "https://archive.vector.org.uk/art10501740",
                                          "http://archive.vector.org.uk/content/printed/264/ike/fig01.png"}
     assert set(sets["issue-pdfs"]) == {"https://vector.org.uk/wp-content/uploads/2022/07/VOL.1-NO.1-MAY-1984.pdf"}
     assert set(sets["crosscheck"]) == {"http://archive.vector.org.uk/art10000020",
                                        "http://archive.vector.org.uk/art10000030"}
+
+
+def test_when_one_capture_of_a_file_fails_another_is_tried(tmp_path):
+    def get(url):
+        if url.startswith("https://web.archive.org/web/2025"):
+            raise OSError("HTTP Error 401: Unauthorized")
+        return b"page"
+    f = Fetcher(tmp_path, get=get, pause=0, retries=1)
+    jobs = {"https://archive.vector.org.uk/art10501750": "2025",
+            "http://archive.vector.org.uk/art10501750": "2017"}
+    assert f.fetch_all(jobs) == 1
+    assert f.failed == {}
+    m = json.loads((tmp_path / "manifest.json").read_text())
+    assert m["archive.vector.org.uk/art10501750.html"]["timestamp"] == "2017"

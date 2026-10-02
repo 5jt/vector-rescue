@@ -85,17 +85,29 @@ class Fetcher:
         raise error
 
     def fetch_all(self, jobs):
-        """Fetch {url: timestamp}; return how many files were newly saved."""
+        """Fetch {url: timestamp}; return how many files were newly saved.
+
+        Several URLs (http and https, say) may save to the same file: their
+        captures are tried newest first until one succeeds.
+        """
+        by_target = {}
+        for url, ts in jobs.items():
+            by_target.setdefault(target_path(url), []).append((ts, url))
         saved = 0
-        for url, ts in sorted(jobs.items()):
-            rel = target_path(url)
+        for rel, candidates in sorted(by_target.items()):
             if rel in self.manifest and (self.root / rel).exists():
                 continue
-            wayback = RAW.format(ts=ts, url=url)
-            try:
-                data = self._get(wayback)
-            except Exception as e:
-                self.failed[url] = str(e)
+            data = None
+            for ts, url in sorted(candidates, reverse=True):
+                wayback = RAW.format(ts=ts, url=url)
+                try:
+                    data = self._get(wayback)
+                    break
+                except Exception as e:
+                    error = e
+            if data is None:
+                for _, url in candidates:
+                    self.failed[url] = str(error)
                 continue
             if data[:2] == b"\x1f\x8b":
                 data = gzip.decompress(data)
@@ -124,7 +136,11 @@ def plan(inventory, cdx):
 
     wanted = {r["id"] for r in inventory if r.get("id") and crosscheck(r)}
     pages = latest_captures(cdx({"url": "archive.vector.org.uk/art*"}))
-    by_id = {m.group(1): url for url in pages for m in [re.search(r"/art(\d{8})$", url)] if m}
+    by_id = {}  # ID → every captured URL for it (http, https), for fallback
+    for url in pages:
+        m = re.search(r"/art(\d{8})$", url)
+        if m:
+            by_id.setdefault(m.group(1), []).append(url)
 
     images = {}
     for folder in ("264", "271"):
@@ -135,7 +151,7 @@ def plan(inventory, cdx):
     pdfs = cdx({"url": "vector.org.uk/wp-content/uploads/*"})
     return {
         "index": latest_captures(cdx({"url": "archive.vector.org.uk/index.xml"})),
-        "new-articles": {**{by_id[i]: pages[by_id[i]] for i in by_id if i not in known}, **images},
+        "new-articles": {**{u: pages[u] for i in by_id if i not in known for u in by_id[i]}, **images},
         "issue-pdfs": {u: t for u, t in latest_captures(pdfs).items() if u.lower().endswith(".pdf")},
-        "crosscheck": {by_id[i]: pages[by_id[i]] for i in wanted if i in by_id},
+        "crosscheck": {u: pages[u] for i in wanted if i in by_id for u in by_id[i]},
     }
