@@ -59,17 +59,26 @@ def _captured_article(page):
     return doc
 
 
-def load_source(root, fmt, path, notes):
-    """Parse a source as the converter sees it: legacy HTML has its comment
-    markup fixed and is normalised; a fragment is given a body."""
+def load_source(root, fmt, path, notes, vid=None, corrections=None):
+    """Parse a source as the converter sees it: legacy HTML is decoded (or
+    read in the encoding a correction gives) with its comment markup fixed,
+    and normalised; curated corrections are applied to the text; a fragment
+    is given a body."""
     data = (root / path).read_bytes()
-    if fmt == "HTML":
+    forced = corrections.encoding(vid) if corrections else None
+    if forced:
+        text, how = data.decode(forced, errors="replace"), forced
+    elif fmt == "HTML":
         text, how = decode(data)
-        if how != "utf-8":
-            notes.append({"kind": "decoded", "how": how})
-        doc = lxml.html.fromstring(fix_comments(text))
     else:
-        doc = lxml.html.fromstring(data)
+        text, how = data.decode("utf-8", errors="replace"), "utf-8"
+    if how != "utf-8":
+        notes.append({"kind": "decoded", "how": how})
+    if corrections:
+        text = corrections.apply_text(vid, text, notes)
+    if fmt == "HTML":
+        text = fix_comments(text)
+    doc = lxml.html.fromstring(re.sub(r"^\s*<\?xml[^>]*\?>", "", text))
     if fmt == "WAYBACK":
         doc = _captured_article(doc)
     if doc.find("body") is None:
@@ -81,7 +90,7 @@ def load_source(root, fmt, path, notes):
     return expand_pre_tabs(doc)
 
 
-def convert(root, record, links=None):
+def convert(root, record, links=None, corrections=None):
     """Return (markdown, notes, assets) for RECORD's XHTML source.
 
     ASSETS maps paths relative to the page to the source files to copy.
@@ -89,7 +98,7 @@ def convert(root, record, links=None):
     """
     fmt, source = article_source(record)
     notes = []
-    doc = load_source(root, fmt, source, notes)
+    doc = load_source(root, fmt, source, notes, record["id"], corrections)
     fm, lead = extract_head(doc, record, notes)
     assets = localise_images(doc, root, source, notes)
     if links is not None:

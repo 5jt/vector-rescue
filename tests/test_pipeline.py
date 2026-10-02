@@ -50,3 +50,26 @@ def test_windows_1252_article_is_decoded_and_noted(tmp_path):
     assert "It’s “quoted” – café." in md
     notes = json.loads((tmp_path / "notes.json").read_text())
     assert {"kind": "decoded", "how": "cp1252"} in notes["10003600"]
+
+
+def test_corrections_are_applied_in_conversion(tmp_path):
+    from vecrescue.corrections import Corrections
+    c = Corrections.from_text("""
+articles:
+  "10500650":
+    - find: pseudotypes
+      replace: pseudo-types
+      why: test
+      decided: test
+  "10003600":
+    - hold: true
+      why: held for test
+      decided: test
+""")
+    run_inventory(SRC, tmp_path)
+    run_convert(SRC, tmp_path, corrections=c)
+    md = (tmp_path / "docs" / "art10500650" / "index.md").read_text(encoding="utf-8")
+    assert "tables are pseudo-types." in md
+    assert not (tmp_path / "docs" / "art10003600").exists()
+    skipped = json.loads((tmp_path / "skipped.json").read_text())
+    assert skipped["10003600"]["reason"] == "held: held for test"

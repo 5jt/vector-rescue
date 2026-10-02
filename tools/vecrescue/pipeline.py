@@ -28,7 +28,7 @@ def load_inventory(out):
     return json.loads((Path(out) / "inventory.json").read_text(encoding="utf-8"))
 
 
-def run_convert(src, out):
+def run_convert(src, out, corrections=None):
     src, out = Path(src), Path(out)
     docs = out / "docs"
     shutil.rmtree(docs, ignore_errors=True)  # every run starts clean
@@ -42,7 +42,10 @@ def run_convert(src, out):
         if not found:
             continue
         fmt, path = found
-        if fmt == "HTML":
+        held = corrections.held(r["id"]) if corrections else None
+        if held:
+            reason = f"held: {held}"
+        elif fmt == "HTML" and not (corrections and corrections.released(r["id"])):
             text, how = decode((src / path).read_bytes())
             reason = mapped_apl(text, path, listed, unicode=how == "utf-8")
         else:
@@ -56,7 +59,7 @@ def run_convert(src, out):
     for record in todo:
         folder = docs / f"art{record['id']}"
         folder.mkdir(exist_ok=True)
-        markdown, notes[record["id"]], assets = convert(src, record, links)
+        markdown, notes[record["id"]], assets = convert(src, record, links, corrections)
         for rel, source in assets.items():
             target = folder / rel
             target.parent.mkdir(parents=True, exist_ok=True)
@@ -69,12 +72,14 @@ def run_convert(src, out):
     return written
 
 
-def run_site(src, out, config, wayback=None):
+def run_site(src, out, config, wayback=None, corrections=None):
     """Write the home and issue pages, copy the site files from CONFIG's
     folder, and build OUT/docs into OUT/site with Zensical."""
     src, out, config = Path(src), Path(out), Path(config)
     docs = out / "docs"
     inventory, issues = load_inventory(out), read_issues(src)
+    if corrections:
+        issues = corrections.apply_catalogue(issues)
     write_issue_pages(inventory, issues, src, docs, wayback_issue_pdfs(wayback) if wayback else None)
     write_home_page(inventory, issues, docs)
     shutil.copy(config, out / "zensical.toml")
