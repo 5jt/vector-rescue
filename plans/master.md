@@ -7,7 +7,7 @@ Revised 2026-10-02 (evening), after the Wayback survey. Earlier revisions follow
 ## Principles
 
 - Old URLs are the top priority; every design choice is judged against them.
-- Never modify originals. `sources/` and `recovered/` are read-only; all work is on derived copies in `build/`.
+- Never modify originals. `sources/` is read-only (the fetch tool alone adds to `sources/wayback/`); all work is on derived copies in `build/`.
 - The conversion is a rerunnable pipeline (`make all`). Rules are provisional, written test-first, tracked as GitHub issues, and measured by the run report on every run.
 - Record provenance for every article: which source it came from, and any conversion applied.
 - Overlaps between sources are decided by examining diffs, possibly article by article.
@@ -23,7 +23,7 @@ Revised 2026-10-02 (evening), after the Wayback survey. Earlier revisions follow
 | Run report | 0 code mismatches, 0 images lost; 36 differing words, all explained (made-up tags shown as text, source typos, check artefacts). |
 | Site | Issue pages for all 100 catalogued issues; development build at https://5jt.github.io/vector-rescue/ (`make publish`). |
 | Held back | 21 `trad/` articles with mapped APL; 162 non-UTF-8 `trad/` articles; 24 PDF-only articles; 838 metadata-only records. |
-| Sources | PHP tree (`sources/sjt/Vector`, to mid-2016); Wayback captures being fetched into `recovered/wayback/` (#24). |
+| Sources | PHP tree (`sources/sjt/Vector`, to mid-2016); Wayback captures in `sources/wayback/` (#24). |
 
 ## What we know (from the surveys)
 
@@ -47,7 +47,7 @@ Revised 2026-10-02 (evening), after the Wayback survey. Earlier revisions follow
 - PHP filetree: `sources/sjt/Vector` (338 MB, not in git).
 - Wayback Machine: fetch the 2021 index, the 19 newer articles and their images, the issue PDFs, and the captured renderings of articles we cannot convert directly (#24, `make fetch-wayback`).
 - Still wanted (B1): the WordPress export.
-- Decide where `sources/sjt` (and `recovered/`) are archived safely and publicly. **Before publishing, exclude the logs and `members/`.**
+- Decide where `sources/` is archived safely and publicly. **Before publishing, exclude the logs and `members/`.**
 
 ### 1–2. Surveys and groundwork: done
 
@@ -92,5 +92,5 @@ Filetree surveys, the XHTML target survey, the Zensical trial, the canonical inv
 - Which hosting option in the end? (Phase 6, after B2.)
 - Who controls the vector.org.uk DNS and the WordPress site?
 - Licensing and author permissions for republication.
-- Where should `sources/` and `recovered/` live safely, and what is stripped before they go public?
+- Where should `sources/` live safely, and what is stripped before it goes public?
 - Are the WordPress issue PDFs scans or text?
