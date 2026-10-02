@@ -105,3 +105,7 @@ def test_trailing_spaces_on_lines_are_removed():
 def test_tabs_in_a_raw_pre_are_expanded_to_eight_columns():
     md, _ = pre("<pre>\n\t∇ r<b>x</b>\tz\n</pre>")
     assert md == "<pre>\n        ∇ r<b>x</b>    z\n</pre>"
+
+
+def test_text_after_a_comment_in_inline_code_is_kept():
+    assert inline(frag("<p><code>a<!-- note -->b<br/>c</code></p>")) == "<code>ab<br>c</code>"

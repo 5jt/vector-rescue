@@ -15,18 +15,74 @@ UNWRAP_DIV_IDS = {"wrapper", "pageblock"}
 UNWRAP_DIV_CLASSES = {"section1", "liner", "wordsection1"}
 
 
+def decode(data):
+    """Text of a legacy source, and how it was decoded: 'utf-8'; 'cp1252'
+    (Windows-1252, as lib/present.php assumed); or 'mixed', where valid UTF-8
+    is kept and only the bytes that are not valid UTF-8 are read as
+    Windows-1252. Bytes Windows-1252 leaves undefined become U+FFFD."""
+    try:
+        return data.decode("utf-8"), "utf-8"
+    except UnicodeDecodeError:
+        pass
+    out, utf8_seen, i = [], False, 0
+    while i < len(data):
+        try:
+            chunk = data[i:].decode("utf-8")
+            out.append(chunk)
+            utf8_seen |= any(ord(c) > 0x7F for c in chunk)
+            break
+        except UnicodeDecodeError as e:
+            good = data[i:i + e.start].decode("utf-8")
+            out.append(good)
+            utf8_seen |= any(ord(c) > 0x7F for c in good)
+            bad = data[i + e.start:i + e.start + 1]
+            try:
+                out.append(bad.decode("cp1252"))
+            except UnicodeDecodeError:
+                out.append("\ufffd")
+            i += e.start + 1
+    return "".join(out), "mixed" if utf8_seen else "cp1252"
+
+
 def fix_comments(text):
     """Jake's 'extended' comments, <!------- … ------->, as present.php did."""
     return re.sub(r"-{3,}>", "-->", re.sub(r"<!-{3,}", "<!--", text))
 
 
-def mapped_apl(text, path, listed):
-    """Why this source may hold character-mapped APL, or None."""
+def mapped_apl(text, path, listed, unicode=False):
+    """Why this source may hold character-mapped APL, or None.
+
+    The suspect heuristic applies only to files that were not valid UTF-8
+    (UNICODE false): accented letters in Unicode-era code are real (French
+    identifiers, for instance), while mapped APL is a pre-Unicode practice.
+    """
     if path in listed:
         return "codingprobs"
     if APL_FONT.search(text):
         return "apl-font"
+    if "\ufffd" in text:  # bytes undefined in Windows-1252: an APL font's mapping
+        return "undefined-bytes"
+    if not unicode and (MAPPED_PROSE.search(text) or MAPPED_CODE.search(_code_text(text))):
+        return "mapped-apl-suspect"
     return None
+
+
+# Telltales of APL typed in an APL font that maps glyphs onto Latin-1
+# characters: Œ before a system name (⎕io, ⎕WC), É as assignment between word
+# characters (V←V+1), or Latin letters inside code, where real APL has none.
+# ¨ ¯ × ÷ are genuine APL and are not counted.
+MAPPED_PROSE = re.compile(r"\u0152[A-Za-z]{2}|\w\u00c9\w")
+MAPPED_CODE = re.compile("[\u00c0-\u00d6\u00d8-\u00f6\u00f8-\u00ff\u0152\u0153\u0160\u0161"
+                         "\u0178\u017d\u017e\u0192\u02c6\u02dc\u2030\u2039\u203a]")
+
+
+def _code_text(text):
+    import lxml.html
+    try:
+        doc = lxml.html.fromstring(text)
+    except Exception:
+        return ""
+    return "".join(e.text_content() for e in doc.iter("pre", "code", "tt"))
 
 
 def read_codingprobs(root):

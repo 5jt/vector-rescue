@@ -10,7 +10,7 @@ def records():
 
 
 def test_reads_every_description():
-    assert len(read_index(SRC)) == 5
+    assert len(read_index(SRC)) == 6
 
 
 def test_identifier_and_publication():
@@ -53,5 +53,7 @@ def test_article_source_prefers_xhtml_then_utf8_html():
     assert article_source(rec) == ("XHTML", "b.htm")
     rec["sources"][1]["exists"] = False
     assert article_source(rec) == ("HTML", "a.htm")
-    rec["sources"][0]["utf8"] = False
+    rec["sources"][0]["utf8"] = False      # decoded as Windows-1252 (#27)
+    assert article_source(rec) == ("HTML", "a.htm")
+    rec["sources"][0]["exists"] = False
     assert article_source(rec) is None

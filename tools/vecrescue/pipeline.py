@@ -8,7 +8,7 @@ from pathlib import Path
 
 from .convert import convert
 from .inventory import article_source, merge_wayback, read_index, read_issues
-from .legacy import mapped_apl, read_codingprobs
+from .legacy import decode, mapped_apl, read_codingprobs
 from .pages import wayback_issue_pdfs, write_home_page, write_issue_pages
 from .links import LinkIndex
 
@@ -42,7 +42,11 @@ def run_convert(src, out):
         if not found:
             continue
         fmt, path = found
-        reason = fmt == "HTML" and mapped_apl((src / path).read_text(encoding="utf-8"), path, listed)
+        if fmt == "HTML":
+            text, how = decode((src / path).read_bytes())
+            reason = mapped_apl(text, path, listed, unicode=how == "utf-8")
+        else:
+            reason = None
         if reason:
             skipped[r["id"]] = {"source": path, "reason": reason}
         else:

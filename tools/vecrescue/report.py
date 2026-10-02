@@ -73,6 +73,25 @@ def text_check(source_doc, rendered_doc, record):
     }
 
 
+def capture_check(captured_doc, rendered_doc):
+    """Words of the old site's own rendering (captured by the Wayback
+    Machine) against ours, title excluded on both sides."""
+    a = copy.deepcopy(captured_doc.xpath('//div[@id="article"]')[0])
+    for el in a.xpath('.//h1[1]|.//p[@id="validation"]|.//ul[@id="publication"]|.//p[@class="legacy-warning"]'):
+        el.drop_tree()
+    art = copy.deepcopy(_article(rendered_doc))
+    for el in art.xpath('.//h1[1]|.//p[@class="prefix" or @class="printed"]'):
+        el.drop_tree()
+    x, y = _words(a), _words(art)
+    ops = _diff(x, y)
+    return {
+        "captured_words": len(x),
+        "differing": sum(max(i2 - i1, j2 - j1) for _, i1, i2, j1, j2 in ops),
+        "samples": [{"captured": " ".join(x[i1:i2]), "rendered": " ".join(y[j1:j2])}
+                    for _, i1, i2, j1, j2 in ops[:SAMPLES]],
+    }
+
+
 def _code_text(pre, leading_newline):
     text = pre.text_content()
     if leading_newline and text.startswith("\n"):
@@ -161,7 +180,8 @@ def run_report(src, out):
     totals = {"articles": 0, "raw_html": {}, "table_raw": {}, "notes": {},
               "text_differing_words": 0, "code_mismatched": 0,
               "images": 0, "images_broken": 0, "images_lost": 0,
-              "anchor_links_missing": 0, "links_broken": 0}
+              "anchor_links_missing": 0, "links_broken": 0,
+              "capture_checked": 0, "capture_differing_words": 0}
     for record in inventory:
         page = out / "site" / f"art{record['id']}" / "index.html"
         found = article_source(record) if record.get("id") else None
@@ -177,6 +197,8 @@ def run_report(src, out):
                "images": image_check(sdoc, rdoc, page.parent),
                "anchors": anchor_check(rdoc),
                "links": link_check(rdoc, page.parent, out / "site")}
+        if record.get("captured") and (src / record["captured"]).is_file():
+            art["capture"] = capture_check(lxml.html.fromstring((src / record["captured"]).read_bytes()), rdoc)
         articles[record["id"]] = art
         totals["articles"] += 1
         for k in ("raw_html", "table_raw", "notes"):
@@ -189,6 +211,9 @@ def run_report(src, out):
         totals["images_lost"] += max(0, im["source_images"] - im["rendered_images"])
         totals["anchor_links_missing"] += len(art["anchors"]["missing"])
         totals["links_broken"] += len(art["links"]["broken"])
+        if "capture" in art:
+            totals["capture_checked"] += 1
+            totals["capture_differing_words"] += art["capture"]["differing"]
 
     skipped_path = out / "skipped.json"
     skipped = json.loads(skipped_path.read_text(encoding="utf-8")) if skipped_path.exists() else {}
@@ -235,7 +260,9 @@ def render_markdown(report):
                for label, k in (("Images", "images"), ("Images with no file", "images_broken"),
                                 ("Images lost", "images_lost"),
                                 ("In-page links with no target", "anchor_links_missing"),
-                                ("Site links with no page or file", "links_broken"))],
+                                ("Site links with no page or file", "links_broken"),
+                                ("Articles checked against the old site's rendering", "capture_checked"),
+                                ("Words differing from the old site's rendering", "capture_differing_words"))],
              ""]
     lines += _counts_table("Not converted yet, by reason", t.get("skipped", {}), get("skipped"))
     lines += _counts_table("Passed through as raw HTML", t["raw_html"], get("raw_html"))
@@ -272,6 +299,17 @@ def render_markdown(report):
         for vid, a in unlinked:
             lines.append(f"- art{vid}: {', '.join(a['links']['broken'])}")
         lines.append("")
+    vs = sorted(((vid, a) for vid, a in arts.items() if a.get("capture", {}).get("differing")),
+                key=lambda x: -x[1]["capture"]["differing"])
+    if vs:
+        lines += ["## Differences from the old site's rendering", "",
+                  "Words in the old site's own page (captured by the Wayback Machine) that differ in ours.", ""]
+        for vid, a in vs[:30]:
+            lines.append(f"### art{vid}: {a['title']} ({a['capture']['differing']})")
+            lines.append("")
+            for s in a["capture"]["samples"]:
+                lines.append(f"- old site: `{s['captured'][:120]}` → ours: `{s['rendered'][:120]}`")
+            lines.append("")
     bad = [(vid, a) for vid, a in arts.items() if a["code"]["mismatched"]]
     if bad:
         lines += ["## Code block mismatches", ""]
