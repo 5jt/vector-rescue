@@ -83,6 +83,11 @@ def write_stub_pages(inventory, issues, pdfs, out):
     cache = json.loads(cache_path.read_text()) if cache_path.exists() else {}
     _, alias = _catalogue(issues)
     texts, results = {}, {}
+    starts = {}  # (vol, issue) → printed start pages of every indexed article
+    for r in inventory:
+        if (r.get("page") or "").isdigit():
+            k = alias.get((r.get("volume"), r.get("issue")), (r.get("volume"), r.get("issue")))
+            starts.setdefault(k, set()).add(int(r["page"]))
     notes_path = out / "notes.json"
     converted = set(json.loads(notes_path.read_text(encoding="utf-8"))) if notes_path.exists() else set()
 
@@ -96,7 +101,7 @@ def write_stub_pages(inventory, issues, pdfs, out):
             continue
         key = alias.get((r.get("volume"), r.get("issue")), (r.get("volume"), r.get("issue")))
         pdf = pdfs.get(key)
-        link, match = None, None
+        link, match, ocr = None, None, None
         if pdf and (r.get("page") or "").isdigit():
             ident = f"{pdf.name}:{pdf.stat().st_size}"
             if ident not in cache:
@@ -112,7 +117,14 @@ def write_stub_pages(inventory, issues, pdfs, out):
                                               "adjacent" if found(n - 1) or found(n + 1) else "not found")
                 match = entry["checks"][check]
                 link = f"{key[0]}/{key[1]}/{pdf.name}#page={n}"
-        stubs.write_stub(r, docs, link)
+                ocr_key = f"ocr:{check}"
+                if ocr_key not in entry["checks"]:  # its pages: to the next article, at most 20
+                    following = [p for p in starts.get(key, ()) if p > int(r["page"])]
+                    last = min(min(following) - 1 if following else 10_000, int(r["page"]) + 19)
+                    pp = pages_of(pdf)
+                    entry["checks"][ocr_key] = stubs.ocr_block(pp[n - 1:min(len(pp), last + entry["offset"])])
+                ocr = entry["checks"][ocr_key]
+        stubs.write_stub(r, docs, link, ocr if link else None)
         results[r["id"]] = {"pdf": link, "match": match}
     cache_path.write_text(json.dumps(cache, indent=1, ensure_ascii=False), encoding="utf-8")
     (out / "stubs.json").write_text(json.dumps(results, indent=1, ensure_ascii=False), encoding="utf-8")
