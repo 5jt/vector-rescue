@@ -11,11 +11,12 @@ import copy
 import re
 
 from .code import pre_block
+from .images import figure
 from .tables import table
 from .markdown import (INLINE_TAGS, escape_line_starts, inline, inline_flat,
                        raw_html)
 
-PENDING_P = {"caption", "ednote", "math", "fright", "fleft"}  # issues #6, #7
+PENDING_P = {"ednote", "math", "fright", "fleft"}  # issue #7
 TRANSPARENT_DIV = {None, "", "clear"}
 PLAIN_LIST_CLASSES = {None, "", "bullet"}
 
@@ -98,6 +99,8 @@ def _inner(el, ctx):
 
 def para(el, ctx):
     cls = set((el.get("class") or "").split())
+    if "caption" in cls:
+        return figure(el, ctx)
     if cls & PENDING_P or any(isinstance(k.tag, str) and k.tag not in INLINE_TAGS
                               for k in el.iter() if k is not el):
         return _raw(el, ctx)

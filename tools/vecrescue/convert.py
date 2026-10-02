@@ -13,6 +13,7 @@ from . import __version__
 from . import code  # noqa: F401  registers inline <code> and <tt>
 from .blocks import render_blocks
 from .head import extract_head
+from .images import localise_images
 from .inventory import xhtml_source
 
 
@@ -26,15 +27,19 @@ def front_matter(fm):
 
 
 def convert(root, record):
-    """Return (markdown, notes) for RECORD's XHTML source."""
+    """Return (markdown, notes, assets) for RECORD's XHTML source.
+
+    ASSETS maps paths relative to the page to the source files to copy.
+    """
     source = xhtml_source(record)
     doc = lxml.html.fromstring((root / source).read_bytes())
     notes = []
     fm, lead = extract_head(doc, record, notes)
+    assets = localise_images(doc, root, source, notes)
     fm["source"] = source
     fm["converter"] = f"vecrescue {__version__}"
     blocks = lead + body_blocks(doc.find("body"), notes)
-    return front_matter(fm) + "\n" + "\n\n".join(blocks) + "\n", notes
+    return front_matter(fm) + "\n" + "\n\n".join(blocks) + "\n", notes, assets
 
 
 def convert_article(root, record):

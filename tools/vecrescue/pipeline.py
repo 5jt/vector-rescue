@@ -1,6 +1,7 @@
 """Pipeline steps. Each reads from SRC (read-only) and writes under OUT."""
 
 import json
+import shutil
 from pathlib import Path
 
 from .convert import convert
@@ -23,12 +24,19 @@ def load_inventory(out):
 def run_convert(src, out):
     src, out = Path(src), Path(out)
     docs = out / "docs"
-    docs.mkdir(parents=True, exist_ok=True)
+    shutil.rmtree(docs, ignore_errors=True)  # every run starts clean
+    docs.mkdir(parents=True)
     written, notes = [], {}
     for record in load_inventory(out):
         if record["id"] and xhtml_source(record):
-            path = docs / f"art{record['id']}.md"
-            markdown, notes[record["id"]] = convert(src, record)
+            folder = docs / f"art{record['id']}"
+            folder.mkdir(exist_ok=True)
+            markdown, notes[record["id"]], assets = convert(src, record)
+            for rel, source in assets.items():
+                target = folder / rel
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(source, target)
+            path = folder / "index.md"
             path.write_text(markdown, encoding="utf-8")
             written.append(path)
     (out / "notes.json").write_text(json.dumps(notes, indent=1, ensure_ascii=False),
@@ -48,7 +56,7 @@ def _issue_key(r):
 def write_home_page(inventory, docs):
     """A plain list of converted articles, by issue. Issue #9 replaces it."""
     docs = Path(docs)
-    have = [r for r in inventory if r.get("id") and (docs / f"art{r['id']}.md").exists()]
+    have = [r for r in inventory if r.get("id") and (docs / f"art{r['id']}" / "index.md").exists()]
     lines = ["# Vector archive (development)", ""]
     current = object()
     for r in sorted(have, key=_issue_key):
