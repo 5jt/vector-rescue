@@ -57,6 +57,8 @@ def text_check(source_doc, rendered_doc, record):
     title = art.find(".//h1")
     if title is not None:
         title.drop_tree()
+    for el in art.xpath('.//p[@class="prefix" or @class="printed"]'):  # template header
+        el.drop_tree()
     b = _words(art)
     ops = _diff(a, b)
     return {
