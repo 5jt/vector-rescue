@@ -31,8 +31,10 @@ def fetch_wayback(argv):
     for name in a.sets:
         jobs = sets[name]
         pages = {u: t for u, t in jobs.items() if wayback.re.search(r"/art\d+$", u)}
+        pdfs = {u: t for u, t in jobs.items() if u.lower().endswith(".pdf")}
         n = fetcher.fetch_all(pages, accept=wayback.is_article_page)
-        n += fetcher.fetch_all({u: t for u, t in jobs.items() if u not in pages})
+        n += fetcher.fetch_all(pdfs, accept=wayback.is_complete_pdf)
+        n += fetcher.fetch_all({u: t for u, t in jobs.items() if u not in pages and u not in pdfs})
         print(f"{name}: {len(jobs)} URLs, {n} fetched now")
     for url, err in fetcher.failed.items():
         print(f"failed: {url}: {err}")
@@ -57,7 +59,7 @@ def main(argv=None):
         elif step == "convert":
             print("convert:", len(pipeline.run_convert(a.src, a.out)), "articles")
         elif step == "site":
-            print("site:", pipeline.run_site(a.src, a.out, a.config))
+            print("site:", pipeline.run_site(a.src, a.out, a.config, a.wayback if a.wayback.is_dir() else None))
         elif step == "report":
             t = run_report(a.src, a.out)["totals"]
             print(f"report: {a.out / 'report.md'}: {t['articles']} articles, "

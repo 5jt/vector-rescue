@@ -9,7 +9,7 @@ from pathlib import Path
 from .convert import convert
 from .inventory import article_source, merge_wayback, read_index, read_issues
 from .legacy import mapped_apl, read_codingprobs
-from .pages import write_home_page, write_issue_pages
+from .pages import wayback_issue_pdfs, write_home_page, write_issue_pages
 from .links import LinkIndex
 
 
@@ -65,13 +65,13 @@ def run_convert(src, out):
     return written
 
 
-def run_site(src, out, config):
+def run_site(src, out, config, wayback=None):
     """Write the home and issue pages, copy the site files from CONFIG's
     folder, and build OUT/docs into OUT/site with Zensical."""
     src, out, config = Path(src), Path(out), Path(config)
     docs = out / "docs"
     inventory, issues = load_inventory(out), read_issues(src)
-    write_issue_pages(inventory, issues, src, docs)
+    write_issue_pages(inventory, issues, src, docs, wayback_issue_pdfs(wayback) if wayback else None)
     write_home_page(inventory, issues, docs)
     shutil.copy(config, out / "zensical.toml")
     shutil.rmtree(out / "overrides", ignore_errors=True)

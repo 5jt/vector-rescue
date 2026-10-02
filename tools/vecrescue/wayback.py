@@ -68,6 +68,11 @@ def is_article_page(data):
     return b'id="article"' in data
 
 
+def is_complete_pdf(data):
+    """A whole PDF: some captures are truncated (at exactly 1 or 5 MiB)."""
+    return data.startswith(b"%PDF") and b"%%EOF" in data[-2048:]
+
+
 def target_path(url):
     """Where a capture of URL is saved, relative to sources/wayback/."""
     u = urlsplit(normalise_url(url))
@@ -171,10 +176,10 @@ def plan(inventory, cdx):
         images.update({u: t for u, t in latest_captures(rows).items()
                        if re.search(r"\.(png|jpe?g|gif|svg)$", u, re.I)})
 
-    pdfs = cdx({"url": "vector.org.uk/wp-content/uploads/*"})
+    pdfs = all_captures(cdx({"url": "vector.org.uk/wp-content/uploads/*"}))
     return {
         "index": latest_captures(cdx({"url": "archive.vector.org.uk/index.xml"})),
         "new-articles": {**{u: pages[u] for i in by_id if i not in known for u in by_id[i]}, **images},
-        "issue-pdfs": {u: t for u, t in latest_captures(pdfs).items() if u.lower().endswith(".pdf")},
+        "issue-pdfs": {u: t for u, t in pdfs.items() if u.lower().endswith(".pdf")},
         "crosscheck": {u: pages[u] for i in wanted if i in by_id for u in by_id[i]},
     }
