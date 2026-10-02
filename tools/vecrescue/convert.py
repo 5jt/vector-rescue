@@ -6,6 +6,9 @@ is lost while rules are still being written; the notes list what passed
 through.
 """
 
+import json
+import re
+
 import lxml.html
 import yaml
 
@@ -37,6 +40,25 @@ def expand_pre_tabs(doc):
     return doc
 
 
+XSL_MANGLED = re.compile(r"^(?:content/\S*?/)?(https?):/+(.+)$")
+
+
+def _captured_article(page):
+    """The article in a page the old site served, captured by the Wayback
+    Machine: the contents of div#article, with links that the old site's
+    article.xsl mangled repaired (it prefixed the article's folder to any
+    link not starting http://, so https://… became content/…/https://…)."""
+    doc = lxml.html.fromstring("<html><head></head><body></body></html>")
+    body = doc.find("body")
+    for el in page.xpath('//div[@id="article"]')[0]:
+        body.append(el)
+    for a in doc.iter("a"):
+        m = XSL_MANGLED.match(a.get("href") or "")
+        if m:
+            a.set("href", f"{m.group(1)}://{m.group(2)}")
+    return doc
+
+
 def load_source(root, fmt, path, notes):
     """Parse a source as the converter sees it: legacy HTML has its comment
     markup fixed and is normalised; a fragment is given a body."""
@@ -45,6 +67,8 @@ def load_source(root, fmt, path, notes):
         doc = lxml.html.fromstring(fix_comments(data.decode("utf-8")))
     else:
         doc = lxml.html.fromstring(data)
+    if fmt == "WAYBACK":
+        doc = _captured_article(doc)
     if doc.find("body") is None:
         page = lxml.html.fromstring("<html><head></head><body></body></html>")
         page.find("body").append(doc)
@@ -68,6 +92,10 @@ def convert(root, record, links=None):
     if links is not None:
         assets.update(localise_links(doc, root, source, links, notes))
     fm["source"] = source
+    if fmt == "WAYBACK":  # provenance: the capture it came from
+        page = (root / source).resolve()
+        manifest = json.loads((page.parents[1] / "manifest.json").read_text(encoding="utf-8"))
+        fm["wayback"] = manifest.get(f"{page.parent.name}/{page.name}", {}).get("wayback")
     fm["converter"] = f"vecrescue {__version__}"
     blocks = lead + body_blocks(doc.find("body"), notes)
     return front_matter(fm) + "\n" + "\n\n".join(blocks) + "\n", notes, assets

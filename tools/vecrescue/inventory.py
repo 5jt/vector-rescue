@@ -1,5 +1,7 @@
 """Read the PHP site's master index (index.xml) into plain records."""
 
+import os
+import re
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
@@ -62,14 +64,68 @@ def read_index(root):
 
 def article_source(record):
     """(format, path) of the source to convert: XHTML if present, else
-    HTML that is valid UTF-8; None if neither."""
-    for s in record["sources"]:
-        if s["fmt"] == "XHTML" and s["exists"]:
-            return "XHTML", s["path"]
-    for s in record["sources"]:
-        if s["fmt"] == "HTML" and s["exists"] and s["utf8"]:
-            return "HTML", s["path"]
+    HTML that is valid UTF-8, else a page captured by the Wayback Machine;
+    None if none of these."""
+    for fmt in ("XHTML", "HTML", "WAYBACK"):
+        for s in record["sources"]:
+            if s["fmt"] == fmt and s["exists"] and (fmt != "HTML" or s["utf8"]):
+                return fmt, s["path"]
     return None
+
+
+# Wayback Machine (issue #25) -------------------------------------------------
+
+def _page_record(vid, page):
+    """A record for a captured art page that no captured index lists."""
+    import lxml.html
+    doc = lxml.html.fromstring(page.read_bytes())
+    art = doc.xpath('//div[@id="article"]')[0]
+    title = art.xpath('.//*[@id="title"]') or art.findall(".//h1")
+    author = art.xpath('.//*[@id="author"]')
+    byline = " ".join(author[0].text_content().split()) if author else ""
+    byline = re.sub(r"\s*\([^)]*\)", "", re.sub(r"^(?:by|from)\s+", "", byline, flags=re.I))
+    return {"id": vid, "title": " ".join(title[0].text_content().split()) if title else None,
+            "authors": [a.strip() for a in re.split(r"\s*(?:,|&| and )\s*", byline) if a.strip()],
+            "volume": None, "issue": None, "page": None, "received": None, "online": None,
+            "metadata": "page", "in_press": _in_press(doc)}
+
+
+def _in_press(doc):
+    crumb = doc.xpath('//div[@id="result"]/*[1]')
+    return bool(crumb) and "in press" in crumb[0].text_content().lower()
+
+
+def merge_wayback(records, wayback_root, src_root):
+    """Records from the PHP tree, updated and extended from the Wayback
+    Machine: the 2021 index (issue assignments, new articles) and captured
+    art pages for articles no captured index lists."""
+    site = Path(wayback_root) / "archive.vector.org.uk"
+    if not (site / "index.xml").is_file():
+        return records
+    by_id = {r["id"]: r for r in records if r["id"]}
+
+    def source(vid):
+        page = site / f"art{vid}.html"
+        if not page.is_file():
+            return []
+        return [{"fmt": "WAYBACK", "path": os.path.relpath(page, src_root), "exists": True, "utf8": True}]
+
+    for o in read_index(site):
+        r = by_id.get(o["id"])
+        if r is None and o["id"]:
+            new = dict(o, sources=source(o["id"]), metadata="index-2021", in_press=o["volume"] is None)
+            records.append(new)
+            by_id[o["id"]] = new
+        elif r is not None and r["volume"] is None and o["volume"]:
+            r.update(volume=o["volume"], issue=o["issue"], page=o["page"], metadata="index-2021")
+    for page in sorted(site.glob("art*.html")):
+        vid = page.stem[3:]
+        if re.fullmatch(r"\d{8}", vid) and vid not in by_id:
+            rec = _page_record(vid, page)
+            rec["sources"] = source(vid)
+            records.append(rec)
+            by_id[vid] = rec
+    return records
 
 
 def xhtml_source(record):

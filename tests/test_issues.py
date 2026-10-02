@@ -75,3 +75,15 @@ def test_home_page_lists_volumes_issues_and_online_only(tmp_path):
     assert "[2&3](24/2/)" in text and "[1](25/1/)" in text
     assert "## Published online only" in text
     assert "[Online only](art5/)" in text
+
+
+def test_home_page_separates_in_press_articles(tmp_path):
+    inv = INVENTORY + [{"id": "6", "title": "Never printed", "authors": [], "volume": None,
+                        "issue": None, "page": None, "online": "2016-09-01", "in_press": True}]
+    docs = tmp_path / "docs"
+    for i in ("5", "6"):
+        (docs / f"art{i}").mkdir(parents=True)
+        (docs / f"art{i}" / "index.md").write_text("x")
+    text = write_home_page(inv, read_issues(SRC), docs).read_text(encoding="utf-8")
+    assert text.index("## Published online only") < text.index("[Online only]")
+    assert text.index("## In press, never printed") < text.index("[Never printed]")

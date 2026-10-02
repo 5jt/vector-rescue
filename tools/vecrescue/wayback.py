@@ -53,6 +53,21 @@ def latest_captures(rows):
     return out
 
 
+def all_captures(rows):
+    """{url: [timestamp, …]} of successful captures, newest first."""
+    out = {}
+    for ts, url, mime, status in (r[:4] for r in rows[1:]):
+        if status == "200" or (status == "-" and mime == "warc/revisit"):
+            out.setdefault(normalise_url(url), []).append(ts)
+    return {u: sorted(set(t), reverse=True) for u, t in out.items()}
+
+
+def is_article_page(data):
+    """A captured art page that holds an article (late captures may hold
+    the old site's error page, '0 articles found')."""
+    return b'id="article"' in data
+
+
 def target_path(url):
     """Where a capture of URL is saved, relative to sources/wayback/."""
     u = urlsplit(normalise_url(url))
@@ -84,34 +99,42 @@ class Fetcher:
                 time.sleep(self.pause * 2 ** (attempt + 1))
         raise error
 
-    def fetch_all(self, jobs):
-        """Fetch {url: timestamp}; return how many files were newly saved.
+    def fetch_all(self, jobs, accept=None):
+        """Fetch {url: timestamp or [timestamps]}; return how many files were
+        newly saved.
 
-        Several URLs (http and https, say) may save to the same file: their
-        captures are tried newest first until one succeeds.
+        Several URLs (http and https, say) and several captures may give the
+        same file: they are tried newest first until one succeeds and, if
+        ACCEPT is given, passes it. A saved file that fails ACCEPT is fetched
+        again.
         """
         by_target = {}
-        for url, ts in jobs.items():
-            by_target.setdefault(target_path(url), []).append((ts, url))
+        for url, stamps in jobs.items():
+            for ts in [stamps] if isinstance(stamps, str) else stamps:
+                by_target.setdefault(target_path(url), []).append((ts, url))
         saved = 0
         for rel, candidates in sorted(by_target.items()):
-            if rel in self.manifest and (self.root / rel).exists():
+            path = self.root / rel
+            if rel in self.manifest and path.exists() and (accept is None or accept(path.read_bytes())):
                 continue
-            data = None
+            data, error = None, None
             for ts, url in sorted(candidates, reverse=True):
                 wayback = RAW.format(ts=ts, url=url)
                 try:
-                    data = self._get(wayback)
-                    break
+                    got = self._get(wayback)
                 except Exception as e:
                     error = e
+                    continue
+                if got[:2] == b"\x1f\x8b":
+                    got = gzip.decompress(got)
+                if accept is None or accept(got):
+                    data = got
+                    break
+                error = ValueError(f"capture {ts} failed the check")
             if data is None:
                 for _, url in candidates:
                     self.failed[url] = str(error)
                 continue
-            if data[:2] == b"\x1f\x8b":
-                data = gzip.decompress(data)
-            path = self.root / rel
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(data)
             self.manifest[rel] = {"url": url, "timestamp": ts, "wayback": wayback,
@@ -135,7 +158,7 @@ def plan(inventory, cdx):
         return live and not any(s["fmt"] == "XHTML" or (s["fmt"] == "HTML" and s["utf8"]) for s in live)
 
     wanted = {r["id"] for r in inventory if r.get("id") and crosscheck(r)}
-    pages = latest_captures(cdx({"url": "archive.vector.org.uk/art*"}))
+    pages = all_captures(cdx({"url": "archive.vector.org.uk/art*"}))
     by_id = {}  # ID → every captured URL for it (http, https), for fallback
     for url in pages:
         m = re.search(r"/art(\d{8})$", url)
