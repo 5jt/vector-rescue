@@ -72,7 +72,17 @@ class Corrections:
         return found[0]["why"] if found else None
 
     def released(self, vid):
-        return any(e["release"] for e in self._entries(vid, "release"))
+        return any(e["release"] for e in self._entries(vid, "release")) or bool(self.apl(vid))
+
+    def boxes(self, vid):
+        """How to repair an article's box drawings, if they need it."""
+        found = self._entries(vid, "boxes")
+        return found[0]["boxes"] if found else None
+
+    def apl(self, vid):
+        """The mapping table for an article's APL, if it was typed in a mapped font."""
+        found = self._entries(vid, "apl")
+        return found[0]["apl"] if found else None
 
     def apply_catalogue(self, issues):
         issues = [dict(i) for i in issues]

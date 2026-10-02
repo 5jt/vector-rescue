@@ -13,6 +13,7 @@ def test_inventory_then_convert(tmp_path):
     # sources that exist, are XHTML or HTML, and have an ID are converted
     assert [str(p.relative_to(tmp_path)) for p in written] == [
         "docs/art10500650/index.md", "docs/art10014170/index.md", "docs/art10003600/index.md"]
+    # the APL2741 fixture is held back without a mapping
     assert (tmp_path / "docs" / "art10500650" / "fig1.png").read_bytes().startswith(b"\x89PNG")
 
 
@@ -73,3 +74,23 @@ articles:
     assert not (tmp_path / "docs" / "art10003600").exists()
     skipped = json.loads((tmp_path / "skipped.json").read_text())
     assert skipped["10003600"]["reason"] == "held: held for test"
+
+
+def test_apl_mapping_from_corrections(tmp_path):
+    from vecrescue.corrections import Corrections
+    c = Corrections.from_text("""
+articles:
+  "10000760":
+    - apl: apl2741
+      why: APL2741 font
+      decided: test
+""")
+    run_inventory(SRC, tmp_path)
+    run_convert(SRC, tmp_path)
+    assert json.loads((tmp_path / "skipped.json").read_text())["10000760"]["reason"] == "apl-font"
+    run_convert(SRC, tmp_path, corrections=c)
+    md = (tmp_path / "docs" / "art10000760" / "index.md").read_text(encoding="utf-8")
+    assert "Set ⎕io←0 first." in md
+    assert "vv←?365⍴12\n⊣ ⍞" in md
+    notes = json.loads((tmp_path / "notes.json").read_text())["10000760"]
+    assert {"kind": "apl-mapped", "table": "apl2741", "characters": 6} in notes

@@ -19,6 +19,7 @@ from .head import extract_head
 from .images import localise_images
 from .links import localise_links
 from .inventory import article_source
+from .aplmap import apply_mapping, load_table, repair_varch_boxes
 from .legacy import decode, fix_comments, normalise
 from .markdown import collecting
 
@@ -66,10 +67,11 @@ def load_source(root, fmt, path, notes, vid=None, corrections=None):
     is given a body."""
     data = (root / path).read_bytes()
     forced = corrections.encoding(vid) if corrections else None
+    apl = corrections.apl(vid) if corrections else None
     if forced:
         text, how = data.decode(forced, errors="replace"), forced
     elif fmt == "HTML":
-        text, how = decode(data)
+        text, how = decode(data, keep_undefined=bool(apl))
     else:
         text, how = data.decode("utf-8", errors="replace"), "utf-8"
     if how != "utf-8":
@@ -87,6 +89,13 @@ def load_source(root, fmt, path, notes, vid=None, corrections=None):
         doc = page
     if fmt == "HTML":
         normalise(doc, notes)
+    if apl:
+        apply_mapping(doc, load_table(apl), notes, apl)
+    if corrections and corrections.boxes(vid) == "varch-j":
+        for pre in doc.iter("pre"):
+            if pre.text and not len(pre):
+                pre.text = repair_varch_boxes(pre.text)
+        notes.append({"kind": "boxes-repaired", "how": "varch-j"})
     return expand_pre_tabs(doc)
 
 

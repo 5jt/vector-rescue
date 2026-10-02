@@ -10,7 +10,7 @@ def records():
 
 
 def test_reads_every_description():
-    assert len(read_index(SRC)) == 6
+    assert len(read_index(SRC)) == 7
 
 
 def test_identifier_and_publication():

@@ -95,3 +95,19 @@ articles:
         'A<a name="ref1"> </a>B<a name="ref2"> </a>C'
     assert notes[0]["kind"] == "corrected"
     assert c.apply_text("1", 'A<a name="ref1"> </a>B', []) == 'A<a name="ref1"> </a>B'
+
+
+def test_apl_mapping_entry_also_releases():
+    c = Corrections.from_text("""
+articles:
+  "1":
+    - apl: apl2741
+      why: w
+      decided: d
+""")
+    assert c.apl("1") == "apl2741" and c.released("1") and c.apl("2") is None
+
+
+def test_boxes_entry():
+    c = Corrections.from_text('articles:\n  "1":\n    - boxes: varch-j\n      why: w\n      decided: d\n')
+    assert c.boxes("1") == "varch-j" and c.boxes("2") is None

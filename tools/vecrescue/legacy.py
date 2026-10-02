@@ -15,11 +15,16 @@ UNWRAP_DIV_IDS = {"wrapper", "pageblock"}
 UNWRAP_DIV_CLASSES = {"section1", "liner", "wordsection1"}
 
 
-def decode(data):
+PRIVATE = 0xF700  # undefined Windows-1252 bytes kept as U+F780–U+F7FF
+
+
+def decode(data, keep_undefined=False):
     """Text of a legacy source, and how it was decoded: 'utf-8'; 'cp1252'
     (Windows-1252, as lib/present.php assumed); or 'mixed', where valid UTF-8
     is kept and only the bytes that are not valid UTF-8 are read as
-    Windows-1252. Bytes Windows-1252 leaves undefined become U+FFFD."""
+    Windows-1252. Bytes Windows-1252 leaves undefined become U+FFFD, or with
+    KEEP_UNDEFINED, private-use characters that keep the byte (for mapped
+    APL fonts, which put symbols there)."""
     try:
         return data.decode("utf-8"), "utf-8"
     except UnicodeDecodeError:
@@ -39,7 +44,7 @@ def decode(data):
             try:
                 out.append(bad.decode("cp1252"))
             except UnicodeDecodeError:
-                out.append("\ufffd")
+                out.append(chr(PRIVATE + bad[0]) if keep_undefined else "\ufffd")
             i += e.start + 1
     return "".join(out), "mixed" if utf8_seen else "cp1252"
 
