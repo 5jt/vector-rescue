@@ -29,8 +29,11 @@ def fetch_wayback(argv):
 
     sets = wayback.plan(inventory, cdx)
     for name in a.sets:
-        n = fetcher.fetch_all(sets[name])
-        print(f"{name}: {len(sets[name])} captures, {n} fetched now")
+        jobs = sets[name]
+        pages = {u: t for u, t in jobs.items() if wayback.re.search(r"/art\d+$", u)}
+        n = fetcher.fetch_all(pages, accept=wayback.is_article_page)
+        n += fetcher.fetch_all({u: t for u, t in jobs.items() if u not in pages})
+        print(f"{name}: {len(jobs)} URLs, {n} fetched now")
     for url, err in fetcher.failed.items():
         print(f"failed: {url}: {err}")
 

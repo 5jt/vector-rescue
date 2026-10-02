@@ -126,3 +126,27 @@ def test_when_one_capture_of_a_file_fails_another_is_tried(tmp_path):
     assert f.failed == {}
     m = json.loads((tmp_path / "manifest.json").read_text())
     assert m["archive.vector.org.uk/art10501750.html"]["timestamp"] == "2017"
+
+
+def test_captures_newest_first():
+    from vecrescue.wayback import all_captures
+    assert all_captures(ROWS)["http://archive.vector.org.uk/art10501610"] == ["20180101000000", "20160214064447"]
+
+
+def test_a_capture_that_fails_the_check_falls_back_to_an_older_one(tmp_path):
+    pages = {"2021": b"<div>0 articles found</div>", "2017": b'<div id="article">ok</div>'}
+    def get(url):
+        return pages[url.split("/web/")[1][:4]]
+    f = Fetcher(tmp_path, get=get, pause=0, retries=1)
+    article = lambda data: b'id="article"' in data
+    assert f.fetch_all({"http://archive.vector.org.uk/art10501750": ["2021", "2017"]}, accept=article) == 1
+    assert (tmp_path / "archive.vector.org.uk/art10501750.html").read_bytes() == pages["2017"]
+
+
+def test_a_saved_file_that_fails_the_check_is_fetched_again(tmp_path):
+    (tmp_path / "archive.vector.org.uk").mkdir()
+    (tmp_path / "archive.vector.org.uk/art1.html").write_bytes(b"0 articles found")
+    (tmp_path / "manifest.json").write_text(json.dumps({"archive.vector.org.uk/art1.html": {"timestamp": "2021"}}))
+    f = Fetcher(tmp_path, get=lambda url: b'<div id="article">ok</div>', pause=0)
+    assert f.fetch_all({"http://archive.vector.org.uk/art1": ["2017"]},
+                       accept=lambda d: b'id="article"' in d) == 1
