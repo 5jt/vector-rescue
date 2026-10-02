@@ -125,10 +125,13 @@ def write_home_page(inventory, issues, docs):
         ys = sorted(y for y in years if y)
         span = "" if not ys else ys[0] if ys[0] == ys[-1] else f"{ys[0]}–{ys[-1]}"
         lines.append(f"- Volume {vol}" + (f" ({span})" if span else "") + ": " + " · ".join(links))
-    online = [r for r in inventory if r.get("id") and not r.get("volume") and _converted(docs, r["id"])]
-    if online:
-        lines += ["", "## Published online only", ""]
-        for r in sorted(online, key=lambda r: r.get("online") or ""):
+    unprinted = [r for r in inventory if r.get("id") and not r.get("volume") and _converted(docs, r["id"])]
+    for heading, group in (("Published online only", [r for r in unprinted if not r.get("in_press")]),
+                           ("In press, never printed", [r for r in unprinted if r.get("in_press")])):
+        if not group:
+            continue
+        lines += ["", f"## {heading}", ""]
+        for r in sorted(group, key=lambda r: (r.get("online") or "9999", r["id"])):
             who = ", ".join(r.get("authors") or [])
             lines.append(f"- [{_cell(r['title'])}](art{r['id']}/)" + (f", {escape(who)}" if who else "")
                          + (f" ({r['online']})" if r.get("online") else ""))

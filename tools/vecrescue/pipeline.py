@@ -7,18 +7,20 @@ import sys
 from pathlib import Path
 
 from .convert import convert
-from .inventory import article_source, read_index, read_issues
+from .inventory import article_source, merge_wayback, read_index, read_issues
 from .legacy import mapped_apl, read_codingprobs
 from .pages import write_home_page, write_issue_pages
 from .links import LinkIndex
 
 
-def run_inventory(src, out):
+def run_inventory(src, out, wayback=None):
     out = Path(out)
     out.mkdir(parents=True, exist_ok=True)
+    records = read_index(src)
+    if wayback is not None:
+        records = merge_wayback(records, wayback, src)
     path = out / "inventory.json"
-    path.write_text(json.dumps(read_index(src), indent=1, ensure_ascii=False),
-                    encoding="utf-8")
+    path.write_text(json.dumps(records, indent=1, ensure_ascii=False), encoding="utf-8")
     return path
 
 
