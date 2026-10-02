@@ -16,8 +16,8 @@ A capture is fetched unmodified by adding `id_` to its timestamp, e.g. `https://
 1. **The archive did not stop in mid-2016.** A capture of `index.xml` (30 Aug 2021) has 1,500 records, 15 more than our copy: Vol. 26 No. 4 was assembled (9 new articles, plus the 11 we had as "online only"), and 6 "in press" articles for Vol. 27 were added May–Nov 2016. Pages for 4 more articles (IDs 10501740–10501770, 2017–2018) were captured although no captured index lists them. Captures of `index.xml` in 2022–2025 are identical to 2021's.
 2. **Those 19 articles can be recovered** from their captured `art` pages, which hold the article in a clean `div#article`; most of their images were captured too. Their `.htm` sources were not.
 3. **186 more captured `art` pages** are for articles we have but have not converted: 162 non-UTF-8 `trad/` articles, which the old site served transcoded to UTF-8 (a cross-check for our own conversion; mapped APL is still wrong in them), and 24 with only a PDF source.
-4. **Whole-issue PDFs from 1984 onwards.** The WordPress site published issue PDFs under `wp-content/uploads/2022/07/` (`VOL.1-NO.1-MAY-1984.pdf` …) and `2024/06/`; 99 PDF captures, about 350 MB: every issue of volumes 1–23 except **2:2 and 7:2**, `Vector264.pdf` (Vol. 26 No. 4, missing from our tree), and copies of the 24–26 PDFs we have.
-5. **The WordPress site (2017 on):** about 229 captured posts and pages (some duplicated with `-2` slugs), plus author, tag and category listings (`/category/v26no4/`, `/category/in-press/`, …). A fallback for blocker B1 if the database export never arrives.
+4. **Whole-issue PDFs from 1984 onwards,** published on vector.org.uk: they were uploaded to its WordPress site under `wp-content/uploads/2022/07/` (`VOL.1-NO.1-MAY-1984.pdf` …) and `2024/06/`; 99 PDF captures, about 350 MB: every issue of volumes 1–23 except **2:2 and 7:2**, `Vector264.pdf` (Vol. 26 No. 4, missing from our tree), and copies of the 24–26 PDFs we have.
+5. **WordPress posts (2017 on):** about 229 captured posts and pages (some duplicated with `-2` slugs), plus author, tag and category listings (`/category/v26no4/`, `/category/in-press/`, …). A fallback for blocker B1 if the database export never arrives.
 
 ## 1. archive.vector.org.uk
 
@@ -58,9 +58,11 @@ Of the 704 `art` IDs captured, 646 are in our index (432 converted, 21 held back
 
 The 2021 index also moves our 11 "online only" articles into 26:4 (source paths `content/printed/264/…`), and the in-press articles' sources are in `content/printed/271/`. Captured images exist for most of them (`content/printed/264/…`, `content/printed/271/…`), including articles not yet listed (`271/dyalogum16/`, `271/ltl_automata/`).
 
-## 2. vector.org.uk (WordPress, from 2017)
+## 2. vector.org.uk (the WordPress site, from 2017)
 
-- Issue PDFs as above. Missing from the captures: Vol. 2 No. 2 and Vol. 7 No. 2.
+Two hosts were captured: `archive.vector.org.uk` served the PHP site (captured 2011–2025; everything above in §1 comes from it), and `vector.org.uk` served a Google Sites page in 2016 and the WordPress site from 2017. Only the PDFs and posts below come from `vector.org.uk`.
+
+- Issue PDFs as above, uploaded in July 2022 (volumes 1–23) and June 2024 (24–26). Some predate their upload: `Vector264.pdf` was generated on 24 June 2016, in the PHP era; the 24–26 files are byte-identical to the PHP tree's `issues/`. Missing from the captures: Vol. 2 No. 2 and Vol. 7 No. 2; only truncated captures of 3:4, 7:4, 16:4 and 21:4 (8:1 was recovered from another capture).
 - About 229 posts and pages captured between 2019 and 2026, with listings by author, tag and category; categories include `v25no3`, `v26no2`, `v26no4`, `in-press`, `journal`.
 - The Google Sites period (2016) was not examined.
 
