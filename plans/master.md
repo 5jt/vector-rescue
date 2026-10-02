@@ -16,14 +16,17 @@ Revised 2026-10-02 (evening), after the Wayback survey. Earlier revisions follow
 
 ## Where we are
 
+Updated 2026-10-02 (late).
+
 | | Status |
 |---|---|
-| Pipeline | `make all`: inventory → convert → site → report. 273 tests. |
-| Articles converted | 432 of 1,484 indexed: all XHTML (vols 24–26, online-only) and the valid-UTF-8 `trad/` HTML (vols 1–23). |
-| Run report | 0 code mismatches, 0 images lost; 36 differing words, all explained (made-up tags shown as text, source typos, check artefacts). |
-| Site | Issue pages for all 100 catalogued issues; development build at https://5jt.github.io/vector-rescue/ (`make publish`). |
-| Held back | 21 `trad/` articles with mapped APL; 162 non-UTF-8 `trad/` articles; 24 PDF-only articles; 838 metadata-only records. |
-| Sources | PHP tree (`sources/sjt/Vector`, to mid-2016); Wayback captures in `sources/wayback/` (#24). |
+| Pipeline | `make all`: inventory → convert → site → report. 339 tests. |
+| Articles converted | 630 of 1,503 records (1,484 in the PHP index, 19 recovered from the Wayback Machine): XHTML (vols 24–26, 26:4, in press); `trad/` HTML in UTF-8, Windows-1252 and mapped APL (vols 1–23). |
+| Run report | 0 code mismatches, 0 images lost; 89 differing words, all explained (made-up tags shown as text, source typos); 158 articles also checked against the old site's own rendering. |
+| Site | All 100+ issue pages, 96 with whole-issue PDFs; development build at https://5jt.github.io/vector-rescue/ (`make publish`). APL in APL387 Unicode. |
+| Held back | 4 articles (#34: Langlet, De Kerf, smith104; dueren113 encoding). |
+| Not online | ~840 index records with no text (mostly vols 1–21): the issue PDFs are their only source. |
+| Editorial review | #34 (uncertain code points, other mappings), #35 (symbol names in braces); proposed corrections in `corrections.yaml` marked "proposed by Claude". |
 
 ## What we know (from the surveys)
 
@@ -53,11 +56,10 @@ Revised 2026-10-02 (evening), after the Wayback survey. Earlier revisions follow
 
 Filetree surveys, the XHTML target survey, the Zensical trial, the canonical inventory (`build/inventory.json`), the run report (#10). Wayback survey: `surveys/wayback-survey.md`.
 
-### 3. Convert what the PHP tree holds as text: done for UTF-8; non-UTF-8 next
+### 3. Convert what the PHP tree holds as text: done
 
-- Done: XHTML (#1–#8) and valid-UTF-8 `trad/` HTML (#21).
-- Next: the 163 non-UTF-8 `trad/` articles, decoded as Windows-1252 and checked against the old site's own captured rendering (#27).
-- Corrections file for source defects (#23).
+- XHTML (#1–#8); valid-UTF-8 `trad/` HTML (#21); non-UTF-8, decoded as Windows-1252 and checked against the old site's rendering (#27); mapped APL via `mappings/apl2741.tsv` (#33).
+- Curated corrections for source defects (#23, `corrections.yaml`); editorial questions in #34, #35.
 
 ### 4. Generate the site and review it on GitHub Pages: done, ongoing
 
@@ -66,9 +68,9 @@ Filetree surveys, the XHTML target survey, the Zensical trial, the canonical inv
 
 ### 5. Widen the content
 
-- **Wayback-recovered articles:** Vol. 26 No. 4, the in-press articles and the 2017–18 additions (#25), using the 2021 index for metadata.
+- **Wayback-recovered articles:** done (#25): Vol. 26 No. 4, in-press articles, 2017–18 additions.
 - **WordPress content (B1, or its Wayback fallback):** 2017–2022 articles; compare duplicates with the PHP-era versions and rule article by article.
-- **Mapped APL:** the 21 held-back `trad/` articles and any others found; APL2741 and APL385 mappings, with human review.
+- **Mapped APL:** done (#33) apart from the articles in #34.
 - **Volumes 1–21 from the issue PDFs:** check whether they are scans or text; if text, a source for the 838 metadata-only records; otherwise at least every issue is readable as a PDF.
 - **Word documents:** the five `.doc` files (one is really HTML); any further Word issues; Ian Clark's converted versions if they can be found.
 - **Unindexed material:** review the unindexed candidate files in `trad/` and `content/`.
