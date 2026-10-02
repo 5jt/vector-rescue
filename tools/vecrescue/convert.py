@@ -14,6 +14,7 @@ from . import code  # noqa: F401  registers inline <code> and <tt>
 from .blocks import render_blocks
 from .head import extract_head
 from .images import localise_images
+from .links import localise_links
 from .inventory import xhtml_source
 from .markdown import collecting
 
@@ -28,16 +29,19 @@ def front_matter(fm):
     return f"---\n{text}---\n"
 
 
-def convert(root, record):
+def convert(root, record, links=None):
     """Return (markdown, notes, assets) for RECORD's XHTML source.
 
     ASSETS maps paths relative to the page to the source files to copy.
+    LINKS, a LinkIndex, enables rewriting links to the old site.
     """
     source = xhtml_source(record)
     doc = lxml.html.fromstring((root / source).read_bytes())
     notes = []
     fm, lead = extract_head(doc, record, notes)
     assets = localise_images(doc, root, source, notes)
+    if links is not None:
+        assets.update(localise_links(doc, root, source, links, notes))
     fm["source"] = source
     fm["converter"] = f"vecrescue {__version__}"
     blocks = lead + body_blocks(doc.find("body"), notes)

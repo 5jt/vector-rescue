@@ -118,3 +118,17 @@ def test_anchor_check_lists_in_page_links_with_no_target():
                    '<a href="#ref1">1</a><a href="#ref2">2</a><a href="#intro">i</a>'
                    '<a name="old"></a><a href="#old">o</a><a href="#">top</a></article></body></html>')
     assert anchor_check(rendered) == {"links": 4, "missing": ["#ref2"]}
+
+
+def test_link_check(tmp_path):
+    from vecrescue.report import link_check
+    site = tmp_path / "site"
+    (site / "art1").mkdir(parents=True)
+    (site / "art2").mkdir()
+    (site / "art2" / "index.html").write_text("x")
+    (site / "art1" / "f.zip").write_bytes(b"z")
+    rendered = doc('<html><body><article><a href="../art2/">ok</a><a href="../art2/#r">ok</a>'
+                   '<a href="../art3/">no</a><a href="f.zip">ok</a><a href="../24/1/">no</a>'
+                   '<a href="http://x.org">ext</a><a href="#r">in-page</a></article></body></html>')
+    assert link_check(rendered, site / "art1", site) == {
+        "links": 5, "broken": ["../art3/", "../24/1/"]}

@@ -6,6 +6,7 @@ from pathlib import Path
 
 from .convert import convert
 from .inventory import read_index, xhtml_source
+from .links import LinkIndex
 
 
 def run_inventory(src, out):
@@ -27,18 +28,20 @@ def run_convert(src, out):
     shutil.rmtree(docs, ignore_errors=True)  # every run starts clean
     docs.mkdir(parents=True)
     written, notes = [], {}
-    for record in load_inventory(out):
-        if record["id"] and xhtml_source(record):
-            folder = docs / f"art{record['id']}"
-            folder.mkdir(exist_ok=True)
-            markdown, notes[record["id"]], assets = convert(src, record)
-            for rel, source in assets.items():
-                target = folder / rel
-                target.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copyfile(source, target)
-            path = folder / "index.md"
-            path.write_text(markdown, encoding="utf-8")
-            written.append(path)
+    inventory = load_inventory(out)
+    todo = [r for r in inventory if r["id"] and xhtml_source(r)]
+    links = LinkIndex.from_inventory(inventory, {r["id"] for r in todo})
+    for record in todo:
+        folder = docs / f"art{record['id']}"
+        folder.mkdir(exist_ok=True)
+        markdown, notes[record["id"]], assets = convert(src, record, links)
+        for rel, source in assets.items():
+            target = folder / rel
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(source, target)
+        path = folder / "index.md"
+        path.write_text(markdown, encoding="utf-8")
+        written.append(path)
     (out / "notes.json").write_text(json.dumps(notes, indent=1, ensure_ascii=False),
                                     encoding="utf-8")
     return written

@@ -116,6 +116,23 @@ def anchor_check(rendered_doc):
     return {"links": len(hrefs), "missing": [h for h in hrefs if h[1:] not in targets]}
 
 
+def link_check(rendered_doc, page_dir, site_dir):
+    """Local links on the page, and those that resolve to no file in the site."""
+    page_dir, site_dir = Path(page_dir).resolve(), Path(site_dir).resolve()
+    hrefs = [a.get("href") for a in _article(rendered_doc).iter("a")
+             if a.get("href") and not re.match(r"^(?:[a-z][a-z0-9+.-]*:|#)", a.get("href"), re.I)
+             and "headerlink" not in (a.get("class") or "")]
+    broken = []
+    for h in hrefs:
+        path = h.split("#")[0].split("?")[0]
+        target = (page_dir / path).resolve()
+        if path.endswith("/") or target.is_dir():
+            target = target / "index.html"
+        if not (target.is_file() and site_dir in target.parents):
+            broken.append(h)
+    return {"links": len(hrefs), "broken": broken}
+
+
 def _summarise(notes):
     return {
         "raw_html": dict(Counter(n["tag"] + (f' ({n["reason"]})' if n.get("reason") else "")
@@ -139,7 +156,7 @@ def run_report(src, out):
     totals = {"articles": 0, "raw_html": {}, "table_raw": {}, "notes": {},
               "text_differing_words": 0, "code_mismatched": 0,
               "images": 0, "images_broken": 0, "images_lost": 0,
-              "anchor_links_missing": 0}
+              "anchor_links_missing": 0, "links_broken": 0}
     for record in inventory:
         page = out / "site" / f"art{record['id']}" / "index.html"
         source = xhtml_source(record) if record.get("id") else None
@@ -152,7 +169,8 @@ def run_report(src, out):
                "text": text_check(sdoc, rdoc, record),
                "code": code_check(sdoc, rdoc),
                "images": image_check(sdoc, rdoc, page.parent),
-               "anchors": anchor_check(rdoc)}
+               "anchors": anchor_check(rdoc),
+               "links": link_check(rdoc, page.parent, out / "site")}
         articles[record["id"]] = art
         totals["articles"] += 1
         for k in ("raw_html", "table_raw", "notes"):
@@ -164,6 +182,7 @@ def run_report(src, out):
         totals["images_broken"] += len(im["broken"])
         totals["images_lost"] += max(0, im["source_images"] - im["rendered_images"])
         totals["anchor_links_missing"] += len(art["anchors"]["missing"])
+        totals["links_broken"] += len(art["links"]["broken"])
 
     path, prev_path = out / "report.json", out / "report.prev.json"
     previous = None
@@ -205,7 +224,8 @@ def render_markdown(report):
              *[f"| {label} | {t.get(k, 0)} | {_change(t.get(k, 0), get(k))} |"
                for label, k in (("Images", "images"), ("Images with no file", "images_broken"),
                                 ("Images lost", "images_lost"),
-                                ("In-page links with no target", "anchor_links_missing"))],
+                                ("In-page links with no target", "anchor_links_missing"),
+                                ("Site links with no page or file", "links_broken"))],
              ""]
     lines += _counts_table("Passed through as raw HTML", t["raw_html"], get("raw_html"))
     lines += _counts_table("Tables kept as raw HTML, by reason", t["table_raw"], get("table_raw"))
@@ -234,6 +254,12 @@ def render_markdown(report):
         lines += ["## In-page links with no target", ""]
         for vid, a in dangling:
             lines.append(f"- art{vid}: {', '.join(a['anchors']['missing'])}")
+        lines.append("")
+    unlinked = [(vid, a) for vid, a in arts.items() if a.get("links", {}).get("broken")]
+    if unlinked:
+        lines += ["## Site links with no page or file", ""]
+        for vid, a in unlinked:
+            lines.append(f"- art{vid}: {', '.join(a['links']['broken'])}")
         lines.append("")
     bad = [(vid, a) for vid, a in arts.items() if a["code"]["mismatched"]]
     if bad:
