@@ -7,6 +7,7 @@ PDF page and printed page is found from the page numbers in the OCR, and
 the title is looked for on the computed page as a check.
 """
 
+import html
 import re
 import subprocess
 from collections import Counter
@@ -56,7 +57,23 @@ def title_on_page(title, text):
 CHECK_RULE = "v2"  # change when title_on_page changes, to discard cached results
 
 
-def write_stub(record, docs, pdf=None):
+OCR_SUMMARY = ("Unedited OCR text, machine-read from the scan: it contains errors, "
+               "and its APL is wrong. Shown for searching; read the PDF.")
+
+
+def ocr_block(pages):
+    """The OCR text of PAGES, folded away in a closed <details> section:
+    one <p> per paragraph, column spacing collapsed, HTML escaped."""
+    paras = []
+    for page in pages:
+        for chunk in re.split(r"\n\s*\n", page):
+            text = " ".join(" ".join(line.split()) for line in chunk.splitlines() if line.strip())
+            if text:
+                paras.append(f"<p>{html.escape(text, quote=False)}</p>")
+    return "\n".join([f'<details class="ocr">\n<summary>{OCR_SUMMARY}</summary>', *paras, "</details>"])
+
+
+def write_stub(record, docs, pdf=None, ocr=None):
     """docs/art<ID>/index.md for a record with no text. PDF is the issue PDF's
     path from the site root, with #page=N."""
     fm = {"vid": record["id"], "title": record["title"] or f"Article {record['id']}"}
@@ -73,6 +90,8 @@ def write_stub(record, docs, pdf=None):
     if pdf:
         page = f", page {record['page']}" if record.get("page") else ""
         lines += ["", f"[Read it in the PDF of the issue{page}](../{pdf})"]
+    if ocr:
+        lines += ["", ocr]
     path = Path(docs) / f"art{record['id']}" / "index.md"
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")

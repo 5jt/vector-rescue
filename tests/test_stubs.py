@@ -54,3 +54,18 @@ def test_stub_pages_are_rewritten_on_every_site_run(tmp_path):
     assert list(results) == ["2"]
     assert (docs / "art1" / "index.md").read_text() == "converted"
     assert "not yet online" in (docs / "art2" / "index.md").read_text()
+
+
+def test_ocr_text_is_folded_away_and_escaped(tmp_path):
+    from vecrescue.stubs import ocr_block
+    pages = ["  VECTOR      Vol.10 No.1\n\nThisis the ratio   that matters\nnot so muchthefact.\n\n   3°20 FYAIL F  <b>\n", "Next page."]
+    block = ocr_block(pages)
+    assert block.startswith('<details class="ocr">\n<summary>Unedited OCR text')
+    assert "<p>Thisis the ratio that matters not so muchthefact.</p>" in block
+    assert "<p>3°20 FYAIL F &lt;b&gt;</p>" in block and "<p>Next page.</p>" in block
+    assert block.endswith("</details>")
+
+
+def test_stub_includes_the_ocr_block(tmp_path):
+    text = write_stub(RECORD, tmp_path, pdf="1/1/x.pdf#page=67", ocr="<details>…</details>").read_text()
+    assert text.rstrip().endswith("<details>…</details>")
