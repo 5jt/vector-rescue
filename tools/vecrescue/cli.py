@@ -1,11 +1,12 @@
-"""Command line: vecrescue {inventory,convert,site,all} [--src DIR] [--out DIR]."""
+"""Command line: vecrescue {inventory,convert,site,report,all} [--src DIR] [--out DIR]."""
 
 import argparse
 from pathlib import Path
 
 from . import pipeline
+from .report import run_report
 
-STEPS = ("inventory", "convert", "site")
+STEPS = ("inventory", "convert", "site", "report")
 
 
 def main(argv=None):
@@ -22,6 +23,12 @@ def main(argv=None):
             print("convert:", len(pipeline.run_convert(a.src, a.out)), "articles")
         elif step == "site":
             print("site:", pipeline.run_site(a.out, a.config))
+        elif step == "report":
+            t = run_report(a.src, a.out)["totals"]
+            print(f"report: {a.out / 'report.md'}: {t['articles']} articles, "
+                  f"{t['text_differing_words']} differing words, "
+                  f"{t['code_mismatched']} code blocks mismatched, "
+                  f"{sum(t['raw_html'].values())} raw-HTML blocks")
 
 
 if __name__ == "__main__":

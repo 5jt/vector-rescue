@@ -13,6 +13,7 @@ from .markdown import inline
 DROP = ('//ul[@id="publication"]', '//p[@id="validation"]')
 META = ("received", "online", "editor", "description", "keywords")
 CHECK = ("vid", "volume", "issue", "page")
+REPEATABLE = ("subtitle", "abstract")
 HEAD_ONLY = ("meta", "title", "link")  # belong in <head>; stray markup can push them into <body>
 BODY_START = ("p", "h2", "h3", "h4", "h5", "h6", "pre", "ul", "ol", "dl",
               "table", "blockquote", "figure")
@@ -51,7 +52,11 @@ def _meta(doc):
             for m in doc.iter("meta") if m.get("name")}
 
 
-def extract_head(doc, record, notes):
+def extract_head(doc, record, notes, removed=None):
+    """Remove the head block from DOC; return (front matter, lead blocks).
+
+    If REMOVED is a list, (kind, element) pairs are appended to it.
+    """
     for xpath in DROP:
         for el in doc.xpath(xpath):
             el.getparent().remove(el)
@@ -78,12 +83,14 @@ def extract_head(doc, record, notes):
             else:
                 break
             notes.append({"kind": f"unmarked-h1-as-{kind}", "text": _text(el)})
-        if kind == "subtitle":
+        if kind in REPEATABLE:
             found.setdefault(kind, []).append(el)
         elif kind in found:
             break
         else:
             found[kind] = el
+        if removed is not None:
+            removed.append((kind, el))
         body.remove(el)
 
     fm = {"vid": record["id"], "title": record["title"]}
@@ -105,8 +112,9 @@ def extract_head(doc, record, notes):
             value = [w.strip() for w in value.split(",") if w.strip()]
         if value:
             fm[k] = value
-    if "abstract" in found and _text(found["abstract"]):
-        fm["abstract"] = _text(found["abstract"])
+    abstract = " ".join(t for t in map(_text, found.get("abstract", [])) if t)
+    if abstract:
+        fm["abstract"] = abstract
 
     def lead_para(el, cls):
         md = inline(el)
@@ -117,8 +125,7 @@ def extract_head(doc, record, notes):
         lead_para(el, "subtitle")
     if "byline" in found:
         lead_para(found["byline"], "byline")
-    if "abstract" in found:
-        el = found["abstract"]
+    for el in found.get("abstract", []):
         for p in (el.findall("p") if el.tag == "div" else [el]):
             lead_para(p, "abstract")
 

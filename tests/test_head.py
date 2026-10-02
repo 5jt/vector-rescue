@@ -132,3 +132,20 @@ def test_empty_byline_and_abstract_leave_no_lead_paragraph():
     fm, lead, _, _ = run('<h1 id="title">T</h1><h1 id="author"> </h1><p id="abstract"> </p>')
     assert lead == []
     assert "byline" not in fm and "abstract" not in fm
+
+
+def test_consecutive_abstract_paragraphs_are_all_abstract():
+    fm, lead, rest, _ = run('<h1 id="title">T</h1><p class="abstract">One.</p>'
+                            '<p class="abstract">Two.</p>')
+    assert fm["abstract"] == "One. Two."
+    assert lead == ["One.\n{ .abstract }", "Two.\n{ .abstract }"]
+    assert rest == ["p"]
+
+
+def test_removed_lists_exactly_what_was_taken_out():
+    doc = lxml.html.fromstring('<html><body><h1 id="title">T</h1><h1 id="author">A</h1>'
+                               '<h1 id="author">B</h1><p>x</p></body></html>')
+    removed = []
+    extract_head(doc, RECORD, [], removed)
+    assert [k for k, _ in removed] == ["title", "byline"]
+    assert [el.tag for el in doc.find("body")] == ["h1", "p"]

@@ -168,3 +168,13 @@ def test_emphasis_of_punctuation_alone_stays_raw():
 def test_markdown_characters_inside_inline_raw_html_are_escaped():
     assert inline(frag('<p><code>GetFiles("*.*",<br/>x)</code></p>')) == \
         '<code>GetFiles("\\*.\\*",<br>x)</code>'
+
+
+def test_list_item_starting_with_code_puts_the_fence_on_its_own_line():
+    assert md("<ul><li><pre>\ncode</pre><p>after</p></li><li>x</li></ul>") == \
+        "- \n    ```\n    code\n    ```\n\n    after\n\n- x"
+
+
+def test_definition_starting_with_code_puts_the_fence_on_its_own_line():
+    assert md("<dl><dt>T</dt><dd><pre>\ncode</pre><p>after</p></dd></dl>") == \
+        "T\n:   \n    ```\n    code\n    ```\n\n    after"

@@ -1,5 +1,6 @@
 """Issue #3: <pre> blocks and inline <code>."""
 
+import copy
 import re
 
 from .markdown import INLINE_RULES, raw_html, raw_inline, ws
@@ -15,11 +16,42 @@ def _longest_backticks(text):
     return max((len(m) for m in re.findall(r"`+", text)), default=0)
 
 
+def _text_slots(el):
+    """(element, "text" | "tail") pairs in document order under EL."""
+    yield el, "text"
+    for child in el:
+        if isinstance(child.tag, str):
+            yield from _text_slots(child)
+        yield child, "tail"
+
+
+def _expand_tabs(pre):
+    """A copy of PRE with tabs expanded to TAB_WIDTH columns, counting
+    columns across child elements. Python-Markdown would use 4."""
+    pre = copy.deepcopy(pre)
+    col = 0
+    for el, slot in _text_slots(pre):
+        text = getattr(el, slot)
+        if not text:
+            continue
+        out = []
+        for ch in text:
+            if ch == "\t":
+                n = TAB_WIDTH - col % TAB_WIDTH
+                out.append(" " * n)
+                col += n
+            else:
+                out.append(ch)
+                col = 0 if ch == "\n" else col + 1
+        setattr(el, slot, "".join(out))
+    return pre
+
+
 def pre_block(el, notes):
     tags = _element_children(el)
     if tags:
         notes.append({"kind": "pre-raw-html", "tags": tags})
-        return raw_html(el)
+        return raw_html(_expand_tabs(el))
     text = el.text_content()
     if text.startswith("\r\n"):
         text = text[2:]

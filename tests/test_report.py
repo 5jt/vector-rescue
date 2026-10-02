@@ -1,0 +1,101 @@
+"""Issue #10: the run report."""
+
+import json
+
+import lxml.html
+
+from vecrescue.report import code_check, text_check, run_report, render_markdown
+
+SOURCE = """<html><body>
+<ul id="publication"><li>Draft</li></ul>
+<h1 class="prefix">Series</h1>
+<h1 id="title">Page title</h1>
+<h1 id="author">by A. Author</h1>
+<p>One<br/>two <em>three</em>.</p>
+<table><tr><td>Cell</td><td>Next</td></tr></table>
+<pre>
+  x←⍳10
+\ty</pre>
+<p id="validation"><a href="v">&#160;</a></p>
+</body></html>"""
+
+RENDERED = """<html><body><article>
+<h1 id="__skip">Index title<a class="headerlink" href="#x">¶</a></h1>
+<p class="byline">by A. Author</p>
+<p>One<br>two <em>three</em>.</p>
+<table><tr><td>Cell</td>\n<td>Next</td></tr></table>
+<div class="highlight"><pre><span></span><code><span><a id="l1"></a>  x←⍳10
+</span><span><a id="l2"></a>        y
+</span></code></pre></div>
+</article></body></html>"""
+
+RECORD = {"id": "1", "title": "Index title", "authors": [], "volume": None,
+          "issue": None, "page": None, "received": None, "online": None}
+
+
+def doc(html):
+    return lxml.html.fromstring(html)
+
+
+def test_text_check_ignores_title_prefix_furniture_breaks_and_cells():
+    r = text_check(doc(SOURCE), doc(RENDERED), RECORD)
+    assert r["differing"] == 0
+    assert r["source_words"] == r["rendered_words"] == 10
+
+
+def test_text_check_reports_lost_and_added_words():
+    rendered = RENDERED.replace("two <em>three</em>", "two <em>four</em> extra")
+    r = text_check(doc(SOURCE), doc(rendered), RECORD)
+    assert r["differing"] == 2
+    assert r["samples"] == [{"source": "three.", "rendered": "four extra."}]
+
+
+def test_code_check_matches_after_normalisation():
+    r = code_check(doc(SOURCE), doc(RENDERED))
+    assert r == {"source_blocks": 1, "rendered_blocks": 1, "mismatched": 0, "samples": []}
+
+
+def test_code_check_reports_a_changed_block():
+    r = code_check(doc(SOURCE), doc(RENDERED.replace("x←⍳10", "x←⍳11")))
+    assert r["mismatched"] == 1
+    assert r["samples"][0]["source"].startswith("  x←⍳10")
+
+
+def _setup(tmp_path, notes):
+    src = tmp_path / "src"
+    (src / "a").mkdir(parents=True)
+    (src / "a" / "x.htm").write_text(SOURCE, encoding="utf-8")
+    out = tmp_path / "build"
+    (out / "site" / "art1").mkdir(parents=True)
+    (out / "site" / "art1" / "index.html").write_text(RENDERED, encoding="utf-8")
+    rec = dict(RECORD, sources=[{"fmt": "XHTML", "path": "a/x.htm", "exists": True, "utf8": True}])
+    (out / "inventory.json").write_text(json.dumps([rec]))
+    (out / "notes.json").write_text(json.dumps({"1": notes}))
+    return src, out
+
+
+def test_run_report_totals_and_previous_run(tmp_path):
+    src, out = _setup(tmp_path, [{"kind": "raw-html", "tag": "ol"},
+                                 {"kind": "table-raw", "reason": "caption"}])
+    first = run_report(src, out)
+    assert first["totals"]["articles"] == 1
+    assert first["totals"]["raw_html"] == {"ol": 1}
+    assert first["totals"]["table_raw"] == {"caption": 1}
+    assert first["totals"]["text_differing_words"] == 0
+    assert first["totals"]["code_mismatched"] == 0
+    (out / "notes.json").write_text(json.dumps({"1": []}))
+    second = run_report(src, out)
+    assert second["previous"]["raw_html"] == {"ol": 1}
+    assert (out / "report.prev.json").exists()
+    assert "raw HTML" in (out / "report.md").read_text()
+
+
+def test_markdown_report_shows_deltas():
+    md = render_markdown({
+        "totals": {"articles": 2, "raw_html": {"p": 3}, "table_raw": {}, "notes": {"x": 1},
+                   "text_differing_words": 5, "code_mismatched": 0},
+        "previous": {"articles": 2, "raw_html": {"p": 5}, "table_raw": {}, "notes": {},
+                     "text_differing_words": 9, "code_mismatched": 0},
+        "articles": {}})
+    assert "| p | 3 | −2 |" in md
+    assert "| Differing words | 5 | −4 |" in md
