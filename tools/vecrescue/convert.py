@@ -1,71 +1,70 @@
 """Convert one hand-coded XHTML article to Markdown.
 
-Each element is handled by a rule in RULES. An element without a rule is
-passed through unchanged as raw HTML, so nothing is lost while rules are
-still being written; the run report lists what passed through.
+Each element is handled by a rule. An element without a rule is passed
+through unchanged as raw HTML, so nothing is lost while rules are still
+being written; the notes list what passed through.
 """
-
-import re
 
 import lxml.html
 import yaml
 
+from . import __version__
+from .head import extract_head
 from .inventory import xhtml_source
-
-FRONT_MATTER_FIELDS = ("id", "title", "volume", "issue", "page")
-
-
-def _ws(s):
-    return re.sub(r"\s+", " ", s or "")
-
-
-def raw_html(el):
-    return lxml.html.tostring(el, encoding="unicode", with_tail=False)
-
-
-def inline(el):
-    """Markdown for the inline content of EL, whitespace collapsed."""
-    out = [_ws(el.text)]
-    for child in el:
-        rule = INLINE_RULES.get(child.tag)
-        out.append(rule(child) if rule else raw_html(child))
-        out.append(_ws(child.tail))
-    return "".join(out).strip()
+from .markdown import INLINE_RULES, inline, raw_html
 
 
 def para(el):
     return inline(el)
 
 
-INLINE_RULES = {}
-BLOCK_RULES = {"p": para}
+def stray_h1(el, notes):
+    """An H1 left after the head block; the page title is the only H1."""
+    text = inline(el)
+    notes.append({"kind": "h1-demoted", "text": " ".join(el.text_content().split())})
+    return f"## {text}"
 
 
-def body_blocks(body):
+BLOCK_RULES = {"p": para, "h1": stray_h1}
+NEEDS_NOTES = {stray_h1}
+INLINE_RULES.update({})
+
+
+def body_blocks(body, notes):
     blocks = []
     for el in body:
         if not isinstance(el.tag, str):  # comments, processing instructions
             continue
         rule = BLOCK_RULES.get(el.tag)
-        block = rule(el) if rule else raw_html(el)
+        if rule is None:
+            notes.append({"kind": "raw-html", "tag": el.tag})
+        if rule is None:
+            block = raw_html(el)
+        elif rule in NEEDS_NOTES:
+            block = rule(el, notes)
+        else:
+            block = rule(el)
         if block:
             blocks.append(block)
     return blocks
 
 
-def front_matter(record, source):
-    fm = {"vid": record["id"]}
-    for k in FRONT_MATTER_FIELDS[1:]:
-        if record.get(k) is not None:
-            fm[k] = record[k]
-    fm["source"] = source
+def front_matter(fm):
     text = yaml.safe_dump(fm, sort_keys=False, allow_unicode=True, width=1000)
     return f"---\n{text}---\n"
 
 
-def convert_article(root, record):
+def convert(root, record):
+    """Return (markdown, notes) for RECORD's XHTML source."""
     source = xhtml_source(record)
     doc = lxml.html.fromstring((root / source).read_bytes())
-    body = doc.find("body")
-    blocks = body_blocks(body if body is not None else doc)
-    return front_matter(record, source) + "\n" + "\n\n".join(blocks) + "\n"
+    notes = []
+    fm, lead = extract_head(doc, record, notes)
+    fm["source"] = source
+    fm["converter"] = f"vecrescue {__version__}"
+    blocks = lead + body_blocks(doc.find("body"), notes)
+    return front_matter(fm) + "\n" + "\n\n".join(blocks) + "\n", notes
+
+
+def convert_article(root, record):
+    return convert(root, record)[0]

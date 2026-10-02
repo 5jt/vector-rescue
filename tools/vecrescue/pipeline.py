@@ -3,7 +3,7 @@
 import json
 from pathlib import Path
 
-from .convert import convert_article
+from .convert import convert
 from .inventory import read_index, xhtml_source
 
 
@@ -24,12 +24,15 @@ def run_convert(src, out):
     src, out = Path(src), Path(out)
     docs = out / "docs"
     docs.mkdir(parents=True, exist_ok=True)
-    written = []
+    written, notes = [], {}
     for record in load_inventory(out):
         if record["id"] and xhtml_source(record):
             path = docs / f"art{record['id']}.md"
-            path.write_text(convert_article(src, record), encoding="utf-8")
+            markdown, notes[record["id"]] = convert(src, record)
+            path.write_text(markdown, encoding="utf-8")
             written.append(path)
+    (out / "notes.json").write_text(json.dumps(notes, indent=1, ensure_ascii=False),
+                                    encoding="utf-8")
     return written
 
 

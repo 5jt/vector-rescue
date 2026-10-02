@@ -19,3 +19,12 @@ def test_sample_article_matches_golden_file():
 def test_unknown_elements_pass_through_as_raw_html():
     md = convert_article(SRC, record("10500650"))
     assert "<blink>Unknown &amp; kept</blink>" in md
+
+
+def test_h1_left_in_the_body_is_demoted_and_noted(tmp_path):
+    from vecrescue.convert import body_blocks
+    import lxml.html
+    body = lxml.html.fromstring("<div><h1>AGM addendum</h1></div>")
+    notes = []
+    assert body_blocks(body, notes) == ["## AGM addendum"]
+    assert notes == [{"kind": "h1-demoted", "text": "AGM addendum"}]
