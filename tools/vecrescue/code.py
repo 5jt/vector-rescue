@@ -2,7 +2,7 @@
 
 import re
 
-from .markdown import INLINE_RULES, raw_html, ws
+from .markdown import INLINE_RULES, raw_html, raw_inline, ws
 
 TAB_WIDTH = 8  # browsers render tabs in <pre> at 8 columns
 
@@ -46,7 +46,7 @@ def inline_code(el):
     if _element_children(el):
         for c in [c for c in el if not isinstance(c.tag, str)]:
             c.getparent().remove(c)
-        return raw_html(el) if _element_children(el) else inline_code(el)
+        return raw_inline(el) if _element_children(el) else inline_code(el)
     text = ws(el.text_content())
     lead = " " if text.startswith(" ") else ""
     trail = " " if text.endswith(" ") else ""
@@ -59,3 +59,4 @@ def inline_code(el):
 
 
 INLINE_RULES["code"] = inline_code
+INLINE_RULES["tt"] = inline_code
