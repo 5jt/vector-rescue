@@ -11,6 +11,7 @@ import copy
 import re
 
 from .code import pre_block
+from .tables import table
 from .markdown import (INLINE_TAGS, escape_line_starts, inline, inline_flat,
                        raw_html)
 
@@ -203,6 +204,6 @@ def pre(el, ctx):
 BLOCK_RULES = {
     "p": para, "h1": stray_h1, "pre": pre, "blockquote": blockquote,
     "ul": a_list, "ol": a_list, "dl": dlist, "div": div,
-    "hr": lambda el, ctx: "***",
+    "hr": lambda el, ctx: "***", "table": table,
     **{f"h{n}": heading for n in range(2, 7)},
 }
