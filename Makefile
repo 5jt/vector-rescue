@@ -1,4 +1,4 @@
-.PHONY: all inventory convert site report test clean publish
+.PHONY: all inventory convert site report test clean publish fetch-wayback
 
 RUN = uv run vecrescue
 
@@ -13,6 +13,12 @@ test:
 
 clean:
 	rm -rf build
+
+# Recover captures from the Wayback Machine into recovered/wayback/ (slow, polite,
+# resumable; see surveys/wayback-survey.md). Needs build/inventory.json.
+fetch-wayback:
+	$(RUN) inventory
+	$(RUN) fetch-wayback
 
 # Push build/site to the gh-pages branch of origin, for development review.
 # One commit, force-pushed: the branch holds nothing but the latest build.

@@ -9,7 +9,37 @@ from .report import run_report
 STEPS = ("inventory", "convert", "site", "report")
 
 
+def fetch_wayback(argv):
+    """vecrescue fetch-wayback [--sets …] [--dest DIR]: fetch captures (issue #24)."""
+    import json
+    import time
+    from . import wayback
+    p = argparse.ArgumentParser(prog="vecrescue fetch-wayback")
+    p.add_argument("--sets", nargs="*",
+                   default=["index", "new-articles", "issue-pdfs", "crosscheck"])
+    p.add_argument("--dest", type=Path, default=Path("recovered/wayback"))
+    p.add_argument("--out", type=Path, default=Path("build"))
+    a = p.parse_args(argv)
+    inventory = json.loads((a.out / "inventory.json").read_text(encoding="utf-8"))
+    fetcher = wayback.Fetcher(a.dest)
+
+    def cdx(query):
+        time.sleep(fetcher.pause)
+        return wayback.cdx_rows(query, get=fetcher._get)
+
+    sets = wayback.plan(inventory, cdx)
+    for name in a.sets:
+        n = fetcher.fetch_all(sets[name])
+        print(f"{name}: {len(sets[name])} captures, {n} fetched now")
+    for url, err in fetcher.failed.items():
+        print(f"failed: {url}: {err}")
+
+
 def main(argv=None):
+    import sys
+    argv = sys.argv[1:] if argv is None else argv
+    if argv[:1] == ["fetch-wayback"]:
+        return fetch_wayback(argv[1:])
     p = argparse.ArgumentParser(prog="vecrescue")
     p.add_argument("step", choices=STEPS + ("all",))
     p.add_argument("--src", type=Path, default=Path("sources/sjt/Vector"))
