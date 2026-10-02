@@ -2,7 +2,7 @@
 
 Goal: recover the entire *Vector* archive and republish it, with every old `art` URL (e.g. `/art10500650`) resolving.
 
-Revised 2026-10-02 after the filetree surveys (`filetree-survey-claude.md`, `filetree-survey-codex.md`) and decisions by Stephen Taylor.
+Revised 2026-10-02 after the filetree surveys (`surveys/filetree-survey-claude.md`, `surveys/filetree-survey-codex.md`, `surveys/xhtml-target-survey-results.md`) and decisions by Stephen Taylor.
 
 ## Principles
 
@@ -42,7 +42,7 @@ Deliverables so far: the two filetree surveys. Remaining survey work is folded i
 
 ## Phase 2: Early technical groundwork
 
-2a. **Canonical inventory.** Extract `index.xml` into a table (CSV or JSON): ID, title, authors, volume, issue, page, dates, source paths and formats, whether the file exists, whether it is valid UTF-8. Add the 1,484 IDs as the *required* `art` URL list. Handle the empty-ID record (`content/printed/244/peelle.htm`), the alias paths and the combined issues. See `plans/xhtml-target-survey.md` for the detailed first task below.
+2a. **Canonical inventory.** Extract `index.xml` into a table (CSV or JSON): ID, title, authors, volume, issue, page, dates, source paths and formats, whether the file exists, whether it is valid UTF-8. Add the 1,484 IDs as the *required* `art` URL list. Handle the empty-ID record (`content/printed/244/peelle.htm`), the alias paths and the combined issues. See `plans/xhtml-target-survey.md` for the plan and `surveys/xhtml-target-survey-results.md` for the results.
 
 2b. **Survey the hand-coded XHTML to define the Markdown target** (an early, critical step; see `plans/xhtml-target-survey.md`). Standard Markdown and GitHub-flavoured Markdown cannot be assumed to represent it. Find out which structures occur, how often, and how each should be represented.
 
@@ -64,10 +64,10 @@ Scope: indexed articles whose source is valid UTF-8 (XHTML first, then UTF-8 `tr
 - Copy images and assets across; list the missing ones.
 - Pilot first on a few issues (suggest 25:1, which contains `art10500650`), then widen to volumes 24–26, then the other UTF-8 files.
 
-## Phase 4: Generate the site and publish on GitHub Pages
+## Phase 4: Generate the site; test it on GitHub Pages
 
 - Build with the renderer chosen in 2c.
-- **Publish rescued content on GitHub Pages first**, under the Pages hostname. Defer the `archive.vector.org.uk` question (B2) until we have use of the URL.
+- **Use GitHub Pages in development only, to test rendering the content.** The production hosting and URL are an open question (B2); we are not committing to GitHub Pages.
 - URL design: see "Old URLs on GitHub Pages" below.
 - Add issue and volume indexes, author pages if cheap, search, and an explicit statement of what is missing.
 

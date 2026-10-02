@@ -29,7 +29,7 @@ The articles under `content/printed/` and `content/published/` were hand-coded a
 
 ## Output
 
-`plans/xhtml-target-survey-results.md` containing:
+`surveys/xhtml-target-survey-results.md` containing:
 
 - the table of structures (frequency, files, Markdown representation, extension needed);
 - the list of Markdown extensions and renderer features required;
