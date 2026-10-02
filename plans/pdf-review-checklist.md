@@ -1,0 +1,37 @@
+# Review checklist: 20 articles from the printed issues
+
+Twenty of the more interesting articles that exist only in the scanned issue PDFs: practical how-to and theoretical work, chosen over minutes, editorials and news. See `plans/pdf-conversion.md`.
+
+**To review an article** (once its transcription exists):
+
+1. Open the transcription and its PDF pages side by side.
+2. Check the text against the page, especially every line of code.
+3. If it is right as it is, change its `[ ]` to `[x]` and add your name after it. If not, correct `transcriptions/art<ID>.md` instead.
+4. Open a pull request with your ticks and corrections: one article or many.
+
+The transcriptions are made after the pilot; until then their links lead nowhere.
+
+Code: the share of code-like lines, which is what most needs checking (*much* > 8%, *some* 2–8%, *little* < 2%).
+
+- [ ] **Operators & Nested Arrays**, John Scholes (2:1, p.117; 6 pp; some code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10007700.md) · [page](https://5jt.github.io/vector-rescue/art10007700/) · [PDF](https://5jt.github.io/vector-rescue/2/1/VOL.2-NO.1-JULY-1985.pdf#page=119)
+- [ ] **Guide to APL2 Nested Arrays**, Norman Thomson (2:1, p.108; 9 pp; much code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10009930.md) · [page](https://5jt.github.io/vector-rescue/art10009930/) · [PDF](https://5jt.github.io/vector-rescue/2/1/VOL.2-NO.1-JULY-1985.pdf#page=110)
+- [ ] **Tree-processing Algorithms**, Anne Wilson (4:1, p.92; 7 pp; some code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10010930.md) · [page](https://5jt.github.io/vector-rescue/art10010930/) · [PDF](https://5jt.github.io/vector-rescue/4/1/VOL.4-NO.1-JULY-1987.pdf#page=94)
+- [ ] **A Demonstration of Direct Defn**, Anthony Camacho (4:3, p.95; 8 pp; some code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10001480.md) · [page](https://5jt.github.io/vector-rescue/art10001480/) · [PDF](https://5jt.github.io/vector-rescue/4/3/VOL.4-NO.3-JANUARY-1988.pdf#page=97)
+- [ ] **Error Trapping Tutorial in Dyalog APL**, Pauline Brand (6:1, p.100; 10 pp; much code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10001150.md) · [page](https://5jt.github.io/vector-rescue/art10001150/) · [PDF](https://5jt.github.io/vector-rescue/6/1/VOL.6-NO.1-JULY-1989.pdf#page=102)
+- [ ] **J Questions Answered**, Roger Hui, Ken Iverson (8:3, p.94; 7 pp; some code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10003760.md) · [page](https://5jt.github.io/vector-rescue/art10003760/) · [PDF](https://5jt.github.io/vector-rescue/8/3/VOL.8-NO.3-JANUARY-1992.pdf#page=100)
+- [ ] **Genetic Algorithms**, Jon Sandles (9:3, p.71; 8 pp; much code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10007500.md) · [page](https://5jt.github.io/vector-rescue/art10007500/) · [PDF](https://5jt.github.io/vector-rescue/9/3/VOL.9-NO.3-JANUARY-1993.pdf#page=73)
+- [ ] **Jacobi’s Method for Eigenvalues**, Donald McIntyre (9:3, p.125; 9 pp; much code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10005840.md) · [page](https://5jt.github.io/vector-rescue/art10005840/) · [PDF](https://5jt.github.io/vector-rescue/9/3/VOL.9-NO.3-JANUARY-1993.pdf#page=127)
+- [ ] **An Exchange on Primes**, Roger Hui (9:4, p.130; 5 pp; much code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10003800.md) · [page](https://5jt.github.io/vector-rescue/art10003800/) · [PDF](https://5jt.github.io/vector-rescue/9/4/VOL.9-NO.4-APRIL-1993.pdf#page=132)
+- [ ] **Date of Easter in J**, Eugene McDonnell (10:3, p.76; 2 pp; much code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10005380.md) · [page](https://5jt.github.io/vector-rescue/art10005380/) · [PDF](https://5jt.github.io/vector-rescue/10/3/VOL.10-NO.3-JANUARY-1994.pdf#page=78)
+- [ ] **Teaching with Executable Notation – Part 2: Linear Functions**, Ken Iverson (12:1, p.67; 7 pp; much code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10004030.md) · [page](https://5jt.github.io/vector-rescue/art10004030/) · [PDF](https://5jt.github.io/vector-rescue/12/1/VOL.12-NO.1-JULY-1995.pdf#page=69)
+- [ ] **A Note on Programming Style in J**, Roger Hui, Ken Iverson (12:3, p.117; 13 pp; much code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10003840.md) · [page](https://5jt.github.io/vector-rescue/art10003840/) · [PDF](https://5jt.github.io/vector-rescue/12/3/VOL.12-NO.3-JANUARY-1996.pdf#page=119)
+- [ ] **Linear Recurrences and Matrix Powers**, Roger Hui (12:4, p.113; 3 pp; much code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10003850.md) · [page](https://5jt.github.io/vector-rescue/art10003850/) · [PDF](https://5jt.github.io/vector-rescue/12/4/VOL.12-NO.4-APRIL-1996.pdf#page=115)
+- [ ] **Functional Programming in J (Part 1)**, Howard Peelle (13:1, p.20; 9 pp; some code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10006580.md) · [page](https://5jt.github.io/vector-rescue/art10006580/) · [PDF](https://5jt.github.io/vector-rescue/13/1/VOL.13-NO.1-JULY-1996.pdf#page=22)
+- [ ] **Dynamic Functions in Dyalog APL**, John Scholes (13:2, p.88; 11 pp; some code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10007740.md) · [page](https://5jt.github.io/vector-rescue/art10007740/) · [PDF](https://5jt.github.io/vector-rescue/13/2/VOL.13-NO.2-OCTOBER-1996.pdf#page=90)
+- [ ] **APL and J (1) – Function Rank**, Chris Burke (13:1, p.96; 6 pp; some code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10001330.md) · [page](https://5jt.github.io/vector-rescue/art10001330/) · [PDF](https://5jt.github.io/vector-rescue/13/1/VOL.13-NO.1-JULY-1996.pdf#page=98)
+- [ ] **Extended Integers in J**, Roger Hui (13:2, p.154; 10 pp; some code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10003860.md) · [page](https://5jt.github.io/vector-rescue/art10003860/) · [PDF](https://5jt.github.io/vector-rescue/13/2/VOL.13-NO.2-OCTOBER-1996.pdf#page=156)
+- [ ] **The Computer Construction of Weaving Designs**, Keith Smillie (14:3, p.71; 11 pp; some code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10008100.md) · [page](https://5jt.github.io/vector-rescue/art10008100/) · [PDF](https://5jt.github.io/vector-rescue/14/3/VOL.14-NO.3-JANUARY-1998.pdf#page=73)
+- [ ] **What Use Are User Defined Operators?**, Ian Clark (16:1, p.61; 6 pp; much code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10002390.md) · [page](https://5jt.github.io/vector-rescue/art10002390/) · [PDF](https://5jt.github.io/vector-rescue/16/1/VOL.16-NO.1-JULY-1999.pdf#page=63)
+- [ ] **A very simple structure compiler for J**, Martin Neitzel (16:2, p.129; 6 pp; some code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10006140.md) · [page](https://5jt.github.io/vector-rescue/art10006140/) · [PDF](https://5jt.github.io/vector-rescue/16/2/VOL.16-NO.2-OCTOBER-1999.pdf#page=131)
+
+20 articles, 153 pages.
