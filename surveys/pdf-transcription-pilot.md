@@ -15,6 +15,7 @@ Method: render pages at 220 dpi (110 too coarse for APL: ⌿ looked like / or �
 | 10007070 | much | 4 | 95 (incl. results) | 4 | 0 | 2 (printed title/author; "APROXIMATIONS") | ÷ drawn like ‡; ⌿ ⍀ as slash/backslash with bar | 0; results verified (row/col sums) |
 | 10003240 | much | 3 (range said 4; then advert) | 45 | 0 (300 dpi enough) | 0 | 2 (no ⍝ on [20]; comment column narrowed) | — | 0 |
 | 10001690 | much | 5 | 57 | 0 (300 dpi enough) | 0 | 2 ("reult"; comments cut off at margin) | rules as numbered bullets kept; 2 figures cropped to 1-bit PNG | 0 (residue is code OCR noise and the graph's axis label) |
+| 10005920 | much | 5 (range said 7; pp.30–31 are an unindexed piece) | 225 (incl. output) | 5 | 0 | 3 (printed title; A one element short, NOS 4–9 shifted; label-string spacing) | Instructions / Example Game as code blocks | 0; Example Game verified against Instructions; UNINDEXED: "Two Mathematical Functions" (C.E. Williams) pp.30–31, CHAR4 and ROMB results verified |
 
 Findings so far:
 - Page range from the index is wrong both ways: articles end on the next article's first page (10006380), or end early with unindexed pieces or adverts following (10010120, 10003240). Transcriber must find the end by reading.
