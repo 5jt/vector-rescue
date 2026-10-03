@@ -20,6 +20,7 @@ Method: render pages at 220 dpi (110 too coarse for APL: ⌿ looked like / or �
 | 10010330 | much | 4 (range said 6; then an advert) | 30 (J) | 2 | 0 | 0 | J inline in backticks; subscripts as Unicode | 0 (hyphenation only); every verb checked by hand against its printed rows (no J interpreter here) |
 | 10010550 | much | 8 | 210 (J and output) | 4 | 0 | 4 (`value`/`values`; wrapped NB. comments rejoined; `_` placement; missing `)`) | figure cropped to 1-bit PNG | 0 (OCR noise only); spm g1, spm h1, path values, slacks, connectivity, arclist, bf all recomputed and match |
 | 10000410 | some | 4 (range said 4; ends p.50, next article starts p.51) | 105 | 4 | 0 | 4 (printed title; “Federick”; wrapped line; θ for ⍬) | quotation as blockquote; `0⊥` (last item) idiom kept | 0 (OCR noise only) |
+| 10005140 | some | 11 | 70 (K) | 0 | 0 | 5 (printed title; “though”; “the how”; footnote moved out of code; footnotes as Markdown footnotes) | 8 footnotes → `[^n]`; K symbols in double backticks | 0 (OCR noise only) |
 
 Findings so far:
 - Page range from the index is wrong both ways: articles end on the next article's first page (10006380), or end early with unindexed pieces or adverts following (10010120, 10003240). Transcriber must find the end by reading.
