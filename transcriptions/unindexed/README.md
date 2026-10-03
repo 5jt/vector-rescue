@@ -6,6 +6,16 @@ They are set aside here, unpublished, for editorial review.
 
 | File | Issue | Printed page | Title | Author | Found after |
 |---|---|---|---|---|---|
+| [v1n3-p47-recent-meetings.md](v1n3-p47-recent-meetings.md) | 1:3 | 47 | Recent Meetings (section introduction) | — | heads the meetings section |
+| [v1n3-p48-introductory-notes.md](v1n3-p48-introductory-notes.md) | 1:3 | 48 | Introductory Notes (meetings section) | Adrian Smith | heads art10010990 |
+| [v1n3-p60-lifestyle-under-vm-cms-vsapl.md](v1n3-p60-lifestyle-under-vm-cms-vsapl.md) | 1:3 | 60–61 | A Lifestyle under VM/CMS VSAPL (meeting notes) | — | art10010990 |
+| [v1n3-p62-whats-new-for-1985.md](v1n3-p62-whats-new-for-1985.md) | 1:3 | 62–66 | What’s New for 1985? (report, highlights, photographs) | Dick Bowman, Adrian Smith | the VM/CMS notes |
+| [v1n3-p67-ipsa-1984-users-meeting.md](v1n3-p67-ipsa-1984-users-meeting.md) | 1:3 | 67, 101, 69–80 | The Information Centre and Changing Technologies (IPSA 1984 Users’ Meeting notes; 5 figures) | Adrian Smith | What’s New for 1985 |
+| [v1n3-p114-technical-editorial.md](v1n3-p114-technical-editorial.md) | 1:3 | 114–115 | Technical Editorial | Dave Ziemann, Jonathan Barman | heads the technical section |
+| [v1n3-p116-technical-correspondence.md](v1n3-p116-technical-correspondence.md) | 1:3 | 116–119 | Technical Correspondence (Tarr, Smith, Bassett) | Andrew Tarr, Adrian Smith, Mark Bassett | technical editorial |
+| [v1n3-p120-surely-there-must-be-a-better-way.md](v1n3-p120-surely-there-must-be-a-better-way.md) | 1:3 | 120–122 | Surely There Must Be a Better Way | Dave Ziemann | technical correspondence |
+| [v1n3-p123-prize-competition-result-this-is-your-life.md](v1n3-p123-prize-competition-result-this-is-your-life.md) | 1:3 | 123–125 | Prize Competition Result: This is your Life | David Ziemann | Better Way |
+| [v1n3-p126-prize-competition-test-your-skill.md](v1n3-p126-prize-competition-test-your-skill.md) | 1:3 | 126–127 | Prize Competition: Test your skill | Dave Ziemann | heads art10007060 |
 | [v1n2-p47-recent-meetings.md](v1n2-p47-recent-meetings.md) | 1:2 | 47 | Recent Meetings (section introduction) | — | heads the meetings section |
 | [v1n2-p48-apl-vs-packages-and-4gls.md](v1n2-p48-apl-vs-packages-and-4gls.md) | 1:2 | 48 | APL vs Packages and 4GLs (meeting notes) | Adrian Smith | heads art10001070 |
 | [v1n2-p52-apl84-in-focus.md](v1n2-p52-apl84-in-focus.md) | 1:2 | 52–57 | APL84 in Focus (meeting notes on five talks) | Adrian Smith, Dick Bowman | art10001070 |
