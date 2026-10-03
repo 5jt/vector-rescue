@@ -57,7 +57,7 @@ Reviewing happens through GitHub, open to anyone interested:
 - A merged PR sets `review: approved` (or `corrected`) and the reviewer's name in the article's front matter.
 - An issue labelled `editorial review` tracks progress; questions about a particular article go in comments there.
 
-Priority: the more interesting articles first (practical how-to and theoretical work); meeting minutes, editorials and news last.
+Priority for review: the more interesting articles first (practical how-to and theoretical work); meeting minutes, editorials and news last. Transcription goes volume by volume regardless (decided 2026-10-03): the priority is for spending human effort.
 
 ## Decided (Stephen Taylor, 2026-10-02)
 
