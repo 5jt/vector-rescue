@@ -26,6 +26,7 @@ Method: render pages at 220 dpi (110 too coarse for APL: ⌿ looked like / or �
 | 10008200 | some | 7 (range said 8; p.69 is a section divider) | 12 | 0 | 0 | 4 (printed title; winH… vs WINΔ…; typos; screens without captions) | 6 screen dumps as 16-grey images; function summary as table | 0 |
 | 10008410 | some | 3 (range said 8; Index to Advertisers follows) | 45 | 0 | 0 | 4 (⍢ glyph; typeset output as image; “simple”; Word style dumps as code) | code nested in list items; box-drawing for boxed output | 0 |
 | 10010290 | some | 5 | 25 (J) | 0 | 0 | 4 (printed title; missing `0` after `b.`; “sequence verbs”; `_` glyph) | definitions as definition lists; inline J in backticks | 0; diag rotv and `+/@-` results checked by hand |
+| 10010300 | some | 5 | 35 (J) | 1 | 1 (`'abw'` read as `'abv'` at 300 dpi) | 5 (printed title; stereogram as image; “assesses”; unnamed joiner symbol; transliterated fractions) | stereogram and 2 plan diagrams as 1-bit PNG | 0 |
 
 Findings so far:
 - Page range from the index is wrong both ways: articles end on the next article's first page (10006380), or end early with unindexed pieces or adverts following (10010120, 10003240). Transcriber must find the end by reading.
