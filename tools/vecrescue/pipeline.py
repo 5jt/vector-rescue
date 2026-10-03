@@ -73,10 +73,12 @@ def run_convert(src, out, corrections=None):
     return written
 
 
-def write_stub_pages(inventory, issues, pdfs, out):
+def write_stub_pages(inventory, issues, pdfs, out, transcriptions=None):
     """A page for every indexed article without text (issue #38), linking to
-    its first page in the issue PDF. Offsets and title checks are cached in
-    OUT/pdf-cache.json; results go to OUT/stubs.json for the report."""
+    its first page in the issue PDF, or the article's transcription from
+    TRANSCRIPTIONS/art<ID>.md where there is one (issue #40). Offsets and
+    title checks are cached in OUT/pdf-cache.json; results go to
+    OUT/stubs.json for the report."""
     out = Path(out)
     docs = out / "docs"
     cache_path = out / "pdf-cache.json"
@@ -102,6 +104,8 @@ def write_stub_pages(inventory, issues, pdfs, out):
         key = alias.get((r.get("volume"), r.get("issue")), (r.get("volume"), r.get("issue")))
         pdf = pdfs.get(key)
         link, match, ocr = None, None, None
+        transcription = Path(transcriptions or "") / f"art{r['id']}.md"
+        transcription = transcription if transcriptions and transcription.is_file() else None
         if pdf and (r.get("page") or "").isdigit():
             ident = f"{pdf.name}:{pdf.stat().st_size}"
             if ident not in cache:
@@ -118,20 +122,25 @@ def write_stub_pages(inventory, issues, pdfs, out):
                 match = entry["checks"][check]
                 link = f"{key[0]}/{key[1]}/{pdf.name}#page={n}"
                 ocr_key = f"ocr:{check}"
-                if ocr_key not in entry["checks"]:  # its pages: to the next article, at most 20
+                if not transcription and ocr_key not in entry["checks"]:  # its pages: to the next article, at most 20
                     following = [p for p in starts.get(key, ()) if p > int(r["page"])]
                     last = min(min(following) - 1 if following else 10_000, int(r["page"]) + 19)
                     pp = pages_of(pdf)
                     entry["checks"][ocr_key] = stubs.ocr_block(pp[n - 1:min(len(pp), last + entry["offset"])])
-                ocr = entry["checks"][ocr_key]
-        stubs.write_stub(r, docs, link, ocr if link else None)
-        results[r["id"]] = {"pdf": link, "match": match}
+                ocr = entry["checks"].get(ocr_key)
+        if transcription:
+            stubs.write_transcribed(r, docs, transcription, link)
+            review = stubs.read_transcription(transcription)[0].get("review")
+        else:
+            stubs.write_stub(r, docs, link, ocr if link else None)
+            review = None
+        results[r["id"]] = {"pdf": link, "match": match, "transcribed": review}
     cache_path.write_text(json.dumps(cache, indent=1, ensure_ascii=False), encoding="utf-8")
     (out / "stubs.json").write_text(json.dumps(results, indent=1, ensure_ascii=False), encoding="utf-8")
     return results
 
 
-def run_site(src, out, config, wayback=None, corrections=None):
+def run_site(src, out, config, wayback=None, corrections=None, transcriptions=None):
     """Write the home and issue pages, copy the site files from CONFIG's
     folder, and build OUT/docs into OUT/site with Zensical."""
     src, out, config = Path(src), Path(out), Path(config)
@@ -140,7 +149,7 @@ def run_site(src, out, config, wayback=None, corrections=None):
     if corrections:
         issues = corrections.apply_catalogue(issues)
     more = wayback_issue_pdfs(wayback) if wayback else None
-    write_stub_pages(inventory, issues, issue_pdfs(issues, src, more), out)
+    write_stub_pages(inventory, issues, issue_pdfs(issues, src, more), out, transcriptions)
     write_issue_pages(inventory, issues, src, docs, more)
     write_home_page(inventory, issues, docs)
     shutil.copy(config, out / "zensical.toml")
