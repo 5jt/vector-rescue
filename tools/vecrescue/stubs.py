@@ -9,6 +9,7 @@ the title is looked for on the computed page as a check.
 
 import html
 import re
+import shutil
 import subprocess
 from collections import Counter
 from pathlib import Path
@@ -93,6 +94,37 @@ def write_stub(record, docs, pdf=None, ocr=None):
     if ocr:
         lines += ["", ocr]
     path = Path(docs) / f"art{record['id']}" / "index.md"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return path
+
+
+def read_transcription(path):
+    """The front matter (a dict) and Markdown body of a transcription."""
+    _, head, body = Path(path).read_text(encoding="utf-8").split("---", 2)
+    return yaml.safe_load(head), body
+
+
+def write_transcribed(record, docs, transcription, pdf=None):
+    """docs/art<ID>/index.md from TRANSCRIPTION (transcriptions/art<ID>.md,
+    issue #40), in place of the stub: its text, a note of its review state,
+    the PDF link, and its figures from transcriptions/art<ID>/."""
+    transcription = Path(transcription)
+    fm, body = read_transcription(transcription)
+    fm["status"] = "transcribed"
+    note = "Transcribed from the printed issue" + (
+        "." if fm.get("review") == "approved" else "; not yet reviewed.")
+    if pdf:
+        page = f", page {record['page']}" if record.get("page") else ""
+        note += f" [Read it in the PDF of the issue{page}](../{pdf})"
+    folder = Path(docs) / f"art{record['id']}"
+    figures = transcription.with_suffix("")
+    if figures.is_dir():
+        shutil.copytree(figures, folder, dirs_exist_ok=True)
+    body = body.strip("\n").replace(f"](art{record['id']}/", "](")
+    lines = ["---", yaml.safe_dump(fm, sort_keys=False, allow_unicode=True, width=1000).rstrip(), "---", "",
+             f"*{note}*", "{ .transcribed }", "", body]
+    path = folder / "index.md"
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return path

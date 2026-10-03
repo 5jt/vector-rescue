@@ -222,6 +222,7 @@ def run_report(src, out, corrections=None):
     totals["skipped"] = dict(Counter(v["reason"] for v in skipped.values()))
     totals["stubs"] = {"pages": len(stubs), "with_pdf": sum(1 for v in stubs.values() if v["pdf"]),
                        "title_not_found": sum(1 for v in stubs.values() if v["match"] == "not found")}
+    totals["transcribed"] = dict(Counter(v["transcribed"] for v in stubs.values() if v.get("transcribed")))
 
     path, prev_path = out / "report.json", out / "report.prev.json"
     previous = None
@@ -273,10 +274,13 @@ def render_markdown(report):
              ""]
     st = t.get("stubs") or {}
     if st:
+        tr = t.get("transcribed") or {}
+        states = ", ".join(f"{k} {v}" for k, v in sorted(tr.items()))
         lines += ["## Pages without text", "",
                   f"{st['pages']} indexed articles have a page but no text; {st['with_pdf']} link to their "
-                  f"first page in the issue PDF. For {st['title_not_found']} the title was not found on or "
-                  "next to the computed page:", ""]
+                  "first page in the issue PDF"
+                  + (f", and {sum(tr.values())} transcribed from the printed issue ({states})" if tr else "")
+                  + f". For {st['title_not_found']} the title was not found on or next to the computed page:", ""]
         inv_titles = report.get("titles", {})
         lines += [f"- art{vid}: {inv_titles.get(vid, '')} → `{v['pdf']}`"
                   for vid, v in sorted(report.get("stubs", {}).items()) if v["match"] == "not found"]
