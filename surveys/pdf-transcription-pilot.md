@@ -23,6 +23,7 @@ Method: render pages at 220 dpi (110 too coarse for APL: ⌿ looked like / or �
 | 10005140 | some | 11 | 70 (K) | 0 | 0 | 5 (printed title; “though”; “the how”; footnote moved out of code; footnotes as Markdown footnotes) | 8 footnotes → `[^n]`; K symbols in double backticks | 0 (OCR noise only) |
 | 10005210 | some | 6 (range said 11; issue has only 148 PDF pages; Back Numbers notice follows) | 45 | 3 | 0 | 3 (printed title; secondary/primary slip; minor slips) | 2 screenshots, 16-grey; dfns with right-hand comments | 0 (residue is the notice and code OCR noise) |
 | 10005980 | some | 8 | 75 | 2 | 0 | 6 (L2/L3 prose slip; VScroll 1/¯1; MakeVectorTest; B1 event; unclosed paren; `...` continuations) | screenshot 16-grey; one-line code snippets as separate blocks, as printed | 0 (OCR noise only) |
+| 10008200 | some | 7 (range said 8; p.69 is a section divider) | 12 | 0 | 0 | 4 (printed title; winH… vs WINΔ…; typos; screens without captions) | 6 screen dumps as 16-grey images; function summary as table | 0 |
 
 Findings so far:
 - Page range from the index is wrong both ways: articles end on the next article's first page (10006380), or end early with unindexed pieces or adverts following (10010120, 10003240). Transcriber must find the end by reading.
