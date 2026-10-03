@@ -68,3 +68,4 @@ Priority: the more interesting articles first (practical how-to and theoretical 
 ## Decided (Stephen Taylor, 2026-10-03)
 
 - Printed pieces with no index entry are transcribed into `transcriptions/unindexed/` (not published) and listed for editorial review in #44.
+- On the pilot's evidence (`surveys/pdf-transcription-pilot.md`): articles with little or no code are excused from review, apart from checking their `queries:`. Articles with some or much code are reviewed, with attention on code that no printed result checks. Excused articles still carry the "not reviewed" note.
