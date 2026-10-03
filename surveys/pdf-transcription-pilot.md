@@ -1,7 +1,25 @@
-# Pilot: transcribing the PDF-only articles (work in progress)
+# Pilot: transcribing the PDF-only articles
 
-Issue #40. Running log; to be written up when the pilot is complete.
+Issue #40. All 30 sample articles transcribed (2026-10-02/03), plus 6 unindexed pieces set aside in `transcriptions/unindexed/` (#44). The log is below the summary.
 
+## Summary
+
+- **Coverage.** 30 articles, 142 printed pages, about 1,500 lines of code and output (APL, J, K, assembler, HTML). 23 figures cropped, plus 2 for an unindexed piece (1-bit line art, 16-grey screenshots).
+- **Prose is reliable.** The OCR cross-check found no dropped or invented words in any article; every leftover was OCR damage, a running head, an advert or screenshot text.
+- **Code needs care, and checking pays.** Over the pilot I made 6 reading errors in code, all of glyph look-alikes: `⌿`/`/` (at 110 dpi), `'abw'`/`'abv'` and `¯1↑`/`¯1↓` (at 300–600 dpi), `|` lost, and an inserted `⍝` where print has `+`. All were caught: by zooming (to 900 dpi in one case), or by recomputing a printed result. One more was a filing slip (figures saved under the wrong article's folder), caught before commit.
+- **Printed results are the best check.** In 12 articles printed output was recomputed from the transcribed code (arithmetic, J verbs by hand, CHAR4/ROMB, all four COLOURS solutions, benchmark ratios, machine code against its assembler); every one matched after correction.
+- **Author slips are kept, not fixed.** 92 queries were recorded in front matter: printed titles that differ from the index, author slips in code and prose, glyph readings, and layout decisions. None was silently corrected.
+- **The index is unreliable for extent.** Of 30 page ranges, 13 were wrong: too long (an advert, notice or unindexed piece follows) or too short. One entry (10008370) covers two articles by different authors with a garbled author list; one (10010060) has the wrong page. The transcriber must find each article's end by reading.
+- **Unindexed pieces are common.** 6 found in 30 samples: letters, notices, a meeting introduction and a whole talk.
+
+## Recommendation on review
+
+Per the plan, every transcription keeps its “not reviewed” note until reviewed. On this evidence:
+
+- **little** code: no code-reading errors in 9 articles. Excuse from review, apart from their `queries:`.
+- **some** and **much** code: review, with attention on code lines rather than prose, and on any line that is not checked by a printed result. Reviewers should start from the `queries:` list.
+
+## Log
 
 Method: render pages at 220 dpi (110 too coarse for APL: ⌿ looked like / or ≠); read; zoom to 400–500 dpi on any code region with doubtful glyphs; write; cross-check OCR words (accounted for if they split into transcription words).
 
@@ -38,7 +56,7 @@ Method: render pages at 220 dpi (110 too coarse for APL: ⌿ looked like / or �
 | 10008370 | little | 6 (two companion pieces; advert follows) | 8 | 0 | 0 | 3 (two pieces under one entry, index authors garbled; “a harder”; vorld) | two pieces as H2 sections with their own bylines | 0 |
 | 10011040 | little | 3 (Back Numbers notice follows) | 0 | 0 | 0 | 2 (printed title; minor slips) | unbulleted indented lists → lists | 0 |
 
-Findings so far:
+Running notes:
 - Page range from the index is wrong both ways: articles end on the next article's first page (10006380), or end early with unindexed pieces or adverts following (10010120, 10003240). Transcriber must find the end by reading.
 - Unindexed letters/pieces exist between indexed articles. Decided 2026-10-03: transcribe into `transcriptions/unindexed/`, list in #44 for editorial review.
 - 300 dpi pages make zooms mostly unnecessary.
