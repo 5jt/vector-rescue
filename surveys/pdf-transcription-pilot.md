@@ -19,6 +19,7 @@ Method: render pages at 220 dpi (110 too coarse for APL: ⌿ looked like / or �
 | 10008760 | much | 9 | 150 (APL and HTML) | 6 | 0 | 3 (Winword ☞ bullet; APL-font • and © glyphs; ⍕ read from context) | 4 screenshots cropped to 16-grey PNG; prose HTML tags in backticks | 0 (residue is OCR noise and screenshot text) |
 | 10010330 | much | 4 (range said 6; then an advert) | 30 (J) | 2 | 0 | 0 | J inline in backticks; subscripts as Unicode | 0 (hyphenation only); every verb checked by hand against its printed rows (no J interpreter here) |
 | 10010550 | much | 8 | 210 (J and output) | 4 | 0 | 4 (`value`/`values`; wrapped NB. comments rejoined; `_` placement; missing `)`) | figure cropped to 1-bit PNG | 0 (OCR noise only); spm g1, spm h1, path values, slacks, connectivity, arclist, bf all recomputed and match |
+| 10000410 | some | 4 (range said 4; ends p.50, next article starts p.51) | 105 | 4 | 0 | 4 (printed title; “Federick”; wrapped line; θ for ⍬) | quotation as blockquote; `0⊥` (last item) idiom kept | 0 (OCR noise only) |
 
 Findings so far:
 - Page range from the index is wrong both ways: articles end on the next article's first page (10006380), or end early with unindexed pieces or adverts following (10010120, 10003240). Transcriber must find the end by reading.
