@@ -6,6 +6,14 @@ They are set aside here, unpublished, for editorial review.
 
 | File | Issue | Printed page | Title | Author | Found after |
 |---|---|---|---|---|---|
+| [v1n2-p47-recent-meetings.md](v1n2-p47-recent-meetings.md) | 1:2 | 47 | Recent Meetings (section introduction) | — | heads the meetings section |
+| [v1n2-p48-apl-vs-packages-and-4gls.md](v1n2-p48-apl-vs-packages-and-4gls.md) | 1:2 | 48 | APL vs Packages and 4GLs (meeting notes) | Adrian Smith | heads art10001070 |
+| [v1n2-p52-apl84-in-focus.md](v1n2-p52-apl84-in-focus.md) | 1:2 | 52–57 | APL84 in Focus (meeting notes on five talks) | Adrian Smith, Dick Bowman | art10001070 |
+| [v1n2-p73-steps-towards-a-better-basic-2.md](v1n2-p73-steps-towards-a-better-basic-2.md) | 1:2 | 73–74 | Steps Towards a Better Basic – Part 2 (reprint from DATALINK) | Anthony Camacho | art10001020 |
+| [v1n2-p99-technical-editorial.md](v1n2-p99-technical-editorial.md) | 1:2 | 99–100 | Technical Editorial | David Ziemann, Jonathan Barman | heads the technical section |
+| [v1n2-p101-technical-correspondence.md](v1n2-p101-technical-correspondence.md) | 1:2 | 101–106 | Technical Correspondence (Thomson ×2, Horton, with replies) | Norman Thomson, D.J. Horton | technical editorial |
+| [v1n2-p107-prize-competition-matrix-numeric-validation.md](v1n2-p107-prize-competition-matrix-numeric-validation.md) | 1:2 | 107–108 | Prize Competition: Matrix Numeric Validation | David Ziemann | heads art10005120 |
+| [v1n2-p124-apl-iso-standard-meeting-photographs.md](v1n2-p124-apl-iso-standard-meeting-photographs.md) | 1:2 | 124 | APL ISO Standard Meeting (captioned photographs) | — | heads art10011060 |
 | [v1n1-p41-information-centre-introduction.md](v1n1-p41-information-centre-introduction.md) | 1:1 | 41 | APL in the Information Centre (meeting introduction) | Adrian Smith | heads art10002520 |
 | [v1n1-p46-panel-discussion-information-centres.md](v1n1-p46-panel-discussion-information-centres.md) | 1:1 | 46–47 | Panel Discussion on Information Centres | Adrian Smith (compiler) | art10006690 |
 | [v1n1-p48-communicating-with-apl-introduction.md](v1n1-p48-communicating-with-apl-introduction.md) | 1:1 | 48 | Communicating with APL (meeting introduction) | Adrian Smith | heads art10006070 |
