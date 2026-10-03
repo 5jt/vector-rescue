@@ -30,6 +30,7 @@ Method: render pages at 220 dpi (110 too coarse for APL: ⌿ looked like / or �
 | 10010980 | some | 3 (range said 6; advert follows) | 50 | 5 | 2 (`|` in the exact expression; `¯1↑Y` read as `¯1↓Y` at 600 dpi, settled at 900 dpi by recomputing) | 4 (printed title; argument names swapped in prose; typos; empty lines) | — | 0; all four solutions recomputed and match the printed example |
 | 10000180 | little | 4 (range said 2) | 1 | 0 | 0 | 4 (printed title; range; 10010060 index page wrong; grammar) | two-column abstracts → one column, titles italic | 0; UNINDEXED: "The APL95 Software Exchange" (Dick Holt) p.13 |
 | 10001120 | little | 5 (range said 7; next indexed review starts p.52) | 30 (benchmark tables) | 0 | 0 | 4 (printed title; table alignment; subheading; two doubtful glyphs) | benchmark tables as code; AP124/GRAPHPAK as definition list | 0; all 19 ratios and the average recomputed and match |
+| 10001450 | little | 5 | 10 | 1 | 0 | 3 (printed title; “is few thoughts”; paired figures as one image) | 3 screenshots 16-grey; text wrapped round a figure → figure then text | 0 (residue is screenshot text) |
 
 Findings so far:
 - Page range from the index is wrong both ways: articles end on the next article's first page (10006380), or end early with unindexed pieces or adverts following (10010120, 10003240). Transcriber must find the end by reading.
