@@ -36,6 +36,7 @@ Method: render pages at 220 dpi (110 too coarse for APL: ⌿ looked like / or �
 | 10006080 | little | 5 (advert at foot of last page) | 7 | 0 | 0 | 4 (printed title; `<—` arrows; typos; “we” = MicroAPL) | (a)–(d) lists as definition lists | 0 (residue is the advert) |
 | 10008330 | little | 5 | 9 | 3 | 1 (colour-table marker first written as ⍝; print has `+`) | 5 (printed title; ⌹ and ⍬ glyph readings; `+` markers; `[]` boxes) | code nested in list item | 0 |
 | 10008370 | little | 6 (two companion pieces; advert follows) | 8 | 0 | 0 | 3 (two pieces under one entry, index authors garbled; “a harder”; vorld) | two pieces as H2 sections with their own bylines | 0 |
+| 10011040 | little | 3 (Back Numbers notice follows) | 0 | 0 | 0 | 2 (printed title; minor slips) | unbulleted indented lists → lists | 0 |
 
 Findings so far:
 - Page range from the index is wrong both ways: articles end on the next article's first page (10006380), or end early with unindexed pieces or adverts following (10010120, 10003240). Transcriber must find the end by reading.
