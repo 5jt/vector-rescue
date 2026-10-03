@@ -28,6 +28,7 @@ Method: render pages at 220 dpi (110 too coarse for APL: ⌿ looked like / or �
 | 10010290 | some | 5 | 25 (J) | 0 | 0 | 4 (printed title; missing `0` after `b.`; “sequence verbs”; `_` glyph) | definitions as definition lists; inline J in backticks | 0; diag rotv and `+/@-` results checked by hand |
 | 10010300 | some | 5 | 35 (J) | 1 | 1 (`'abw'` read as `'abv'` at 300 dpi) | 5 (printed title; stereogram as image; “assesses”; unnamed joiner symbol; transliterated fractions) | stereogram and 2 plan diagrams as 1-bit PNG | 0 |
 | 10010980 | some | 3 (range said 6; advert follows) | 50 | 5 | 2 (`|` in the exact expression; `¯1↑Y` read as `¯1↓Y` at 600 dpi, settled at 900 dpi by recomputing) | 4 (printed title; argument names swapped in prose; typos; empty lines) | — | 0; all four solutions recomputed and match the printed example |
+| 10000180 | little | 4 (range said 2) | 1 | 0 | 0 | 4 (printed title; range; 10010060 index page wrong; grammar) | two-column abstracts → one column, titles italic | 0; UNINDEXED: "The APL95 Software Exchange" (Dick Holt) p.13 |
 
 Findings so far:
 - Page range from the index is wrong both ways: articles end on the next article's first page (10006380), or end early with unindexed pieces or adverts following (10010120, 10003240). Transcriber must find the end by reading.
