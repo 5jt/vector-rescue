@@ -64,3 +64,7 @@ Priority: the more interesting articles first (practical how-to and theoretical 
 - Articles excused from review still carry a "not reviewed" note (caution).
 - Reviewers use GitHub only, for now.
 - Until an article is transcribed, its page shows the PDF's OCR text folded away (a closed `<details>` section labelled as unedited machine-read text), so site search can find it, imperfectly.
+
+## Decided (Stephen Taylor, 2026-10-03)
+
+- Printed pieces with no index entry are transcribed into `transcriptions/unindexed/` (not published) and listed for editorial review in #44.
