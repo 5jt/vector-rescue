@@ -34,6 +34,7 @@ Method: render pages at 220 dpi (110 too coarse for APL: ⌿ looked like / or �
 | 10002560 | little | 2 (range said 3) | 0 | 0 | 0 | 3 (printed title; meeting context; next article’s index page) | epigraphs as blockquote | 0; UNINDEXED: meeting introduction (Adrian Smith) p.79 and Alan Williams’s talk pp.80–82, with 2 hand-drawn graphs |
 | 10002590 | little | 3 | 0 | 0 | 0 | 3 (“no better a”; run-in heads; star bullets) | run-in heads → bold paragraphs with lists | 0 |
 | 10006080 | little | 5 (advert at foot of last page) | 7 | 0 | 0 | 4 (printed title; `<—` arrows; typos; “we” = MicroAPL) | (a)–(d) lists as definition lists | 0 (residue is the advert) |
+| 10008330 | little | 5 | 9 | 3 | 1 (colour-table marker first written as ⍝; print has `+`) | 5 (printed title; ⌹ and ⍬ glyph readings; `+` markers; `[]` boxes) | code nested in list item | 0 |
 
 Findings so far:
 - Page range from the index is wrong both ways: articles end on the next article's first page (10006380), or end early with unindexed pieces or adverts following (10010120, 10003240). Transcriber must find the end by reading.
