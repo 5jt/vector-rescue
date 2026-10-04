@@ -1,6 +1,7 @@
 """Pipeline steps. Each reads from SRC (read-only) and writes under OUT."""
 
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -9,7 +10,8 @@ from pathlib import Path
 from .convert import convert
 from .inventory import article_source, merge_wayback, read_index, read_issues
 from .legacy import decode, mapped_apl, read_codingprobs
-from .pages import _catalogue, issue_pdfs, wayback_issue_pdfs, write_home_page, write_issue_pages
+from .pages import (_catalogue, issue_pdfs, nav_toml, wayback_issue_pdfs, write_home_page, write_issue_pages,
+                    write_volume_pages)
 from . import stubs
 from .links import LinkIndex
 
@@ -149,10 +151,14 @@ def run_site(src, out, config, wayback=None, corrections=None, transcriptions=No
     if corrections:
         issues = corrections.apply_catalogue(issues)
     more = wayback_issue_pdfs(wayback) if wayback else None
-    write_stub_pages(inventory, issues, issue_pdfs(issues, src, more), out, transcriptions)
+    pdfs = issue_pdfs(issues, src, more)
+    write_stub_pages(inventory, issues, pdfs, out, transcriptions)
     write_issue_pages(inventory, issues, src, docs, more)
+    write_volume_pages(inventory, issues, docs, pdfs, out / "covers")
     write_home_page(inventory, issues, docs)
-    shutil.copy(config, out / "zensical.toml")
+    toml = config.read_text(encoding="utf-8")
+    toml = re.sub(r"^nav = \[.*?\]$", lambda _: nav_toml(inventory, issues), toml, count=1, flags=re.M)
+    (out / "zensical.toml").write_text(toml, encoding="utf-8")
     shutil.rmtree(out / "overrides", ignore_errors=True)
     shutil.copytree(config.parent / "overrides", out / "overrides")
     shutil.copytree(config.parent / "assets", docs / "assets", dirs_exist_ok=True)  # incl. fonts

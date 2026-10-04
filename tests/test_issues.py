@@ -154,3 +154,50 @@ def test_issue_page_marks_articles_only_in_the_pdf(tmp_path):
     write_issue_pages(INVENTORY, read_issues(SRC), SRC, docs)
     text = (docs / "25" / "1" / "index.md").read_text(encoding="utf-8")
     assert "| 30 | [Not online](../../art2/) (PDF only) |  |" in text
+
+
+def test_volumes_have_year_spans(tmp_path):
+    from vecrescue.pages import volumes
+    by = {v: (keys, span) for v, keys, span in volumes(INVENTORY, read_issues(SRC))}
+    assert by["25"] == ([("25", "1"), ("25", "3"), ("25", "4")], "2011–2012")
+    assert ("24", "2") in by["24"][0] and ("24", "3") not in by["24"][0]   # combined issue filed at 2
+
+
+def _one_page_pdf(path):
+    """A minimal valid one-page PDF (a blank A4 page), for pdftoppm."""
+    objs = [b"<< /Type /Catalog /Pages 2 0 R >>",
+            b"<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+            b"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] >>"]
+    out, offsets = bytearray(b"%PDF-1.4\n"), []
+    for n, body in enumerate(objs, 1):
+        offsets.append(len(out))
+        out += b"%d 0 obj\n" % n + body + b"\nendobj\n"
+    xref = len(out)
+    out += b"xref\n0 %d\n0000000000 65535 f \n" % (len(objs) + 1)
+    out += b"".join(b"%010d 00000 n \n" % o for o in offsets)
+    out += b"trailer\n<< /Size %d /Root 1 0 R >>\nstartxref\n%d\n%%%%EOF\n" % (len(objs) + 1, xref)
+    path.write_bytes(bytes(out))
+    return path
+
+
+def test_volume_page_shows_linked_covers(tmp_path):
+    from vecrescue.pages import write_volume_pages
+    docs, _ = pages(tmp_path)
+    issues = read_issues(SRC)
+    pdfs = {("25", "1"): _one_page_pdf(tmp_path / "v251.pdf")}
+    write_volume_pages(INVENTORY, issues, docs, pdfs, tmp_path / "covers")
+    text = (docs / "25" / "index.md").read_text(encoding="utf-8")
+    assert "title: Volume 25 (2011–2012)" in text
+    assert '<a class="cover" href="1/"><img src="1/cover.png"' in text
+    assert "No. 1 · June 2011" in text
+    assert (docs / "25" / "1" / "cover.png").read_bytes().startswith(b"\x89PNG")
+    vol24 = (docs / "24" / "index.md").read_text(encoding="utf-8")
+    assert '<a class="cover" href="2/"><span class="nocover">' in vol24   # no PDF: placeholder
+
+
+def test_nav_lists_home_and_volumes():
+    from vecrescue.pages import nav_toml
+    nav = nav_toml(INVENTORY, read_issues(SRC))
+    assert nav.startswith('nav = [\n  { "Home" = "index.md" },')
+    assert '{ "Volume 25 (2011–2012)" = "25/index.md" }' in nav
+    assert nav.index('"Volume 1') < nav.index('"Volume 24') < nav.index('"Volume 25')

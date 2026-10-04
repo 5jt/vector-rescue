@@ -6,8 +6,10 @@ others shown as not yet online. A combined issue (e.g. 24:2&3) also has
 a page at its second number, pointing to the first.
 """
 
+import html
 import re
 import shutil
+import subprocess
 from collections import defaultdict
 from pathlib import Path
 
@@ -157,26 +159,95 @@ def write_issue_pages(inventory, issues, root, docs, more_pdfs=None):
     return written
 
 
-def write_home_page(inventory, issues, docs):
-    docs = Path(docs)
+def volumes(inventory, issues):
+    """[(volume, [issue keys in order], year span)] in volume order; the span
+    is "1984–1985", a single year, or "" if no year is known."""
     catalogue, alias = _catalogue(issues)
     keys = set(catalogue) | {(r["volume"], r["issue"]) for r in inventory if r.get("volume")}
     keys = {alias.get(k, k) for k in keys}
-    volumes = defaultdict(list)
+    by = defaultdict(list)
     for key in keys:
-        volumes[key[0]].append(key)
+        by[key[0]].append(key)
+    out = []
+    for vol in sorted(by, key=_num):
+        ordered = sorted(by[vol], key=lambda k: _num(k[1]))
+        ys = sorted(y for y in (catalogue.get(k, {}).get("year") for k in ordered) if y)
+        span = "" if not ys else ys[0] if ys[0] == ys[-1] else f"{ys[0]}–{ys[-1]}"
+        out.append((vol, ordered, span))
+    return out
+
+
+def _cover(pdf, target, cache):
+    """Render page 1 of PDF as a PNG at TARGET, via a cache of renders keyed
+    by the PDF's name and size; False if it cannot be rendered."""
+    cache = Path(cache)
+    cache.mkdir(parents=True, exist_ok=True)
+    cached = cache / f"{pdf.name}-{pdf.stat().st_size}.png"
+    if not cached.exists():
+        stem = cache / "render"
+        done = subprocess.run(["pdftoppm", "-png", "-f", "1", "-l", "1", "-scale-to", str(COVER_PX),
+                               "-singlefile", str(pdf), str(stem)], capture_output=True)
+        if done.returncode or not stem.with_suffix(".png").exists():
+            return False
+        stem.with_suffix(".png").rename(cached)
+    shutil.copyfile(cached, target)
+    return True
+
+
+COVER_PX = 360  # longer side of a rendered cover
+
+
+def write_volume_pages(inventory, issues, docs, pdfs, cache):
+    """A landing page /<vol>/ for each volume: the front cover of each issue
+    (page 1 of its PDF), linked to the issue page; an issue without a PDF
+    gets a captioned placeholder."""
+    docs = Path(docs)
+    catalogue, _ = _catalogue(issues)
+    written = []
+    for vol, keys, span in volumes(inventory, issues):
+        title = f"Volume {vol}" + (f" ({span})" if span else "")
+        cards = []
+        for key in keys:
+            issue = catalogue.get(key, {"volume": key[0], "issue": key[1]})
+            no = key[1]
+            caption = html.escape(f"No. {_label(issue)}" + (f" · {_date(issue)}" if _date(issue) else ""))
+            alt = html.escape(f"Front cover of Vector {vol}:{_label(issue)}")
+            pdf = pdfs.get(key)
+            if pdf and _cover(pdf, docs / vol / no / "cover.png", cache):
+                face = f'<img src="{no}/cover.png" alt="{alt}" loading="lazy">'
+            else:
+                face = '<span class="nocover">No cover image</span>'
+            cards.append(f'<a class="cover" href="{no}/">{face}<span class="caption">{caption}</span></a>')
+        lines = [_front(title), f"*Vector* volume {vol}" + (f", {span}" if span else "") + ".", "",
+                 '<div class="covers" markdown="0">', *cards, "</div>"]
+        path = docs / vol / "index.md"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        written.append(path)
+    return written
+
+
+def nav_toml(inventory, issues):
+    """The Zensical nav: Home, then every volume with its year span."""
+    entries = ['{ "Home" = "index.md" }']
+    for vol, _, span in volumes(inventory, issues):
+        label = f"Volume {vol}" + (f" ({span})" if span else "")
+        entries.append(f'{{ "{label}" = "{vol}/index.md" }}')
+    return "nav = [\n  " + ",\n  ".join(entries) + ",\n]"
+
+
+def write_home_page(inventory, issues, docs):
+    docs = Path(docs)
+    catalogue, _ = _catalogue(issues)
     lines = [_front("Vector archive"),
              "*Vector*, the journal of the British APL Association: the archive "
              "recovered from the PHP site, converted for review.", ""]
-    for vol in sorted(volumes, key=_num):
-        links, years = [], set()
-        for key in sorted(volumes[vol], key=lambda k: _num(k[1])):
+    for vol, keys, span in volumes(inventory, issues):
+        links = []
+        for key in keys:
             issue = catalogue.get(key, {"volume": key[0], "issue": key[1]})
-            years.add(issue.get("year"))
             links.append(f"[{_label(issue)}]({key[0]}/{key[1]}/)")
-        ys = sorted(y for y in years if y)
-        span = "" if not ys else ys[0] if ys[0] == ys[-1] else f"{ys[0]}–{ys[-1]}"
-        lines.append(f"- Volume {vol}" + (f" ({span})" if span else "") + ": " + " · ".join(links))
+        lines.append(f"- [Volume {vol}]({vol}/)" + (f" ({span})" if span else "") + ": " + " · ".join(links))
     unprinted = [r for r in inventory if r.get("id") and not r.get("volume") and _converted(docs, r["id"])]
     for heading, group in (("Published online only", [r for r in unprinted if not r.get("in_press")]),
                            ("In press, never printed", [r for r in unprinted if r.get("in_press")])):
