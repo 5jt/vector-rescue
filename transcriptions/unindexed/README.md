@@ -6,6 +6,14 @@ They are set aside here, unpublished, for editorial review.
 
 | File | Issue | Printed page | Title | Author | Found after |
 |---|---|---|---|---|---|
+| [v1n4-p61-recent-meetings.md](v1n4-p61-recent-meetings.md) | 1:4 | 61 | Recent Meetings (section introduction) | — | heads the meetings section |
+| [v1n4-p63-introductory-notes.md](v1n4-p63-introductory-notes.md) | 1:4 | 63 | Introductory Notes; APL and Graphics (meeting introduction) | Adrian Smith | heads art10006090 |
+| [v1n4-p95-steps-towards-a-better-basic-3.md](v1n4-p95-steps-towards-a-better-basic-3.md) | 1:4 | 95–97 | Steps Towards a Better Basic — Part 3 (reprint from Datalink) | Anthony Camacho | art10006700 |
+| [v1n4-p105-technical-editorial.md](v1n4-p105-technical-editorial.md) | 1:4 | 105–107 | Technical Editorial: Is APL Always Appropriate? (with publication standards, introduction to articles) | Jonathan Barman, David Ziemann | heads the technical section |
+| [v1n4-p107-technical-correspondence.md](v1n4-p107-technical-correspondence.md) | 1:4 | 107–111 | Technical Correspondence (Donnelly; “Dan Wimbock”’s proposed APL features, with editors’ additions) | Peter Donnelly, “Dan Wimbock” | technical editorial |
+| [v1n4-p112-better-way-pot-pourri.md](v1n4-p112-better-way-pot-pourri.md) | 1:4 | 112–116 | Surely There Must Be a Better Way: A Pot-Pourri of Improveable Code | Dick Bowman | technical correspondence |
+| [v1n4-p117-prize-competitions.md](v1n4-p117-prize-competitions.md) | 1:4 | 117–120 | Prize Competition: Reshaping Rows of a Matrix; Result: Numeric Matrix Validation | Jonathan Barman, David Ziemann | Better Way |
+| [v1n4-p121-keyword-ql-apl-review.md](v1n4-p121-keyword-ql-apl-review.md) | 1:4 | 121–129 | Keyword QL/APL - An (Occasionally) Technical Review | David Ziemann | the competitions |
 | [v1n3-p47-recent-meetings.md](v1n3-p47-recent-meetings.md) | 1:3 | 47 | Recent Meetings (section introduction) | — | heads the meetings section |
 | [v1n3-p48-introductory-notes.md](v1n3-p48-introductory-notes.md) | 1:3 | 48 | Introductory Notes (meetings section) | Adrian Smith | heads art10010990 |
 | [v1n3-p60-lifestyle-under-vm-cms-vsapl.md](v1n3-p60-lifestyle-under-vm-cms-vsapl.md) | 1:3 | 60–61 | A Lifestyle under VM/CMS VSAPL (meeting notes) | — | art10010990 |
