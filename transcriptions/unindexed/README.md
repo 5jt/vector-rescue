@@ -6,6 +6,18 @@ They are set aside here, unpublished, for editorial review.
 
 | File | Issue | Printed page | Title | Author | Found after |
 |---|---|---|---|---|---|
+| [v2n4-p67-recent-meetings.md](v2n4-p67-recent-meetings.md) | 2:4 | 67 | Recent Meetings (section introduction) | — | heads the meetings section |
+| [v2n4-p69-computer-graphics-85.md](v2n4-p69-computer-graphics-85.md) | 2:4 | 69–76 | Computer Graphics ’85 (conference review) | Bruce Hollamby, Katie Williamson | Recent Meetings |
+| [v2n4-p77-expert-systems-85.md](v2n4-p77-expert-systems-85.md) | 2:4 | 77–78 | Expert Systems ’85 (conference review) | Peter S. Davies | Computer Graphics ’85 |
+| [v2n4-p79-general-articles.md](v2n4-p79-general-articles.md) | 2:4 | 79 | General Articles (section introduction) | — | heads art10001220 |
+| [v2n4-p101-technical-section.md](v2n4-p101-technical-section.md) | 2:4 | 101 | Technical Section (section introduction) | — | heads the technical section |
+| [v2n4-p102-technical-editorial.md](v2n4-p102-technical-editorial.md) | 2:4 | 102 | Technical Editorial: Utility functions | Jonathan Barman, Dave Ziemann | technical section |
+| [v2n4-p103-technical-correspondence.md](v2n4-p103-technical-correspondence.md) | 2:4 | 103–104 | Technical Correspondence (Henriod, Vesperoni, Sullivan) | Claude Henriod, Eduardo Vesperoni, John Sullivan | technical editorial |
+| [v2n4-p105-prize-competition-result-range-union.md](v2n4-p105-prize-competition-result-range-union.md) | 2:4 | 105–107 | Prize Competition result: Range Union | Jonathan Barman | technical correspondence |
+| [v2n4-p109-prize-competition-watch-your-step.md](v2n4-p109-prize-competition-watch-your-step.md) | 2:4 | 109–110 | Prize Competition: Watch your step (with Competition Rules) | David Ziemann | Range Union |
+| [v2n4-p111-surely-there-must-be-a-better-way.md](v2n4-p111-surely-there-must-be-a-better-way.md) | 2:4 | 111–114 | Surely there must be a better way (Fuzzy Look-Ups; Phonetic Searching) | David Ziemann | Watch your step |
+| [v2n4-p115-apl-trivia.md](v2n4-p115-apl-trivia.md) | 2:4 | 115–119 | APL Trivia; Remarks on “Towards a Better APL” (warning: doubtful listings) | David Ziemann, Claude Henriod | Better Way |
+| [v2n4-p121-introduction-to-technical-articles.md](v2n4-p121-introduction-to-technical-articles.md) | 2:4 | 121 | Introduction to Technical Articles | — | heads art10004970 |
 | [v2n3-p49-recent-meetings.md](v2n3-p49-recent-meetings.md) | 2:3 | 49 | Recent Meetings (section introduction) | — | heads the meetings section |
 | [v2n3-p50-apl-systems-on-micros.md](v2n3-p50-apl-systems-on-micros.md) | 2:3 | 50–59 | Introductory Notes; APL Systems on Micros (notes on five talks) | Adrian Smith, Eileen Dyson | Recent Meetings |
 | [v2n3-p60-apl-in-practice-introduction.md](v2n3-p60-apl-in-practice-introduction.md) | 2:3 | 60 | APL in Practice – Commercial Applications (meeting introduction) | — | heads art10007470 |

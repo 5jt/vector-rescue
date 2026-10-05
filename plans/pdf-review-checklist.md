@@ -21,6 +21,7 @@ Transcriptions that are doubtful or missing. Each has a `warning:` in its front 
 
 - [ ] **XPL – an Expert Systems Framework**, Robert Bittlestone (1:2, p.65; 8 pp; not transcribed: needs a human transcriber, #59) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10001020.md) · [page](https://5jt.github.io/vector-rescue/art10001020/) · [PDF](https://5jt.github.io/vector-rescue/1/2/VOL.1-NO.2-OCTOBER-1984.pdf#page=67)
 - [ ] **Japanese APL on IBM 5550**, David Ziemann (2:1, p.69; 1 p; unindexed; the session printout in Japanese characters is reproduced as an image, not transcribed: a reader with Japanese could transcribe it) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/unindexed/v2n1-p69-japanese-apl-on-ibm-5550.md) · [PDF](https://5jt.github.io/vector-rescue/2/1/VOL.2-NO.1-JULY-1985.pdf#page=71)
+- [ ] **APL Trivia; Remarks on “Towards a Better APL”**, David Ziemann, Claude Henriod (2:4, p.115; 5 pp; unindexed; Henriod’s APL listings are a rough dot-matrix print with several doubtful glyphs) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/unindexed/v2n4-p115-apl-trivia.md) · [PDF](https://5jt.github.io/vector-rescue/2/4/VOL.2-NO.4-APRIL-1986.pdf#page=117)
 
 ## The more interesting articles
 
