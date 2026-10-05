@@ -6,6 +6,17 @@ They are set aside here, unpublished, for editorial review.
 
 | File | Issue | Printed page | Title | Author | Found after |
 |---|---|---|---|---|---|
+| [v3n1-p57-recent-meetings.md](v3n1-p57-recent-meetings.md) | 3:1 | 57 | Recent Meetings (section introduction) | — | heads the meetings section |
+| [v3n1-p59-apl-and-or-meeting.md](v3n1-p59-apl-and-or-meeting.md) | 3:1 | 59–61 | Introductory Notes; APL and Operational Research (notes on four talks) | Adrian Smith | heads art10002590 |
+| [v3n1-p67-general-articles.md](v3n1-p67-general-articles.md) | 3:1 | 67 | General Articles (section introduction) | — | heads the general articles |
+| [v3n1-p68-case-study-vspc-last-rites.md](v3n1-p68-case-study-vspc-last-rites.md) | 3:1 | 68–74 | Case Study: VSPC – The Last Rites | Adrian Smith | heads art10006020 |
+| [v3n1-p93-steps-to-a-better-basic.md](v3n1-p93-steps-to-a-better-basic.md) | 3:1 | 93–94 | Steps to a better BASIC — A Choice Method of Selection (reprint from Datalink) | Anthony Camacho | art10001620 |
+| [v3n1-p95-technical-section.md](v3n1-p95-technical-section.md) | 3:1 | 95 | Technical Section (section introduction) | — | heads the technical section |
+| [v3n1-p97-technical-editorial.md](v3n1-p97-technical-editorial.md) | 3:1 | 97 | Technical Editorial | Jonathan Barman, Dave Ziemann | technical section |
+| [v3n1-p99-technical-correspondence.md](v3n1-p99-technical-correspondence.md) | 3:1 | 99–100 | Technical Correspondence (Bowman) | Dick Bowman | technical editorial |
+| [v3n1-p101-surely-there-must-be-a-better-way.md](v3n1-p101-surely-there-must-be-a-better-way.md) | 3:1 | 101 | Surely There Must Be A Better Way; Hacker’s Corner (1) | Dave Ziemann, Adrian Smith | technical correspondence; heads art10008190 |
+| [v3n1-p105-prize-competition-get-your-directories-updated.md](v3n1-p105-prize-competition-get-your-directories-updated.md) | 3:1 | 105–106 | Prize Competition: Get your directories updated | Jonathan Barman | art10008190 |
+| [v3n1-p107-introduction-to-contributed-articles.md](v3n1-p107-introduction-to-contributed-articles.md) | 3:1 | 107 | Introduction to Contributed Articles | Dave Ziemann | heads art10007070 |
 | [v2n4-p67-recent-meetings.md](v2n4-p67-recent-meetings.md) | 2:4 | 67 | Recent Meetings (section introduction) | — | heads the meetings section |
 | [v2n4-p69-computer-graphics-85.md](v2n4-p69-computer-graphics-85.md) | 2:4 | 69–76 | Computer Graphics ’85 (conference review) | Bruce Hollamby, Katie Williamson | Recent Meetings |
 | [v2n4-p77-expert-systems-85.md](v2n4-p77-expert-systems-85.md) | 2:4 | 77–78 | Expert Systems ’85 (conference review) | Peter S. Davies | Computer Graphics ’85 |

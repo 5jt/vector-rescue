@@ -10,7 +10,7 @@ transcribed: 'from page images of VOL.2-NO.4-APRIL-1986.pdf, pages 79–80 (prin
 review: draft
 queries:
 - "Byline printed “reviewed by Peter S. Davies”."
-- "Slips transcribed as printed: “proferred”, “they are supposed to be by traditional expert systems”.
+- "Slips transcribed as printed: “proferred”, “they are supposed to be by traditional expert systems”."
 ---
 
 reviewed by Peter S. Davies
