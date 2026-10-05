@@ -1,12 +1,17 @@
-.PHONY: all inventory convert site report test clean publish fetch-wayback
+.PHONY: all build inventory convert site report review test clean publish fetch-wayback
 
 RUN = uv run vecrescue
 
-all:
+all build:
 	$(RUN) all
 
 inventory convert site report:
 	$(RUN) $@
+
+# Record the reviews ticked and signed in plans/pdf-review-checklist.md in the
+# transcriptions' front matter; the next build shows "Reviewed by … on …".
+review:
+	$(RUN) review
 
 test:
 	uv run pytest -q

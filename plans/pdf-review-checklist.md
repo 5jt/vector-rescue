@@ -1,17 +1,27 @@
-# Review checklist: 20 articles from the printed issues
+# Review checklist: articles from the printed issues
 
-Twenty of the more interesting articles that exist only in the scanned issue PDFs: practical how-to and theoretical work, chosen over minutes, editorials and news. See `plans/pdf-conversion.md`.
+Transcriptions of articles that exist only in the scanned issue PDFs: first those that need editorial attention, then twenty of the more interesting articles (practical how-to and theoretical work, chosen over minutes, editorials and news). See `plans/pdf-conversion.md`; questions about an article go in #41.
 
-**To review an article** (once its transcription exists):
+**To review an article:**
 
-1. Open the transcription and its PDF pages side by side.
+1. Open the transcription and its PDF pages side by side. Start from the `queries:` in its front matter.
 2. Check the text against the page, especially every line of code.
-3. If it is right as it is, change its `[ ]` to `[x]` and add your name after it. If not, correct `transcriptions/art<ID>.md` instead.
-4. Open a pull request with your ticks and corrections: one article or many.
+3. Correct `transcriptions/art<ID>.md` where it is wrong. If it has a `warning:` that your corrections resolve, the review removes it.
+4. Change the article's `[ ]` to `[x]` and add your name at the end of the line after an em dash, optionally with the date: `— Jane Doe` or `— Jane Doe, 2026-10-06`.
+5. Run `make review`. It records the review in the transcription's front matter (`review: reviewed`, `reviewed_by`, `reviewed_on`: today unless you gave a date). The next build shows “Reviewed by Jane Doe on 2026-10-06” on the article's page, in place of “not yet reviewed”.
+6. Commit and open a pull request: one article or many.
 
-The transcriptions are made after the pilot; until then their links lead nowhere.
+A ticked line without a name is reported and left alone. The line can link to any transcription, including those in `transcriptions/unindexed/`, so articles can be added to this list as they are needed.
 
 Code: the share of code-like lines, which is what most needs checking (*much* > 8%, *some* 2–8%, *little* < 2%).
+
+## Needs editorial attention
+
+Transcriptions that are doubtful or missing. Each has a `warning:` in its front matter, shown at the head of its page and as ⚠ in its issue index. A major failure also has its own issue.
+
+- [ ] **XPL – an Expert Systems Framework**, Robert Bittlestone (1:2, p.65; 8 pp; not transcribed: needs a human transcriber, #59) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10001020.md) · [page](https://5jt.github.io/vector-rescue/art10001020/) · [PDF](https://5jt.github.io/vector-rescue/1/2/VOL.1-NO.2-OCTOBER-1984.pdf#page=67)
+
+## The more interesting articles
 
 - [ ] **Operators & Nested Arrays**, John Scholes (2:1, p.117; 6 pp; some code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10007700.md) · [page](https://5jt.github.io/vector-rescue/art10007700/) · [PDF](https://5jt.github.io/vector-rescue/2/1/VOL.2-NO.1-JULY-1985.pdf#page=119)
 - [ ] **Guide to APL2 Nested Arrays**, Norman Thomson (2:1, p.108; 9 pp; much code) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10009930.md) · [page](https://5jt.github.io/vector-rescue/art10009930/) · [PDF](https://5jt.github.io/vector-rescue/2/1/VOL.2-NO.1-JULY-1985.pdf#page=110)

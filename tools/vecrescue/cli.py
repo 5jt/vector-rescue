@@ -1,4 +1,5 @@
-"""Command line: vecrescue {inventory,convert,site,report,all} [--src DIR] [--out DIR]."""
+"""Command line: vecrescue {inventory,convert,site,report,all} [--src DIR] [--out DIR];
+vecrescue fetch-wayback; vecrescue review."""
 
 import argparse
 from pathlib import Path
@@ -40,11 +41,29 @@ def fetch_wayback(argv):
         print(f"failed: {url}: {err}")
 
 
+def review(argv):
+    """vecrescue review [--checklist FILE] [--transcriptions DIR]: record the
+    reviews ticked in the checklist in the transcriptions' front matter (#58)."""
+    from . import review as rv
+    p = argparse.ArgumentParser(prog="vecrescue review")
+    p.add_argument("--checklist", type=Path, default=Path("plans/pdf-review-checklist.md"))
+    p.add_argument("--transcriptions", type=Path, default=Path("transcriptions"))
+    a = p.parse_args(argv)
+    results = rv.apply(a.checklist, a.transcriptions)
+    for path, outcome in results:
+        if outcome != "already reviewed":
+            print(f"{path}: {outcome}")
+    n = sum(outcome == "reviewed" for _, outcome in results)
+    print(f"review: {n} newly reviewed, {len(results)} ticked in {a.checklist}")
+
+
 def main(argv=None):
     import sys
     argv = sys.argv[1:] if argv is None else argv
     if argv[:1] == ["fetch-wayback"]:
         return fetch_wayback(argv[1:])
+    if argv[:1] == ["review"]:
+        return review(argv[1:])
     p = argparse.ArgumentParser(prog="vecrescue")
     p.add_argument("step", choices=STEPS + ("all",))
     p.add_argument("--src", type=Path, default=Path("sources/sjt/Vector"))

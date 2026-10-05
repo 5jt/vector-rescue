@@ -109,6 +109,11 @@ def write_stub_pages(inventory, issues, pdfs, out, transcriptions=None):
         link, match, ocr = None, None, None
         transcription = Path(transcriptions or "") / f"art{r['id']}.md"
         transcription = transcription if transcriptions and transcription.is_file() else None
+        warning = None
+        if transcription:  # one with no text (a failure, #58) keeps the stub, with its warning
+            fm, body = stubs.read_transcription(transcription)
+            if not body.strip():
+                transcription, warning = None, fm.get("warning") or "This article could not be transcribed."
         if pdf and (r.get("page") or "").isdigit():
             ident = f"{pdf.name}:{pdf.stat().st_size}"
             if ident not in cache:
@@ -133,10 +138,10 @@ def write_stub_pages(inventory, issues, pdfs, out, transcriptions=None):
                 ocr = entry["checks"].get(ocr_key)
         if transcription:
             stubs.write_transcribed(r, docs, transcription, link)
-            review = stubs.read_transcription(transcription)[0].get("review")
+            review = "doubtful" if fm.get("warning") else fm.get("review")
         else:
-            stubs.write_stub(r, docs, link, ocr if link else None)
-            review = None
+            stubs.write_stub(r, docs, link, ocr if link else None, warning)
+            review = "failed" if warning else None
         results[r["id"]] = {"pdf": link, "match": match, "transcribed": review}
     cache_path.write_text(json.dumps(cache, indent=1, ensure_ascii=False), encoding="utf-8")
     (out / "stubs.json").write_text(json.dumps(results, indent=1, ensure_ascii=False), encoding="utf-8")

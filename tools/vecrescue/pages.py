@@ -20,6 +20,9 @@ MONTHS = ["January", "February", "March", "April", "May", "June", "July",
           "August", "September", "October", "November", "December"]
 
 
+DOUBTFUL = "The transcription is doubtful or missing; its page says why"
+
+
 def _num(s):
     try:
         return float(s)
@@ -137,6 +140,7 @@ def write_issue_pages(inventory, issues, root, docs, more_pdfs=None):
         rows = sorted(articles.get(key, []), key=lambda r: (_num(r.get("page")), r.get("title") or ""))
         if rows:
             lines += ["| Page | Article | Author |", "| ---: | --- | --- |"]
+            marked = False
             for r in rows:
                 title = _cell(r.get("title"))
                 if _converted(docs, r.get("id")):
@@ -144,7 +148,12 @@ def write_issue_pages(inventory, issues, root, docs, more_pdfs=None):
                     page_md = (docs / f"art{r['id']}" / "index.md").read_text(encoding="utf-8")
                     if "\nstatus: not online\n" in page_md:
                         title += " (PDF only)" if "](../" in page_md.split("---", 2)[2] else " (not online)"
+                    if "\nwarning: " in (page_md.split("---", 2) + ["", ""])[1]:  # doubtful or failed transcription (#58)
+                        title += f' <span class="doubtful" title="{DOUBTFUL}">⚠</span>'
+                        marked = True
                 lines.append(f"| {r.get('page') or ''} | {title} | {_cell(', '.join(r.get('authors') or []))} |")
+            if marked:
+                lines += ["", f"⚠ {DOUBTFUL}."]
         else:
             lines.append("No articles are indexed for this issue.")
         path = folder / "index.md"
