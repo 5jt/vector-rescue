@@ -20,6 +20,7 @@ Code: the share of code-like lines, which is what most needs checking (*much* > 
 Transcriptions that are doubtful or missing. Each has a `warning:` in its front matter, shown at the head of its page and as ⚠ in its issue index. A major failure also has its own issue.
 
 - [ ] **XPL – an Expert Systems Framework**, Robert Bittlestone (1:2, p.65; 8 pp; not transcribed: needs a human transcriber, #59) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/art10001020.md) · [page](https://5jt.github.io/vector-rescue/art10001020/) · [PDF](https://5jt.github.io/vector-rescue/1/2/VOL.1-NO.2-OCTOBER-1984.pdf#page=67)
+- [ ] **Japanese APL on IBM 5550**, David Ziemann (2:1, p.69; 1 p; unindexed; the session printout in Japanese characters is reproduced as an image, not transcribed: a reader with Japanese could transcribe it) · [transcription](https://github.com/5jt/vector-rescue/blob/main/transcriptions/unindexed/v2n1-p69-japanese-apl-on-ibm-5550.md) · [PDF](https://5jt.github.io/vector-rescue/2/1/VOL.2-NO.1-JULY-1985.pdf#page=71)
 
 ## The more interesting articles
 

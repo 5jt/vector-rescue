@@ -14,6 +14,8 @@ Commit all changes to `plans/`, `progress/`, `reviews/` or `README.md`.
 Branches
 ========
 
+Claude opens and merges its own PRs with gh (repo-only token in GH_TOKEN); PRs are kept for the audit trail. Raise separate issues only for major transcription failures.
+
 Raise an issue on the remote for any substantial work, and do it in a Git branch. Include relevant changes to plans, progress and review documents.
 
 Planning work that changes **only** plan, progress and review documents **may** be committed to the `main` branch.
