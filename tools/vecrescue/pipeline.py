@@ -79,7 +79,8 @@ def run_convert(src, out, corrections=None):
 def write_stub_pages(inventory, issues, pdfs, out, transcriptions=None):
     """A page for every indexed article without text (issue #38), linking to
     its first page in the issue PDF, or the article's transcription from
-    TRANSCRIPTIONS/art<ID>.md where there is one (issue #40). Offsets and
+    TRANSCRIPTIONS/art<ID>.md where there is one (issue #40). An article
+    with neither (its issue has no complete scan) gets no page (#63). Offsets and
     title checks are cached in OUT/pdf-cache.json; results go to
     OUT/stubs.json for the report."""
     out = Path(out)
@@ -139,10 +140,14 @@ def write_stub_pages(inventory, issues, pdfs, out, transcriptions=None):
         if transcription:
             stubs.write_transcribed(r, docs, transcription, link)
             review = "doubtful" if fm.get("warning") else fm.get("review")
-        else:
+        elif link or warning:
             stubs.write_stub(r, docs, link, ocr if link else None, warning)
             review = "failed" if warning else None
-        results[r["id"]] = {"pdf": link, "match": match, "transcribed": review}
+        else:  # no scan of the issue, nothing to show: no page, and no link to one (#63)
+            shutil.rmtree(docs / f"art{r['id']}", ignore_errors=True)
+            review = None
+        results[r["id"]] = {"pdf": link, "match": match, "transcribed": review,
+                            "page": bool(transcription or link or warning)}
     cache_path.write_text(json.dumps(cache, indent=1, ensure_ascii=False), encoding="utf-8")
     (out / "stubs.json").write_text(json.dumps(results, indent=1, ensure_ascii=False), encoding="utf-8")
     return results

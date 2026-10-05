@@ -53,7 +53,15 @@ def test_stub_pages_are_rewritten_on_every_site_run(tmp_path):
     results = write_stub_pages(inv, [], {}, tmp_path)
     assert list(results) == ["2"]
     assert (docs / "art1" / "index.md").read_text() == "converted"
-    assert "not yet online" in (docs / "art2" / "index.md").read_text()
+    assert not (docs / "art2").exists()          # no PDF, no transcription: the stale stub goes (#63)
+    assert results["2"]["page"] is False
+
+
+def test_article_with_no_source_gets_no_page(tmp_path):
+    from vecrescue.pipeline import write_stub_pages
+    results = write_stub_pages([RECORD], [], {}, tmp_path)
+    assert results["10001000"] == {"pdf": None, "match": None, "transcribed": None, "page": False}
+    assert not (tmp_path / "docs" / "art10001000").exists()
 
 
 def test_ocr_text_is_folded_away_and_escaped(tmp_path):

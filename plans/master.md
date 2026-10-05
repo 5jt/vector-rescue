@@ -32,7 +32,7 @@ Updated 2026-10-02 (late).
 
 - PHP tree: 1,485 index records (1,484 IDs); 616 with HTML/XHTML text, 838 metadata only. Text complete for volumes 24–26, thin before volume 15.
 - The PHP tree stops at mid-2016. The Wayback Machine has the 2021 index: Vol. 26 No. 4 (9 articles more, plus our 11 "online only" ones) and 6 in-press articles to Nov 2016; captured pages for 4 more to 2018. Index captures in 2022–2025 are unchanged.
-- Whole-issue PDFs for volumes 1–23 (all but 2:2 and 7:2) and 26:4 were published on vector.org.uk (uploaded to its WordPress site in 2022 and 2024); captured by the Wayback Machine (~350 MB). Captures of 3:4, 7:4 and 16:4 are truncated.
+- Whole-issue PDFs for volumes 1–23 (all but 2:2 and 7:2) and 26:4 were published on vector.org.uk (uploaded to its WordPress site in 2022 and 2024); captured by the Wayback Machine (~350 MB). Captures of 3:4, 7:4 and 16:4 are truncated. The 48 indexed articles of these five issues have no page; their issue pages list them without links (#63), and the search for scans is #62.
 - 443 of the 606 indexed text files are valid UTF-8; 163 are not. APL in older articles is often font-mapped (APL2741, APL385), which byte conversion alone cannot fix; the old site listed suspects in `tools/codingprobs.txt`.
 - On GitHub Pages, `/art<ID>` redirects (301) to `/art<ID>/`; a file with no extension is served for download. Exact extensionless URLs need other hosting.
 
