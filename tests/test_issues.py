@@ -154,6 +154,20 @@ def test_issue_page_marks_articles_only_in_the_pdf(tmp_path):
     write_issue_pages(INVENTORY, read_issues(SRC), SRC, docs)
     text = (docs / "25" / "1" / "index.md").read_text(encoding="utf-8")
     assert "| 30 | [Not online](../../art2/) (PDF only) |  |" in text
+    assert "⚠" not in text
+
+
+def test_issue_page_marks_doubtful_transcriptions(tmp_path):
+    from vecrescue.stubs import write_stub
+    docs = tmp_path / "docs"
+    for i in CONVERTED:
+        (docs / f"art{i}").mkdir(parents=True)
+        (docs / f"art{i}" / "index.md").write_text("x")
+    write_stub(INVENTORY[2], docs, "25/1/v251.pdf#page=32", warning="Could not be transcribed.")
+    write_issue_pages(INVENTORY, read_issues(SRC), SRC, docs)
+    text = (docs / "25" / "1" / "index.md").read_text(encoding="utf-8")
+    assert '[Not online](../../art2/) (PDF only) <span class="doubtful"' in text
+    assert "\n⚠ The transcription is doubtful or missing; its page says why.\n" in text
 
 
 def test_volumes_have_year_spans(tmp_path):

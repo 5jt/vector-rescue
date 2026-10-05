@@ -74,9 +74,26 @@ def ocr_block(pages):
     return "\n".join([f'<details class="ocr">\n<summary>{OCR_SUMMARY}</summary>', *paras, "</details>"])
 
 
-def write_stub(record, docs, pdf=None, ocr=None):
+def warning_block(text, title="Doubtful transcription"):
+    """An admonition for the head of a page whose transcription is doubtful
+    or missing (issue #58): the `warning:` of its front matter."""
+    return [f'!!! warning "{title}"', "", "    " + " ".join(str(text).split()), ""]
+
+
+def review_note(fm):
+    """The note heading a transcribed page: who reviewed it and when, or that
+    it is not yet reviewed (issue #58)."""
+    note = "Transcribed from the printed issue"
+    if fm.get("review") == "reviewed":
+        by, on = fm.get("reviewed_by"), fm.get("reviewed_on")
+        return note + "." + (f" Reviewed by {by}" if by else " Reviewed") + (f" on {on}." if on else ".")
+    return note + "; not yet reviewed."
+
+
+def write_stub(record, docs, pdf=None, ocr=None, warning=None):
     """docs/art<ID>/index.md for a record with no text. PDF is the issue PDF's
-    path from the site root, with #page=N."""
+    path from the site root, with #page=N. WARNING, from a transcription with
+    no text, heads the page and marks it in the issue index."""
     fm = {"vid": record["id"], "title": record["title"] or f"Article {record['id']}"}
     if record.get("authors"):
         fm["authors"] = record["authors"]
@@ -84,7 +101,11 @@ def write_stub(record, docs, pdf=None, ocr=None):
         if record.get(k):
             fm[k] = record[k]
     fm["status"] = "not online"
+    if warning:
+        fm["warning"] = warning
     lines = ["---", yaml.safe_dump(fm, sort_keys=False, allow_unicode=True, width=1000).rstrip(), "---", ""]
+    if warning:
+        lines += warning_block(warning, "Not transcribed")
     if record.get("authors"):
         lines += [escape(", ".join(record["authors"])) + "\n{ .byline }", ""]
     lines.append("The text of this article is not yet online.")
@@ -112,8 +133,7 @@ def write_transcribed(record, docs, transcription, pdf=None):
     transcription = Path(transcription)
     fm, body = read_transcription(transcription)
     fm["status"] = "transcribed"
-    note = "Transcribed from the printed issue" + (
-        "." if fm.get("review") == "approved" else "; not yet reviewed.")
+    note = review_note(fm)
     if pdf:
         page = f", page {record['page']}" if record.get("page") else ""
         note += f" [Read it in the PDF of the issue{page}](../{pdf})"
@@ -123,7 +143,7 @@ def write_transcribed(record, docs, transcription, pdf=None):
         shutil.copytree(figures, folder, dirs_exist_ok=True)
     body = body.strip("\n").replace(f"](art{record['id']}/", "](")
     lines = ["---", yaml.safe_dump(fm, sort_keys=False, allow_unicode=True, width=1000).rstrip(), "---", "",
-             f"*{note}*", "{ .transcribed }", "", body]
+             f"*{note}*", "{ .transcribed }", ""] + (warning_block(fm["warning"]) if fm.get("warning") else []) + [body]
     path = folder / "index.md"
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")

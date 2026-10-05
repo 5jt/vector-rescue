@@ -274,12 +274,14 @@ def render_markdown(report):
              ""]
     st = t.get("stubs") or {}
     if st:
-        tr = t.get("transcribed") or {}
+        tr = dict(t.get("transcribed") or {})
+        failed = tr.pop("failed", 0)  # a transcription with no text (#58)
         states = ", ".join(f"{k} {v}" for k, v in sorted(tr.items()))
         lines += ["## Pages without text", "",
                   f"{st['pages']} indexed articles have a page but no text; {st['with_pdf']} link to their "
                   "first page in the issue PDF"
                   + (f", and {sum(tr.values())} transcribed from the printed issue ({states})" if tr else "")
+                  + (f"; {failed} could not be transcribed" if failed else "")
                   + f". For {st['title_not_found']} the title was not found on or next to the computed page:", ""]
         inv_titles = report.get("titles", {})
         lines += [f"- art{vid}: {inv_titles.get(vid, '')} → `{v['pdf']}`"

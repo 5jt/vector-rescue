@@ -118,10 +118,33 @@ def test_transcription_figures_are_copied_and_relinked(tmp_path):
     assert (docs / "art10001000" / "graph.png").read_bytes() == b"png"
 
 
-def test_approved_transcription_has_no_review_note(tmp_path):
+def test_reviewed_transcription_names_its_reviewer(tmp_path):
     from vecrescue.stubs import write_transcribed
-    text = write_transcribed(RECORD, tmp_path / "docs", _transcription(tmp_path, "approved"), pdf=None).read_text()
-    assert "not yet reviewed" not in text and "Transcribed from the printed issue." in text
+    path = _transcription(tmp_path, "reviewed\nreviewed_by: Jane Doe\nreviewed_on: '2026-10-06'")
+    text = write_transcribed(RECORD, tmp_path / "docs", path, pdf=None).read_text()
+    assert "not yet reviewed" not in text
+    assert "*Transcribed from the printed issue. Reviewed by Jane Doe on 2026-10-06.*" in text
+
+
+def test_doubtful_transcription_has_a_warning(tmp_path):
+    from vecrescue.stubs import write_transcribed
+    path = _transcription(tmp_path, "draft\nwarning: Two pages are\n  illegible.")
+    text = write_transcribed(RECORD, tmp_path / "docs", path, pdf=None).read_text()
+    head, body = text.split("---", 2)[1:]
+    assert "warning: Two pages are illegible." in head
+    assert '!!! warning "Doubtful transcription"\n\n    Two pages are illegible.\n' in body
+    assert body.index("not yet reviewed") < body.index("!!! warning") < body.index("Some text.")
+
+
+def test_transcription_without_text_keeps_the_stub(tmp_path):
+    from vecrescue.pipeline import write_stub_pages
+    path = _transcription(tmp_path, "draft\nwarning: Needs a human transcriber.")
+    path.write_text(path.read_text().split("---\n\n")[0] + "---\n", encoding="utf-8")
+    results = write_stub_pages([RECORD], [], {}, tmp_path, transcriptions=tmp_path / "transcriptions")
+    assert results["10001000"]["transcribed"] == "failed"
+    text = (tmp_path / "docs" / "art10001000" / "index.md").read_text()
+    assert "status: not online" in text and "warning: Needs a human transcriber." in text
+    assert '!!! warning "Not transcribed"\n\n    Needs a human transcriber.' in text and "The text of this article is not yet online." in text
 
 
 def test_stub_pages_use_transcriptions(tmp_path):

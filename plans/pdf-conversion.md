@@ -20,10 +20,15 @@ Drafted 2026-10-02. Follows the issue-PDF survey (`surveys/issue-pdf-survey.md`)
 
 ```yaml
 transcribed: from page images of VOL.13-NO.2.pdf, pages 36–46 (Claude, 2026-…)
-review: draft          # draft → approved (or corrected) by a named reviewer
+review: draft          # draft → reviewed, by make review (#58)
+reviewed_by: Jane Doe  # set by make review
+reviewed_on: '2026-10-06'
+warning: …             # only if the transcription is doubtful or missing
 ```
 
-The pipeline treats a transcription as the article's source in place of the PDF link, and the page shows "Transcribed from the printed issue; not yet reviewed" until `review: approved`.
+The pipeline treats a transcription as the article's source in place of the PDF link, and the page shows "Transcribed from the printed issue; not yet reviewed" until `review: reviewed`, then "Reviewed by {name} on {date}" from `reviewed_by` and `reviewed_on`.
+
+**Warnings.** A transcription made without confidence carries a `warning:` saying why; the page shows it at the head of the text and the issue index marks the article ⚠. An article that cannot be transcribed at all gets a transcription file with front matter and warning but no text; its page keeps the PDF link and folded OCR, headed by the warning. Both are listed under "Needs editorial attention" in `plans/pdf-review-checklist.md`; a major failure also gets its own issue (#58).
 
 **Figures.** Cropped from the page images into the article's folder; diagrams that are mostly text (tables, boxed displays) transcribed instead.
 
@@ -52,10 +57,10 @@ Transcribe the rest in batches (by volume), each batch a branch and PR, all with
 
 Reviewing happens through GitHub, open to anyone interested:
 
-- **Checklists** (`plans/pdf-review-checklist*.md`): one line per article with tick box, links to the transcription, the page on the development site and the PDF page. A reviewer ticks the box for an article approved as it is, and opens a PR.
-- **Corrections**: a reviewer who finds errors edits `transcriptions/art<ID>.md` in the same PR (GitHub's web editor is enough).
-- A merged PR sets `review: approved` (or `corrected`) and the reviewer's name in the article's front matter.
-- An issue labelled `editorial review` tracks progress; questions about a particular article go in comments there.
+- **Checklist** (`plans/pdf-review-checklist.md`): one line per article with tick box, links to the transcription, the page on the development site and the PDF page. A reviewer ticks the box and signs the line (`— Name`, optionally `, date`).
+- **Corrections**: a reviewer who finds errors edits `transcriptions/art<ID>.md` (GitHub's web editor is enough).
+- **`make review`** records each ticked, signed line in the transcription's front matter (`review: reviewed`, `reviewed_by`, `reviewed_on`) and drops its `warning:`; the next build shows the reviewer's name and date on the page (#58).
+- #41 (labelled `editorial review`) tracks progress; questions about a particular article go in comments there.
 
 Priority for review: the more interesting articles first (practical how-to and theoretical work); meeting minutes, editorials and news last. Transcription goes volume by volume regardless (decided 2026-10-03): the priority is for spending human effort.
 
@@ -69,3 +74,9 @@ Priority for review: the more interesting articles first (practical how-to and t
 
 - Printed pieces with no index entry are transcribed into `transcriptions/unindexed/` (not published) and listed for editorial review in #44.
 - On the pilot's evidence (`surveys/pdf-transcription-pilot.md`): articles with little or no code are excused from review, apart from checking their `queries:`. Articles with some or much code are reviewed, with attention on code that no printed result checks. Excused articles still carry the "not reviewed" note.
+
+## Decided (Stephen Taylor, 2026-10-05)
+
+- So that transcription need not wait on review, Claude opens and merges its own PRs on this repo (a repo-only token). PRs are still raised for the audit trail.
+- Review state is held in transcription front matter and shown by the build; `make review` applies the checklist's ticks (#58).
+- Doubtful or failed transcriptions carry a warning on their page and a mark in the issue index, and are listed in the checklist. Separate issues only for major transcription failures (the first: #59, XPL).
