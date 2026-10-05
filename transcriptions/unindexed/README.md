@@ -6,6 +6,20 @@ They are set aside here, unpublished, for editorial review.
 
 | File | Issue | Printed page | Title | Author | Found after |
 |---|---|---|---|---|---|
+| [v2n3-p49-recent-meetings.md](v2n3-p49-recent-meetings.md) | 2:3 | 49 | Recent Meetings (section introduction) | — | heads the meetings section |
+| [v2n3-p50-apl-systems-on-micros.md](v2n3-p50-apl-systems-on-micros.md) | 2:3 | 50–59 | Introductory Notes; APL Systems on Micros (notes on five talks) | Adrian Smith, Eileen Dyson | Recent Meetings |
+| [v2n3-p60-apl-in-practice-introduction.md](v2n3-p60-apl-in-practice-introduction.md) | 2:3 | 60 | APL in Practice – Commercial Applications (meeting introduction) | — | heads art10007470 |
+| [v2n3-p63-apl-statistics-users-group.md](v2n3-p63-apl-statistics-users-group.md) | 2:3 | 63 | APL Statistics Users Group (second report of the June 1985 meeting) | Jake Ansell | art10001210 |
+| [v2n3-p65-or-85-durham.md](v2n3-p65-or-85-durham.md) | 2:3 | 65–76 | OR-85 (Durham): Notes on Major Sessions | Adrian Smith | the statistics group |
+| [v2n3-p77-general-articles.md](v2n3-p77-general-articles.md) | 2:3 | 77–78 | General Articles (section introduction, with Introduction to General Articles) | David Preedy | heads art10010890 |
+| [v2n3-p89-steps-toward-a-better-basic.md](v2n3-p89-steps-toward-a-better-basic.md) | 2:3 | 89–90 | Steps toward a better BASIC — A High Grade SORT of Language (reprint from Datalink) | Anthony Camacho | art10000020 |
+| [v2n3-p91-technical-section.md](v2n3-p91-technical-section.md) | 2:3 | 91 | Technical Section (section introduction) | — | heads the technical section |
+| [v2n3-p93-technical-editorial.md](v2n3-p93-technical-editorial.md) | 2:3 | 93 | Technical Editorial: More on APL2 | Jonathan Barman, David Ziemann | technical section |
+| [v2n3-p95-technical-correspondence.md](v2n3-p95-technical-correspondence.md) | 2:3 | 95–99 | Technical Correspondence (Sullivan, Buckland, Horton, Last) | John Sullivan, John Buckland, D.J. Horton, Phil Last | technical editorial |
+| [v2n3-p101-prize-competition-result-wrap-up.md](v2n3-p101-prize-competition-result-wrap-up.md) | 2:3 | 101–103 | Prize Competition Result: Wrap Up | David Ziemann | technical correspondence |
+| [v2n3-p104-competition-update-test-your-skill.md](v2n3-p104-competition-update-test-your-skill.md) | 2:3 | 104 | Competition Update: Test your Skill | David Ziemann | Wrap Up result |
+| [v2n3-p105-prize-competition-my-other-cars-a-porsche.md](v2n3-p105-prize-competition-my-other-cars-a-porsche.md) | 2:3 | 105–106 | Prize Competition: My other Car’s a Porsche | David Ziemann | Test your Skill update |
+| [v2n3-p107-surely-there-must-be-a-better-way.md](v2n3-p107-surely-there-must-be-a-better-way.md) | 2:3 | 107–108 | Surely there must be a Better Way (Sullivan, Buckland) | David Ziemann | heads art10006740 |
 | [v2n1-p44-recent-meetings.md](v2n1-p44-recent-meetings.md) | 2:1 | 44 | Recent Meetings (section introduction) | — | heads the meetings section |
 | [v2n1-p45-introductory-notes.md](v2n1-p45-introductory-notes.md) | 2:1 | 45 | Introductory Notes (meetings section) | Adrian Smith | Recent Meetings |
 | [v2n1-p46-nested-arrays-workshop.md](v2n1-p46-nested-arrays-workshop.md) | 2:1 | 46–47 | Nested Arrays Workshop (meeting notes on four talks) | Adrian Smith | heads art10002640 |
