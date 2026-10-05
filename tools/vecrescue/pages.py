@@ -20,6 +20,8 @@ MONTHS = ["January", "February", "March", "April", "May", "June", "July",
           "August", "September", "October", "November", "December"]
 
 
+NO_SCAN = ("No complete scan of this issue has been found, so articles listed without a link "
+           "are known only from the index ([help find one](https://github.com/5jt/vector-rescue/issues/62)).")
 DOUBTFUL = "The transcription is doubtful or missing; its page says why"
 
 
@@ -136,8 +138,11 @@ def write_issue_pages(inventory, issues, root, docs, more_pdfs=None):
                 if pdf:
                     shutil.copyfile(pdf, folder / pdf.name)
                     lines += [f"[PDF of the whole issue]({pdf.name})", ""]
+                    have_pdf = True
                     break
         rows = sorted(articles.get(key, []), key=lambda r: (_num(r.get("page")), r.get("title") or ""))
+        if rows and not have_pdf and not all(_converted(docs, r.get("id")) for r in rows):
+            lines += [NO_SCAN, ""]
         if rows:
             lines += ["| Page | Article | Author |", "| ---: | --- | --- |"]
             marked = False

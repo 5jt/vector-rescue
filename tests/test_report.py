@@ -171,10 +171,13 @@ def test_stub_pages_are_counted_not_checked(tmp_path):
         "1": {"pdf": "1/1/a.pdf#page=3", "match": "page"},
         "2": {"pdf": "1/1/a.pdf#page=9", "match": "not found"},
         "3": {"pdf": None, "match": None},
-        "4": {"pdf": "1/1/a.pdf#page=12", "match": "page", "transcribed": "draft"}}))
+        "4": {"pdf": "1/1/a.pdf#page=12", "match": "page", "transcribed": "draft"},
+        "5": {"pdf": None, "match": None, "transcribed": None, "page": False}}))
     r = run_report(src, out)
     assert r["totals"]["articles"] == 0                       # art1 is a stub, not checked
     assert r["totals"]["stubs"] == {"pages": 4, "with_pdf": 3, "title_not_found": 1}
+    assert sum(r["totals"]["no_source"].values()) == 1
     assert r["totals"]["transcribed"] == {"draft": 1}
     md = (out / "report.md").read_text()
+    assert "## Articles with no source" in md and "1 indexed articles have no page" in md
     assert "## Pages without text" in md and "and 1 transcribed from the printed issue (draft 1)." in md

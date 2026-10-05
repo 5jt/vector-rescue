@@ -157,6 +157,18 @@ def test_issue_page_marks_articles_only_in_the_pdf(tmp_path):
     assert "⚠" not in text
 
 
+def test_issue_without_a_scan_lists_sourceless_articles_unlinked(tmp_path):
+    from vecrescue.pages import NO_SCAN
+    docs = tmp_path / "docs"
+    for i in CONVERTED:
+        (docs / f"art{i}").mkdir(parents=True)
+        (docs / f"art{i}" / "index.md").write_text("x")
+    write_issue_pages(INVENTORY, read_issues(SRC), SRC, docs)
+    text = (docs / "25" / "1" / "index.md").read_text(encoding="utf-8")
+    assert "| 30 | Not online |  |" in text and "art2" not in text
+    assert ("PDF" in text) != (NO_SCAN in text)   # the note only where the issue has no PDF
+
+
 def test_issue_page_marks_doubtful_transcriptions(tmp_path):
     from vecrescue.stubs import write_stub
     docs = tmp_path / "docs"

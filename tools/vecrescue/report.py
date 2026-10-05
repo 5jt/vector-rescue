@@ -220,8 +220,13 @@ def run_report(src, out, corrections=None):
     skipped_path = out / "skipped.json"
     skipped = json.loads(skipped_path.read_text(encoding="utf-8")) if skipped_path.exists() else {}
     totals["skipped"] = dict(Counter(v["reason"] for v in skipped.values()))
-    totals["stubs"] = {"pages": len(stubs), "with_pdf": sum(1 for v in stubs.values() if v["pdf"]),
+    totals["stubs"] = {"pages": sum(1 for v in stubs.values() if v.get("page", True)),
+                       "with_pdf": sum(1 for v in stubs.values() if v["pdf"]),
                        "title_not_found": sum(1 for v in stubs.values() if v["match"] == "not found")}
+    issue_of = {r["id"]: f"{r.get('volume')}:{r.get('issue')}" for r in inventory if r.get("id")}
+    totals["no_source"] = dict(sorted(Counter(issue_of.get(k, "?") for k, v in stubs.items()
+                                              if not v.get("page", True)).items(),
+                                      key=lambda kv: [int(x) if x.isdigit() else 0 for x in kv[0].split(":")]))
     totals["transcribed"] = dict(Counter(v["transcribed"] for v in stubs.values() if v.get("transcribed")))
 
     path, prev_path = out / "report.json", out / "report.prev.json"
@@ -287,6 +292,12 @@ def render_markdown(report):
         lines += [f"- art{vid}: {inv_titles.get(vid, '')} → `{v['pdf']}`"
                   for vid, v in sorted(report.get("stubs", {}).items()) if v["match"] == "not found"]
         lines.append("")
+    ns = t.get("no_source") or {}
+    if ns:
+        lines += ["## Articles with no source", "",
+                  f"{sum(ns.values())} indexed articles have no page, because no complete scan of their issue "
+                  "has been found (#62); their issue pages list them without links: "
+                  + ", ".join(f"{k} ({v})" for k, v in ns.items()) + ".", ""]
     lines += _counts_table("Not converted yet, by reason", t.get("skipped", {}), get("skipped"))
     lines += _counts_table("Passed through as raw HTML", t["raw_html"], get("raw_html"))
     lines += _counts_table("Tables kept as raw HTML, by reason", t["table_raw"], get("table_raw"))
