@@ -6,6 +6,28 @@ They are set aside here, unpublished, for editorial review.
 
 | File | Issue | Printed page | Title | Author | Found after |
 |---|---|---|---|---|---|
+| [v3n2-p43-recent-meetings.md](v3n2-p43-recent-meetings.md) | 3:2 | 43 | Recent Meetings (section introduction) | — | heads the meetings section |
+| [v3n2-p44-introductory-notes.md](v3n2-p44-introductory-notes.md) | 3:2 | 44 | Introductory Notes (with a drawing of the Royal Over-Seas League) | Adrian Smith | Recent Meetings |
+| [v3n2-p45-apl-and-relational-database.md](v3n2-p45-apl-and-relational-database.md) | 3:2 | 45–46 | APL and Relational Database (notes on Chastney’s and Jackson’s talks) | Adrian Smith | heads art10003970 |
+| [v3n2-p52-apl86-photographic-review.md](v3n2-p52-apl86-photographic-review.md) | 3:2 | 52–58 | APL86 Photographic Review | David Ziemann | art10003970 |
+| [v3n2-p59-core-apl-opening-plenary.md](v3n2-p59-core-apl-opening-plenary.md) | 3:2 | 59–60 | CORE APL (Opening Plenary by Ken Iverson) | Adrian Smith | photographic review |
+| [v3n2-p61-apl86-product-forums.md](v3n2-p61-apl86-product-forums.md) | 3:2 | 61–63 | APL86 – the product forums (Butel, Mercia, IPSA) | — | Core APL |
+| [v3n2-p65-ai-at-apl86.md](v3n2-p65-ai-at-apl86.md) | 3:2 | 65–66 | A.I. at APL86 | Neil Mitchison | product forums |
+| [v3n2-p67-lighter-moments-of-apl86.md](v3n2-p67-lighter-moments-of-apl86.md) | 3:2 | 67–68 | On the Lighter Moments of APL 86; Ode to APL 86 | Philip Goacher | AI at APL86 |
+| [v3n2-p69-papers-i-enjoyed-at-apl86.md](v3n2-p69-papers-i-enjoyed-at-apl86.md) | 3:2 | 69–70 | Papers I Enjoyed at APL86 | Roy Sykes, Jr. | Lighter Moments |
+| [v3n2-p71-apl86-exhibition-report.md](v3n2-p71-apl86-exhibition-report.md) | 3:2 | 71–75 | APL86 Exhibition Report | Martin Malin | Papers I Enjoyed |
+| [v3n2-p77-pick-of-the-week.md](v3n2-p77-pick-of-the-week.md) | 3:2 | 77–79 | Pick of the Week | Adrian Smith | exhibition report |
+| [v3n2-p80-apl86-fun-and-games.md](v3n2-p80-apl86-fun-and-games.md) | 3:2 | 80 | APL86 Fun and Games | Aelred Tobin | Pick of the Week |
+| [v3n2-p81-plenary-panel-session.md](v3n2-p81-plenary-panel-session.md) | 3:2 | 81–85 | Report on the Plenary Panel Session at APL 86 | Anthony Camacho | Fun and Games |
+| [v3n2-p86-apl86-quotes.md](v3n2-p86-apl86-quotes.md) | 3:2 | 86 | APL86 Quotes | Dave Ziemann | panel session |
+| [v3n2-p87-thoughts-on-apl-design.md](v3n2-p87-thoughts-on-apl-design.md) | 3:2 | 87–88 | Thoughts on APL design | Bob Pullman | APL86 Quotes |
+| [v3n2-p89-roy-sykes-closing-plenary.md](v3n2-p89-roy-sykes-closing-plenary.md) | 3:2 | 89–90 | Shortened Transcript of Roy Sykes’ Closing Plenary Address | Anthony Camacho | Thoughts on APL design |
+| [v3n2-p91-technical-section.md](v3n2-p91-technical-section.md) | 3:2 | 91 | Technical Section (section introduction) | — | heads the technical section |
+| [v3n2-p92-stop-press-amstrad-pc1512.md](v3n2-p92-stop-press-amstrad-pc1512.md) | 3:2 | 92 | Stop Press: The Amstrad PC1512 | Adrian Smith | technical section |
+| [v3n2-p93-technical-editorial.md](v3n2-p93-technical-editorial.md) | 3:2 | 93 | Technical Editorial: BAA Public Domain Software Library | Dave Ziemann, Jonathan Barman | Stop Press |
+| [v3n2-p94-technical-correspondence.md](v3n2-p94-technical-correspondence.md) | 3:2 | 94 | Technical Correspondence (McDonnell) | Eugene McDonnell | technical editorial |
+| [v3n2-p95-prize-competition-result-porsche.md](v3n2-p95-prize-competition-result-porsche.md) | 3:2 | 95 | Prize Competition Result: My Other Car’s a Porsche | Dave Ziemann | technical correspondence; heads art10011070 |
+| [v3n2-p108-photo-caption-contest.md](v3n2-p108-photo-caption-contest.md) | 3:2 | 108–109 | Prize Competition: Photo Caption Contest | Dave Ziemann | art10011070 |
 | [v3n1-p57-recent-meetings.md](v3n1-p57-recent-meetings.md) | 3:1 | 57 | Recent Meetings (section introduction) | — | heads the meetings section |
 | [v3n1-p59-apl-and-or-meeting.md](v3n1-p59-apl-and-or-meeting.md) | 3:1 | 59–61 | Introductory Notes; APL and Operational Research (notes on four talks) | Adrian Smith | heads art10002590 |
 | [v3n1-p67-general-articles.md](v3n1-p67-general-articles.md) | 3:1 | 67 | General Articles (section introduction) | — | heads the general articles |
