@@ -11,7 +11,7 @@ from pathlib import Path
 from .convert import convert
 from .inventory import article_source, merge_wayback, read_index, read_issues
 from .legacy import decode, mapped_apl, read_codingprobs
-from .pages import (_catalogue, issue_pdfs, nav_toml, wayback_issue_pdfs, write_home_page, write_issue_pages,
+from .pages import (_catalogue, issue_pdfs, mark_issue_tabs, nav_toml, wayback_issue_pdfs, write_home_page,
                     write_volume_pages)
 from . import stubs
 from .links import LinkIndex
@@ -170,9 +170,10 @@ def run_site(src, out, config, wayback=None, corrections=None, transcriptions=No
     more = wayback_issue_pdfs(wayback) if wayback else None
     pdfs = issue_pdfs(issues, src, more)
     write_stub_pages(inventory, issues, pdfs, out, transcriptions)
-    write_issue_pages(inventory, issues, src, docs, more)
-    write_volume_pages(inventory, issues, docs, pdfs, out / "covers", src / "images" / "covers" / "scans")
-    write_home_page(inventory, issues, docs)
+    thumbs = src / "images" / "covers" / "32x45"
+    write_volume_pages(inventory, issues, src, docs, more, thumbs)
+    write_home_page(inventory, issues, docs, thumbs)
+    mark_issue_tabs(inventory, issues, docs)
     toml = config.read_text(encoding="utf-8")
     toml = re.sub(r"^nav = \[.*?\]$", lambda _: nav_toml(inventory, issues), toml, count=1, flags=re.M)
     toml = re.sub(r'"(assets/[^"?]+\.css)"', lambda m: f'"{m[1]}?v={_digest(config.parent / m[1])}"', toml)
