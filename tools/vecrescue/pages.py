@@ -211,10 +211,37 @@ def _cover(pdf, target, cache):
 COVER_PX = 360  # longer side of a rendered cover
 
 
-def write_volume_pages(inventory, issues, docs, pdfs, cache):
+def colour_scan(scans, vol, no):
+    """The colour scan of an issue's front cover in SCANS (images/covers/scans
+    in the source tree: v2401.jpg for 24:1), or None (#66)."""
+    if not scans or not (vol.isdigit() and no.isdigit()):
+        return None
+    path = Path(scans) / f"v{int(vol):02d}{int(no):02d}.jpg"
+    return path if path.is_file() else None
+
+
+def _scan_cover(scan, target, cache):
+    """SCAN reduced to COVER_PX on its longer side, as a JPEG at TARGET, via
+    the cache of renders."""
+    from PIL import Image
+    cache = Path(cache)
+    cache.mkdir(parents=True, exist_ok=True)
+    cached = cache / f"{scan.name}-{scan.stat().st_size}-{COVER_PX}.jpg"
+    if not cached.exists():
+        with Image.open(scan) as im:
+            im = im.convert("RGB")
+            im.thumbnail((COVER_PX, COVER_PX), Image.LANCZOS)
+            im.save(cached, quality=85, optimize=True)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(cached, target)
+    return True
+
+
+def write_volume_pages(inventory, issues, docs, pdfs, cache, scans=None):
     """A landing page /<vol>/ for each volume: the front cover of each issue
-    (page 1 of its PDF), linked to the issue page; an issue without a PDF
-    gets a captioned placeholder."""
+    (its colour scan from SCANS if there is one, else page 1 of its PDF),
+    linked to the issue page; an issue with neither gets a captioned
+    placeholder."""
     docs = Path(docs)
     catalogue, _ = _catalogue(issues)
     written = []
@@ -226,8 +253,10 @@ def write_volume_pages(inventory, issues, docs, pdfs, cache):
             no = key[1]
             caption = html.escape(f"No. {_label(issue)}" + (f" · {_date(issue)}" if _date(issue) else ""))
             alt = html.escape(f"Front cover of Vector {vol}:{_label(issue)}")
-            pdf = pdfs.get(key)
-            if pdf and _cover(pdf, docs / vol / no / "cover.png", cache):
+            pdf, scan = pdfs.get(key), colour_scan(scans, vol, no)
+            if scan and _scan_cover(scan, docs / vol / no / "cover.jpg", cache):
+                face = f'<img src="{no}/cover.jpg" alt="{alt}" loading="lazy">'
+            elif pdf and _cover(pdf, docs / vol / no / "cover.png", cache):
                 face = f'<img src="{no}/cover.png" alt="{alt}" loading="lazy">'
             else:
                 face = '<span class="nocover">No cover image</span>'

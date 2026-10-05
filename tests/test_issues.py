@@ -221,6 +221,21 @@ def test_volume_page_shows_linked_covers(tmp_path):
     assert '<figure class="cover"><a href="2/"><span class="nocover">' in vol24   # no PDF: placeholder
 
 
+def test_volume_page_prefers_a_colour_scan(tmp_path):
+    from PIL import Image
+    from vecrescue.pages import write_volume_pages
+    docs, _ = pages(tmp_path)
+    scans = tmp_path / "scans"
+    scans.mkdir()
+    Image.new("RGB", (700, 1000), "red").save(scans / "v2501.jpg")
+    pdfs = {("25", "1"): _one_page_pdf(tmp_path / "v251.pdf")}
+    write_volume_pages(INVENTORY, read_issues(SRC), docs, pdfs, tmp_path / "covers", scans)
+    text = (docs / "25" / "index.md").read_text(encoding="utf-8")
+    assert '<a href="1/"><img src="1/cover.jpg"' in text and "cover.png" not in text
+    with Image.open(docs / "25" / "1" / "cover.jpg") as im:
+        assert max(im.size) == 360 and im.mode == "RGB"
+
+
 def test_nav_lists_home_and_volumes():
     from vecrescue.pages import nav_toml
     nav = nav_toml(INVENTORY, read_issues(SRC))
