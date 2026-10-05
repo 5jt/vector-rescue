@@ -1,15 +1,13 @@
-"""Issue #9: the home page and one page per issue.
+"""The home page and one page per volume (#9, #54, #68).
 
-Issue pages live at /<vol>/<issue>/, the old site's URL form, and list
-every indexed article in page order: those converted are linked, the
-others shown as not yet online. A combined issue (e.g. 24:2&3) also has
-a page at its second number, pointing to the first.
+A volume page at /<vol>/ shows each issue as a tab listing every indexed
+article in page order: those converted are linked, the others shown as
+not yet online. Whole-issue PDFs are kept at /<vol>/<issue>/.
 """
 
 import html
 import re
 import shutil
-import subprocess
 from collections import defaultdict
 from pathlib import Path
 
@@ -105,74 +103,6 @@ def issue_pdfs(issues, root, more_pdfs=None):
     return out
 
 
-def write_issue_pages(inventory, issues, root, docs, more_pdfs=None):
-    docs = Path(docs)
-    catalogue, alias = _catalogue(issues)
-    articles = defaultdict(list)
-    for r in inventory:
-        if r.get("volume"):
-            key = (r["volume"], r["issue"])
-            articles[alias.get(key, key)].append(r)
-    keys = set(catalogue) | set(articles)
-    written = []
-    for key in sorted(keys, key=lambda k: (_num(k[0]), _num(k[1]))):
-        vol, no = key
-        issue = catalogue.get(key, {"volume": vol, "issue": no})
-        label = f"{vol}:{_label(issue)}"
-        folder = docs / vol / no
-        folder.mkdir(parents=True, exist_ok=True)
-        lines = [_front(f"Vector {label}")]
-        lines.append(f"Volume {vol}, No. {_label(issue)}" +
-                     (f" · {_date(issue)}" if _date(issue) else ""))
-        lines.append("")
-        have_pdf = False
-        for kind, text in (("pdf", "PDF"), ("doc", "Word document")):
-            name = issue.get(kind)
-            if name and (Path(root) / "issues" / name).is_file():
-                shutil.copyfile(Path(root) / "issues" / name, folder / name)
-                lines += [f"[{text} of the whole issue]({name})", ""]
-                have_pdf |= kind == "pdf"
-        if not have_pdf:  # the copy published on vector.org.uk, if captured
-            for n in issue.get("numbers") or [no]:
-                pdf = (more_pdfs or {}).get((vol, n))
-                if pdf:
-                    shutil.copyfile(pdf, folder / pdf.name)
-                    lines += [f"[PDF of the whole issue]({pdf.name})", ""]
-                    have_pdf = True
-                    break
-        rows = sorted(articles.get(key, []), key=lambda r: (_num(r.get("page")), r.get("title") or ""))
-        if rows and not have_pdf and not all(_converted(docs, r.get("id")) for r in rows):
-            lines += [NO_SCAN, ""]
-        if rows:
-            lines += ["| Page | Article | Author |", "| ---: | --- | --- |"]
-            marked = False
-            for r in rows:
-                title = _cell(r.get("title"))
-                if _converted(docs, r.get("id")):
-                    title = f"[{title}](../../art{r['id']}/)"
-                    page_md = (docs / f"art{r['id']}" / "index.md").read_text(encoding="utf-8")
-                    if "\nstatus: not online\n" in page_md:
-                        title += " (PDF only)" if "](../" in page_md.split("---", 2)[2] else " (not online)"
-                    if "\nwarning: " in (page_md.split("---", 2) + ["", ""])[1]:  # doubtful or failed transcription (#58)
-                        title += f' <span class="doubtful" title="{DOUBTFUL}">⚠</span>'
-                        marked = True
-                lines.append(f"| {r.get('page') or ''} | {title} | {_cell(', '.join(r.get('authors') or []))} |")
-            if marked:
-                lines += ["", f"⚠ {DOUBTFUL}."]
-        else:
-            lines.append("No articles are indexed for this issue.")
-        path = folder / "index.md"
-        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
-        written.append(path)
-    for (vol, no), (mvol, mno) in alias.items():
-        folder = docs / vol / no
-        folder.mkdir(parents=True, exist_ok=True)
-        main = f"Vector {mvol}:{_label(catalogue[(mvol, mno)])}"
-        (folder / "index.md").write_text(
-            _front(f"Vector {vol}:{no}") + f"Printed with [{main}](../{mno}/).\n", encoding="utf-8")
-    return written
-
-
 def volumes(inventory, issues):
     """[(volume, [issue keys in order], year span)] in volume order; the span
     is "1984–1985", a single year, or "" if no year is known."""
@@ -191,107 +121,190 @@ def volumes(inventory, issues):
     return out
 
 
-def _cover(pdf, target, cache):
-    """Render page 1 of PDF as a PNG at TARGET, via a cache of renders keyed
-    by the PDF's name and size; False if it cannot be rendered."""
-    cache = Path(cache)
-    cache.mkdir(parents=True, exist_ok=True)
-    cached = cache / f"{pdf.name}-{pdf.stat().st_size}.png"
-    if not cached.exists():
-        stem = cache / "render"
-        done = subprocess.run(["pdftoppm", "-png", "-f", "1", "-l", "1", "-scale-to", str(COVER_PX),
-                               "-singlefile", str(pdf), str(stem)], capture_output=True)
-        if done.returncode or not stem.with_suffix(".png").exists():
-            return False
-        stem.with_suffix(".png").rename(cached)
-    shutil.copyfile(cached, target)
-    return True
+def _issue_name(issue):
+    """“N°1, May 1984”: the tab heading of an issue on its volume page."""
+    return f"N°{_label(issue)}" + (f", {_date(issue)}" if _date(issue) else "")
 
 
-COVER_PX = 360  # longer side of a rendered cover
+def tab_id(issue):
+    """The anchor of an issue's tab on its volume page, as pymdownx.tabbed
+    makes it from the tab heading (its slugify is set in zensical.toml)."""
+    from pymdownx.slugs import slugify
+    return slugify(case="lower")(_issue_name(issue), "-")
 
 
-def colour_scan(scans, vol, no):
-    """The colour scan of an issue's front cover in SCANS (images/covers/scans
-    in the source tree: v2401.jpg for 24:1), or None (#66)."""
-    if not scans or not (vol.isdigit() and no.isdigit()):
+def thumbnail(thumbs, vol, no):
+    """The issue's 32×45 colour cover thumbnail in THUMBS (images/covers/32x45
+    in the source tree: v0101.jpg for 1:1), or None (#68)."""
+    if not thumbs or not (vol.isdigit() and no.isdigit()):
         return None
-    path = Path(scans) / f"v{int(vol):02d}{int(no):02d}.jpg"
+    path = Path(thumbs) / f"v{int(vol):02d}{int(no):02d}.jpg"
     return path if path.is_file() else None
 
 
-def _scan_cover(scan, target, cache):
-    """SCAN reduced to COVER_PX on its longer side, as a JPEG at TARGET, via
-    the cache of renders."""
-    from PIL import Image
-    cache = Path(cache)
-    cache.mkdir(parents=True, exist_ok=True)
-    cached = cache / f"{scan.name}-{scan.stat().st_size}-{COVER_PX}.jpg"
-    if not cached.exists():
-        with Image.open(scan) as im:
-            im = im.convert("RGB")
-            im.thumbnail((COVER_PX, COVER_PX), Image.LANCZOS)
-            im.save(cached, quality=85, optimize=True)
-    target.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(cached, target)
-    return True
+def _thumb(thumbs, docs, key, prefix, label=None):
+    """Markdown for an issue's thumbnail, copied to DOCS/covers/, with its
+    path from the page prefixed by PREFIX; "" if there is none."""
+    src = thumbnail(thumbs, *key)
+    if not src:
+        return ""
+    (Path(docs) / "covers").mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(src, Path(docs) / "covers" / src.name)
+    return f"![Vector {key[0]}:{label or key[1]} cover]({prefix}covers/{src.name})"
 
 
-def write_volume_pages(inventory, issues, docs, pdfs, cache, scans=None):
-    """A landing page /<vol>/ for each volume: the front cover of each issue
-    (its colour scan from SCANS if there is one, else page 1 of its PDF),
-    linked to the issue page; an issue with neither gets a captioned
-    placeholder."""
+def _issue_contents(docs, issue, rows, root, more_pdfs, vol, no):
+    """Lines for one issue's tab: its contents table, notes, and the links to
+    the whole-issue PDF or Word document, which are copied to DOCS/<vol>/<no>/."""
+    folder = docs / vol / no
+    folder.mkdir(parents=True, exist_ok=True)
+    files = []
+    for kind, text in (("pdf", "PDF"), ("doc", "Word document")):
+        name = issue.get(kind)
+        if name and (Path(root) / "issues" / name).is_file():
+            shutil.copyfile(Path(root) / "issues" / name, folder / name)
+            files.append((kind, f"[{text} of the whole issue]({no}/{name})"))
+    if not any(kind == "pdf" for kind, _ in files):  # the copy published on vector.org.uk, if captured
+        for n in issue.get("numbers") or [no]:
+            pdf = (more_pdfs or {}).get((vol, n))
+            if pdf:
+                shutil.copyfile(pdf, folder / pdf.name)
+                files.append(("pdf", f"[PDF of the whole issue]({no}/{pdf.name})"))
+                break
+    have_pdf = any(kind == "pdf" for kind, _ in files)
+    lines = []
+    if rows and not have_pdf and not all(_converted(docs, r.get("id")) for r in rows):
+        lines += [NO_SCAN, ""]
+    if rows:
+        lines += ["| Page | Article | Author |", "| ---: | --- | --- |"]
+        marked = False
+        for r in rows:
+            title = _cell(r.get("title"))
+            if _converted(docs, r.get("id")):
+                title = f"[{title}](../art{r['id']}/)"
+                page_md = (docs / f"art{r['id']}" / "index.md").read_text(encoding="utf-8")
+                if "\nstatus: not online\n" in page_md:
+                    title += " (PDF only)" if "](../" in page_md.split("---", 2)[2] else " (not online)"
+                if "\nwarning: " in (page_md.split("---", 2) + ["", ""])[1]:  # doubtful or failed transcription (#58)
+                    title += f' <span class="doubtful" title="{DOUBTFUL}">⚠</span>'
+                    marked = True
+            lines.append(f"| {r.get('page') or ''} | {title} | {_cell(', '.join(r.get('authors') or []))} |")
+        if marked:
+            lines += ["", f"⚠ {DOUBTFUL}."]
+    else:
+        lines.append("No articles are indexed for this issue.")
+    for _, link in files:  # below the table (#68)
+        lines += ["", link]
+    return lines
+
+
+def mark_issue_tabs(inventory, issues, docs):
+    """Write `issue_tab:` into the front matter of each article page with a
+    volume, the anchor of its issue's tab on the volume page, so that the
+    article's “Vector 2:3, page 60” line links there (#68); and point links
+    in the text to the old issue pages at the same tabs."""
     docs = Path(docs)
-    catalogue, _ = _catalogue(issues)
+    catalogue, alias = _catalogue(issues)
+
+    def tab(vol, no):
+        key = alias.get((vol, no), (vol, no))
+        return tab_id(catalogue.get(key, {"volume": key[0], "issue": key[1]}))
+
+    def relink(m):  # a link in the text to an old issue page (links.py)
+        return f"](../{m.group(1)}/#{tab(m.group(1), m.group(2))})"
+
+    count = 0
+    for r in inventory:
+        page = docs / f"art{r.get('id')}" / "index.md"
+        if not page.is_file():
+            continue
+        text = page.read_text(encoding="utf-8")
+        if not text.startswith("---\n"):
+            continue
+        head, rest = text[4:].split("\n---", 1)
+        rest = re.sub(r"\]\(\.\./(\d+)/(\d+)/\)", relink, rest)
+        head = re.sub(r"^issue_tab: .*\n?", "", head, flags=re.M).rstrip("\n")
+        if r.get("volume"):
+            head += f"\nissue_tab: {tab(r['volume'], r['issue'])}"
+            count += 1
+        page.write_text(f"---\n{head}\n---{rest}", encoding="utf-8")
+    return count
+
+
+def _volume_title(vol, span):
+    return f"Volume {vol}" + (f" {span}" if span else "")
+
+
+def write_volume_pages(inventory, issues, root, docs, more_pdfs=None, thumbs=None):
+    """A page /<vol>/ for each volume (#68): its issues as tabs, each headed
+    by the issue's colour thumbnail, number and date, and holding the
+    issue's contents in page order (converted articles linked, the others
+    shown as not yet online) with the whole-issue PDF linked below. A
+    combined issue (e.g. 24:2&3) is one tab."""
+    docs = Path(docs)
+    catalogue, alias = _catalogue(issues)
+    articles = defaultdict(list)
+    for r in inventory:
+        if r.get("volume"):
+            key = (r["volume"], r["issue"])
+            articles[alias.get(key, key)].append(r)
     written = []
     for vol, keys, span in volumes(inventory, issues):
-        title = f"Volume {vol}" + (f" ({span})" if span else "")
-        cards = []
+        lines = [_front(_volume_title(vol, span))]
         for key in keys:
-            issue = catalogue.get(key, {"volume": key[0], "issue": key[1]})
-            no = key[1]
-            caption = html.escape(f"No. {_label(issue)}" + (f" · {_date(issue)}" if _date(issue) else ""))
-            alt = html.escape(f"Front cover of Vector {vol}:{_label(issue)}")
-            pdf, scan = pdfs.get(key), colour_scan(scans, vol, no)
-            if scan and _scan_cover(scan, docs / vol / no / "cover.jpg", cache):
-                face = f'<img src="{no}/cover.jpg" alt="{alt}" loading="lazy">'
-            elif pdf and _cover(pdf, docs / vol / no / "cover.png", cache):
-                face = f'<img src="{no}/cover.png" alt="{alt}" loading="lazy">'
-            else:
-                face = '<span class="nocover">No cover image</span>'
-            cards.append(f'<figure class="cover"><a href="{no}/">{face}</a>'
-                         f'<figcaption><a href="{no}/">{caption}</a></figcaption></figure>')
-        lines = [_front(title), f"*Vector* volume {vol}" + (f", {span}" if span else "") + ".", "",
-                 '<div class="covers" markdown="0">', *cards, "</div>"]
+            issue = catalogue.get(key, {"volume": vol, "issue": key[1]})
+            rows = sorted(articles.get(key, []), key=lambda r: (_num(r.get("page")), r.get("title") or ""))
+            thumb = _thumb(thumbs, docs, key, "../", _label(issue))
+            lines += [f'=== "{(thumb + " ") if thumb else ""}{_issue_name(issue)}"', ""]
+            lines += [("    " + x) if x else "" for x in
+                      _issue_contents(docs, issue, rows, root, more_pdfs, vol, key[1])]
+            lines.append("")
         path = docs / vol / "index.md"
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        path.write_text("\n".join(lines), encoding="utf-8")
         written.append(path)
     return written
 
 
 def nav_toml(inventory, issues):
-    """The Zensical nav: Home, then every volume with its year span."""
-    entries = ['{ "Home" = "index.md" }']
-    for vol, _, span in volumes(inventory, issues):
-        label = f"Volume {vol}" + (f" ({span})" if span else "")
-        entries.append(f'{{ "{label}" = "{vol}/index.md" }}')
-    return "nav = [\n  " + ",\n  ".join(entries) + ",\n]"
+    """The Zensical nav: Home, then the volumes under “Volumes” (#68)."""
+    entries = [f'{{ "{_volume_title(vol, span)}" = "{vol}/index.md" }}'
+               for vol, _, span in volumes(inventory, issues)]
+    return ('nav = [\n  { "Home" = "index.md" },\n  { "Volumes" = [\n    '
+            + ",\n    ".join(entries) + ",\n  ] },\n]")
 
 
-def write_home_page(inventory, issues, docs):
+LOGO = "assets/images/vector-logo.png"  # vector.org.uk’s, white and yellow
+
+
+def write_home_page(inventory, issues, docs, thumbs=None):
+    """The home page (#68): the Vector logo, an introduction, and a table of
+    the volumes with their issues’ colour thumbnails, each linked to the
+    issue’s tab on its volume page; then the articles never printed."""
     docs = Path(docs)
-    catalogue, _ = _catalogue(issues)
-    lines = [_front("Vector archive"),
-             "*Vector*, the journal of the British APL Association: the archive "
-             "recovered from the PHP site, converted for review.", ""]
+    catalogue, alias = _catalogue(issues)
+    lines = [_front("The Vector Archive"),
+             f'<div class="masthead" markdown="0"><img src="{LOGO}" alt="Vector, journal of the BAA"></div>', "",
+             "# The Vector Archive", "",
+             "The [British APL Association](https://britishaplassociation.org) published its journal "
+             "*Vector* in print and online between 1984 and 2022.", "",
+             "The complete archive is here recovered from multiple sources and published online in a form "
+             "legible to search engines and AI agents, most of it for the first time.", "",
+             "| volume | years | N°1 | N°2 | N°3 | N°4 |",
+             "|:------:|:-----:|:---:|:---:|:---:|:---:|"]
     for vol, keys, span in volumes(inventory, issues):
-        links = []
+        cells = [[] for _ in range(4)]
         for key in keys:
-            issue = catalogue.get(key, {"volume": key[0], "issue": key[1]})
-            links.append(f"[{_label(issue)}]({key[0]}/{key[1]}/)")
-        lines.append(f"- [Volume {vol}]({vol}/)" + (f" ({span})" if span else "") + ": " + " · ".join(links))
+            issue = catalogue.get(key, {"volume": vol, "issue": key[1]})
+            face = _thumb(thumbs, docs, key, "", _label(issue)) or f"{vol}:{_label(issue)}"
+            link = f"[{face}]({vol}/#{tab_id(issue)})"
+            numbers = [n for n in (issue.get("numbers") or [key[1]])]
+            cols = [int(n) - 1 for n in numbers if n.isdigit() and 1 <= int(n) <= 4]
+            if not cols:  # a supplement such as 23:4.1 goes with its issue
+                cols = [min(3, max(0, int(_num(key[1])) - 1))] if _num(key[1]) != float("inf") else [3]
+            for c in cols:
+                cells[c].append(link)
+        lines.append(f"| [{vol}]({vol}/) | {span} | " + " | ".join(" ".join(c) for c in cells) + " |")
     unprinted = [r for r in inventory if r.get("id") and not r.get("volume") and _converted(docs, r["id"])]
     for heading, group in (("Published online only", [r for r in unprinted if not r.get("in_press")]),
                            ("In press, never printed", [r for r in unprinted if r.get("in_press")])):

@@ -1,9 +1,9 @@
-"""Issue #9: issue pages and the home page."""
+"""Issues #9, #68: volume pages and the home page."""
 
 from pathlib import Path
 
 from vecrescue.inventory import read_issues
-from vecrescue.pages import write_home_page, write_issue_pages
+from vecrescue.pages import write_home_page, write_volume_pages
 
 SRC = Path(__file__).parent / "fixtures" / "src"
 
@@ -32,48 +32,72 @@ def pages(tmp_path):
     for i in CONVERTED:
         (docs / f"art{i}").mkdir(parents=True)
         (docs / f"art{i}" / "index.md").write_text("x")
-    written = write_issue_pages(INVENTORY, read_issues(SRC), SRC, docs)
+    written = write_volume_pages(INVENTORY, read_issues(SRC), SRC, docs)
     return docs, written
 
 
-def test_issue_page_lists_articles_in_page_order(tmp_path):
+def tab(text, label):
+    """The indented body of the tab whose heading contains LABEL."""
+    head = next(l for l in text.splitlines() if l.startswith('=== "') and label in l)
+    body = text.split(head, 1)[1].split('\n=== "', 1)[0]
+    return "\n".join(l[4:] for l in body.splitlines())
+
+
+def test_volume_page_has_a_tab_per_issue_listing_articles_in_page_order(tmp_path):
     docs, _ = pages(tmp_path)
-    text = (docs / "25" / "1" / "index.md").read_text(encoding="utf-8")
-    assert "title: Vector 25:1" in text
-    assert "June 2011" in text
-    rows = [line for line in text.splitlines() if line.startswith("| ") and "---" not in line][1:]
+    text = (docs / "25" / "index.md").read_text(encoding="utf-8")
+    assert "title: Volume 25 2011–2012" in text
+    assert '=== "N°1, June 2011"' in text
+    rows = [line for line in tab(text, "N°1,").splitlines() if line.startswith("| ") and "---" not in line][1:]
     assert rows == [
-        "| 9 | [First \\*thing\\*](../../art1/) | A. A, C. C |",
+        "| 9 | [First \\*thing\\*](../art1/) | A. A, C. C |",
         "| 30 | Not online |  |",
-        "| 74 | [Second \\| piece](../../art3/) | B. B |",
+        "| 74 | [Second \\| piece](../art3/) | B. B |",
     ]
+    assert not (docs / "25" / "1" / "index.md").exists()    # no issue pages (#68)
 
 
-def test_issue_pdf_is_copied_and_linked(tmp_path):
+def test_issue_pdf_is_copied_and_linked_below_the_table(tmp_path):
     docs, _ = pages(tmp_path)
     assert (docs / "25" / "1" / "v251.pdf").read_bytes().startswith(b"%PDF")
-    assert "[PDF of the whole issue](v251.pdf)" in (docs / "25" / "1" / "index.md").read_text()
+    body = tab((docs / "25" / "index.md").read_text(), "N°1,")
+    assert body.index("| Page |") < body.index("[PDF of the whole issue](1/v251.pdf)")
 
 
-def test_combined_issue_has_a_page_at_both_numbers(tmp_path):
+def test_combined_issue_is_one_tab(tmp_path):
     docs, _ = pages(tmp_path)
-    main = (docs / "24" / "2" / "index.md").read_text(encoding="utf-8")
-    assert "title: Vector 24:2&3" in main
-    assert "In the combined issue" in main          # catalogued as 24:3
-    alias = (docs / "24" / "3" / "index.md").read_text(encoding="utf-8")
-    assert "[Vector 24:2&3](../2/)" in alias
+    text = (docs / "24" / "index.md").read_text(encoding="utf-8")
+    assert text.count('=== "N°2&3') == 1 and '=== "N°3' not in text
+    assert "In the combined issue" in tab(text, "N°2&3")          # catalogued as 24:3
 
 
-def test_issue_with_no_articles_still_has_a_page(tmp_path):
+def test_issue_with_no_articles_still_has_a_tab(tmp_path):
     docs, _ = pages(tmp_path)
-    assert "No articles are indexed" in (docs / "1" / "1" / "index.md").read_text()
+    assert "No articles are indexed" in tab((docs / "1" / "index.md").read_text(), "N°1")
 
 
-def test_home_page_lists_volumes_issues_and_online_only(tmp_path):
+def test_tabs_are_headed_by_colour_thumbnails(tmp_path):
+    thumbs = tmp_path / "thumbs"
+    thumbs.mkdir()
+    (thumbs / "v2501.jpg").write_bytes(b"jpg")
+    docs = tmp_path / "docs"
+    write_volume_pages(INVENTORY, read_issues(SRC), SRC, docs, thumbs=thumbs)
+    text = (docs / "25" / "index.md").read_text(encoding="utf-8")
+    assert '=== "![Vector 25:1 cover](../covers/v2501.jpg) N°1, June 2011"' in text
+    assert (docs / "covers" / "v2501.jpg").read_bytes() == b"jpg"
+
+
+def test_home_page_tables_the_volumes_and_lists_online_only(tmp_path):
+    from vecrescue.pages import tab_id
     docs, _ = pages(tmp_path)
     text = write_home_page(INVENTORY, read_issues(SRC), docs).read_text(encoding="utf-8")
-    assert text.index("Volume 1") < text.index("Volume 24") < text.index("Volume 25")
-    assert "[2&3](24/2/)" in text and "[1](25/1/)" in text
+    assert "# The Vector Archive" in text and 'class="masthead"' in text
+    assert "| volume | years | N°1 | N°2 | N°3 | N°4 |" in text
+    by = {(i["volume"], i["issue"]): i for i in read_issues(SRC)}
+    row = next(l for l in text.splitlines() if l.startswith("| [24](24/)"))
+    assert row.count(f"[24:2&3](24/#{tab_id(by[('24', '2')])})") == 2    # under N°2 and N°3
+    assert f"[25:1](25/#{tab_id(by[('25', '1')])})" in text
+    assert text.index("| [1](1/)") < text.index("| [24](24/)") < text.index("| [25](25/)")
     assert "## Published online only" in text
     assert "[Online only](art5/)" in text
 
@@ -97,12 +121,17 @@ def test_combined_issue_numbers_come_from_the_title():
     assert by[("25", "4")]["numbers"] == ["4"]
 
 
-def test_an_alias_never_replaces_a_real_issue_page(tmp_path):
-    docs, _ = pages(tmp_path)
-    assert "title: Vector 25:4" in (docs / "25" / "4" / "index.md").read_text()
-    assert "Printed with" not in (docs / "25" / "4" / "index.md").read_text()
-    assert "title: Vector 25:2&3" in (docs / "25" / "3" / "index.md").read_text()
-    assert "[Vector 25:2&3](../3/)" in (docs / "25" / "2" / "index.md").read_text()
+def test_articles_link_to_their_issue_tab(tmp_path):
+    from vecrescue.pages import mark_issue_tabs, tab_id
+    docs = tmp_path / "docs"
+    (docs / "art4").mkdir(parents=True)
+    (docs / "art4" / "index.md").write_text("---\nvid: '4'\n---\n\nSee [21:2](../24/3/).\n")
+    assert mark_issue_tabs(INVENTORY, read_issues(SRC), docs) == 1
+    text = (docs / "art4" / "index.md").read_text()
+    t = tab_id({i["issue"]: i for i in read_issues(SRC) if i["volume"] == "24"}["2"])
+    assert f"\nissue_tab: {t}\n---" in text and f"](../24/#{t})" in text
+    mark_issue_tabs(INVENTORY, read_issues(SRC), docs)                 # idempotent
+    assert (docs / "art4" / "index.md").read_text() == text
 
 
 import pytest
@@ -130,9 +159,9 @@ def test_issue_page_uses_a_wayback_pdf_when_the_tree_has_none(tmp_path):
     (w / "VOL.1-NO.1-MAY-1984.pdf").write_bytes(b"%PDF 1984\n%%EOF")
     (w / "v251.pdf").write_bytes(b"%PDF other copy\n%%EOF")
     docs = tmp_path / "docs"
-    write_issue_pages(INVENTORY, read_issues(SRC), SRC, docs, wayback_issue_pdfs(tmp_path / "wayback"))
+    write_volume_pages(INVENTORY, read_issues(SRC), SRC, docs, wayback_issue_pdfs(tmp_path / "wayback"))
     assert (docs / "1/1/VOL.1-NO.1-MAY-1984.pdf").read_bytes() == b"%PDF 1984\n%%EOF"
-    assert "[PDF of the whole issue](VOL.1-NO.1-MAY-1984.pdf)" in (docs / "1/1/index.md").read_text()
+    assert "[PDF of the whole issue](1/VOL.1-NO.1-MAY-1984.pdf)" in (docs / "1/index.md").read_text()
     assert (docs / "25/1/v251.pdf").read_bytes().startswith(b"%PDF-1.4 fixture")   # ours preferred
 
 
@@ -151,9 +180,9 @@ def test_issue_page_marks_articles_only_in_the_pdf(tmp_path):
         (docs / f"art{i}").mkdir(parents=True)
         (docs / f"art{i}" / "index.md").write_text("x")
     write_stub(INVENTORY[2], docs, "25/1/v251.pdf#page=32")
-    write_issue_pages(INVENTORY, read_issues(SRC), SRC, docs)
-    text = (docs / "25" / "1" / "index.md").read_text(encoding="utf-8")
-    assert "| 30 | [Not online](../../art2/) (PDF only) |  |" in text
+    write_volume_pages(INVENTORY, read_issues(SRC), SRC, docs)
+    text = tab((docs / "25" / "index.md").read_text(encoding="utf-8"), "N°1,")
+    assert "| 30 | [Not online](../art2/) (PDF only) |  |" in text
     assert "⚠" not in text
 
 
@@ -163,8 +192,8 @@ def test_issue_without_a_scan_lists_sourceless_articles_unlinked(tmp_path):
     for i in CONVERTED:
         (docs / f"art{i}").mkdir(parents=True)
         (docs / f"art{i}" / "index.md").write_text("x")
-    write_issue_pages(INVENTORY, read_issues(SRC), SRC, docs)
-    text = (docs / "25" / "1" / "index.md").read_text(encoding="utf-8")
+    write_volume_pages(INVENTORY, read_issues(SRC), SRC, docs)
+    text = tab((docs / "25" / "index.md").read_text(encoding="utf-8"), "N°1,")
     assert "| 30 | Not online |  |" in text and "art2" not in text
     assert ("PDF" in text) != (NO_SCAN in text)   # the note only where the issue has no PDF
 
@@ -176,9 +205,9 @@ def test_issue_page_marks_doubtful_transcriptions(tmp_path):
         (docs / f"art{i}").mkdir(parents=True)
         (docs / f"art{i}" / "index.md").write_text("x")
     write_stub(INVENTORY[2], docs, "25/1/v251.pdf#page=32", warning="Could not be transcribed.")
-    write_issue_pages(INVENTORY, read_issues(SRC), SRC, docs)
-    text = (docs / "25" / "1" / "index.md").read_text(encoding="utf-8")
-    assert '[Not online](../../art2/) (PDF only) <span class="doubtful"' in text
+    write_volume_pages(INVENTORY, read_issues(SRC), SRC, docs)
+    text = tab((docs / "25" / "index.md").read_text(encoding="utf-8"), "N°1,")
+    assert '[Not online](../art2/) (PDF only) <span class="doubtful"' in text
     assert "\n⚠ The transcription is doubtful or missing; its page says why.\n" in text
 
 
@@ -189,56 +218,9 @@ def test_volumes_have_year_spans(tmp_path):
     assert ("24", "2") in by["24"][0] and ("24", "3") not in by["24"][0]   # combined issue filed at 2
 
 
-def _one_page_pdf(path):
-    """A minimal valid one-page PDF (a blank A4 page), for pdftoppm."""
-    objs = [b"<< /Type /Catalog /Pages 2 0 R >>",
-            b"<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
-            b"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] >>"]
-    out, offsets = bytearray(b"%PDF-1.4\n"), []
-    for n, body in enumerate(objs, 1):
-        offsets.append(len(out))
-        out += b"%d 0 obj\n" % n + body + b"\nendobj\n"
-    xref = len(out)
-    out += b"xref\n0 %d\n0000000000 65535 f \n" % (len(objs) + 1)
-    out += b"".join(b"%010d 00000 n \n" % o for o in offsets)
-    out += b"trailer\n<< /Size %d /Root 1 0 R >>\nstartxref\n%d\n%%%%EOF\n" % (len(objs) + 1, xref)
-    path.write_bytes(bytes(out))
-    return path
-
-
-def test_volume_page_shows_linked_covers(tmp_path):
-    from vecrescue.pages import write_volume_pages
-    docs, _ = pages(tmp_path)
-    issues = read_issues(SRC)
-    pdfs = {("25", "1"): _one_page_pdf(tmp_path / "v251.pdf")}
-    write_volume_pages(INVENTORY, issues, docs, pdfs, tmp_path / "covers")
-    text = (docs / "25" / "index.md").read_text(encoding="utf-8")
-    assert "title: Volume 25 (2011–2012)" in text
-    assert '<figure class="cover"><a href="1/"><img src="1/cover.png"' in text
-    assert "No. 1 · June 2011" in text
-    assert (docs / "25" / "1" / "cover.png").read_bytes().startswith(b"\x89PNG")
-    vol24 = (docs / "24" / "index.md").read_text(encoding="utf-8")
-    assert '<figure class="cover"><a href="2/"><span class="nocover">' in vol24   # no PDF: placeholder
-
-
-def test_volume_page_prefers_a_colour_scan(tmp_path):
-    from PIL import Image
-    from vecrescue.pages import write_volume_pages
-    docs, _ = pages(tmp_path)
-    scans = tmp_path / "scans"
-    scans.mkdir()
-    Image.new("RGB", (700, 1000), "red").save(scans / "v2501.jpg")
-    pdfs = {("25", "1"): _one_page_pdf(tmp_path / "v251.pdf")}
-    write_volume_pages(INVENTORY, read_issues(SRC), docs, pdfs, tmp_path / "covers", scans)
-    text = (docs / "25" / "index.md").read_text(encoding="utf-8")
-    assert '<a href="1/"><img src="1/cover.jpg"' in text and "cover.png" not in text
-    with Image.open(docs / "25" / "1" / "cover.jpg") as im:
-        assert max(im.size) == 360 and im.mode == "RGB"
-
-
 def test_nav_lists_home_and_volumes():
     from vecrescue.pages import nav_toml
     nav = nav_toml(INVENTORY, read_issues(SRC))
-    assert nav.startswith('nav = [\n  { "Home" = "index.md" },')
-    assert '{ "Volume 25 (2011–2012)" = "25/index.md" }' in nav
+    assert nav.startswith('nav = [\n  { "Home" = "index.md" },\n  { "Volumes" = [')
+    assert '{ "Volume 25 2011–2012" = "25/index.md" }' in nav
     assert nav.index('"Volume 1') < nav.index('"Volume 24') < nav.index('"Volume 25')
