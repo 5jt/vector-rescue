@@ -171,7 +171,7 @@ def run_site(src, out, config, wayback=None, corrections=None, transcriptions=No
     pdfs = issue_pdfs(issues, src, more)
     write_stub_pages(inventory, issues, pdfs, out, transcriptions)
     write_issue_pages(inventory, issues, src, docs, more)
-    write_volume_pages(inventory, issues, docs, pdfs, out / "covers")
+    write_volume_pages(inventory, issues, docs, pdfs, out / "covers", src / "images" / "covers" / "scans")
     write_home_page(inventory, issues, docs)
     toml = config.read_text(encoding="utf-8")
     toml = re.sub(r"^nav = \[.*?\]$", lambda _: nav_toml(inventory, issues), toml, count=1, flags=re.M)
