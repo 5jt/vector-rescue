@@ -6,6 +6,25 @@ They are set aside here, unpublished, for editorial review.
 
 | File | Issue | Printed page | Title | Author | Found after |
 |---|---|---|---|---|---|
+| [v2n1-p44-recent-meetings.md](v2n1-p44-recent-meetings.md) | 2:1 | 44 | Recent Meetings (section introduction) | — | heads the meetings section |
+| [v2n1-p45-introductory-notes.md](v2n1-p45-introductory-notes.md) | 2:1 | 45 | Introductory Notes (meetings section) | Adrian Smith | Recent Meetings |
+| [v2n1-p46-nested-arrays-workshop.md](v2n1-p46-nested-arrays-workshop.md) | 2:1 | 46–47 | Nested Arrays Workshop (meeting notes on four talks) | Adrian Smith | heads art10002640 |
+| [v2n1-p59-mainframes-micros-co-existence.md](v2n1-p59-mainframes-micros-co-existence.md) | 2:1 | 59 | Mainframes, Micros and Co-existence (AGM meeting notes) | Adrian Smith | art10002640; heads art10003160 |
+| [v2n1-p63-apl-statistics-user-group.md](v2n1-p63-apl-statistics-user-group.md) | 2:1 | 63 | APL Statistics User Group (meeting report) | — | art10003160 |
+| [v2n1-p64-apl85-brief-impression.md](v2n1-p64-apl85-brief-impression.md) | 2:1 | 64–66 | APL85 — A Brief Impression | Dick Bowman | heads the APL85 section |
+| [v2n1-p67-report-from-apl85.md](v2n1-p67-report-from-apl85.md) | 2:1 | 67 | Report from APL85 — APL and the Future | John Adams | Bowman |
+| [v2n1-p68-second-thoughts-on-seattle.md](v2n1-p68-second-thoughts-on-seattle.md) | 2:1 | 68 | APL85 — Second Thoughts on Seattle | Dick Gray | Adams |
+| [v2n1-p69-japanese-apl-on-ibm-5550.md](v2n1-p69-japanese-apl-on-ibm-5550.md) | 2:1 | 69 | Japanese APL on IBM 5550 (printout as image; warning) | David Ziemann | Gray |
+| [v2n1-p70-apl85-photographic-review.md](v2n1-p70-apl85-photographic-review.md) | 2:1 | 70–77 | APL85 Photographic Review (captioned photographs) | David Ziemann | Japanese APL |
+| [v2n1-p78-general-articles.md](v2n1-p78-general-articles.md) | 2:1 | 78 | General Articles (section introduction) | — | heads art10003350 |
+| [v2n1-p81-steps-towards-a-better-basic-4.md](v2n1-p81-steps-towards-a-better-basic-4.md) | 2:1 | 81–83 | Steps Towards a Better Basic — Part 4 (reprint from Datalink) | Anthony Camacho | art10003350 |
+| [v2n1-p84-case-study-dbase-ii-at-bedford-school.md](v2n1-p84-case-study-dbase-ii-at-bedford-school.md) | 2:1 | 84–89 | Case Study: DBASE-II at Bedford School | Adrian Smith | Camacho |
+| [v2n1-p91-technical-section.md](v2n1-p91-technical-section.md) | 2:1 | 91 | Technical Section (section introduction) | — | heads the technical section |
+| [v2n1-p92-technical-editorial.md](v2n1-p92-technical-editorial.md) | 2:1 | 92–94 | Technical Editorial (with publication standards, introduction to articles) | Jonathan Barman, David Ziemann | technical section |
+| [v2n1-p95-technical-correspondence.md](v2n1-p95-technical-correspondence.md) | 2:1 | 95–96 | Technical Correspondence (Smith, Wiggins, Bassett) | Adrian Smith, Andrew Wiggins, Mark Bassett | technical editorial |
+| [v2n1-p97-surely-there-must-be-a-better-way.md](v2n1-p97-surely-there-must-be-a-better-way.md) | 2:1 | 97–98 | Surely There Must Be a Better Way (Wiggins, Bassett) | David Ziemann | technical correspondence |
+| [v2n1-p99-prize-competition-result-test-your-skill.md](v2n1-p99-prize-competition-result-test-your-skill.md) | 2:1 | 99–104 | Prize Competition Result: Test your Skill | David Ziemann | Better Way |
+| [v2n1-p105-prize-competition-wrap-up.md](v2n1-p105-prize-competition-wrap-up.md) | 2:1 | 105, 107 | Prize Competition: Wrap Up (with Competition Rules) | David Ziemann | the competition result; heads art10009930 |
 | [v1n4-p61-recent-meetings.md](v1n4-p61-recent-meetings.md) | 1:4 | 61 | Recent Meetings (section introduction) | — | heads the meetings section |
 | [v1n4-p63-introductory-notes.md](v1n4-p63-introductory-notes.md) | 1:4 | 63 | Introductory Notes; APL and Graphics (meeting introduction) | Adrian Smith | heads art10006090 |
 | [v1n4-p95-steps-towards-a-better-basic-3.md](v1n4-p95-steps-towards-a-better-basic-3.md) | 1:4 | 95–97 | Steps Towards a Better Basic — Part 3 (reprint from Datalink) | Anthony Camacho | art10006700 |
