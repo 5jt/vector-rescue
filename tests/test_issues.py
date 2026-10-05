@@ -188,11 +188,11 @@ def test_volume_page_shows_linked_covers(tmp_path):
     write_volume_pages(INVENTORY, issues, docs, pdfs, tmp_path / "covers")
     text = (docs / "25" / "index.md").read_text(encoding="utf-8")
     assert "title: Volume 25 (2011–2012)" in text
-    assert '<a class="cover" href="1/"><img src="1/cover.png"' in text
+    assert '<figure class="cover"><a href="1/"><img src="1/cover.png"' in text
     assert "No. 1 · June 2011" in text
     assert (docs / "25" / "1" / "cover.png").read_bytes().startswith(b"\x89PNG")
     vol24 = (docs / "24" / "index.md").read_text(encoding="utf-8")
-    assert '<a class="cover" href="2/"><span class="nocover">' in vol24   # no PDF: placeholder
+    assert '<figure class="cover"><a href="2/"><span class="nocover">' in vol24   # no PDF: placeholder
 
 
 def test_nav_lists_home_and_volumes():

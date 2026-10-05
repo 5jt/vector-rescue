@@ -1,5 +1,6 @@
 """Pipeline steps. Each reads from SRC (read-only) and writes under OUT."""
 
+import hashlib
 import json
 import re
 import shutil
@@ -142,6 +143,12 @@ def write_stub_pages(inventory, issues, pdfs, out, transcriptions=None):
     return results
 
 
+def _digest(path):
+    """A short hash of PATH's contents, to version its URL so browsers fetch
+    a changed stylesheet rather than reuse a cached one."""
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()[:8]
+
+
 def run_site(src, out, config, wayback=None, corrections=None, transcriptions=None):
     """Write the home and issue pages, copy the site files from CONFIG's
     folder, and build OUT/docs into OUT/site with Zensical."""
@@ -158,6 +165,7 @@ def run_site(src, out, config, wayback=None, corrections=None, transcriptions=No
     write_home_page(inventory, issues, docs)
     toml = config.read_text(encoding="utf-8")
     toml = re.sub(r"^nav = \[.*?\]$", lambda _: nav_toml(inventory, issues), toml, count=1, flags=re.M)
+    toml = re.sub(r'"(assets/[^"?]+\.css)"', lambda m: f'"{m[1]}?v={_digest(config.parent / m[1])}"', toml)
     (out / "zensical.toml").write_text(toml, encoding="utf-8")
     shutil.rmtree(out / "overrides", ignore_errors=True)
     shutil.copytree(config.parent / "overrides", out / "overrides")

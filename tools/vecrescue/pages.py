@@ -217,7 +217,8 @@ def write_volume_pages(inventory, issues, docs, pdfs, cache):
                 face = f'<img src="{no}/cover.png" alt="{alt}" loading="lazy">'
             else:
                 face = '<span class="nocover">No cover image</span>'
-            cards.append(f'<a class="cover" href="{no}/">{face}<span class="caption">{caption}</span></a>')
+            cards.append(f'<figure class="cover"><a href="{no}/">{face}</a>'
+                         f'<figcaption><a href="{no}/">{caption}</a></figcaption></figure>')
         lines = [_front(title), f"*Vector* volume {vol}" + (f", {span}" if span else "") + ".", "",
                  '<div class="covers" markdown="0">', *cards, "</div>"]
         path = docs / vol / "index.md"
