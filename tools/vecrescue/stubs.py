@@ -11,6 +11,7 @@ import html
 import re
 import shutil
 import subprocess
+import zlib
 from collections import Counter
 from pathlib import Path
 
@@ -25,6 +26,67 @@ def pdf_pages(pdf):
     """The OCR text of each page of PDF."""
     out = subprocess.run(["pdftotext", "-layout", str(pdf), "-"], capture_output=True, text=True).stdout
     return out.split("\f")
+
+
+CONTENT = re.compile(rb"\d+ 0 obj\s*<<[^>]*?/FlateDecode[^>]*>>\s*stream\r?\n")
+TM = re.compile(rb"(-?[\d.]+) (-?[\d.]+) Tm\s*$")
+TJ = re.compile(rb"\(((?:[^()\\]|\\.|\((?:[^()\\]|\\.)*\))*)\)\s*Tj", re.S)  # balanced () may go unescaped
+
+
+def _pdf_string(raw):
+    """A PDF literal string as text: its escapes undone, and decoded as the
+    UTF-16BE of a scanner's OCR layer (else Latin-1)."""
+    raw = re.sub(rb"\\([nrtbf()\\]|[0-7]{1,3})", lambda m: (
+        bytes([int(m.group(1), 8)]) if m.group(1)[:1].isdigit() else
+        {b"n": b"\n", b"r": b"\r", b"t": b"\t", b"b": b"\b", b"f": b"\f"}.get(m.group(1), m.group(1))), raw)
+    if len(raw) % 2 == 0 and raw[:1] == b"\0":
+        return raw.decode("utf-16-be", "replace")
+    return raw.decode("latin-1")
+
+
+def recovered_pages(pdf):
+    """The OCR text of each page of a truncated PDF (#81), recovered from the
+    page content streams that survive before the cut, where page tree, fonts
+    and images are lost. Each word is placed by its text matrix: words are
+    taken in the stream's order, which is reading order; a line ends where
+    x goes back or y jumps, and a wide gap between lines starts a paragraph. Streams are taken in file order, which is
+    page order in the scanner's PDFs; a stream with no text is a blank page."""
+    data = Path(pdf).read_bytes()
+    pages = []
+    for m in CONTENT.finditer(data):
+        end = data.find(b"endstream", m.end())
+        if end < 0:  # the stream the cut went through
+            break
+        try:
+            stream = zlib.decompressobj().decompress(data[m.end():end])
+        except zlib.error:
+            continue
+        words, x, y = [], 0.0, 0.0
+        for line in stream.splitlines():
+            t = TM.search(line)
+            if t:
+                x, y = float(t.group(1)), float(t.group(2))
+            for raw in TJ.findall(line):
+                text = _pdf_string(raw).strip()
+                if text:
+                    words.append((y, x, text))
+        lines = []  # [(y, [words])] in reading order: a new line where x goes back or y jumps
+        last_x = last_y = 0.0
+        for y, x, w in words:
+            if lines and x > last_x and abs(last_y - y) < 4:  # the word before: scans are skewed
+                lines[-1][1].append(w)
+            else:
+                lines.append((y, [w]))
+            last_x, last_y = x, y
+        gaps = sorted(a[0] - b[0] for a, b in zip(lines, lines[1:]) if a[0] > b[0])
+        step = gaps[len(gaps) // 4] if gaps else 0  # most gaps are the line spacing
+        out = []
+        for i, (y, ws) in enumerate(lines):
+            if i and step and lines[i - 1][0] - y > 1.6 * step:
+                out.append("")
+            out.append(" ".join(ws))
+        pages.append("\n".join(out))
+    return pages
 
 
 def page_offset(pages):
@@ -62,7 +124,14 @@ OCR_SUMMARY = ("Unedited OCR text, machine-read from the scan: it contains error
                "and its APL is wrong. Shown for searching; read the PDF.")
 
 
-def ocr_block(pages):
+DAMAGED_SUMMARY = ("Unedited OCR text, machine-read from a scan now lost: it contains errors, "
+                   "and its APL is wrong. Shown for searching.")
+DAMAGED = ("No complete scan of this issue has been found. The only copy found, on vector.org.uk, is damaged: "
+           "its page images are lost, but the text machine-read from them survives, shown below "
+           "([help find a scan](https://github.com/5jt/vector-rescue/issues/62)).")
+
+
+def ocr_block(pages, summary=OCR_SUMMARY):
     """The OCR text of PAGES, folded away in a closed <details> section:
     one <p> per paragraph, column spacing collapsed, HTML escaped."""
     paras = []
@@ -71,7 +140,7 @@ def ocr_block(pages):
             text = " ".join(" ".join(line.split()) for line in chunk.splitlines() if line.strip())
             if text:
                 paras.append(f"<p>{html.escape(text, quote=False)}</p>")
-    return "\n".join([f'<details class="ocr">\n<summary>{OCR_SUMMARY}</summary>', *paras, "</details>"])
+    return "\n".join([f'<details class="ocr">\n<summary>{summary}</summary>', *paras, "</details>"])
 
 
 def warning_block(text, title="Doubtful transcription"):
@@ -90,10 +159,11 @@ def review_note(fm):
     return note + "; not yet reviewed."
 
 
-def write_stub(record, docs, pdf=None, ocr=None, warning=None):
+def write_stub(record, docs, pdf=None, ocr=None, warning=None, note=None):
     """docs/art<ID>/index.md for a record with no text. PDF is the issue PDF's
     path from the site root, with #page=N. WARNING, from a transcription with
-    no text, heads the page and marks it in the issue index."""
+    no text, heads the page and marks it in the issue index. NOTE follows the
+    statement that the text is not online (the damaged scan of #81)."""
     fm = {"vid": record["id"], "title": record["title"] or f"Article {record['id']}"}
     if record.get("authors"):
         fm["authors"] = record["authors"]
@@ -108,7 +178,7 @@ def write_stub(record, docs, pdf=None, ocr=None, warning=None):
         lines += warning_block(warning, "Not transcribed")
     if record.get("authors"):
         lines += [escape(", ".join(record["authors"])) + "\n{ .byline }", ""]
-    lines.append("The text of this article is not yet online.")
+    lines.append("The text of this article is not yet online." + (f" {note}" if note else ""))
     if pdf:
         page = f", page {record['page']}" if record.get("page") else ""
         lines += ["", f"[Read it in the PDF of the issue{page}](../{pdf})"]
