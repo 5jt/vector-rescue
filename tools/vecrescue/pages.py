@@ -8,10 +8,11 @@ not yet online. Whole-issue PDFs are kept at /<vol>/<issue>/.
 import html
 import re
 import shutil
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 
 from .markdown import escape
+from .stubs import DAMAGED
 from .wayback import is_complete_pdf
 
 MONTHS = ["January", "February", "March", "April", "May", "June", "July",
@@ -295,17 +296,51 @@ def nav_toml(inventory, issues):
             + ",\n    ".join(entries) + ",\n  ] },\n]")
 
 
+QUALITY = (  # worst to best (#83)
+    ("missing", "known only from the index: no scan has been found"),
+    ("OCR", "only machine-read text survives, from a damaged copy without page images"),
+    ("PDF", "the scan is linked, with its machine-read text folded away"),
+    ("failed", "transcription was attempted and abandoned; the scan is linked"),
+    ("draft", "transcribed from the scan, not yet reviewed"),
+    ("reviewed", "transcribed from the scan and reviewed"),
+    ("text", "converted from the text published online"),
+)
+
+
+def quality(docs, vid):
+    """The state of an article's text, one of QUALITY, read from its page;
+    and whether its transcription is doubtful (#83)."""
+    if not _converted(docs, vid):
+        return "missing", False
+    page = (Path(docs) / f"art{vid}" / "index.md").read_text(encoding="utf-8")
+    head = (page.split("---", 2) + ["", ""])[1]
+    warned = "\nwarning: " in head
+    if "\nstatus: transcribed" in head:
+        return ("reviewed" if "\nreview: reviewed" in head else "draft"), warned
+    if "\nstatus: not online" in head:
+        return ("failed" if warned else "OCR" if DAMAGED in page else "PDF"), False
+    return "text", False
+
+
+def _badge(q):
+    return f'<span class="quality q-{q.lower()}" title="{dict(QUALITY)[q]}">{q}</span>'
+
+
 def write_index_page(inventory, issues, docs):
     """The full index on a page of its own (#79), so a reader can search just
     the index with the browser: every indexed article in volume, issue and
-    page order, linked where it has a page, then those published online only."""
+    page order, linked where it has a page, then those published online only;
+    with the quality of each one's text, and their totals, to gauge progress (#83)."""
     docs = Path(docs)
     catalogue, alias = _catalogue(issues)
     order = {key: i for i, key in enumerate(k for _, keys, _ in volumes(inventory, issues) for k in keys)}
-    rows = []
+    rows, totals = [], Counter()
     for r in inventory:
         if not r.get("id") or not (r.get("volume") or _converted(docs, r["id"])):
             continue
+        q, doubtful = quality(docs, r["id"])
+        totals[q] += 1
+        mark = _badge(q) + (f' <span class="doubtful" title="{DOUBTFUL}">⚠</span>' if doubtful else "")
         title = _cell(r.get("title"))
         if _converted(docs, r["id"]):
             title = f"[{title}](../art{r['id']}/)"
@@ -318,12 +353,14 @@ def write_index_page(inventory, issues, docs):
             sort = (0, order.get(key, len(order)), _num(r.get("page")), r.get("title") or "")
         else:
             sort = (1, 0, 0, r.get("online") or "9999", r["id"])
-        rows.append((sort, f"| {vol} | {no} | {r.get('page') or ''} | {title} | "
+        rows.append((sort, f"| {vol} | {no} | {r.get('page') or ''} | {mark} | {title} | "
                            f"{_cell(', '.join(r.get('authors') or []))} |"))
     lines = [_front("Full index"), "# Full index", "",
              "Every article in the index of *Vector*, in the order printed; those published online only follow. "
              "Use your browser’s Find to search it.", "",
-             "| volume | issue | page | article | author |", "|:---:|:---:|---:|---|---|"]
+             "Quality of the text: " + " · ".join(f"{_badge(q)} {totals[q]}" for q, _ in QUALITY)
+             + f" (of {sum(totals.values())})", "",
+             "| volume | issue | page | quality | article | author |", "|:---:|:---:|---:|:---:|---|---|"]
     lines += [row for _, row in sorted(rows)]
     path = docs / "full-index" / "index.md"
     path.parent.mkdir(parents=True, exist_ok=True)
