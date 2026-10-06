@@ -166,3 +166,43 @@ def test_stub_pages_use_transcriptions(tmp_path):
 def test_stub_includes_the_ocr_block(tmp_path):
     text = write_stub(RECORD, tmp_path, pdf="1/1/x.pdf#page=67", ocr="<details>…</details>").read_text()
     assert text.rstrip().endswith("<details>…</details>")
+
+
+def _damaged_pdf(path, printed):
+    """A PDF cut off after its pages' content streams (#81): one stream per
+    page, each word placed by Tm and shown in UTF-16BE by Tj, as a scanner
+    writes its invisible OCR layer; no page tree, no %%EOF."""
+    import zlib
+
+    def word(x, y, w):
+        return f"1 0 0 1 {x} {y} Tm\n(".encode() + w.encode("utf-16-be") + b")Tj\n"   # () balanced, unescaped
+    data = b"%PDF-1.4\n"
+    for i, n in enumerate(printed):
+        body = b"BT\n3 Tr\n" + word(10, 590, "VECTOR") + word(200, 590.4, str(n))
+        body += word(10, 560, f"Words of page {n},") + word(80, 560.6, "skewed (a little)")
+        body += word(10, 550, "and their next line.") + word(10, 520, "A new paragraph.") + b"ET\n"
+        stream = zlib.compress(body)
+        data += f"{i + 5} 0 obj\n<</Length {len(stream)}/Filter /FlateDecode>>\nstream\n".encode() + stream
+        data += b"\nendstream\nendobj\n"
+    path.write_bytes(data + b"99 0 obj\n<</Length 4000/Filter /FlateDecode>>\nstream\nx\x9c")   # cut mid-stream
+    return path
+
+
+def test_ocr_text_is_recovered_from_a_truncated_pdf(tmp_path):
+    from vecrescue.stubs import recovered_pages
+    pages = recovered_pages(_damaged_pdf(tmp_path / "VOL.1-NO.1-MAY-1984.pdf", [63, 64]))
+    assert pages == ["VECTOR 63\n\nWords of page 63, skewed (a little)\nand their next line.\n\nA new paragraph.",
+                     "VECTOR 64\n\nWords of page 64, skewed (a little)\nand their next line.\n\nA new paragraph."]
+
+
+def test_article_in_a_damaged_issue_shows_its_recovered_text(tmp_path):
+    from vecrescue.pipeline import write_stub_pages
+    pdf = _damaged_pdf(tmp_path / "VOL.1-NO.1-MAY-1984.pdf", [2, 3, 4, 5])   # printed page = PDF page + 1
+    results = write_stub_pages([dict(RECORD, page="4")], [], {}, tmp_path, damaged={("1", "1"): pdf})
+    assert results["10001000"]["page"] is True and results["10001000"]["pdf"] is None
+    text = (tmp_path / "docs" / "art10001000" / "index.md").read_text()
+    assert "The only copy found, on vector.org.uk, is damaged" in text
+    assert "Read it in the PDF" not in text
+    assert "<summary>Unedited OCR text, machine-read from a scan now lost" in text
+    assert "<p>Words of page 4, skewed (a little) and their next line.</p>" in text
+    assert "page 3," not in text

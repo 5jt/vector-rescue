@@ -82,6 +82,20 @@ def wayback_issue_pdfs(wayback_root):
     return found
 
 
+def damaged_issue_pdfs(wayback_root):
+    """{(volume, issue): path} of the truncated captures of whole-issue PDFs,
+    from which only the OCR text can be recovered (#81)."""
+    found = {}
+    uploads = Path(wayback_root) / "vector.org.uk" / "wp-content" / "uploads"
+    for path in sorted(uploads.rglob("*.pdf")) if uploads.is_dir() else []:
+        for pattern in PDF_NAMES:
+            m = pattern.match(path.name)
+            if m and not is_complete_pdf(path.read_bytes()):
+                found.setdefault((str(int(m.group(1))), m.group(2)), path)
+                break
+    return found
+
+
 def _front(title):
     return f"---\ntitle: {title}\n---\n\n"
 
