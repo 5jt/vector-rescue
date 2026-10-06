@@ -80,3 +80,8 @@ Priority for review: the more interesting articles first (practical how-to and t
 - So that transcription need not wait on review, Claude opens and merges its own PRs on this repo (a repo-only token). PRs are still raised for the audit trail.
 - Review state is held in transcription front matter and shown by the build; `make review` applies the checklist's ticks (#58).
 - Doubtful or failed transcriptions carry a warning on their page and a mark in the issue index, and are listed in the checklist. Separate issues only for major transcription failures (the first: #59, XPL).
+
+## Decided (Stephen Taylor, 2026-10-06)
+
+- `index.xml` was compiled by hand: it probably omits pieces then thought not worth keeping, and likely contains errors. **What the scans show has authority** over the index (titles, authors, pages, issue placement). Discrepancies go in the transcription's `queries:`.
+- Vol.3 No.4: the wayback PDF is truncated at 1 MiB and cannot be rendered, but its invisible OCR text layer survives for all 140 pages. Its articles get pages showing that recovered text folded away, as for other untranscribed articles; no transcriptions from it. A whole copy may be in Jake's newer source tree; failing that, Dyalog holds a complete printed series and the issue can be rescanned (#62).
