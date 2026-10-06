@@ -85,3 +85,11 @@ Priority for review: the more interesting articles first (practical how-to and t
 
 - `index.xml` was compiled by hand: it probably omits pieces then thought not worth keeping, and likely contains errors. **What the scans show has authority** over the index (titles, authors, pages, issue placement). Discrepancies go in the transcription's `queries:`.
 - Vol.3 No.4: the wayback PDF is truncated at 1 MiB and cannot be rendered, but its invisible OCR text layer survives for all 140 pages. Its articles get pages showing that recovered text folded away, as for other untranscribed articles; no transcriptions from it. The build recovers it from the truncated capture itself (#81), and so also for the truncated 7:4 and 16:4: 30 articles in all. A whole copy may be in Jake's newer source tree; failing that, Dyalog holds a complete printed series and the issue can be rescanned (#62).
+
+## Decided (Stephen Taylor, 2026-10-06, later)
+
+- **The issue Contents pages are the authority for what an issue holds.** A full index is derived from them (one data file per issue, `transcriptions/contents/`); the volume pages and the Full index page are built from it. Each Contents line links to the best text we have: an article page (indexed or not), else the issue PDF at that page; no link only where nothing survives.
+- **`index.xml` is kept as a source of IDs and old URLs**, and its discrepancies with the scans are recorded in queries.
+- **First Pass.** `index.xml` reflects the editors’ judgement of what was most worth keeping, so it is used as a filter: the First Pass transcribes the articles in `index.xml`; everything else on a Contents page (front sections: editorials, news, reviews; and unindexed pieces from Volume 5 on) is listed and linked to its PDF page, not transcribed. A Second Pass, if budget allows, picks up the rest. The unindexed pieces already transcribed for Volumes 1–4 are published.
+- A **Project status** page, second in the nav, summarises what is done and what remains; updated after each volume.
+- **Tags.** Transcribed articles are to be tagged by subject (e.g. language design, programming techniques, system descriptions). A vocabulary is drawn from Volumes 1–4 first, then applied and extended as the First Pass continues.
