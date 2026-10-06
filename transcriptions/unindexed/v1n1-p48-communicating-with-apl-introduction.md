@@ -8,6 +8,8 @@ page: '48'
 unindexed: true
 transcribed: from page image of VOL.1-NO.1-MAY-1984.pdf, page 50 (printed 48; introduces art10006070, art10007100 and art10006710); Claude, 2026-10-03
 review: draft
+tags:
+- system interfaces
 ---
 
 Compiled by Adrian Smith

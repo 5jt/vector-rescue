@@ -8,6 +8,8 @@ page: '123'
 unindexed: true
 transcribed: 'from page images of VOL.1-NO.3-JANUARY-1985.pdf, pages 125–127 (printed 123–125; results of the competition in v1n1-p105-prize-competition-this-is-your-life.md; an E&S Associates advert fills the lower part of p.125); Claude, 2026-10-03'
 review: draft
+tags:
+- competitions and puzzles
 queries:
 - "Checks: every solution printed here (both BTRs, Mike Day’s looping BTR, Phil Last’s RTB, and the replicate RTB) was run, as transcribed, against all boolean vectors up to length 8, in index origins 0 and 1, and all are correct; BTR of the example grid gives 2 2 4 5 2 2 3."
 - "Mike Day’s line [4] is `→3⌈B←~C/B` (ceiling), read at 900 dpi: `3⌈B` is a vector of 3s while B is non-empty, so the loop continues; empty, it exits."

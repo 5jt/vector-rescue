@@ -6,6 +6,9 @@ page: '124'
 unindexed: true
 transcribed: 'from page image of VOL.1-NO.2-OCTOBER-1984.pdf, page 126 (printed 124; precedes art10011060); Claude, 2026-10-03'
 review: draft
+tags:
+- standards
+- APL community
 queries:
 - "A page of three photographs with captions. The photographs (half-tones of people and a building) are described, not reproduced; an editor may wish to crop them from the scan."
 - "The flip chart in the first photograph reads “Current def’n”, then `∇F`, `[1] ⎕←⎕EX'F'`, `∇`."

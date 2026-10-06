@@ -8,6 +8,8 @@ page: '107'
 unindexed: true
 transcribed: 'from page image of VOL.3-NO.1-JULY-1986.pdf, page 109 (printed 107; introduces art10007070, art10009340 and art10002110; an advert follows on p.108); Claude, 2026-10-05'
 review: draft
+tags:
+- APL community
 ---
 
 by Dave Ziemann

@@ -8,6 +8,9 @@ page: '65'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.3-JANUARY-1986.pdf, pages 67–78 (printed 65–76; ends the meetings section; the General Articles section begins on p.77); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
+- applications
 queries:
 - "Byline printed “compiled by Adrian Smith”. Notes on the four plenary sessions of the Operational Research Society conference: Jenkins, Keen, Howard, Wickens, each under its own heading with the speaker’s byline; transcribed as H2 sections with the speaker in italics."
 - "The two cost/volume graphs on pp.69–70 are cropped as figures."

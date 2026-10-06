@@ -8,6 +8,9 @@ page: '84'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.1-JULY-1985.pdf, pages 86–91 (printed 84–89; an APL◊385 advert fills the foot of p.89; the technical section begins on p.91); Claude, 2026-10-05'
 review: draft
+tags:
+- applications
+- education
 queries:
 - "Two headings: “CASE STUDY by Adrian Smith” (acknowledgements and author’s note, p.84, with a photograph of the school) and “DBASE-II at Bedford School by Adrian Smith” (p.85 on). Transcribed as one piece under the second title."
 - "The photograph of Bedford School on p.84 is described, not reproduced."

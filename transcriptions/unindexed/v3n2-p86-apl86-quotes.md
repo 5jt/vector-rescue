@@ -8,6 +8,9 @@ page: '86'
 unindexed: true
 transcribed: 'from page image of VOL.3-NO.2-OCTOBER-1986.pdf, page 88 (printed 86; Bob Pullman’s Thoughts on APL design follows on p.87); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
+- humour
 queries:
 - "Byline printed “compiled by Dave Ziemann”. A photograph (by permission of Ed Cherlin, Editor APL News) is described with its caption."
 ---

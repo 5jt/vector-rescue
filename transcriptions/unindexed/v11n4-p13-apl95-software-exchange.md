@@ -8,6 +8,9 @@ page: '13'
 unindexed: true
 transcribed: from page image of VOL.11-NO.4-APRIL-1995.pdf, page 15 (printed 13; follows art10000180, APL95 Abstracts); Claude, 2026-10-03
 review: draft
+tags:
+- conference reports
+- APL community
 ---
 
 from Dick Holt

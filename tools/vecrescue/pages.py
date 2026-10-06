@@ -237,6 +237,13 @@ def mark_issue_tabs(inventory, issues, docs):
             head += f"\nissue_tab: {tab(r['volume'], r['issue'])}"
             count += 1
         page.write_text(f"---\n{head}\n---{rest}", encoding="utf-8")
+    for page in sorted(docs.glob("v*n*-p*/index.md")):  # pieces with no index entry (#93)
+        text = page.read_text(encoding="utf-8")
+        head, rest = text[4:].split("\n---", 1)
+        fm = yaml.safe_load(head) or {}
+        if fm.get("volume") and "\nissue_tab:" not in "\n" + head:
+            page.write_text(f"---\n{head}\nissue_tab: {tab(str(fm['volume']), str(fm['issue']))}\n---{rest}", encoding="utf-8")
+            count += 1
     return count
 
 
@@ -400,7 +407,7 @@ def nav_toml(inventory, issues):
     entries = [f'{{ "{_volume_title(vol, span)}" = "{vol}/index.md" }}'
                for vol, _, span in volumes(inventory, issues)]
     return ('nav = [\n  { "Home" = "index.md" },\n  { "Project status" = "status/index.md" },\n'
-            '  { "Full index" = "full-index/index.md" },\n'
+            '  { "Full index" = "full-index/index.md" },\n  { "Tags" = "tags/index.md" },\n'
             '  { "Volumes" = [\n    '
             + ",\n    ".join(entries) + ",\n  ] },\n]")
 
@@ -483,6 +490,48 @@ def write_index_page(inventory, issues, docs, contents=None, pdf_links=None):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(head + lines) + "\n", encoding="utf-8")
     return path
+
+
+def tag_id(label):
+    """The anchor of a tag on the Tags page (as the article template writes it)."""
+    return "tag-" + label.replace(" ", "-")
+
+
+def write_tags_page(vocabulary, docs):
+    """The Tags page (#95): each tag of VOCABULARY (transcriptions/tags.yaml)
+    with the article pages in DOCS that carry it, in printed order. Returns
+    the path, and the tags found on pages but not in the vocabulary."""
+    docs = Path(docs)
+    tags = yaml.safe_load(Path(vocabulary).read_text(encoding="utf-8"))["tags"] if vocabulary and Path(vocabulary).is_file() else []
+    known = [t["label"] for t in tags]
+    pages = defaultdict(list)
+    for page in sorted(docs.glob("*/index.md")):
+        text = page.read_text(encoding="utf-8")
+        if not text.startswith("---\n"):
+            continue
+        fm = yaml.safe_load(text.split("---", 2)[1]) or {}
+        for t in fm.get("tags") or []:
+            pages[t].append(fm)
+            pages[t][-1] = dict(fm, _href=page.parent.name)
+    unknown = sorted(set(pages) - set(known))
+    lines = [_front("Tags"),
+             "The transcribed articles by subject. An article may carry more than one tag. "
+             "Tagging follows the transcription, volume by volume.", ""]
+    lines += [" · ".join(f"[{t}](#{tag_id(t)}) ({len(pages[t])})" for t in known if pages[t]), ""]
+    for t in tags:
+        items = pages.get(t["label"])
+        if not items:
+            continue
+        lines += [f"## {t['label']} {{ #{tag_id(t['label'])} }}", "", f"*{t['about']}*", ""]
+        for fm in sorted(items, key=lambda f: (_num(f.get("volume")), _num(f.get("issue")), _num(f.get("page")), f.get("title") or "")):
+            where = f"{fm['volume']}:{fm['issue']}" if fm.get("volume") else "online"
+            who = ", ".join(fm.get("authors") or [])
+            lines.append(f"- {where} [{_cell(fm.get('title'))}](../{fm['_href']}/)" + (f", {escape(who)}" if who else ""))
+        lines.append("")
+    path = docs / "tags" / "index.md"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(lines), encoding="utf-8")
+    return path, unknown
 
 
 LOGO = "assets/images/vector-logo.png"  # vector.org.uk’s, white and yellow

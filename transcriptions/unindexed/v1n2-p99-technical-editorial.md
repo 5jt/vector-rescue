@@ -9,6 +9,8 @@ page: '99'
 unindexed: true
 transcribed: 'from page images of VOL.1-NO.2-OCTOBER-1984.pdf, pages 101–102 (printed 99–100; introduces art10005120, art10003500, art10003510 and art10011060); Claude, 2026-10-03'
 review: draft
+tags:
+- APL community
 queries:
 - "Byline printed “by David Zieman and Jonathan Bermen”; elsewhere David Ziemann and Jonathan Barman. Authors given here in the usual spelling; the printed byline is kept below."
 - "Slips transcribed as printed: “beween”, “health-and wealth-giving”."

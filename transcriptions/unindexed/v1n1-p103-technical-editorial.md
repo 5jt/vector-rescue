@@ -9,6 +9,8 @@ page: '103'
 unindexed: true
 transcribed: from page image of VOL.1-NO.1-MAY-1984.pdf, page 105 (printed 103; introduces art10003490, art10002840, art10000550 and art10011050; a Dyalog APL advert follows on p.104); Claude, 2026-10-03
 review: draft
+tags:
+- APL community
 queries:
 - "Slip transcribed as printed: “a paper entitles”."
 - "The titles given here differ from the papers’ own headings and the index (“Partitioning Data in APL”, “Inside the international APL standard”)."

@@ -8,6 +8,9 @@ page: '59'
 unindexed: true
 transcribed: 'from page image of VOL.2-NO.1-JULY-1985.pdf, page 61 (printed 59; the AGM meeting; Fieldsend’s paper, art10003160, follows on p.60); Claude, 2026-10-05'
 review: draft
+tags:
+- system interfaces
+- implementations
 queries:
 - "The introductory notes (p.45) say these are Eileen Dyson’s and Adrian Smith’s brief notes on the AGM meeting; the byline is “by Adrian Smith”."
 - "Printed “APL*PLUS” with an asterisk; transcribed with an escaped asterisk."

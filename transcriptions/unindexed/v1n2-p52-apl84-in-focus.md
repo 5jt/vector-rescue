@@ -9,6 +9,9 @@ page: '52'
 unindexed: true
 transcribed: 'from page images of VOL.1-NO.2-OCTOBER-1984.pdf, pages 54–59 (printed 52–57; an H.M.W. advert follows on p.58); Claude, 2026-10-03'
 review: draft
+tags:
+- conference reports
+- implementations
 queries:
 - "Six pieces printed as one meeting report: Adrian Smith’s introduction, Dick Bowman’s commentary, and notes on five talks (Roy Sykes, John Scholes, Philip van Cleave, Jim Brown, Jim Ryan), each with its own heading and “by” line naming the speaker. Set as H2 sections. The introduction says the notes on the talks are by Steve Lyus and Derek Wilson."
 - "Bowman says “four speakers from the USA, one of our very own”; the introduction counts 5 talks."

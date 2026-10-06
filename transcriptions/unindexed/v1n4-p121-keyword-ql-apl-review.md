@@ -8,6 +8,9 @@ page: '121'
 unindexed: true
 transcribed: 'from page images of VOL.1-NO.4-APRIL-1985.pdf, pages 123 and 125–131 (printed 121, 123–129; p.122 is a MicroAPL advert); Claude, 2026-10-04'
 review: draft
+tags:
+- reviews
+- implementations
 queries:
 - "The review of the interpreter described in art10003020; it calls Eastwood’s paper “later in the technical section”, though it appears earlier in the general articles. Printed so."
 - "QL/APL’s Quad is printed as # with doubled strokes; transcribed as #. Negative numbers in #CC arguments are printed with hyphens (QL/APL’s single minus sign), as described."

@@ -8,6 +8,8 @@ page: '59'
 unindexed: true
 transcribed: 'from page image of VOL.4-NO.1-JULY-1987.pdf, page 61 (printed 59); Claude, 2026-10-06'
 review: draft
+tags:
+- graphics
 queries:
 - "The heading and introduction of Adrian Smith’s notes on the Graphics meeting. The four talks that follow are indexed separately: 10002860 (Donnelly), 10003030 (Eastwood), 10006100 (Nabavi), 10010750 (Waters). Preedy’s paper (10007000) was given at the same meeting."
 ---

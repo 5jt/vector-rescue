@@ -8,6 +8,8 @@ page: '104'
 unindexed: true
 transcribed: 'from page image of VOL.2-NO.3-JANUARY-1986.pdf, page 106 (printed 104; follows up v2n1-p99-prize-competition-result-test-your-skill.md; the Porsche competition follows on p.105); Claude, 2026-10-05'
 review: draft
+tags:
+- competitions and puzzles
 queries:
 - "SM9 [4] prints the outer-product function as a glyph like A (∧ overstruck with ~ in this face), read as ⍲, as in the original SM9 (v2n1-p99). Here SM9 uses Z, LAB and LOOP in place of the original MAT, lab and Loop."
 - "SMNAPS [1] is printed `Z←∧/↑(↓J)∘.∊↓C,0`, using APL*PLUS’s ↓ (split) and ↑ (mix)."

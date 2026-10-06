@@ -8,6 +8,9 @@ page: '67'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.2-OCTOBER-1986.pdf, pages 69–70 (printed 67–68; Roy Sykes’s Papers I Enjoyed follows on p.69); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
+- humour
 queries:
 - "The ode is printed in two columns per page; the stanzas are read down the left column then the right, the order the story requires. The closing quotation marks follow the print: the old man’s tale runs from “Very well” to “encourage the mind.”, where the print has an opening quotation mark only at “International meetings” and none to close the stanza before it; transcribed as printed."
 - "Puns and slips as printed: “a dual” (duel, and the dual operator), “Jim Brown2”, “Bob McLaughing”, “roquet … croquet”."

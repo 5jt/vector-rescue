@@ -8,6 +8,8 @@ page: '97'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.1-JULY-1985.pdf, pages 99–100 (printed 97–98; the prize competitions follow on p.99); Claude, 2026-10-05'
 review: draft
+tags:
+- programming techniques
 queries:
 - "Byline printed “compiled by David Ziemann”; the contents list gives “Andrew Wiggins, Mark Bassett”, whose problems these are (see their letters, v2n1-p95-technical-correspondence.md)."
 - "Checked: Wiggins’s required solution (Profit/(Loss) 30 0 0 0 0 70 0 0 10 0; Carried forward 0 20 40 40 20 0 20 20 0 40) follows from the example data and rules."

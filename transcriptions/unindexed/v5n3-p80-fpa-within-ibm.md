@@ -8,6 +8,8 @@ page: '80'
 unindexed: true
 transcribed: from page images of VOL.5-NO.3-JANUARY-1989.pdf, pages 82–84 (printed 80–82; between art10002560 and art10004210); Claude, 2026-10-03
 review: draft
+tags:
+- development practice
 ---
 
 Alan Williams (IBM Project Management)

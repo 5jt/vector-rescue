@@ -8,6 +8,8 @@ page: '105'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.1-JULY-1986.pdf, pages 107–108 (printed 105–106; the Introduction to Contributed Articles follows on p.107); Claude, 2026-10-05'
 review: draft
+tags:
+- competitions and puzzles
 queries:
 - "The contents list gives David Ziemann; the byline is Jonathan Barman."
 - "Checked: the example is consistent with the rules: record 13 (276 of 511 used) takes all 218 rows of item 100; item 200’s 731 rows go 86 into record 10 (425 used), then 511 into new record 3 and 134 into new record 4; item 300’s 134 rows go into new record 5, record 12 being full."

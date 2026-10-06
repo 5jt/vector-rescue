@@ -6,6 +6,8 @@ page: '67'
 unindexed: true
 transcribed: 'from page images of VOL.4-NO.4-APRIL-1988.pdf, pages 69–90 (printed 67–88); Claude, 2026-10-06'
 review: draft
+tags:
+- conference reports
 queries:
 - "Reports on individual APL 88 sessions by the Vector reporters (Camacho, Adrian Smith; see the section introduction, v4n4-p55). The bylines name the speakers (“by Warren Julian”), not the writers of the reports. Grouped into one file in print order."
 - "Photographs of speakers are described, not reproduced."

@@ -9,6 +9,8 @@ unindexed: true
 transcribed: 'from page image of VOL.2-NO.1-JULY-1985.pdf, page 71 (printed 69; the photographic review follows on p.70); Claude, 2026-10-05'
 review: draft
 warning: The session printout, mostly in Japanese characters printed by a dot-matrix printer, is reproduced as an image, not transcribed.
+tags:
+- implementations
 queries:
 - "No byline on the page; the contents list gives David Ziemann."
 - "The printout of an APL session on the IBM Multistation 5550 (two columns, with kanji city names, hiragana readings, and a yen-formatted report) is cropped as a 16-grey image. Its kana and kanji are too small and rough in the scan to transcribe with confidence. A reader with Japanese could transcribe it: the city names appear to be 東京, 名古屋, 大阪, 長崎."

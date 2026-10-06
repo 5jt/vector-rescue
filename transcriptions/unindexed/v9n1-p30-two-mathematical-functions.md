@@ -8,6 +8,8 @@ page: '30'
 unindexed: true
 transcribed: from page images of VOL.9-NO.1-JULY-1992.pdf, pages 32–33 (printed 30–31; follows art10005920, inside its index page range); Claude, 2026-10-03
 review: draft
+tags:
+- mathematics and statistics
 ---
 
 by C.E. Williams

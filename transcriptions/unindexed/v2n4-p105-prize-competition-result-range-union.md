@@ -8,6 +8,8 @@ page: '105'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.4-APRIL-1986.pdf, pages 107–109 (printed 105–107; an advert follows on p.108; Watch your step follows on p.109); Claude, 2026-10-05'
 review: draft
+tags:
+- competitions and puzzles
 queries:
 - "The competition was set in Vol.2 No.2, which we have no scan of (#62)."
 - "The scan operator is printed ⌈ with a barred backslash (⌈⍀, scan along the first axis), as the printed results require; the bar is faint in places."

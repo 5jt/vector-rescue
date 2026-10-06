@@ -8,6 +8,9 @@ page: '108'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.2-OCTOBER-1986.pdf, pages 110–111 (printed 108–109; the APL86 standards report, art10011080, follows on p.110); Claude, 2026-10-05'
 review: draft
+tags:
+- competitions and puzzles
+- humour
 queries:
 - "The four photographs (p.109) are reproduced as a 16-grey image, since the competition is about them."
 ---

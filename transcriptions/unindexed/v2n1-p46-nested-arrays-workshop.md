@@ -8,6 +8,8 @@ page: '46'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.1-JULY-1985.pdf, pages 48–49 (printed 46–47; heads art10002640, Crossley’s paper, on p.48); Claude, 2026-10-05'
 review: draft
+tags:
+- language design
 queries:
 - "Notes on four talks: Crossley (written up in full as art10002640), Bryant, Robertson and Scholes. The Scholes notes on p.47 have their own heading and byline (“by John Scholes (Dyalog)”), though they are Adrian Smith’s notes on Scholes’s talk; transcribed as an H2 section with the speaker in italics, like the others."
 - "Printed “APL*PLUS” with an asterisk; transcribed with an escaped asterisk."

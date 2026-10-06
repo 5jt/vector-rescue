@@ -8,6 +8,9 @@ page: '89'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.3-JANUARY-1986.pdf, pages 91–92 (printed 89–90; ends the General Articles section; the technical section begins on p.91); Claude, 2026-10-05'
 review: draft
+tags:
+- APL in perspective
+- humour
 queries:
 - "Earlier parts: v1n1-p77, v1n2-p73, v1n4-p95 and v2n1-p81 (all unindexed)."
 - "Checked: ⍋A for A←5 7 1 2 9 8 6 3 4 is 3 4 8 9 1 7 2 6 5, and ⍒A 5 6 2 7 1 9 8 4 3, as printed; ⍋⎕AVI B for the shuffled alphabet B gives exactly the printed 26 indices, and B holds each letter once."

@@ -8,6 +8,8 @@ page: '105'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.1-JULY-1985.pdf, pages 107 and 109 (printed 105 and 107; p.106 is a MetaTechnics advert; art10009930 follows on p.108); Claude, 2026-10-05'
 review: draft
+tags:
+- competitions and puzzles
 queries:
 - "Checked: both printed WRAP examples are consistent with the stated rules (10 0 WRAP inserts three carriage returns; 11 2 WRAP gives an 11-character first segment, then 9-character segments indented 2)."
 - "In the session, cr stands for the carriage-return character, as printed. The comma before the assignment (`,S←…`) displays the result, as printed."

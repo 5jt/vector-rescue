@@ -8,6 +8,8 @@ page: '59'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.1-JULY-1986.pdf, pages 61–63 (printed 59–61; Tony Cooper’s paper, art10002590, follows on p.62); Claude, 2026-10-05'
 review: draft
+tags:
+- applications
 queries:
 - "Adrian Smith’s introductory notes (p.59), then his notes on four talks at the January meeting (pp.60–61). Each talk is printed as a centred heading with the speaker in italics; transcribed as H3 sections."
 ---

@@ -8,6 +8,8 @@ page: '52'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.2-OCTOBER-1986.pdf, pages 54–60 (printed 52–58; follows the APL86 conference logo page, p.51; Iverson’s opening plenary report follows on p.59); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
 queries:
 - "Seven pages of half-tone photographs with captions, opening the APL86 conference reports. The photographs are described briefly, not reproduced; captions are read from the page and the OCR text. The conference logo page (p.51: “APL in Action, Manchester England 7-11 July 1986, APL86”, with the ACM and BCS logos) is not transcribed."
 - "Names as printed: “Henri Brudzewski”, “Luan Thomson”, “Jonny Osterman”, “ANSII group”, “Leo Gromer”, “Jim Brown”."

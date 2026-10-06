@@ -6,6 +6,9 @@ page: '60'
 unindexed: true
 transcribed: 'from page images of VOL.1-NO.3-JANUARY-1985.pdf, pages 62–63 (printed 60–61; follows art10010990; the introductory notes on p.48 call this the workshop ‘How to Survive in XXAPL’, October 19th); Claude, 2026-10-03'
 review: draft
+tags:
+- system interfaces
+- development practice
 queries:
 - "No byline; the speakers were Martin Malin, David Doherty, Mark Longstaff and Phil Last."
 - "Slips transcribed as printed: “use of facilities … have allowed”."

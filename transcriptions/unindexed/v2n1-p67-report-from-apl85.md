@@ -8,6 +8,9 @@ page: '67'
 unindexed: true
 transcribed: 'from page image of VOL.2-NO.1-JULY-1985.pdf, page 69 (printed 67; follows Dick Bowman’s impression; Dick Gray’s second thoughts follow on p.68); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
+- APL in perspective
 queries:
 - "The first paragraph (“The conference spanned 4 days…”) is printed twice, as the first and third paragraphs: a paste-up error. Both are transcribed as printed; an editor may drop the first."
 - "Slip transcribed as printed: “vendor’s presentations”."

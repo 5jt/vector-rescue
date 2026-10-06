@@ -8,6 +8,8 @@ page: '90'
 unindexed: true
 transcribed: 'from page images of VOL.4-NO.4-APRIL-1988.pdf, pages 92–93 (printed 90–91); Claude, 2026-10-06'
 review: draft
+tags:
+- competitions and puzzles
 queries:
 - "The rules (p.90) are unsigned; the problem (p.91) is by Anne Wilson."
 - "Checked: the RAFT 2,3 example is a valid crossing: 1 missionary and 1 cannibal cross, 1 missionary returns, 2 missionaries and 1 cannibal cross; no bank or raft ever has more cannibals than missionaries (where there are missionaries), and all 2+2 end on the far bank. The rows alternate between crossings and returns."

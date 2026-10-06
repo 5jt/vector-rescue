@@ -8,6 +8,8 @@ page: '77'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.2-OCTOBER-1986.pdf, pages 79–81 (printed 77–79; Aelred Tobin’s APL86 Fun and Games follows on p.80); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
 queries:
 - "The contents list calls this “Pick of the Week (2)”."
 - "The function assignment example is printed `TOTAL <- +/` with an ASCII arrow; transcribed as printed."

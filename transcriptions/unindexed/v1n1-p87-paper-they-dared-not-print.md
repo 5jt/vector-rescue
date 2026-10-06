@@ -8,6 +8,8 @@ page: '87'
 unindexed: true
 transcribed: from page images of VOL.1-NO.1-MAY-1984.pdf, pages 89–90 (printed 87–88; introduces art10001000 and art10001010); Claude, 2026-10-03
 review: draft
+tags:
+- humour
 queries:
 - "Byline as printed, “by Anonymous APL84 Referees”; the text says both papers it introduces were written by the Editor."
 - "The three bold italic pull quotes are set as H2 headings, where they fall in the text."

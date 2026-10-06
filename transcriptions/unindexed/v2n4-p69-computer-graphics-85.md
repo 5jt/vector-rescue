@@ -9,6 +9,9 @@ page: '69'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.4-APRIL-1986.pdf, pages 71–78 (printed 69–76; Expert Systems 85 follows on p.77); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
+- graphics
 queries:
 - "Byline printed “Reviewed by Bruce Hollamby & Katie Williamson”. Each talk is printed under its own heading with “by <speaker>”; transcribed as H2 sections with the speaker in italics."
 - "“Ten trends” lists seven highlights, printed with square bullets."

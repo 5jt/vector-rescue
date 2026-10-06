@@ -9,6 +9,9 @@ page: '62'
 unindexed: true
 transcribed: 'from page images of VOL.1-NO.3-JANUARY-1985.pdf, pages 64–68 (printed 62–66: two pages of captioned photographs, Dick Bowman’s report on p.63 and Adrian Smith’s highlights on pp.65–66); Claude, 2026-10-03'
 review: draft
+tags:
+- implementations
+- APL community
 queries:
 - "Two pieces printed under one event, set as H2 sections. The photographs (half-tones of the exhibition) are described, not reproduced."
 - "The caption ends “1 0 1\\APL[2 1]”, an APL joke: `1 0 1\\'PA'` gives `P A`, two of the three letters; printed so."

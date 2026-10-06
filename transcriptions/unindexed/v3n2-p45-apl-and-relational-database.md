@@ -8,6 +8,8 @@ page: '45'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.2-OCTOBER-1986.pdf, pages 47–48 (printed 45–46; the AGM meeting; Iverson’s talk, art10003970, follows on p.47); Claude, 2026-10-05'
 review: draft
+tags:
+- data and files
 queries:
 - "Adrian Smith’s notes (see his introductory notes, p.44) on two talks at the AGM; the third, Iverson’s, is indexed as art10003970. Each talk is printed as a bold heading with the speaker in italics; transcribed as H2 sections."
 - "“RDMS” is printed so (RDBMS)."

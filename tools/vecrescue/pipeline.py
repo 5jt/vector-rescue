@@ -12,7 +12,8 @@ from .convert import convert
 from .inventory import article_source, merge_wayback, read_index, read_issues
 from .legacy import decode, mapped_apl, read_codingprobs
 from .pages import (_catalogue, damaged_issue_pdfs, issue_pdfs, mark_issue_tabs, nav_toml, publish_unindexed,
-                    read_contents, wayback_issue_pdfs, write_home_page, write_index_page, write_volume_pages)
+                    read_contents, wayback_issue_pdfs, write_home_page, write_index_page, write_tags_page,
+                    write_volume_pages)
 from . import stubs
 from .links import LinkIndex
 
@@ -205,6 +206,8 @@ def run_site(src, out, config, wayback=None, corrections=None, transcriptions=No
         (docs / "status").mkdir(parents=True, exist_ok=True)
         shutil.copyfile(status, docs / "status" / "index.md")
     mark_issue_tabs(inventory, issues, docs)
+    if transcriptions:
+        write_tags_page(Path(transcriptions) / "tags.yaml", docs)
     toml = config.read_text(encoding="utf-8")
     toml = re.sub(r"^nav = \[.*?\]$", lambda _: nav_toml(inventory, issues), toml, count=1, flags=re.M)
     toml = re.sub(r'"(assets/[^"?]+\.css)"', lambda m: f'"{m[1]}?v={_digest(config.parent / m[1])}"', toml)

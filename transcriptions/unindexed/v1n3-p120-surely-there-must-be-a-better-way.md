@@ -8,6 +8,8 @@ page: '120'
 unindexed: true
 transcribed: 'from page images of VOL.1-NO.3-JANUARY-1985.pdf, pages 122–124 (printed 120–122; follows the unindexed Technical Correspondence); Claude, 2026-10-03'
 review: draft
+tags:
+- programming techniques
 queries:
 - "Underscored letters are written with a combining low line (A̲)."
 - "Checks: all three replacements for CURRDEF reproduce the input/output table (⎕IO←1 for the first): `5 6 1 2 5 6[2⊥C]`, `C[2]+4×C[1]≠1`, and `1↓C+⌽4×C≠1` (read at 900 dpi as `1↓`, which gives C[2]+4×C[1]≠1 as a one-element vector)."

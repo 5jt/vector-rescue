@@ -11,6 +11,8 @@ page: '95'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.3-JANUARY-1986.pdf, pages 97–101 (printed 95–99; letters with editors’ replies; an advert follows on p.100); Claude, 2026-10-05'
 review: draft
+tags:
+- programming techniques
 queries:
 - "Contents list gives “Sullivan, Buckland, Horton & Last”. Editors’ replies are italic, transcribed as italic paragraphs."
 - "Last’s four functions are printed in a small monospace APL face, header and body lines without line numbers or ∇; transcribed as printed. Checked by simulating each (right-to-left evaluation, index origin 1) on 500 random cases: DUPSOUT gives the unique elements in first-occurrence order, DYOTA gives V⍳V, DIOTA gives V⍳A, MEMBER gives A∊B. DIOTA alone tests group starts with `L≠¯1⌽L`, not `¯1↓(1+¯1↑L),L`; it gives an INDEX ERROR when every element of V,A is equal. Transcribed as printed."

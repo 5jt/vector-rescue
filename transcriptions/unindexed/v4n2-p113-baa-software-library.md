@@ -8,6 +8,8 @@ page: '113'
 unindexed: true
 transcribed: 'from page images of VOL.4-NO.2-OCTOBER-1987.pdf, pages 115–124 (printed 113–122); Claude, 2026-10-06'
 review: draft
+tags:
+- APL community
 queries:
 - "The catalogue is typewritten; transcribed as preformatted text, keeping its layout. The submission form and order form that follow (printed pp.124–126) are not transcribed."
 - "Disk 15 is not listed: the catalogue goes from 14 to 16."

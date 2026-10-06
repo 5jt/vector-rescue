@@ -9,6 +9,9 @@ page: '72'
 unindexed: true
 transcribed: 'from page images of VOL.4-NO.2-OCTOBER-1987.pdf, pages 74–84 (printed 72–82); Claude, 2026-10-06'
 review: draft
+tags:
+- language design
+- development practice
 queries:
 - "Not in the index. An 11-page article in the General Articles section, typewritten (camera-ready from the authors); apparently a conference paper (“at or shortly after the time of this conference”)."
 - "The heading is printed “MetaAPL”; the text writes “META\\APL” throughout; transcribed as printed."

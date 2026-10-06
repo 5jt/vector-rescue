@@ -9,6 +9,8 @@ page: '93'
 unindexed: true
 transcribed: 'from page image of VOL.3-NO.2-OCTOBER-1986.pdf, page 95 (printed 93; the technical correspondence follows on p.94); Claude, 2026-10-05'
 review: draft
+tags:
+- APL community
 queries:
 - "The software library listing and keyword index it refers to (pp.134–138) are back matter, not transcribed."
 ---

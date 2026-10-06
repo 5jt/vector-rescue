@@ -8,6 +8,9 @@ page: '59'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.2-OCTOBER-1986.pdf, pages 61–62 (printed 59–60; the product forums report follows on p.61); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
+- language design
 queries:
 - "Byline printed “report by Adrian Smith”. Most of the piece quotes Anthony Camacho’s introduction to Iverson’s talk; transcribed as one blockquote."
 ---

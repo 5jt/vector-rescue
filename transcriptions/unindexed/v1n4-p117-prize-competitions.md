@@ -9,6 +9,8 @@ page: '117'
 unindexed: true
 transcribed: 'from page images of VOL.1-NO.4-APRIL-1985.pdf, pages 119–122 (printed 117–120; the QL/APL review follows on p.121); Claude, 2026-10-04'
 review: draft
+tags:
+- competitions and puzzles
 queries:
 - "Two pieces: Barman’s new competition and Ziemann’s result of the matrix-validation competition (v1n2-p107), which received no entries; set as H2 sections."
 - "The ROWRESHAPE example checks: each row, without trailing blanks, is reshaped to 20 characters (e.g. `20⍴'CODES'`), as printed."

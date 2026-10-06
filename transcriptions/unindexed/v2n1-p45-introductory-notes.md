@@ -8,6 +8,8 @@ page: '45'
 unindexed: true
 transcribed: 'from page image of VOL.2-NO.1-JULY-1985.pdf, page 47 (printed 45; introduces the Nested Arrays workshop and the AGM); Claude, 2026-10-05'
 review: draft
+tags:
+- APL community
 ---
 
 by Adrian Smith

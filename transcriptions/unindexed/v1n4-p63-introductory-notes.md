@@ -8,6 +8,8 @@ page: '63'
 unindexed: true
 transcribed: 'from page image of VOL.1-NO.4-APRIL-1985.pdf, page 65 (printed 63, upper half; introduces the APL and Graphics meeting, art10006090, art10002850 and art10008160, which follow on the same page); Claude, 2026-10-03'
 review: draft
+tags:
+- APL community
 ---
 
 by Adrian Smith

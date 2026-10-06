@@ -10,6 +10,9 @@ unindexed: true
 transcribed: 'from page images of VOL.2-NO.4-APRIL-1986.pdf, pages 117–121 (printed 115–119; an IBM advert follows on p.120); Claude, 2026-10-05'
 review: draft
 warning: Henriod’s APL listings (printed pp.117–119) are a rough dot-matrix print in which several glyphs are doubtful; check them against the page before relying on the code. The prose is reliable.
+tags:
+- humour
+- language design
 queries:
 - "Compiled by David Ziemann; the second part is by Claude Henriod (translated by Helen Piper), the technical annex to his letter in v2n4-p103-technical-correspondence.md, answering Ivor Kenson’s “Steps toward a better APL” in Vol.2 No.2, which we have no scan of (#62)."
 - "Checked: BIGANSWER2, evaluated right to left, gives 1.269640335E73 as printed (! of ⌈*|⌊-○ of ¯1 = 168). BIGANSWER1 formats 0.050941… with ⍕ and reverses the characters before executing them, so more printed digits give a bigger number: with ⎕PP 10 it gives 18360149050, printed 1.836014905E10 (match); with ⎕PP 17 Python gives 8.32239608360149E17, printed 6.53239608360149E17: the last digits of the formatted value differ, presumably from a different floating-point format. Transcribed as printed."

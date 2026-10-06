@@ -8,6 +8,8 @@ page: '44'
 unindexed: true
 transcribed: 'from page image of VOL.3-NO.2-OCTOBER-1986.pdf, page 46 (printed 44; introduces the AGM meeting notes, Chastney’s talk and art10003970); Claude, 2026-10-05'
 review: draft
+tags:
+- APL community
 queries:
 - "The pen drawing of the Royal Over-Seas League (signed “ROSL 23/5/86” and “ACDS”) is cropped as a figure."
 ---

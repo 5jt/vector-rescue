@@ -8,6 +8,9 @@ page: '87'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.2-OCTOBER-1986.pdf, pages 89–90 (printed 87–88; Roy Sykes’s closing plenary follows on p.89); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
+- language design
 ---
 
 by Bob Pullman

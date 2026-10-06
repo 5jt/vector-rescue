@@ -8,6 +8,8 @@ page: '41'
 unindexed: true
 transcribed: from page image of VOL.1-NO.1-MAY-1984.pdf, page 43 (printed 41; introduces art10002520, art10006690 and the panel discussion that follows them); Claude, 2026-10-03
 review: draft
+tags:
+- applications
 ---
 
 Compiled by Adrian Smith

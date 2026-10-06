@@ -9,6 +9,8 @@ page: '102'
 unindexed: true
 transcribed: 'from page images of VOL.4-NO.3-JANUARY-1988.pdf, pages 104–105 (printed 102–103); Claude, 2026-10-06'
 review: draft
+tags:
+- language design
 queries:
 - "“One of the most recent is presented later in this issue”: Camacho’s A Demonstration of Direct Definition (10001480), which in fact comes earlier, on p.95."
 - "Slip transcribed as printed: “invoke tham all the time”."

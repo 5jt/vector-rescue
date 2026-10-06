@@ -8,6 +8,8 @@ page: '105'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.3-JANUARY-1986.pdf, pages 107–108 (printed 105–106; Surely there must be a Better Way follows on p.107); Claude, 2026-10-05'
 review: draft
+tags:
+- competitions and puzzles
 queries:
 - "Each quotation is printed with its attribution set right below it; transcribed as a blockquote with the attribution on its own line."
 - "Slips transcribed as printed: “a four-inch mirror then a six-inch mirror” (as Bentley quotes it)."

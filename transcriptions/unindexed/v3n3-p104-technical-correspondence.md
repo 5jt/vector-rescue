@@ -10,6 +10,9 @@ page: '104'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.3-JANUARY-1987.pdf, pages 106–108 (printed 104–106; the Watch Your Step result follows on p.107); Claude, 2026-10-05'
 review: draft
+tags:
+- programming techniques
+- system interfaces
 queries:
 - "Piper’s four listings are dot-matrix printouts, transcribed as printed. Listing 4 is printed with the comments set beside the output (“Comments added after execution”); kept as printed. ∆TSO, ∆STACK and S∆TEST are printed with a solid triangle for ∆."
 - "Slips transcribed as printed: “Assember Function DAN”, “ITEM?” (ITEM3?)."

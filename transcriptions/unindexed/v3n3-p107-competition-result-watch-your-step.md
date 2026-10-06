@@ -8,6 +8,8 @@ page: '107'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.3-JANUARY-1987.pdf, pages 109–112 (printed 107–110; the result of the competition set in v2n4-p109; Surely there must be a better way follows on p.111); Claude, 2026-10-05'
 review: draft
+tags:
+- competitions and puzzles
 queries:
 - "Checked: STEP∆MK and STEP∆RC, simulated as printed, give the printed results for M1, M2 and M1÷2, give 1 for 0 STEP 1 3⍴1, and for 99 STEP 1 3⍴0 STEP∆MK returns an empty matrix where STEP∆RC returns 0, as the text describes."
 - "Listings in a dot-matrix face; ⍎ is printed as a glyph like ±, read as ⍎. STEP∆NM [4] is printed `IOTA←-⎕IO-⍳⌈/,0,LENGTHS←1+⌊|GAP÷INC`; [6] `R←,R+⍉(⌽RHO)⍴ 0 ¯2 ↑MX`; STEP∆RC [10] `X←1⌈(1⌈⍴X)↑X←1+⌊|(-/M[; 1 2])÷M[;3]`. SAPLSTEP [5] uses Sharp APL’s > (disclose), ¨ with rank (⍤ printed as ¨>), and | (?) — transcribed as printed; doubtful readings."

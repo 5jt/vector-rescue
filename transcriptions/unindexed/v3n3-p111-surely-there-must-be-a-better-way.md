@@ -8,6 +8,8 @@ page: '111'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.3-JANUARY-1987.pdf, pages 113–116 (printed 111–114; APL Trivia, art10011090, follows on p.115); Claude, 2026-10-05'
 review: draft
+tags:
+- programming techniques
 queries:
 - "Checked: DIV1 as printed gives 0.5 0 0 for 1 2 0 DIV1 2 0 0, and 0 1 0.5 for DIV1 0 1 2, as printed."
 - "Listings in a monospace face; ⍎ is printed as a glyph like ±, read as ⍎; ∆ printed as a solid triangle. DIV2 [2]’s comment ends “Default <A> is” without the 1, as printed. LARG [6] and LARGDEF [6] are printed `∆1←(∆1⍳'[')↑∆1←,(1,1↓⍴∆1)↑ 1 0 ↓∆1←⎕SI` (↑ read from a glyph like ↑ or ↓)."

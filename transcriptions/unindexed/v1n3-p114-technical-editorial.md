@@ -9,6 +9,8 @@ page: '114'
 unindexed: true
 transcribed: 'from page images of VOL.1-NO.3-JANUARY-1985.pdf, pages 116–117 (printed 114–115; with the “Introduction to Contributed Articles”, which introduces art10007060, art10007360, art10002070 and art10007020); Claude, 2026-10-03'
 review: draft
+tags:
+- APL community
 queries:
 - "The introduction to the Prys-Williams paper ends mid-sentence at the foot of p.115 (“…used to investigate a real problem”); printed so."
 - "Slips transcribed as printed: “ACSII”, “concensus”, “look at hoa Socrates”, “Remeniscent”, “Godel”, “Carmicael” (Carmichael in the index), “Quotitian” (the article’s heading has QUOTITIAN; the index has Quotition)."

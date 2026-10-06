@@ -8,6 +8,8 @@ page: '101'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.3-JANUARY-1986.pdf, pages 103–105 (printed 101–103; the result of the competition set in v2n1-p105-prize-competition-wrap-up.md; the Test your Skill update follows on p.104); Claude, 2026-10-05'
 review: draft
+tags:
+- competitions and puzzles
 queries:
 - "Listings are printed in a small monospace APL face; the comment lamp ⍝ is printed as a small ∩-like glyph. Long header and comment lines are kept on one line."
 - "Checked: WRAPHR, simulated line by line as printed (index origin 0), gives exactly both printed results (10 0 WRAP and 11 2 WRAP). WRAPZH and WRAPNAPS were not simulated."

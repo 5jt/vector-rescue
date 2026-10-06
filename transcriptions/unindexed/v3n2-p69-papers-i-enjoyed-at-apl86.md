@@ -8,6 +8,8 @@ page: '69'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.2-OCTOBER-1986.pdf, pages 71–72 (printed 69–70; Martin Malin’s exhibition report follows on p.71); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
 queries:
 - "The contents list calls this “Pick of the Week (1)”, Roy Sykes Jr."
 - "“noteworthy or notworthy” is printed so (a pun)."

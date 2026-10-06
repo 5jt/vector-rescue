@@ -8,6 +8,9 @@ page: '66'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.3-JANUARY-1987.pdf, pages 68–77 (printed 66–75; an advert follows on p.76; Alan Graham’s talk follows on p.77); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
+- APL in perspective
 queries:
 - "Byline printed “Reported by David Preedy”. A report of the APL86 panel debate; the quotations are printed indented, transcribed as blockquotes."
 - "Names and slips as printed: “Micheal Berry”, “Adin Falcoff” (Falkoff), “mole-bearer”, “currrently”, “they they”, “the the”, “know know”, “collleague”, “prefered”, “langauges”, “ecstacy”, “an example of is how”, “a subset of ordinary APL” (thinking?), “the supporting function is to manipulate”."

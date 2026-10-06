@@ -8,6 +8,8 @@ page: '48'
 unindexed: true
 transcribed: 'from page image of VOL.1-NO.3-JANUARY-1985.pdf, page 50 (printed 48; introduces art10010990, art10003460 and the unindexed meeting notes that follow); Claude, 2026-10-03'
 review: draft
+tags:
+- APL community
 ---
 
 by Adrian Smith

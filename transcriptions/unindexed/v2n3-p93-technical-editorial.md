@@ -9,6 +9,9 @@ page: '93'
 unindexed: true
 transcribed: 'from page image of VOL.2-NO.3-JANUARY-1986.pdf, page 95 (printed 93; an advert on p.94; the technical correspondence follows on p.95); Claude, 2026-10-05'
 review: draft
+tags:
+- language design
+- implementations
 queries:
 - "“the old problem of equating the cost of people with the cost of hardware resurfaces” is printed so (the sentence lacks a verb for “nested arrays”)."
 ---
