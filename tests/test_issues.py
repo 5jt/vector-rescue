@@ -225,8 +225,8 @@ def test_volumes_have_year_spans(tmp_path):
 def test_nav_lists_home_full_index_and_volumes():
     from vecrescue.pages import nav_toml
     nav = nav_toml(INVENTORY, read_issues(SRC))
-    assert nav.startswith('nav = [\n  { "Home" = "index.md" },\n  { "Full index" = "full-index/index.md" },\n'
-                          '  { "Volumes" = [')
+    assert nav.startswith('nav = [\n  { "Home" = "index.md" },\n  { "Project status" = "status/index.md" },\n'
+                          '  { "Full index" = "full-index/index.md" },\n  { "Volumes" = [')
     assert '{ "Volume 25, 2011–2012" = "25/index.md" }' in nav
     assert nav.index('"Volume 1') < nav.index('"Volume 24') < nav.index('"Volume 25')
 
@@ -236,7 +236,7 @@ def test_full_index_tables_every_article_in_printed_order(tmp_path):
     docs, _ = pages(tmp_path)
     (docs / "art3" / "index.md").write_text("---\nstatus: transcribed\nreview: draft\nwarning: unsure\n---\n\nText")
     text = write_index_page(INVENTORY, read_issues(SRC), docs).read_text(encoding="utf-8")
-    assert "# Full index" in text
+    assert "# Full index" not in text            # the page title is the heading
     assert "| volume | issue | page | quality | article | author |" in text
     assert (f"Quality of the text: {_badge('missing')} 2 · {_badge('OCR')} 0 · {_badge('PDF')} 0 · "
             f"{_badge('failed')} 0 · {_badge('draft')} 1 · {_badge('reviewed')} 0 · {_badge('text')} 2 (of 5)") in text
@@ -247,8 +247,8 @@ def test_full_index_tables_every_article_in_printed_order(tmp_path):
         f"| [24](../24/) | [2&3]{t24} | 5 | {_badge('missing')} | In the combined issue |  |",
         f"| [25](../25/) | [1]{t25} | 9 | {_badge('text')} | [First \\*thing\\*](../art1/) | A. A, C. C |",
         f"| [25](../25/) | [1]{t25} | 30 | {_badge('missing')} | Not online |  |",
-        f"| [25](../25/) | [1]{t25} | 74 | {_badge('draft')} <span class=\"doubtful\" title=\"The transcription is "
-        f"doubtful or missing; its page says why\">⚠</span> | [Second \\| piece](../art3/) | B. B |",
+        f"| [25](../25/) | [1]{t25} | 74 | {_badge('draft')} | [Second \\| piece](../art3/) <span class=\"doubtful\" "
+        f"title=\"The transcription is doubtful or missing; its page says why\">⚠</span> | B. B |",
         f"|  |  |  | {_badge('text')} | [Online only](../art5/) | D. D |",
     ]
 
@@ -276,3 +276,74 @@ def test_quality_of_text_from_a_damaged_copy(tmp_path):
     from vecrescue.stubs import write_stub
     write_stub({"id": "7", "title": "T"}, tmp_path, ocr="<details>…</details>", note=DAMAGED)
     assert quality(tmp_path, "7") == ("OCR", False)
+
+
+CONTENTS = {("25", "1"): {"volume": "25", "issue": "1", "items": [
+    {"title": "EDITORIAL: A view", "author": "E. Ditor", "page": 3},
+    {"section": "RECENT MEETINGS", "page": 7, "file": "unindexed/v25n1-p7-meetings.md"},
+    {"title": "A meeting", "author": "A. A", "page": 9, "vid": ["1", "2"]},
+    {"title": "Second piece", "page": 74, "vid": "3"},
+]}}
+
+
+def test_issue_table_follows_the_contents_page(tmp_path):
+    from vecrescue.pages import issue_rows
+    docs, _ = pages(tmp_path)
+    (docs / "v25n1-p7-meetings").mkdir()
+    (docs / "v25n1-p7-meetings" / "index.md").write_text("---\nstatus: transcribed\nreview: draft\n---\n\nText")
+    rows = issue_rows(docs, CONTENTS[("25", "1")], INVENTORY[:3], ("25/1/v251.pdf", 2))
+    assert [(r.get("section", False), r["indent"], r["title"], r["href"], r["q"]) for r in rows] == [
+        (False, 0, "EDITORIAL: A view", "25/1/v251.pdf#page=5", "PDF"),      # front section: its PDF page
+        (True, 0, "RECENT MEETINGS", "v25n1-p7-meetings/", None),           # section: its introduction
+        (False, 0, "A meeting", "25/1/v251.pdf#page=11", "PDF"),            # a line holding two index records
+        (False, 1, "First *thing*", "art1/", "text"),
+        (False, 1, "Not online", None, "missing"),
+        (False, 0, "Second piece", "art3/", "text"),                         # Contents title, index record’s page
+    ]
+
+
+def test_issue_table_without_a_scan_links_nothing_to_a_pdf(tmp_path):
+    from vecrescue.pages import issue_rows
+    docs, _ = pages(tmp_path)
+    rows = issue_rows(docs, CONTENTS[("25", "1")], INVENTORY[:3], None)
+    assert rows[0]["href"] is None and rows[0]["q"] == "missing"
+
+
+def test_volume_page_and_full_index_use_the_contents(tmp_path):
+    docs, _ = pages(tmp_path)
+    write_volume_pages(INVENTORY, read_issues(SRC), SRC, docs, contents=CONTENTS, pdf_links={("25", "1"): ("25/1/v251.pdf", 2)})
+    text = tab((docs / "25" / "index.md").read_text(encoding="utf-8"), "N°1,")
+    assert "| 3 | [EDITORIAL: A view](../25/1/v251.pdf#page=5) (PDF) | E. Ditor |" in text
+    assert "| 7 | **RECENT MEETINGS** |  |" in text                 # its introduction is not published here
+    assert "| 9 | &emsp;[First \\*thing\\*](../art1/) | A. A, C. C |" in text
+    full = write_index_page(INVENTORY, read_issues(SRC), docs, CONTENTS, {("25", "1"): ("25/1/v251.pdf", 2)}).read_text()
+    assert "[EDITORIAL: A view](../25/1/v251.pdf#page=5) (PDF)" in full and "RECENT MEETINGS" not in full
+
+
+def test_unindexed_pieces_are_published(tmp_path):
+    from vecrescue.pages import publish_unindexed, quality
+    t = tmp_path / "transcriptions" / "unindexed"
+    t.mkdir(parents=True)
+    (t / "v25n1-p7-meetings.md").write_text("---\ntitle: Meetings\nvolume: '25'\nissue: '1'\npage: '7'\n"
+                                           "unindexed: true\nreview: draft\n---\n\nSome text.\n\n![F](v25n1-p7-meetings/f.png)\n")
+    (t / "v25n1-p7-meetings").mkdir()
+    (t / "v25n1-p7-meetings" / "f.png").write_bytes(b"png")
+    docs = tmp_path / "docs"
+    [page] = publish_unindexed(tmp_path / "transcriptions", docs, {("25", "1"): ("25/1/v251.pdf", 2)})
+    text = page.read_text()
+    assert page == docs / "v25n1-p7-meetings" / "index.md"
+    assert "Some text." in text and "](f.png)" in text and (docs / "v25n1-p7-meetings" / "f.png").exists()
+    assert "](../25/1/v251.pdf#page=9)" in text
+    assert quality(docs, name="v25n1-p7-meetings") == ("draft", False)
+
+
+def test_contents_files_parse_and_link_existing_records():
+    import json
+    from vecrescue.pages import _as_list, read_contents
+    contents = read_contents(Path(__file__).parents[1] / "transcriptions" / "contents")
+    assert ("4", "4") in contents
+    for key, doc in contents.items():
+        for item in doc["items"]:
+            assert ("section" in item) != ("title" in item), (key, item)
+            for f in _as_list(item.get("file")):
+                assert (Path(__file__).parents[1] / "transcriptions" / f).is_file(), (key, f)

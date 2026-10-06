@@ -196,10 +196,11 @@ def read_transcription(path):
     return yaml.safe_load(head), body
 
 
-def write_transcribed(record, docs, transcription, pdf=None):
+def write_transcribed(record, docs, transcription, pdf=None, name=None):
     """docs/art<ID>/index.md from TRANSCRIPTION (transcriptions/art<ID>.md,
     issue #40), in place of the stub: its text, a note of its review state,
-    the PDF link, and its figures from transcriptions/art<ID>/."""
+    the PDF link, and its figures from transcriptions/art<ID>/. NAME, for a
+    piece with no index entry, is its page folder and figure folder (#93)."""
     transcription = Path(transcription)
     fm, body = read_transcription(transcription)
     fm["status"] = "transcribed"
@@ -207,11 +208,12 @@ def write_transcribed(record, docs, transcription, pdf=None):
     if pdf:
         page = f", page {record['page']}" if record.get("page") else ""
         note += f" [Read it in the PDF of the issue{page}](../{pdf})"
-    folder = Path(docs) / f"art{record['id']}"
+    name = name or f"art{record['id']}"
+    folder = Path(docs) / name
     figures = transcription.with_suffix("")
     if figures.is_dir():
         shutil.copytree(figures, folder, dirs_exist_ok=True)
-    body = body.strip("\n").replace(f"](art{record['id']}/", "](")
+    body = body.strip("\n").replace(f"]({name}/", "](")
     lines = ["---", yaml.safe_dump(fm, sort_keys=False, allow_unicode=True, width=1000).rstrip(), "---", "",
              f"*{note}*", "{ .transcribed }", ""] + (warning_block(fm["warning"]) if fm.get("warning") else []) + [body]
     path = folder / "index.md"

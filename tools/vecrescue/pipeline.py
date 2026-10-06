@@ -11,8 +11,8 @@ from pathlib import Path
 from .convert import convert
 from .inventory import article_source, merge_wayback, read_index, read_issues
 from .legacy import decode, mapped_apl, read_codingprobs
-from .pages import (_catalogue, damaged_issue_pdfs, issue_pdfs, mark_issue_tabs, nav_toml, wayback_issue_pdfs,
-                    write_home_page, write_index_page, write_volume_pages)
+from .pages import (_catalogue, damaged_issue_pdfs, issue_pdfs, mark_issue_tabs, nav_toml, publish_unindexed,
+                    read_contents, wayback_issue_pdfs, write_home_page, write_index_page, write_volume_pages)
 from . import stubs
 from .links import LinkIndex
 
@@ -160,6 +160,21 @@ def write_stub_pages(inventory, issues, pdfs, out, transcriptions=None, damaged=
     return results
 
 
+def pdf_links(pdfs, out):
+    """{(vol, issue): (path of the issue PDF from the site root, offset of PDF
+    page from printed page)} for each issue PDF whose offset is known, from
+    OUT/pdf-cache.json (written by write_stub_pages), so a Contents line can
+    link to its page (#93)."""
+    path = Path(out) / "pdf-cache.json"
+    cache = json.loads(path.read_text()) if path.exists() else {}
+    links = {}
+    for key, pdf in pdfs.items():
+        entry = cache.get(f"{pdf.name}:{pdf.stat().st_size}")
+        if entry and entry.get("offset") is not None:
+            links[key] = (f"{key[0]}/{key[1]}/{pdf.name}", entry["offset"])
+    return links
+
+
 def _digest(path):
     """A short hash of PATH's contents, to version its URL so browsers fetch
     a changed stylesheet rather than reuse a cached one."""
@@ -178,10 +193,17 @@ def run_site(src, out, config, wayback=None, corrections=None, transcriptions=No
     pdfs = issue_pdfs(issues, src, more)
     damaged = {k: v for k, v in damaged_issue_pdfs(wayback).items() if k not in pdfs} if wayback else None
     write_stub_pages(inventory, issues, pdfs, out, transcriptions, damaged)
+    links = pdf_links(pdfs, out)
+    publish_unindexed(transcriptions, docs, links)
+    contents = read_contents(Path(transcriptions) / "contents") if transcriptions else {}
     thumbs = src / "images" / "covers" / "32x45"
-    write_volume_pages(inventory, issues, src, docs, more, thumbs)
+    write_volume_pages(inventory, issues, src, docs, more, thumbs, contents, links)
     write_home_page(inventory, issues, docs, thumbs)
-    write_index_page(inventory, issues, docs)
+    write_index_page(inventory, issues, docs, contents, links)
+    status = config.parent / "pages" / "status.md"  # the project status page (#93)
+    if status.is_file():
+        (docs / "status").mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(status, docs / "status" / "index.md")
     mark_issue_tabs(inventory, issues, docs)
     toml = config.read_text(encoding="utf-8")
     toml = re.sub(r"^nav = \[.*?\]$", lambda _: nav_toml(inventory, issues), toml, count=1, flags=re.M)
