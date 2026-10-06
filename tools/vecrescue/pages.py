@@ -11,6 +11,9 @@ import shutil
 from collections import Counter, defaultdict
 from pathlib import Path
 
+import yaml
+
+from . import stubs
 from .markdown import escape
 from .stubs import DAMAGED
 from .wayback import is_complete_pdf
@@ -188,23 +191,14 @@ def _issue_contents(docs, issue, rows, root, more_pdfs, vol, no):
                 break
     have_pdf = any(kind == "pdf" for kind, _ in files)
     lines = []
-    if rows and not have_pdf and not all(_converted(docs, r.get("id")) for r in rows):
+    if rows and not have_pdf and any(not r.get("href") and not r.get("section") for r in rows):
         lines += [NO_SCAN, ""]
     if rows:
         lines += ["| Page | Article | Author |", "| ---: | --- | --- |"]
-        marked = False
         for r in rows:
-            title = _cell(r.get("title"))
-            if _converted(docs, r.get("id")):
-                title = f"[{title}](../art{r['id']}/)"
-                page_md = (docs / f"art{r['id']}" / "index.md").read_text(encoding="utf-8")
-                if "\nstatus: not online\n" in page_md:
-                    title += " (PDF only)" if "](../" in page_md.split("---", 2)[2] else " (not online)"
-                if "\nwarning: " in (page_md.split("---", 2) + ["", ""])[1]:  # doubtful or failed transcription (#58)
-                    title += f' <span class="doubtful" title="{DOUBTFUL}">⚠</span>'
-                    marked = True
-            lines.append(f"| {r.get('page') or ''} | {title} | {_cell(', '.join(r.get('authors') or []))} |")
-        if marked:
+            title = _row_md(r, "../")
+            lines.append(f"| {r.get('page') or ''} | {title} | {_cell(r.get('author'))} |")
+        if any(r.get("doubtful") for r in rows):
             lines += ["", f"⚠ {DOUBTFUL}."]
     else:
         lines.append("No articles are indexed for this issue.")
@@ -250,7 +244,121 @@ def _volume_title(vol, span):
     return f"Volume {vol}" + (f", {span}" if span else "")
 
 
-def write_volume_pages(inventory, issues, root, docs, more_pdfs=None, thumbs=None):
+def read_contents(folder):
+    """{(volume, issue): contents} from the transcribed Contents pages in
+    FOLDER (transcriptions/contents/v<V>n<N>.yaml, #93)."""
+    out = {}
+    for path in sorted(Path(folder).glob("v*.yaml")) if folder and Path(folder).is_dir() else []:
+        doc = yaml.safe_load(path.read_text(encoding="utf-8"))
+        out[(str(doc["volume"]), str(doc["issue"]))] = doc
+    return out
+
+
+def _as_list(x):
+    return [] if x is None else x if isinstance(x, list) else [x]
+
+
+def piece_name(file):
+    """The page folder of a piece with no index entry: its file’s stem."""
+    return Path(file).stem
+
+
+def publish_unindexed(transcriptions, docs, pdf_links=None):
+    """A page docs/<stem>/ for each transcription of a printed piece with no
+    index entry (transcriptions/unindexed/, #93), linked to its issue PDF."""
+    written = []
+    folder = Path(transcriptions or "") / "unindexed"
+    for path in sorted(folder.glob("v*.md")) if transcriptions and folder.is_dir() else []:
+        fm, _ = stubs.read_transcription(path)
+        key = (str(fm.get("volume")), str(fm.get("issue")))
+        link = None
+        if key in (pdf_links or {}) and str(fm.get("page") or "").isdigit():
+            rel, offset = pdf_links[key]
+            link = f"../{rel}#page={int(fm['page']) + offset}"
+        record = {"id": None, "page": fm.get("page")}
+        written.append(stubs.write_transcribed(record, docs, path, link and link[3:], name=path.stem))
+    return written
+
+
+def issue_rows(docs, contents, index_rows, pdf_link=None):
+    """The rows of an issue’s table (#93): from its transcribed Contents page
+    if there is one, else from its index records in page order. Each row is
+    a dict: section, indent, page, title, author, href (from the site root,
+    or None), q (quality) and doubtful. A line links to its article page (an
+    index record or a piece with no index entry), else to the issue PDF at
+    its page (PDF_LINK: (path, offset)), else to nothing."""
+    docs = Path(docs)
+    titles = {r["id"]: r for r in index_rows}
+
+    def article(vid, indent, page=None, title=None, author=None):
+        r = titles.get(vid, {})
+        q, doubtful = quality(docs, vid)
+        doubtful = doubtful or q == "failed"
+        return {"indent": indent, "page": page if page is not None else r.get("page"),
+                "title": title or r.get("title"), "author": author if author is not None else ", ".join(r.get("authors") or []),
+                "href": f"art{vid}/" if _converted(docs, vid) else None, "q": q, "doubtful": doubtful, "vid": vid}
+
+    def pdf_href(page):
+        if pdf_link and str(page or "").isdigit():
+            return f"{pdf_link[0]}#page={int(page) + pdf_link[1]}"
+        return None
+
+    rows = []
+    if not contents:
+        for r in sorted(index_rows, key=lambda r: (_num(r.get("page")), r.get("title") or "")):
+            rows.append(article(r["id"], 0))
+        return rows
+    for item in contents.get("items", []):
+        files, vids = _as_list(item.get("file")), _as_list(item.get("vid"))
+        indent = item.get("indent", 0)
+        if "section" in item:
+            row = {"section": True, "indent": 0, "page": item.get("page"), "title": item["section"],
+                   "author": "", "href": None, "q": None, "doubtful": False}
+            if files and (docs / piece_name(files[0]) / "index.md").exists():
+                row["href"] = piece_name(files[0]) + "/"
+            rows.append(row)
+            continue
+        title, author, page = item.get("title"), item.get("author") or "", item.get("page")
+        files = [f for f in files if (docs / piece_name(f) / "index.md").exists()]  # published
+        if files:
+            q, doubtful = quality(docs, name=piece_name(files[0]))
+            rows.append({"indent": indent, "page": page, "title": title, "author": author,
+                         "href": piece_name(files[0]) + "/", "q": q, "doubtful": doubtful})
+            for f in files[1:]:
+                page_md = docs / piece_name(f) / "index.md"
+                fm = stubs.read_transcription(page_md)[0] if page_md.exists() else {}
+                q, doubtful = quality(docs, name=piece_name(f))
+                rows.append({"indent": indent + 1, "page": fm.get("page"), "title": fm.get("title") or piece_name(f),
+                             "author": ", ".join(fm.get("authors") or []), "href": piece_name(f) + "/", "q": q, "doubtful": doubtful})
+            rows += [article(v, indent + 1) for v in vids]
+        elif len(vids) == 1:
+            rows.append(article(vids[0], indent, page, title, author))
+        else:
+            href = pdf_href(page)
+            rows.append({"indent": indent, "page": page, "title": title, "author": author, "href": href,
+                         "q": "PDF" if href else "missing", "doubtful": False, "pdf": bool(href)})
+            rows += [article(v, indent + 1) for v in vids]
+    return rows
+
+
+def _row_md(row, prefix):
+    """A table row’s article cell: the title, linked from a page PREFIX
+    levels below the site root, and indented."""
+    title = _cell(row["title"])
+    if row.get("section"):
+        title = f"**{title}**"
+    if row.get("href"):
+        title = f"[{title}]({prefix}{row['href']})"
+    if row.get("pdf"):
+        title += " (PDF)"
+    if row.get("vid") and row.get("href"):  # a stub for an index record
+        title += {"PDF": " (PDF only)", "failed": " (PDF only)", "OCR": " (not online)"}.get(row["q"], "")
+    if row.get("doubtful"):
+        title += f' <span class="doubtful" title="{DOUBTFUL}">⚠</span>'
+    return "&emsp;" * row.get("indent", 0) + title
+
+
+def write_volume_pages(inventory, issues, root, docs, more_pdfs=None, thumbs=None, contents=None, pdf_links=None):
     """A page /<vol>/ for each volume (#68): its issues as tabs, each headed
     by the issue's colour thumbnail, number and date, and holding the
     issue's contents in page order (converted articles linked, the others
@@ -270,7 +378,7 @@ def write_volume_pages(inventory, issues, root, docs, more_pdfs=None, thumbs=Non
                  "---", "", ""]
         for key in keys:
             issue = catalogue.get(key, {"volume": vol, "issue": key[1]})
-            rows = sorted(articles.get(key, []), key=lambda r: (_num(r.get("page")), r.get("title") or ""))
+            rows = issue_rows(docs, (contents or {}).get(key), articles.get(key, []), (pdf_links or {}).get(key))
             thumb = _thumb(thumbs, docs, key, "../", _label(issue))
             lines += [f'=== "{(thumb + " ") if thumb else ""}{_issue_name(issue)}"', "",
                       # the tab label is not salient enough (#79); the heading's own id
@@ -291,7 +399,8 @@ def nav_toml(inventory, issues):
     “Volumes” (#68)."""
     entries = [f'{{ "{_volume_title(vol, span)}" = "{vol}/index.md" }}'
                for vol, _, span in volumes(inventory, issues)]
-    return ('nav = [\n  { "Home" = "index.md" },\n  { "Full index" = "full-index/index.md" },\n'
+    return ('nav = [\n  { "Home" = "index.md" },\n  { "Project status" = "status/index.md" },\n'
+            '  { "Full index" = "full-index/index.md" },\n'
             '  { "Volumes" = [\n    '
             + ",\n    ".join(entries) + ",\n  ] },\n]")
 
@@ -307,12 +416,14 @@ QUALITY = (  # worst to best (#83)
 )
 
 
-def quality(docs, vid):
-    """The state of an article's text, one of QUALITY, read from its page;
-    and whether its transcription is doubtful (#83)."""
-    if not _converted(docs, vid):
+def quality(docs, vid=None, name=None):
+    """The state of an article's text, one of QUALITY, read from its page
+    (art<VID>, or NAME for a piece with no index entry); and whether its
+    transcription is doubtful (#83)."""
+    path = Path(docs) / (name or f"art{vid}") / "index.md"
+    if not (vid or name) or not path.exists():
         return "missing", False
-    page = (Path(docs) / f"art{vid}" / "index.md").read_text(encoding="utf-8")
+    page = path.read_text(encoding="utf-8")
     head = (page.split("---", 2) + ["", ""])[1]
     warned = "\nwarning: " in head
     if "\nstatus: transcribed" in head:
@@ -326,45 +437,51 @@ def _badge(q):
     return f'<span class="quality q-{q.lower()}" title="{dict(QUALITY)[q]}">{q}</span>'
 
 
-def write_index_page(inventory, issues, docs):
+def write_index_page(inventory, issues, docs, contents=None, pdf_links=None):
     """The full index on a page of its own (#79), so a reader can search just
-    the index with the browser: every indexed article in volume, issue and
-    page order, linked where it has a page, then those published online only;
-    with the quality of each one's text, and their totals, to gauge progress (#83)."""
+    the index with the browser: every line of every issue’s Contents page
+    (#93; the index records, for an issue whose Contents page is not
+    transcribed), in order, linked as on the volume pages; then the
+    articles published online only. With the quality of each one’s text,
+    and their totals, to gauge progress (#83)."""
     docs = Path(docs)
     catalogue, alias = _catalogue(issues)
-    order = {key: i for i, key in enumerate(k for _, keys, _ in volumes(inventory, issues) for k in keys)}
-    rows, totals = [], Counter()
+    articles = defaultdict(list)
     for r in inventory:
-        if not r.get("id") or not (r.get("volume") or _converted(docs, r["id"])):
-            continue
-        q, doubtful = quality(docs, r["id"])
-        totals[q] += 1
-        mark = _badge(q) + (f' <span class="doubtful" title="{DOUBTFUL}">⚠</span>' if doubtful else "")
-        title = _cell(r.get("title"))
-        if _converted(docs, r["id"]):
-            title = f"[{title}](../art{r['id']}/)"
-        vol = no = ""
         if r.get("volume"):
-            key = alias.get((r["volume"], r["issue"]), (r["volume"], r["issue"]))
-            issue = catalogue.get(key, {"volume": key[0], "issue": key[1]})
-            vol = f"[{key[0]}](../{key[0]}/)"
-            no = f"[{_label(issue)}](../{key[0]}/#{tab_id(issue)})"
-            sort = (0, order.get(key, len(order)), _num(r.get("page")), r.get("title") or "")
-        else:
-            sort = (1, 0, 0, r.get("online") or "9999", r["id"])
-        rows.append((sort, f"| {vol} | {no} | {r.get('page') or ''} | {mark} | {title} | "
-                           f"{_cell(', '.join(r.get('authors') or []))} |"))
-    lines = [_front("Full index"), "# Full index", "",
-             "Every article in the index of *Vector*, in the order printed; those published online only follow. "
-             "Use your browser’s Find to search it.", "",
-             "Quality of the text: " + " · ".join(f"{_badge(q)} {totals[q]}" for q, _ in QUALITY)
-             + f" (of {sum(totals.values())})", "",
-             "| volume | issue | page | quality | article | author |", "|:---:|:---:|---:|:---:|---|---|"]
-    lines += [row for _, row in sorted(rows)]
+            key = (r["volume"], r["issue"])
+            articles[alias.get(key, key)].append(r)
+    lines, totals = [], Counter()
+
+    def add(vol, no, r):
+        q = r["q"] or "missing"
+        totals[q] += 1
+        lines.append(f"| {vol} | {no} | {r.get('page') or ''} | {_badge(q)} | {_row_md(r, '../')} | {_cell(r.get('author'))} |")
+
+    for vol, keys, _ in volumes(inventory, issues):
+        for key in keys:
+            issue = catalogue.get(key, {"volume": vol, "issue": key[1]})
+            v, n = f"[{vol}](../{vol}/)", f"[{_label(issue)}](../{vol}/#{tab_id(issue)})"
+            link = (pdf_links or {}).get(key)
+            for r in issue_rows(docs, (contents or {}).get(key), articles.get(key, []), link):
+                heading = link and not r.get("page") and not r.get("href")  # a group heading on the Contents page
+                if not r.get("section") and not heading:
+                    add(v, n, r)
+    online = [r for r in inventory if r.get("id") and not r.get("volume") and _converted(docs, r["id"])]
+    for r in sorted(online, key=lambda r: (r.get("online") or "9999", r["id"])):
+        q, doubtful = quality(docs, r["id"])
+        add("", "", {"title": r.get("title"), "author": ", ".join(r.get("authors") or []), "href": f"art{r['id']}/",
+                     "q": q, "doubtful": doubtful, "indent": 0})
+    head = [_front("Full index"),
+            "Every item on the Contents page of every issue of *Vector*, in the order printed, linked to its "
+            "text where we have it, else to its page in the issue PDF; then the articles published online only. "
+            "Use your browser’s Find to search it.", "",
+            "Quality of the text: " + " · ".join(f"{_badge(q)} {totals[q]}" for q, _ in QUALITY)
+            + f" (of {sum(totals.values())})", "",
+            "| volume | issue | page | quality | article | author |", "|:---:|:---:|---:|:---:|---|---|"]
     path = docs / "full-index" / "index.md"
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    path.write_text("\n".join(head + lines) + "\n", encoding="utf-8")
     return path
 
 
