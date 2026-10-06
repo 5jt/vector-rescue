@@ -232,7 +232,7 @@ def mark_issue_tabs(inventory, issues, docs):
 
 
 def _volume_title(vol, span):
-    return f"Volume {vol}" + (f" {span}" if span else "")
+    return f"Volume {vol}" + (f", {span}" if span else "")
 
 
 def write_volume_pages(inventory, issues, root, docs, more_pdfs=None, thumbs=None):
@@ -250,12 +250,17 @@ def write_volume_pages(inventory, issues, root, docs, more_pdfs=None, thumbs=Non
             articles[alias.get(key, key)].append(r)
     written = []
     for vol, keys, span in volumes(inventory, issues):
-        lines = [_front(_volume_title(vol, span))]
+        lines = ["---", f"title: {_volume_title(vol, span)}",
+                 "hide: [toc]",  # the tabs are the navigation; a toc would point into hidden tabs
+                 "---", "", ""]
         for key in keys:
             issue = catalogue.get(key, {"volume": vol, "issue": key[1]})
             rows = sorted(articles.get(key, []), key=lambda r: (_num(r.get("page")), r.get("title") or ""))
             thumb = _thumb(thumbs, docs, key, "../", _label(issue))
-            lines += [f'=== "{(thumb + " ") if thumb else ""}{_issue_name(issue)}"', ""]
+            lines += [f'=== "{(thumb + " ") if thumb else ""}{_issue_name(issue)}"', "",
+                      # the tab label is not salient enough (#79); the heading's own id
+                      # leaves the tab its anchor (pymdownx would otherwise suffix it)
+                      f"    ## {_issue_name(issue)} {{ #contents-{tab_id(issue)} }}", ""]
             lines += [("    " + x) if x else "" for x in
                       _issue_contents(docs, issue, rows, root, more_pdfs, vol, key[1])]
             lines.append("")
@@ -267,11 +272,49 @@ def write_volume_pages(inventory, issues, root, docs, more_pdfs=None, thumbs=Non
 
 
 def nav_toml(inventory, issues):
-    """The Zensical nav: Home, then the volumes under “Volumes” (#68)."""
+    """The Zensical nav: Home, the full index (#79), then the volumes under
+    “Volumes” (#68)."""
     entries = [f'{{ "{_volume_title(vol, span)}" = "{vol}/index.md" }}'
                for vol, _, span in volumes(inventory, issues)]
-    return ('nav = [\n  { "Home" = "index.md" },\n  { "Volumes" = [\n    '
+    return ('nav = [\n  { "Home" = "index.md" },\n  { "Full index" = "full-index/index.md" },\n'
+            '  { "Volumes" = [\n    '
             + ",\n    ".join(entries) + ",\n  ] },\n]")
+
+
+def write_index_page(inventory, issues, docs):
+    """The full index on a page of its own (#79), so a reader can search just
+    the index with the browser: every indexed article in volume, issue and
+    page order, linked where it has a page, then those published online only."""
+    docs = Path(docs)
+    catalogue, alias = _catalogue(issues)
+    order = {key: i for i, key in enumerate(k for _, keys, _ in volumes(inventory, issues) for k in keys)}
+    rows = []
+    for r in inventory:
+        if not r.get("id") or not (r.get("volume") or _converted(docs, r["id"])):
+            continue
+        title = _cell(r.get("title"))
+        if _converted(docs, r["id"]):
+            title = f"[{title}](../art{r['id']}/)"
+        vol = no = ""
+        if r.get("volume"):
+            key = alias.get((r["volume"], r["issue"]), (r["volume"], r["issue"]))
+            issue = catalogue.get(key, {"volume": key[0], "issue": key[1]})
+            vol = f"[{key[0]}](../{key[0]}/)"
+            no = f"[{_label(issue)}](../{key[0]}/#{tab_id(issue)})"
+            sort = (0, order.get(key, len(order)), _num(r.get("page")), r.get("title") or "")
+        else:
+            sort = (1, 0, 0, r.get("online") or "9999", r["id"])
+        rows.append((sort, f"| {vol} | {no} | {r.get('page') or ''} | {title} | "
+                           f"{_cell(', '.join(r.get('authors') or []))} |"))
+    lines = [_front("Full index"), "# Full index", "",
+             "Every article in the index of *Vector*, in the order printed; those published online only follow. "
+             "Use your browser’s Find to search it.", "",
+             "| volume | issue | page | article | author |", "|:---:|:---:|---:|---|---|"]
+    lines += [row for _, row in sorted(rows)]
+    path = docs / "full-index" / "index.md"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return path
 
 
 LOGO = "assets/images/vector-logo.png"  # vector.org.uk’s, white and yellow

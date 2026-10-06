@@ -1,9 +1,9 @@
-"""Issues #9, #68: volume pages and the home page."""
+"""Issues #9, #68, #79: volume pages, the home page and the full index."""
 
 from pathlib import Path
 
 from vecrescue.inventory import read_issues
-from vecrescue.pages import write_home_page, write_volume_pages
+from vecrescue.pages import write_home_page, write_index_page, write_volume_pages
 
 SRC = Path(__file__).parent / "fixtures" / "src"
 
@@ -46,8 +46,9 @@ def tab(text, label):
 def test_volume_page_has_a_tab_per_issue_listing_articles_in_page_order(tmp_path):
     docs, _ = pages(tmp_path)
     text = (docs / "25" / "index.md").read_text(encoding="utf-8")
-    assert "title: Volume 25 2011–2012" in text
+    assert "title: Volume 25, 2011–2012" in text
     assert '=== "N°1, June 2011"' in text
+    assert tab(text, "N°1,").lstrip("\n").startswith("## N°1, June 2011 { #contents-n1-june-2011 }\n")    # a heading in the tab (#79)
     rows = [line for line in tab(text, "N°1,").splitlines() if line.startswith("| ") and "---" not in line][1:]
     assert rows == [
         "| 9 | [First \\*thing\\*](../art1/) | A. A, C. C |",
@@ -218,9 +219,27 @@ def test_volumes_have_year_spans(tmp_path):
     assert ("24", "2") in by["24"][0] and ("24", "3") not in by["24"][0]   # combined issue filed at 2
 
 
-def test_nav_lists_home_and_volumes():
+def test_nav_lists_home_full_index_and_volumes():
     from vecrescue.pages import nav_toml
     nav = nav_toml(INVENTORY, read_issues(SRC))
-    assert nav.startswith('nav = [\n  { "Home" = "index.md" },\n  { "Volumes" = [')
-    assert '{ "Volume 25 2011–2012" = "25/index.md" }' in nav
+    assert nav.startswith('nav = [\n  { "Home" = "index.md" },\n  { "Full index" = "full-index/index.md" },\n'
+                          '  { "Volumes" = [')
+    assert '{ "Volume 25, 2011–2012" = "25/index.md" }' in nav
     assert nav.index('"Volume 1') < nav.index('"Volume 24') < nav.index('"Volume 25')
+
+
+def test_full_index_tables_every_article_in_printed_order(tmp_path):
+    from vecrescue.pages import tab_id
+    docs, _ = pages(tmp_path)
+    text = write_index_page(INVENTORY, read_issues(SRC), docs).read_text(encoding="utf-8")
+    assert "# Full index" in text
+    assert "| volume | issue | page | article | author |" in text
+    by = {(i["volume"], i["issue"]): i for i in read_issues(SRC)}
+    rows = [l for l in text.splitlines() if l.startswith("| ") and "---" not in l][1:]
+    assert rows == [
+        f"| [24](../24/) | [2&3](../24/#{tab_id(by[('24', '2')])}) | 5 | In the combined issue |  |",
+        f"| [25](../25/) | [1](../25/#{tab_id(by[('25', '1')])}) | 9 | [First \\*thing\\*](../art1/) | A. A, C. C |",
+        f"| [25](../25/) | [1](../25/#{tab_id(by[('25', '1')])}) | 30 | Not online |  |",
+        f"| [25](../25/) | [1](../25/#{tab_id(by[('25', '1')])}) | 74 | [Second \\| piece](../art3/) | B. B |",
+        "|  |  |  | [Online only](../art5/) | D. D |",
+    ]
