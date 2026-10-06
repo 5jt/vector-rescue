@@ -6,6 +6,18 @@ They are set aside here, unpublished, for editorial review.
 
 | File | Issue | Printed page | Title | Author | Found after |
 |---|---|---|---|---|---|
+| [v3n3-p59-recent-meetings.md](v3n3-p59-recent-meetings.md) | 3:3 | 59 | Recent Meetings (section introduction) | — | heads the meetings section |
+| [v3n3-p60-i-apl-meeting.md](v3n3-p60-i-apl-meeting.md) | 3:3 | 60–64 | British APL Association Meeting – I-APL (17 October 1986) | Anthony Camacho | Recent Meetings |
+| [v3n3-p66-apl-debate-what-is-apl-thinking.md](v3n3-p66-apl-debate-what-is-apl-thinking.md) | 3:3 | 66–75 | APL Debate: What is APL Thinking? (APL86 panel) | David Preedy | I-APL meeting |
+| [v3n3-p77-idioms-and-problem-solving-in-apl2.md](v3n3-p77-idioms-and-problem-solving-in-apl2.md) | 3:3 | 77–91 | Idioms and Problem Solving in APL2 (APL86 talk) | Alan Graham, John Sullivan | APL thinking debate |
+| [v3n3-p93-introduction-to-general-articles.md](v3n3-p93-introduction-to-general-articles.md) | 3:3 | 93 | Introduction to General Articles | — | heads the general articles |
+| [v3n3-p95-steps-to-a-better-basic.md](v3n3-p95-steps-to-a-better-basic.md) | 3:3 | 95–96 | Steps To A Better BASIC — Everything AND the kitchen sink | Anthony Camacho | heads art10006320 |
+| [v3n3-p101-technical-section.md](v3n3-p101-technical-section.md) | 3:3 | 101 | Technical Section (section introduction) | — | heads the technical section |
+| [v3n3-p102-technical-editorial.md](v3n3-p102-technical-editorial.md) | 3:3 | 102–103 | Technical Editorial: Interpreters for Debuggers | David Ziemann | technical section |
+| [v3n3-p104-technical-correspondence.md](v3n3-p104-technical-correspondence.md) | 3:3 | 104–106 | Technical Correspondence (Mitchison, Piper, Jackson) | Neil Mitchison, David Piper, Colin Jackson | technical editorial |
+| [v3n3-p107-competition-result-watch-your-step.md](v3n3-p107-competition-result-watch-your-step.md) | 3:3 | 107–110 | Competition Result – Watch Your Step | David Ziemann | technical correspondence |
+| [v3n3-p111-surely-there-must-be-a-better-way.md](v3n3-p111-surely-there-must-be-a-better-way.md) | 3:3 | 111–114 | Surely there must be a better way: Ambi-valent Functions | David Ziemann | Watch Your Step; heads art10011090 |
+| [v3n3-p117-introduction-to-contributed-articles.md](v3n3-p117-introduction-to-contributed-articles.md) | 3:3 | 117 | Introduction to Contributed Articles | — | heads art10011100 |
 | [v3n2-p43-recent-meetings.md](v3n2-p43-recent-meetings.md) | 3:2 | 43 | Recent Meetings (section introduction) | — | heads the meetings section |
 | [v3n2-p44-introductory-notes.md](v3n2-p44-introductory-notes.md) | 3:2 | 44 | Introductory Notes (with a drawing of the Royal Over-Seas League) | Adrian Smith | Recent Meetings |
 | [v3n2-p45-apl-and-relational-database.md](v3n2-p45-apl-and-relational-database.md) | 3:2 | 45–46 | APL and Relational Database (notes on Chastney’s and Jackson’s talks) | Adrian Smith | heads art10003970 |
