@@ -10,6 +10,8 @@ page: '103'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.4-APRIL-1986.pdf, pages 105–106 (printed 103–104; the Range Union result follows on p.105); Claude, 2026-10-05'
 review: draft
+tags:
+- programming techniques
 queries:
 - "Henriod refers to “Steps toward a better APL” in VECTOR 2.2 p.91 (Ivor Kenson): an issue we have no scan of (#62). His technical annex is “Remarks on Towards a better APL” (unindexed, p.115 on)."
 - "Henriod’s and Vesperoni’s English is transcribed as printed: “has especially retain my attention”, “contain some missusage”, “Consequent”, “I suggest to you to transmit the document at Ivor Kenson”, “glad of submit”, “for gratify you”. Also “Vefreria” (Vetreria?), “the functions also works”."

@@ -8,6 +8,9 @@ page: '77'
 unindexed: true
 transcribed: from page images of VOL.1-NO.1-MAY-1984.pdf, pages 79–80 (printed 77–78; follows art10001000); Claude, 2026-10-03
 review: draft
+tags:
+- APL in perspective
+- humour
 queries:
 - "A reprint: the footnote reads “Reprinted by kind permission of DATALINK magazine”."
 - "Slips transcribed as printed: “MID$(NAMES$,3,2,)”, “little point is keeping”, “reputaton”."

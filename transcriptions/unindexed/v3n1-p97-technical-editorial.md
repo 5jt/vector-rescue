@@ -9,6 +9,8 @@ page: '97'
 unindexed: true
 transcribed: 'from page image of VOL.3-NO.1-JULY-1986.pdf, page 99 (printed 97; an advert follows on p.98; the technical correspondence follows on p.99); Claude, 2026-10-05'
 review: draft
+tags:
+- APL community
 queries:
 - "Slip transcribed as printed: “a mixture of APL and other languages are used”."
 ---

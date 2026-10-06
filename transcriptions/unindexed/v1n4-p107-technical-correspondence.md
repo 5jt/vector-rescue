@@ -9,6 +9,8 @@ page: '107'
 unindexed: true
 transcribed: 'from page images of VOL.1-NO.4-APRIL-1985.pdf, pages 109–113 (printed 107–111; begins below the Introduction to Contributed Articles on p.107); Claude, 2026-10-04'
 review: draft
+tags:
+- programming techniques
 queries:
 - "Two letters. Donnelly answers D.J. Horton (v1n2-p101-technical-correspondence.md, spelled “Horten” here). The second, from “Dan Wimbock MBAA”, with “Proposed New APL Features” and the editors’ reply in italics, is evidently an April-issue joke; the editor asks “doesn’t that name seem somehow familiar?”."
 - "Checks: in the quadREVERT example, reverting 2 assignments restores WALLY←99, and 99÷9 = 11, as printed. ZILCH [4] collapses a variable by reshaping it with `(0⌊⍴V)⍴V`, as described."

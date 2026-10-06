@@ -9,6 +9,9 @@ page: '50'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.3-JANUARY-1986.pdf, pages 52–61 (printed 50–59: Adrian Smith’s introductory notes, then Eileen Dyson’s notes on the talks by Staffurth, Dakin, Shaw, Birch and Thornton; an APL People advert fills the foot of p.58; the APL in Practice meeting follows on p.60); Claude, 2026-10-05'
 review: draft
+tags:
+- applications
+- implementations
 queries:
 - "Each talk is printed under its own heading with “by <speaker>”, though these are notes on the talks (the contents list gives Eileen Dyson for the meeting). Transcribed as H2 sections with the speaker in italics."
 - "p.59 (Thornton) has no running head. Its list of MicroAPL customers is printed as two columns separated by dashes; transcribed as a definition list."

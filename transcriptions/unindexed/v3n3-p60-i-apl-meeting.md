@@ -8,6 +8,10 @@ page: '60'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.3-JANUARY-1987.pdf, pages 62–66 (printed 60–62 and 63–64; the APL86 logo page, p.65, heads the APL thinking debate on p.66); Claude, 2026-10-05'
 review: draft
+tags:
+- implementations
+- education
+- APL community
 queries:
 - "Byline printed “Reviewed by Anthony Camacho”. The contents list gives “Camacho, Ziemann, Thomson & Chapman”."
 - "The charts are printed indented; Chart 1 as a two-column table. Charts 3 and 4 are omitted in print (see the editor’s note)."

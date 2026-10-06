@@ -8,6 +8,9 @@ page: '65'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.2-OCTOBER-1986.pdf, pages 67–68 (printed 65–66; an APL Ltd advert fills the rest of p.66); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
+- expert systems and AI
 queries:
 - "Slip transcribed as printed: “even although”."
 ---

@@ -8,6 +8,9 @@ page: '50'
 unindexed: true
 transcribed: 'from page images of VOL.4-NO.1-JULY-1987.pdf, pages 52–56 (printed 50–54, to the head of the Quality Control report); Claude, 2026-10-06'
 review: draft
+tags:
+- conference reports
+- expert systems and AI
 queries:
 - "The Introductory Notes introduce all three meetings of the section; the Quality Control and Graphics reports are transcribed separately (v4n1-p54, and the indexed talks from p.59)."
 - "Slips transcribed as printed: “the industrialists was singing”, “APLer’s”, “a small and well bounded domains”, “reponsibility”, “have lead to failure”, “the impact on the organisation were built in”."

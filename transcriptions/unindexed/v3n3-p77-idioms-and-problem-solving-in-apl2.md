@@ -9,6 +9,10 @@ page: '77'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.3-JANUARY-1987.pdf, pages 79–93 (printed 77–83 and 86–91; pp.84–85 are adverts); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
+- language design
+- programming techniques
 queries:
 - "Printed “Delivered by Alan Graham at APL86 / Transcribed by John Sullivan”: a transcript of a recorded talk. The APL examples are printed in a small monospace face; the dieresis of each is set as two dots, here ¨."
 - "Checked: (⊂I)-0 1 with I←9 2 13 gives 9 2 13 and 8 1 12, which pick IBM and HAL from A←' ABCDEFGHIJKLMNOPQRSTUVWXYZ' in origin 0, as printed."

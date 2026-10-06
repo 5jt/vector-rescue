@@ -8,6 +8,8 @@ page: '58'
 unindexed: true
 transcribed: 'from page images of VOL.4-NO.4-APRIL-1988.pdf, pages 60–63 (printed 58–61); Claude, 2026-10-06'
 review: draft
+tags:
+- conference reports
 queries:
 - "Photographs are described, not reproduced; captions as printed."
 - "The T-shirt sizes are given as APL phrases: ‘min over iota zero’ (⌊/⍳0, the largest number), ‘omega domino omega to the power zero’ (ω⌹ω*0), and ‘power max over iota zero’ (*⌈/⍳0, 0)."

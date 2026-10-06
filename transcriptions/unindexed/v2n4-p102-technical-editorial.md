@@ -9,6 +9,9 @@ page: '102'
 unindexed: true
 transcribed: 'from page image of VOL.2-NO.4-APRIL-1986.pdf, page 104 (printed 102; the technical correspondence follows on p.103); Claude, 2026-10-05'
 review: draft
+tags:
+- programming techniques
+- development practice
 queries:
 - "Slip transcribed as printed: “that is well documented” (that it is)."
 ---

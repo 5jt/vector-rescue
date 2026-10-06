@@ -8,6 +8,8 @@ page: '107'
 unindexed: true
 transcribed: 'from page images of VOL.1-NO.2-OCTOBER-1984.pdf, pages 109–110 (printed 107–108; art10005120 follows on p.109); Claude, 2026-10-03'
 review: draft
+tags:
+- competitions and puzzles
 queries:
 - "In the VALIDNUMSV example the third number is printed `-1.1` in the argument but `¯1.1` in the result; probably the APL high minus in both, lost in typesetting. Transcribed as printed. The six results match the six blank-separated groups."
 - "Slip transcribed as printed: “Our competition this issue to to write”."

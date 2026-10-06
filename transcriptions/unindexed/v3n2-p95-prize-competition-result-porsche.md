@@ -8,6 +8,8 @@ page: '95'
 unindexed: true
 transcribed: 'from page image of VOL.3-NO.2-OCTOBER-1986.pdf, page 97 (printed 95; the result of the competition set in v2n3-p105; the APL86 competitions round-up, art10011070, follows on p.96); Claude, 2026-10-05'
 review: draft
+tags:
+- competitions and puzzles
 queries:
 - "“Zeke Hoskins” is printed so (Hoskin in v2n3-p101)."
 ---

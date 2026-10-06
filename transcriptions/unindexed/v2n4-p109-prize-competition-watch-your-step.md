@@ -8,6 +8,8 @@ page: '109'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.4-APRIL-1986.pdf, pages 111–112 (printed 109–110, with the Competition Rules; Surely there must be a better way follows on p.111); Claude, 2026-10-05'
 review: draft
+tags:
+- competitions and puzzles
 queries:
 - "Checked: the three STEP examples (0 STEP M1, 0 STEP M2, 99 STEP M2) follow from the stated rules."
 - "The Competition Rules extend those printed in v2n1-p105 with two new rules (non-members, late entries). Slips transcribed as printed: “APL *PLUS”."

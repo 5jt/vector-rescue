@@ -8,6 +8,9 @@ page: '79'
 unindexed: true
 transcribed: from page image of VOL.1-NO.1-MAY-1984.pdf, page 81 (printed 79; the index gives this page to art10008130, which begins on p.80); Claude, 2026-10-03
 review: draft
+tags:
+- applications
+- APL community
 queries:
 - "Slip transcribed as printed: “rather then eight”."
 ---

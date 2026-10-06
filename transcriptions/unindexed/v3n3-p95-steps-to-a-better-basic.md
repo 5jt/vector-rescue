@@ -8,6 +8,9 @@ page: '95'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.3-JANUARY-1987.pdf, pages 97–98 (printed 95–96; art10006320 follows on p.97); Claude, 2026-10-05'
 review: draft
+tags:
+- APL in perspective
+- humour
 queries:
 - "Earlier parts: v1n1-p77, v1n2-p73, v1n4-p95, v2n1-p81, v2n3-p89, v3n1-p93 (all unindexed). An APL People advert fills the foot of p.96. Subtitle printed “Everything AND the kitchen sink or how to take it with you when you go”."
 - "“My BBC microcomputer a version of APL running” is printed so (has a version?)."

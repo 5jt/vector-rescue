@@ -8,6 +8,8 @@ page: '56'
 unindexed: true
 transcribed: 'from page images of VOL.4-NO.4-APRIL-1988.pdf, pages 58–59 (printed 56–57); Claude, 2026-10-06'
 review: draft
+tags:
+- conference reports
 queries:
 - "The photograph is described, not reproduced."
 ---

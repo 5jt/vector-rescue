@@ -8,6 +8,9 @@ page: '61'
 unindexed: true
 transcribed: 'from page images of VOL.4-NO.4-APRIL-1988.pdf, pages 63–68 (printed 61–66); Claude, 2026-10-06'
 review: draft
+tags:
+- conference reports
+- education
 queries:
 - "Adrian Smith’s notes on the APL 88 Education Day talks."
 - "The dates of symbols are printed “(+ - around 1489, = in 1557, |A| in 1841, and ∧ in 1933)”; the last glyph is small, read as ∧."

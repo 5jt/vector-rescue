@@ -10,6 +10,9 @@ page: '93'
 unindexed: true
 transcribed: 'from page images of VOL.4-NO.2-OCTOBER-1987.pdf, pages 95–99 (printed 93–97); Claude, 2026-10-06'
 review: draft
+tags:
+- programming techniques
+- system interfaces
 queries:
 - "Three letters: John Sullivan (How to Unlock Locked Functions in APL2), Simon Barker (More about APL2), and Peter Branson’s (Idioms and Oddities); the last is signed at its end. The writers’ addresses, as printed, are kept."
 - "⎕AF and ⎕FX are printed with small capitals after the quad; transcribed as ⎕AF, ⎕FX."

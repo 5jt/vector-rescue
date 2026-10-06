@@ -8,6 +8,8 @@ page: '68'
 unindexed: true
 transcribed: 'from page image of VOL.2-NO.1-JULY-1985.pdf, page 70 (printed 68; follows John Adams’s report; the Japanese APL note follows on p.69); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
 queries:
 - "“the smart ferry to Winslow”, “no wonder they have to go jogging for exercise?” and “the size of my pancake ‘stack’ … on an exponential scale (4,2,1,0)” are printed so."
 ---

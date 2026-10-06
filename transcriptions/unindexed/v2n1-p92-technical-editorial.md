@@ -9,6 +9,8 @@ page: '92'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.1-JULY-1985.pdf, pages 94–96 (printed 92–94: the editorial, the VECTOR Publication Standards for APL Code, and the Introduction to Contributed Articles, which introduces art10009930, art10007700 and art10003940); Claude, 2026-10-05'
 review: draft
+tags:
+- APL community
 queries:
 - "p.93, the publication standards, carries the running head “Vol. 1. No. 4”: the page from the previous issue reused. Its text is identical to that in v1n4-p105-technical-editorial.md, checked against this page."
 - "“Glenford J Myers … ‘Reliable Software Through Composite Design’”, “afficionados” and “seen?.” are printed so."

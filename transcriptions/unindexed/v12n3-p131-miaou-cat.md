@@ -8,6 +8,8 @@ page: '131'
 unindexed: true
 transcribed: from page images of VOL.12-NO.3-JANUARY-1996.pdf, pages 133–134 (printed 131–132; follows art10010120); Claude, 2026-10-03
 review: draft
+tags:
+- humour
 ---
 
 From: Claude Henriod, December 1995

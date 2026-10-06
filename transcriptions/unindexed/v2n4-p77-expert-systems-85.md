@@ -8,6 +8,9 @@ page: '77'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.4-APRIL-1986.pdf, pages 79–80 (printed 77–78; ends the meetings section; the General Articles section begins on p.79); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
+- expert systems and AI
 queries:
 - "Byline printed “reviewed by Peter S. Davies”."
 - "Slips transcribed as printed: “proferred”, “they are supposed to be by traditional expert systems”."

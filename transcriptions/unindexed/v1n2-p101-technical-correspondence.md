@@ -9,6 +9,8 @@ page: '101'
 unindexed: true
 transcribed: 'from page images of VOL.1-NO.2-OCTOBER-1984.pdf, pages 103–108 (printed 101–106; follows the unindexed Technical Editorial); Claude, 2026-10-03'
 review: draft
+tags:
+- programming techniques
 queries:
 - "Three letters with editor’s replies (in italics, as printed). Thomson’s first letter answers art10003490; his second, art10000550."
 - "The APL in the letters is typeset in a monospaced APL face. Glyph readings: `⌹` (printed as a boxed glyph); `¨` (each) in EXPON; `⊂` (enclose); `⌽` in DIFF. The L1 column of both tables has marks above and below the 1s; read as alternating `1` and `¯1`, which agrees with DIFF: L[1]=¯1 gives the negative (¯1↓0,R) differences, L[1]=1 the positive."

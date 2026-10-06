@@ -8,6 +8,9 @@ page: '94'
 unindexed: true
 transcribed: 'from page image of VOL.3-NO.2-OCTOBER-1986.pdf, page 96 (printed 94; the competition result follows on p.95); Claude, 2026-10-05'
 review: draft
+tags:
+- programming techniques
+- performance
 queries:
 - "Answers Phil Last’s second letter in v2n3-p95-technical-correspondence.md. The timing table is printed in a small monospace face; the first entry under time is printed I (for 1). “DUPSOUT” is printed DUPSQUT, read as DUPSOUT."
 ---

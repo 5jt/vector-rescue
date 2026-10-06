@@ -8,6 +8,8 @@ page: '111'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.4-APRIL-1986.pdf, pages 113–116 (printed 111–114; APL Trivia follows on p.115); Claude, 2026-10-05'
 review: draft
+tags:
+- programming techniques
 queries:
 - "Byline printed “compiled by David Ziemann”; the contents list names the parts “Fuzzy look-up, Simon Barker” and “Phonetic searching, David Ziemann”."
 - "Checked: MAT MATCH 'PL.' gives 0 0 0 1 as printed; SOUNDEX∆CODE, simulated as printed, gives T265 for TISSERAND, TISEROND and TIZZEWRONGED; REP’s example 2 0 3 1 REP 'ABCD' gives 'AACCCD'."

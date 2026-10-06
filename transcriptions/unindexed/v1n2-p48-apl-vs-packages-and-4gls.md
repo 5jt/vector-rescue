@@ -8,6 +8,8 @@ page: '48'
 unindexed: true
 transcribed: 'from page image of VOL.1-NO.2-OCTOBER-1984.pdf, page 50 (printed 48; introduces art10001070; an E&S Associates advert fills the lower half); Claude, 2026-10-03'
 review: draft
+tags:
+- APL in perspective
 ---
 
 *May 18th 1984, Imperial College, London*

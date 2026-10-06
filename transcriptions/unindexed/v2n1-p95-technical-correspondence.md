@@ -10,6 +10,8 @@ page: '95'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.1-JULY-1985.pdf, pages 97–98 (printed 95–96; Surely There Must Be a Better Way follows on p.97); Claude, 2026-10-05'
 review: draft
+tags:
+- programming techniques
 queries:
 - "Letters with the editors’ italic replies, transcribed as italic paragraphs. Smith’s letter answers the first example in v1n3-p120-surely-there-must-be-a-better-way.md."
 - "CHECK: lines [4] and [6] both read `5 6 [¯1↑X]`, as printed; IF is a user-defined (‘multi-way IF’) function, not shown. The editor’s one-liner is printed `R←5 6 1 2 5 6[2⊥C]`."

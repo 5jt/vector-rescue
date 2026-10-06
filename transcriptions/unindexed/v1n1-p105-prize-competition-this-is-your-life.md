@@ -8,6 +8,8 @@ page: '105'
 unindexed: true
 transcribed: from page images of VOL.1-NO.1-MAY-1984.pdf, pages 107–108 (printed 105–106; art10003490 follows on p.107); Claude, 2026-10-03
 review: draft
+tags:
+- competitions and puzzles
 queries:
 - "The 4 by 5 grid is printed as APL quads (empty) and dominoes (live); transcribed as ⎕ and ⌹. The run code 2 2 4 5 2 2 3 matches the grid and sums to 20."
 - "Birth and Death rules set as a definition list."

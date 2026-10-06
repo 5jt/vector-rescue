@@ -9,6 +9,8 @@ page: '54'
 unindexed: true
 transcribed: 'from page images of VOL.4-NO.1-JULY-1987.pdf, pages 56–61 (printed 54–59, to the Announcement; the Graphics meeting follows on p.59); Claude, 2026-10-06'
 review: draft
+tags:
+- development practice
 queries:
 - "Campen’s talk is “Summarised by Anthony Camacho”; the rest are Adrian Smith’s notes (see his Introductory Notes, v4n1-p50). The Introductory Notes credit Camacho with the notes on the panel discussion; the page does not say so."
 - "The panel discussion is set as a two-column list of speakers’ initials and remarks; transcribed as a definition-style list with the initials in bold."

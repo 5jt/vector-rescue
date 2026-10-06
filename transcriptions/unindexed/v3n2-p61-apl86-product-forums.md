@@ -6,6 +6,9 @@ page: '61'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.2-OCTOBER-1986.pdf, pages 63–65 (printed 61–63; an IBM APL/PC advert fills p.64; the AI at APL86 report follows on p.65); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
+- implementations
 queries:
 - "Vendors’ own summaries of their APL86 product forums, each under the company name; transcribed as H2 sections. The contents list gives David Preedy for this item."
 - "Slips transcribed as printed: “alogrithms”, “simplistic approach to ease data entry”, “Wih LOGOS”."

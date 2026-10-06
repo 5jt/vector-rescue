@@ -8,6 +8,8 @@ page: '92'
 unindexed: true
 transcribed: 'from page image of VOL.3-NO.2-OCTOBER-1986.pdf, page 94 (printed 92, upper half; an APL86 wallet offer fills the rest); Claude, 2026-10-05'
 review: draft
+tags:
+- reviews
 queries:
 - "“swop” is printed so."
 ---

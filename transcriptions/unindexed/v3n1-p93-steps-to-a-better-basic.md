@@ -8,6 +8,9 @@ page: '93'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.1-JULY-1986.pdf, pages 95–96 (printed 93–94; ends the General Articles section; the technical section begins on p.95); Claude, 2026-10-05'
 review: draft
+tags:
+- APL in perspective
+- humour
 queries:
 - "Earlier parts: v1n1-p77, v1n2-p73, v1n4-p95, v2n1-p81, v2n3-p89 (all unindexed)."
 - "The two sessions are printed in an italic APL face at a narrow line width, with long lines wrapped and indented; kept as printed. The membership result is printed as 85 digits wrapped 19, 16, 16, 16, 16, 1; it has the expected number of 1s (one for each punctuation mark in TEXT), but the exact string, with its wrapped spaces, cannot be recovered to check the positions."

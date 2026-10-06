@@ -8,6 +8,9 @@ page: '89'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.2-OCTOBER-1986.pdf, pages 91–92 (printed 89–90; ends the APL86 reports; the technical section begins on p.91); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
+- APL in perspective
 queries:
 - "The contents list calls this “Closing Plenary”, Anthony Camacho."
 ---

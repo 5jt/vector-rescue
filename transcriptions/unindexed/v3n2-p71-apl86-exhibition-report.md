@@ -8,6 +8,9 @@ page: '71'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.2-OCTOBER-1986.pdf, pages 73–77 (printed 71–75; an Ampere advert fills p.76; Adrian Smith’s Pick of the Week follows on p.77); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
+- implementations
 queries:
 - "Exhibitors’ names are printed in bold at the start of each stand’s paragraph; kept bold."
 - "Slips transcribed as printed: “ancilliary”, “sponsers”, “harware”, “their their”, “the the exhibition”, “missed!.”."

@@ -8,6 +8,9 @@ page: '81'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.1-JULY-1985.pdf, pages 83–85 (printed 81–83; follows the Mercia advert on p.80; the Bedford School case study follows on p.84); Claude, 2026-10-05'
 review: draft
+tags:
+- APL in perspective
+- humour
 queries:
 - "Earlier parts are in v1n1-p77, v1n2-p73 and v1n4-p95 (all unindexed)."
 - "The session listings wrap at the printer’s line width; wrapped code lines and comments are rejoined here. In Fig. 1 and Fig. 5 [1] the third string is printed broken as 'AKQJ / 098765432' and 'AKQ / J098765432'; rejoined as 'AKQJ098765432'. The second string is 13 characters with the 1 in fifth place, as the output shows."

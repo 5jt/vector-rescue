@@ -8,6 +8,9 @@ page: '46'
 unindexed: true
 transcribed: from page images of VOL.1-NO.1-MAY-1984.pdf, pages 48–49 (printed 46–47; follows art10006690); Claude, 2026-10-03
 review: draft
+tags:
+- applications
+- development practice
 queries:
 - "No byline; the unindexed introduction on p.41 says Adrian Smith summarised the discussion."
 - "Speaker labels set as bold run-in labels; the key to them as a table."

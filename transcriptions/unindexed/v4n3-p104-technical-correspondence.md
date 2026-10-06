@@ -9,6 +9,9 @@ page: '104'
 unindexed: true
 transcribed: 'from page images of VOL.4-NO.3-JANUARY-1988.pdf, pages 106–110 (printed 104–108); Claude, 2026-10-06'
 review: draft
+tags:
+- performance
+- programming techniques
 queries:
 - "Two letters: Nicholas Small’s timings, and Norman Thomson’s APL2 reply to Anne Wilson’s Tree-processing Algorithms (4:1, 10010930). Writers’ addresses kept as printed."
 - "Thomson’s tree diagram is kept as an image."

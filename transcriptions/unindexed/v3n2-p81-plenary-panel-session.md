@@ -8,6 +8,9 @@ page: '81'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.2-OCTOBER-1986.pdf, pages 83–87 (printed 81–85; APL86 Quotes follows on p.86); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
+- language design
 queries:
 - "The contents list calls this “Implementations of Enhanced APLs”, Anthony Camacho."
 - "Names as printed: “Luan Thompson” (Thomson in the photo captions)."

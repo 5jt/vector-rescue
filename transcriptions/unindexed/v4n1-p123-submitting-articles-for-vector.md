@@ -9,6 +9,8 @@ page: '123'
 unindexed: true
 transcribed: 'from page images of VOL.4-NO.1-JULY-1987.pdf, pages 125–128 (printed 123–126); Claude, 2026-10-06'
 review: draft
+tags:
+- APL community
 queries:
 - "The contents page lists “Submitting articles to Vector”, Johnathan Barman, p.123; the article is by Jonathan Barman and Anthony Camacho."
 - "“see separate article” (Hercules Plus): Adrian Smith’s review in the front section of the same issue (p.34), not transcribed here."

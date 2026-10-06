@@ -8,6 +8,8 @@ page: '107'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.3-JANUARY-1986.pdf, pages 109–110 (printed 107–108; Sullivan’s and Buckland’s answers to Wiggins’s problem in v2n1-p97-surely-there-must-be-a-better-way.md; art10006740 follows on p.109); Claude, 2026-10-05'
 review: draft
+tags:
+- programming techniques
 queries:
 - "Byline printed “compiled by David Ziemann”."
 - "Checked by hand: WIGGINS [16] and [19] and REDUCE [4], evaluated on the example data, give the printed results, which are Wiggins’s required solution."

@@ -8,6 +8,8 @@ page: '126'
 unindexed: true
 transcribed: 'from page images of VOL.1-NO.3-JANUARY-1985.pdf, pages 128–129 (printed 126–127; art10007060 follows on p.128); Claude, 2026-10-03'
 review: draft
+tags:
+- competitions and puzzles
 queries:
 - "Check: the example result recomputes from JOBS and CONS (a consultant matches a job if every non-zero skill of the job is among theirs), and the skills matrix agrees with the prose descriptions of John, Anne, Bill and Mary."
 ---

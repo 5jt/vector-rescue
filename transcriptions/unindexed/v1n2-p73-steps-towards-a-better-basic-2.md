@@ -8,6 +8,9 @@ page: '73'
 unindexed: true
 transcribed: 'from page images of VOL.1-NO.2-OCTOBER-1984.pdf, pages 75–76 (printed 73–74; follows the XPL article, art10001020); Claude, 2026-10-03'
 review: draft
+tags:
+- APL in perspective
+- humour
 queries:
 - "A reprint from DATALINK; part 1 is v1n1-p77-steps-towards-a-better-basic-1.md."
 - "The byline is printed “Anthony Comacho”, the editorial note says “Anthony Comacho’s series”; part 1 has Camacho. Transcribed as printed."

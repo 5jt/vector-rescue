@@ -6,6 +6,10 @@ page: '92'
 unindexed: true
 transcribed: 'from page images of VOL.4-NO.4-APRIL-1988.pdf, pages 94–104 (printed 92–102); Claude, 2026-10-06'
 review: draft
+tags:
+- language design
+- development practice
+- reviews
 queries:
 - "Several letters under one heading; writers’ addresses kept as printed."
 - "Sullivan’s GETSCR is printed `GETSCR: GETSCR ω,⎕AV[⎕IO],V : 0=⍴V←⍞ : ω`; the input glyph after V← is read as ⍞ (quote-quad), as screen input requires."

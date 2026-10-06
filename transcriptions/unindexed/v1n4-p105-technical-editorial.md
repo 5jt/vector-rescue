@@ -9,6 +9,8 @@ page: '105'
 unindexed: true
 transcribed: 'from page images of VOL.1-NO.4-APRIL-1985.pdf, pages 107–109 (printed 105–107, upper part of p.107: the editorial, the VECTOR Publication Standards for APL Code, and the Introduction to Contributed Articles, which introduces art10002080, art10002530 and art10009540); Claude, 2026-10-04'
 review: draft
+tags:
+- APL in perspective
 queries:
 - "The publication standards repeat those printed in v1n2-p99-technical-editorial.md, with “between” for “beween”."
 - "Slip transcribed as printed: “one gets ones head”, “10% of the code in an interpreter account for”, “J Ansell” (Alan Ansell in the index; the article’s own byline is checked there)."

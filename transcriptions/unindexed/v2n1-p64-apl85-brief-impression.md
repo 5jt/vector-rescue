@@ -8,6 +8,8 @@ page: '64'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.1-JULY-1985.pdf, pages 66–68 (printed 64–66; opens the APL85 section; John Adams’s report follows on p.67); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
 queries:
 - "The conference topics (APL and Graphics, Promoting APL, APL for the APLer) are printed as hanging run-in heads with indented paragraphs; transcribed as H3 headings."
 - "“The Exhibition Staged on a lesser scale…” is printed as one sentence without a colon after “The Exhibition”; probably a run-in head. Transcribed as printed."

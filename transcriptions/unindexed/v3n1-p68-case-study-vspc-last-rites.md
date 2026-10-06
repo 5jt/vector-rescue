@@ -8,6 +8,9 @@ page: '68'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.1-JULY-1986.pdf, pages 70–76 (printed 68–74; art10006020 follows on p.75); Claude, 2026-10-05'
 review: draft
+tags:
+- applications
+- system interfaces
 queries:
 - "Part 2 of the VSPC conversion saga; part 1 is “VSPC: for whom the bell tolls?” (art10008170, Vol.2 No.2), which we have no scan of (#62)."
 - "The opening IEC161I console messages are printed in bold capitals; transcribed as a code block."

@@ -8,6 +8,9 @@ page: '67'
 unindexed: true
 transcribed: 'from page images of VOL.1-NO.3-JANUARY-1985.pdf, pages 69, 103 and 71–82 (printed 67, 101 and 69–80). The scan has two pages swapped: printed p.68 of these notes is bound at PDF 103 (numbered 101), and printed p.68 of art10003460 at PDF 70. Read in sense order here; Claude, 2026-10-03'
 review: draft
+tags:
+- applications
+- development practice
 queries:
 - "Page order: the printed folios run 67, 68 (PATTIE), 69…; the continuation of these notes after p.67 (Watson, Metzger) carries the folio 101 and sits in the Case Study section. Text continuity (Metzger’s three Lotus-123 bullets running into “… and the spreadsheet will respond”) settles the order. Probably a paste-up error in the original issue rather than in the scan."
 - "Panel speakers’ initials set as bold run-in labels; the questions in italics, as printed."

@@ -8,6 +8,9 @@ page: '63'
 unindexed: true
 transcribed: 'from page image of VOL.2-NO.3-JANUARY-1986.pdf, page 65 (printed 63; an IBM advert follows on p.64; the OR-85 notes follow on p.65); Claude, 2026-10-05'
 review: draft
+tags:
+- mathematics and statistics
+- APL community
 queries:
 - "A second report of the meeting already reported, without byline, in v2n1-p63-apl-statistics-user-group.md (Vol.2 No.1). The text is nearly the same; this version names Jake Ansell as author, drops the lunch, and gives a new contact address (Coventry Polytechnic, not Swansea). An editor may treat the two as one piece."
 - "“a standardized APL statistics workspace for statistics” and “Tel. (0203) 24166 570” are printed so."

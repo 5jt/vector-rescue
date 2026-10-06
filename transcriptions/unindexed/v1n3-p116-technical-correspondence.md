@@ -10,6 +10,8 @@ page: '116'
 unindexed: true
 transcribed: 'from page images of VOL.1-NO.3-JANUARY-1985.pdf, pages 118–121 (printed 116–119; follows the unindexed Technical Editorial); Claude, 2026-10-03'
 review: draft
+tags:
+- programming techniques
 queries:
 - "Three letters. The APL is in a dot-matrix APL face; read at 600 dpi."
 - "Tarr: `ω` is DEC APLSF’s omega primitive (indices of ones), not an APL2 symbol; kept as printed. FI 41 read as `(+/B)↑⍒B`."

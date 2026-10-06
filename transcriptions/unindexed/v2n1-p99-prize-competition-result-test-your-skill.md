@@ -8,6 +8,8 @@ page: '99'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.1-JULY-1985.pdf, pages 101–106 (printed 99–104; the result of the competition set in v1n3-p126-prize-competition-test-your-skill.md; the next competition follows on p.105); Claude, 2026-10-05'
 review: draft
+tags:
+- competitions and puzzles
 queries:
 - "Checked: the printed JOBS SKILLSMATCH CONS result follows from CONS and JOBS, and SM1–SM10 as transcribed, simulated in Python/NumPy (index origin as each function sets it), all give exactly that result."
 - "SM2 is printed `R←⍉∧/∨⌿ 3 4 2 1 ⍉A∘.=B,0`."

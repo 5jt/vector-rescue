@@ -8,6 +8,9 @@ page: '80'
 unindexed: true
 transcribed: 'from page image of VOL.3-NO.2-OCTOBER-1986.pdf, page 82 (printed 80; Camacho’s report on the plenary panel follows on p.81); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
+- competitions and puzzles
 queries:
 - "“INDEX ERROR⩾: 2,3,4 or 5?”: a stray mark like ≥ after ERROR in print; omitted. The answer (5) is as printed."
 - "Slips transcribed as printed: “are therein the shortest”, “protaganists”, “Brown(the APL2 one)”, “the next days debate”."

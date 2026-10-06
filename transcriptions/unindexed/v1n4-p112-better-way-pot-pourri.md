@@ -8,6 +8,8 @@ page: '112'
 unindexed: true
 transcribed: 'from page images of VOL.1-NO.4-APRIL-1985.pdf, pages 114–118 (printed 112–116; the prize competition follows on p.117); Claude, 2026-10-04'
 review: draft
+tags:
+- programming techniques
 queries:
 - "Check: SEED on the example polygon U (a U-shape) traced by hand through RAY and HACHEL: the horizontal line y = 35 crosses the edges at x = 10, 20, 50, 60, so the first visible segment is 10–20 and its midpoint 15 35, as printed."
 - "Listings read at 600 dpi. `RAY⍉POLY` (transpose); HACHEL [3] `J←∨⌿I←0>×/[2]F+1E¯8×0=F`, [5] `K←I⌿F`, [8] `K[⍋K[;1];]`."

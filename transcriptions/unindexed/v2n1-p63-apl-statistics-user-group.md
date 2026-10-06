@@ -6,6 +6,9 @@ page: '63'
 unindexed: true
 transcribed: 'from page image of VOL.2-NO.1-JULY-1985.pdf, page 65 (printed 63; follows art10003160; the APL85 section begins on p.64); Claude, 2026-10-05'
 review: draft
+tags:
+- mathematics and statistics
+- APL community
 queries:
 - "No byline; Jake Ansell is the contact named at the end."
 ---

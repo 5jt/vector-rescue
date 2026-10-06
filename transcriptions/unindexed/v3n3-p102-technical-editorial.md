@@ -8,6 +8,9 @@ page: '102'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.3-JANUARY-1987.pdf, pages 104–105 (printed 102–103; the technical correspondence follows on p.104); Claude, 2026-10-05'
 review: draft
+tags:
+- implementations
+- development practice
 queries:
 - "The p.101 section introduction (v3n3-p101-technical-section.md) is taken from the identical 3:2 text, checked against the OCR."
 - "Slips transcribed as printed: “a application”, “outide”, “facilties”."

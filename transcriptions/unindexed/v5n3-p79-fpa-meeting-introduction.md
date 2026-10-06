@@ -8,6 +8,8 @@ page: '79'
 unindexed: true
 transcribed: from page image of VOL.5-NO.3-JANUARY-1989.pdf, page 81 (printed 79; introduces art10002560, the unindexed Williams talk, and art10004210); Claude, 2026-10-03
 review: draft
+tags:
+- development practice
 ---
 
 notes by Adrian Smith

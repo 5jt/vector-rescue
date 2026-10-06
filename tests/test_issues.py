@@ -226,7 +226,8 @@ def test_nav_lists_home_full_index_and_volumes():
     from vecrescue.pages import nav_toml
     nav = nav_toml(INVENTORY, read_issues(SRC))
     assert nav.startswith('nav = [\n  { "Home" = "index.md" },\n  { "Project status" = "status/index.md" },\n'
-                          '  { "Full index" = "full-index/index.md" },\n  { "Volumes" = [')
+                          '  { "Full index" = "full-index/index.md" },\n  { "Tags" = "tags/index.md" },\n'
+                          '  { "Volumes" = [')
     assert '{ "Volume 25, 2011–2012" = "25/index.md" }' in nav
     assert nav.index('"Volume 1') < nav.index('"Volume 24') < nav.index('"Volume 25')
 
@@ -347,3 +348,32 @@ def test_contents_files_parse_and_link_existing_records():
             assert ("section" in item) != ("title" in item), (key, item)
             for f in _as_list(item.get("file")):
                 assert (Path(__file__).parents[1] / "transcriptions" / f).is_file(), (key, f)
+
+
+def test_tags_page_gathers_tagged_articles(tmp_path):
+    from vecrescue.pages import write_tags_page
+    docs = tmp_path / "docs"
+    for name, fm in (("art1", "title: B\nvolume: '2'\nissue: '1'\npage: '9'\nauthors:\n- A. A\ntags:\n- graphics\n- humour"),
+                     ("v1n1-p5-x", "title: A\nvolume: '1'\nissue: '1'\npage: '5'\nunindexed: true\ntags:\n- graphics\n- odd one")):
+        (docs / name).mkdir(parents=True)
+        (docs / name / "index.md").write_text(f"---\n{fm}\n---\n\nText")
+    vocab = tmp_path / "tags.yaml"
+    vocab.write_text("tags:\n- label: graphics\n  about: charts\n- label: humour\n  about: jokes\n- label: unused\n  about: none\n")
+    path, unknown = write_tags_page(vocab, docs)
+    text = path.read_text()
+    assert "## graphics { #tag-graphics }" in text and "## unused" not in text
+    assert text.index("- 1:1 [A](../v1n1-p5-x/)") < text.index("- 2:1 [B](../art1/), A. A")   # printed order
+    assert "[graphics](#tag-graphics) (2) · [humour](#tag-humour) (1)" in text
+    assert unknown == ["odd one"]
+
+
+def test_every_tag_used_is_in_the_vocabulary():
+    import glob
+    import yaml
+    root = Path(__file__).parents[1] / "transcriptions"
+    known = {t["label"] for t in yaml.safe_load((root / "tags.yaml").read_text())["tags"]}
+    for f in glob.glob(str(root / "**" / "*.md"), recursive=True):
+        text = Path(f).read_text()
+        if text.startswith("---\n"):
+            for t in yaml.safe_load(text.split("---", 2)[1]).get("tags") or []:
+                assert t in known, (f, t)

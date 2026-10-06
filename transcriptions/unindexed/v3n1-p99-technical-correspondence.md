@@ -8,6 +8,9 @@ page: '99'
 unindexed: true
 transcribed: 'from page images of VOL.3-NO.1-JULY-1986.pdf, pages 101–102 (printed 99–100; Surely There Must Be A Better Way follows on p.101); Claude, 2026-10-05'
 review: draft
+tags:
+- mathematics and statistics
+- programming techniques
 queries:
 - "The three results are printed in a dot-matrix face with right-aligned system comments. Checked against a numerically careful least-squares fit (NumPy polyfit): the cubic’s coefficients are about ¯61569508.6, 92648.743, ¯46.4719853, 0.00777000062. The APL*PLUS line is close; the VSAPL line agrees on the last three but its first is printed ¯6159617.48, about a tenth of the true value: presumably ¯61596174.8 with a digit lost (or the decimal point misplaced). Transcribed as printed."
 ---

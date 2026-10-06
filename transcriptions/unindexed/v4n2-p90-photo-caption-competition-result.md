@@ -8,6 +8,9 @@ page: '90'
 unindexed: true
 transcribed: 'from page images of VOL.4-NO.2-OCTOBER-1987.pdf, pages 92–93 (printed 90–91); Claude, 2026-10-06'
 review: draft
+tags:
+- competitions and puzzles
+- humour
 queries:
 - "Page 90 reprints the four photographs (A–D) from the competition, set in 3:2 (v3n2-p108); not reproduced here."
 - "Gareth Brentnall’s caption A is printed without a closing quotation mark; transcribed so."

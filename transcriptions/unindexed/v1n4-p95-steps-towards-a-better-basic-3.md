@@ -8,6 +8,9 @@ page: '95'
 unindexed: true
 transcribed: 'from page images of VOL.1-NO.4-APRIL-1985.pdf, pages 97–99 (printed 95–97; follows art10006700; the Case Study notes heading art10003470 follow on p.98); Claude, 2026-10-03'
 review: draft
+tags:
+- APL in perspective
+- humour
 queries:
 - "A reprint from Datalink; parts 1 and 2 are v1n1-p77 and v1n2-p73."
 - "The BASIC example sets T$ = “ABCEDFGHI” and prints ABCEDFGHI after the exchange; printed so (the starting string presumably meant ABCDEFGHIJ)."

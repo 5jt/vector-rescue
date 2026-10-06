@@ -9,6 +9,9 @@ page: '101'
 unindexed: true
 transcribed: 'from page image of VOL.3-NO.1-JULY-1986.pdf, page 103 (printed 101; Hacker’s Corner (2), art10008190, follows on p.102); Claude, 2026-10-05'
 review: draft
+tags:
+- programming techniques
+- system interfaces
 queries:
 - "The contents list gives “Surely There Must Be a Better Way, Ziemann and Smith” for pp.101 on; Hacker’s Corner (2) (pp.102–103) is indexed separately as art10008190."
 - "TSOID is printed in a dot-matrix italic APL face. [13] `XX←,⍉(4⍴256)⊤DATHS` (⍉ read from a ○\\-like glyph); [14]–[15] the character table uses ∆ (printed as a solid triangle) as filler for codes with no letter, an EBCDIC-order alphabet; [16] `R←ZC[(⍴ZC)⌊¯192+(¯1↑XX)↑XX]`. Doubtful glyph readings; transcribed as read."

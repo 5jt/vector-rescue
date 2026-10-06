@@ -8,6 +8,8 @@ page: '70'
 unindexed: true
 transcribed: 'from page images of VOL.2-NO.1-JULY-1985.pdf, pages 72–79 (printed 70–77; ends the APL85 section; the General Articles section begins on p.78); Claude, 2026-10-05'
 review: draft
+tags:
+- conference reports
 queries:
 - "No byline on the pages; the contents list gives “Photographic review, David Ziemann”."
 - "Eight pages of half-tone photographs with captions. The photographs are described, not reproduced; an editor may wish to crop them from the scan. Captions are transcribed page by page."
