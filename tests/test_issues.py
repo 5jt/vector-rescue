@@ -2,8 +2,11 @@
 
 from pathlib import Path
 
+import pytest
+
 from vecrescue.inventory import read_issues
 from vecrescue.pages import write_home_page, write_index_page, write_volume_pages
+from vecrescue.stubs import DAMAGED
 
 SRC = Path(__file__).parent / "fixtures" / "src"
 
@@ -229,17 +232,47 @@ def test_nav_lists_home_full_index_and_volumes():
 
 
 def test_full_index_tables_every_article_in_printed_order(tmp_path):
-    from vecrescue.pages import tab_id
+    from vecrescue.pages import _badge, tab_id
     docs, _ = pages(tmp_path)
+    (docs / "art3" / "index.md").write_text("---\nstatus: transcribed\nreview: draft\nwarning: unsure\n---\n\nText")
     text = write_index_page(INVENTORY, read_issues(SRC), docs).read_text(encoding="utf-8")
     assert "# Full index" in text
-    assert "| volume | issue | page | article | author |" in text
+    assert "| volume | issue | page | quality | article | author |" in text
+    assert (f"Quality of the text: {_badge('missing')} 2 · {_badge('OCR')} 0 · {_badge('PDF')} 0 · "
+            f"{_badge('failed')} 0 · {_badge('draft')} 1 · {_badge('reviewed')} 0 · {_badge('text')} 2 (of 5)") in text
     by = {(i["volume"], i["issue"]): i for i in read_issues(SRC)}
+    t24, t25 = f"(../24/#{tab_id(by[('24', '2')])})", f"(../25/#{tab_id(by[('25', '1')])})"
     rows = [l for l in text.splitlines() if l.startswith("| ") and "---" not in l][1:]
     assert rows == [
-        f"| [24](../24/) | [2&3](../24/#{tab_id(by[('24', '2')])}) | 5 | In the combined issue |  |",
-        f"| [25](../25/) | [1](../25/#{tab_id(by[('25', '1')])}) | 9 | [First \\*thing\\*](../art1/) | A. A, C. C |",
-        f"| [25](../25/) | [1](../25/#{tab_id(by[('25', '1')])}) | 30 | Not online |  |",
-        f"| [25](../25/) | [1](../25/#{tab_id(by[('25', '1')])}) | 74 | [Second \\| piece](../art3/) | B. B |",
-        "|  |  |  | [Online only](../art5/) | D. D |",
+        f"| [24](../24/) | [2&3]{t24} | 5 | {_badge('missing')} | In the combined issue |  |",
+        f"| [25](../25/) | [1]{t25} | 9 | {_badge('text')} | [First \\*thing\\*](../art1/) | A. A, C. C |",
+        f"| [25](../25/) | [1]{t25} | 30 | {_badge('missing')} | Not online |  |",
+        f"| [25](../25/) | [1]{t25} | 74 | {_badge('draft')} <span class=\"doubtful\" title=\"The transcription is "
+        f"doubtful or missing; its page says why\">⚠</span> | [Second \\| piece](../art3/) | B. B |",
+        f"|  |  |  | {_badge('text')} | [Online only](../art5/) | D. D |",
     ]
+
+
+@pytest.mark.parametrize("page, expected", [
+    (None, ("missing", False)),
+    ("Converted text", ("text", False)),
+    ("---\ntitle: T\n---\n\nConverted text", ("text", False)),
+    ("---\nstatus: not online\n---\n\n[Read it in the PDF](../1/1/x.pdf#page=3)", ("PDF", False)),
+    ("---\nstatus: not online\nwarning: XPL\n---\n\n[Read it in the PDF](../1/1/x.pdf#page=3)", ("failed", False)),
+    ("---\nstatus: transcribed\nreview: draft\n---\n\nText", ("draft", False)),
+    ("---\nstatus: transcribed\nreview: reviewed\n---\n\nText", ("reviewed", False)),
+    ("---\nstatus: transcribed\nreview: reviewed\nwarning: unsure\n---\n\nText", ("reviewed", True)),
+])
+def test_quality_of_an_articles_text(tmp_path, page, expected):
+    from vecrescue.pages import quality
+    if page is not None:
+        (tmp_path / "art7").mkdir()
+        (tmp_path / "art7" / "index.md").write_text(page)
+    assert quality(tmp_path, "7") == expected
+
+
+def test_quality_of_text_from_a_damaged_copy(tmp_path):
+    from vecrescue.pages import quality
+    from vecrescue.stubs import write_stub
+    write_stub({"id": "7", "title": "T"}, tmp_path, ocr="<details>…</details>", note=DAMAGED)
+    assert quality(tmp_path, "7") == ("OCR", False)
