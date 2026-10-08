@@ -12,7 +12,7 @@ tags:
 - reviews
 queries:
 - "Several letters under one heading; writers’ addresses kept as printed."
-- "Sullivan’s GETSCR is printed `GETSCR: GETSCR ω,⎕AV[⎕IO],V : 0=⍴V←⍞ : ω`; the input glyph after V← is read as ⍞ (quote-quad), as screen input requires."
+- "Sullivan’s GETSCR is printed `GETSCR: GETSCR ⍵,⎕AV[⎕IO],V : 0=⍴V←⍞ : ⍵`; the input glyph after V← is read as ⍞ (quote-quad), as screen input requires."
 - "Bykerk’s idiom is printed `(1=+/R∧.=⍉R)/R` in a crude font; read with ⌿ (rows). It keeps only rows that occur once, as Branson’s del-all-dupes does (v4n2-p93)."
 - "Donnelly’s numbered points skip 8 (7 is followed by 9); transcribed as printed."
 - "Slips transcribed as printed: “out editor”, “swear by at”, “be please to know”, “mullarkey”, “conpliance”, “occurences”, “coul be published”."
@@ -44,11 +44,11 @@ As for writing MAT in an elegant way, here is my four penn’orth.
 This example uses direct definition as far as it goes because that is the reason for its existence.
 
 ```apl
-MAT:     ω ROWNAMES GETSCR ''
-GETSCR:  GETSCR ω,⎕AV[⎕IO],V : 0=⍴V←⍞ : ω
+MAT:     ⍵ ROWNAMES GETSCR ''
+GETSCR:  GETSCR ⍵,⎕AV[⎕IO],V : 0=⍴V←⍞ : ⍵
 ```
 
-Again, this suffers from the lack of a data validation routine (try MAT 2.5) but this could be overcome by making MAT pseudo-niladic and replacing ω by (⍳0). More elegant than Anthony’s code? Maybe, but in a production environment who cares about elegance? This code is ‘better’ than Anthony’s because it removes all but the barest essentials from the loop (recursion is looping with the mechanism changed to confuse the innocent!), but it’s probably not the best that could be written. The question remains, is it worth it? Why waste half a week being ever-so-clever when you can get the results in half an hour using other methods?
+Again, this suffers from the lack of a data validation routine (try MAT 2.5) but this could be overcome by making MAT pseudo-niladic and replacing ⍵ by (⍳0). More elegant than Anthony’s code? Maybe, but in a production environment who cares about elegance? This code is ‘better’ than Anthony’s because it removes all but the barest essentials from the loop (recursion is looping with the mechanism changed to confuse the innocent!), but it’s probably not the best that could be written. The question remains, is it worth it? Why waste half a week being ever-so-clever when you can get the results in half an hour using other methods?
 
 To sum up: direct definition is a useful addition to the tools of the APL programmer, but it is not the be-all-and-end-all. An excessive desire to see everything coded via direct definition can lead to a waste of time and effort.
 
