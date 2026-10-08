@@ -23,11 +23,16 @@ def _author(creator):
     return " ".join(p for p in parts if p) or None
 
 
-def _source(root, el):
+def _source(root, el, src=None):
     path = _text(el)
     rec = {"fmt": el.get("fmt"), "path": path, "exists": False, "utf8": None}
     if path and not path.startswith("http"):
         f = root / path
+        if src is not None:  # an index outside the tree: its own copy first (#113)
+            if f.is_file():
+                rec["path"] = os.path.relpath(f, src)
+            else:
+                f = Path(src) / path
         if f.is_file():
             rec["exists"] = True
             try:
@@ -42,8 +47,11 @@ def _date(el):
     return el.get("date") if el is not None else None
 
 
-def read_index(root):
-    """Return one record per rdf:Description in ROOT/index.xml, in file order."""
+def read_index(root, src=None):
+    """Return one record per rdf:Description in ROOT/index.xml, in file order.
+    With SRC, the PHP tree, ROOT is another copy of the site (the restored
+    one, #113): a source is taken from ROOT if it is there, else from SRC,
+    and its path is given relative to SRC."""
     root = Path(root)
     records = []
     for d in ET.parse(root / "index.xml").iter(RDF + "Description"):
@@ -57,7 +65,7 @@ def read_index(root):
             "page": pub.get("page") if pub is not None else None,
             "received": _date(d.find(VEC + "received")),
             "online": _date(d.find(VEC + "online")),
-            "sources": [_source(root, s) for s in d.findall(VEC + "source")],
+            "sources": [_source(root, s, src) for s in d.findall(VEC + "source")],
         })
     return records
 
@@ -129,6 +137,23 @@ def merge_wayback(records, wayback_root, src_root):
             rec["sources"] = source(vid)
             records.append(rec)
             by_id[vid] = rec
+    return records
+
+
+# The restored PHP site (issue #113) -----------------------------------------
+
+def php_index(php_root):
+    """True if PHP_ROOT (sources/php-site) holds the restored site's index."""
+    return php_root is not None and (Path(php_root) / "index.xml").is_file()
+
+
+def php_renderings(records, php_root, src_root):
+    """Point each record's `captured` at the restored site's own rendering of
+    it, where fetched, in preference to a Wayback capture."""
+    for r in records:
+        page = Path(php_root) / "rendered" / f"art{r['id']}.html"
+        if r["id"] and page.is_file() and not any(s["fmt"] == "WAYBACK" for s in r["sources"]):
+            r["captured"] = os.path.relpath(page, src_root)
     return records
 
 

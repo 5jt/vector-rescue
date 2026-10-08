@@ -57,3 +57,33 @@ def test_article_source_prefers_xhtml_then_utf8_html():
     assert article_source(rec) == ("HTML", "a.htm")
     rec["sources"][0]["exists"] = False
     assert article_source(rec) is None
+
+
+INDEX = """<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:vec="http://www.vector.org.uk/archive-schema">
+<rdf:Description><dc:identifier>1</dc:identifier><dc:title>Old</dc:title>
+  <vec:source fmt="XHTML">content/a/a.htm</vec:source></rdf:Description>
+<rdf:Description><dc:identifier>2</dc:identifier><dc:title>New</dc:title>
+  <vec:source fmt="XHTML">content/b/b.htm</vec:source></rdf:Description>
+</rdf:RDF>"""
+
+
+def test_restored_index_takes_its_own_sources_first(tmp_path):
+    """#113: an index from the restored site; sources from its copy, else the tree."""
+    from vecrescue.inventory import php_renderings
+    src, php = tmp_path / "sjt/Vector", tmp_path / "php-site"
+    (src / "content/a").mkdir(parents=True)
+    (src / "content/a/a.htm").write_text("<p/>")
+    (php / "content/b").mkdir(parents=True)
+    (php / "content/b/b.htm").write_text("<p/>")
+    (php / "index.xml").write_text(INDEX)
+    (php / "rendered").mkdir()
+    (php / "rendered/art2.html").write_text("<html/>")
+    recs = {r["id"]: r for r in read_index(php, src)}
+    assert recs["1"]["sources"][0] == {"fmt": "XHTML", "path": "content/a/a.htm", "exists": True, "utf8": True}
+    assert recs["2"]["sources"][0]["path"] == "../../php-site/content/b/b.htm"
+    assert (src / recs["2"]["sources"][0]["path"]).is_file()
+    recs = {r["id"]: r for r in php_renderings(list(recs.values()), php, src)}
+    assert recs["2"]["captured"] == "../../php-site/rendered/art2.html"
+    assert "captured" not in recs["1"]
