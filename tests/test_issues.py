@@ -149,12 +149,22 @@ from vecrescue.pages import wayback_issue_pdfs
     ("v241-1.pdf", ("24", "1")),          # -1: WordPress's duplicate-name suffix
     ("v252-3.pdf", ("25", "2")),          # Nos. 2&3
     ("Vector264.pdf", ("26", "4")),
+    ("VOL.9-NO.2-OCTOBER-1990.pdf", ("7", "2")),   # misnamed: Vol.7 No.2 throughout (#116)
 ])
 def test_wayback_issue_pdf_names(tmp_path, name, key):
     d = tmp_path / "vector.org.uk/wp-content/uploads/2022/07"
     d.mkdir(parents=True)
     (d / name).write_bytes(b"%PDF-1.4\n%%EOF\n")
     assert wayback_issue_pdfs(tmp_path) == {key: d / name}
+
+
+def test_misnamed_pdf_does_not_shadow_the_real_issue(tmp_path):
+    d = tmp_path / "vector.org.uk/wp-content/uploads/2022/07"
+    d.mkdir(parents=True)
+    for name in ("VOL.9-NO.2-OCTOBER-1990.pdf", "VOL.9-NO.2-OCTOBER-1992.pdf"):
+        (d / name).write_bytes(b"%PDF-1.4\n%%EOF\n")
+    assert wayback_issue_pdfs(tmp_path) == {("7", "2"): d / "VOL.9-NO.2-OCTOBER-1990.pdf",
+                                            ("9", "2"): d / "VOL.9-NO.2-OCTOBER-1992.pdf"}
 
 
 def test_issue_page_uses_a_wayback_pdf_when_the_tree_has_none(tmp_path):
