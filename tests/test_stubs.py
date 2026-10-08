@@ -60,7 +60,7 @@ def test_stub_pages_are_rewritten_on_every_site_run(tmp_path):
 def test_article_with_no_source_gets_no_page(tmp_path):
     from vecrescue.pipeline import write_stub_pages
     results = write_stub_pages([RECORD], [], {}, tmp_path)
-    assert results["10001000"] == {"pdf": None, "match": None, "transcribed": None, "page": False}
+    assert results["10001000"] == {"pdf": None, "match": None, "transcribed": None, "own_pdf": None, "page": False}
     assert not (tmp_path / "docs" / "art10001000").exists()
 
 
@@ -206,3 +206,26 @@ def test_article_in_a_damaged_issue_shows_its_recovered_text(tmp_path):
     assert "<summary>Unedited OCR text, machine-read from a scan now lost" in text
     assert "<p>Words of page 4, skewed (a little) and their next line.</p>" in text
     assert "page 3," not in text
+
+
+def test_article_pdf_published_and_linked(tmp_path):
+    """#111: the article's own PDF goes beside its page, linked; with no issue
+    scan it still gives the article a page."""
+    from vecrescue.pipeline import write_stub_pages
+    src = tmp_path / "src"
+    (src / "trad/v112").mkdir(parents=True)
+    (src / "trad/v112/langlet.pdf").write_bytes(b"%PDF-1.4")
+    record = dict(RECORD, sources=[{"fmt": "PDF", "path": "trad/v112/langlet.pdf"}])
+    results = write_stub_pages([record], [], {}, tmp_path, src=src)
+    page = tmp_path / "docs/art10001000"
+    assert (page / "langlet.pdf").read_bytes() == b"%PDF-1.4"
+    assert "[Read it in the article’s own PDF](langlet.pdf)" in (page / "index.md").read_text(encoding="utf-8")
+    assert results["10001000"]["page"] is True and results["10001000"]["own_pdf"] == "langlet.pdf"
+
+
+def test_transcribed_page_links_article_pdf(tmp_path):
+    from vecrescue.stubs import write_transcribed
+    t = tmp_path / "art10001000.md"
+    t.write_text("---\nvid: '10001000'\ntitle: Why APL?\nreview: draft\n---\nText.\n", encoding="utf-8")
+    text = write_transcribed(RECORD, tmp_path / "docs", t, "1/1/x.pdf#page=67", own="a.pdf").read_text(encoding="utf-8")
+    assert "[Read it in the article’s own PDF](a.pdf) [Read it in the PDF of the issue, page 65]" in text

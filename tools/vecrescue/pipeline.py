@@ -77,13 +77,23 @@ def run_convert(src, out, corrections=None):
     return written
 
 
-def write_stub_pages(inventory, issues, pdfs, out, transcriptions=None, damaged=None):
+def article_pdf(record, src):
+    """The article's own PDF in the PHP tree under SRC, if the index names one
+    (#111)."""
+    for source in record.get("sources") or []:
+        if source.get("fmt") == "PDF" and source.get("path") and (Path(src) / source["path"]).is_file():
+            return Path(src) / source["path"]
+    return None
+
+
+def write_stub_pages(inventory, issues, pdfs, out, transcriptions=None, damaged=None, src=None):
     """A page for every indexed article without text (issue #38), linking to
     its first page in the issue PDF, or the article's transcription from
     TRANSCRIPTIONS/art<ID>.md where there is one (issue #40). An article
     with neither (its issue has no complete scan) gets no page (#63), unless
     the issue's PDF is in DAMAGED, truncated captures from which the OCR text
-    of its pages is recovered and shown (#81). Offsets and
+    of its pages is recovered and shown (#81). The article's own PDF, where
+    the index names one in SRC, is published beside its page (#111). Offsets and
     title checks are cached in OUT/pdf-cache.json; results go to
     OUT/stubs.json for the report."""
     out = Path(out)
@@ -144,18 +154,24 @@ def write_stub_pages(inventory, issues, pdfs, out, transcriptions=None, damaged=
                     entry["checks"][ocr_key] = stubs.ocr_block(pp[n - 1:min(len(pp), last + entry["offset"])],
                                                                stubs.OCR_SUMMARY if whole else stubs.DAMAGED_SUMMARY)
                 ocr = entry["checks"].get(ocr_key)
+        own = article_pdf(r, src) if src else None
+        if own:
+            (docs / f"art{r['id']}").mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(own, docs / f"art{r['id']}" / own.name)
+        own = own.name if own else None
         if transcription:
-            stubs.write_transcribed(r, docs, transcription, link)
+            stubs.write_transcribed(r, docs, transcription, link, own=own)
             review = "doubtful" if fm.get("warning") else fm.get("review")
-        elif link or warning or (ocr and not whole):
+        elif link or warning or own or (ocr and not whole):
             stubs.write_stub(r, docs, link, ocr if link or not whole else None, warning,
-                             None if whole else stubs.DAMAGED)
+                             None if whole else stubs.DAMAGED, own)
             review = "failed" if warning else None
         else:  # no scan of the issue, nothing to show: no page, and no link to one (#63)
             shutil.rmtree(docs / f"art{r['id']}", ignore_errors=True)
             review = None
         results[r["id"]] = {"pdf": link, "match": match, "transcribed": review,
-                            "page": bool(transcription or link or warning or (ocr and not whole))}
+                            "own_pdf": own,
+                            "page": bool(transcription or link or warning or own or (ocr and not whole))}
     cache_path.write_text(json.dumps(cache, indent=1, ensure_ascii=False), encoding="utf-8")
     (out / "stubs.json").write_text(json.dumps(results, indent=1, ensure_ascii=False), encoding="utf-8")
     return results
@@ -193,7 +209,7 @@ def run_site(src, out, config, wayback=None, corrections=None, transcriptions=No
     more = wayback_issue_pdfs(wayback) if wayback else None
     pdfs = issue_pdfs(issues, src, more)
     damaged = {k: v for k, v in damaged_issue_pdfs(wayback).items() if k not in pdfs} if wayback else None
-    write_stub_pages(inventory, issues, pdfs, out, transcriptions, damaged)
+    write_stub_pages(inventory, issues, pdfs, out, transcriptions, damaged, src)
     links = pdf_links(pdfs, out)
     publish_unindexed(transcriptions, docs, links)
     contents = read_contents(Path(transcriptions) / "contents") if transcriptions else {}

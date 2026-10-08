@@ -159,9 +159,13 @@ def review_note(fm):
     return note + "; not yet reviewed."
 
 
-def write_stub(record, docs, pdf=None, ocr=None, warning=None, note=None):
+OWN_PDF = "Read it in the article’s own PDF"
+
+
+def write_stub(record, docs, pdf=None, ocr=None, warning=None, note=None, own=None):
     """docs/art<ID>/index.md for a record with no text. PDF is the issue PDF's
-    path from the site root, with #page=N. WARNING, from a transcription with
+    path from the site root, with #page=N; OWN, the file name of the
+    article's own PDF, published beside the page (#111). WARNING, from a transcription with
     no text, heads the page and marks it in the issue index. NOTE follows the
     statement that the text is not online (the damaged scan of #81)."""
     fm = {"vid": record["id"], "title": record["title"] or f"Article {record['id']}"}
@@ -179,6 +183,8 @@ def write_stub(record, docs, pdf=None, ocr=None, warning=None, note=None):
     if record.get("authors"):
         lines += [escape(", ".join(record["authors"])) + "\n{ .byline }", ""]
     lines.append("The text of this article is not yet online." + (f" {note}" if note else ""))
+    if own:
+        lines += ["", f"[{OWN_PDF}]({own})"]
     if pdf:
         page = f", page {record['page']}" if record.get("page") else ""
         lines += ["", f"[Read it in the PDF of the issue{page}](../{pdf})"]
@@ -196,7 +202,7 @@ def read_transcription(path):
     return yaml.safe_load(head), body
 
 
-def write_transcribed(record, docs, transcription, pdf=None, name=None):
+def write_transcribed(record, docs, transcription, pdf=None, name=None, own=None):
     """docs/art<ID>/index.md from TRANSCRIPTION (transcriptions/art<ID>.md,
     issue #40), in place of the stub: its text, a note of its review state,
     the PDF link, and its figures from transcriptions/art<ID>/. NAME, for a
@@ -205,6 +211,8 @@ def write_transcribed(record, docs, transcription, pdf=None, name=None):
     fm, body = read_transcription(transcription)
     fm["status"] = "transcribed"
     note = review_note(fm)
+    if own:
+        note += f" [{OWN_PDF}]({own})"
     if pdf:
         page = f", page {record['page']}" if record.get("page") else ""
         note += f" [Read it in the PDF of the issue{page}](../{pdf})"
