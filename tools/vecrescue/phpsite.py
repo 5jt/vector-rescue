@@ -133,9 +133,6 @@ def compare(rendered, site, stubs):
         key = f"{kind} / {side}"
         kinds[key] = kinds.get(key, 0) + 1
         if kind == "text" and side == "page":
-            # The site's debug trailer is not article text
-            for el in doc.xpath('//pre[@id="LOG"]'):
-                el.drop_tree()
             rdoc = lxml.html.fromstring(ours.read_bytes().decode("utf-8", "replace"))
             results[vid] = capture_check(doc, rdoc)
     return {"kinds": kinds, "results": results}

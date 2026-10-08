@@ -53,7 +53,7 @@ Updated 2026-10-02 (late).
 
 - PHP filetree: `sources/sjt/Vector` (338 MB, not in git).
 - Wayback Machine: fetch the 2021 index, the 19 newer articles and their images, the issue PDFs, and the captured renderings of articles we cannot convert directly (#24, `make fetch-wayback`).
-- Restored PHP site: its indexes, the 29 sources our tree lacks and their images, and its rendering of each linked article (#104, `make fetch-php`, `sources/php-site/`). To do: make the inventory prefer these over the 2016 copies, so the 15 newer records convert from XHTML.
+- Restored PHP site: its indexes, the 29 sources our tree lacks and their images, and its rendering of each linked article (#104, `make fetch-php`, `sources/php-site/`). The pipeline prefers the restored site to the Wayback Machine throughout (#113): its index and catalogue, its sources (all of 26:4 and the in-press articles now convert from its XHTML), and its renderings for the capture check. Wayback remains the source only of the four 2017–18 articles and the issue PDFs.
 - Still wanted for Phase 8 (B1): the WordPress export.
 - Decide where `sources/` is archived safely and publicly. **Before publishing, exclude the logs and `members/`.**
 

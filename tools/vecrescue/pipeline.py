@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 from .convert import convert
-from .inventory import article_source, merge_wayback, read_index, read_issues
+from .inventory import article_source, merge_wayback, php_index, php_renderings, read_index, read_issues
 from .legacy import decode, mapped_apl, read_codingprobs
 from .pages import (_catalogue, damaged_issue_pdfs, issue_pdfs, mark_issue_tabs, nav_toml, publish_unindexed,
                     read_contents, wayback_issue_pdfs, write_home_page, write_index_page, write_tags_page,
@@ -18,12 +18,17 @@ from . import stubs
 from .links import LinkIndex
 
 
-def run_inventory(src, out, wayback=None):
+def run_inventory(src, out, wayback=None, php=None):
+    """The canonical inventory: the restored PHP site's index where we have
+    it (PHP, #113), else the PHP tree's; then what only the Wayback Machine
+    holds."""
     out = Path(out)
     out.mkdir(parents=True, exist_ok=True)
-    records = read_index(src)
+    records = read_index(php, src) if php_index(php) else read_index(src)
     if wayback is not None:
         records = merge_wayback(records, wayback, src)
+    if php_index(php):
+        records = php_renderings(records, php, src)
     path = out / "inventory.json"
     path.write_text(json.dumps(records, indent=1, ensure_ascii=False), encoding="utf-8")
     return path
@@ -198,12 +203,13 @@ def _digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()[:8]
 
 
-def run_site(src, out, config, wayback=None, corrections=None, transcriptions=None):
+def run_site(src, out, config, wayback=None, corrections=None, transcriptions=None, php=None):
     """Write the home and issue pages, copy the site files from CONFIG's
     folder, and build OUT/docs into OUT/site with Zensical."""
     src, out, config = Path(src), Path(out), Path(config)
     docs = out / "docs"
-    inventory, issues = load_inventory(out), read_issues(src)
+    catalogue = php if php is not None and (Path(php) / "issues" / "index.xml").is_file() else src
+    inventory, issues = load_inventory(out), read_issues(catalogue)
     if corrections:
         issues = corrections.apply_catalogue(issues)
     more = wayback_issue_pdfs(wayback) if wayback else None

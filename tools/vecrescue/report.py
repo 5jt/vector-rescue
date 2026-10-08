@@ -74,10 +74,12 @@ def text_check(source_doc, rendered_doc, record):
 
 
 def capture_check(captured_doc, rendered_doc):
-    """Words of the old site's own rendering (captured by the Wayback
-    Machine) against ours, title excluded on both sides."""
+    """Words of the old site's own rendering (fetched from the restored site,
+    or captured by the Wayback Machine) against ours, title excluded on both
+    sides, and the restored site's debug trace (#105) too."""
     a = copy.deepcopy(captured_doc.xpath('//div[@id="article"]')[0])
-    for el in a.xpath('.//h1[1]|.//p[@id="validation"]|.//ul[@id="publication"]|.//p[@class="legacy-warning"]'):
+    for el in a.xpath('.//h1[1]|.//p[@id="validation"]|.//ul[@id="publication"]|.//p[@class="legacy-warning"]'
+                      '|.//pre[@id="LOG"]'):
         el.drop_tree()
     art = copy.deepcopy(_article(rendered_doc))
     for el in art.xpath('.//h1[1]|.//p[@class="prefix" or @class="printed"]'):

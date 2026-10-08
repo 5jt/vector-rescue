@@ -101,20 +101,22 @@ def main(argv=None):
     p.add_argument("--out", type=Path, default=Path("build"))
     p.add_argument("--config", type=Path, default=Path("site/zensical.toml"))
     p.add_argument("--wayback", type=Path, default=Path("sources/wayback"))
+    p.add_argument("--php", type=Path, default=Path("sources/php-site"), help="the restored PHP site (#113)")
     p.add_argument("--corrections", type=Path, default=Path("corrections.yaml"))
     p.add_argument("--transcriptions", type=Path, default=Path("transcriptions"))
     a = p.parse_args(argv)
     from .corrections import Corrections
     corrections = Corrections.load(a.corrections)
+    php = a.php if a.php.is_dir() else None
     for step in STEPS if a.step == "all" else (a.step,):
         if step == "inventory":
             print("inventory:", pipeline.run_inventory(
-                a.src, a.out, a.wayback if a.wayback.is_dir() else None))
+                a.src, a.out, a.wayback if a.wayback.is_dir() else None, php))
         elif step == "convert":
             print("convert:", len(pipeline.run_convert(a.src, a.out, corrections)), "articles")
         elif step == "site":
             print("site:", pipeline.run_site(a.src, a.out, a.config, a.wayback if a.wayback.is_dir() else None, corrections,
-                                              a.transcriptions if a.transcriptions.is_dir() else None))
+                                              a.transcriptions if a.transcriptions.is_dir() else None, php))
         elif step == "report":
             t = run_report(a.src, a.out, corrections)["totals"]
             print(f"report: {a.out / 'report.md'}: {t['articles']} articles, "
