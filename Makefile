@@ -1,4 +1,4 @@
-.PHONY: all build inventory convert site report review test clean publish fetch-wayback
+.PHONY: all build inventory convert site report review test clean publish fetch-wayback fetch-php
 
 RUN = uv run vecrescue
 
@@ -18,6 +18,11 @@ test:
 
 clean:
 	rm -rf build
+
+# Sources the restored PHP site holds and our tree lacks, and its article
+# pages for comparison, into sources/php-site/ (#104). Polite and resumable.
+fetch-php:
+	$(RUN) fetch-php --renderings
 
 # Recover captures from the Wayback Machine into sources/wayback/ (slow, polite,
 # resumable; see surveys/wayback-survey.md). Needs build/inventory.json.
