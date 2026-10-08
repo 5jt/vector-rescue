@@ -1,5 +1,5 @@
 """Command line: vecrescue {inventory,convert,site,report,all} [--src DIR] [--out DIR];
-vecrescue fetch-wayback; vecrescue review."""
+vecrescue fetch-wayback; vecrescue fetch-php; vecrescue review."""
 
 import argparse
 from pathlib import Path
@@ -8,6 +8,24 @@ from . import pipeline
 from .report import run_report
 
 STEPS = ("inventory", "convert", "site", "report")
+
+
+def fetch_php(argv):
+    """vecrescue fetch-php [--renderings] [--dest DIR]: fetch from the restored
+    PHP site what our tree lacks (issue #104)."""
+    from . import phpsite
+    p = argparse.ArgumentParser(prog="vecrescue fetch-php")
+    p.add_argument("--dest", type=Path, default=Path("sources/php-site"))
+    p.add_argument("--src", type=Path, default=Path("sources/sjt/Vector"))
+    p.add_argument("--renderings", action="store_true", help="also fetch the site's article pages")
+    a = p.parse_args(argv)
+    fetcher = phpsite.Fetcher(a.dest)
+    got = fetcher.sources(a.src)
+    print(f"fetch-php: {len(got)} sources")
+    if a.renderings:
+        print(f"fetch-php: {len(fetcher.renderings())} article pages")
+    for rel, err in fetcher.failed.items():
+        print(f"  failed: {rel}: {err}")
 
 
 def fetch_wayback(argv):
@@ -62,6 +80,8 @@ def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
     if argv[:1] == ["fetch-wayback"]:
         return fetch_wayback(argv[1:])
+    if argv[:1] == ["fetch-php"]:
+        return fetch_php(argv[1:])
     if argv[:1] == ["review"]:
         return review(argv[1:])
     p = argparse.ArgumentParser(prog="vecrescue")
