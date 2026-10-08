@@ -125,10 +125,6 @@ def write_stub_pages(inventory, issues, pdfs, out, transcriptions=None, damaged=
     for r in inventory:
         if not r.get("id") or r["id"] in converted:  # what convert wrote, not what is on disk
             continue
-        key = alias.get((r.get("volume"), r.get("issue")), (r.get("volume"), r.get("issue")))
-        pdf = pdfs.get(key) or (damaged or {}).get(key)
-        whole = pdf and pdf not in damaged_pdfs
-        link, match, ocr = None, None, None
         transcription = Path(transcriptions or "") / f"art{r['id']}.md"
         transcription = transcription if transcriptions and transcription.is_file() else None
         warning = None
@@ -136,6 +132,12 @@ def write_stub_pages(inventory, issues, pdfs, out, transcriptions=None, damaged=
             fm, body = stubs.read_transcription(transcription)
             if not body.strip():
                 transcription, warning = None, fm.get("warning") or "This article could not be transcribed."
+            # Where the printed issue puts it, against the index (the Contents pages rule)
+            r = dict(r, **{k: str(fm[k]) for k in ("volume", "issue", "page") if fm.get(k)})
+        key = alias.get((r.get("volume"), r.get("issue")), (r.get("volume"), r.get("issue")))
+        pdf = pdfs.get(key) or (damaged or {}).get(key)
+        whole = pdf and pdf not in damaged_pdfs
+        link, match, ocr = None, None, None
         if pdf and (r.get("page") or "").isdigit():
             ident = f"{pdf.name}:{pdf.stat().st_size}"
             if ident not in cache:

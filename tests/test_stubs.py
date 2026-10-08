@@ -229,3 +229,23 @@ def test_transcribed_page_links_article_pdf(tmp_path):
     t.write_text("---\nvid: '10001000'\ntitle: Why APL?\nreview: draft\n---\nText.\n", encoding="utf-8")
     text = write_transcribed(RECORD, tmp_path / "docs", t, "1/1/x.pdf#page=67", own="a.pdf").read_text(encoding="utf-8")
     assert "[Read it in the article’s own PDF](a.pdf) [Read it in the PDF of the issue, page 65]" in text
+
+
+def test_transcription_placement_overrides_the_index(tmp_path):
+    """Where the printed Contents put an article in another issue than the
+    index does, the PDF link follows the transcription's front matter."""
+    import json
+    from vecrescue.pipeline import write_stub_pages
+    path = _transcription(tmp_path)
+    path.write_text(path.read_text().replace("issue: '1'", "issue: '2'"), encoding="utf-8")
+    pdf = tmp_path / "v12.pdf"
+    pdf.write_bytes(b"%PDF")
+    (tmp_path / "pdf-cache.json").write_text(json.dumps({f"v12.pdf:{pdf.stat().st_size}": {"offset": 2, "checks": {}}}))
+    from vecrescue import stubs
+    stubs_pages = stubs.pdf_pages
+    stubs.pdf_pages = lambda p: ["x"] * 80
+    try:
+        results = write_stub_pages([RECORD], [], {("1", "2"): pdf}, tmp_path, transcriptions=tmp_path / "transcriptions")
+    finally:
+        stubs.pdf_pages = stubs_pages
+    assert results["10001000"]["pdf"] == "1/2/v12.pdf#page=67"
