@@ -68,3 +68,21 @@ def test_renderings_saved_by_article(tmp_path):
     assert f.renderings() == ["art10000010", "art10000020"]
     assert (tmp_path / "rendered/art10000010.html").read_bytes() == b"<html>one</html>"
     assert "rendered/art10000020.html" in f.failed
+
+
+def test_compare_kinds_and_words(tmp_path):
+    r, site = tmp_path / "rendered", tmp_path / "site"
+    r.mkdir()
+    page = '<html><body><div id="article"><h1>T</h1>{}</div></body></html>'
+    (r / "art1.html").write_text(page.format('<p>one two three</p><pre id="LOG">script began</pre>'))
+    (r / "art2.html").write_text(page.format("<p>Sorry, we don't have this article online</p>"))
+    (r / "art3.html").write_text(page.format('<iframe src="x.pdf"></iframe>'))
+    (site / "art1").mkdir(parents=True)
+    (site / "art1/index.html").write_text(
+        '<html><body><article class="md-content__inner"><h1>T</h1><p>one two four</p></article></body></html>')
+    (site / "art3").mkdir()
+    (site / "art3/index.html").write_text("<html/>")
+    out = phpsite.compare(r, site, {"3": {}})
+    assert out["kinds"] == {"text / page": 1, "not online / missing": 1, "framed PDF / stub": 1}
+    assert out["results"]["1"]["captured_words"] == 3
+    assert out["results"]["1"]["differing"] == 1

@@ -107,3 +107,35 @@ class Fetcher:
         for vid in ids:
             self.fetch(vid, save_as=f"rendered/{vid}.html")
         return ids
+
+
+def compare(rendered, site, stubs):
+    """The site's article pages in RENDERED against our build in SITE: the
+    kind of each page on either side, and a word check (report.capture_check)
+    where both have text."""
+    import lxml.html
+    from .report import capture_check
+    kinds, results = {}, {}
+    for f in sorted(Path(rendered).glob("art*.html")):
+        vid = f.stem[3:]
+        doc = lxml.html.fromstring(f.read_bytes().decode("utf-8", "replace"))
+        art = doc.xpath('//div[@id="article"]')
+        if not art:
+            kind = "no article"
+        elif "have this article online" in art[0].text_content():
+            kind = "not online"
+        elif art[0].xpath(".//iframe"):
+            kind = "framed PDF"
+        else:
+            kind = "text"
+        ours = Path(site) / f"art{vid}" / "index.html"
+        side = "missing" if not ours.exists() else "stub" if vid in stubs else "page"
+        key = f"{kind} / {side}"
+        kinds[key] = kinds.get(key, 0) + 1
+        if kind == "text" and side == "page":
+            # The site's debug trailer is not article text
+            for el in doc.xpath('//pre[@id="LOG"]'):
+                el.drop_tree()
+            rdoc = lxml.html.fromstring(ours.read_bytes().decode("utf-8", "replace"))
+            results[vid] = capture_check(doc, rdoc)
+    return {"kinds": kinds, "results": results}
