@@ -93,3 +93,17 @@ Priority for review: the more interesting articles first (practical how-to and t
 - **First Pass.** `index.xml` reflects the editors’ judgement of what was most worth keeping, so it is used as a filter: the First Pass transcribes the articles in `index.xml`; everything else on a Contents page (front sections: editorials, news, reviews; and unindexed pieces from Volume 5 on) is listed and linked to its PDF page, not transcribed. A Second Pass, if budget allows, picks up the rest. The unindexed pieces already transcribed for Volumes 1–4 are published.
 - A **Project status** page, second in the nav, summarises what is done and what remains; updated after each volume.
 - **Tags.** Transcribed articles are to be tagged by subject (e.g. language design, programming techniques, system descriptions). A vocabulary is drawn from Volumes 1–4 first, then applied and extended as the First Pass continues.
+
+## Contents pages transcribed ahead of the articles (Stephen Taylor, 2026-10-08; #116)
+
+Every issue with a scan now has its Contents page in `transcriptions/contents/` (100 files: all issues but 2:2, which has no scan; 7:4 and 16:4 from the text recovered from truncated captures). The Full index is built from them: about 2,540 Contents lines against 1,493 dated index records. Every dated index record is linked from a Contents line, except the nine in 2:2.
+
+What the Contents pages showed about `index.xml`:
+
+- **Filed under the wrong issue (4):** Adams 10000010 (5:2, not 5:3); Crossley 10002690 (19:1, not 19:2); and two p.999 records for web versions of articles printed elsewhere (10013650, R.net, printed 20:2; 10013750, Enigma 1368, printed 22:3). Mandelbrot Sets (10001750) is indexed in 7:3 but was held over; it is printed in 7:4 (10001770).
+- **Misnamed scan:** `VOL.9-NO.2-OCTOBER-1990.pdf` is Vol.7 No.2 throughout. 7:2 therefore has a scan after all; the pipeline maps it (`pages.MISNAMED`).
+- **Pages:** about 30 index pages disagree with the Contents; where checked against the scan, the Contents was right (e.g. 23:4, where three are 3–16 pages out).
+- **Duplicates:** 44 records at p.999 (mostly Vols 10–16) are a second record for an article, the one that holds the converted text; each is listed beside its twin on the Contents line.
+- **Not on the Contents page:** 173 index entries are pieces within a regular feature (The Education Vector, The Random Vector, Correspondence, Zark Newsletter Extracts, News from Sustaining Members), placed under it.
+
+Each discrepancy is noted on its Contents line (`note:`).
