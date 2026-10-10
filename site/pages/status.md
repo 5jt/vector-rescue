@@ -2,7 +2,7 @@
 title: Project status
 ---
 
-*Updated 10 October 2026, after Volume 18.*
+*Updated 10 October 2026, after Volume 19.*
 
 ## What this is
 
@@ -16,15 +16,15 @@ A development build of the recovered *Vector* archive: every issue’s contents,
     - every article in the editors’ index that survives in a scan transcribed from the page images: 326 of the 367 (three more records — one article indexed twice — were online as text; one, Mandelbrot Sets, is indexed in 7:3 but was held over to 7:4; the other 37 are in 2:2, of which no copy has been found, and 3:4 and 7:4, of which only machine-read text survives). One, XPL, could not be transcribed and awaits a human transcriber. Where an article prints code with its results, the code has been run in Dyalog APL as a check on the transcription, and any misreadings it revealed corrected and noted; other doubts are recorded for review;
     - in Volumes 1–4, the pieces the index omitted from the meetings, general and technical sections also transcribed (150 pieces), and published;
     - everything else on the Contents pages linked to its page in the issue PDF.
-- **The First Pass through Volumes 10–18** (1993–2002): from Volume 10 onward most indexed articles were published online and are converted from that text; the indexed articles that were not online (12 in Volume 10, 38 in Volume 11, 60 in Volume 12, 64 in Volume 13, 56 in Volume 14, 34 in Volume 15, 21 in Volume 16, 28 in Volume 17, 36 in Volume 18) have been transcribed from the scans, with the same checks; one article in Volume 12 is left for transcription by hand, and the four in 16:4 survive only as machine-read text.
+- **The First Pass through Volumes 10–19** (1993–2003): from Volume 10 onward most indexed articles were published online and are converted from that text; the indexed articles that were not online (12 in Volume 10, 38 in Volume 11, 60 in Volume 12, 64 in Volume 13, 56 in Volume 14, 34 in Volume 15, 21 in Volume 16, 28 in Volume 17, 36 in Volume 18, 40 in Volume 19) have been transcribed from the scans, with the same checks; one article in Volume 12 is left for transcription by hand, and the four in 16:4 survive only as machine-read text.
 - **Every other issue**: its articles listed from its Contents page and linked to the issue PDF (with its machine-read text) where we have one; articles with their own scan link to that too.
-- **Subject tags** for the transcribed articles of Volumes 1–18, from a vocabulary of 20 subjects; see [Tags](../tags/).
+- **Subject tags** for the transcribed articles of Volumes 1–19, from a vocabulary of 20 subjects; see [Tags](../tags/).
 - **Index corrections**: the editors’ index was compiled by hand; where it disagrees with the printed Contents pages (pages, issue, authors, titles), the Contents pages have been followed. 79 records were corrected; each correction is listed in the build report.
 - **Damaged copies**: for three issues whose only copy is truncated (3:4, 7:4, 16:4), the machine-read text has been recovered and shown.
 
 ## Remaining
 
-- **The First Pass through Volumes 19–21**: transcribe from the scans the indexed articles that were not published online.
+- **The First Pass through Volumes 20–21**: transcribe from the scans the indexed articles that were not published online.
 - **Review**: every transcription is a draft until a reviewer checks it against the scan; see the [review checklist](https://github.com/5jt/vector-rescue/blob/main/plans/pdf-review-checklist.md).
 - **Missing sources**: no scan has been found of 2:2, and the copies of 3:4, 7:4 and 16:4 are damaged ([help find them](https://github.com/5jt/vector-rescue/issues/62)).
 - **A Second Pass**, if resources allow: transcribe what the First Pass only links to the PDF.
