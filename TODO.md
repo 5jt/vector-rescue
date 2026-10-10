@@ -5,7 +5,8 @@ Expected next steps (updated 2026-10-10).
 ## PDF-only articles (`plans/pdf-conversion.md`)
 
 - [x] Phase 2, Volumes 1–15: done (status page "after Volume 15").
-- [ ] Phase 2, Volumes 16–21: transcribe the indexed articles not published online, one issue, branch and PR per issue, starting with 16:1. Helpers in `tools/scratch/` (`todo.py v16n1` lists the stubs). 16:4 survives only in a damaged copy. Update the status page at the end of each volume.
+- [x] Phase 2, Volumes 16–18: done (status page "after Volume 18").
+- [ ] Phase 2, Volumes 19–21: transcribe the indexed articles not published online, one issue, branch and PR per issue, starting with 19:1. Helpers in `tools/scratch/` (`todo.py v16n1` lists the stubs). Update the status page at the end of each volume.
 - [ ] In the 16:1 branch, add a query to Sullivan (10009460): the index titles it “…Fibonacci Series”, the printed heading “Sequence”.
 - [ ] Add unindexed pieces found along the way to `transcriptions/unindexed/` and to #44.
 - [ ] Phase 3: review checklists (`plans/pdf-review-checklist*.md`), ordered by interest; little-code articles need only their queries checked.
