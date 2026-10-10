@@ -181,3 +181,49 @@ def read_issues(root):
             "pdf": files.get("PDF"), "doc": files.get("DOC"),
         })
     return issues
+
+
+# Corrections from the Contents pages (issue #211) ----------------------------
+
+def _vids(item):
+    v = item.get("vid")
+    return [] if v is None else [str(x) for x in (v if isinstance(v, list) else [v])]
+
+
+def correct_from_contents(records, contents):
+    """Correct the volume, issue and page of index records from the
+    transcribed Contents pages (CONTENTS: {(volume, issue): doc}, as
+    pages.read_contents gives), which are authoritative (Stephen Taylor,
+    2026-10-10). A line with one record gives it the line's page and issue;
+    a line with several corrects only a duplicate at p.999 whose twin on the
+    line is at the line's page. A line with no printed page, or one not on
+    the Contents page or whose page comes from the index, corrects nothing.
+    Titles and authors are not taken from the Contents, whose wording is
+    often abbreviated; corrections.yaml `records:` corrects those. Returns
+    the log: one {id, field, old, new, by} per field changed."""
+    by_id = {r["id"]: r for r in records if r.get("id")}
+    log = []
+    for (vol, no), doc in contents.items():
+        for item in doc.get("items", []):
+            vids, page, note = _vids(item), str(item.get("page") or ""), item.get("note") or ""
+            if "section" in item or not vids or not page.isdigit():
+                continue
+            if "not on the Contents page" in note or "from the index" in note:
+                continue
+            if len(vids) == 1:
+                targets = vids
+            elif any((by_id[v]["volume"], by_id[v]["issue"], by_id[v]["page"]) == (vol, no, page)
+                     for v in vids if v in by_id):  # a twin at the printed page
+                targets = [v for v in vids if v in by_id and by_id[v]["page"] == "999"]
+            else:
+                targets = []
+            for vid in targets:
+                r = by_id.get(vid)
+                if r is None:
+                    continue
+                for field, new in (("volume", vol), ("issue", no), ("page", page)):
+                    if r[field] != new:
+                        log.append({"id": vid, "field": field, "old": r[field], "new": new,
+                                    "by": f"Contents v{vol}n{no}"})
+                        r[field] = new
+    return log

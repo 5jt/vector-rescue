@@ -107,3 +107,12 @@ What the Contents pages showed about `index.xml`:
 - **Not on the Contents page:** 173 index entries are pieces within a regular feature (The Education Vector, The Random Vector, Correspondence, Zark Newsletter Extracts, News from Sustaining Members), placed under it.
 
 Each discrepancy is noted on its Contents line (`note:`).
+
+### Index records corrected from the Contents (Stephen Taylor, 2026-10-10; #211)
+
+Decided: the Contents pages are authoritative; the index records are corrected from them without review, and every correction is logged. The inventory step does it, so article pages, stubs, issue tabs, volume pages and the Full index all see the corrected record; `build/report.md` lists every field changed ("Index records corrected": index value → new value, and where from).
+
+- **Page and issue** come from the Contents automatically (`inventory.correct_from_contents`): a line with one record gives it its page and issue; on a line with several, only a p.999 duplicate whose twin is at the line's page is corrected. Lines with no printed page, "not on the Contents page" lines and pages "from the index" correct nothing.
+- **Titles and authors** are not taken from the Contents: of about 650 title and 270 author differences on single-record lines, nearly all are abbreviations, short labels for the printed heading, or other forms of a name. Where the index is actually wrong, `records:` in corrections.yaml corrects it, with `why` and `decided`.
+
+First run: 79 records (page 70, issue 5, volume 1, authors 5, title 2). Mandelbrot Sets 10001750, held over from 7:3, is refiled at 7:4 p.110, beside 10001770, the record of the same printed article (as the p.999 twins are). Left as they are: 10008370, one record for two printed pieces (its authors are corrected, but splitting it is a separate decision); the p.999 twins on "not on the Contents page" lines (10012110, 10012400, 10013120, 10013250, 10013480) and 10012490, whose page was inferred from its file name.

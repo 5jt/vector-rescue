@@ -111,7 +111,8 @@ def main(argv=None):
     for step in STEPS if a.step == "all" else (a.step,):
         if step == "inventory":
             print("inventory:", pipeline.run_inventory(
-                a.src, a.out, a.wayback if a.wayback.is_dir() else None, php))
+                a.src, a.out, a.wayback if a.wayback.is_dir() else None, php,
+                a.transcriptions if a.transcriptions.is_dir() else None, corrections))
         elif step == "convert":
             print("convert:", len(pipeline.run_convert(a.src, a.out, corrections)), "articles")
         elif step == "site":

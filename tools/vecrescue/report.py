@@ -239,7 +239,8 @@ def run_report(src, out, corrections=None):
     stale = {vid: [n for n in ns if n["kind"] == "correction-stale"] for vid, ns in notes.items()}
     report = {"totals": totals, "previous": previous, "articles": articles, "skipped": skipped,
               "stubs": stubs, "titles": {r["id"]: r["title"] for r in inventory if r.get("id") in stubs},
-              "stale": {k: v for k, v in stale.items() if v}}
+              "stale": {k: v for k, v in stale.items() if v},
+              "index_corrections": _load(out / "index-corrections.json", [])}
     path.write_text(json.dumps(report, indent=1, ensure_ascii=False), encoding="utf-8")
     (out / "report.md").write_text(render_markdown(report), encoding="utf-8")
     return report
@@ -357,4 +358,36 @@ def render_markdown(report):
         for vid, a in bad:
             lines.append(f"- art{vid}: {a['title']} ({a['code']['mismatched']})")
         lines.append("")
+    lines += index_corrections_md(report.get("index_corrections") or [])
     return "\n".join(lines)
+
+
+def _load(path, default):
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else default
+
+
+def _value(v):
+    if v is None:
+        return "—"
+    return _cell(", ".join(v) if isinstance(v, list) else str(v))
+
+
+def _cell(text):
+    return text.replace("|", "\\|")
+
+
+def index_corrections_md(log):
+    """The log of index records corrected from the Contents pages and
+    corrections.yaml (#211): every field changed, index value → new value."""
+    if not log:
+        return []
+    fields = Counter(e["field"] for e in log if e["field"])
+    lines = ["## Index records corrected", "",
+             f"{len({e['id'] for e in log if e['field']})} records of index.xml corrected ("
+             + ", ".join(f"{k} {v}" for k, v in sorted(fields.items()))
+             + "): from the transcribed Contents pages, which are authoritative (Stephen Taylor, 2026-10-10), "
+             "and from `records:` in corrections.yaml.", "",
+             "| Record | Field | Index | Corrected | From |", "| --- | --- | --- | --- | --- |"]
+    for e in log:
+        lines.append(f"| art{e['id']} | {e['field'] or '—'} | {_value(e['old'])} | {_value(e['new'])} | {_cell(e['by'])} |")
+    return lines + [""]
