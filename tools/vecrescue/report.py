@@ -383,7 +383,7 @@ def index_corrections_md(log):
         return []
     fields = Counter(e["field"] for e in log if e["field"])
     lines = ["## Index records corrected", "",
-             f"{len({e['id'] for e in log})} records of index.xml corrected ("
+             f"{len({e['id'] for e in log if e['field']})} records of index.xml corrected ("
              + ", ".join(f"{k} {v}" for k, v in sorted(fields.items()))
              + "): from the transcribed Contents pages, which are authoritative (Stephen Taylor, 2026-10-10), "
              "and from `records:` in corrections.yaml.", "",
