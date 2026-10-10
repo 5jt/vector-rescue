@@ -3,8 +3,8 @@
 Defects that need human judgement are corrected here, not guessed at by
 converter rules: corrections.yaml lists, per article, text replacements
 applied to the decoded source before parsing, an encoding override, or a
-decision to hold back or release an article; and corrections to the issue
-catalogue. Every entry says why and who decided. A replacement whose text
+decision to hold back or release an article; corrections to the issue
+catalogue; and corrections to index records (#211). Every entry says why and who decided. A replacement whose text
 is no longer found is reported as stale.
 """
 
@@ -12,6 +12,9 @@ import re
 from pathlib import Path
 
 import yaml
+
+
+RECORD_FIELDS = ("title", "authors", "volume", "issue", "page")
 
 
 class CorrectionError(ValueError):
@@ -29,11 +32,16 @@ class Corrections:
         data = data or {}
         self.articles = {str(k): v for k, v in (data.get("articles") or {}).items()}
         self.catalogue = {str(k): v for k, v in (data.get("catalogue") or {}).items()}
+        self.records = {str(k): v for k, v in (data.get("records") or {}).items()}
         for vid, entries in self.articles.items():
             for e in entries:
                 _check(e, f"article {vid}")
         for key, e in self.catalogue.items():
             _check(e, f"issue {key}")
+        for vid, e in self.records.items():
+            _check(e, f"record {vid}")
+            if not set(e) & set(RECORD_FIELDS):
+                raise CorrectionError(f"record {vid}: nothing to correct")
 
     @classmethod
     def from_text(cls, text):
@@ -107,3 +115,25 @@ class Corrections:
                 issue["numbers"] = re.findall(r"\d+", e["title"])
                 issue["span"] = len(issue["numbers"])
         return issues
+
+    def apply_records(self, records):
+        """Correct index records' title, authors, volume, issue or page from
+        `records:` (#211). Returns the log: one {id, field, old, new, by} per
+        field changed; an entry for a record not in RECORDS is logged with
+        field None, so that it is not silently lost."""
+        by_id = {r["id"]: r for r in records if r.get("id")}
+        log = []
+        for vid, e in self.records.items():
+            r = by_id.get(vid)
+            if r is None:
+                log.append({"id": vid, "field": None, "old": None, "new": None,
+                            "by": "corrections.yaml: no such record"})
+                continue
+            for field in RECORD_FIELDS:
+                if field in e:
+                    new = [str(a) for a in e[field]] if field == "authors" else str(e[field])
+                    if r.get(field) != new:
+                        log.append({"id": vid, "field": field, "old": r.get(field), "new": new,
+                                    "by": f"corrections.yaml: {' '.join(str(e['why']).split())}"})
+                        r[field] = new
+        return log

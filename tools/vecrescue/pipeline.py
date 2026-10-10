@@ -9,7 +9,8 @@ import sys
 from pathlib import Path
 
 from .convert import convert
-from .inventory import article_source, merge_wayback, php_index, php_renderings, read_index, read_issues
+from .inventory import (article_source, correct_from_contents, merge_wayback, php_index, php_renderings,
+                        read_index, read_issues)
 from .legacy import decode, mapped_apl, read_codingprobs
 from .pages import (_catalogue, damaged_issue_pdfs, issue_pdfs, mark_issue_tabs, nav_toml, publish_unindexed,
                     read_contents, wayback_issue_pdfs, write_home_page, write_index_page, write_tags_page,
@@ -18,10 +19,12 @@ from . import stubs
 from .links import LinkIndex
 
 
-def run_inventory(src, out, wayback=None, php=None):
+def run_inventory(src, out, wayback=None, php=None, transcriptions=None, corrections=None):
     """The canonical inventory: the restored PHP site's index where we have
     it (PHP, #113), else the PHP tree's; then what only the Wayback Machine
-    holds."""
+    holds; corrected from the Contents pages in TRANSCRIPTIONS/contents and
+    from CORRECTIONS (#211), each correction logged to
+    OUT/index-corrections.json for the report."""
     out = Path(out)
     out.mkdir(parents=True, exist_ok=True)
     records = read_index(php, src) if php_index(php) else read_index(src)
@@ -29,6 +32,10 @@ def run_inventory(src, out, wayback=None, php=None):
         records = merge_wayback(records, wayback, src)
     if php_index(php):
         records = php_renderings(records, php, src)
+    log = correct_from_contents(records, read_contents(Path(transcriptions) / "contents")) if transcriptions else []
+    if corrections:
+        log += corrections.apply_records(records)
+    (out / "index-corrections.json").write_text(json.dumps(log, indent=1, ensure_ascii=False), encoding="utf-8")
     path = out / "inventory.json"
     path.write_text(json.dumps(records, indent=1, ensure_ascii=False), encoding="utf-8")
     return path
