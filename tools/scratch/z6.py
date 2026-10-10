@@ -1,11 +1,12 @@
 """z6.py PDF PAGE x0 y0 x1 y1 out : crop a 600 dpi render using 200 dpi coordinates.
 
-Renders are cached in $VEC_CACHE (default: <tmpdir>/vec-rescue/r600).
+Renders are cached in $VEC_CACHE/r600; set VEC_CACHE to the session scratchpad.
 """
-import sys,subprocess,os,tempfile
+import sys,subprocess,os
 from PIL import Image
 pdf,pg,x0,y0,x1,y1,out=sys.argv[1:8]
-C=os.path.join(os.environ.get('VEC_CACHE',os.path.join(tempfile.gettempdir(),'vec-rescue')),'r600')
+if 'VEC_CACHE' not in os.environ: sys.exit('Set VEC_CACHE to the session scratchpad')
+C=os.path.join(os.environ['VEC_CACHE'],'r600')
 os.makedirs(C,exist_ok=True)
 key=os.path.basename(pdf)[:16].replace('.','_')
 f=f'{C}/{key}-{int(pg):03d}.png'

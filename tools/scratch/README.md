@@ -14,4 +14,4 @@ Run from the project root.
 | `jbox.py` | J-style boxed display of nested lists |
 
 Page images: `pdftoppm -r 200 -png PDF DIR/p` (PDF page = printed page + 2 in most issues).
-Renders for `z6.py` and `shot2.py` are cached under `$VEC_CACHE` (default `<tmpdir>/vec-rescue`).
+Keep page images and renders in the Claude session scratchpad, never outside the project and scratchpad: render pages there, and set `VEC_CACHE` to it for `z6.py` and `shot2.py` (they refuse to run without it).
