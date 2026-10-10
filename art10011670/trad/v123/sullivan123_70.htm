@@ -1,0 +1,356 @@
+<html><head>
+<!-- webpage generated: 21 November 2007, 19:54 using: VARCH VARCH51    2007-11-18 14:45 1 VARCH51 sullivan123_70 -->
+<!-- new template created: 05Dec2005 16:43  VARCH36 -->
+
+<link href="../arch.css" type=text/css rel=stylesheet>
+
+<title>Multiprecision Arithmetic - Part III</title>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+
+</head>
+<body>
+
+<!-- breadcrumbs -->
+<table width=100%><tr>
+<td><font size=-1>
+<a href="http://www.vector.org.uk"><img src="../../icons/iconbla.gif"
+ align="middle" alt="VECTOR icon" home border=0" title="VECTOR home" /></a>
+<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt;
+<a href="index.htm">contents of Vector 12.3</a></font></td>
+<td align=right><font size=-1>
+For best results, install <a href="../../resource/apl385.zip">APL385 Unicode</a>
+ and use <a href="http://www.mozilla.org/products/firefox/">Firefox</a>
+</font></td></tr>
+</table>
+
+
+<div class=Section1> <!-- Start of Galley -->
+
+
+<h1>Multiprecision Arithmetic - Part III</h1>
+<p class=author>by John Sullivan
+
+<!--
+ <span class=affil>-*-</span>
+ <span class=email>(<A href="mailto:-*-">-*-</A>)</span>
+-->
+
+</p>
+
+<!-------------
+<h1 align=center>Multiprecision Arithmetic - Part III</h1>
+<p class=author> <i>by John Sullivan</i> -*-(<A href="mailto:-*-">-*-</A>)</p>
+--------------->
+
+
+<h3>Preliminary</h3>
+
+<p>In the function listings that follow I have assumed that the basic functions as defined in Parts I and II of this series are in a namespace called <tt class="aplu">mp</tt>. If your APL does not support namespaces the functions will be defined in the workspace in the ordinary way, and therefore you should omit the <tt class="aplu">mp</tt>. before all references to them: for instance in function <tt class="aplu">Spsp</tt>, below, line 3 will be</p>
+<pre class="aplu">
+[3]    n&larr;Fexec n
+</pre>
+
+<h3>Some simple applications</h3>
+
+<p>As I mentioned in Part II, it is much easier to handle multiprecision numbers if they are represented by character strings. So the first thing we will do with our basic functions is cover them by functions that process these character strings. (They will also process numeric input, as a result of the behaviour of <tt class="aplu">Fexec</tt>). There are four functions for addition, subtraction, multiplication and division.</p>
+<pre class="aplu">
+     &nabla; z&larr;a ADD b
+[1]   z&larr;0 mp.Ffmt&sup;mp.Fadd/mp.Fexec&uml;a b
+     &nabla;
+</pre>
+<pre class="aplu">
+     &nabla; z&larr;{a}SUB b
+[1]    &rarr;(0&ne;&#x2395;NC&#x0027;a&#x0027;)/&#x2206;1
+[2]    a&larr;0 0
+[3]   &#x2206;1:z&larr;0 mp.Ffmt&sup;mp.Fsub/mp.Fexec&uml;a b
+     &nabla;
+</pre>
+<pre class="aplu">
+     &nabla; z&larr;a MUL b
+[1]    z&larr;0 mp.Ffmt&sup;mp.Fmul/mp.Fexec&uml;a b
+     &nabla;
+</pre>
+
+<p>The division function introduces a small addition to the way numbers can be represented. Because the function deals with floating point rather than integers, sometimes we need to add precision to the dividend, in order to get extra precision in the quotient. This is done by using the letter P: in addition to saying 1.234E5 for 1.234&#x00D7;10<sup>5</sup>, we can also say 1.234E5P2 for 1.234&#x00D7;10<sup>5</sup> with 2 extra &ldquo;digits&rdquo; of precision, one digit being the size of the current radix of the calculation. This P format is sorted out in <tt class="aplu">DIV</tt>, rather than by <tt class="aplu">Fexec</tt>, so it only applies to this function.</p>
+<pre class="aplu">
+     &nabla; z&larr;a DIV b;p;q;r
+[1]    b&larr;mp.Fexec b
+[2]    &rarr;(&#x005E;/&#x007E;a&#x220A;&#x2395;AV)/&#x2206;3
+[3]    p&larr;0 &#x22C4; &rarr;(&#x0027;P&#x0027;&#x005E;.&ne;a)/&#x2206;2
+[4]    p&larr;(1+r&larr;a&#x2373;&#x0027;P&#x0027;)&darr;a &#x22C4; a&larr;r&#x2191;a
+[5]    &rarr;(0&ne;&#x2374;p&larr;(p&#x220A;&#x2395;D)/p)/&#x2206;1
+[6]    p&larr;0 &#x22C4; &rarr;&#x2206;2
+[7]   &#x2206;1:&#x2395;SIGNAL(2&lt;&#x2374;p)/16
+[8]    p&larr;&#x234E;p
+[9]   &#x2206;2:a&larr;mp.Fexec a
+[10]   &rarr;(p&le;0)/&#x2206;3
+[11]   a[0]&larr;a[0]-p &#x22C4; a&larr;a,p&#x2374;0
+[18]  &#x2206;3:z&larr;0 mp.Ffmt a mp.Fdiv b
+     &nabla;
+</pre>
+
+<p>Examples:</p>
+<pre class="aplu">
+      &#x0027;98765432109876543210&#x0027; MUL &#x0027;12345678901234567890&#x0027;
+1219326311370217952237463801111263526900
+      &#x0027;98765432109876543210&#x0027; DIV &#x0027;12345678901234567890&#x0027;
+8.000000072900000663390006
+</pre>
+
+<p>and the following, which may be compared (sorry, IBM!) with [3] <i>p</i>.52 (see also Vector, Vol.11, No.4, <i>p</i>.124):</p>
+<pre class="aplu">
+      B&larr;&#x0027;222333333344444445555555&#x0027;
+      C&larr;&#x0027;12345.67890123456789&#x0027;
+      (B MUL C) DIV B
+12345.67890123456789
+</pre>
+
+<p>When you write applications using the multiprecision suite try to avoid using these functions, because of the overhead of repeatedly translating into and out of character format. However, they are useful when using APL in desk-calculator mode for development and testing work.</p>
+
+<h3>The Strong Pseudoprime Test</h3>
+
+<p>This is a development from Fermat&rsquo;s theorem (also known as Fermat&rsquo;s little theorem) which says that if <i>n</i> is prime then a<sup><i>n</i>&minus;1</sup> &#x2261; 1 mod <i>n</i> for 0 < a < <i>n</i>. This also holds true for some composite numbers, which are therefore called <i>pseudoprimes to base a</i>. If these composites are pseudoprimes for all <i>a</i> then they are called <i>absolute pseudoprimes</i> or <i>Carmichael numbers</i>. Fermat&rsquo;s theorem is improved by Euler&rsquo;s criterion, which states that an odd composite number <i>n</i> is called an Euler pseudoprime for base <i>a</i> if <i>a<sup>(<i>n</i>-1)/2</sup></i> &#x2261; (<i>a/<i>n</i></i>) mod <i>n</i>, with (<i>a,<i>n</i></i>)=1, where (<i>a/<i>n</i></i>) is Jacobi&rsquo;s symbol. Riesel[1], <i>p</i>.98, carries this a little further and arrives at the concept of a <i>strong pseudoprime</i>, which is defined as follows:</p>
+
+<p>An odd composite number <i>n</i> with <i>n</i>&minus;1 = 2<sup>s</sup><i>d</i>, <i>d</i> odd, is called a <i>strong pseudoprime for base a</i> if either <i>a<sup>d</sup></i> &#x2261; 1 mod <i>n</i>, or <i>a</i><sup>2<sup>r</sup><i>d</i></sup> &#x2261; &ndash;1 mod <i>n</i>, for 0 &#x2264; <tt class="aplu">r</tt> < s.</p>
+
+<p>This function is executed in the root namespace of the workspace. Its left argument is the base, which defaults to 2 if it is omitted, and the right argument is the number to be tested, which can be given as a character string or as a multiprecision number in vector format. If the number fails the test it must be composite, so we return with zero. Of course, if the number passes the test it could still be composite, but we return 1 to indicate that it is a pseudoprime.</p>
+<pre class="aplu">
+     &nabla; z&larr;{a}Spsp n;d;e;i;n1;q;r;s;sm
+[1]    &#x234E;(0=&#x2395;Nc&#x0027;a&#x0027;)/&#x0027;a&larr;2&#x0027;
+[2]    n&larr;mp.Fexec n
+</pre>
+
+<p>We are going to split <i>n</i>&minus;1 as described above. We strip the powers of 2 from <i>n</i>-1, count them into s, quotient is <i>d</i></p>
+<pre class="aplu">
+[3]    n1&larr;d&larr;n mp.Fsub 1 &#x22C4; s&larr;0
+[4]    &#x234E;((d[0]&gt;0)&or;&#x007E;2&#x007C;&macr;1&#x2191;d)/&#x0027;d&larr;&#x2283;d mp.Idiv 2 &#x22C4; s&larr;s+1 &#x22C4; &rarr;&#x2395;LC&#x0027;
+</pre>
+
+<p>If <i>a<sup>d</sup></i> &#x2261; 1 mod <i>n</i> then exit</p>
+<pre class="aplu">
+[5]    &rarr;(z&larr;0 1 mp.Fequal e&larr;a mp.Impow d n)/0
+</pre>
+
+<p>We now look at the variable <tt class="aplu">r</tt>. When <tt class="aplu">r</tt> is 0 we test the number we have just generated.</p>
+<pre class="aplu">
+[6]    &rarr;(z&larr;n1 mp.Fequal e)/0
+[7]    r&larr;1
+</pre>
+
+<p>Square <i>d</i> as <tt class="aplu">r</tt> increases. We are testing for &minus;1 modulo <i>n</i>, which is equivalent to <i>n</i>&minus;1 modulo <i>n</i>, since <tt class="aplu">Imod</tt> returns positive results only</p>
+<pre class="aplu">
+[8]   &#x2206;2:&rarr;(z&larr;n1 mp.Fequal e&larr;(e mp.Fmul e)mp.Imod n)/0
+[9]    &rarr;(s&gt;r&larr;r+1)/&#x2206;2
+</pre>
+
+<p>You may want to add some progress-report code to this function or the <tt class="aplu">Impow</tt> function, because for large numbers they take some considerable time to run.</p>
+
+<p>For an application of this theorem let us look at a repunit. As mentioned in my preamble to Part I, the repunits are the numbers of the form (10<sup>n</sup><i></i>&minus;1)/9. Obviously these can only be prime if <i>n</i> is prime, so let us look at the case <i>n</i>=17.</p>
+<pre class="aplu">
+      Spsp 17&#x2374;&#x0027;1&#x0027;
+</pre>
+
+<p>After about fifteen seconds (on a 486/33) comes the result (0, implying composite), so either we give up on this one, or we start trying to factor it. (The factors are in fact 2071723 and 5363222357, see later on, and also Yates[2], <i>p</i>.142.)</p>
+
+<h3>A primality test</h3>
+
+<p>It is not my intention to regurgitate the contents of chapter 4 of Riesel here, but this function is included as an example of how to write APL code to fit the theorems in the book. This function is based on Theorem 4.6, <i>p</i>.109, and uses a relaxed converse of Fermat&rsquo;s theorem to determine the primality of an integer.</p>
+
+<p>The prerequisites for this test are as follows. If <i>N</i> is the number to be tested we must have a partial factorization of <i>N</i> &minus; 1, such that if <i>N</i> &minus; 1 = <i>R</i> <i>F</i> (where <i>F</i> is the factored part and <i>R</i> is the remaining part) then <i>R</i> < <i>F</i>. The theorem states that if we can find an integer <i>a</i> such that GCD(<i>a</i><sup>(<i>N</i>&minus;1)/<i>q</i></sup> &minus; 1,<i>N</i>) = 1 for each divisor <i>q</i> of <i>F</i>, and a<sup><i>N</i>&minus;1</sup> &#x2261; 1 mod <i>N</i>, then <i>N</i> is prime. This last condition implies that <i>N</i> is a pseudoprime to base <i>a</i>: this is not tested in the function here, because it takes so long, and it is assumed that the first thing that anyone does in testing for primality is a pseudoprime test, so it will have been tested already.</p>
+
+<p>This function takes <i>a</i> as its left argument (which defaults to 2 if not given). The right argument is a 2-element vector of <i>N</i> and <i>F</i> in any format you care to supply (character, scalar or multiprecision number). The result is a return code followed by a helpful message: the return codes are 1 for a prime, &minus;1 for a composite number and 0 if the test is inconclusive, in which case you can repeat it with other values of <i>a</i>.</p>
+
+<p>We start off by sorting out our input and preparing to loop through the divisors. Note that we only really need one copy of each divisor in <i>F</i>, not all of them. Also, we do not test that each factor of <i>F</i> actually divides <i>N</i> &minus; 1 because we assume that these details have been sorted out before calling the function.</p>
+<pre class="aplu">
+     &nabla; Z&larr;{A}Test4_6 X;A;B;F;J;N;N1;Q;R;&#x2395;IO
+[1]    &#x2395;IO&larr;0
+[2]    N F&larr;X &#x22C4; &#x234E;(0=&#x2395;NC&#x0027;A&#x0027;)/&#x0027;A&larr;2&#x0027;
+[3]    N&larr;0 0 mp.Fadd mp.Fexec N &#x22C4; N1&larr;N mp.Fsub 0 1
+[4]    F&larr;0 mp.Fadd&uml;?mp.Fexec&uml;F
+[5]    J&larr;0
+</pre>
+
+<p>Now test <tt class="aplu">1=GCD((B&larr;&macr;1+A*N1&#x00F7;F[J]),N)</tt>. We can shorten the calculation here by noting that GCD(<i>B</i>,<i>N</i>) is the same as GCD(<i>B</i> mod <i>N</i>,<i>N</i>) and the mod bit is done in <tt class="aplu">Impow</tt>, so if <i>B</i> mod <i>N</i> is 0 or 1 then the GCD is <i>N</i> or 1. The function is verbose here because it takes a fair length of time to run, and we want to know what is going on.</p>
+<pre class="aplu">
+[6]   &#x2206;1:Z&larr;&#x0027;Testing &#x0027;,(0 mp.Ffmt J&sup;F),&#x0027;, exponent is &#x0027;,0 mp.Ffmt B&larr;&sup;N1 mp.Idiv J&sup;F
+[7]    Z,&#x0027; residue is &#x0027;,0 mp.Ffmt B&larr;0 &macr;1 mp.Fadd A mp.Impow B N
+</pre>
+
+<p>If <i>B</i> mod <i>N</i> is 0 the test was inconclusive, if it is 1 then this part of the test has succeeded. If it is anything else we can continue to calculate the GCD. If this is 1 then we continue with the next factor of <i>F</i>, otherwise we have found a factor of <i>N</i>, which must be composite.</p>
+<pre class="aplu">
+[8]    &rarr;(0 0 mp.Fequal B)/&#x2206;3   &#x235D; Test inconclusive
+[9]    &rarr;(0 1 mp.Fequal B)/&#x2206;2   &#x235D; GCD must be 1, so try next one
+[10]   &rarr;(0 1 mp.Fequal Q&larr;N mp.Gcd B)/&#x2206;2  &#x235D; Else get GCD.
+[11]   Z&larr;&macr;1(&#x0027;Composite! &#x0027;,(0 mp.Ffmt Q),&#x0027; is a factor.&#x0027;) &#x22C4; &rarr;0
+[12]  &#x2206;2:&rarr;((&#x2374;F)&gt;J&larr;J+1)/&#x2206;1
+[13]   Z&larr;&#x0027;Prime. By Riesel Th. 4.6 with factor&#x0027;,(1&lt;&#x2374;F)/&#x0027;s&#x0027;
+[14]   Z&larr;dbr Z,,&#x2395;FMT 0 mp.Ffmt&uml;F &#x22C4; Z&larr;1 Z &#x22C4; &rarr;0
+[15]  &#x2206;3:Z&larr;0(&#x0027;Riesel Th. 4.6 primality test inconclusive with A=&#x0027;,&#x2337;A)
+     &nabla;
+</pre>
+
+<p>The GCD function uses Euclid&rsquo;s algorithm to calculate the Greatest Common Divisor. (It is stored in namespace <tt class="aplu">mp</tt>.) In order to make things a bit easy when scalars are supplied, there are two paths through the function.</p>
+<pre class="aplu">
+     &nabla; Z&larr;A Gcd B
+[1]    &rarr;(1&#x005E;.=(&#x2374;A),&#x2374;B)/&#x2206;2
+[2]    &#x234E;(B Fgt A)/&#x0027;A B&larr;B A&#x0027;
+[3]   &#x2206;1:&rarr;(0 1 Fequal Z&larr;A Imod B)/0
+[4]    &#x234E;(0 0 Fequal Z)/&#x0027;Z&larr;B &#x22C4; &rarr;0&#x0027;
+[5]    &#x234E;(0 Fgt Z)/&#x0027;Z&larr;Z Fadd B&#x0027;
+[6]    A&larr;B &#x22C4; B&larr;Z &#x22C4; &rarr;&#x2206;1
+</pre>
+
+<p>The following code replicates the previous code, but for scalar rather than multiprecision input.</p>
+<pre class="aplu">
+[7]   &#x2206;2:&#x234E;(B&gt;A)/&#x0027;A B&larr;B A&#x0027;
+[8]   &#x2206;3:&rarr;(1=Z&larr;B&#x007C;A)/0
+[9]    &#x234E;(0=Z)/&#x0027;Z&larr;B &#x22C4; &rarr;0&#x0027;
+[10]   &#x234E;(0&gt;Z)/&#x0027;Z&larr;Z+B&#x0027;
+[11]   A&larr;B &#x22C4; B&larr;Z &#x22C4; &rarr;&#x2206;3
+     &nabla;
+</pre>
+
+<p>For an example we can test <i>N</i> = 39 &#x00D7; 2<sup>22</sup> + 1 = 163577857, which can easily be verified a prime by trial division.</p>
+<pre class="aplu">
+      2 Test4_6 163577857 2
+Testing 2, exponent is 81788928, residue is 0
+0  Riesel Th. 4.6 primality test inconclusive with A=2 
+</pre>
+<pre class="aplu">
+      3 Test4_6 163577857 2
+Testing 2, exponent is 81788928, residue is 0
+0  Riesel Th. 4.6 primality test inconclusive with A=3 
+</pre>
+<pre class="aplu">
+      5 Test4_6 163577857 2
+Testing 2, exponent is 81788928, residue is 163577855
+1  Prime. By Riesel Th. 4.6 with factor 2
+</pre>
+
+<p>To show what can happen, I will give an example with a small Carmichael Number (which, as I said earlier, is pseudoprime for all bases). Note that the strong pseudoprime test is stronger than that used for the Carmichael numbers: as 294409 (= 37 &#x00D7; 73 &#x00D7; 109) is not a strong pseudoprime to base 2 we would not normally have got as far as testing it with this function.</p>
+<pre class="aplu">
+      Test4_6 294409 (2 3 29 47)
+Testing 2, exponent is 147204, residue is 0
+0  Riesel Th. 4.6 primality test inconclusive with A=2 
+</pre>
+<pre class="aplu">
+      3 Test4_6 294409 (2 3 29 47)
+Testing 2, exponent is 147204, residue is 0
+0  Riesel Th. 4.6 primality test inconclusive with A=3 
+</pre>
+<pre class="aplu">
+      5 Test4_6 294409 (2 3 29 47)
+Testing 2, exponent is 147204, residue is 32264
+&macr;1  Composite! 4033 is a factor.
+</pre>
+
+<h3>Factorizing</h3>
+
+<p>There are several different methods for finding the factors of a number. The obvious first choice for a method is trial division: keep dividing your number by successive primes until you get a zero remainder: divide the number by that prime and start the process again on the quotient with the same prime (it may appear more than once in the factorization) until the next prime is greater than the square root of the remaining number. This works fine for small numbers (with a computer this process is relatively quick) but is no good for numbers like (10<sup>33</sup>&minus;1)/9, where the divisors 67<sup>2</sup>, 271, 397 and 126951 are found very quickly, but the remaining number is a bit more difficult to factorize (it is 213524917 &#x00D7; 68618940391). This trial division can be speeded up in certain cases, for example the primitive prime factors of (<i>a<sup>n</sup>&minus; b<sup>n</sup></i>)/(<i>a&minus; b</i>) must be of the form <i>kn</i>+1 (or 2<i>kn</i>+1 if <i>n</i> is odd), which eliminates a lot of checking, but there&rsquo;s still a lot left to do.</p>
+
+<p>The next systematic factorizing method to appear, is due to Fermat. The idea is to write an odd composite number as the difference between two square numbers. If we can write
+<br />
+ <i>n</i> = <i><tt class="aplu">x</tt><sup>2</sup>&minus; y<sup>2</sup> = (<tt class="aplu">x</tt> &minus; y</i>)(<i><tt class="aplu">x</tt> + y</i>) where <i><tt class="aplu">x</tt> &minus; y</i> &#x2260; 1, 
+<br />
+we immediately have a factorization. See Riesel[1], <i>p</i>.153ff, for the details.</p>
+
+<p>We start by making our input numeric, then taking its square root. If the remainder is 0 we have hit on a factorization immediately, so we exit; otherwise we compute an intermediate value <tt class="aplu">m</tt> = [&#x221A;<i>n</i>] + 1, which is the smallest possible value of <i>x</i>.</p>
+<pre class="aplu">
+     &nabla; r&larr;Fermat n;a;m;sqrem;z
+[1]    n&larr;mp.Fexec n
+[2]    a sqrem&larr;mp.Isqrt n
+[3]    &rarr;(&#x007E;0 0 mp.Fequal sqrem)/&#x2206;1
+[4]    &#x0027;Number is the square of &#x0027;,0 mp.Ffmt r&larr;a &#x22C4; &rarr;0
+[5]   &#x2206;1:m&larr;a mp.Fadd 0 1
+</pre>
+
+<p>We consider <i><tt class="aplu">z</tt> = <tt class="aplu">x</tt><sup>2</sup> &minus; <i>n</i></i> and check whether this is a square. If it is then we have finished, otherwise we try the next possible <tt class="aplu">x</tt>, i.e. <tt class="aplu">m</tt> + 1, and try again.</p>
+<pre class="aplu">
+[6]    z&larr;(m mp.Fmul m) mp.Fsub n
+[7]    a sqrem&larr;mp.Isqrt z
+[8]    &rarr;(0 0 mp.Fequal sqrem)/&#x2206;3
+[9]   &#x2206;2:z&larr;z mp.Fadd 1 mp.Fadd 2 mp.Fmul m
+[10]   m&larr;1 mp.Fadd m
+[11]   a sqrem&larr;mp.Isqrt z
+[12]   &rarr;(&#x007E;0 0 mp.Fequal sqrem)/&#x2206;2
+[13]  &#x2206;3:r&larr;(m mp.Fsub a)(m mp.Fadd a)
+     &nabla;
+</pre>
+
+<p>This function is quick if the two factors are approximately the same size, and it is horribly slow if they are wide apart. It can be made to finish quicker by multiplying the number to be factored by small numbers, but how you decide which small numbers to use is a black art. I think most examples in the reference books are worked backwards from known results (I must confess that my examples were all worked backwards also!).</p>
+
+<p>It can also be made to run much faster for numbers of a certain type. For example, if we know that all the factors of a number have the form 2<i>kn</i> + 1 (which they do for most numbers of the form <i>a<sup>n</sup></i> &#x00B1; <i>b<sup>n</sup></i> for example) then we can reduce the number of iterations by a factor of 2<i><i>n</i><sup>2</sup></i>. See Riesel, <i>p</i>.189, for the details. The function is very similar to the previous one, but supply the value of <i>n</i> as the left argument (here called <i>p</i> to confuse everybody):</p>
+<pre class="aplu">
+     &nabla; r&larr;p Fermatx n;a;m;mod;res;sqrem;t;x;z
+[1]    n&larr;mp.Fexec n
+[2]    a sqrem&larr;mp.Isqrt n
+[3]    &rarr;(&#x007E;0 0 mp.Fequal sqrem)/&#x2206;1
+[4]    &#x0027;Number is the square of &#x0027;,0 mp.Ffmt r&larr;a &#x22C4; &rarr;0
+</pre>
+
+<p>A bit of number theory comes in here. We calculate the modulus (2<i><i>p</i><sup>2</sup></i>) and residue of (<i>n</i>+1)/2 modulo 2<i><i>p</i><sup>2</sup></i>. The residue must be congruent to 1 modulo <i>p</i>, and we have an error if it isn&rsquo;t.</p>
+<pre class="aplu">
+[5]   &#x2206;1:res&larr;(&sup;(1 mp.Fadd n)mp.Idiv 2)mp.Imod mod&larr;2&times;p&times;p
+[6]    &#x2395;SIGNAL(1&ne;p&#x007C;1&#x2193;res)/11
+[7]    t&larr;&sup;(1 mp.Fadd a)mp.Idiv mod
+</pre>
+
+<p>The calculations are slightly different here, as we calculate an intermediate variable <tt class="aplu">x</tt> to assist in the calculation of <tt class="aplu">z</tt>. In order to avoid repetition of coding, an if-then-else block is provided to generate <tt class="aplu">z</tt> differently first time round compared with further execution (the first time is identified by <tt class="aplu">z</tt> = 0). <tt class="aplu">m</tt> is only calculated if it is required to generate the next version of <tt class="aplu">z</tt>. When we have finished we use <tt class="aplu">x</tt> to obtain the factors.</p>
+<pre class="aplu">
+[8]    z&larr;0 0
+[9]   &#x2206;2:x&larr;res mp.Fadd mod mp.Fmul t&larr;1 mp.Fadd t
+[10]   &rarr;(0 0 mp.Fequal z)/&#x2206;3
+[11]   z&larr;z mp.Fadd m &#x22C4; &rarr;&#x2206;4
+[12]  &#x2206;3:z&larr;(x mp.Fmul x)mp.Fsub n
+[13]  &#x2206;4:a sqrem&larr;mp.Isqrt z
+[14]   &rarr;(0 0 mp.Fequal sqrem)/&#x2206;5
+[15]   m&larr;(mod&times;2)mp.Fmul x mp.Fadd mod&#x00F7;2
+[16]   &rarr;&#x2206;2
+[17]  &#x2206;5:r&larr;(x mp.Fsub a)(x mp.Fadd a)
+     &nabla;
+</pre>
+
+<p>I tried to factor (10<sup>17</sup>&minus;1)/9, a number that we know is composite, see earlier. I seemed to be getting nowhere, so I tried multiplying it by 34<i>k</i>+1 for some values of <i>k</i>. All values seemed to give the same result, i.e. a long wait for nothing, until I tried 2585 (<i>k</i> = 76). Then I got the following, in exceedingly quick time:</p>
+<pre class="aplu">
+      0 mp.Ffmt&#x00A8;17 Fermatx 2585 mp.Fmul mp.Fexec 17&#x2374;&#x0027;1&#x0027;
+5355403955  5363222357
+</pre>
+
+<p>From this it is easy to see which factor should be divided by 2585 to obtain the factors of 1111111111111111.</p>
+
+<p>Of course, this is a trivial example: normally the numbers will be much bigger and take much longer to factor. There are many other methods of factorizing large numbers, and the best method may be a combination of several of them running concurrently, the task terminating when a factor is found in any of them.</p>
+
+<p>I hope that this article has been useful in showing how to apply the multiprecision functions to solve problems with primality testing and factorizing. </p>
+
+<h3>References</h3>
+<ol type="1">
+<li>Hans Riesel, <i>Prime numbers and computer methods for factorization</i> (Birkh&auml;user, 1985).</li>
+<li>Samuel Yates, <i>Repunits and Repetends</i> (Star Publishing, Florida, 1982).</li>
+<li><i>The APL Handbook of Techniques</i> (IBM DP Scientific Marketing, 1988. Order No. S320-5996-0).</li>
+</ol>
+
+<h3>Books on Number Theory</h3>
+
+<p>In this article, I have mentioned several items from number theory which there is no room to explain. I would refer the reader to any standard text on number theory for further information, for example:</p>
+<ul>
+<li>G H Hardy and E M Wright, <i>An introduction to the theory of numbers</i>, Oxford University Press, 1938 and several later editions. I am sorry to say that the index in this book is atrocious, and is unworthy of a standard textbook.</li>
+<li>W Sierpinski, <i>Elementary theory of numbers</i>, North-Holland, 1988.</li>
+<li>D M Burton, <i>Elementary number theory</i>, Allyn and Bacon, 1980. This is the Open University set book, and its explanations are very clear.</li>
+</ul>
+
+
+</div> <!-- End of galley -->
+
+<hr noshade>
+<p class="crumb"><font size=-1>
+<a href="http://www.vector.org.uk">
+<img src="../../icons/iconbla.gif" align="middle" 
+alt="VECTOR icon" home border=0" title="VECTOR home" /></a>
+<a href="../../?area=vect&amp;page=content/archive">back issues</a>
+ &gt;
+<a href="index.htm">contents of Vector 12.3</a></font></p>
+
+
+<p style="{font:italic 80%;color:silver}">(webpage generated: 21 November 2007, 19:54)</p>
+
+</body></html>

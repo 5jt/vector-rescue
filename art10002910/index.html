@@ -1,0 +1,1953 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10002910/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Writing ActiveX Controls in Dyalog APL/W - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Writing ActiveX Controls in Dyalog APL/W
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introduction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workshop-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Workshop Notes
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-dual-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Dual Control
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Dual Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Methods
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Properties
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Events
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introducing-the-dual-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introducing the Dual Control
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#changing-dual-into-an-activex-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Changing Dual into an ActiveX Control
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-the-dual-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Testing the Dual Control
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defining-and-exporting-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Defining and Exporting Properties
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Defining and Exporting Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ole-properties-check-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        OLE Properties Check-List
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-properties-from-visual-basic" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Setting Properties from Visual Basic
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defining-and-exporting-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Defining and Exporting Events
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-events-from-visual-basic" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Using Events from Visual Basic
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-dual-in-a-web-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Using Dual in a Web Page
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calling-dual-from-vbscript" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Calling Dual from VBScript
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Writing ActiveX Controls in Dyalog APL/W</h1>
+
+  <p class="printed"><a href="../15/#n1-august-1998">Vector 15:1</a>, page 81</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-user-interfaces">user interfaces</a> <a class="md-tag" href="../tags/#tag-system-interfaces">system interfaces</a> <a class="md-tag" href="../tags/#tag-implementations">implementations</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../15/1/VOL.15-NO.1-AUGUST-1998.pdf#page=83">Read it in the PDF of the issue, page 81</a></em></p>
+<p class="byline"><em>introduction by Adrian Smith, workshop notes by Dyadic Systems</em></p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>This workshop was probably the highlight of the conference - it was given twice, and was fully booked on both occasions. As Ray has already said, it was an object lesson in how to manage a room full of eager APLers faced with some unfamiliar hardware and novel concepts. Virtually everyone ended the session with the OCX control working correctly, but we all had to work at it just enough that most of the material stood a chance of sticking to our poor confused brains. Here are Dyadic’s workshop notes, exactly as used.</p>
+<h2 id="workshop-notes">Workshop Notes<a class="headerlink" href="#workshop-notes" title="Permanent link">&para;</a></h2>
+<p>An <em>ActiveX Control</em> is basically a user-defined control that may be included in GUI applications and Web Browsers. In this workshop you will learn how to</p>
+<ul>
+<li>Create an ActiveX control in Dyalog APL</li>
+<li>Define and Export Properties, Methods and Events</li>
+<li>Include your ActiveX control in a Visual basic application</li>
+<li>Run your ActiveX control from a Web Browser.</li>
+</ul>
+<h2 id="the-dual-control">The Dual Control<a class="headerlink" href="#the-dual-control" title="Permanent link">&para;</a></h2>
+<p><img alt="The Dual control: a track bar with the caption Centigrade and value 30 above it, and Fahrenheit and 86 below, labelled Caption1, Value1, Caption2 and Value2" src="dual.jpg" /></p>
+<p>The ActiveX control we will use for this workshop is deliberately an extremely simple one; so that the intricacies of the control itself do not get in the way of the principles involved.</p>
+<p>There are actually very few restrictions concerning the complexity of the ActiveX control, and it is perfectly possible to package complete multiple-window Dyalog APL applications in this way. Your ActiveX control will be called a <em>Dyalog Dual Control</em> and is based on the Dyalog APL <em>TrackBar</em> object.</p>
+<p>The Dual control allows the user to enter a number using a slider, whilst displaying its value in two different units. For example, you could use it to enter a temperature value which is displayed in both Centigrade and Fahrenheit units. Equally, the same control could be used to enter a measurement of length which is concurrently displayed in centimetres and inches.</p>
+<h3 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h3>
+<p>None. (The Dual control provides no methods.)</p>
+<h3 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h3>
+<p>The Dual control provides the following properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Caption1</td>
+<td>A text string that describes the primary units. This is displayed in the top left corner of the object.</td>
+</tr>
+<tr>
+<td>Caption2</td>
+<td>A text string that describes the secondary or derived units. This is displayed in the bottom left corner of the object.</td>
+</tr>
+<tr>
+<td>Value1</td>
+<td>The current value of the control measured in primary units</td>
+</tr>
+<tr>
+<td>Value2</td>
+<td>The current value of the control measured in secondary units.</td>
+</tr>
+<tr>
+<td>Intercept</td>
+<td>Used to derive Value2 from Value1</td>
+</tr>
+<tr>
+<td>Gradient</td>
+<td>Used to derive Value2 from Value1</td>
+</tr>
+<tr>
+<td>Min</td>
+<td>The minimum value of Value1</td>
+</tr>
+<tr>
+<td>Max</td>
+<td>The maximum value of Value1</td>
+</tr>
+</tbody>
+</table>
+<p>Value2 is derived from Value1 using the expression:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nv">Value2</span><span class="kd">←</span><span class="nv">Intercept</span><span class="o">+</span><span class="nv">Gradient</span><span class="o">×</span><span class="nv">Value1</span>
+</span></code></pre></div>
+<h3 id="events">Events<a class="headerlink" href="#events" title="Permanent link">&para;</a></h3>
+<p>The Dual control generates a ChangeValue event whenever the user alters Value1 using the slider.</p>
+<p>The event message will contain a single parameter (the new value) which may be modified by the host application. In other words, every time the value in the control changes, the host application may detect this as an event and has the opportunity to override the user.</p>
+<h2 id="introducing-the-dual-control">Introducing the Dual Control<a class="headerlink" href="#introducing-the-dual-control" title="Permanent link">&para;</a></h2>
+<p>To save time, the basic APL code for the Dual control has already been written. However, you will have to turn it into an ActiveX control yourself.</p>
+<ol>
+<li><code>)LOAD DUALBASE</code></li>
+<li>Run the function <em>TEST</em> and observe how the 2 Dual controls behave.</li>
+<li>View the function <em>TEST</em> and observe how 2 separate instances of the <em>Dual</em> namespace <em>F.D1</em> and <em>F.D2</em> have been created using <code>⎕OR</code> and <code>⎕NS</code>.</li>
+<li>Using the Dyalog APL Workspace Explorer, open up the various namespaces. See how <em>F1.D1</em> and <em>F1.D2</em> are clones of <em>Dual</em>.</li>
+<li>Open the function <em>Dual.Create</em> and see how the individual components of the control are defined.</li>
+<li>Close the Form <em>F</em>.</li>
+</ol>
+<h2 id="changing-dual-into-an-activex-control">Changing Dual into an ActiveX Control<a class="headerlink" href="#changing-dual-into-an-activex-control" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Change the name of the workspace to DUAL:</li>
+</ol>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">)</span><span class="nv">WSID</span><span class="w"> </span><span class="nv">DUAL</span>
+</span></code></pre></div>
+<ol>
+<li>Make a new namespace called <em>F</em></li>
+</ol>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">)</span><span class="nv">NS</span><span class="w"> </span><span class="nv">F</span>
+</span></code></pre></div>
+<ol>
+<li>Using the Workspace Explorer, move the <em>Dual</em> namespace into <em>F</em>, so that <em>Dual</em> is a child namespace of <em>F</em>.</li>
+<li>Now edit the function <em>F.Dual.Create</em> and make the following changes:</li>
+<li>Remove all references to the local variable <em>POSITION</em>. This change is required because an ActiveX control has no say in its position within its parent. (Hint: use the Search/Replace dialog to remove all occurrences of <code>POSITION←</code>)</li>
+<li>Remove the right argument, <em>SIZE</em> and change <code>Create[1]</code> from:</li>
+</ol>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nv">H</span><span class="w"> </span><span class="nv">W</span><span class="kd">←</span><span class="nv">SIZE</span>
+</span></code></pre></div>
+<p>to</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nv">H</span><span class="w"> </span><span class="nv">W</span><span class="kd">←</span><span class="nf">⎕WG</span><span class="w"> </span><span class="s1">'Size'</span><span class="na">.</span>
+</span></code></pre></div>
+<p>This change allows the control to fit itself within the space allocated by the host application.</p>
+<ol>
+<li>Change <code>Create[4]</code> from:</li>
+</ol>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nv">CH</span><span class="kd">←</span><span class="o">⊃</span><span class="s1">'##'</span><span class="nf">⎕WG</span><span class="o">⊂</span><span class="s1">'TextSize'</span><span class="w"> </span><span class="s1">'W'</span>
+</span></code></pre></div>
+<p>to</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">CH</span><span class="kd">←</span><span class="o">⊃</span><span class="nf">⎕WG</span><span class="o">⊂</span><span class="s1">'TextSize'</span><span class="w"> </span><span class="s1">'W'</span>
+</span></code></pre></div>
+<p>The original code was designed to pick up the character height from the parent Form. The ActiveXControl object does this automatically via its own TextSize property.</p>
+<p>After making these changes, the <em>Create</em> function should be as follows:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">Create</span><span class="sr">;</span><span class="nv">H</span><span class="sr">;</span><span class="nv">W</span><span class="sr">;</span><span class="nv">POS</span><span class="sr">;</span><span class="nv">SH</span><span class="sr">;</span><span class="nv">CH</span><span class="sr">;</span><span class="nv">Y1</span><span class="sr">;</span><span class="nv">Y2</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">H</span><span class="w"> </span><span class="nv">W</span><span class="kd">←</span><span class="nf">⎕WG</span><span class="s1">'Size'</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="nv">SH</span><span class="kd">←</span><span class="m">40</span><span class="w"> </span><span class="c1">⍝ Default Trackbar height</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="nv">POS</span><span class="kd">←</span><span class="m">2</span><span class="o">↑⌊</span><span class="m">0.5</span><span class="o">×</span><span class="m">0</span><span class="o">⌈</span><span class="p">(</span><span class="nv">H</span><span class="o">-</span><span class="nv">SH</span><span class="p">)</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="nv">CH</span><span class="kd">←</span><span class="o">⊃</span><span class="nf">⎕WG</span><span class="o">⊂</span><span class="s1">'TextSize'</span><span class="w"> </span><span class="s1">'W'</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="s1">'Slider'</span><span class="nf">⎕WC</span><span class="s1">'TrackBar'</span><span class="nv">POS</span><span class="p">(</span><span class="s1">'Size'</span><span class="nv">SH</span><span class="w"> </span><span class="nv">W</span><span class="p">)</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">   </span><span class="s1">'Slider'</span><span class="nf">⎕WS</span><span class="p">(</span><span class="s1">'Limits'</span><span class="p">(</span><span class="nv">Min</span><span class="o">,</span><span class="nv">Max</span><span class="p">))(</span><span class="s1">'AutoConf'</span><span class="w"> </span><span class="m">0</span><span class="p">)</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="s1">'Slider'</span><span class="nf">⎕WS</span><span class="p">(</span><span class="s1">'TickSpacing'</span><span class="w"> </span><span class="m">10</span><span class="p">)(</span><span class="s1">'TickAlign'</span><span class="w"> </span><span class="s1">'Top'</span><span class="p">)</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">   </span><span class="s1">'Slider'</span><span class="nf">⎕WS</span><span class="p">(</span><span class="s1">'Event'</span><span class="w"> </span><span class="s1">'ThumbDrag'</span><span class="w"> </span><span class="s1">'ChangeValue'</span><span class="p">)</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">   </span><span class="s1">'Slider'</span><span class="nf">⎕WS</span><span class="p">(</span><span class="s1">'Event'</span><span class="w"> </span><span class="s1">'Scroll'</span><span class="w"> </span><span class="s1">'ChangeValue'</span><span class="p">)</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">  </span><span class="nv">Y1</span><span class="kd">←</span><span class="nv">POS</span><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="o">-</span><span class="nv">CH</span><span class="o">+</span><span class="m">1</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="sr">[</span><span class="m">11</span><span class="sr">]</span><span class="w">  </span><span class="nv">Y2</span><span class="kd">←</span><span class="nv">POS</span><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="o">+</span><span class="nv">SH</span><span class="o">+</span><span class="m">1</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="sr">[</span><span class="m">12</span><span class="sr">]</span><span class="w">  </span><span class="s1">'Cap1'</span><span class="nf">⎕WC</span><span class="s1">'Text'</span><span class="nv">Caption1</span><span class="p">(</span><span class="nv">Y1</span><span class="o">,</span><span class="m">0</span><span class="p">)(</span><span class="s1">'AutoConf'</span><span class="w"> </span><span class="m">0</span><span class="p">)</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="sr">[</span><span class="m">13</span><span class="sr">]</span><span class="w">  </span><span class="s1">'Cap2'</span><span class="nf">⎕WC</span><span class="s1">'Text'</span><span class="nv">Caption2</span><span class="p">(</span><span class="nv">Y2</span><span class="o">,</span><span class="m">0</span><span class="p">)(</span><span class="s1">'AutoConf'</span><span class="w"> </span><span class="m">0</span><span class="p">)</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="sr">[</span><span class="m">14</span><span class="sr">]</span><span class="w">  </span><span class="s1">'V1'</span><span class="nf">⎕WC</span><span class="s1">'Text'</span><span class="p">(</span><span class="o">⍕</span><span class="nv">Value1</span><span class="p">)(</span><span class="nv">Y1</span><span class="o">,</span><span class="nv">W</span><span class="p">)(</span><span class="s1">'HAlign'</span><span class="w"> </span><span class="m">2</span><span class="p">)(</span><span class="s1">'AutoConf'</span><span class="w"> </span><span class="m">0</span><span class="p">)</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="sr">[</span><span class="m">15</span><span class="sr">]</span><span class="w">  </span><span class="nv">CalcValue2</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="sr">[</span><span class="m">16</span><span class="sr">]</span><span class="w">  </span><span class="s1">'V2'</span><span class="nf">⎕WC</span><span class="s1">'Text'</span><span class="p">(</span><span class="o">⍕</span><span class="nv">Value2</span><span class="p">)(</span><span class="nv">Y2</span><span class="o">,</span><span class="nv">W</span><span class="p">)(</span><span class="s1">'HAlign'</span><span class="w"> </span><span class="m">2</span><span class="p">)(</span><span class="s1">'AutoConf'</span><span class="w"> </span><span class="m">0</span><span class="p">)</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<ol>
+<li>Open the function <em>F.Dual.Build</em>. This function turns the <em>Dual</em>’s parent namespace into a Form (an ActiveXControl currently requires a parent Form) and turns <em>Dual</em> itself into an AciveXControl. It then attaches functions <em>Create</em> and <em>Configure</em> as callbacks on the Create and Configure events of the ActiveXControl object itself.</li>
+</ol>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">Build</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">##.⎕WC'Form'('Coord' 'Pixel')('KeepOnClose' 1)</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="nf">⎕WC</span><span class="s1">'ActiveXControl'</span><span class="p">(</span><span class="s1">'Size'</span><span class="w"> </span><span class="m">80</span><span class="w"> </span><span class="m">200</span><span class="p">)(</span><span class="s1">'KeepOnClose'</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="nf">⎕WS</span><span class="s1">'Event'</span><span class="w"> </span><span class="s1">'Create'</span><span class="w"> </span><span class="s1">'Create'</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="nf">⎕WS</span><span class="s1">'Event'</span><span class="w"> </span><span class="s1">'Configure'</span><span class="w"> </span><span class="s1">'Configure'</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="nf">⎕NQ</span><span class="s1">''</span><span class="w"> </span><span class="s1">'Create'</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<ol>
+<li>Run function <em>F.Dual.Build</em>. You should see a Form containing a single instance of the Dual control. Please resist any temptation to play with it at this stage; we want it to be in is default state for when we save it.</li>
+<li>
+<p>Type the following expression; note that the ClassID, which uniquely identifies your control, is allocated when you create the ActiveXControl object.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="s1">'F.Dual'</span><span class="nf">⎕WG</span><span class="s1">'ClassID'</span>
+</span></code></pre></div>
+</li>
+<li>
+<p>Type <code>)SAVE</code>. This causes APL to make an OCX file containing your ActiveX control and to register it with Windows. To confirm, type:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nf">⎕CMD</span><span class="s1">'DIR *.OCX'</span>
+</span></code></pre></div>
+</li>
+</ol>
+<h2 id="testing-the-dual-control">Testing the Dual Control<a class="headerlink" href="#testing-the-dual-control" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Close Dyalog APL</li>
+<li>Start Visual Basic and click <em>Standard EXE</em>.</li>
+<li>Click the right mouse button in the leftmost toolbox and select <em>Components</em> from the pop-up menu.</li>
+<li>Locate the control named <em>Dyalog DUAL Objects</em>, set its check box on and click OK. This adds a tool for the Dual control to the Visual Basic designer toolbox.</li>
+<li>Click on the new tool and drag out an outline on your Form. An instance of the Dual control will appear.</li>
+<li>Repeat step 5 to position a second instance of the Dual control on your Visual Basic Form.</li>
+<li>Select Run/Start from the Visual Basic menubar.</li>
+<li>Exercise the 2 Dual controls.</li>
+<li>Select Run/End from the Visual Basic menubar.</li>
+<li>Click on one of the Dual controls and scroll through its Property list. Notice that all the properties listed are standard Visual Basic ones; there are no properties (or indeed methods and events) exported. We will learns how to do this next.</li>
+<li>Close Visual Basic; do not save the project.</li>
+</ol>
+<h2 id="defining-and-exporting-properties">Defining and Exporting Properties<a class="headerlink" href="#defining-and-exporting-properties" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Start Dyalog APL and load the DUAL workspace (Hint: use the <em>File</em> menu; it will be the most recently saved file).</li>
+<li>Change space into the <em>F.Dual</em> namespace.</li>
+</ol>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">)</span><span class="nv">CS</span><span class="w"> </span><span class="nv">F</span><span class="na">.</span><span class="nv">Dual</span>
+</span></code></pre></div>
+<ol>
+<li>The properties we wish to export are:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Caption1</td>
+<td>Description of the primary set of units</td>
+</tr>
+<tr>
+<td>Caption2</td>
+<td>Description of the secondary set of units</td>
+</tr>
+<tr>
+<td>Value1</td>
+<td>The primary value in the control</td>
+</tr>
+<tr>
+<td>Min</td>
+<td>Minimum for Value1</td>
+</tr>
+<tr>
+<td>Max</td>
+<td>Maximum for Value1</td>
+</tr>
+<tr>
+<td>Intercept</td>
+<td>Used to derive the secondary value (Value2)</td>
+</tr>
+<tr>
+<td>Gradient</td>
+<td>Used to derive the secondary value (Value2)</td>
+</tr>
+</tbody>
+</table>
+<p>Although we could export all these properties as <em>variables</em>, it is generally more useful to employ <em>Get</em> and <em>Put</em> functions. The reason for this is that there is no mechanism to detect when the host application changes a property/variable; nor is there any mechanism to prevent it assigning an inappropriate value. The <em>Get</em> and <em>Put</em> functions you need are listed below. To save you time, you can copy them in from the workspace DUALFNS.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="p">)</span><span class="nv">COPY</span><span class="w"> </span><span class="nv">DUALFNS</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">GetCaption1</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">R</span><span class="kd">←</span><span class="nv">Caption1</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">SetCaption1</span><span class="w"> </span><span class="nv">C</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="s1">'Cap1'</span><span class="nf">⎕WS</span><span class="s1">'Text'</span><span class="p">(</span><span class="nv">Caption1</span><span class="kd">←</span><span class="nv">C</span><span class="p">)</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">GetCaption2</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">R</span><span class="kd">←</span><span class="nv">Caption2</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">SetCaption2</span><span class="w"> </span><span class="nv">C</span>
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="s1">'Cap2'</span><span class="nf">⎕WS</span><span class="s1">'Text'</span><span class="p">(</span><span class="nv">Caption2</span><span class="kd">←</span><span class="nv">C</span><span class="p">)</span>
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">GetIntercept</span>
+</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">R</span><span class="kd">←</span><span class="nv">Intercept</span>
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">SetIntercept</span><span class="w"> </span><span class="nv">I</span>
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">Intercept</span><span class="kd">←</span><span class="nv">I</span>
+</span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="nv">CalcValue2</span>
+</span><span id="__span-12-26"><a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="s1">'V2'</span><span class="nf">⎕WS</span><span class="s1">'Text'</span><span class="p">(</span><span class="o">⍕</span><span class="nv">Value2</span><span class="p">)</span>
+</span><span id="__span-12-27"><a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-12-28"><a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a>
+</span><span id="__span-12-29"><a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">GetGradient</span>
+</span><span id="__span-12-30"><a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">R</span><span class="kd">←</span><span class="nv">Gradient</span>
+</span><span id="__span-12-31"><a id="__codelineno-12-31" name="__codelineno-12-31" href="#__codelineno-12-31"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-12-32"><a id="__codelineno-12-32" name="__codelineno-12-32" href="#__codelineno-12-32"></a>
+</span><span id="__span-12-33"><a id="__codelineno-12-33" name="__codelineno-12-33" href="#__codelineno-12-33"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">SetGradient</span><span class="w"> </span><span class="nv">G</span>
+</span><span id="__span-12-34"><a id="__codelineno-12-34" name="__codelineno-12-34" href="#__codelineno-12-34"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">Gradient</span><span class="kd">←</span><span class="nv">G</span>
+</span><span id="__span-12-35"><a id="__codelineno-12-35" name="__codelineno-12-35" href="#__codelineno-12-35"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="nv">CalcValue2</span>
+</span><span id="__span-12-36"><a id="__codelineno-12-36" name="__codelineno-12-36" href="#__codelineno-12-36"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="s1">'V2'</span><span class="nf">⎕WS</span><span class="s1">'Text'</span><span class="p">(</span><span class="o">⍕</span><span class="nv">Value2</span><span class="p">)</span>
+</span><span id="__span-12-37"><a id="__codelineno-12-37" name="__codelineno-12-37" href="#__codelineno-12-37"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-12-38"><a id="__codelineno-12-38" name="__codelineno-12-38" href="#__codelineno-12-38"></a>
+</span><span id="__span-12-39"><a id="__codelineno-12-39" name="__codelineno-12-39" href="#__codelineno-12-39"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">GetValue1</span>
+</span><span id="__span-12-40"><a id="__codelineno-12-40" name="__codelineno-12-40" href="#__codelineno-12-40"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">R</span><span class="kd">←</span><span class="nv">Value1</span>
+</span><span id="__span-12-41"><a id="__codelineno-12-41" name="__codelineno-12-41" href="#__codelineno-12-41"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-12-42"><a id="__codelineno-12-42" name="__codelineno-12-42" href="#__codelineno-12-42"></a>
+</span><span id="__span-12-43"><a id="__codelineno-12-43" name="__codelineno-12-43" href="#__codelineno-12-43"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">SetValue1</span><span class="w"> </span><span class="nv">V</span>
+</span><span id="__span-12-44"><a id="__codelineno-12-44" name="__codelineno-12-44" href="#__codelineno-12-44"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="m">1</span><span class="w"> </span><span class="nf">⎕NQ</span><span class="s1">''</span><span class="w"> </span><span class="s1">'ChangeValue'</span><span class="nv">V</span>
+</span><span id="__span-12-45"><a id="__codelineno-12-45" name="__codelineno-12-45" href="#__codelineno-12-45"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>The <em>Get</em> functions need no explanation; they simply return the value of the corresponding variable. The <em>Set</em> functions assign a new value to the corresponding variable and update the control accordingly. <em>SetValue1</em> does this by enqueuing a ChangeValue event which invokes the <em>ChangeValue</em> callback.</p>
+<ol>
+<li>Display the Object Properties dialog box for the function <em>GetCaption1</em>. (Hint: use the Workspace Explorer). Select the <em>Ole Properties</em> tab. As you have not yet defined any Ole attributes, the default display is as follows:</li>
+</ol>
+<p><img alt="The Object Properties dialog on its Ole Properties tab: rows Result and Param1, both VT_VARIANT; Help and ID fields; Method, Prop Get and Prop Set options with Method set; Exported checked" src="props1.jpg" /></p>
+<p>Using the right mouse button menu, delete the <em>Param1</em> and <em>Param2</em> rows (this is a <em>Get</em> function so it requires no parameter arguments).</p>
+<p>Change the data type for the <em>Result</em> to <em>VT_BSTR</em> (a text string).</p>
+<p>Check the <em>Prop Get</em> radio button to indicate that this is a <em>Property Get</em> function and enter the name of the property (<em>Caption1</em>) to which it applies.</p>
+<p>Finally, make sure that the <em>Exported</em> option is checked.</p>
+<p>Note that it is not necessary for the property name referenced by the <em>Get</em> and <em>Put</em> functions to correspond to a variable name, although in this case it does.</p>
+<p>The final Ole properties dialog box for <em>GetCaption1</em> should appear as follows:</p>
+<p><img alt="The Object Properties dialog with a single Result row of type VT_BSTR, Prop Get selected with property Caption1, and Exported checked" src="props2.jpg" /></p>
+<p>Now do the same for the <em>SetCaption1</em> function. This function takes an argument which it expects to be a character vector. It must therefore be defined as having a single parameter of data type <em>VT_BSTR</em>; the parameter name is unimportant. However, you must ensure that the <em>Optional</em> button is unchecked.</p>
+<p>In APL terms, the function does not return a result. However, in OLE terms the result is defined to be of type <em>VT_VOID</em>.</p>
+<p>The Ole properties for <em>SetCaption1</em> should appear as follows:</p>
+<p><img alt="The Object Properties dialog with rows Result VT_VOID and Caption1 VT_BSTR, Prop Set selected with property Caption1, and Exported checked" src="props3.jpg" /></p>
+<ol>
+<li>Now complete the Ole Properties for <em>GetCaption2</em> and <em>SetCaption2</em>, <em>GetIntercept</em> and <em>SetIntercept</em>, <em>GetGradient</em> and <em>SetGradient</em> and for <em>GetValue1</em> and <em>SetValue1</em> in a similar manner. Note that the data type for <em>Gradient</em> and <em>Intercept</em> properties should be <em>VT_R8</em> and for the <em>Value1</em> property it should be <em>VT_I4</em>. Use the following check-list.</li>
+</ol>
+<h3 id="ole-properties-check-list">OLE Properties Check-List<a class="headerlink" href="#ole-properties-check-list" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Result</th>
+<th>Param</th>
+<th>Get/Set</th>
+<th>Property</th>
+<th>Done</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>GetCaption1</em></td>
+<td>VT_BSTR</td>
+<td></td>
+<td>Get</td>
+<td>Caption1</td>
+<td></td>
+</tr>
+<tr>
+<td><em>GetCaption2</em></td>
+<td>VT_BSTR</td>
+<td></td>
+<td>Get</td>
+<td>Caption2</td>
+<td></td>
+</tr>
+<tr>
+<td><em>GetGradient</em></td>
+<td>VT_R8</td>
+<td></td>
+<td>Get</td>
+<td>Gradient</td>
+<td></td>
+</tr>
+<tr>
+<td><em>GetIntercept</em></td>
+<td>VT_R8</td>
+<td></td>
+<td>Get</td>
+<td>Intercept</td>
+<td></td>
+</tr>
+<tr>
+<td><em>GetValue1</em></td>
+<td>VT_I4</td>
+<td></td>
+<td>Get</td>
+<td>Value1</td>
+<td></td>
+</tr>
+<tr>
+<td><em>SetCaption1</em></td>
+<td>VT_VOID</td>
+<td>VT_BSTR</td>
+<td>Set</td>
+<td>Caption1</td>
+<td></td>
+</tr>
+<tr>
+<td><em>SetCaption2</em></td>
+<td>VT_VOID</td>
+<td>VT_BSTR</td>
+<td>Set</td>
+<td>Caption2</td>
+<td></td>
+</tr>
+<tr>
+<td><em>SetGradient</em></td>
+<td>VT_VOID</td>
+<td>VT_R8</td>
+<td>Set</td>
+<td>Gradient</td>
+<td></td>
+</tr>
+<tr>
+<td><em>SetIntercept</em></td>
+<td>VT_VOID</td>
+<td>VT_R8</td>
+<td>Set</td>
+<td>Intercept</td>
+<td></td>
+</tr>
+<tr>
+<td><em>SetValue1</em></td>
+<td>VT_VOID</td>
+<td>VT_I4</td>
+<td>Set</td>
+<td>Value1</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>When you have finished this task, open the Properties dialog box for the Dual object itself and look at the Ole Properties tag. This provides another interface to define exported functions.</li>
+<li>Finally, re-save the workspace. This will update your .OCX file with all the new information.</li>
+</ol>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p">)</span><span class="nv">SAVE</span>
+</span></code></pre></div>
+<h2 id="setting-properties-from-visual-basic">Setting Properties from Visual Basic<a class="headerlink" href="#setting-properties-from-visual-basic" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Close Dyalog APL</li>
+<li>Start Visual Basic and click <em>Standard EXE.</em></li>
+<li>Click the right mouse button in the leftmost toolbox and select <em>Components</em> from the pop-up menu.</li>
+<li>Locate the control named <em>Dyalog DUAL Objects</em>, set its check box on and click <em>OK</em>. This adds a tool for the Dual control to the Visual Basic designer toolbox.</li>
+<li>Click on the new tool and drag out an outline on your Form. An instance of the Dual control (called Dual1) will appear.</li>
+<li>In the Properties dialog box, set the Dual1 properties as follows:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Caption1</td>
+<td>Centimetres</td>
+</tr>
+<tr>
+<td>Caption2</td>
+<td>Inches</td>
+</tr>
+<tr>
+<td>Gradient</td>
+<td>0.3937</td>
+</tr>
+<tr>
+<td>Intercept</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>Repeat step 5 to position a second instance of the Dual control (Dual2) on your Visual Basic Form.</li>
+<li>Double-Click the left mouse button over your Form (<em>Form1</em>). This will bring up the code editor dialog box. Edit the Form_Load() subroutine, entering the following program statements. This code will be run when Visual Basic starts your application and loads the Form <em>Form1</em>. It illustrates how you can change the properties of your Dyalog APL ActiveX control dynamically.</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Private Sub Form_Load()
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>Dual2.Caption1 = "Inches"
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>Dual2.Caption2 = "Centimetres"
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>Dual2.Intercept = 0
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>Dual2.Gradient = 2.54
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>End Sub
+</span></code></pre></div>
+<ol>
+<li>Now test your application by selecting Run/Start from the menubar. When you have finished, select Run/End.</li>
+<li>Exit Visual Basic; do <strong>not</strong> save the Project or the Form.</li>
+</ol>
+<h2 id="defining-and-exporting-events">Defining and Exporting Events<a class="headerlink" href="#defining-and-exporting-events" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Start Dyalog APL and load the DUAL workspace (Hint: use the <em>File</em> menu; it will be the most recently saved file)</li>
+<li>Using the Workspace Explorer, open the callback function <em>ChangeValue</em> in <em>F.Dual</em> Alter <code>ChangeValue[2]</code> from:</li>
+</ol>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nv">Value1</span><span class="kd">←</span><span class="o">⊃</span><span class="m">¯1</span><span class="o">↑</span><span class="nv">MSG</span>
+</span></code></pre></div>
+<p>to</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nv">Value1</span><span class="kd">←</span><span class="m">4</span><span class="w"> </span><span class="nf">⎕NQ</span><span class="w"> </span><span class="s1">''</span><span class="w"> </span><span class="s1">'ChangeValue'</span><span class="w"> </span><span class="p">(</span><span class="o">⊃</span><span class="m">¯1</span><span class="o">↑</span><span class="nv">MSG</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Then close the function. Previously, the <em>ChangeValue</em> function simply accepted the new value (of the Trackbar thumb) that it received as the last element of the event message. Now it generates an external <em>ChangeValue</em> event for the host application. The host may in turn modify the new value which is returned as the result of the expression. Thus not only can Dyalog APL generate events which are detectable by the host application, it can also accept modifications.</p>
+<ol>
+<li>Again using the Workspace Explorer, open the Properties dialog box for the Dual object itself and select the <em>OleEvents</em> tab.<ol>
+<li>Enter the name of the event <em>ChangeValue</em> into the edit box labelled <em>Name</em>.</li>
+<li>Click <em>Add</em></li>
+<li>Click the right mouse button over the <em>Result</em> row and select <em>Insert</em></li>
+<li>Change the name <em>Param1</em> to <em>Value1</em>, the <em>Type</em> to <em>VT_I4</em> and the <em>Modifier</em> to <em>VT_PTR</em>. This defines the event to supply a pointer to an integer. The fact that it is a <em>pointer</em> means that the (integer) parameter may be modified by the host application.</li>
+</ol>
+</li>
+</ol>
+<p>The final appearance of this dialog box should be as follows:</p>
+<p><img alt="The Object Properties dialog on its Ole Events tab: rows Result VT_VOID and Value1 VT_I4 with a pointer modifier, and the event name ChangeValue added" src="events.jpg" /></p>
+<ol>
+<li>Click OK, change back to the root space, and save the workspace</li>
+</ol>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="p">)</span><span class="nv">CS</span><span class="w"> </span><span class="c1">#</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="p">)</span><span class="nv">SAVE</span>
+</span></code></pre></div>
+<h2 id="using-events-from-visual-basic">Using Events from Visual Basic<a class="headerlink" href="#using-events-from-visual-basic" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Close Dyalog APL</li>
+<li>Start Visual Basic and click <em>Standard EXE</em>.</li>
+<li>Click the right mouse button in the leftmost toolbox and select <em>Components</em> from the pop-up menu.</li>
+<li>Locate the control named <em>Dyalog DUAL Objects</em>, set its check box on and click <em>OK</em>. This adds a tool for the Dual control to the Visual Basic designer toolbox.</li>
+<li>Click on the new tool and drag out an outline on your Form. An instance of the Dual control (called Dual1) will appear.</li>
+<li>Select the label tool and add a label object to the Form. Select its Font property and change it to 14-point bold.</li>
+<li>Double-click over Dual1 to bring up the code window. Notice how Visual Basic presents you with a skeleton subroutine for the (only) event <em>ChangeValue</em> which we have just defined and exported. Notice too that Visual Basic knows that the single parameter is named <em>Value1</em> and that its data type is <em>Long</em> (<em>VT_I4</em>).</li>
+<li>Enter the following code, then close the code window.</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Private Sub Dual1_ChangeValue(Value1 As Long)
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>Label1.Caption=Str(Value1)
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>End Sub
+</span></code></pre></div>
+<ol>
+<li>Start the application using <em>Run/Start</em>. Exercise the Dual control and observe that Visual Basic updates the Label1 control in response to the ChangeValue events. When you have finished, select <em>Run/End</em>.</li>
+<li>
+<p>Double-click over Dual1 to bring up the code window. Alter the Dual1_ChangeValue subroutine to the following, then close the code window.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>Private Sub Dual1_ChangeValue(Value1 As Long)
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>Value1=2*(Value1/2)
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>Label1.Caption=Str(Value1)
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>End Sub
+</span></code></pre></div>
+</li>
+<li>
+<p>Start the application using <em>Run/Start</em>. Exercise the Dual control and observe that now the slider moves in increments of 2. When you have finished, select <em>Run/End</em>.</p>
+</li>
+<li>Close Visual Basic; do not save anything.</li>
+</ol>
+<h2 id="using-dual-in-a-web-page">Using Dual in a Web Page<a class="headerlink" href="#using-dual-in-a-web-page" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Start Dyalog APL and load the DUAL workspace again.</li>
+</ol>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="p">)</span><span class="nv">LOAD</span><span class="w"> </span><span class="nv">DUAL</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="p">)</span><span class="nv">CS</span><span class="w"> </span><span class="nv">F</span><span class="na">.</span><span class="nv">Dual</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="p">)</span><span class="nv">COPY</span><span class="w"> </span><span class="nv">DUALUTIL</span><span class="w"> </span><span class="nv">WRITE_HTML</span>
+</span></code></pre></div>
+<ol>
+<li>Look at the function <em>WRITE_HTML</em>.</li>
+</ol>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">TITLE</span><span class="w"> </span><span class="nv">WRITE_HTML</span><span class="w"> </span><span class="nv">FILE</span><span class="sr">;</span><span class="nv">NID</span><span class="sr">;</span><span class="nv">HTML</span><span class="sr">;</span><span class="nv">CLASS</span><span class="sr">;</span><span class="nv">HEIGHT</span><span class="sr">;</span><span class="nv">WIDTH</span><span class="sr">;</span><span class="nv">CRLF</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">CLASS</span><span class="kd">←</span><span class="m">1</span><span class="o">↓</span><span class="m">¯1</span><span class="o">↓</span><span class="nf">⎕WG</span><span class="s1">'ClassID'</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="nv">HEIGHT</span><span class="w"> </span><span class="nv">WIDTH</span><span class="kd">←</span><span class="o">⍕</span><span class="na">¨</span><span class="nf">⎕WG</span><span class="s1">'Size'</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="nv">CRLF</span><span class="kd">←</span><span class="nf">⎕AV</span><span class="sr">[</span><span class="m">4</span><span class="w"> </span><span class="m">3</span><span class="sr">]</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="nv">HTML</span><span class="kd">←</span><span class="s1">'&lt;html&gt;&lt;head&gt;&lt;title&gt;'</span><span class="o">,</span><span class="nv">TITLE</span><span class="o">,</span><span class="s1">'&lt;/title&gt;&lt;/head&gt;'</span><span class="o">,</span><span class="nv">CRLF</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="nv">HTML</span><span class="o">,</span><span class="kd">←</span><span class="s1">'&lt;body&gt;'</span><span class="o">,</span><span class="nv">CRLF</span>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">   </span><span class="nv">HTML</span><span class="o">,</span><span class="kd">←</span><span class="s1">'&lt;h2 align="center"&gt;&lt;font face="Arial"&gt;'</span>
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="nv">HTML</span><span class="o">,</span><span class="kd">←</span><span class="nv">TITLE</span><span class="o">,</span><span class="s1">'&lt;/font&gt;&lt;/h2&gt;'</span><span class="o">,</span><span class="nv">CRLF</span>
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">   </span><span class="nv">HTML</span><span class="o">,</span><span class="kd">←</span><span class="s1">'&lt;p align="center"&gt;&lt;object classid="clsid:'</span>
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">   </span><span class="nv">HTML</span><span class="o">,</span><span class="kd">←</span><span class="o">,</span><span class="nv">CLASS</span><span class="o">,</span><span class="s1">'"'</span>
+</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">  </span><span class="nv">HTML</span><span class="o">,</span><span class="kd">←</span><span class="s1">' width="'</span><span class="o">,</span><span class="nv">WIDTH</span><span class="o">,</span><span class="s1">'" height="'</span><span class="o">,</span><span class="nv">HEIGHT</span><span class="o">,</span><span class="s1">'"&gt;'</span>
+</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a><span class="sr">[</span><span class="m">11</span><span class="sr">]</span><span class="w">  </span><span class="nv">HTML</span><span class="o">,</span><span class="kd">←</span><span class="s1">'&lt;/object&gt;&lt;/p&gt;'</span><span class="o">,</span><span class="nv">CRLF</span><span class="o">,</span><span class="s1">'&lt;/body&gt;&lt;/html&gt;'</span><span class="o">,</span><span class="nv">CRLF</span>
+</span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a><span class="sr">[</span><span class="m">12</span><span class="sr">]</span><span class="w">  </span><span class="bp">:</span><span class="nv">Trap</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a><span class="sr">[</span><span class="m">13</span><span class="sr">]</span><span class="w">      </span><span class="nv">NID</span><span class="kd">←</span><span class="nv">FILE</span><span class="w"> </span><span class="nf">⎕NCREATE</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-21-15"><a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a><span class="sr">[</span><span class="m">14</span><span class="sr">]</span><span class="w">  </span><span class="bp">:</span><span class="nv">Else</span>
+</span><span id="__span-21-16"><a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a><span class="sr">[</span><span class="m">15</span><span class="sr">]</span><span class="w">      </span><span class="nv">NID</span><span class="kd">←</span><span class="nv">FILE</span><span class="w"> </span><span class="nf">⎕NTIE</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-21-17"><a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a><span class="sr">[</span><span class="m">16</span><span class="sr">]</span><span class="w">      </span><span class="nv">FILE</span><span class="w"> </span><span class="nf">⎕NERASE</span><span class="w"> </span><span class="nv">NID</span>
+</span><span id="__span-21-18"><a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a><span class="sr">[</span><span class="m">17</span><span class="sr">]</span><span class="w">      </span><span class="nv">NID</span><span class="kd">←</span><span class="nv">FILE</span><span class="w"> </span><span class="nf">⎕NCREATE</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-21-19"><a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a><span class="sr">[</span><span class="m">18</span><span class="sr">]</span><span class="w">  </span><span class="bp">:</span><span class="nv">EndTrap</span>
+</span><span id="__span-21-20"><a id="__codelineno-21-20" name="__codelineno-21-20" href="#__codelineno-21-20"></a><span class="sr">[</span><span class="m">19</span><span class="sr">]</span><span class="w">  </span><span class="nv">HTML</span><span class="w"> </span><span class="nf">⎕NAPPEND</span><span class="w"> </span><span class="nv">NID</span>
+</span><span id="__span-21-21"><a id="__codelineno-21-21" name="__codelineno-21-21" href="#__codelineno-21-21"></a><span class="sr">[</span><span class="m">20</span><span class="sr">]</span><span class="w">  </span><span class="nf">⎕NUNTIE</span><span class="w"> </span><span class="nv">NID</span>
+</span><span id="__span-21-22"><a id="__codelineno-21-22" name="__codelineno-21-22" href="#__codelineno-21-22"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>This function writes a very simple page of HTML that references your Dyalog APL ActiveX control via its ClassID (lines [1] and [9]).</p>
+<ol>
+<li>Now run it:</li>
+</ol>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="s1">'Dyalog Dual Control'</span><span class="w"> </span><span class="nv">WRITE_HTML</span><span class="w"> </span><span class="s1">'dual.htm'</span>
+</span></code></pre></div>
+<ol>
+<li>Close Dyalog APL</li>
+<li>Start your Web Browser and point it at the file you have just saved by typing the URL:</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>file://c:\dyalog82\dual.htm
+</span></code></pre></div>
+<ol>
+<li>Close your browser</li>
+</ol>
+<h2 id="calling-dual-from-vbscript">Calling Dual from VBScript<a class="headerlink" href="#calling-dual-from-vbscript" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Start Dyalog APL and load the DUAL workspace again.</li>
+</ol>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="p">)</span><span class="nv">LOAD</span><span class="w"> </span><span class="nv">DUAL</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="p">)</span><span class="nv">CS</span><span class="w"> </span><span class="nv">F</span><span class="na">.</span><span class="nv">Dual</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="p">)</span><span class="nv">COPY</span><span class="w"> </span><span class="nv">DUALUTIL</span><span class="w"> </span><span class="nv">UPDATE_CLASSID</span>
+</span></code></pre></div>
+<ol>
+<li>Look at the function <em>UPDATE_CLASSID</em>.</li>
+</ol>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">UPDATE_CLASSID</span><span class="w"> </span><span class="nv">FILE</span><span class="sr">;</span><span class="nv">NID</span><span class="sr">;</span><span class="nv">HTML</span><span class="sr">;</span><span class="nv">CLASSID</span><span class="sr">;</span><span class="nv">I</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">NID</span><span class="kd">←</span><span class="nv">FILE</span><span class="w"> </span><span class="nf">⎕NTIE</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="nv">HTML</span><span class="kd">←</span><span class="nf">⎕NREAD</span><span class="w"> </span><span class="nv">NID</span><span class="o">,</span><span class="m">82</span><span class="o">,</span><span class="p">(</span><span class="nf">⎕NSIZE</span><span class="w"> </span><span class="nv">NID</span><span class="p">)</span><span class="o">,</span><span class="m">0</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="nv">I</span><span class="kd">←</span><span class="s1">'clsid:'</span><span class="o">⍷</span><span class="nv">HTML</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="nv">I</span><span class="kd">←</span><span class="o">⊃</span><span class="nv">I</span><span class="na">/</span><span class="o">⍳⍴</span><span class="nv">I</span>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="nv">I</span><span class="o">+</span><span class="kd">←</span><span class="m">5</span>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">   </span><span class="nv">CLASSID</span><span class="kd">←</span><span class="m">1</span><span class="o">↓</span><span class="m">¯1</span><span class="o">↓</span><span class="nf">⎕WG</span><span class="s1">'ClassID'</span>
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="nv">HTML</span><span class="sr">[</span><span class="nv">I</span><span class="o">+⍳⍴</span><span class="nv">CLASSID</span><span class="sr">]</span><span class="kd">←</span><span class="nv">CLASSID</span>
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">   </span><span class="nv">HTML</span><span class="w"> </span><span class="nf">⎕NREPLACE</span><span class="w"> </span><span class="nv">NID</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">   </span><span class="nf">⎕NUNTIE</span><span class="w"> </span><span class="nv">NID</span>
+</span><span id="__span-25-11"><a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>This function simply updates an HTML file with the object’s ClassID.</p>
+<ol>
+<li>Now run the function to update the supplied HTML file called <code>dualtest.htm</code>.</li>
+</ol>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nv">UPDATE_CLASSID</span><span class="w"> </span><span class="s1">'dualtest.htm'</span>
+</span></code></pre></div>
+<ol>
+<li>Close Dyalog APL.</li>
+<li>Start your Web Browser and point it at the file you have just saved by typing the URL:</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>file://c:\dyalog82\dualtest.htm
+</span></code></pre></div>
+<ol>
+<li>Close your browser.</li>
+</ol></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">user interfaces</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">system interfaces</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">implementations</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

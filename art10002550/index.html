@@ -1,0 +1,1395 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10002550/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Interfacing APL to C - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#why-interface" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Interfacing APL to C
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Why Interface?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#which-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Which Language?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overcoming-the-problems-with-using-c-and-apl" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Overcoming the Problems with Using C and APL.
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-sample-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Two Sample Applications.
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#looking-at-trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Looking at Trade-offs.
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conclusions
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-a-sample-c-program-from-lauer-manual" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix A: Sample C program from Lauer manual
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-b-source-for-translation-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix B: Source for Translation Function
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Interfacing APL to C</h1>
+
+  <p class="printed"><a href="../5/#n1-july-1988">Vector 5:1</a>, page 49</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-system-interfaces">system interfaces</a> <a class="md-tag" href="../tags/#tag-performance">performance</a> <a class="md-tag" href="../tags/#tag-reviews">reviews</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../5/1/VOL.5-NO.1-JULY-1988.pdf#page=51">Read it in the PDF of the issue, page 49</a></em></p>
+<p class="byline">by Romilly Cocking</p>
+<h2 id="why-interface">Why Interface?<a class="headerlink" href="#why-interface" title="Permanent link">&para;</a></h2>
+<p>At first sight, you may see no need to interface APL with other languages. APL is powerful and expressive, and modern implementations are very efficient. Fast hardware is affordable, and interpreters like the new APL*PLUS II system for the 80386 give the power of a dedicated mainframe to top-end PC users.</p>
+<p>You may still want to consider using other languages with APL, however. There are several reasons for this; one of the most common is that your application includes an algorithm that is iterative or that works on scalar values. (This often happens when you are trying to optimise something, or simulating a complex system.) You can often see in advance of coding it that an APL version of that algorithm would run too slowly, but you want to write the rest of your application in APL. If you are a mainframe APL user, you might write the relevant code in APL and then compile it; on a PC, you would need to write it in a compiled (or assembled) language which you can invoke from APL.</p>
+<p>A second need arises when your application is written, but working too slowly. A monitoring tool like Quad-MF can help you to analyse the reasons for poor performance, but you may not always be able to speed up the APL code that is causing the problem. This may be because the code is iterative or scalar – but it can also arise if APL cannot take advantage of some known characteristics of your data. Perhaps an example will clarify this problem. Suppose that you are consolidating financial data for an international sales organisation, in which you have sales for branches, and you want to total these by district, area and country. You may well use an APL inner product to do your calculation. If so, you will often use a boolean argument to specify which branches belong to which districts, and floating point numbers for your sales figures. APL will diligently unpack your boolean values and do floating-point multiplications with them, instead of just using a 0 or 1 to decide whether to include the number in a total. If you recode this one function in a lower-level language, the speed-up can be dramatic.</p>
+<p>You may encounter a third reason to interface APL if you want to use existing code that has been written in another language. There must be many thousands of specialist libraries available; libraries of mathematical functions, interfaces to databases and spreadsheets, drivers for graphics display devices and many, many more. If you want to use them in your APL application, you will have to interface to the language in which they are written. You may also want to use an APL front-end to existing application code.</p>
+<h2 id="which-language">Which Language?<a class="headerlink" href="#which-language" title="Permanent link">&para;</a></h2>
+<p>You are confronted with a huge choice of languages in which to develop your own software, and many of them are now supported by commercially available libraries. Which language should you use? If you are using STSC’s APL*PLUS/PC or II system for the 386, your choice will be strongly influenced by the interfacing capabilities of the interpreter that you are using. Although you can invoke application programs using quad-CMD, the most efficient way of interfacing an APL application with routines written in other languages is via the quad-CALL system function.</p>
+<p>STSC’s quad-CALL allows you to invoke assembler code (held as an array) from within an APL workspace. The assembler code is subject to certain restrictions; in particular, it must be relocatable, since the array containing it may be moved within your workspace by the APL interpreter.</p>
+<p>You could restrict yourself to assembler as your language for use with APL, but assembler is not always ideal. Most people find it slow to write, and floating-point calculations are particularly difficult to develop. If you wish to use pre-written software, you may have no choice but to use something other than assembler; the software may be written in another language.</p>
+<p>For many people looking for a general language to use with APL, C is an attractive choice. Most APLers who have come across C like the language, and learn it quickly. They find that C compilers are readily available, as is a large volume of public domain and commercial software. C code is portable to many environments, and many interfaces to databases and spreadsheets are implemented in C.</p>
+<p>If you have already coded your application, and the portion to be speeded up is written in ISO APL, you might even be able to use the SOFREMI APL compiler to generate C code directly.</p>
+<h2 id="overcoming-the-problems-with-using-c-and-apl">Overcoming the Problems with Using C and APL.<a class="headerlink" href="#overcoming-the-problems-with-using-c-and-apl" title="Permanent link">&para;</a></h2>
+<p>Alas, the choice of C as your interface language is not without problems. The code produced by standard C compilers does not meet the restrictions that quad-CALL imposes. Moreover, C data structures differ from those used internally by APL. Worst of all, both APL and C have their own dynamic memory management methods, which can clash.</p>
+<p>Fortunately, these obstacles have been overcome for us by a commercially available package, developed by Lauer Software. Their APL2C interface allows you to develop applications that run under APL*PLUS/PC using both APL and C. The package contains four main components – a manual, a copy of the Datalight C compiler, libraries of C code and an APL workspace. The workspace contains a source file editor (ED) which can also trigger the compilation and linking of your C code, so you can edit, compile, link and test from within the APL environment. In addition, registered users get a newsletter containing technical tips and news of new releases. Upgrades are available at a nominal charge.</p>
+<p>The current version (4.11) runs under APL*PLUS release 7, and comes with v3.1 of the Datalight compiler. In addition, it can be used with version 3.2 of Lattice C. The remainder of this article deals with my experience of the interface in practice.</p>
+<p>My situation is unusual, in that I have just upgraded from an earlier version of APL2C that did not include the Datalight compiler. Both the APL2C software and Lattice C were installed from scratch, however, as I was upgrading my hardware at the same time.</p>
+<p>The APL2C installation instructions are comprehensive, and easy to follow. (They leave the APL2C workspace in an APL2C sub-directory, however, without telling you that you will have to gain access to this library in order to load it. I suppose the assumption is that anyone experienced enough to attempt interfacing knows enough to work this out for themselves.) The installation of Lattice C is also straightforward; when both products have been installed successfully, you can carry on with the introductory example in the manual.</p>
+<p>I suspect that this example works fine if you are using Datalight, but the C code generates compiler errors with Lattice C. The reason is simple; return statements have been omitted from the end of each C function. Presumably the Datalight compiler inserts them for you. A corrected version of the code for Lattice users is included as Appendix A.</p>
+<p>This is not the only setback that Lattice users will encounter. The sample compilation in the APL2C manual covers three situations: compilation and linkage of C software for the two compilers under DOS, and for the Datalight compiler using the ED APL-based editor. If you want to compile using Lattice C from within ED, you need to customise the compile and link commands; you can find out how to do this in a much later section of the manual (p98 et seq., on ED).</p>
+<h2 id="two-sample-applications">Two Sample Applications.<a class="headerlink" href="#two-sample-applications" title="Permanent link">&para;</a></h2>
+<p>It took me about half a day to install the software and get everything properly set up; I then went on to use the interface for two sample applications. The first was a utility for use with STSC’s spreadsheet manager. The second was a utility to perform character set translation.</p>
+<p>The first utility was a C version of code that I had prototyped in APL, but which ran too slowly. The utility took a LOTUS spreadsheet name and a range name; it returned the coordinates of the corners of the range within the spreadsheet, or an error code if something went wrong. It worked by reading through the spreadsheet file, record by record, until it came across the record that it required.</p>
+<p>My APL original worked, but it ran rather slowly. It took about four seconds to locate a range that existed; if I gave a non-existent range name in a large spreadsheet, the APL version took about forty seconds to pass the file before giving up.</p>
+<p>I used quad-MF to confirm that most of the time was spent reading records and checking their type. It looked as if this would run much faster in C; after half a day of coding, I was able to test the C code using the APL2C interface. It took less than two seconds to find a range, and less than four to establish that a range did not exist.</p>
+<p>The speed-up of two to one on a four second operation was worthwhile, but the speed-up of ten to one on a forty second operation could mean failure or success for a commercial system. Encouraged by this, I took a look at a much simpler problem that I hoped C could solve.</p>
+<p>Most of us have met the need to do character set translation. It may just be a matter of changing lower case text to upper case; it may be that we are moving data from one computer to another. This is very easy to do in APL; the idiom below takes W, a character array, and translates each character in it using a 256-byte translate table A.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nv">Z</span><span class="kd">←</span><span class="nv">Z</span><span class="sr">[</span><span class="nf">⎕AV</span><span class="o">⍳</span><span class="nv">W</span><span class="sr">]</span>
+</span></code></pre></div>
+<p>Although this idiom is easy to code, it is slow. I thought that a C version would run much faster, and so it did. A large (5K) character vector took about 3 seconds to translate using the APL idiom, and less than half a second using C. The C code was easy to write, and (like the APL idiom) the code worked first time. A C listing is included as Appendix B.</p>
+<p>I felt very pleased until Jonathan Barman (a colleague of mine from Cocking &amp; Drury) gave me his assembler function to do the same job. It ran about ten times faster than the C code, and sixty times faster than the APL. He explained that this was as he expected, since the assembler code used a hardware instruction that did just what was wanted at hardware speed.</p>
+<h2 id="looking-at-trade-offs">Looking at Trade-offs.<a class="headerlink" href="#looking-at-trade-offs" title="Permanent link">&para;</a></h2>
+<p>You may feel from all this that the trade-offs in using different languages are complex. Things are further complicated by some idiosyncrasies of C (or the APL2C interface). Firstly, C distinguishes between scalars and other arrays in a way that APL does not. This difference is echoed in the interface, which passes pointers to APL arrays, but values of APL scalars. If you want to write a function using the interface that behaves in the same way with an argument of any rank, you will have to do some un-natural juggling to achieve this.</p>
+<p>A second problem occurs with memory management. Much C code uses dynamic memory allocation – a method by which space is requested when the program needs it, and then freed when it is no longer required. This happens explicitly in C, but it also happens implicitly in APL. The two languages use different methods of handling the problem, and although the interface tries to deal with this it does not do so completely.</p>
+<p>Another thing that you can take for granted when using APL is data typing. Most of us do not need to worry about whether a particular array is integer or real. In C, we have to know this – and know it in advance. This causes two problems: if we do a calculation in C on integers, and produce an answer that is too big to hold as integer, nothing will tell us that we have done so; and if we do a calculation in APL on Real numbers that happens to give us an integer answer, APL will change the type without consulting or informing us. The trick for getting around the second problem is covered by the interface (see pp22, 97 of the manual), but I know of no general solution to the first.</p>
+<p>C code may take less time, but it does take up a lot of room. The object code for my simple translate example takes 11K bytes! Almost all of this is due to the inclusion of library code that I do not need, but it would not be trivial to eliminate this. (By contrast, Jonathan’s assembler function is about 300 bytes.)</p>
+<p>Finally, debugging C code from inside APL is not easy. We are spoilt by the excellent debugging facilities that form an inseparable part of the APL environment; these days, C programmers can use debugging aids that are comparable in convenience and power. Unfortunately, there seems to be no way to use these when running C code via the APL2C interface.</p>
+<h2 id="conclusions">Conclusions<a class="headerlink" href="#conclusions" title="Permanent link">&para;</a></h2>
+<p>Hybrid systems can offer real beneifts, and C is a good choice if performance needs a speed-up, and the algorithm is complex or includes floating point calculations. Moreover, C allows you to use a lot of existing code. Assembler may be better for simple integer or char manipulation.</p>
+<h2 id="appendix-a-sample-c-program-from-lauer-manual">Appendix A: Sample C program from Lauer manual<a class="headerlink" href="#appendix-a-sample-c-program-from-lauer-manual" title="Permanent link">&para;</a></h2>
+<p>… corrected for use with Lattice C.</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cm">/*********************************************************************/</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cm">/* Timestamp: Sat Jun 25  1988 05:52:18 PM                           */</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cm">/* Program Name: demo prog from Lauer Software manual                */</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="cm">/* Programmer: Romilly Cocking                                       */</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="cm">/* Copyright (C) Cocking &amp; Drury Ltd 1988                            */</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="cm">/*********************************************************************/</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;apl.h&gt;</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="kt">int</span><span class="w"> </span><span class="nf">csub1</span><span class="p">(),</span><span class="n">csub2</span><span class="p">(),</span><span class="n">csub3</span><span class="p">();</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">rlookup</span><span class="p">[])()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">csub1</span><span class="p">,</span><span class="n">csub2</span><span class="p">,</span><span class="n">csub3</span><span class="p">};</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="kt">int</span><span class="w"> </span><span class="n">numfns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="n">csub1</span><span class="p">()</span><span class="w"> </span><span class="cm">/* no arguments */</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="p">{</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">"Hello world!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w"> </span><span class="k">return</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="p">}</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="n">csub2</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="cm">/* one scalar argument */</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="p">{</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">"Hello from C level. i=%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w"> </span><span class="k">return</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="p">}</span>
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="n">csub3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="cm">/* one array argument */</span>
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="kt">unsigned</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="p">{</span>
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>
+</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">"Rank of X = %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">RANK</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
+</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>
+</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="n">RANK</span><span class="p">(</span><span class="n">x</span><span class="p">);</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a><span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">"Length of dimension %d is %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">peekw</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">8</span><span class="o">+</span><span class="n">i</span><span class="o">*</span><span class="mi">2</span><span class="p">));</span>
+</span><span id="__span-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="w"> </span><span class="k">return</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span id="__span-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="p">}</span>
+</span></code></pre></div>
+<h2 id="appendix-b-source-for-translation-function">Appendix B: Source for Translation Function<a class="headerlink" href="#appendix-b-source-for-translation-function" title="Permanent link">&para;</a></h2>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cm">/*********************************************************************/</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cm">/* Timestamp: Sun Jun 26  1988 06:27:45 PM                           */</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="cm">/* Program Name: TRANS                                               */</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="cm">/* Programmer: Romilly Cocking                                       */</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="cm">/* Copyright (C) Cocking &amp; Drury 1988                                */</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="cm">/*********************************************************************/</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;apl.h&gt;</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;aplobj.h&gt;</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="n">APL2CFN</span><span class="p">(</span><span class="n">trans</span><span class="p">);</span><span class="w">   </span><span class="cm">/* insert interface code for function 'trans' */</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="kt">char</span><span class="w"> </span><span class="n">tab</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span><span class="w">    </span><span class="cm">/* holds local copy of translate table, for speed */</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="n">trans</span><span class="p">(</span><span class="n">inseg</span><span class="p">,</span><span class="n">tabseg</span><span class="p">,</span><span class="n">outseg</span><span class="p">)</span><span class="w"> </span><span class="cm">/* inseg - segment address of APL input data</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="cm">                              tabseg - same for translate table</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="cm">                              outseg - same for result */</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="kt">unsigned</span><span class="w"> </span><span class="n">inseg</span><span class="p">,</span><span class="n">tabseg</span><span class="p">,</span><span class="n">outseg</span><span class="p">;</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="p">{</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">     </span><span class="kt">char</span><span class="w"> </span><span class="n">far</span><span class="w"> </span><span class="o">*</span><span class="n">ip</span><span class="p">;</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">     </span><span class="kt">char</span><span class="w"> </span><span class="n">far</span><span class="w"> </span><span class="o">*</span><span class="n">tp</span><span class="p">;</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">     </span><span class="kt">char</span><span class="w"> </span><span class="n">far</span><span class="w"> </span><span class="o">*</span><span class="n">op</span><span class="p">;</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="w">     </span><span class="n">ip</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">apl_object</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">start</span><span class="p">;</span><span class="w">     </span><span class="cm">/* set ptr to data values in array */</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="w">     </span><span class="n">tp</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">apl_object</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">start</span><span class="p">;</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="w">     </span><span class="n">op</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">apl_object</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">start</span><span class="p">;</span>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="w">     </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="mi">256</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w">   </span><span class="cm">/* copy each table entry into local array */</span>
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="w">          </span><span class="n">tab</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="n">tp</span><span class="o">+</span><span class="n">i</span><span class="p">);</span>
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="w">     </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="n">numelems</span><span class="p">(</span><span class="n">inseg</span><span class="p">);</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="cm">/* for each element of array    */</span>
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="w">          </span><span class="o">*</span><span class="n">op</span><span class="o">++</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tab</span><span class="p">[(</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="n">ip</span><span class="o">+</span><span class="n">i</span><span class="p">)];</span><span class="w">  </span><span class="cm">/* tranlate and store in result */</span>
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>
+</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="w">     </span><span class="k">return</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a><span class="p">}</span>
+</span></code></pre></div></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">system interfaces</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">performance</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">reviews</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

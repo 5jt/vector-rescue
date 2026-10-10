@@ -1,0 +1,1572 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10003650/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Unix APL Power Shootout (Part 1) - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#by-bob-hoekstra-bobhoekstrakhamsindemoncouk" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Unix APL Power Shootout (Part 1)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#by-bob-hoekstra-bobhoekstrakhamsindemoncouk" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        By Bob Hoekstra (Bob.Hoekstra@khamsin.demon.co.uk)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Abstract
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introduction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-test-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The test machine
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-unix-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Other UNIX Hardware
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-unix-apl-market" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The UNIX APL market
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The UNIX APL market">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apl20009-aplunix" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        APL2000<sup>[9]</sup>: APL+Unix
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dyadic-systems10-aplm" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dyadic Systems<sup>[10]</sup>: APL/M
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ibm-apl25" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        IBM APL2<sup>[5]</sup>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#soliton-associates-sax2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Soliton Associates: SAX<sup>[2]</sup>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#so-what-do-you-get-for-your-money" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        So what do you get for your money?
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="So what do you get for your money?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aplunix" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        APL+Unix
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dyalog-aplm" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dyalog APL/M
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#soliton-associates-sax2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Soliton Associates: SAX<sup>[2]</sup>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The installation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-apl" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Running APL
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coming-in-part-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Coming in Part 2
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thanks" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Thanks
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes-references-and-web-sites" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Notes, References and web sites
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Unix APL Power Shootout (Part 1)</h1>
+
+  <p class="printed"><a href="../16/#n4-april-2000">Vector 16:4</a>, page 39</p>
+
+
+<h5 id="by-bob-hoekstra-bobhoekstrakhamsindemoncouk">By Bob Hoekstra (<a href="mailto:Bob.Hoekstra@khamsin.demon.co.uk">Bob.Hoekstra@khamsin.demon.co.uk</a>)<a class="headerlink" href="#by-bob-hoekstra-bobhoekstrakhamsindemoncouk" title="Permanent link">&para;</a></h5>
+<h2 id="abstract">Abstract<a class="headerlink" href="#abstract" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Some critical projects require an APL installation that is absolutely stable (i.e. where a PC running a Microsoft operating system is just not good enough) or more power than any Intel derived machine can provide. In these situations there are a number of alternatives, and running APL on a UNIX machine is a popular option. In this article and the next I examine three popular, but quite different interpreters for such a scenario: <em>APL+Unix version 5.3.2</em> from APL2000, <em>Dyalog APL/M version 8.2.2</em> from Dyadic Systems and <em>SAX (<b>S</b>HARP <b>A</b>PL for UNI<b>X</b>) version 5.0.0</em> from Soliton.</p>
+</blockquote>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>This article follows from my recent review of SAX for Linux<sup>[<a href="#Note1">1</a>]</sup>, produced by Soliton<sup>[<a href="#Note2">2</a>]</sup>. As a long-in-the-tooth Linux user, I found this very interesting, but I am the first to admit that there are some duties that Linux is not ready for yet. Where a service is critical, I would recommend one of the established UNIX vendors.</p>
+<p>The SAX/Linux article therefore naturally led to discussions with APL vendors regarding their UNIX product, all of which lead to this, a series of two articles.</p>
+<h2 id="the-test-machine">The test machine<a class="headerlink" href="#the-test-machine" title="Permanent link">&para;</a></h2>
+<p>Conveniently, as I was planning this article, I was also in the process of buying myself a new workstation from Sun Microsystems, so this is the first serious work being done on my new Sun Ultra 5<sup>[<a href="#Note3">3</a>]</sup>. My machine is close to the bottom of Sun's workstation line, equipped with a 333 MHz UltraSPARC IIi<sup>[<a href="#Note3">3</a>]</sup> processor and 256 MB memory.</p>
+<p>The operating system used is Solaris 7 (based on SunOS 5.7) running in 64-bit mode. This is still fully compatible with all 32-bit SPARC executables, and so should not make any difference to the tests. I hope to be able to install the Solaris 8 beta release (SunOS 5.8) very shortly to briefly test the interpreters under the very latest operating system.</p>
+<p>To see how the APLs react, I have a number of non-standard items installed on the machine. These include the AfterStep window manager and the KDE environment. These are popular in the Linux world, and offer some advantages over the two windowing environments, CDE and OpenWindows, that come with the operating system.</p>
+<h2 id="other-unix-hardware">Other UNIX Hardware<a class="headerlink" href="#other-unix-hardware" title="Permanent link">&para;</a></h2>
+<p>Thre are many UNIX platforms, the big names being Sun Microsystems, IBM, Hewlett Packard, Sequent, Compaq (since their purchase of DEC) and SGI (previously Silicon Graphics). Sun is unique in that their operating system runs on their own platforms (based on SPARC technology) as well as Intel based PCs and compatibles. There are several versions of UNIX that run on PCs, the biggest player here being SCO. Much of the Sequent range is also based on Intel processors, but they are definitely not PCs. Hardware and software from different suppliers is generally incompatible, although they will all share resources with each other over a network.</p>
+<p>The scenarios I described in the abstract may require more power. Sun can provide this: processor speeds are currently up to 450 MHz, though the UltraSPARC III is about to go on sale at 600 MHz. They are planning 1.5 GHz, and machines like the Sun Enterprise 10000<sup>[<a href="#Note3">3</a>]</sup> (directly descended from Cray technology) can contain up to 64 of these processors, with bigger machines coming very soon.</p>
+<p>Sun is not the only company is this class: Hewlett Packard's V-Class machines<sup>[<a href="#Note4">4</a>]</sup> can contain up to 128 PA-RISC processors and 128 GB of memory. IBM has multiprocessor<sup>[<a href="#Note5">5</a>]</sup> options in their RS/6000 range. SGI<sup>[<a href="#Note6">6</a>]</sup> (the current owner of all non-SPARC Cray technology) has many comparable offerings, including (possibly the ultimate power machine) the stunning Cray T3E<sup>[<a href="#Note6">6</a>]</sup>: up to 2048 Alpha processors at 600 MHz, each with up to 2 GB memory. Compaq<sup>[<a href="#Note7">7</a>]</sup> (now owner of the Alpha technology) has multiprocessor machines. There are many other examples.</p>
+<p>Then there is clustering technology. The Linux Beowulf<sup>[<a href="#Note8">8</a>]</sup> project, where many machines can work together efficiently, is very interesting. This technology is not limited to Linux or Intel, but can be used with almost any UNIX-like operating system independent of hardware used. Other vendors, including Sun, have their own proprietary clustering solutions to provide extra processing power, increased reliability, or both.</p>
+<p>The amount of computing power available today is staggering (of course, so are the prices). The truth is that the mainframes of yesterday have not managed to keep up<sup>[<a href="#Note6">6</a>]</sup>. If your company has a computing requirement for serious power, UNIX is a very viable option. I have no idea how many machines like those mentioned above are running APL, but those that are, are very likely using one of the interpreters discussed in this article.</p>
+<h2 id="the-unix-apl-market">The UNIX APL market<a class="headerlink" href="#the-unix-apl-market" title="Permanent link">&para;</a></h2>
+<p>This article includes 3 of the 4 interpreters that have really captured the "serious" UNIX market between them:</p>
+<h4 id="apl20009-aplunix">APL2000<sup>[<a href="#Note9">9</a>]</sup>: APL+Unix<a class="headerlink" href="#apl20009-aplunix" title="Permanent link">&para;</a></h4>
+<p>This interpreter is descended from work done by the Scientific Time Sharing Corporation (STSC). STSC produced the first APL for DOS shortly after the IBM PC hit the market in the early 1980s, coded in 8086 assembler. Some time later APL*PLUS II for Unix was developed, using C. This spawned APL*PLUS II for 386 and later Windows, which evolved into the current product line. The UNIX product was thus the parent of the Windows product. At one time there was also a Macintosh version and a VAX (VMS) version of APL*PLUS.</p>
+<p>The mainframe STSC interpreter arrived first of all, but this is essentially IBM's VS/APL with STSC extensions. It may therefore be thought of as unrelated. Nevertheless, many of these extensions provide functionality similar to that in this interpreter, thus maintaining a family resemblance.</p>
+<p>During the history of this product, the owner has changed several times. This is evident in the packaging, where some of the manuals still refer to Manugistics and others refer to the current owner, APL2000.</p>
+<p>APL+Unix is available for running on</p>
+<ul class="indent">
+    <li>IBM RS/6000 workstations and servers with AIX 3.2 or
+        later and AIXwindows,
+    </li><li>Sun SPARCstations with SunOS 4.1 or later and Solaris 2.1
+        or later and OpenWindows 2.0 or later,
+    </li><li>Hewlett Packard 9000 series 700 or 800 with HPUX 9.01 or
+        later andHP VUE 3.0 or later, and
+    </li><li>DECstation 2100 or 3100 or DECsystem 3100, 5400 or 5800
+        with ULTRIX 4.3 or later and DECwindows and OSF/Motif.
+    </li></ul>
+
+<p>From experience, it also runs using CDE (Common Desktop Environment) on Solaris, and I would expect that it would on AIX, HPUX, and ULTRIX as well. Note that DEC now belongs to Compaq, who have continued development and renamed ULTRIX (one of the first fully 64-bit Unixes) "TRU-64 UNIX". Potential customers will have to confirm support for this with APL2000.</p>
+<h4 id="dyadic-systems10-aplm">Dyadic Systems<sup>[<a href="#Note10">10</a>]</sup>: APL/M<a class="headerlink" href="#dyadic-systems10-aplm" title="Permanent link">&para;</a></h4>
+<p>Dyalog APL has a long UNIX history. Earlier versions were strictly ASCII based, even though version 6.x included use of the X11 Windows system. Around this time (the mid 1980s) they moved the main development effort to Windows and versions 6.x, 7.x and 8.x have become increasingly GUI centered.</p>
+<p>Using technology from MAINSoft Corporation<sup>[<a href="#Note11">11</a>]</sup> they have ported version 8.x back to UNIX, though it really is only compatible with Motif-based window managers, which includes the very popular CDE. I reviewed the first port in Vector several issues ago<sup>[<a href="#Note12">12</a>]</sup>.</p>
+<p>Dyalog APL/M is available for IBM RS/6000 machines running AIX 4.3.2 and Sun SPARC servers and workstations runing Solaris 2.5.1, 2.6 and 7. A Linux version is being developed.</p>
+<h4 id="ibm-apl25">IBM APL2<sup>[<a href="#Note5">5</a>]</sup><a class="headerlink" href="#ibm-apl25" title="Permanent link">&para;</a></h4>
+<p>In many respects, APL2 sets the standards. This is due to the importance of IBM in the history of APL as well as APL2's market penetration (on all platforms) particularly in the US. The UNIX version is available for IBM's version of UNIX, AIX, as well as Sun's version, Solaris.</p>
+<p>The UNIX version of APL2 is descended from IBM's long line of APL interpreters, and in particular the mainframe implementations of APL2 that dates back to the early 1980s. I'm very sorry to report that IBM decided not to participate in this article.</p>
+<h4 id="soliton-associates-sax2">Soliton Associates: SAX<sup>[<a href="#Note2">2</a>]</sup><a class="headerlink" href="#soliton-associates-sax2" title="Permanent link">&para;</a></h4>
+<p>Soliton is well known for its mainframe interpreter, SAM. SAX is newer and closely related to SAM, having (as far as I can recall) identical functionality. A direct descendent of SAX is the port to Linux version which I reviewed recently<sup>[<a href="#Note1">1</a>]</sup>.</p>
+<p>Apparently, lessons learned in the Linux port are to be incorporated in a future version of SAX, making it faster and better. Unfortunately that version is not available yet: reviewed here is version 5.</p>
+<p>SAX is really the outsider in this group. It is the interpreter most different from IBM's APL2 "standard", and is really a stepping stone between the other interpreters here and J.</p>
+<p>SAX is available for AIX 4.2 and AIX 4.3 and Solaris 2.5 and 2.6. However, this review shows it runs fine on Solaris 7 as well. The personal edition of SAX for Linux version is available as a free download<sup>[<a href="#Note2">2</a>]</sup>.</p>
+<h2 id="so-what-do-you-get-for-your-money">So what do you get for your money?<a class="headerlink" href="#so-what-do-you-get-for-your-money" title="Permanent link">&para;</a></h2>
+<p>APL2000 distribute their interpreter on three floppy disks, while the other two interpreters come on a CDROM. The sizes of the final installations vary considerably, as do the functionalities offered by each interpreter. It is impossible to say which offers "more", as each interpreter offers facilities not offered by the others. Furthermore, all three interpreters come with a suitable amount of printed documentation, but all the documentation is open to some criticism.</p>
+<p><a id="fig0"></a> <img alt="APL Popup menu on the CDE front panel" height="310" src="./CDE0.gif" width="318" /><br />
+Figure 0: APL Popup menu on the CDE front panel</p>
+<h4 id="aplunix">APL+Unix<a class="headerlink" href="#aplunix" title="Permanent link">&para;</a></h4>
+<p>This interpreter takes up a small 6.8 MB of disk space, but in this space APL2000 have managed to cram interpreters for SunOS 4 as well as SunOS 5 (a.k.a. Solaris 2) operating systems. SunOS 4 is of less interest now, as it has not been actively developed by Sun for several years, but it is still in use on older Sun SPARCstations too slow to run Solaris 2 effectively.</p>
+<p>There is support for running APL+Unix using its built-in "APL X Manager", APLXM, as well as character terminals. One can also run APL via kermit (a terminal emulator that runs on just about any operating system) and by using APL*PLUS PC or APL*PLUS II/386 as a terminal. Lastly, the interpreter can also be run without a terminal at all (i.e. as a background process). The actual use of the interpreter therefore has impressive flexibility - I'm impressed that this could all be compressed onto only three floppy disks.</p>
+<p>There is no online help other than a screen showing the editor keystroke commands. The manuals supplied with the interpreter for review include:</p>
+<ul class="indent">
+      <li>Two weighty, glossy colour fronted volumes, a <i>User
+      Manual</i> and a <i>Reference Manual</i>. These were
+      for APL*PLUS II/UNIX version 5 and were marked as
+      coming from Manugistics (a previous owner of
+      APL*PLUS).<br>
+      </li><li>A much slimmer <i>Installation Manual</i>. This is
+      targeted at the system administrator, who should
+      perform the installation.<br>
+      </li><li>A rather slim <i>Version 5.3 Update Manual</i>. This
+      was the only document carrying the APL2000 name.<br>
+      </li><li>A rather nice set of sticky keyboard labels for the
+      APL character set.<br>
+    </li></ul>
+
+<h4 id="dyalog-aplm">Dyalog APL/M<a class="headerlink" href="#dyalog-aplm" title="Permanent link">&para;</a></h4>
+<p>Dyalog APL/M takes a whopping 130 MB, far more than the other two. In this space Dyadic Systems include all the functionality of the Windows version, APL/W, thanks to the MAINWin Cross Development Kit. The exception is the runtime version of the interpreter, which is not included in the UNIX version. In APL/W the runtime interpreter provides all functionality except any form of session manager and can be used to distribute APL applications without further royalty payments to Dyadic Systems.</p>
+<p>However there is the addition of a "console version" of APL/M. This is an APL interpreter with less functionality than the APL/W runtime interpreter as it doesn't provide a session manager or GUI support. This is very useful in the UNIX world as it can be used to create APL daemons (background processes which do a particular task). The console version does support I/O to and from files and TCP/IP connections. Despite this, I think a runtime interpreter with similar license conditions to APL/W would have been more useful.</p>
+<p>Many developers will be familiar with APL/W and will feel right at home with APL/M. Essentially the user interface is the same within the confines of a Motif-like window manager (more about this later). There was no support for running APL/M from a terminal, but Dyadic Systems tell me that a third interpreter (currently in beta test) will be included in future to provide this, as well as the <code>quadSM</code> user interface.</p>
+<p>The option of using a Windows-like interface, which I did not like much in the previous review<sup>[<a href="#Note12">12</a>]</sup> is also still available, though difficult to find. I could find no mention of it in the documentation, but managed to start APL/M in this mode by changing the value of the shell variable <code>MWLOOK</code> from <code>motif</code> to <code>windows</code> in the startup script. See <a href="#fig8">figure 8</a>.</p>
+<p>Dyalog APL supports a very impressive range of input devices (keyboards mainly), including national keyboards from Denmark, Finland, France, Germany, Italy, Sweden, UK and the US, most of which have variants, making 24 in all (not counting file I/O). I could not really test these as I only have a US keyboard.</p>
+<p>One aspect peculiar to the APL/M installation that I liked was the inclusion of an extension to the magic file. This file (<code>/etc/magic</code>) is used by the UNIX <code>file</code> command to identify file types by the value of the first few bytes in the file. To show this in action:</p>
+<pre>                bob@storm: <b>file ws/dyalog8.rtf ws/util ws/wdesign.ico</b>
+                ws/dyalog8.rtf: ascii text
+                ws/util:        Dyalog APL workspace version 8 .111
+                ws/wdesign.ico: data</pre>
+
+<p>Help files take up about 6 MB of disk space. The help is exactly like that for the Windows version and provides all the same functionality. The manuals supplied with the interpreter include:</p>
+<ul class="indent">
+      <li>Four substantial volumes, subtitled <i>User Guide</i>,
+      <i>Language Reference</i>, <i>Object Reference</i> and
+      <i>Interface Guide</i>. These are in fact the Windows
+      manuals: they are all titled <i>Dyalog APL/W</i>.<br>
+      </li><li>Eleven duplexed A4 sheets stapled together which
+      explain the installation procedure, the essential
+      differences between APL/W and APL/M, something about
+      the MAINWin CDK and its effect on the interpreter and
+      some outstanding SPARC issues. This is the only
+      documentation marked as being specific to APL/M. Please
+      note that this is not really a criticism: the APL/W
+      manuals are adequate for the user, and with a good
+      system administrator to do the installation there
+      should be no problem at all.<br>
+    </li></ul>
+
+<h4 id="soliton-associates-sax2_1">Soliton Associates: SAX<sup>[<a href="#Note2">2</a>]</sup><a class="headerlink" href="#soliton-associates-sax2_1" title="Permanent link">&para;</a></h4>
+<p>SAX occupies some 36.6 MB on the disk. There is an array of interpreters (pun intended): <em>apl</em>, <em>apl-8</em>, <em>rtapl</em> and <em>rtapl-8</em>. The <em>apl</em> development interpreter is the default and has a built-in session manager and full screen function editor, <em>apl-8</em> is for users who prefer to use their own "session manager application" which have to be 8-bit enabled (the popular emacs seems a good option) rather than the built-in session manager. The remaining two do not provide any session manager functionality at all but are run-time interpreters for running completed applications or background tasks.</p>
+<p>SAX also supplies an executable called NSVP, the network shared variable processor. This is a multi-user auxilliary processor which allows the sharing of variables over the network. The network can include TCP/IP and SNA protocols and this allows the APL user to use services from SAX and SAM processes, and even some non-APL OS/390 services like DB2! Neither the Dyalog nor the APL2000 interpreter has anything like this, as they can only share network-wide data by explicitly using TCP/IP sockets. The NSVP executable runs as a daemon and must be running for SAX to start.</p>
+<p>There is about 6.3 MB worth of on-line documentation in the form of pdf files (portable document format: read with Adobe Acrobat<sup>[<a href="#Note13">13</a>]</sup>). This appears to contain the same text as the printed documentation, which came in two A5 ring binders. I am told that all future sales will be accompanied by bound books. Personally, I prefer the ring binders - they stay open at the page you want.</p>
+<h2 id="the-installation">The installation<a class="headerlink" href="#the-installation" title="Permanent link">&para;</a></h2>
+<p>Having installed the Windows version of APL+Win and Dyalog APL, a user new to UNIX may find that these are more complex products are to install. For all three interpreters I decided not to install in the default positions but rather to install each in a subdirectory of <code>/usr/apl</code>. While the basic installation appeared to be quite successful, this decision meant that I had to manually edit all startup scripts to "correct" hard-coded defaults. In all cases, super-user rights were needed for the installation, so usually a system administrator would do this.</p>
+<p>The above is one of the justified complaints about UNIX: software installation is unnecessarily difficult. It doesn't have to be this way, and to demonstrate this I obtained a copy of Borland/Inprise's IDE package for Java: <i>JBuilder for Solaris</i><sup>[<a href="#Note14">14</a>]</sup> (a free download) which I installed in a non-default directory. This took just one step and was as simple as it would be on any other operating system. Everything worked first time without any other messing around with installation scripts, despite the fact that I customised the location.</p>
+<p>I must mention SAX, which was even more difficult than the others, mainly due to a lack of adequate installation instructions. As if this was not enough, the CD was named differently from the name the installation scripts were expecting, so the installation scripts had to be almost completely rewritten! Several steps were required to complete the installation, and one of them did what I definitely did <strong>not</strong> want: it installed the APL fonts in a standard font directory. This makes an uninstall very difficult due to the necessity to manually remove such font files - I would much rather have installed them in their own font directory and adjusted the X server's font path, which, if you know what you are doing, is a piece of cake.</p>
+<p>None of the interpreters installed calls to themselves in the window manager's menu system. Perhaps this is nitpicking, but I did it manually, and it took a lot longer than the software install did! See <a href="#fig0">figure 0</a>.</p>
+<p>My last complaint is that none of the interpreters installed as a "package". Sun have a standard whereby software installed on Solaris machines comes as packages which make custom installations, upgrades and removals very much easier and safer. This is now a standard for Solaris software and has been adopted by many software producers<sup>[<a href="#Note15">15</a>]</sup>.</p>
+<p>Eventually, all the interpreters were installed successfully.</p>
+<h2 id="running-apl">Running APL<a class="headerlink" href="#running-apl" title="Permanent link">&para;</a></h2>
+<p><a id="fig1"></a> <img alt="3 interpreters under CDE" height="591" src="./CDE1.gif" title="3 interpreters under CDE" width="789" /><br />
+Figure 1: Three interpreters running under CDE</p>
+<p>This is the proof of the pudding. As can be seen in <a href="#fig1">figure 1</a>, running under CDE, all three interpreters appear normal to the casual eye. Note that the window decoration for APL/W is slightly wider than for the other two interpreters. This appears to be similar to the default window decoration supplied by mwm, the Motif window manager (on which dtwm, the CDE window manager, is based). This made me curious to see what would happen if I changed window manager<sup>[<a href="#Note16">16</a>]</sup>.</p>
+<p><a id="fig2"></a> <img alt="3 interpreters under OpenWindows" height="444" src="./OW1.gif" width="596" /><br />
+Figure 2: Three interpreters running under OpenWindows</p>
+<p>The first option was to run the interpreters using OpenWindows. This was Sun's default window manager prior to the introduction of Solaris 2, which introduced CDE as a default, although OpenWindows is still provided. The result can be seen in <a href="#fig2">figure 2</a> (note that I reduced the window widths for the screenshot). What we see is that APL+Unix and SAX appear to be well-behaved X clients, whereas Dyalog APL looks decidedly less attractive: it forces the Motif appearance and refuses to let the window manager draw the window decorations.</p>
+<p>The same behaviour was seen using other (totally non-standard) window managers: AfterStep (figure 3) and KDE (figure 4)</p>
+<p><a id="fig3"></a> <img alt="3 interpreters under AfterStep" height="381" src="./AS1.gif" width="567" /><br />
+Figure 3: Three interpreters running under AfterStep</p>
+<p>None of the APLs tested claim compatibility with other window managers, but in my experience it is rare for applications to be dependent on a particular window manager or refuse to work at all with others. For those unfamiliar with the concept, the windowing system on most UNIX machines is quite different from that provided by Microsoft. Briefly, there is the <em>X server</em>, which provides the resources which allow drawing on the output device (i.e. the monitor) and an <em>X client</em>, which does the drawing. The <em>window manager</em> is a special client, providing resources (that other client usually use) which determine a number of properties: the "look" of the windows (essentially the window decorations) the action and look of windows when minimised or maximised, and interactions with the mouse and the keyboard.</p>
+<p>Possibly the most impressive part of this is that these programs need not be running on the same machine: the X server always runs locally, but the X clients (including the window manager) may be running on other machines on the network, possibly with a totally different operating system or architecture. All the interpreters reviewed declared that running an X server under Microsoft Windows was supported (I did not have the opportunity to test this).</p>
+<p><a id="fig4"></a> <img alt="3 interpreters under KDE" height="285" src="./KDE1.gif" width="607" /><br />
+Figure 4: Three interpreters running under KDE</p>
+<p>The window managers I use all have the above properties, but of the APL interpreters tested, only SAX allowed the window manager to do its job!</p>
+<ul>
+<li>SAX allowed the mouse "copy/paste" action to work as it should. It was easy to copy characters from within a session as well as from other applications. SAX also behaved totally normally when minimised or maximised. However, it would have been nice to be able to move the APL cursor with the mouse and a scroll bar would help to conveniently and quickly scroll up to other parts of the session manager.</li>
+<li>APL+Unix allowed the mouse to move of the cursor, but the "copy/paste" action didn't work. It is, as far as I can see, not possible to copy in code or text from another application. Again, there is no scroll bar.</li>
+<li>Dyalog APL/M uniquely provides a scroll bar (very useful) but provides a Windows-like "copy/paste" action, which excludes use of the mouse and makes copying from other windows difficult, though not impossible. However, the only way I managed this requires a Sun keyboard - if you use a PC with an X server, this might be impossible. Lastly, APL/M forced a Windows-like behaviour on being minimised unless dtwm (CDE) was in use. This is shown by <a href="#fig5-7">figures 5-7</a>.</li>
+</ul>
+<p><a id="fig5-7"></a></p>
+<table>
+    <tr>
+      <td>
+        <p class="picture">
+          <img src="./CDE2.gif" alt="Minimised under CDE..." width="188" height="84"><br>
+          Figure 5: Minimised under CDE...
+        </p>
+      </td>
+      <td>
+        <p class="picture">
+          <img src="./AS2.gif" alt="...AfterStep..." width="276" height="81"><br>
+          Figure 6: ...AfterStep...
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <p class="picture">
+          <img src="./OW2.gif" alt="...and OpenWindows" width="379" height="84"><br>
+          Figure 7: ... and OpenWindows
+        </p>
+      </td>
+    </tr>
+  </table>
+
+<p>Note that these criticisms do not affect the working of the APL interpreters. All the interpreters "worked" (i.e. they interpreted APL code) with all the window managers. Nevertheless they do affect the productivity of the APLer, and a user who likes a particular window manager might not appreciate it when applications refuse to comply with the window manager's behaviour patterns, as this makes that application needlesly different from all others.</p>
+<h2 id="coming-in-part-2">Coming in Part 2<a class="headerlink" href="#coming-in-part-2" title="Permanent link">&para;</a></h2>
+<p>I have looked briefly at a few aspects of these interpreters, and probably not the points most on the readers' minds. I have not even run any APL code! Unfortunately, neither time nor space allow me to paint a complete picture, certainly not enough to base a purchase decision on. In the next issue I will concentrate on:</p>
+<ul>
+<li>The features of the language implementations.</li>
+<li>Compatibility with other APLs and other platforms.</li>
+<li>Execution speed.</li>
+</ul>
+<p><a id="fig8"></a> <img alt="APL/M with the Windows look" height="324" src="./CDE3.gif" width="617" /><br />
+Figure 8: APL/M with the Windows look</p>
+<h2 id="thanks">Thanks<a class="headerlink" href="#thanks" title="Permanent link">&para;</a></h2>
+<p>The three vendors concerned each had a brief opportunity to look at a draft of this review. While they had no impact on the result, each had constructive criticisms and a few inaccuracies were removed, for which I am grateful. The blame for any remaining errors falls on me.</p>
+<hr />
+<h2 id="notes-references-and-web-sites">Notes, References and web sites<a class="headerlink" href="#notes-references-and-web-sites" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a id="Note1"></a> Refer to <em><a href="../art10003640/">My SAX Experience</a></em>, by Bob Hoekstra, <em>Vector</em> Vol. 16 No. 3.</li>
+<li><a id="Note2"></a> The web site for Soliton is <a href="http://www.soliton.com">http://www.soliton.com</a>.</li>
+<li><a id="Note3"></a> The web site for Sun is <a href="http://www.sun.com/">http://www.sun.com/</a>, the Ultra 5 page is <a href="http://www.sun.com/desktop/products/ultra5/">http://www.sun.com/desktop/products/ultra5/</a> and the Enterprise 10000 page is <a href="http://www.sun.com/servers/highend/10000/">http://www.sun.com/servers/highend/10000/</a>. They have information on the UltraSPARC family of processors at <a href="http://www.sun.com/microelectronics/UltraSPARC/">http://www.sun.com/microelectronics/UltraSPARC/</a>.</li>
+<li><a id="Note4"></a> Hewlett Packard's UNIX information is at <a href="http://www.unixsolutions.hp.com/">http://www.unixsolutions.hp.com/</a>, and the V Class machines are featured at <a href="http://www.unixsolutions.hp.com/products/servers/vclass">http://www.unixsolutions.hp.com/products/servers/vclass</a>. Clustering information is at <a href="http://www.unixsolutions.hp.com/products/servers/hyperplex.html">http://www.unixsolutions.hp.com/products/servers/hyperplex.html</a></li>
+<li><a id="Note5"></a> IBM has UNIX hardware information at <a href="http://www.rs6000.ibm.com">http://www.rs6000.ibm.com</a>. APL2 information is at <a href="http://www-4.ibm.com/software/ad/apl/">http://www-4.ibm.com/software/ad/apl/</a>.</li>
+<li><a id="Note6"></a> SGI's web site is at <a href="http://www.sgi.com/">http://www.sgi.com/</a> and their supercomputers, including the stunning Cray T3E, can be found at <a href="http://www.sgi.com/products/supercomputers.html">http://www.sgi.com/products/supercomputers.html</a>. Note that this machine has a peak performance exceeding 2.4 TFLOPS with a peak I/O bandwidth of 128 GB/sec!</li>
+<li><a id="Note7"></a> Compaq have a web site at <a href="http://www.compaq.com/">http://www.compaq.com/</a> but their multiprocessor Alpha boxes are at <a href="http://www.digital.com/alphaserver/servers.html">http://www.digital.com/alphaserver/servers.html</a>.</li>
+<li><a id="Note8"></a> The Beowulf Project's home page is <a href="http://www.beowulf.org">http://www.beowulf.org</a> and an interesting implementation is described at <a href="http://cnls.lanl.gov/avalon/">http://cnls.lanl.gov/avalon/</a>.</li>
+<li><a id="Note9"></a> APL2000 have a web site at <a href="http://www.apl2000.com/">http://www.apl2000.com/</a>.</li>
+<li><a id="Note10"></a> Dyadic Systems's web site is at <a href="http://www.dyadic.com/">http://www.dyadic.com/</a>.</li>
+<li><a id="Note11"></a> MAINSoft Corporation's web site is at <a href="http://www.mainsoft.com/">http://www.mainsoft.com/</a>.</li>
+<li><a id="Note12"></a> Refer to <em>Dyalog APL for Motif Version 8.1 Release 2 for Sun Solaris 5.5</em>, by Bob Hoekstra, <em>Vector</em> Vol. 14 No. 3.</li>
+<li><a id="Note13"></a> Adobe Acrobat is a free download at <a href="http://www.adobe.com/products/acrobat/readstep.html">http://www.adobe.com/products/acrobat/readstep.html</a></li>
+<li><a id="Note14"></a> Borland/Inprise can be found at <a href="http://www.inprise.com">http://www.inprise.com</a> with downloads at <a href="http://www.inprise.com/downloads/">http://www.inprise.com/downloads/</a>.</li>
+<li><a id="Note15"></a> Sun packages are used for the operating system as well as application software. Details can be found at ... Examples of non-Sun software using packages can be found on the Internet at <a href="http://www.sunfreeware.com/">http://www.sunfreeware.com/</a> and many other sites. Essentially the concept is similar to the <code>*.rpm</code> files used by Red Hat's package manager (<a href="http://www.redhat.com/">http://www.redhat.com/</a>) and the <code>*.deb</code> files used by Debian's package manager (<a href="http://www.debian.org/">http://www.debian.org/</a>).</li>
+<li><a id="Note16"></a> Much information regarding Motif and other window managers can be found at <a href="http://www.plig.org/~winman/">http://www.plig.org/~winman/</a>.</li>
+</ol>
+<hr />
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

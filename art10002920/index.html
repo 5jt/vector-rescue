@@ -1,0 +1,1766 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10002920/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Driving the Windows GUI and COM from Dyalog APL Version 9.0 - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#microsoft-jet-engine" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Driving the Windows GUI and COM from Dyalog APL Version 9.0
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#microsoft-jet-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Microsoft Jet Engine
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#microsoft-excel" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Microsoft Excel
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#microsoft-word" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Microsoft Word
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Driving the Windows GUI and COM from Dyalog APL Version 9.0</h1>
+
+  <p class="printed"><a href="../17/#n2-october-2000">Vector 17:2</a>, page 74</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-system-interfaces">system interfaces</a> <a class="md-tag" href="../tags/#tag-user-interfaces">user interfaces</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../17/2/VOL.17-NO.2-OCTOBER-2000.pdf#page=76">Read it in the PDF of the issue, page 74</a></em></p>
+<p class="byline"><em>workshop notes by Pete Donnelly (Dyadic Systems)</em></p>
+<p>This tutorial explores the manner in which Dyalog APL Version 9 has been enhanced to make access to the Windows GUI and COM easier to program and faster to use.</p>
+<p>Let’s start by making a Form:</p>
+<p>In the session menu, there is an option labelled <em>Options/Object Syntax/Expose GUI Properties</em> which I have checked. This means that I can manipulate a property directly, as if it were a variable:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w">      </span><span class="nv">F</span><span class="na">.</span><span class="nv">Caption</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">      </span><span class="nv">F</span><span class="na">.</span><span class="nv">Caption</span><span class="kd">←</span><span class="s1">'Hello World'</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">      </span><span class="nv">F</span><span class="na">.</span><span class="nv">Caption</span><span class="kd">←</span><span class="o">⌽</span><span class="nv">F</span><span class="na">.</span><span class="nv">Caption</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">      </span><span class="nv">F</span><span class="na">.</span><span class="nv">Caption</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nv">dlroW</span><span class="w"> </span><span class="nv">olleH</span>
+</span></code></pre></div>
+<p>If we change into the <em>F</em> namespace, we can use the new <code>)PROPS</code>, <code>)EVENTS</code> and <code>)METHODS</code> system commands to discover the names of the Properties, Events and Methods provided by the object.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="w">      </span><span class="p">)</span><span class="nv">CS</span><span class="w"> </span><span class="nv">F</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1">#.F</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">      </span><span class="p">)</span><span class="nv">PROPS</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nv">Accelerator</span><span class="w">  </span><span class="nv">AcceptFiles</span><span class="w">  </span><span class="nv">Active</span><span class="w">  </span><span class="nv">AlphaBlend</span><span class="w">  </span><span class="nv">AutoConf</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="nv">Border</span><span class="w">  </span><span class="nv">BCol</span><span class="w">  </span><span class="nv">Caption</span><span class="w">  </span><span class="nv">ChildList</span><span class="w">  </span><span class="nv">Coord</span><span class="w">  </span><span class="nv">CursorObj</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="nv">Data</span><span class="w">  </span><span class="nv">Dockable</span><span class="w">  </span><span class="nv">Docked</span><span class="w">  </span><span class="nv">DockChildren</span><span class="w">  </span><span class="nv">DockShowCaption</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="nv">EdgeStyle</span><span class="w">  </span><span class="nv">Event</span><span class="w">  </span><span class="nv">EventList</span><span class="w">  </span><span class="nv">FontObj</span><span class="w">  </span><span class="nv">Handle</span><span class="w">  </span><span class="nv">HelpButton</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="nv">Hint</span><span class="w">  </span><span class="nv">HintObj</span><span class="w">  </span><span class="nv">HScroll</span><span class="w">  </span><span class="nv">IconObj</span><span class="w">  </span><span class="nv">KeepOnClose</span><span class="w">  </span><span class="nv">MaskCol</span><span class="w">  </span><span class="nv">MaxButton</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="nv">MethodList</span><span class="w">  </span><span class="nv">MinButton</span><span class="w">  </span><span class="nv">Moveable</span><span class="w">  </span><span class="nv">OnTop</span><span class="w">  </span><span class="nv">Picture</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="nv">Posn</span><span class="w">  </span><span class="nv">PropList</span><span class="w">  </span><span class="nv">Range</span><span class="w">  </span><span class="nv">Size</span><span class="w">  </span><span class="nv">Sizeable</span><span class="w">  </span><span class="nv">State</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="nv">Step</span><span class="w">  </span><span class="nv">SysMenu</span><span class="w">  </span><span class="nv">TextSize</span><span class="w">  </span><span class="nv">Thumb</span><span class="w">  </span><span class="nv">Tip</span><span class="w">  </span><span class="nv">TipObj</span><span class="w">  </span><span class="nv">Translate</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="nv">Type</span><span class="w">  </span><span class="nv">UndocksToRoot</span><span class="w">  </span><span class="nv">Visible</span><span class="w">  </span><span class="nv">VScroll</span><span class="w">  </span><span class="nv">XRange</span><span class="w">  </span><span class="nv">YRange</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">      </span><span class="p">)</span><span class="nv">EVENTS</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="nv">Close</span><span class="w">  </span><span class="nv">Configure</span><span class="w">  </span><span class="nv">ContextMenu</span><span class="w">  </span><span class="nv">Create</span><span class="w">  </span><span class="nv">DockAccept</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="nv">DockCancel</span><span class="w">  </span><span class="nv">DockEnd</span><span class="w">  </span><span class="nv">DockMove</span><span class="w">  </span><span class="nv">DockRequest</span><span class="w">  </span><span class="nv">DockStart</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="nv">DragDrop</span><span class="w">  </span><span class="nv">DropFiles</span><span class="w">  </span><span class="nv">DropObjects</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="nv">DyalogCustomMessage1</span><span class="w">  </span><span class="nv">Expose</span><span class="w">  </span><span class="nv">FontCancel</span><span class="w">  </span><span class="nv">FontOK</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="nv">FrameContextMenu</span><span class="w">  </span><span class="nv">GotFocus</span><span class="w">  </span><span class="nv">Help</span><span class="w">  </span><span class="nv">HScroll</span><span class="w">  </span><span class="nv">KeyPress</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="nv">LostFocus</span><span class="w">  </span><span class="nv">MouseDblClick</span><span class="w">  </span><span class="nv">MouseDown</span><span class="w">  </span><span class="nv">MouseEnter</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="nv">MouseLeave</span><span class="w">  </span><span class="nv">MouseMove</span><span class="w">  </span><span class="nv">MouseUp</span><span class="w">  </span><span class="nv">MouseWheel</span><span class="w">  </span><span class="nv">Select</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="nv">StateChange</span><span class="w">  </span><span class="nv">VScroll</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">      </span><span class="p">)</span><span class="nv">METHODS</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="nv">Animate</span><span class="w">  </span><span class="nv">ChooseFont</span><span class="w">  </span><span class="nv">Detach</span><span class="w">  </span><span class="nv">GetFocus</span><span class="w">  </span><span class="nv">GetTextSize</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="nv">Wait</span>
+</span></code></pre></div>
+<p>Once in the <em>F</em> namespace, we can of course omit the name of the namespace itself when we refer to a property. For example:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="w">      </span><span class="nv">BCol</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="m">0</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">      </span><span class="nv">BCol</span><span class="kd">←</span><span class="m">255</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</span></code></pre></div>
+<p>There is a new AlphaBlend property (Windows 2000 only) that controls the translucency of a Form. For example:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="w">      </span><span class="nv">AlphaBlend</span><span class="kd">←</span><span class="m">128</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">      </span><span class="nv">AlphaBlend</span><span class="kd">←</span><span class="m">256</span>
+</span></code></pre></div>
+<p>There is a new Animate method (Windows 2000 only) which shows and hides an object with an animated effect. For example:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="w">      </span><span class="nv">Animate</span><span class="w"> </span><span class="m">16</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="m">1</span>
+</span></code></pre></div>
+<p>The optional second parameter specifies the play time:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="w">      </span><span class="nv">Animate</span><span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">2000</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="m">1</span>
+</span></code></pre></div>
+<p>As we are in the Form namespace <em>F</em>, we can create a Grid object named <em>G</em> as follows:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="w">      </span><span class="s1">'G'</span><span class="nf">⎕WC</span><span class="s1">'Grid'</span>
+</span></code></pre></div>
+<p>Again, we can manipulate the properties of the Grid directly.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="w">      </span><span class="nv">G</span><span class="na">.</span><span class="nv">Posn</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="m">24.82014465</span><span class="w"> </span><span class="m">25</span>
+</span></code></pre></div>
+<p>Indexing works as you would expect:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="w">      </span><span class="nv">G</span><span class="na">.</span><span class="nv">Posn</span><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="kd">←</span><span class="m">40</span>
+</span></code></pre></div>
+<p>As does Strand (vector) assignment:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="w">      </span><span class="nv">G</span><span class="na">.</span><span class="nv">Posn</span><span class="w"> </span><span class="nv">G</span><span class="na">.</span><span class="nv">Size</span><span class="kd">←</span><span class="p">(</span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="p">)(</span><span class="m">80</span><span class="w"> </span><span class="m">80</span><span class="p">)</span>
+</span></code></pre></div>
+<p>You can also manipulate several properties together using an expression such as:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="w">      </span><span class="nv">G</span><span class="na">.</span><span class="p">(</span><span class="nv">Values</span><span class="w"> </span><span class="nv">CellWidths</span><span class="p">)</span><span class="kd">←</span><span class="p">(</span><span class="o">?</span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="o">⍴</span><span class="m">100</span><span class="p">)</span><span class="w"> </span><span class="m">10</span>
+</span></code></pre></div>
+<p>Incidentally, the Animate method also works on the Grid (and on most other objects) but the animation only applies when making it visible:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="w">      </span><span class="nv">G</span><span class="na">.</span><span class="nv">Animate</span><span class="w"> </span><span class="m">16</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="m">1</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">      </span><span class="nv">G</span><span class="na">.</span><span class="nv">Animate</span><span class="w"> </span><span class="m">16</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="m">1</span>
+</span></code></pre></div>
+<p>The new syntax is especially convenient when combined with <code>:With</code>. Here is a function that illustrates this nicely.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="w">      </span><span class="p">)</span><span class="nv">CS</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">      </span><span class="nv">DUCK</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">DUCK</span><span class="sr">;</span><span class="nv">F</span><span class="sr">;</span><span class="nv">SINK</span><span class="sr">;</span><span class="nv">ANIM</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">    </span><span class="nv">ANIM</span><span class="kd">←</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="c1">⍝ Animation styles</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">    </span><span class="bp">:</span><span class="nv">Trap</span><span class="w"> </span><span class="m">6</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">      </span><span class="s1">'F'</span><span class="nf">⎕WC</span><span class="s1">'Form'</span><span class="w"> </span><span class="s1">'Duck à la Grid'</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">      </span><span class="bp">:</span><span class="nv">With</span><span class="w"> </span><span class="s1">'F.G'</span><span class="nf">⎕WC</span><span class="s1">'Grid'</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">        </span><span class="nv">Values</span><span class="kd">←</span><span class="m">50</span><span class="w"> </span><span class="m">50</span><span class="o">⍴⊂</span><span class="s1">''</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">        </span><span class="nv">Posn</span><span class="w"> </span><span class="nv">Size</span><span class="kd">←</span><span class="p">(</span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="p">)(</span><span class="m">50</span><span class="w"> </span><span class="m">50</span><span class="p">)</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">        </span><span class="nv">CellWidths</span><span class="w"> </span><span class="nv">CellHeights</span><span class="kd">←</span><span class="m">6</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">        </span><span class="nv">TitleWidth</span><span class="w"> </span><span class="nv">TitleHeight</span><span class="kd">←</span><span class="m">0</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">        </span><span class="s1">'D'</span><span class="nf">⎕WC</span><span class="s1">'Poly'</span><span class="c1">#.GDUCK('Coord' 'Cell')('FStyle' 0)</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">         </span><span class="bp">:</span><span class="nv">While</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="sr">[</span><span class="m">11</span><span class="sr">]</span><span class="w">           </span><span class="nv">Visible</span><span class="kd">←</span><span class="m">0</span>
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="sr">[</span><span class="m">12</span><span class="sr">]</span><span class="w">           </span><span class="nv">Posn</span><span class="kd">←</span><span class="o">?⌊</span><span class="m">0.5</span><span class="o">×</span><span class="c1">##.Size</span>
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="sr">[</span><span class="m">13</span><span class="sr">]</span><span class="w">           </span><span class="nv">BCol</span><span class="kd">←</span><span class="o">⊂?</span><span class="m">255</span><span class="w"> </span><span class="m">255</span><span class="w"> </span><span class="m">255</span>
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="sr">[</span><span class="m">14</span><span class="sr">]</span><span class="w">           </span><span class="nv">D</span><span class="na">.</span><span class="nv">FillCol</span><span class="kd">←</span><span class="o">?</span><span class="m">255</span><span class="w"> </span><span class="m">255</span><span class="w"> </span><span class="m">255</span>
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="sr">[</span><span class="m">15</span><span class="sr">]</span><span class="w">           </span><span class="nv">SINK</span><span class="kd">←</span><span class="nv">Animate</span><span class="p">(</span><span class="o">⊃</span><span class="nv">ANIM</span><span class="p">)</span><span class="o">,</span><span class="m">1000</span>
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="sr">[</span><span class="m">16</span><span class="sr">]</span><span class="w">           </span><span class="nv">ANIM</span><span class="kd">←</span><span class="m">1</span><span class="o">⌽</span><span class="nv">ANIM</span>
+</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a><span class="sr">[</span><span class="m">17</span><span class="sr">]</span><span class="w">           </span><span class="nf">⎕DL</span><span class="w"> </span><span class="m">0.5</span>
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a><span class="sr">[</span><span class="m">18</span><span class="sr">]</span><span class="w">         </span><span class="bp">:</span><span class="nv">EndWhile</span>
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="sr">[</span><span class="m">19</span><span class="sr">]</span><span class="w">     </span><span class="bp">:</span><span class="nv">EndWith</span>
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a><span class="sr">[</span><span class="m">20</span><span class="sr">]</span><span class="w">   </span><span class="bp">:</span><span class="nv">EndTrap</span>
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>Let’s now take a look at the Event property.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="w">      </span><span class="s1">'F'</span><span class="nf">⎕WC</span><span class="s1">'Form'</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">      </span><span class="p">)</span><span class="nv">COPY</span><span class="w"> </span><span class="nv">DISPLAY</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">      </span><span class="nv">DISPLAY</span><span class="w"> </span><span class="nv">F</span><span class="na">.</span><span class="nv">Event</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="na">.</span><span class="no">⍬</span><span class="o">-----------</span><span class="na">.</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="o">|</span><span class="w"> </span><span class="na">.</span><span class="kd">→</span><span class="o">--------</span><span class="na">.</span><span class="w"> </span><span class="o">|</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="na">.</span><span class="no">⍬</span><span class="na">.</span><span class="w"> </span><span class="na">.</span><span class="no">⍬</span><span class="na">.</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">'-'</span><span class="w"> </span><span class="s1">'-'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="o">|</span><span class="w"> </span><span class="s1">'∊--------'</span><span class="w"> </span><span class="o">|</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="s1">'∊------------'</span>
+</span></code></pre></div>
+<p>You can assign to the Event property:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="w">      </span><span class="nv">F</span><span class="na">.</span><span class="nv">Event</span><span class="kd">←</span><span class="s1">'KeyPress'</span><span class="w"> </span><span class="s1">'FOO'</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">      </span><span class="nv">DISPLAY</span><span class="w"> </span><span class="nv">F</span><span class="na">.</span><span class="nv">Event</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="na">.</span><span class="kd">→</span><span class="o">-----------------------</span><span class="na">.</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="o">|</span><span class="w"> </span><span class="na">.</span><span class="kd">→</span><span class="o">-------------------</span><span class="na">.</span><span class="w"> </span><span class="o">|</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="na">.</span><span class="kd">→</span><span class="o">-------</span><span class="na">.</span><span class="w"> </span><span class="na">.</span><span class="kd">→</span><span class="o">----</span><span class="na">.</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="nv">KeyPress</span><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="c1">#.FOO| | |</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">'--------'</span><span class="w"> </span><span class="s1">'-----'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="o">|</span><span class="w"> </span><span class="s1">'∊-------------------'</span><span class="w"> </span><span class="o">|</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="s1">'∊-----------------------'</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">FOO</span><span class="w"> </span><span class="nv">M</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">DISPLAY</span><span class="w"> </span><span class="nv">M</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>Now, if I press a key on the Form, the callback fires and displays the event message:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="na">.</span><span class="kd">→</span><span class="o">--------------------------</span><span class="na">.</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="o">|</span><span class="w"> </span><span class="na">.</span><span class="kd">→</span><span class="na">.</span><span class="w"> </span><span class="na">.</span><span class="kd">→</span><span class="o">-------</span><span class="na">.</span><span class="w">            </span><span class="o">|</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="nv">F</span><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="nv">KeyPress</span><span class="o">|</span><span class="w"> </span><span class="nv">g</span><span class="w"> </span><span class="m">103</span><span class="w"> </span><span class="m">71</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">|</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="o">|</span><span class="w"> </span><span class="s1">'-'</span><span class="w"> </span><span class="s1">'--------'</span><span class="w"> </span><span class="o">-</span><span class="w">          </span><span class="o">|</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="s1">'∊--------------------------'</span>
+</span></code></pre></div>
+<p>As you can see, the first element of the event message is a character vector containing the <em>name</em> of the object that caused the event. This is compatible with previous versions of Dyalog APL.</p>
+<p>If however, we prefix the event name with <em>on</em>, the first element of the event message is a <em>namespace reference</em> to the object</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="w">      </span><span class="nv">F</span><span class="na">.</span><span class="nv">Event</span><span class="kd">←</span><span class="s1">'onKeyPress'</span><span class="w"> </span><span class="s1">'FOO'</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="na">.</span><span class="kd">→</span><span class="o">--------------------------</span><span class="na">.</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="o">|</span><span class="w">     </span><span class="na">.</span><span class="kd">→</span><span class="o">-------</span><span class="na">.</span><span class="w">            </span><span class="o">|</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="o">|</span><span class="w"> </span><span class="c1">#.F |KeyPress| g 103 71 0 |</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="o">|</span><span class="w">     </span><span class="s1">'--------'</span><span class="w"> </span><span class="o">-</span><span class="w">          </span><span class="o">|</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="s1">'∊--------------------------'</span>
+</span></code></pre></div>
+<p>To make it easier to assign events, you can assign to <em>on</em>&lt;event name&gt; directly:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="w">      </span><span class="nv">F</span><span class="na">.</span><span class="nv">onKeyPress</span><span class="kd">←</span><span class="s1">'FOO'</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">      </span><span class="nv">F</span><span class="na">.</span><span class="nv">onMouseDown</span><span class="kd">←</span><span class="s1">'FOO'</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">      </span><span class="nv">DISPLAY</span><span class="w"> </span><span class="nv">F</span><span class="na">.</span><span class="nv">Event</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="na">.</span><span class="kd">→</span><span class="o">-----------------------------------------------</span><span class="na">.</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="o">|</span><span class="w"> </span><span class="na">.</span><span class="kd">→</span><span class="o">---------------------</span><span class="na">.</span><span class="w"> </span><span class="na">.</span><span class="kd">→</span><span class="o">-------------------</span><span class="na">.</span><span class="w"> </span><span class="o">|</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="na">.</span><span class="kd">→</span><span class="o">----------</span><span class="na">.</span><span class="w"> </span><span class="na">.</span><span class="kd">→</span><span class="o">----</span><span class="na">.</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="na">.</span><span class="kd">→</span><span class="o">---------</span><span class="na">.</span><span class="w"> </span><span class="na">.</span><span class="kd">→</span><span class="o">----</span><span class="na">.</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="nv">onMouseDown</span><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="c1">#.FOO| | | |onKeyPress| |#.FOO| | |</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">'-----------'</span><span class="w"> </span><span class="s1">'-----'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">'----------'</span><span class="w"> </span><span class="s1">'-----'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="o">|</span><span class="w"> </span><span class="s1">'∊---------------------'</span><span class="w"> </span><span class="s1">'∊-------------------'</span><span class="w"> </span><span class="o">|</span>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="s1">'∊-----------------------------------------------'</span>
+</span></code></pre></div>
+<h2 id="microsoft-jet-engine">Microsoft Jet Engine<a class="headerlink" href="#microsoft-jet-engine" title="Permanent link">&para;</a></h2>
+<p>We will start our exploration of the Version 9 COM interface, using the DAO.DBEngine OLE Server (also called the Microsoft Jet Engine).</p>
+<p>Let’s begin by using the new COM Browser that is built into the Version 9 Workspace Explorer.</p>
+<p><img alt="The Workspace Explorer: the tree shows TypeLibs with Loaded Libraries and Registered Libraries; the list of registered libraries (Microsoft Chart Control 6.0, Microsoft Cluster Service Automation, Microsoft Comm Control 6.0 and others, with their CLSIDs and versions) has one entry highlighted" src="browser1.jpg" /></p>
+<p>The <em>Registered Libraries</em> folder contains information about all of the libraries associated with COM objects that are installed on your computer. You can navigate to the <em>Microsoft DAO 3.6 Object Library</em>, as shown above, and then double-click to load it.</p>
+<p>The Loaded Libraries folder contains information about all of the libraries that are loaded into the active workspace. You can navigate to the _DBEngine object, and then to its OpenDatabase method, as shown below.</p>
+<p><img alt="The Workspace Explorer with Microsoft DAO 3.6 Object Library loaded: under Objects, _DBEngine’s Methods are listed and OpenDatabase is selected; the right pane shows Name OpenDatabase, HelpID 0x00101133, Result Database, and the arguments Name (VT_BSTR, [in]), Options, ReadOnly and Connect (VT_VARIANT, [Optional],[in])" src="browser2.jpg" /></p>
+<p>The Opendatabase method takes a single mandatory parameter, the name of a database file, and a number of additional optional parameters.</p>
+<p>To save me typing, I am going to load a workspace:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="w">      </span><span class="p">)</span><span class="nv">LOAD</span><span class="w"> </span><span class="nv">PDDEMO</span>
+</span></code></pre></div>
+<p>Leaving the Workspace Explorer for now, we can create a new OLEClient namespace <em>DAO</em> connected to this server as follows:</p>
+<p>First, I am going to set up <code>⎕PATH</code> so that I can refer to any function in the root from any namespace:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="w">      </span><span class="nf">⎕PATH</span><span class="kd">←</span><span class="s1">'#'</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">      </span><span class="s1">'DAO'</span><span class="nf">⎕WC</span><span class="s1">'OLEClient'</span><span class="w"> </span><span class="s1">'DAO.DBEngine.36'</span>
+</span></code></pre></div>
+<p>Then, change to the DAO namespace and look at the properties and methods that the object provides using the <code>)PROPS</code> and <code>)METHODS</code> system commands:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="w">      </span><span class="p">)</span><span class="nv">CS</span><span class="w"> </span><span class="nv">DAO</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">      </span><span class="p">)</span><span class="nv">PROPS</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="nv">AutoBrowse</span><span class="w">  </span><span class="nv">ChildList</span><span class="w">  </span><span class="nv">ClassID</span><span class="w">  </span><span class="nv">ClassName</span><span class="w">  </span><span class="nv">Data</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="nv">DefaultPassword</span><span class="w">  </span><span class="nv">DefaultType</span><span class="w">  </span><span class="nv">DefaultUser</span><span class="w">  </span><span class="nv">Errors</span><span class="w">  </span><span class="nv">Event</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="nv">EventList</span><span class="w">  </span><span class="nv">Handle</span><span class="w">  </span><span class="nv">HelpFile</span><span class="w">  </span><span class="nv">IniPath</span><span class="w">  </span><span class="nv">InstanceMode</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="nv">KeepOnClose</span><span class="w">  </span><span class="nv">LastError</span><span class="w">  </span><span class="nv">Locale</span><span class="w">  </span><span class="nv">LoginTimeout</span><span class="w">  </span><span class="nv">MethodList</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="nv">Properties</span><span class="w">  </span><span class="nv">PropList</span><span class="w">  </span><span class="nv">QueueEvents</span><span class="w">  </span><span class="nv">SystemDB</span>
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="nv">Type</span><span class="w">  </span><span class="nv">TypeList</span><span class="w">  </span><span class="nv">Version</span><span class="w">  </span><span class="nv">Workspaces</span>
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="w">      </span><span class="p">)</span><span class="nv">METHODS</span>
+</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="nv">BeginTrans</span><span class="w">  </span><span class="nv">Browse</span><span class="w">  </span><span class="nv">CommitTrans</span><span class="w">  </span><span class="nv">CompactDatabase</span>
+</span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="nv">CreateDatabase</span><span class="w">  </span><span class="nv">CreateWorkspace</span><span class="w">  </span><span class="nv">Detach</span><span class="w">  </span><span class="nv">GetEventInfo</span>
+</span><span id="__span-20-13"><a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="nv">GetMethodInfo</span><span class="w">  </span><span class="nv">GetPropertyInfo</span><span class="w">  </span><span class="nv">GetTypeInfo</span><span class="w">  </span><span class="nv">Idle</span><span class="w">  </span><span class="nv">ISAMStats</span>
+</span><span id="__span-20-14"><a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a><span class="nv">OpenConnection</span><span class="w">  </span><span class="nv">OpenDatabase</span><span class="w">  </span><span class="nv">OLEAddEventSink</span><span class="w">  </span><span class="nv">OLEDeleteEventSink</span>
+</span><span id="__span-20-15"><a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a><span class="nv">OLEListEventSinks</span><span class="w">  </span><span class="nv">OLEQueryInterface</span><span class="w">  </span><span class="nv">RegisterDatabase</span>
+</span><span id="__span-20-16"><a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a><span class="nv">RepairDatabase</span><span class="w">  </span><span class="nv">Rollback</span><span class="w">  </span><span class="nv">SetMethodInfo</span><span class="w">  </span><span class="nv">SetOption</span>
+</span><span id="__span-20-17"><a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a><span class="nv">SetPropertyInfo</span><span class="w">  </span><span class="nv">ShowHelp</span>
+</span></code></pre></div>
+<p>Position the cursor over the word OpenDatabase, and invoke the on-line help by pressing F1 or using the context menu.</p>
+<p>You will notice that the on-line help confirms what we discovered previously using the Explorer.</p>
+<p>To save typing, the <em>NORTHWIND</em> function returns the full pathname of the sample Northwind.mdb database on my computer:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="w">      </span><span class="nv">NORTHWIND</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="nv">c</span><span class="bp">:</span><span class="na">\</span><span class="nv">Program</span><span class="w"> </span><span class="nv">Files</span><span class="na">\</span><span class="nv">Microsoft</span><span class="w"> </span><span class="nv">Office</span><span class="na">\</span><span class="nv">Office</span><span class="na">\</span><span class="nv">Samples</span><span class="na">\</span><span class="nv">Northwind</span><span class="na">.</span><span class="nv">mdb</span>
+</span></code></pre></div>
+<p>The OpenDatabase function returns an object, i.e. a namespace reference, which we can assign to a name <em>DB</em>:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="w">      </span><span class="nv">DB</span><span class="kd">←</span><span class="nv">OpenDatabase</span><span class="w"> </span><span class="nv">NORTHWIND</span>
+</span></code></pre></div>
+<p>If we ask what’s in <em>DB</em>, APL tells us that it is a namespace reference to a Database object:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="w">      </span><span class="nv">DB</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="c1">#.DAO.[Database]</span>
+</span></code></pre></div>
+<p>Let’s now change into the <em>DB</em> namespace and see what we find:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="w">      </span><span class="p">)</span><span class="nv">CS</span><span class="w"> </span><span class="nv">DB</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="c1">#.DAO.[Database]</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">      </span><span class="p">)</span><span class="nv">METHODS</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="nv">Browse</span><span class="w">  </span><span class="nv">Close</span><span class="w">  </span><span class="nv">CreateProperty</span><span class="w">  </span><span class="nv">CreateQueryDef</span><span class="w">  </span><span class="nv">CreateRelation</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="nv">CreateTableDef</span><span class="w">  </span><span class="nv">Detach</span><span class="w">  </span><span class="nv">Execute</span><span class="w">  </span><span class="nv">GetEventInfo</span><span class="w">  </span><span class="nv">GetMethodInfo</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="nv">GetPropertyInfo</span><span class="w">  </span><span class="nv">GetTypeInfo</span><span class="w">  </span><span class="nv">MakeReplica</span><span class="w">  </span><span class="nv">NewPassword</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="nv">OpenRecordset</span><span class="w">  </span><span class="nv">OLEAddEventSink</span><span class="w">  </span><span class="nv">OLEDeleteEventSink</span>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="nv">OLEListEventSinks</span><span class="w">  </span><span class="nv">OLEQueryInterface</span><span class="w">  </span><span class="nv">PopulatePartial</span>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="nv">SetMethodInfo</span><span class="w">  </span><span class="nv">SetPropertyInfo</span><span class="w">  </span><span class="nv">ShowHelp</span><span class="w">  </span><span class="nv">Synchronize</span>
+</span></code></pre></div>
+<p>Once again, let’s use the context-sensitive help to examine the OpenRecordset method. You will see that it can be called with an SQL query. The method returns a Recordset object, which we will assign to the name <em>RCS</em>.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="w">      </span><span class="nv">RCS</span><span class="kd">←</span><span class="nv">OpenRecordset</span><span class="s1">'Select * from Customers'</span>
+</span></code></pre></div>
+<p>Now change into the <em>RCS</em> namespace and look at the properties and methods it provides:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="w">      </span><span class="p">)</span><span class="nv">CS</span><span class="w"> </span><span class="nv">RCS</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="c1">#.DAO.[Database].[Recordset]</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">      </span><span class="p">)</span><span class="nv">METHODS</span>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="nv">AddNew</span><span class="w">  </span><span class="nv">Browse</span><span class="w">  </span><span class="nv">Cancel</span><span class="w">  </span><span class="nv">CancelUpdate</span><span class="w">  </span><span class="nv">Clone</span><span class="w">  </span><span class="nv">Close</span>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="nv">CopyQueryDef</span><span class="w">  </span><span class="nv">Delete</span><span class="w">  </span><span class="nv">Detach</span><span class="w">  </span><span class="nv">Edit</span><span class="w">  </span><span class="nv">FillCache</span><span class="w">  </span><span class="nv">FindFirst</span>
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="nv">FindLast</span><span class="w">  </span><span class="nv">FindNext</span><span class="w">  </span><span class="nv">FindPrevious</span><span class="w">  </span><span class="nv">GetEventInfo</span>
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="nv">GetMethodInfo</span><span class="w">  </span><span class="nv">GetPropertyInfo</span><span class="w">  </span><span class="nv">GetRows</span><span class="w">  </span><span class="nv">GetTypeInfo</span><span class="w">  </span><span class="nv">Move</span>
+</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a><span class="nv">MoveFirst</span><span class="w">  </span><span class="nv">MoveLast</span><span class="w">  </span><span class="nv">MoveNext</span><span class="w">  </span><span class="nv">MovePrevious</span>
+</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a><span class="nv">NextRecordset</span><span class="w">  </span><span class="nv">OpenRecordset</span><span class="w">  </span><span class="nv">OLEAddEventSink</span><span class="w">  </span><span class="nv">OLEDeleteEventSink</span>
+</span><span id="__span-26-10"><a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a><span class="nv">OLEListEventSinks</span><span class="w">  </span><span class="nv">OLEQueryInterface</span><span class="w">  </span><span class="nv">Requery</span><span class="w">  </span><span class="nv">Seek</span>
+</span><span id="__span-26-11"><a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a><span class="nv">SetMethodInfo</span><span class="w">  </span><span class="nv">SetPropertyInfo</span><span class="w">  </span><span class="nv">ShowHelp</span><span class="w">  </span><span class="nv">Update</span>
+</span></code></pre></div>
+<p>Using the context-sensitive help, take a look at the GetRows method. This takes a single parameter that specifies the number of rows to retrieve. Let’s try asking for 2:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="w">      </span><span class="nv">GetRows</span><span class="w"> </span><span class="m">2</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="nv">ALFKI</span><span class="w">                 </span><span class="nv">ANATR</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="nv">Alfreds</span><span class="w"> </span><span class="nv">Futterkiste</span><span class="w">   </span><span class="nv">Ana</span><span class="w"> </span><span class="nv">Trujillo</span><span class="w"> </span><span class="nv">Emparedados</span><span class="w"> </span><span class="nv">y</span><span class="w"> </span><span class="nv">helados</span>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="nv">Maria</span><span class="w"> </span><span class="nv">Anders</span><span class="w">          </span><span class="nv">Ana</span><span class="w"> </span><span class="nv">Trujillo</span>
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="nv">Sales</span><span class="w"> </span><span class="nv">Representative</span><span class="w">  </span><span class="nv">Owner</span>
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="nv">Obere</span><span class="w"> </span><span class="nv">Str</span><span class="na">.</span><span class="w"> </span><span class="m">57</span><span class="w">         </span><span class="nv">Avda</span><span class="na">.</span><span class="w"> </span><span class="nv">de</span><span class="w"> </span><span class="nv">la</span><span class="w"> </span><span class="nv">Constituci</span><span class="err">ó</span><span class="nv">n</span><span class="w"> </span><span class="m">2222</span>
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="nv">Berlin</span><span class="w">                </span><span class="nv">M</span><span class="err">é</span><span class="nv">xico</span><span class="w"> </span><span class="nv">D</span><span class="na">.</span><span class="nv">F</span><span class="na">.</span>
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>
+</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a><span class="m">12209</span><span class="w">                 </span><span class="m">05021</span>
+</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a><span class="nv">Germany</span><span class="w">               </span><span class="nv">Mexico</span>
+</span><span id="__span-27-11"><a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a><span class="m">030</span><span class="o">-</span><span class="m">0074321</span><span class="w">           </span><span class="p">(</span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="m">555</span><span class="o">-</span><span class="m">4729</span>
+</span><span id="__span-27-12"><a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a><span class="m">030</span><span class="o">-</span><span class="m">0076545</span><span class="w">           </span><span class="p">(</span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="m">555</span><span class="o">-</span><span class="m">3745</span>
+</span></code></pre></div>
+<p>This delivers the first 2 rows from the table. If we do it again, we get the next two (rows 3 and 4).</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="w">      </span><span class="nv">GetRows</span><span class="w"> </span><span class="m">2</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="nv">ANTON</span><span class="w">                     </span><span class="nv">AROUT</span>
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="nv">Antonio</span><span class="w"> </span><span class="nv">Moreno</span><span class="w"> </span><span class="nv">Taquer</span><span class="err">í</span><span class="nv">a</span><span class="w">   </span><span class="nv">Around</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">Horn</span>
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="nv">Antonio</span><span class="w"> </span><span class="nv">Moreno</span><span class="w">            </span><span class="nv">Thomas</span><span class="w"> </span><span class="nv">Hardy</span>
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="nv">Owner</span><span class="w">                     </span><span class="nv">Sales</span><span class="w"> </span><span class="nv">Representative</span>
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="nv">Mataderos</span><span class="w">  </span><span class="m">2312</span><span class="w">           </span><span class="m">120</span><span class="w"> </span><span class="nv">Hanover</span><span class="w"> </span><span class="nv">Sq</span><span class="na">.</span>
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="nv">M</span><span class="err">é</span><span class="nv">xico</span><span class="w"> </span><span class="nv">D</span><span class="na">.</span><span class="nv">F</span><span class="na">.</span><span class="w">               </span><span class="nv">London</span>
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a><span class="m">05023</span><span class="w">                     </span><span class="nv">WA1</span><span class="w"> </span><span class="m">1</span><span class="nv">DP</span>
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a><span class="nv">Mexico</span><span class="w">                    </span><span class="nv">UK</span>
+</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a><span class="p">(</span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="m">555</span><span class="o">-</span><span class="m">3932</span><span class="w">              </span><span class="p">(</span><span class="m">171</span><span class="p">)</span><span class="w"> </span><span class="m">555</span><span class="o">-</span><span class="m">7788</span>
+</span><span id="__span-28-12"><a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a><span class="w">                          </span><span class="p">(</span><span class="m">171</span><span class="p">)</span><span class="w"> </span><span class="m">555</span><span class="o">-</span><span class="m">6750</span>
+</span></code></pre></div>
+<p>The MoveFirst method resets the pointer to the first row:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="w">      </span><span class="nv">MoveFirst</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w">      </span><span class="nv">GetRows</span><span class="w"> </span><span class="m">2</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="nv">ALFKI</span><span class="w">                 </span><span class="nv">ANATR</span>
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="nv">Alfreds</span><span class="w"> </span><span class="nv">Futterkiste</span><span class="w">   </span><span class="nv">Ana</span><span class="w"> </span><span class="nv">Trujillo</span><span class="w"> </span><span class="nv">Emparedados</span><span class="w"> </span><span class="nv">y</span><span class="w"> </span><span class="nv">helados</span>
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="nv">Maria</span><span class="w"> </span><span class="nv">Anders</span><span class="w">          </span><span class="nv">Ana</span><span class="w"> </span><span class="nv">Trujillo</span>
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="nv">Sales</span><span class="w"> </span><span class="nv">Representative</span><span class="w">  </span><span class="nv">Owner</span>
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="nv">Obere</span><span class="w"> </span><span class="nv">Str</span><span class="na">.</span><span class="w"> </span><span class="m">57</span><span class="w">         </span><span class="nv">Avda</span><span class="na">.</span><span class="w"> </span><span class="nv">de</span><span class="w"> </span><span class="nv">la</span><span class="w"> </span><span class="nv">Constituci</span><span class="err">ó</span><span class="nv">n</span><span class="w"> </span><span class="m">2222</span>
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a><span class="nv">Berlin</span><span class="w">                </span><span class="nv">M</span><span class="err">é</span><span class="nv">xico</span><span class="w"> </span><span class="nv">D</span><span class="na">.</span><span class="nv">F</span><span class="na">.</span>
+</span><span id="__span-29-9"><a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a>
+</span><span id="__span-29-10"><a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a><span class="m">12209</span><span class="w">                 </span><span class="m">05021</span>
+</span><span id="__span-29-11"><a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a><span class="nv">Germany</span><span class="w">               </span><span class="nv">Mexico</span>
+</span><span id="__span-29-12"><a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a><span class="m">030</span><span class="o">-</span><span class="m">0074321</span><span class="w">           </span><span class="p">(</span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="m">555</span><span class="o">-</span><span class="m">4729</span>
+</span><span id="__span-29-13"><a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a><span class="m">030</span><span class="o">-</span><span class="m">0076545</span><span class="w">           </span><span class="p">(</span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="m">555</span><span class="o">-</span><span class="m">3745</span>
+</span></code></pre></div>
+<p>To get all the data, we can just ask for a large number of rows:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="w">      </span><span class="nv">MoveFirst</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="w">      </span><span class="o">⍴</span><span class="nv">GetRows</span><span class="w"> </span><span class="m">9999</span>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="m">11</span><span class="w"> </span><span class="m">91</span>
+</span></code></pre></div>
+<p>I will now show you how this entire query can be executed in a single statement</p>
+<p>First, we need to change back to root:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="w">      </span><span class="p">)</span><span class="nv">CS</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="c1">#</span>
+</span></code></pre></div>
+<p>If we execute the following expression, we get a namespace reference to a Database object:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="w">      </span><span class="p">(</span><span class="nv">DAO</span><span class="na">.</span><span class="nv">OpenDatabase</span><span class="w"> </span><span class="nv">NORTHWIND</span><span class="p">)</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="c1">#.DAO.[Database]</span>
+</span></code></pre></div>
+<p>There is nothing to prevent us from calling the OpenRecordset method in this object, even though the object itself has no name: This gives us a namespace reference to a Recordset object.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="w">      </span><span class="p">((</span><span class="nv">DAO</span><span class="na">.</span><span class="nv">OpenDatabase</span><span class="w"> </span><span class="nv">NORTHWIND</span><span class="p">)</span><span class="na">.</span><span class="nv">OpenRecordset</span><span class="w"> </span><span class="s1">'Select * from</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="s1">Products'</span><span class="p">)</span>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="c1">#.DAO.[Database].[Recordset]</span>
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="nv">Finally</span><span class="o">,</span><span class="w"> </span><span class="nv">we</span><span class="w"> </span><span class="nv">can</span><span class="w"> </span><span class="nv">run</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">GetRows</span><span class="w"> </span><span class="nv">method</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">this</span><span class="w"> </span><span class="nv">object</span><span class="o">,</span><span class="w"> </span><span class="nv">giving</span><span class="w"> </span><span class="nv">us</span><span class="bp">:</span>
+</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="w">      </span><span class="nv">DATA</span><span class="kd">←</span><span class="o">⍉</span><span class="p">((</span><span class="nv">DAO</span><span class="na">.</span><span class="nv">OpenDatabase</span><span class="w"> </span><span class="nv">NORTHWIND</span><span class="p">)</span><span class="na">.</span><span class="nv">OpenRecordset</span><span class="w"> </span><span class="s1">'Select * from</span>
+</span><span id="__span-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a><span class="s1">Products'</span><span class="p">)</span><span class="na">.</span><span class="nv">GetRows</span><span class="w"> </span><span class="m">9999</span>
+</span><span id="__span-33-7"><a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="w">      </span><span class="o">⍴</span><span class="nv">DATA</span>
+</span><span id="__span-33-8"><a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a><span class="m">77</span><span class="w"> </span><span class="m">10</span>
+</span></code></pre></div>
+<h2 id="microsoft-excel">Microsoft Excel<a class="headerlink" href="#microsoft-excel" title="Permanent link">&para;</a></h2>
+<p>Let’s now experiment with the Excel OLE Server, <em>Excel.Application</em></p>
+<p>We can create a new OLEClient namespace <em>EX</em> connected to this server as follows:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="w">      </span><span class="s1">'EX'</span><span class="nf">⎕WC</span><span class="s1">'OLEClient'</span><span class="w"> </span><span class="s1">'Excel.Application'</span>
+</span></code></pre></div>
+<p>Next, we will change into the <em>EX</em> namespace and look at its Properties:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="w">      </span><span class="p">)</span><span class="nv">CS</span><span class="w"> </span><span class="nv">EX</span>
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="w">      </span><span class="p">)</span><span class="nv">PROPS</span>
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="nv">_Default</span><span class="w">      </span><span class="nv">ActiveCell</span><span class="w">     </span><span class="nv">ActiveChart</span><span class="w">    </span><span class="nv">ActiveDialog</span>
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="nv">ActiveMenuBar</span><span class="w"> </span><span class="nv">ActivePrinter</span><span class="w">  </span><span class="nv">ActiveSheet</span><span class="w">    </span><span class="nv">ActiveWindow</span>
+</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a><span class="na">...</span>
+</span><span id="__span-35-6"><a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a><span class="nv">Width</span><span class="w">   </span><span class="nv">Windows</span><span class="w">  </span><span class="nv">WindowsForPens</span><span class="w">  </span><span class="nv">WindowState</span><span class="w">  </span><span class="nv">Workbooks</span>
+</span><span id="__span-35-7"><a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a><span class="nv">Worksheets</span><span class="w">    </span><span class="nv">WorksheetFunction</span>
+</span></code></pre></div>
+<p>Let’s make Excel visible by setting its Visible property:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="w">      </span><span class="nv">Visible</span><span class="kd">←</span><span class="m">1</span>
+</span></code></pre></div>
+<p>I seem to remember that the way into Excel is to start with the Workbooks property. To check this out, I can click on the word Workbooks (as displayed in the session window) and bring up the context-sensitive help, using the mouse or F1.</p>
+<p>Following the on-line help, I see that it has an Add method that can be called with or without arguments – let’s try it without (the default). Note that to call it "without arguments", we supply <code>⍬</code> as the argument.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="w">      </span><span class="nv">Workbooks</span><span class="na">.</span><span class="nv">Add</span><span class="w"> </span><span class="no">⍬</span>
+</span></code></pre></div>
+<p>There is another likely looking property named ActiveSheet; let’s check out its help topic.</p>
+<p>So ActiveSheet returns a Worksheet object. Let’s look at its Properties. This time, we will use its PropList property (a property added by Dyalog APL) rather than the system command <code>)PROPS</code> which you can only use inside the namespace in question.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="w">      </span><span class="nv">ActiveSheet</span><span class="na">.</span><span class="nv">PropList</span>
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="nv">Type</span><span class="w">  </span><span class="nv">Application</span><span class="w">  </span><span class="nv">Creator</span><span class="w">  </span><span class="nv">Parent</span><span class="w">  </span><span class="nv">CodeName</span><span class="w">  </span><span class="nv">_CodeName</span><span class="w">  </span><span class="nv">Index</span><span class="w">  </span><span class="nv">Name</span><span class="w">  </span><span class="nv">Next</span>
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="nv">OnDoubleClick</span><span class="w">  </span><span class="nv">OnSheetActivate</span><span class="w">  </span><span class="nv">OnSheetDeactivate</span><span class="w">  </span><span class="nv">PageSetup</span><span class="w">  </span><span class="nv">Previous</span>
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="nv">ProtectContents</span><span class="w">  </span><span class="nv">ProtectDrawingObjects</span><span class="w">  </span><span class="nv">ProtectionMode</span><span class="w">  </span><span class="nv">ProtectScenarios</span>
+</span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="nv">Visible</span><span class="w">  </span><span class="nv">Shapes</span><span class="w">  </span><span class="nv">TransitionExpEval</span><span class="w">  </span><span class="nv">AutoFilterMode</span><span class="w">  </span><span class="nv">EnableCalculation</span><span class="w">  </span><span class="nv">Cells</span>
+</span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a><span class="nv">CircularReference</span><span class="w">  </span><span class="nv">Columns</span><span class="w">  </span><span class="nv">ConsolidationFunction</span><span class="w">  </span><span class="nv">ConsolidationOptions</span>
+</span><span id="__span-38-7"><a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a><span class="nv">ConsolidationSources</span><span class="w">  </span><span class="nv">DisplayAutomaticPageBreaks</span><span class="w">  </span><span class="nv">EnableAutoFilter</span>
+</span><span id="__span-38-8"><a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a><span class="nv">EnableSelection</span><span class="w">  </span><span class="nv">EnableOutlining</span><span class="w">  </span><span class="nv">EnablePivotTable</span><span class="w">  </span><span class="nv">FilterMode</span><span class="w">  </span><span class="nv">Names</span>
+</span><span id="__span-38-9"><a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a><span class="nv">OnCalculate</span><span class="w">  </span><span class="nv">OnData</span><span class="w">  </span><span class="nv">OnEntry</span><span class="w">  </span><span class="nv">Outline</span><span class="w">  </span><span class="nv">Range</span><span class="w">  </span><span class="nv">Rows</span><span class="w">  </span><span class="nv">ScrollArea</span><span class="na">...</span>
+</span></code></pre></div>
+<p>Let’s try changing its Name property:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="w">      </span><span class="nv">ActiveSheet</span><span class="na">.</span><span class="nv">Name</span><span class="kd">←</span><span class="s1">'PETE'</span>
+</span></code></pre></div>
+<p>The Range property looks interesting – let’s check it out using the context-sensitive help:</p>
+<p>So, Range is a property that takes 2 parameters that specify the addresses of the first and last cells. It returns a Range object which, we can see from the help file, has a Value property. We can set this as follows:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="w">      </span><span class="p">(</span><span class="nv">ActiveSheet</span><span class="na">.</span><span class="nv">Range</span><span class="w"> </span><span class="s1">'A1'</span><span class="w"> </span><span class="s1">'J10'</span><span class="p">)</span><span class="na">.</span><span class="nv">Value</span><span class="kd">←</span><span class="o">?</span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="o">⍴</span><span class="m">100</span>
+</span></code></pre></div>
+<p>Notice that the result of the expression <code>(ActiveSheet.Range 'A1' 'J10')</code> is a Namespace Reference to an (unnamed) Range object. We can then reference its Value property directly.</p>
+<p>The Range object has a Font property that returns a Font object. The Font object has a property called Size; let’s try it:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="w">      </span><span class="p">(</span><span class="nv">ActiveSheet</span><span class="na">.</span><span class="nv">Range</span><span class="w"> </span><span class="s1">'A1'</span><span class="w"> </span><span class="s1">'J10'</span><span class="p">)</span><span class="na">.</span><span class="nv">Font</span><span class="na">.</span><span class="nv">Size</span><span class="kd">←</span><span class="m">32</span>
+</span></code></pre></div>
+<p>Notice that in this case, there are two sub-expressions that return objects; <code>(ActiveSheet.Range 'A1' 'J10')</code> and <code>(ActiveSheet.Range 'A1' 'J10').Font</code></p>
+<p>Similarly, a Range object has a Borders property that returns a Borders object (actually a collection) that has a LineStyle property. Let’s query it:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="w">      </span><span class="p">(</span><span class="nv">ActiveSheet</span><span class="na">.</span><span class="nv">Range</span><span class="w"> </span><span class="s1">'A1'</span><span class="w"> </span><span class="s1">'J10'</span><span class="p">)</span><span class="na">.</span><span class="nv">Borders</span><span class="na">.</span><span class="nv">LineStyle</span>
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="m">¯4142</span>
+</span></code></pre></div>
+<p>The help file tells us that LineStyle may be set to one of a set of XlLinestyle <em>enumerated constants</em>. In Version 9, you can refer to these directly.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="w">      </span><span class="nv">XlLineStyle</span>
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a><span class="nv">xlContinuous</span><span class="w">         </span><span class="m">1</span>
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a><span class="nv">xlDash</span><span class="w">           </span><span class="m">¯4115</span>
+</span><span id="__span-43-4"><a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="nv">xlDashDot</span><span class="w">            </span><span class="m">4</span>
+</span><span id="__span-43-5"><a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a><span class="nv">xlDashDotDot</span><span class="w">         </span><span class="m">5</span>
+</span><span id="__span-43-6"><a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a><span class="nv">xlDot</span><span class="w">            </span><span class="m">¯4118</span>
+</span><span id="__span-43-7"><a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a><span class="nv">xlDouble</span><span class="w">         </span><span class="m">¯4119</span>
+</span><span id="__span-43-8"><a id="__codelineno-43-8" name="__codelineno-43-8" href="#__codelineno-43-8"></a><span class="nv">xlSlantDashDot</span><span class="w">      </span><span class="m">13</span>
+</span><span id="__span-43-9"><a id="__codelineno-43-9" name="__codelineno-43-9" href="#__codelineno-43-9"></a><span class="nv">xlLineStyleNone</span><span class="w">  </span><span class="m">¯4142</span>
+</span></code></pre></div>
+<p>So, the following expression may be used to set the grid lines to double lines.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="w">      </span><span class="p">(</span><span class="nv">ActiveSheet</span><span class="na">.</span><span class="nv">Range</span><span class="w"> </span><span class="s1">'A1'</span><span class="w"> </span><span class="s1">'J10'</span><span class="p">)</span><span class="na">.</span><span class="nv">Borders</span><span class="na">.</span><span class="nv">LineStyle</span><span class="kd">←</span><span class="nv">xlDouble</span>
+</span></code></pre></div>
+<p>If you are going to refer to an object more than once, it is more efficient to assign it to a name (if you were programming in VBA, you would be advised to do this too)</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="w">      </span><span class="nv">CELLS</span><span class="kd">←</span><span class="nv">ActiveSheet</span><span class="na">.</span><span class="nv">Range</span><span class="w"> </span><span class="s1">'A1'</span><span class="w"> </span><span class="s1">'J10'</span>
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="w">      </span><span class="nv">FNT</span><span class="kd">←</span><span class="nv">CELLS</span><span class="na">.</span><span class="nv">Font</span>
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a><span class="w">      </span><span class="nv">FNT</span><span class="na">.</span><span class="nv">Bold</span><span class="kd">←</span><span class="m">1</span>
+</span></code></pre></div>
+<p>If you want to specify an individual border in VBA, you can reference it by an expression such as</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>      Borders(xlEdgeBottom).
+</span></code></pre></div>
+<p>This works because the Borders collection has a default method (Item). In Dyalog APL, you cannot use this syntax; you have to call the Item method explicitly.</p>
+<p>So, to set the colour of the horizontal lines to red;</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="w">      </span><span class="p">(</span><span class="nv">CELLS</span><span class="na">.</span><span class="nv">Borders</span><span class="na">.</span><span class="nv">Item</span><span class="w"> </span><span class="nv">xlInsideHorizontal</span><span class="p">)</span><span class="na">.</span><span class="nv">Color</span><span class="kd">←</span><span class="m">256</span><span class="o">⊥</span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">255</span>
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="w">      </span><span class="p">(</span><span class="nv">CELLS</span><span class="na">.</span><span class="nv">Borders</span><span class="na">.</span><span class="nv">Item</span><span class="w"> </span><span class="nv">xlInsideVertical</span><span class="p">)</span><span class="na">.</span><span class="nv">Color</span><span class="kd">←</span><span class="m">256</span><span class="o">⊥</span><span class="m">0</span><span class="w"> </span><span class="m">255</span><span class="w"> </span><span class="m">0</span>
+</span></code></pre></div>
+<p>... and the vertical lines to green,</p>
+<p>The reason that it is necessary to encode the RGB colour, is that the data type of the Color property is defined to be VT_VARIANT. If a data type is VT_COLOR, you can assign a 3-element RGB vector to it directly. Notice also that the RGB triplet is specified in the reverse order (blue, green, red).</p>
+<h2 id="microsoft-word">Microsoft Word<a class="headerlink" href="#microsoft-word" title="Permanent link">&para;</a></h2>
+<p>Let’s now look at driving Microsoft Word. I am going to use a real-life example; one that we use to maintain the cross-references in the Dyalog APL Object Reference. Here is the function we use:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">UPDATE</span><span class="sr">;</span><span class="nv">W</span><span class="sr">;</span><span class="nv">REL</span><span class="sr">;</span><span class="nv">F</span><span class="sr">;</span><span class="nv">T</span><span class="sr">;</span><span class="nv">I</span><span class="sr">;</span><span class="nv">NAME</span><span class="sr">;</span><span class="nv">TYPE</span><span class="sr">;</span><span class="nv">SINK</span><span class="sr">;</span><span class="nf">⎕ML</span><span class="sr">;</span><span class="nv">LIST</span><span class="sr">;</span><span class="nv">OBJ</span>
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">    </span><span class="nf">⎕ML</span><span class="kd">←</span><span class="m">3</span>
+</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">    </span><span class="nf">⎕PATH</span><span class="kd">←</span><span class="s1">'↑'</span>
+</span><span id="__span-48-4"><a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">    </span><span class="nv">GET_EVENT_MAP</span>
+</span><span id="__span-48-5"><a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">    </span><span class="s1">'W'</span><span class="nf">⎕WC</span><span class="s1">'OLECLIENT'</span><span class="w"> </span><span class="s1">'Word.Application'</span>
+</span><span id="__span-48-6"><a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">    </span><span class="nv">REL</span><span class="kd">←</span><span class="nv">W</span><span class="na">.</span><span class="nv">Documents</span><span class="na">.</span><span class="nv">Open</span><span class="s1">'C:\MANUAL\OR901.DOC'</span>
+</span><span id="__span-48-7"><a id="__codelineno-48-7" name="__codelineno-48-7" href="#__codelineno-48-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="nv">W</span><span class="na">.</span><span class="nv">Visible</span><span class="kd">←</span><span class="m">1</span>
+</span><span id="__span-48-8"><a id="__codelineno-48-8" name="__codelineno-48-8" href="#__codelineno-48-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">    </span><span class="bp">:</span><span class="nv">With</span><span class="w"> </span><span class="nv">W</span><span class="na">.</span><span class="nv">ActiveDocument</span><span class="na">.</span><span class="nv">ActiveWindow</span><span class="na">.</span><span class="nv">View</span>
+</span><span id="__span-48-9"><a id="__codelineno-48-9" name="__codelineno-48-9" href="#__codelineno-48-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">        </span><span class="nv">ShowAll</span><span class="kd">←</span><span class="m">0</span>
+</span><span id="__span-48-10"><a id="__codelineno-48-10" name="__codelineno-48-10" href="#__codelineno-48-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">        </span><span class="nv">ShowHiddenText</span><span class="kd">←</span><span class="m">0</span>
+</span><span id="__span-48-11"><a id="__codelineno-48-11" name="__codelineno-48-11" href="#__codelineno-48-11"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">   </span><span class="bp">:</span><span class="nv">EndWith</span>
+</span><span id="__span-48-12"><a id="__codelineno-48-12" name="__codelineno-48-12" href="#__codelineno-48-12"></a><span class="sr">[</span><span class="m">11</span><span class="sr">]</span><span class="w">   </span><span class="nv">REL</span><span class="na">.</span><span class="p">(</span><span class="nv">ShowSpellingErrors</span><span class="w"> </span><span class="nv">ShowGrammaticalErrors</span><span class="p">)</span><span class="kd">←</span><span class="m">0</span>
+</span><span id="__span-48-13"><a id="__codelineno-48-13" name="__codelineno-48-13" href="#__codelineno-48-13"></a><span class="sr">[</span><span class="m">12</span><span class="sr">]</span><span class="w">   </span><span class="bp">:</span><span class="nv">With</span><span class="w"> </span><span class="nv">REL</span><span class="na">.</span><span class="nv">Content</span>
+</span><span id="__span-48-14"><a id="__codelineno-48-14" name="__codelineno-48-14" href="#__codelineno-48-14"></a><span class="sr">[</span><span class="m">13</span><span class="sr">]</span><span class="w">       </span><span class="nv">F</span><span class="kd">←</span><span class="nv">Find</span>
+</span><span id="__span-48-15"><a id="__codelineno-48-15" name="__codelineno-48-15" href="#__codelineno-48-15"></a><span class="sr">[</span><span class="m">14</span><span class="sr">]</span><span class="w">       </span><span class="nv">F</span><span class="na">.</span><span class="nv">Style</span><span class="kd">←</span><span class="nv">wdStyleHeading5</span>
+</span><span id="__span-48-16"><a id="__codelineno-48-16" name="__codelineno-48-16" href="#__codelineno-48-16"></a><span class="sr">[</span><span class="m">15</span><span class="sr">]</span><span class="w">       </span><span class="bp">:</span><span class="nv">While</span><span class="w"> </span><span class="nv">F</span><span class="na">.</span><span class="nv">Found</span><span class="o">∧</span><span class="nv">F</span><span class="na">.</span><span class="nv">Execute</span><span class="s1">''</span>
+</span><span id="__span-48-17"><a id="__codelineno-48-17" name="__codelineno-48-17" href="#__codelineno-48-17"></a><span class="sr">[</span><span class="m">16</span><span class="sr">]</span><span class="w">           </span><span class="nv">T</span><span class="kd">←</span><span class="nv">Text</span>
+</span><span id="__span-48-18"><a id="__codelineno-48-18" name="__codelineno-48-18" href="#__codelineno-48-18"></a><span class="sr">[</span><span class="m">17</span><span class="sr">]</span><span class="w">           </span><span class="nv">NAME</span><span class="w"> </span><span class="nv">TYPE</span><span class="kd">←</span><span class="m">2</span><span class="o">↑</span><span class="p">(</span><span class="o">~</span><span class="nv">T</span><span class="o">∊</span><span class="nf">⎕AV</span><span class="sr">[</span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">10</span><span class="sr">]</span><span class="p">)</span><span class="o">⊂</span><span class="nv">T</span>
+</span><span id="__span-48-19"><a id="__codelineno-48-19" name="__codelineno-48-19" href="#__codelineno-48-19"></a><span class="sr">[</span><span class="m">18</span><span class="sr">]</span><span class="w">           </span><span class="bp">:</span><span class="nv">If</span><span class="w"> </span><span class="nv">TYPE</span><span class="o">≡</span><span class="s1">'Object'</span>
+</span><span id="__span-48-20"><a id="__codelineno-48-20" name="__codelineno-48-20" href="#__codelineno-48-20"></a><span class="sr">[</span><span class="m">19</span><span class="sr">]</span><span class="w">               </span><span class="nv">SINK</span><span class="kd">←</span><span class="nv">Move</span><span class="w"> </span><span class="nv">wdParagraph</span><span class="w"> </span><span class="m">2</span>
+</span><span id="__span-48-21"><a id="__codelineno-48-21" name="__codelineno-48-21" href="#__codelineno-48-21"></a><span class="sr">[</span><span class="m">20</span><span class="sr">]</span><span class="w">               </span><span class="bp">:</span><span class="nv">For</span><span class="w"> </span><span class="nv">ITEM</span><span class="w"> </span><span class="bp">:</span><span class="nv">In</span><span class="w"> </span><span class="nv">OBJECT_INFO</span><span class="w"> </span><span class="nv">NAME</span>
+</span><span id="__span-48-22"><a id="__codelineno-48-22" name="__codelineno-48-22" href="#__codelineno-48-22"></a><span class="sr">[</span><span class="m">21</span><span class="sr">]</span><span class="w">                   </span><span class="nv">SINK</span><span class="kd">←</span><span class="nv">Move</span><span class="w"> </span><span class="nv">wdWord</span><span class="w"> </span><span class="m">3</span>
+</span><span id="__span-48-23"><a id="__codelineno-48-23" name="__codelineno-48-23" href="#__codelineno-48-23"></a><span class="sr">[</span><span class="m">22</span><span class="sr">]</span><span class="w">                   </span><span class="nv">SINK</span><span class="kd">←</span><span class="nv">MoveEnd</span><span class="w"> </span><span class="nv">wdParagraph</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-48-24"><a id="__codelineno-48-24" name="__codelineno-48-24" href="#__codelineno-48-24"></a><span class="sr">[</span><span class="m">23</span><span class="sr">]</span><span class="w">                   </span><span class="nv">Select</span>
+</span><span id="__span-48-25"><a id="__codelineno-48-25" name="__codelineno-48-25" href="#__codelineno-48-25"></a><span class="sr">[</span><span class="m">24</span><span class="sr">]</span><span class="w">                   </span><span class="nv">Text</span><span class="kd">←</span><span class="nv">ITEM</span>
+</span><span id="__span-48-26"><a id="__codelineno-48-26" name="__codelineno-48-26" href="#__codelineno-48-26"></a><span class="sr">[</span><span class="m">25</span><span class="sr">]</span><span class="w">                   </span><span class="nv">SINK</span><span class="kd">←</span><span class="nv">Move</span><span class="w"> </span><span class="nv">wdParagraph</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-48-27"><a id="__codelineno-48-27" name="__codelineno-48-27" href="#__codelineno-48-27"></a><span class="sr">[</span><span class="m">26</span><span class="sr">]</span><span class="w">               </span><span class="bp">:</span><span class="nv">EndFor</span>
+</span><span id="__span-48-28"><a id="__codelineno-48-28" name="__codelineno-48-28" href="#__codelineno-48-28"></a><span class="sr">[</span><span class="m">27</span><span class="sr">]</span><span class="w">               </span><span class="nv">SINK</span><span class="kd">←</span><span class="nv">MoveEnd</span><span class="w"> </span><span class="nv">wdSection</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-48-29"><a id="__codelineno-48-29" name="__codelineno-48-29" href="#__codelineno-48-29"></a><span class="sr">[</span><span class="m">28</span><span class="sr">]</span><span class="w">           </span><span class="bp">:</span><span class="nv">Else</span>
+</span><span id="__span-48-30"><a id="__codelineno-48-30" name="__codelineno-48-30" href="#__codelineno-48-30"></a><span class="sr">[</span><span class="m">29</span><span class="sr">]</span><span class="w">               </span><span class="nv">LIST</span><span class="kd">←</span><span class="p">(</span><span class="s1">'Property'</span><span class="w"> </span><span class="s1">'Event'</span><span class="w"> </span><span class="s1">'Method'</span><span class="o">⍳⊂</span><span class="nv">TYPE</span><span class="p">)</span><span class="o">⊃</span><span class="c1">#.Properties</span>
+</span><span id="__span-48-31"><a id="__codelineno-48-31" name="__codelineno-48-31" href="#__codelineno-48-31"></a><span class="w">                     </span><span class="c1">#.Events #.Methods</span>
+</span><span id="__span-48-32"><a id="__codelineno-48-32" name="__codelineno-48-32" href="#__codelineno-48-32"></a><span class="sr">[</span><span class="m">30</span><span class="sr">]</span><span class="w">               </span><span class="nv">OBJ</span><span class="kd">←</span><span class="nv">MAKE_LIST</span><span class="p">((</span><span class="o">⊂⊂</span><span class="nv">NAME</span><span class="p">)</span><span class="na">∘.</span><span class="o">∊</span><span class="nv">LIST</span><span class="p">)</span><span class="na">/</span><span class="c1">#.Objects</span>
+</span><span id="__span-48-33"><a id="__codelineno-48-33" name="__codelineno-48-33" href="#__codelineno-48-33"></a><span class="sr">[</span><span class="m">31</span><span class="sr">]</span><span class="w">               </span><span class="nv">SINK</span><span class="kd">←</span><span class="nv">Move</span><span class="w"> </span><span class="nv">wdParagraph</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-48-34"><a id="__codelineno-48-34" name="__codelineno-48-34" href="#__codelineno-48-34"></a><span class="sr">[</span><span class="m">32</span><span class="sr">]</span><span class="w">               </span><span class="nv">SINK</span><span class="kd">←</span><span class="nv">Move</span><span class="w"> </span><span class="nv">wdWord</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="c1">⍝ Applies to &lt;tab&gt; &lt;word 4 = stuff&gt;</span>
+</span><span id="__span-48-35"><a id="__codelineno-48-35" name="__codelineno-48-35" href="#__codelineno-48-35"></a><span class="sr">[</span><span class="m">33</span><span class="sr">]</span><span class="w">               </span><span class="nv">SINK</span><span class="kd">←</span><span class="nv">MoveEnd</span><span class="w"> </span><span class="nv">wdParagraph</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-48-36"><a id="__codelineno-48-36" name="__codelineno-48-36" href="#__codelineno-48-36"></a><span class="sr">[</span><span class="m">34</span><span class="sr">]</span><span class="w">               </span><span class="nv">Select</span>
+</span><span id="__span-48-37"><a id="__codelineno-48-37" name="__codelineno-48-37" href="#__codelineno-48-37"></a><span class="sr">[</span><span class="m">35</span><span class="sr">]</span><span class="w">               </span><span class="nv">Text</span><span class="kd">←</span><span class="nv">OBJ</span>
+</span><span id="__span-48-38"><a id="__codelineno-48-38" name="__codelineno-48-38" href="#__codelineno-48-38"></a><span class="sr">[</span><span class="m">36</span><span class="sr">]</span><span class="w">               </span><span class="nv">SINK</span><span class="kd">←</span><span class="nv">MoveEnd</span><span class="w"> </span><span class="nv">wdSection</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-48-39"><a id="__codelineno-48-39" name="__codelineno-48-39" href="#__codelineno-48-39"></a><span class="sr">[</span><span class="m">37</span><span class="sr">]</span><span class="w">           </span><span class="bp">:</span><span class="nv">EndIf</span>
+</span><span id="__span-48-40"><a id="__codelineno-48-40" name="__codelineno-48-40" href="#__codelineno-48-40"></a><span class="sr">[</span><span class="m">38</span><span class="sr">]</span><span class="w">       </span><span class="bp">:</span><span class="nv">EndWhile</span>
+</span><span id="__span-48-41"><a id="__codelineno-48-41" name="__codelineno-48-41" href="#__codelineno-48-41"></a><span class="sr">[</span><span class="m">39</span><span class="sr">]</span><span class="w">   </span><span class="bp">:</span><span class="nv">EndWith</span>
+</span><span id="__span-48-42"><a id="__codelineno-48-42" name="__codelineno-48-42" href="#__codelineno-48-42"></a><span class="sr">[</span><span class="m">40</span><span class="sr">]</span><span class="w">   </span><span class="nv">REL</span><span class="na">.</span><span class="nv">Close</span><span class="w"> </span><span class="nv">REL</span><span class="na">.</span><span class="nv">wdSaveChanges</span>
+</span><span id="__span-48-43"><a id="__codelineno-48-43" name="__codelineno-48-43" href="#__codelineno-48-43"></a><span class="sr">[</span><span class="m">41</span><span class="sr">]</span><span class="w">   </span><span class="nv">W</span><span class="na">.</span><span class="nv">Quit</span><span class="w"> </span><span class="no">⍬</span>
+</span><span id="__span-48-44"><a id="__codelineno-48-44" name="__codelineno-48-44" href="#__codelineno-48-44"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>Let’s trace it and see how it works.</p>
+<dl>
+<dt>[1]</dt>
+<dd>Use maximum APL2 compatibility</dd>
+<dt>[2]</dt>
+<dd>Search up the namespace tree for functions.</dd>
+<dt>[3]</dt>
+<dd>Reads the lists of Objects, Properties, etc which are stored in a component file.</dd>
+<dt>[4]</dt>
+<dd>Creates an OLEClient object named W connected to the OLE Server <em>Word.Application</em>.</dd>
+<dt>[5]</dt>
+<dd>Executes the Open method of the Documents object to open the Dyalog APL Object Reference file OR901.DOC for editing.</dd>
+<dt>[6]</dt>
+<dd>Sets the Visible property (of the Word application). (This is done only for the sake of this presentation.)</dd>
+<dt>[7]</dt>
+<dd>
+<p>When editing a Word document it is often important to ensure that the various user/document options are correctly set. For example, this function will only work if hidden text is hidden. Let’s use the on-line help:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="w">      </span><span class="nv">W</span><span class="na">.</span><span class="nv">ShowHelp</span><span class="w"> </span><span class="no">⍬</span>
+</span></code></pre></div>
+<p>Now I am going to search for <em>*hiddentext</em></p>
+<p>The ShowHiddenText property of the View object is what we need. By clicking <em>See Also</em> we can see another related property ShowAll. If we look at Options/Tools/View, we can see the check boxes to which these properties refer. The example illustrates how we can get to the View object via ActiveDocument.ActiveWindow. The :With control structure is a handy way (but not the only way) to set both properties:</p>
+</dd>
+<dt>[8]</dt>
+<dd>If I right-click on the name ShowAll, then take a look at Properties/Value, I can see that ShowAll is set to 1. This line sets it to 0.</dd>
+<dt>[9]</dt>
+<dd>
+<p>If I switch to the session and type</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="w">      </span><span class="nv">ShowHiddenText</span>
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="m">1</span>
+</span></code></pre></div>
+<p>This line sets ShowHiddenText to 0</p>
+</dd>
+<dt>[11]</dt>
+<dd>
+<p>Although this step is not strictly necessary (because, in production, the Word application is not visible), this line disables spelling and grammar checking (otherwise, I will get an unfriendly message box telling me that there are too many to cope with!). This could be done using <code>:With</code> as before, but an alternative is to parenthesise the strand assignment within the namespace reference. Before we execute this line, let’s take a look at the current values of these properties:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="w">      </span><span class="nv">REL</span><span class="na">.</span><span class="p">(</span><span class="nv">ShowSpellingErrors</span><span class="w"> </span><span class="nv">ShowGrammaticalErrors</span><span class="p">)</span>
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+</span></code></pre></div>
+</dd>
+<dt>[12]</dt>
+<dd>
+<p>Before executing this line, I will right-click on the text <code>REL.Content</code> and bring up the on-line help. As you can see, the Content property returns a Range object that represents the entire content of the document. The <code>:With</code> takes us into this (unnamed) namespace.</p>
+<p>After executing the line, we can see the extent of the Range object from its Start end End properties. These indicate the starting and ending character index of the Range.</p>
+</dd>
+<dt>[13]</dt>
+<dd>We are going to use Find to locate paragraphs with style <em>Heading 5</em>. Once again, I will bring up the on-line help for the Find property; it returns a Find object which is assigned the name <em>F</em>.</dd>
+<dt>[14]</dt>
+<dd>This line sets the Style property of the Find object to <em>Heading 5</em>. This is one of the standard styles, so we can use the enumerated constant <em>wdHeading5</em> to refer to it.</dd>
+<dt>[15]</dt>
+<dd>This line invokes the Execute method (which returns 1 for success) and then checks the Found property (belt and braces). The function loops until its runs out of Heading 5 paragraphs.</dd>
+<dt>[16]</dt>
+<dd>
+<p>If the Execute method of the Find object finds a hit, it resets the extent of its parent object (in this case, the unnamed Range object that we are <em>in</em>) to the Find target. Here’s where we are in the document:</p>
+<blockquote>
+<p><strong>Abort — Method 103</strong></p>
+<p><strong>Applies to</strong> Printer</p>
+<p>This method causes the current print job to be aborted and all pending output to be discarded.</p>
+<p>The Abort method is niladic.</p>
+<p>If you attach a callback function to this event and have it return a value of 0, the print job will continue.</p>
+</blockquote>
+<p>The Text property reports the text.</p>
+<p>Let’s look at the Start and End properties again.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="w">      </span><span class="nv">Text</span>
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a><span class="nv">Abort</span><span class="o">&lt;</span><span class="nv">tab</span><span class="o">&gt;</span><span class="w">    </span><span class="nv">Method</span><span class="w"> </span><span class="m">103</span>
+</span></code></pre></div>
+</dd>
+<dt>[17]</dt>
+<dd>At last, some APL code!. This line splits out the name and type of the item found. <em>TYPE</em> will be <em>Object, Property, Method</em> or <em>Event</em>. The first item located is <em>Abort Method</em>, so we go to [29].</dd>
+</dl>
+<p>[29]
+:</p>
+<dl>
+<dt>[30]</dt>
+<dd>These lines extract the list of objects to which the particular Property, Method or Event in question (<em>NAME</em>) applies.</dd>
+<dt>[31]</dt>
+<dd>
+<p>Using the on-line help, we can see that the Move method collapses the Range and moves the Start and End pointers the specified number of units. In this case, we move the Range (the Range we are <em>in</em>) forward one paragraph.</p>
+<p>After executing [31], let’s look at the Start and End properties again:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="w">      </span><span class="nv">Start</span><span class="w"> </span><span class="nv">End</span>
+</span><span id="__span-53-2"><a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a><span class="m">88990</span><span class="w"> </span><span class="m">88990</span>
+</span></code></pre></div>
+</dd>
+<dt>[32]</dt>
+<dd>
+<p>The Range is now positioned before the paragraph that starts <em>Applies to&lt;tab&gt;</em>. This line moves the Range forward 3 words, i.e. to just after the &lt;tab&gt;.</p>
+<p>After executing [32], let’s look at the Start and End properties again:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="w">      </span><span class="nv">Start</span><span class="w"> </span><span class="nv">End</span>
+</span><span id="__span-54-2"><a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a><span class="m">89001</span><span class="w"> </span><span class="m">89001</span>
+</span></code></pre></div>
+</dd>
+<dt>[33]</dt>
+<dd>
+<p>Using the on-line help again, we see that the MoveEnd method moves the <em>ending character position</em> of a range. This line moves the End character to the end of the paragraph, leaving the Start character unchanged.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="w">      </span><span class="nv">Start</span><span class="w"> </span><span class="nv">End</span>
+</span><span id="__span-55-2"><a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a><span class="m">89001</span><span class="w"> </span><span class="m">89009</span>
+</span></code></pre></div>
+</dd>
+<dt>[34]</dt>
+<dd>This statement selects and highlights the current Range. This line is not part of the production code, but I have included it to force the display to show where we are in the document.</dd>
+<dt>[35]</dt>
+<dd>
+<p>This statement replaces the existing text (within the current Range) with the contents of <em>OBJ</em>. Notice that OBJ contains a new line character.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="w">      </span><span class="nv">OBJ</span>
+</span><span id="__span-56-2"><a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a><span class="nv">Printer</span>
+</span><span id="__span-56-3"><a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a>
+</span><span id="__span-56-4"><a id="__codelineno-56-4" name="__codelineno-56-4" href="#__codelineno-56-4"></a><span class="w">      </span><span class="nf">⎕AV</span><span class="o">⍳</span><span class="nv">OBJ</span>
+</span><span id="__span-56-5"><a id="__codelineno-56-5" name="__codelineno-56-5" href="#__codelineno-56-5"></a><span class="m">81</span><span class="w"> </span><span class="m">35</span><span class="w"> </span><span class="m">26</span><span class="w"> </span><span class="m">31</span><span class="w"> </span><span class="m">37</span><span class="w"> </span><span class="m">22</span><span class="w"> </span><span class="m">35</span><span class="w"> </span><span class="m">4</span>
+</span></code></pre></div>
+</dd>
+<dt>[36]</dt>
+<dd>Having made the text replacement, we are ready to move on to the next item. However, don’t forget what how we have restricted the Range we are in. This line moves the End pointer to the end of the section (i.e. to the end of the chapter we are working on).</dd>
+</dl>
+<p>[37]
+:</p>
+<dl>
+<dt>[38]</dt>
+<dd>The code branches back to the start of the While loop to look for the next item with Paragraph style Heading 5. We have seen how Properties are dealt with, and Methods/Events are the same. Let’s stop it after it finds an Object by putting a stop on [19], then let execution go on.</dd>
+<dt>[19]</dt>
+<dd>Rather than bore you with the code, which is essentially the same as before, I will just step through it and you can see what happens.</dd>
+</dl>
+<p>Finally, here is a little curiosity that I stumbled across.</p>
+<p>The Word Application object has a method called <em>GetSpellingSuggestions</em> that returns a <em>SpellingSuggestions</em> collection. Each item in the SpellingSuggestions collection is a <em>SpellingSuggestion</em> object whose Name property contains the suggested word (phew!).</p>
+<p>Using Dyalog APL, we can get suggestions for the spelling mistake "Hellao" as follows:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="w">      </span><span class="nv">WORDS</span><span class="kd">←</span><span class="nv">W</span><span class="na">.</span><span class="nv">GetSpellingSuggestions</span><span class="s1">'Hellao'</span>
+</span><span id="__span-57-2"><a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a><span class="w">      </span><span class="kt">{</span><span class="p">(</span><span class="nv">WORDS</span><span class="na">.</span><span class="nv">Item</span><span class="w"> </span><span class="bp">⍵</span><span class="p">)</span><span class="na">.</span><span class="nv">Name</span><span class="kt">}</span><span class="na">¨</span><span class="o">⍳</span><span class="nv">WORDS</span><span class="na">.</span><span class="nv">Count</span>
+</span><span id="__span-57-3"><a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a><span class="nv">Hello</span><span class="w">  </span><span class="nv">Hellion</span><span class="w">  </span><span class="nv">Hellas</span><span class="w">  </span><span class="nv">Halloo</span><span class="w">  </span><span class="nv">Hellos</span><span class="w">  </span><span class="nv">Hallo</span>
+</span></code></pre></div></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">system interfaces</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">user interfaces</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

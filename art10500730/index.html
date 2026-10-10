@@ -1,0 +1,1505 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="The APLTree project is an attempt to make general tools available to the Dyalog programmer. This article discusses the motivation of the project and its details.">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10500730/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Sharing code – the APLTree project - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Sharing code – the APLTree project
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Overview
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Documentation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Test cases
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#improved-quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Improved quality
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-cases-as-examples-and-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Test cases as examples and documentation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conclusion
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-apltree-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The APLTree project
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i-the-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        I. The Tools
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="I. The Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-adoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        a) ADOC
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-aplcode2html" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        b) APLCode2HTML
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        c) Compare
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-scriptmanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        d) ScriptManager
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ii-the-utilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        II. The Utilities
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="II. The Utilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-code-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The code repository
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The code repository">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#latest-stable-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Latest stable version
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#history" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        History
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#development" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Development
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Contributions
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Sharing code – the APLTree project</h1>
+
+  <p class="printed"><a href="../25/#n23-march-2012">Vector 25:3</a>, page 79</p>
+
+
+<p class="byline">by Kai Jaeger (kai@aplteam.com)</p>
+<p class="abstract">The APLTree project is an attempt to make general tools available to the Dyalog programmer. This article discusses the motivation of the project and its details.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Sharing code is something that never gained popularity in the APL community, and for good reasons: without having a proper tool for modularising code (classes or at the very least namespaces) sharing code is virtually impossible in APL due to the danger of name clashes.</p>
+<p>With the introduction of namespaces in Dyalog APL things got better but there were still some obstacles. Namespaces don’t allow hiding implementation details: dotting into a namespace means you see everything that’s contained in that namespace. In a complex namespace that could mean you see a hundred functions although only, say, 10 of them are the actual “public interface”. So in order to use the functionality provided you need to worry about just 10 functions while looking at a hundred.</p>
+<p>There is also the problem of how to prevent your dear colleagues from calling functions they are not supposed to call. If like me, you worked on teams who were supposed to follow such rules then you know how difficult a task that is.</p>
+<p>Classes to the rescue: one advantage of the object-oriented paradigm is that you can see only the public interface when you dot into a class or an instance of that class. In other words, while namespaces allow you to modularize code and therefore to structure it, classes offer true encapsulation: a programmer only interested in using a class will see just the fields, properties and methods that constitute the public interface.</p>
+<p>That does not mean that all the rest which is called implementation details cannot be investigated: You can still edit the class script, which allows you to investigate everything, not only the public interface. The code editor’s new tree structure emphasizes whether fields, properties and methods are public or not, and it allows fast navigation, too. Last but not least you still can trace into a class or even an instance, and you can look at everything you want.</p>
+<p>Of course it is a big advantage when the implementation details are hidden: it makes using a class much easier. That one cannot call functions which are not supposed to be called from outside is very important, too.</p>
+<p>Since the introduction of classes in Dyalog APL Version 11 there is no technical reason why developers should not share tools and utilities. However, this has not become popular so far. One reason is that many APLers still think along the lines: “If I can write it myself in a couple of hours why should I bother to learn the public interface of somebody else’s code?” Or in other words: if the amount of time it takes to master somebody else’s class is equal to the amount of time it takes to implement it yourself there is no point in sharing code, right?</p>
+<p>Even if we ignore the simple fact that programmers tend to underestimate the time it needs to implement something by at least a factor of two this is also a short-sighted view: in total it needs much more time than simply implementing it: you also need to spend time on documentation and, even more important, on test cases. In fact these two tasks quite often take longer than writing the code in the first place.</p>
+<p>It is also an important question who is providing the tools. Are they maintained regularly? Are bugs published openly? Can you buy support? These are all questions one might well ask when considering using third-party tools. But when all these questions are answered satisfactorily then you should remind yourself that there is no point in reinventing the wheel.</p>
+<h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
+<p>If you are a one-man-band you might be able to abandon the idea of spending time on documentation. You know how to use your tools, don’t you? However, things are different in a team. Since software development is normally done in teams these days you can’t escape spending time on documentation.</p>
+<p>In practice old APL hands sometimes find themselves mixed into a team with other old hands at the start of a project. All APLers have their own set of tools. None is actually documented; they all wrote them for their own purposes. So from the start you have as many toolsets as there are team members, none of them documented. Not a good idea of course.</p>
+<h2 id="test-cases">Test cases<a class="headerlink" href="#test-cases" title="Permanent link">&para;</a></h2>
+<p>Test cases are considered mandatory nowadays in the IT industry despite the fact that the amount of resources consumed by the implementation of test cases is significant. Occasionally it exceeds the time spent on the implementation of the software.</p>
+<p>Software projects become more and more complex. We know from experience that changing a complex system has all sorts of unforeseen and unwelcomed consequences. All of us have said more than once “I don’t understand why it’s crashing: I haven’t changed anything near this code.”</p>
+<p>There is only one way to escape this problem: after a change, before making it available to the other team members, let alone the customer, run test cases.</p>
+<h2 id="improved-quality">Improved quality<a class="headerlink" href="#improved-quality" title="Permanent link">&para;</a></h2>
+<p>The most important reason for having test cases is that they are designed to improve the quality of any piece of software. This is always an important issue of course, but it is particularly important in projects which evolve dynamically, with a large number of software releases. By changing code you will inevitably break code but if you have a full-blown test suite ready to run against your changes you have a much better chance of discovering these problems.</p>
+<p>That alone is a very good reason to spend the resources on implementing test cases. In the long run this will actually save time and money for that very reason.</p>
+<h2 id="test-cases-as-examples-and-documentation">Test cases as examples and documentation<a class="headerlink" href="#test-cases-as-examples-and-documentation" title="Permanent link">&para;</a></h2>
+<p>An implicit advantage of well-written and documented test cases is that they provide examples of how to use the software. That is a real time-saver for anybody supposed to understand and use a class.</p>
+<p>This is more important for APLers than for other people. The reason is readability.</p>
+<p>As a matter of fact APL is harder to read than code written in other languages. This is mainly owing to the fact that in one line of APL there is much more going on than in one page of COBOL, but it’s also due to the usually higher abstraction level.</p>
+<p>Now APLers often argue that one can always work out easily what a function is doing by using a debugger and simply watch what the lines are doing with the data. Due to the outstanding debugging facilities of modern APLs this is certainly true. However, by definition it can be true only if correct data is provided to the function in question.</p>
+<p>Now there’s a problem: when you get a bug report on your plate it’s quite likely to be caused by unexpected data, ill-formed data or data the application was never intended to deal with. With improper data you might have a hard time to find out what the code is supposed to do. It might be very costly or even virtually impossible.</p>
+<p>By definition test cases provide valid data, so it is not a big deal to find out what the code is actually doing.</p>
+<p>The big problem with written documentation is that nobody debugs it. Implicit documentation gathered from test cases is actually both, debugged and up-to-date. What an asset that is!</p>
+<p>The idea of test cases has been around for a long time but only with the Agile Software Development paradigm did the idea really take off. The obvious reason is that in agile projects software is constantly updated in production, often every week or so. Whenever a developer has finished a task she is supposed to check in the updated code into the code repository. Before she is allowed to do so she must run the test cases. Only then does she stand a chance not to break the code.</p>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>So, in total, when considering writing a utility which is already available somehow, one has to compare the time it needs to implement the software, write proper documentation, implement appropriate test cases and the time spent on making the software stable and reliable with the time it takes to master the interface of an already existing piece of software.</p>
+<p>In total it’s fair to say that software coming without a proper documentation and/or without test cases should not even be considered a potential source.</p>
+<p>There are no technical reasons any more which prevent Dyalog programmers from sharing code. It makes sense to provide solutions for typical every-day problems APL programmers are likely to face. With the APL Wiki the APL community has the platform to host such tools and utilities.</p>
+<h2 id="the-apltree-project">The APLTree project<a class="headerlink" href="#the-apltree-project" title="Permanent link">&para;</a></h2>
+<p>The APLTree project was introduced on the APL Wiki in 2009 without any effort to “sell” it: the idea was to get some flesh on the bones first.</p>
+<p>APLTree is a pure Dyalog project: The OO features implemented by the different APL vendors are incompatible: something that was written for, say, Visual APL cannot be used in either Dyalog APL or APLX.</p>
+<p>In July 2011 the project consisted of 10 utility classes and 4 tools. Note that all members of the APLTree project…</p>
+<ul>
+<li>come without any sort of copyright</li>
+<li>are documented at length</li>
+<li>come with test cases</li>
+</ul>
+<p>These are in fact preconditions for becoming a member of the APLTree project. There is a page listing all of them: http://aplwiki.com/CategoryAplTree</p>
+<p>There are two different types of tools available:</p>
+<ul>
+<li>Those supporting an APL programmer in the development process</li>
+<li>Those designed to be used within an application</li>
+</ul>
+<p>All members of the APLTree project belong to one of these two groups. The page is reflecting this by dividing them into Tools and Utilities.</p>
+<h2 id="i-the-tools">I. The Tools<a class="headerlink" href="#i-the-tools" title="Permanent link">&para;</a></h2>
+<p>The tools are designed to support a programmer during her work somehow, so I am going to give a short overview about what the tools are actually doing.</p>
+<h3 id="a-adoc">a) ADOC<a class="headerlink" href="#a-adoc" title="Permanent link">&para;</a></h3>
+<p>ADOC is a self-contained class which extracts information from scripts, compiling an HTML page with all the pieces of information found.</p>
+<h3 id="b-aplcode2html">b) APLCode2HTML<a class="headerlink" href="#b-aplcode2html" title="Permanent link">&para;</a></h3>
+<p>APLCode2HTML is a simple tool which takes either a line of APL or the name of an APL function or operator or script and compiles an HTML page in order to display that code.</p>
+<h3 id="c-compare">c) Compare<a class="headerlink" href="#c-compare" title="Permanent link">&para;</a></h3>
+<p>Compare offers methods designed to compare functions, operators, namespaces and scripts or even workspaces with other functions, operators, namespaces and scripts located either in the workspace or on file. It can also be used as a merge utility.</p>
+<p>It makes use of the brilliant third-party-software CompareIt! <a href="#ref1">[1]</a> if available.</p>
+<h3 id="d-scriptmanager">d) ScriptManager<a class="headerlink" href="#d-scriptmanager" title="Permanent link">&para;</a></h3>
+<p>ScriptManager deals with scripts only. It allows loading, saving, comparing, editing and updating scripts. ScriptManager can deal with SALTed scripts and supports SubVersion <a href="#ref2">[2]</a> as well as acre <a href="#ref3">[3]</a>.</p>
+<p>ScriptManager’s GUI shows ...</p>
+<ul>
+<li>which scripts are different from their file version</li>
+<li>which scripts point to an invalid location</li>
+<li>which scripts differ from their SubVersion base version</li>
+<li>which scripts have SALT backup files, and how many</li>
+</ul>
+<p>The most important actions you can perform from within ScriptManager are:</p>
+<ul>
+<li>Compare a script with the file version with CompareIt!</li>
+<li>Compare a script with any SALT backup files</li>
+<li>Compare a SubVersioned script with its SubVersion base file</li>
+<li>Compare a script managed by acre with the workspace version or an older version in the repository.</li>
+<li>Update all or selected scripts in the workspace with their file version</li>
+<li>Loading and saving scripts</li>
+<li>Delete a script from the workspace and/or from file</li>
+<li>Edit a script</li>
+<li>Manage scripts with the built-in Favorite Manager.</li>
+</ul>
+<h2 id="ii-the-utilities">II. The Utilities<a class="headerlink" href="#ii-the-utilities" title="Permanent link">&para;</a></h2>
+<p>All utilities in the APLTree project solve every-day problems almost all APLers come across during their daily work, at least potentially:</p>
+<ul>
+<li>Deal with the Windows Registry with <code>#.WinReg</code></li>
+<li>Deal with files and directories with <code>#.WinFiles</code></li>
+<li>Deal with INI files with <code>#.IniFiles</code></li>
+<li>Get information closely related to Windows with <code>#.WinSys</code></li>
+<li>Start programs with <code>#.Execute</code></li>
+<li>Write log files with <code>#.Logger</code></li>
+<li>Manage key-value pairs with <code>#.Hash</code></li>
+<li>Display compiled help files (*.CHM) with <code>#.ShowChmHelp</code></li>
+<li>Write to the Windows Event Log with <code>#.WindowsEventLog</code></li>
+<li>Create CHM files from APL with <code>#.APL2XML</code>; requires the third-party-software "HelpAndManual"<a href="#ref4">[4]</a>.</li>
+</ul>
+<p>I was asked many times why #.WinFiles was implemented at all; after all we have .NET at our finger tips. Well, create a folder with 90,000 files in it and then try to get a directory listing first with #.WinFiles and then with .NET and you know the answer.</p>
+<p>Documentation can be created by the means of ADOC; that makes ADOC the most important of the tools. That’s the reason why ADOC has its own article in this issue of Vector.</p>
+<h3 id="the-code-repository">The code repository<a class="headerlink" href="#the-code-repository" title="Permanent link">&para;</a></h3>
+<p>All APLTree projects are saved in two or maybe three different locations. The URL is: http://download.aplwiki.com/APLTree/</p>
+<p>This page offers links to three sub pages:</p>
+<h4 id="latest-stable-version">Latest stable version<a class="headerlink" href="#latest-stable-version" title="Permanent link">&para;</a></h4>
+<p>This is the latest production release. It only contains the script(s).</p>
+<h4 id="history">History<a class="headerlink" href="#history" title="Permanent link">&para;</a></h4>
+<p>Every version which was once a “Latest stable version” is supposed to be represented here. However, because some members of the APLTree project are older than the project itself they are not represented with all their versions in the “History” folder.</p>
+<p>Note that here the full project is saved, including all test cases.</p>
+<p>If you want to get hold of the full project, in particular the test cases, this is what you want to download.</p>
+<h3 id="development">Development<a class="headerlink" href="#development" title="Permanent link">&para;</a></h3>
+<p>As soon as any development is carried out on a certain project it’s supposed to be saved in the development folder. Again the full project is saved. Note that only code that has passed the test cases successfully is allowed to be saved. That also means that no matter what you have changed you are supposed to execute the full test suite first.</p>
+<p>As soon as a development branch is promoted to the “Latest stable version” folder all files belonging to that project are deleted from the “Development” folder.</p>
+<h2 id="contributions">Contributions<a class="headerlink" href="#contributions" title="Permanent link">&para;</a></h2>
+<p>Any kind of contribution is welcome, even if it’s just fixing a typo. However, for the time being it is only possible for a restricted number of administrators to save anything directly in the folders mentioned above. If you want to contribute please download the current branch or, if there is no such branch, the latest file from the “History” folder. When you’ve made a change somewhere and the test cases still execute fine than send your changes via email to kai@aplteam.com</p>
+<p>I would love to get overworked by dealing with a wealth of contributions but right now I can handle it.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a id="ref1"></a> CompareIt! is an outstanding comparison utility. See <a href="http://www.grigsoft.com/wincmp3.htm">http://www.grigsoft.com/wincmp3.htm</a> for details</li>
+<li><a id="ref2"></a> SubVersion is a widely used version control system. See <a href="http://en.wikipedia.org/wiki/Apache_Subversion">http://en.wikipedia.org/wiki/Apache_Subversion</a> for details</li>
+<li><a id="ref3"></a> <em>acre</em> is a version control system written in Dyalog for Dyalog by Phil Last (phil.last@ntlworld.com)</li>
+<li><a id="ref4"></a> HelpAndManual is an excellent help and documentation tool. See <a href="http://www.ec-software.com/">http://www.ec-software.com/</a> for details.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

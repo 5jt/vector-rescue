@@ -1,0 +1,1738 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10000790/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Introduction to Tree Searching in APL: Using the Tic Tac Toe Game in 3D - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Introduction to Tree Searching in APL: Using the Tic Tac Toe Game in 3D
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introduction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keywords" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Keywords
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Examples
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notions-and-terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Notions and Terminology
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#permutations" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Permutations
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-8-queens-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The 8 Queens Problem
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The 8 Queens Problem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A method
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-do-we-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What do we know
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-stop-searching" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        When to stop searching
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#an-even-more-interesting-example-tic-tac-toe" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        An even more interesting example: Tic Tac Toe
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="An even more interesting example: Tic Tac Toe">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Overview
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Model
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#discussion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Discussion
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Implementation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#details" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Details
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-state-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The state representation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-tree-searching-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The tree searching function
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-new-branches-generating-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The <em>new branches</em> generating function
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-find-a-solution-fast" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        How to find a solution fast
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#making-the-best-choice" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Making the best choice
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#putting-it-all-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Putting it all together
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Improvements
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conclusion
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#various-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Various Implementations
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Introduction to Tree Searching in APL: Using the Tic Tac Toe Game in 3D</h1>
+
+  <p class="printed"><a href="../17/#n1-july-2000">Vector 17:1</a>, page 55</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-programming-techniques">programming techniques</a> <a class="md-tag" href="../tags/#tag-competitions-and-puzzles">competitions and puzzles</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../17/1/VOL.17-NO.1-JULY-2000.pdf#page=57">Read it in the PDF of the issue, page 55</a></em></p>
+<p class="byline"><em>by Dan Baronet</em></p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>This article deals with tree searching using a popular game as medium. The code described here can be used in many situations to traverse a "tree" of possibilities.</p>
+<h2 id="keywords">Keywords<a class="headerlink" href="#keywords" title="Permanent link">&para;</a></h2>
+<p>This document discusses computer science subjects including <em>recursivity, tree searching, heuristic evaluation</em> and <em>sequential machines.</em></p>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>Tree searching is a technique that can be used to solve large-scale problems. Many situations can use tree searching, some more interesting than others. Possible examples are permutations, where all possible combinations of a set are being produced, and calling tree analysis, where all identifiers of a program are enumerated. This technique is used effectively in situations where others, even if possible, may not be practical, typically because they involve a large number of possibilities.</p>
+<h2 id="notions-and-terminology">Notions and Terminology<a class="headerlink" href="#notions-and-terminology" title="Permanent link">&para;</a></h2>
+<p>To better understand the concept of tree searching, consider the permutation case. If we were to show all the possible permutations of the letters A, B and C we would get 6 cases. The result would essentially consist of each letter followed by the permutation of the remaining letters in a "tree like" fashion, in a repetitive, recursive process.</p>
+<p>Schematically it could look like the picture below, where we first generate all possible letters, then the remaining letters and, finally, the last letter.</p>
+<p><img alt="The permutation tree of A, B and C: from the root, branches to A, B and C; from each, branches to the two remaining letters, and from each of those to the last letter" src="tree.jpg" /></p>
+<p>This picture represents the whole <em>tree</em>. Each box is a <em>node</em>. Each combination of arrow/box is a <em>branch</em>. The point where all branches originate is the <em>root</em> and where they end is a <em>leaf</em>. The length of a branch from the trunk is its <em>depth</em>.</p>
+<p>Not all trees are shaped like this one. Like biological trees, most have branches of various depths. Unlike biological trees, they don’t grow while you search them because they are static, at least the kind we will be dealing with.</p>
+<p>Assuming that no setup is necessary, searching a path consists of two steps:</p>
+<ol>
+<li>check for a solution and <strong>generate</strong> new branches</li>
+<li>search each one of the new generated branches</li>
+</ol>
+<p>This is a recursive process.</p>
+<h2 id="permutations">Permutations<a class="headerlink" href="#permutations" title="Permanent link">&para;</a></h2>
+<p>The previous example can be solved many (and even better) ways but we’ll use the tree technique as this is a good example.</p>
+<p>Here we know we have a solution when no more branches may be generated. So,</p>
+<ol>
+<li>check for solutions and generate new branches</li>
+</ol>
+<p>The following code will do just that.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">unused</span><span class="kd">←</span><span class="nv">check_generate</span><span class="w"> </span><span class="nv">used</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">unused</span><span class="kd">←</span><span class="s1">'ABC'</span><span class="o">~</span><span class="nv">used</span><span class="w"> </span><span class="c1">⍝ return letters not in the branch</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="bp">:</span><span class="nv">if</span><span class="w"> </span><span class="m">0</span><span class="o">=⍴</span><span class="nv">unused</span><span class="w">  </span><span class="c1">⍝ are we done?</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="vg">⎕</span><span class="kd">←</span><span class="nv">used</span><span class="w"> </span><span class="c1">⍝ show the result</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="bp">:</span><span class="nv">endif</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>This code merely consists of generating the letters NOT used in the branch. If the branch we are dealing with is a solution we display it.</p>
+<p>This is it!</p>
+<ol>
+<li>search each one</li>
+</ol>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">trybranch</span><span class="w"> </span><span class="nv">branch</span><span class="sr">;</span><span class="w"> </span><span class="nv">new</span><span class="sr">;</span><span class="w"> </span><span class="nv">br</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">new</span><span class="kd">←</span><span class="nv">check_generate</span><span class="w"> </span><span class="nv">branch</span><span class="w"> </span><span class="c1">⍝ the new material</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="bp">:</span><span class="nv">for</span><span class="w"> </span><span class="nv">br</span><span class="w"> </span><span class="bp">:</span><span class="nv">in</span><span class="w"> </span><span class="o">⍳⍴</span><span class="nv">new</span><span class="w"> </span><span class="c1">⍝ try them all!</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="nv">trybranch</span><span class="w"> </span><span class="nv">branch</span><span class="o">,</span><span class="nv">new</span><span class="sr">[</span><span class="nv">br</span><span class="sr">]</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="bp">:</span><span class="nv">endfor</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>As we see, the function calls itself for each new branch generated.</p>
+<p>If we run this code <em>as is</em>, all permutations of the 3 letters ‘ABC’ will be displayed. To display other permutations the function must be modified or a global variable used to hold the set to permute.</p>
+<p>Many other problems can be solved with this technique. There is the 8 queens problem, the knight’s tour, the "knapsack" problem where, given a layout of pieces and rules for moving them, we must find the moves to put them in another configuration (Rubik’s cube could also fall in this category).</p>
+<p>A more practical use is to generate the calling tree of programs, where all of the elements needed to run a program are identified.</p>
+<p>All the above require their own <em>generation</em> function.</p>
+<p>Let’s have a quick look at the 8 queens problem.</p>
+<h2 id="the-8-queens-problem">The 8 Queens Problem<a class="headerlink" href="#the-8-queens-problem" title="Permanent link">&para;</a></h2>
+<p>This problem is often assigned to computer science students to solve.</p>
+<p>The idea is to put 8 queens<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> on a chess board in such a way that none can capture another. There are 8!64 ways to put them on the board (4,426,165,368) but far fewer unique solutions<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>! Trial and error is an unlikely recipe for success. A possible solution is shown below.</p>
+<p>We could, of course, generate all combinations and screen out unwanted ones but with today’s machines it would take a fair amount of time (not to mention space if done all at once, the APL way). This is another good example for using tree searching techniques.</p>
+<p><img alt="A chessboard with eight queens, one in each row and column, none attacking another" src="queens.jpg" /></p>
+<h3 id="a-method">A method<a class="headerlink" href="#a-method" title="Permanent link">&para;</a></h3>
+<p>We put one queen down, note all the places where another queen can be placed without being captured, try the second queen on one of these, note the remaining positions, etc., continuing in this manner recursively.</p>
+<p>Even with this method we’re not guaranteed a timely success. There are 64 possible squares for the first queen, 42 for the 2nd, 30 for the 3rd, etc. This can rapidly get out of hand. What we need is fast discriminatory technique.</p>
+<h3 id="what-do-we-know">What do we know<a class="headerlink" href="#what-do-we-know" title="Permanent link">&para;</a></h3>
+<p>One thing we know is that each queen will appear only once per row AND column. We can reduce the number of searches like this:</p>
+<ul>
+<li>try the 1<sup>st</sup> queen on each square of the 1<sup>st</sup> row</li>
+<li>try the 2<sup>nd</sup> queen on each square of the 2<sup>nd</sup> row (except where the 1<sup>st</sup> queen can capture it)</li>
+<li>try the 3<sup>rd</sup> queen on each square of the 3<sup>rd</sup> row (except where the 2 other queens can capture it)</li>
+<li>and so on</li>
+</ul>
+<p>We know we have a solution when the branch is 8 steps long (when all the queens have been successfully placed on the board).</p>
+<p>The generation function could look like this:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="w">    </span><span class="bp">∇</span><span class="nv">new</span><span class="kd">←</span><span class="nv">search_generate</span><span class="w"> </span><span class="nv">br</span><span class="sr">;</span><span class="w"> </span><span class="nv">n</span><span class="w"> </span><span class="c1">⍝ ⎕io 1</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w"> </span><span class="nv">new</span><span class="kd">←</span><span class="p">(</span><span class="o">⍳</span><span class="m">8</span><span class="p">)</span><span class="o">~</span><span class="nv">br</span><span class="o">,</span><span class="p">(</span><span class="nv">br</span><span class="o">+</span><span class="nv">n</span><span class="p">)</span><span class="o">,</span><span class="nv">br</span><span class="o">-</span><span class="nv">n</span><span class="kd">←</span><span class="o">⌽⍳⍴</span><span class="nv">br</span><span class="w"> </span><span class="c1">⍝ All safe squares to try</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w"> </span><span class="bp">:</span><span class="nv">if</span><span class="w"> </span><span class="m">8</span><span class="o">=⍴</span><span class="nv">br</span><span class="w"> </span><span class="c1">⍝ Do we have a solution?</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="vg">⎕</span><span class="kd">←</span><span class="nv">br</span><span class="w">   </span><span class="c1">⍝ Display the solution found</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w"> </span><span class="bp">:</span><span class="nv">end</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<h3 id="when-to-stop-searching">When to stop searching<a class="headerlink" href="#when-to-stop-searching" title="Permanent link">&para;</a></h3>
+<p>This is an important point. Do we want to search the ENTIRE tree or do we prefer to find only ONE solution? In the second case we must signal the end of the search and code for it. Naked branch is only good if no result must be returned. A better way to do this is either to <code>⎕signal</code> and trap or set a global variable and use it in the <strong>trybranch</strong> function as in</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="bp">:</span><span class="nv">if</span><span class="w"> </span><span class="nv">SolutionFound</span><span class="w"> </span><span class="bp">:</span><span class="nv">return</span><span class="w"> </span><span class="bp">:</span><span class="nv">end</span>
+</span></code></pre></div>
+<p><sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup></p>
+<h2 id="an-even-more-interesting-example-tic-tac-toe">An even more interesting example: Tic Tac Toe<a class="headerlink" href="#an-even-more-interesting-example-tic-tac-toe" title="Permanent link">&para;</a></h2>
+<h3 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
+<p><img alt="A 3 by 3 Tic-Tac-Toe board with X on the main diagonal" src="ttt.jpg" /></p>
+<p>Everybody should be familiar with the 2-dimensional version of this game. This is the game of 9 squares (3 rows and 3 columns) where two players try, in turn, to acquire 3 squares (slots) lined up in a row. Like on this picture, to the left.</p>
+<p>All positions (slots) a player acquires are marked with a symbol different from the other player. Typically, X and O are used as symbols.</p>
+<p>The version we’ll be using is bit more elaborate but with the same rules.</p>
+<h3 id="model">Model<a class="headerlink" href="#model" title="Permanent link">&para;</a></h3>
+<p>The game discussed here is a 3-dimensional model (a <em>cube</em>) where 2 players try to line up 4 squares in any spatial direction.</p>
+<p>The <em>cube</em> consists of 64 positions, or <em>slots</em>, of 4 <em>planes</em> of 4 rows by 4 columns where players make their moves alternatively, marking a new <em>slot</em> of their choice each time.</p>
+<p>The <em>state</em> of the game changes from move to move. A typical game starts from an initial <em>state</em> where typically none of the <em>slots</em> are used to a final <em>state</em> where one of the players has acquired 4-lined up <em>slots</em> and the game is over.</p>
+<p>Examples of possible lineups are:</p>
+<p><img alt="Three pictures of the cube as four stacked planes. In the first, 4 slots are lined up vertically and 4 others horizontally; in the second, the slots are lined up “sideways”; in the third, from one top corner to the opposite bottom corner" src="lineups.jpg" /></p>
+<p>In the first example 4 <em>slots</em> have been lined up vertically and 4 others horizontally. In the second the <em>slots</em> have been lined up "sideways". In the third the <em>slots</em> have been lined up from one top corner to the opposite bottom corner.</p>
+<p>There are 76 different possible ways to line up 4 <em>slots</em> in this cube.</p>
+<p>Each <em>slot</em> may be part of 4 or 7 of these <em>lines</em>.</p>
+<p>There are 18 different <em>planes</em><sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup> and each <em>line</em> may be part of 2 or 3 of them.</p>
+<p>‘X’ and ‘O’ to represent the 2 players.</p>
+<h3 id="discussion">Discussion<a class="headerlink" href="#discussion" title="Permanent link">&para;</a></h3>
+<p>In computer terms a typical game consists of</p>
+<ul>
+<li>Initialize the game</li>
+<li>Repeat<ol>
+<li>your turn</li>
+<li>my turn</li>
+<li>display the state/cube</li>
+<li>Until the game is over</li>
+</ol>
+</li>
+</ul>
+<p>The game interface is of little interest here. It can be line by line, or with graphics. Graphics may be Windows-style or even <em>openGL</em> (see the various implementations listed below)<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup>.</p>
+<p>The section of interest for us is where we attempt to determine, from the state of the game, if a winning solution is possible. This is where tree searching comes in handy.</p>
+<h3 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h3>
+<p>It is possible to detect a winning state by simulating moves. For example consider a single<sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup> <em>plane</em> of the cube like the one to the right where each <em>slot</em> has been attributed a name (number) and the ‘O’s occupy positions 41, 43 and 23.</p>
+<p><img alt="A 4 by 4 plane with slots numbered 11 to 44; O occupies 23, 41 and 43" src="plane.jpg" /></p>
+<p>If it is ‘O’s turn to move then it can win within 6 moves by playing, for example, 14, 33, 44, 24, 22 and either 11 or 21.</p>
+<p>The other player’s moves are predictable. S/he will be forced to play, at each corresponding move, to 32, 13, 42, 34 and either 21 or 11.</p>
+<p>We need a function such that</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nv">Winningmoves</span><span class="kd">←</span><span class="w"> </span><span class="nv">FindWinningMoves</span><span class="w"> </span><span class="nv">gamestate</span>
+</span></code></pre></div>
+<p>will find a winning solution.</p>
+<p>Or, since <em>gamestate</em> is a function of X and O we can use:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nv">Winningmoves</span><span class="kd">←</span><span class="w"> </span><span class="nv">X</span><span class="w"> </span><span class="nv">FindWinningMoves</span><span class="w"> </span><span class="nv">O</span>
+</span></code></pre></div>
+<p><em>Winningmoves</em> contains all the moves to play in the order they were found in order to produce a winning situation. Its format may also include the opponent’s move for practical reasons.</p>
+<p>With such a function defined the bulk of the work will consist of building an interface around it. That part will not be covered here.</p>
+<h2 id="details">Details<a class="headerlink" href="#details" title="Permanent link">&para;</a></h2>
+<h3 id="the-state-representation">The state representation<a class="headerlink" href="#the-state-representation" title="Permanent link">&para;</a></h3>
+<p>We must be able to represent the <em>state</em> of the game in a practical manner. Marking the 64 positions with X and O will uniquely represent the <em>state</em> of the game but is of little use.</p>
+<p>Since we’re looking for complete <em>lines</em> a better representation of the <em>state</em> of the cube would be to code the number of X and Os on each <em>line</em>. This will require 76 integers (one per possible winning alignment) but will provide us with more valuable information, namely whether we (or the opponent) have lined up 4 <em>slots</em> or not.</p>
+<p>For example a <em>line</em> with 4 Os could have the value 4 and a <em>line</em> with 4 Xs the value 40. A <em>line</em> with 1 X and 3 OS the value 13 and so on, i.e. exactly the number of Os on the <em>line</em> + 10 times the number of Xs<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup>.</p>
+<p>Initially, since the 76 <em>lines</em> have no X or Os in them, we have a <em>state</em> of 76 zeroes. At the end there will at least one 4 or one 40 in them but not both.</p>
+<h3 id="the-tree-searching-function">The tree searching function<a class="headerlink" href="#the-tree-searching-function" title="Permanent link">&para;</a></h3>
+<p>This one is easy. All we need to do is generate new branches and run them through the same function. Like the <strong>trybranch</strong> function above. This time it must deal with matrix results:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">Runbranch</span><span class="w"> </span><span class="nv">node</span><span class="sr">;</span><span class="w"> </span><span class="nv">newbranches</span><span class="sr">;</span><span class="w"> </span><span class="nv">br</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w"> </span><span class="c1">⍝ Get &lt;Generate&gt; to provide the new branches for this node</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w"> </span><span class="nv">newbranches</span><span class="kd">←</span><span class="w"> </span><span class="nv">Generate</span><span class="w"> </span><span class="nv">node</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w"> </span><span class="bp">:</span><span class="nv">for</span><span class="w"> </span><span class="nv">br</span><span class="w"> </span><span class="bp">:</span><span class="nv">in</span><span class="w"> </span><span class="o">⍳</span><span class="m">1</span><span class="o">↓⍴</span><span class="nv">newbranches</span><span class="w"> </span><span class="c1">⍝ For each newbranch</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="nv">Runbranch</span><span class="w"> </span><span class="nv">node</span><span class="o">,</span><span class="nv">newbranches</span><span class="sr">[;</span><span class="nv">br</span><span class="sr">]</span><span class="w"> </span><span class="c1">⍝ Try it</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">SearchOver</span><span class="na">/</span><span class="m">0</span><span class="w"> </span><span class="c1">⍝ Are we done? Then destack.</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w"> </span><span class="bp">:</span><span class="nv">endfor</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>The function must also be able to stop searching when we decide so. After all, we’re only interested in ONE solution. Line [5] takes care of this.</p>
+<h3 id="the-new-branches-generating-function">The <em>new branches</em> generating function<a class="headerlink" href="#the-new-branches-generating-function" title="Permanent link">&para;</a></h3>
+<p>This function is responsible for generating all possible branches.</p>
+<p>The idea is to generate moves which continually line up 3 <em>slots</em> and effectively <em>force</em> the opponent until s/he has to play at more than one place at once. We then win at the next move.</p>
+<p>We start in a specific <em>state</em> with Xs and Os laid out. The two variables ‘FREE0’ and ‘STATE0’ contain information related to this initial <em>state</em>. These are used to create their local varying counterparts ‘Free’ and ‘State’ at each level of the search.</p>
+<p>After any series of moves, if ‘State’ contains 30 we know we can win right away. If ‘State’ contains 20 we know we can further try as we have 2 <em>slots</em> on at least one <em>line</em> and we can force our opponent to play on each one of the remaining pair of <em>slots</em> on each one of these <em>lines</em>.</p>
+<p>There is also a special case where we might be forced ourselves to play but which is of no consequence if our response also further forces the opponent to play.</p>
+<p>Here’s the code to do the above. <em>ALL</em> is all the 64 <em>slots</em>. <em>LINES</em> is the 76x4 table of <em>slots</em> for each <em>line</em>.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="w">    </span><span class="bp">∇</span><span class="nv">new</span><span class="kd">←</span><span class="w"> </span><span class="nv">Generate</span><span class="w"> </span><span class="nv">xo</span><span class="sr">;</span><span class="nv">State</span><span class="sr">;</span><span class="nv">Free</span><span class="sr">;</span><span class="nv">sl</span><span class="sr">;</span><span class="nv">li</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w"> </span><span class="nv">new</span><span class="kd">←</span><span class="m">0</span><span class="na">/</span><span class="nv">xo</span><span class="w"> </span><span class="c1">⍝ assume no possible new move</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w"> </span><span class="nv">Free</span><span class="kd">←</span><span class="nv">FREE0</span><span class="o">∧~</span><span class="nv">ALL</span><span class="o">∊</span><span class="nv">xo</span><span class="w"> </span><span class="c1">⍝ free slots=original free minus those used so far</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w"> </span><span class="nv">State</span><span class="kd">←</span><span class="nv">STATE0</span><span class="o">+</span><span class="nv">stateof</span><span class="w"> </span><span class="nv">xo</span><span class="w"> </span><span class="c1">⍝ state of each line=original plus branch state</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w"> </span><span class="bp">:</span><span class="nv">if</span><span class="w"> </span><span class="m">30</span><span class="w"> </span><span class="o">∊</span><span class="w"> </span><span class="nv">State</span><span class="w"> </span><span class="c1">⍝ Can I win? (3Xs, no Os on a line)</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w"> </span><span class="nv">Sequence</span><span class="kd">←</span><span class="nv">xo</span><span class="o">,</span><span class="m">2</span><span class="o">↑</span><span class="nv">frees</span><span class="w"> </span><span class="nv">sline</span><span class="w"> </span><span class="m">30</span><span class="w"> </span><span class="c1">⍝ Yes, take note of the winning sequence</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w"> </span><span class="nv">SearchOver</span><span class="kd">←</span><span class="m">1</span><span class="w">      </span><span class="c1">⍝ End the search</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w"> </span><span class="bp">:</span><span class="nv">elseif</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">∊</span><span class="w"> </span><span class="nv">State</span><span class="w"> </span><span class="c1">⍝ Can s/he win? If so WE are forced to play.</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">  </span><span class="bp">:</span><span class="nv">if</span><span class="w"> </span><span class="m">1</span><span class="o">=⍴</span><span class="nv">sl</span><span class="kd">←</span><span class="nv">frees</span><span class="w"> </span><span class="nv">sline</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="c1">⍝ If at more than 1 place then</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">        </span><span class="nv">this</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">hopeless</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">   </span><span class="bp">:</span><span class="nv">if</span><span class="w"> </span><span class="o">∨</span><span class="na">/</span><span class="nv">li</span><span class="kd">←</span><span class="p">(</span><span class="nv">State</span><span class="o">=</span><span class="m">20</span><span class="p">)</span><span class="o">∧∨</span><span class="na">/</span><span class="nv">LINES</span><span class="o">=</span><span class="nv">sl</span><span class="w"> </span><span class="c1">⍝ Can we also force opponent</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">        </span><span class="nv">when</span><span class="w"> </span><span class="nv">we</span><span class="w"> </span><span class="nv">play</span><span class="w"> </span><span class="nv">there</span><span class="o">?</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w"> </span><span class="nv">new</span><span class="kd">←</span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="o">⍴</span><span class="w"> </span><span class="p">(</span><span class="nv">sl</span><span class="o">≠</span><span class="m">1</span><span class="o">↑</span><span class="nv">li</span><span class="p">)</span><span class="w"> </span><span class="o">⌽</span><span class="nv">li</span><span class="kd">←</span><span class="nv">frees</span><span class="o">,</span><span class="nv">li</span><span class="na">⌿</span><span class="nv">LINES</span><span class="c1">⍝ Indeed. Find where s/he</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">        </span><span class="nv">is</span><span class="w"> </span><span class="nv">then</span><span class="w"> </span><span class="nv">forced</span><span class="na">.</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="sr">[</span><span class="m">11</span><span class="sr">]</span><span class="w">   </span><span class="bp">:</span><span class="nv">end</span><span class="w">      </span><span class="c1">⍝ And keep'on searchin'</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="sr">[</span><span class="m">12</span><span class="sr">]</span><span class="w">  </span><span class="bp">:</span><span class="nv">end</span><span class="w">       </span><span class="c1">⍝ We were in a fork 8- forget this branch</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="sr">[</span><span class="m">13</span><span class="sr">]</span><span class="w"> </span><span class="bp">:</span><span class="nv">elseif</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">∊</span><span class="w"> </span><span class="nv">State</span><span class="w">      </span><span class="c1">⍝ we cannot win but we might be able</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="w">        </span><span class="nv">to</span><span class="w"> </span><span class="nv">further</span><span class="w"> </span><span class="nv">force</span><span class="w"> </span><span class="nv">opponent</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">play</span>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="sr">[</span><span class="m">14</span><span class="sr">]</span><span class="w"> </span><span class="nv">new</span><span class="kd">←</span><span class="nv">State</span><span class="w"> </span><span class="nv">BEST</span><span class="w"> </span><span class="nv">frees</span><span class="w"> </span><span class="nv">sline</span><span class="w"> </span><span class="m">20</span><span class="w">   </span><span class="c1">⍝ Order all slots where</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">        </span><span class="nv">we</span><span class="w"> </span><span class="nv">force</span><span class="w"> </span><span class="nv">opponent</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="sr">[</span><span class="m">15</span><span class="sr">]</span><span class="w"> </span><span class="bp">:</span><span class="nv">end</span><span class="w"> </span><span class="c1">⍝ no more possible move</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>&lt;<em>sline</em>&gt; returns the ravel of the <em>lines</em> whose <em>state</em> is the same as its argument. ‘<code>sline 30</code>’ returns the <em>lines</em> with state 30.</p>
+<p>&lt;<em>frees</em>&gt; returns the <em>slots</em> which are free in a list. Thus ‘<code>frees sline 30</code>’ returns the unused <em>slots</em> in the <em>lines</em> X which have 3 <em>slots</em> lined up.</p>
+<p>&lt;<em>stateof</em>&gt; returns the state of Xs versus Os as defined previously.</p>
+<h3 id="how-to-find-a-solution-fast">How to find a solution fast<a class="headerlink" href="#how-to-find-a-solution-fast" title="Permanent link">&para;</a></h3>
+<p>We must find a way to get rapidly at the solution otherwise we could spend a very long time traversing the tree. One way is to attribute a <em>weight</em> to each position. To do that we can first attribute <em>weights</em> to lines, and for each slot sum up the values of each line it is used in. For example, if position P1 is member of 3 lines whose values are 10, 0 and 20 then P1’s <em>weight</em> is 30. If another position’s <em>weight</em> is more than P1, it will be tried first.</p>
+<p>For example, in the following picture, X can force O at 7 places, only one of which will ensure a quick win. All the others may lead to a winning situation but only position 34 can create a fork and will do so in 2 moves.</p>
+<p><img alt="A 4 by 4 plane with slots numbered 11 to 44; X occupies 14, 21, 24, 31 and 33" src="fork.jpg" /></p>
+<p>Each slot is traversed by 2 or 3 lines here. Slot 11 is in lines 11-14, 11-41 and 11-44. But playing there is obviously not optimal.</p>
+<p>On the other hand, slot 34, which is only in lines 31-34 and 14-44 is the best choice, because lines where X already has 2 tokens lined up are more valuable than those where X only has 1 token. By choosing the right <em>weights</em> for each <em>state</em> we can achieve the desired result. These weights must be guessed or evaluated heuristically. In the following code, the function &lt;<em>BEST</em>&gt; finds the best slot this way.</p>
+<h3 id="making-the-best-choice">Making the best choice<a class="headerlink" href="#making-the-best-choice" title="Permanent link">&para;</a></h3>
+<p>The &lt;<em>BEST</em>&gt; function orders the slots to reduce searching. It puts the "best" slots first according to the state of the lines. There are many ways to do this. The method used here is simple.</p>
+<p>It first attributes a value to each <em>line</em> according to its state. Here a <em>line</em> gets the value 1 if it has 2 Xs on it, 0 otherwise. It then attributes a value to each <em>slot</em> by summing the value of all the <em>lines</em> it belongs to (a <em>slot</em> may belong to 4 or 7 <em>lines</em> in this <em>cube</em>, information held by variable <em>ISL</em>).</p>
+<p>Thus:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="w">    </span><span class="bp">∇</span><span class="nv">sl</span><span class="kd">←</span><span class="nv">State</span><span class="w"> </span><span class="nv">BEST</span><span class="w"> </span><span class="nv">slots</span><span class="sr">;</span><span class="w"> </span><span class="nv">value</span><span class="sr">;</span><span class="w"> </span><span class="nv">ord</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w"> </span><span class="nv">value</span><span class="kd">←</span><span class="m">0</span><span class="o">,</span><span class="nv">State</span><span class="o">=</span><span class="m">20</span><span class="w"> </span><span class="c1">⍝ value of each line</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w"> </span><span class="nv">value</span><span class="kd">←</span><span class="o">+</span><span class="na">/</span><span class="nv">value</span><span class="sr">[</span><span class="nv">ISL</span><span class="sr">[</span><span class="nv">slots</span><span class="sr">;]]</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w"> </span><span class="nv">ord</span><span class="kd">←</span><span class="o">⍒</span><span class="nv">value</span><span class="w"> </span><span class="c1">⍝ which ones first</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w"> </span><span class="nv">sl</span><span class="kd">←</span><span class="nv">slots</span><span class="sr">[</span><span class="nv">ord</span><span class="o">,</span><span class="sr">[</span><span class="o">-</span><span class="m">.1</span><span class="sr">]</span><span class="nv">ord</span><span class="o">+</span><span class="m">¯1</span><span class="o">*</span><span class="nv">ord</span><span class="sr">]</span><span class="w">     </span><span class="c1">⍝ alternate pairs</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>Even with this method the tree it generates can be enormous. We must be able to "prune" it by specifying a minimum value for each <em>slot</em> and/or a maximum number of branches. Both can be specified at each level of the tree. To keep things simple we’ll use a maximum value of 4 such that line [3] now becomes:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w"> </span><span class="nv">ord</span><span class="kd">←</span><span class="p">(</span><span class="m">4</span><span class="o">⌊⍴</span><span class="nv">ord</span><span class="p">)</span><span class="o">↑</span><span class="nv">ord</span><span class="kd">←</span><span class="o">⍒</span><span class="nv">value</span>
+</span></code></pre></div>
+<h3 id="putting-it-all-together">Putting it all together<a class="headerlink" href="#putting-it-all-together" title="Permanent link">&para;</a></h3>
+<p>We now need a cover function for this. We need to initialize the <em>STATE0, FREE0</em> and the <em>SearchOver</em> variables, as follows:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">Sequence</span><span class="kd">←</span><span class="nv">X</span><span class="w"> </span><span class="nv">FindWinningMoves</span><span class="w"> </span><span class="nv">O</span><span class="sr">;</span><span class="nv">FREE0</span><span class="sr">;</span><span class="nv">STATE0</span><span class="sr">;</span><span class="nv">SearchOver</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w"> </span><span class="c1">⍝ Find a winning sequence for X over O</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">  </span><span class="nv">STATE0</span><span class="kd">←</span><span class="p">(</span><span class="o">+</span><span class="na">/</span><span class="nv">LINES</span><span class="o">∊</span><span class="nv">O</span><span class="p">)</span><span class="o">+</span><span class="w"> </span><span class="m">10</span><span class="o">×+</span><span class="na">/</span><span class="nv">LINES</span><span class="o">∊</span><span class="nv">X</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">  </span><span class="nv">FREE0</span><span class="kd">←</span><span class="o">~</span><span class="nv">ALL</span><span class="o">∊</span><span class="nv">X</span><span class="o">,</span><span class="nv">O</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">  </span><span class="nv">SearchOver</span><span class="kd">←</span><span class="m">0</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">  </span><span class="nv">Runbranch</span><span class="w"> </span><span class="nv">Sequence</span><span class="kd">←</span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="o">⍴</span><span class="m">0</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p><em>Sequence</em>, the result variable, is set prior to calling &lt;<em>RunBranch</em>&gt; just in case no solution is found. In the event that we DO find a solution, &lt;<em>Generate</em>&gt; will take care of setting it properly.</p>
+<p>This is where the ability to see and reset localized variables, on the stack, can be useful. In J, for example, this would not be possible. Instead the solution can be temporarily stored elsewhere, in a locale for example.</p>
+<p><img alt="A 4 by 4 board numbered 0 to 15; X occupies 0, 1, 11 and 15" src="simple.jpg" /></p>
+<p>Let’s try it on a simple case:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="w">      </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">11</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="nv">FindWinningMoves</span><span class="w"> </span><span class="s1">''</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="m">3</span><span class="w"> </span><span class="m">7</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="m">2</span><span class="w"> </span><span class="m">0</span>
+</span></code></pre></div>
+<p>Meaning "I will play 3, O will play 2, I will play 7 (and win)".</p>
+<p>OK. Let’s try something more serious. In the following picture we have</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nv">X</span><span class="kd">←</span><span class="m">15</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">57</span><span class="w"> </span><span class="m">40</span><span class="w"> </span><span class="m">42</span><span class="w"> </span><span class="m">22</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">56</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">59</span><span class="w"> </span><span class="m">53</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="nv">O</span><span class="kd">←</span><span class="m">12</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">48</span><span class="w"> </span><span class="m">51</span><span class="w"> </span><span class="m">60</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">63</span><span class="w"> </span><span class="m">41</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">52</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">55</span><span class="w"> </span><span class="m">58</span>
+</span></code></pre></div>
+<p>(cell 0 is the top leftmost one).</p>
+<p><img alt="The cube as four stacked planes, with the X and O positions marked" src="cube.jpg" /></p>
+<p>To see if X can win we do:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="w">      </span><span class="nv">X</span><span class="w"> </span><span class="nv">FindWinningMoves</span><span class="w"> </span><span class="nv">O</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">37</span><span class="w"> </span><span class="m">26</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">38</span><span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="m">36</span><span class="w"> </span><span class="m">39</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="m">13</span><span class="w"> </span><span class="m">21</span><span class="w"> </span><span class="m">30</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">54</span><span class="w"> </span><span class="m">27</span><span class="w"> </span><span class="m">47</span><span class="w"> </span><span class="m">44</span><span class="w">  </span><span class="m">0</span>
+</span></code></pre></div>
+<p>and X is assured victory in 9 moves <em>or less</em>. BUT! If it’s O’s turn to play s/he can win in 3 moves:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="w">      </span><span class="nv">O</span><span class="w"> </span><span class="nv">FindWinningMoves</span><span class="w"> </span><span class="nv">X</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="m">38</span><span class="w"> </span><span class="m">35</span><span class="w"> </span><span class="m">44</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="m">25</span><span class="w"> </span><span class="m">19</span><span class="w">  </span><span class="m">0</span>
+</span></code></pre></div>
+<h3 id="improvements">Improvements<a class="headerlink" href="#improvements" title="Permanent link">&para;</a></h3>
+<p>There are many ways to improve the search. We can</p>
+<ul>
+<li>fine-tune the pruning algorithm with better weights and functions</li>
+<li>allow the program to find a shorter solution</li>
+<li>specify a maximum search level to limit <em>"intelligence"</em></li>
+</ul>
+<p>To name a few possibilities.</p>
+<p>In the various implementations below, some of these improvements have been made. Among others, the "BEST" algorithm uses values that have been reached after trying several evaluation methods (hence the term <em>heuristic evaluation</em>).</p>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>There are many ways to tackle problems.</p>
+<p>This tree searching technique is very good at going through large amounts of cases or situations.</p>
+<p>Like every other technique one must exercise judgment when using it. If used without preparation it can be slow to produce results, if at all.</p>
+<h2 id="various-implementations">Various Implementations<a class="headerlink" href="#various-implementations" title="Permanent link">&para;</a></h2>
+<p>My first attempt at writing this game goes back over 20 years! The first version was line by line, with quote-quad for input. A similar version exists for SHARP APL, APL*PC and J.</p>
+<p>After graphics became popular I ported the game to APLPLUS*II then Dyalog APL. A J version now also exists using graphics.</p>
+<p>All the code can be found at www.dsuper.net/~danb/milinta.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>In a chess game the queen may move in all directions: horizontally, vertically and diagonally.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>Exactly 37 <em>unique</em> solutions.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>hardcore APLers may wish to use the expression ‘<code>→SolutionFound/0</code>’ instead.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>4 on the Z axis (those we see in the pictures), 4 on the Y axis, 4 on the X axis and 6 more tilted.&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:5">
+<p>For those who cannot wait go to www.dyadic.com’s web server page or directly to 195.212.12.1:8081/ttt0.htm for an example of an interface.&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:6">
+<p>There are many other planes in the cube. For the sake of this example the other cube slots are not taken in account.&#160;<a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:7">
+<p>The value 10 is for visual appearance only. In fact, any value above 4 would do.&#160;<a class="footnote-backref" href="#fnref:7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">programming techniques</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">competitions and puzzles</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1455 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10009410/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Multiprecision Arithmetic – Part III - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#preliminary" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Multiprecision Arithmetic – Part III
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#preliminary" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Preliminary
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#some-simple-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Some simple applications
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-strong-pseudoprime-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Strong Pseudoprime Test
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-primality-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A primality test
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#factorizing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Factorizing
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#books-on-number-theory" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Books on Number Theory
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Multiprecision Arithmetic – Part III</h1>
+
+  <p class="printed"><a href="../12/#n3-january-1996">Vector 12:3</a>, page 70</p>
+
+
+<p class="byline">by John Sullivan</p>
+<h3 id="preliminary">Preliminary<a class="headerlink" href="#preliminary" title="Permanent link">&para;</a></h3>
+<p>In the function listings that follow I have assumed that the basic functions as defined in Parts I and II of this series are in a namespace called <code>mp</code>. If your APL does not support namespaces the functions will be defined in the workspace in the ordinary way, and therefore you should omit the <code>mp</code>. before all references to them: for instance in function <code>Spsp</code>, below, line 3 will be</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>[3]    n←Fexec n
+</span></code></pre></div>
+<h3 id="some-simple-applications">Some simple applications<a class="headerlink" href="#some-simple-applications" title="Permanent link">&para;</a></h3>
+<p>As I mentioned in Part II, it is much easier to handle multiprecision numbers if they are represented by character strings. So the first thing we will do with our basic functions is cover them by functions that process these character strings. (They will also process numeric input, as a result of the behaviour of <code>Fexec</code>). There are four functions for addition, subtraction, multiplication and division.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>     ∇ z←a ADD b
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>[1]   z←0 mp.Ffmt⊃mp.Fadd/mp.Fexec¨a b
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>     ∇
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>     ∇ z←{a}SUB b
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>[1]    →(0≠⎕NC'a')/∆1
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>[2]    a←0 0
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>[3]   ∆1:z←0 mp.Ffmt⊃mp.Fsub/mp.Fexec¨a b
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>     ∇
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>     ∇ z←a MUL b
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>[1]    z←0 mp.Ffmt⊃mp.Fmul/mp.Fexec¨a b
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>     ∇
+</span></code></pre></div>
+<p>The division function introduces a small addition to the way numbers can be represented. Because the function deals with floating point rather than integers, sometimes we need to add precision to the dividend, in order to get extra precision in the quotient. This is done by using the letter P: in addition to saying 1.234E5 for 1.234×10<sup>5</sup>, we can also say 1.234E5P2 for 1.234×10<sup>5</sup> with 2 extra “digits” of precision, one digit being the size of the current radix of the calculation. This P format is sorted out in <code>DIV</code>, rather than by <code>Fexec</code>, so it only applies to this function.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>     ∇ z←a DIV b;p;q;r
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>[1]    b←mp.Fexec b
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>[2]    →(^/~a∊⎕AV)/∆3
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>[3]    p←0 ⋄ →('P'^.≠a)/∆2
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>[4]    p←(1+r←a⍳'P')↓a ⋄ a←r↑a
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>[5]    →(0≠⍴p←(p∊⎕D)/p)/∆1
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>[6]    p←0 ⋄ →∆2
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>[7]   ∆1:⎕SIGNAL(2&lt;⍴p)/16
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>[8]    p←⍎p
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>[9]   ∆2:a←mp.Fexec a
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>[10]   →(p≤0)/∆3
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>[11]   a[0]←a[0]-p ⋄ a←a,p⍴0
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>[18]  ∆3:z←0 mp.Ffmt a mp.Fdiv b
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>     ∇
+</span></code></pre></div>
+<p>Examples:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>      '98765432109876543210' MUL '12345678901234567890'
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>1219326311370217952237463801111263526900
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>      '98765432109876543210' DIV '12345678901234567890'
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>8.000000072900000663390006
+</span></code></pre></div>
+<p>and the following, which may be compared (sorry, IBM!) with [3] <em>p</em>.52 (see also Vector, Vol.11, No.4, <em>p</em>.124):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>      B←'222333333344444445555555'
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>      C←'12345.67890123456789'
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>      (B MUL C) DIV B
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>12345.67890123456789
+</span></code></pre></div>
+<p>When you write applications using the multiprecision suite try to avoid using these functions, because of the overhead of repeatedly translating into and out of character format. However, they are useful when using APL in desk-calculator mode for development and testing work.</p>
+<h3 id="the-strong-pseudoprime-test">The Strong Pseudoprime Test<a class="headerlink" href="#the-strong-pseudoprime-test" title="Permanent link">&para;</a></h3>
+<p>This is a development from Fermat’s theorem (also known as Fermat’s little theorem) which says that if <em>n</em> is prime then a<sup><i>n</i>−1</sup> ≡ 1 mod <em>n</em> for 0 &lt; a &lt; <em>n</em>. This also holds true for some composite numbers, which are therefore called <em>pseudoprimes to base a</em>. If these composites are pseudoprimes for all <em>a</em> then they are called <em>absolute pseudoprimes</em> or <em>Carmichael numbers</em>. Fermat’s theorem is improved by Euler’s criterion, which states that an odd composite number <em>n</em> is called an Euler pseudoprime for base <em>a</em> if <em>a<sup>(<i>n</i>-1)/2</sup></em> ≡ (<em>a/<i>n</i></em>) mod <em>n</em>, with (<em>a,<i>n</i></em>)=1, where (<em>a/<i>n</i></em>) is Jacobi’s symbol. Riesel[1], <em>p</em>.98, carries this a little further and arrives at the concept of a <em>strong pseudoprime</em>, which is defined as follows:</p>
+<p>An odd composite number <em>n</em> with <i>n</i>−1 = 2<sup>s</sup><i>d</i>, <em>d</em> odd, is called a <em>strong pseudoprime for base a</em> if either <em>a<sup>d</sup></em> ≡ 1 mod <em>n</em>, or <i>a</i><sup>2<sup>r</sup><i>d</i></sup> ≡ –1 mod <em>n</em>, for 0 ≤ <code>r</code> &lt; s.</p>
+<p>This function is executed in the root namespace of the workspace. Its left argument is the base, which defaults to 2 if it is omitted, and the right argument is the number to be tested, which can be given as a character string or as a multiprecision number in vector format. If the number fails the test it must be composite, so we return with zero. Of course, if the number passes the test it could still be composite, but we return 1 to indicate that it is a pseudoprime.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>     ∇ z←{a}Spsp n;d;e;i;n1;q;r;s;sm
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>[1]    ⍎(0=⎕Nc'a')/'a←2'
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>[2]    n←mp.Fexec n
+</span></code></pre></div>
+<p>We are going to split <i>n</i>−1 as described above. We strip the powers of 2 from <i>n</i>-1, count them into s, quotient is <em>d</em></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>[3]    n1←d←n mp.Fsub 1 ⋄ s←0
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>[4]    ⍎((d[0]&gt;0)∨~2|¯1↑d)/'d←⊃d mp.Idiv 2 ⋄ s←s+1 ⋄ →⎕LC'
+</span></code></pre></div>
+<p>If <em>a<sup>d</sup></em> ≡ 1 mod <em>n</em> then exit</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>[5]    →(z←0 1 mp.Fequal e←a mp.Impow d n)/0
+</span></code></pre></div>
+<p>We now look at the variable <code>r</code>. When <code>r</code> is 0 we test the number we have just generated.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>[6]    →(z←n1 mp.Fequal e)/0
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>[7]    r←1
+</span></code></pre></div>
+<p>Square <em>d</em> as <code>r</code> increases. We are testing for −1 modulo <em>n</em>, which is equivalent to <i>n</i>−1 modulo <em>n</em>, since <code>Imod</code> returns positive results only</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>[8]   ∆2:→(z←n1 mp.Fequal e←(e mp.Fmul e)mp.Imod n)/0
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>[9]    →(s&gt;r←r+1)/∆2
+</span></code></pre></div>
+<p>You may want to add some progress-report code to this function or the <code>Impow</code> function, because for large numbers they take some considerable time to run.</p>
+<p>For an application of this theorem let us look at a repunit. As mentioned in my preamble to Part I, the repunits are the numbers of the form (10<sup>n</sup>−1)/9. Obviously these can only be prime if <em>n</em> is prime, so let us look at the case <i>n</i>=17.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>      Spsp 17⍴'1'
+</span></code></pre></div>
+<p>After about fifteen seconds (on a 486/33) comes the result (0, implying composite), so either we give up on this one, or we start trying to factor it. (The factors are in fact 2071723 and 5363222357, see later on, and also Yates[2], <em>p</em>.142.)</p>
+<h3 id="a-primality-test">A primality test<a class="headerlink" href="#a-primality-test" title="Permanent link">&para;</a></h3>
+<p>It is not my intention to regurgitate the contents of chapter 4 of Riesel here, but this function is included as an example of how to write APL code to fit the theorems in the book. This function is based on Theorem 4.6, <em>p</em>.109, and uses a relaxed converse of Fermat’s theorem to determine the primality of an integer.</p>
+<p>The prerequisites for this test are as follows. If <em>N</em> is the number to be tested we must have a partial factorization of <em>N</em> − 1, such that if <em>N</em> − 1 = <em>R</em> <em>F</em> (where <em>F</em> is the factored part and <em>R</em> is the remaining part) then <em>R</em> &lt; <em>F</em>. The theorem states that if we can find an integer <em>a</em> such that GCD(<i>a</i><sup>(<i>N</i>−1)/<i>q</i></sup> − 1,<i>N</i>) = 1 for each divisor <em>q</em> of <em>F</em>, and a<sup><i>N</i>−1</sup> ≡ 1 mod <em>N</em>, then <em>N</em> is prime. This last condition implies that <em>N</em> is a pseudoprime to base <em>a</em>: this is not tested in the function here, because it takes so long, and it is assumed that the first thing that anyone does in testing for primality is a pseudoprime test, so it will have been tested already.</p>
+<p>This function takes <em>a</em> as its left argument (which defaults to 2 if not given). The right argument is a 2-element vector of <em>N</em> and <em>F</em> in any format you care to supply (character, scalar or multiprecision number). The result is a return code followed by a helpful message: the return codes are 1 for a prime, −1 for a composite number and 0 if the test is inconclusive, in which case you can repeat it with other values of <em>a</em>.</p>
+<p>We start off by sorting out our input and preparing to loop through the divisors. Note that we only really need one copy of each divisor in <em>F</em>, not all of them. Also, we do not test that each factor of <em>F</em> actually divides <em>N</em> − 1 because we assume that these details have been sorted out before calling the function.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>     ∇ Z←{A}Test4_6 X;A;B;F;J;N;N1;Q;R;⎕IO
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>[1]    ⎕IO←0
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>[2]    N F←X ⋄ ⍎(0=⎕NC'A')/'A←2'
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>[3]    N←0 0 mp.Fadd mp.Fexec N ⋄ N1←N mp.Fsub 0 1
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>[4]    F←0 mp.Fadd¨?mp.Fexec¨F
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>[5]    J←0
+</span></code></pre></div>
+<p>Now test <code>1=GCD((B←¯1+A*N1÷F[J]),N)</code>. We can shorten the calculation here by noting that GCD(<em>B</em>,<i>N</i>) is the same as GCD(<em>B</em> mod <em>N</em>,<i>N</i>) and the mod bit is done in <code>Impow</code>, so if <em>B</em> mod <em>N</em> is 0 or 1 then the GCD is <em>N</em> or 1. The function is verbose here because it takes a fair length of time to run, and we want to know what is going on.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>[6]   ∆1:Z←'Testing ',(0 mp.Ffmt J⊃F),', exponent is ',0 mp.Ffmt B←⊃N1 mp.Idiv J⊃F
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>[7]    Z,' residue is ',0 mp.Ffmt B←0 ¯1 mp.Fadd A mp.Impow B N
+</span></code></pre></div>
+<p>If <em>B</em> mod <em>N</em> is 0 the test was inconclusive, if it is 1 then this part of the test has succeeded. If it is anything else we can continue to calculate the GCD. If this is 1 then we continue with the next factor of <em>F</em>, otherwise we have found a factor of <em>N</em>, which must be composite.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>[8]    →(0 0 mp.Fequal B)/∆3   ⍝ Test inconclusive
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>[9]    →(0 1 mp.Fequal B)/∆2   ⍝ GCD must be 1, so try next one
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>[10]   →(0 1 mp.Fequal Q←N mp.Gcd B)/∆2  ⍝ Else get GCD.
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>[11]   Z←¯1('Composite! ',(0 mp.Ffmt Q),' is a factor.') ⋄ →0
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>[12]  ∆2:→((⍴F)&gt;J←J+1)/∆1
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>[13]   Z←'Prime. By Riesel Th. 4.6 with factor',(1&lt;⍴F)/'s'
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>[14]   Z←dbr Z,,⎕FMT 0 mp.Ffmt¨F ⋄ Z←1 Z ⋄ →0
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>[15]  ∆3:Z←0('Riesel Th. 4.6 primality test inconclusive with A=',⌷A)
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>     ∇
+</span></code></pre></div>
+<p>The GCD function uses Euclid’s algorithm to calculate the Greatest Common Divisor. (It is stored in namespace <code>mp</code>.) In order to make things a bit easy when scalars are supplied, there are two paths through the function.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>     ∇ Z←A Gcd B
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>[1]    →(1^.=(⍴A),⍴B)/∆2
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>[2]    ⍎(B Fgt A)/'A B←B A'
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>[3]   ∆1:→(0 1 Fequal Z←A Imod B)/0
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>[4]    ⍎(0 0 Fequal Z)/'Z←B ⋄ →0'
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>[5]    ⍎(0 Fgt Z)/'Z←Z Fadd B'
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>[6]    A←B ⋄ B←Z ⋄ →∆1
+</span></code></pre></div>
+<p>The following code replicates the previous code, but for scalar rather than multiprecision input.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>[7]   ∆2:⍎(B&gt;A)/'A B←B A'
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>[8]   ∆3:→(1=Z←B|A)/0
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>[9]    ⍎(0=Z)/'Z←B ⋄ →0'
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>[10]   ⍎(0&gt;Z)/'Z←Z+B'
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>[11]   A←B ⋄ B←Z ⋄ →∆3
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>     ∇
+</span></code></pre></div>
+<p>For an example we can test <em>N</em> = 39 × 2<sup>22</sup> + 1 = 163577857, which can easily be verified a prime by trial division.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>      2 Test4_6 163577857 2
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>Testing 2, exponent is 81788928, residue is 0
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>0  Riesel Th. 4.6 primality test inconclusive with A=2
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>      3 Test4_6 163577857 2
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>Testing 2, exponent is 81788928, residue is 0
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>0  Riesel Th. 4.6 primality test inconclusive with A=3
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>      5 Test4_6 163577857 2
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>Testing 2, exponent is 81788928, residue is 163577855
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>1  Prime. By Riesel Th. 4.6 with factor 2
+</span></code></pre></div>
+<p>To show what can happen, I will give an example with a small Carmichael Number (which, as I said earlier, is pseudoprime for all bases). Note that the strong pseudoprime test is stronger than that used for the Carmichael numbers: as 294409 (= 37 × 73 × 109) is not a strong pseudoprime to base 2 we would not normally have got as far as testing it with this function.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>      Test4_6 294409 (2 3 29 47)
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>Testing 2, exponent is 147204, residue is 0
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>0  Riesel Th. 4.6 primality test inconclusive with A=2
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>      3 Test4_6 294409 (2 3 29 47)
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>Testing 2, exponent is 147204, residue is 0
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>0  Riesel Th. 4.6 primality test inconclusive with A=3
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>      5 Test4_6 294409 (2 3 29 47)
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>Testing 2, exponent is 147204, residue is 32264
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>¯1  Composite! 4033 is a factor.
+</span></code></pre></div>
+<h3 id="factorizing">Factorizing<a class="headerlink" href="#factorizing" title="Permanent link">&para;</a></h3>
+<p>There are several different methods for finding the factors of a number. The obvious first choice for a method is trial division: keep dividing your number by successive primes until you get a zero remainder: divide the number by that prime and start the process again on the quotient with the same prime (it may appear more than once in the factorization) until the next prime is greater than the square root of the remaining number. This works fine for small numbers (with a computer this process is relatively quick) but is no good for numbers like (10<sup>33</sup>−1)/9, where the divisors 67<sup>2</sup>, 271, 397 and 126951 are found very quickly, but the remaining number is a bit more difficult to factorize (it is 213524917 × 68618940391). This trial division can be speeded up in certain cases, for example the primitive prime factors of (<em>a<sup>n</sup>− b<sup>n</sup></em>)/(<em>a− b</em>) must be of the form <i>kn</i>+1 (or 2<i>kn</i>+1 if <em>n</em> is odd), which eliminates a lot of checking, but there’s still a lot left to do.</p>
+<p>The next systematic factorizing method to appear, is due to Fermat. The idea is to write an odd composite number as the difference between two square numbers. If we can write<br />
+<em>n</em> = <em><code>x</code><sup>2</sup>− y<sup>2</sup> = (<code>x</code> − y</em>)(<em><code>x</code> + y</em>) where <em><code>x</code> − y</em> ≠ 1,<br />
+we immediately have a factorization. See Riesel[1], <em>p</em>.153ff, for the details.</p>
+<p>We start by making our input numeric, then taking its square root. If the remainder is 0 we have hit on a factorization immediately, so we exit; otherwise we compute an intermediate value <code>m</code> = [√<i>n</i>] + 1, which is the smallest possible value of <em>x</em>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>     ∇ r←Fermat n;a;m;sqrem;z
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>[1]    n←mp.Fexec n
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>[2]    a sqrem←mp.Isqrt n
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>[3]    →(~0 0 mp.Fequal sqrem)/∆1
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>[4]    'Number is the square of ',0 mp.Ffmt r←a ⋄ →0
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>[5]   ∆1:m←a mp.Fadd 0 1
+</span></code></pre></div>
+<p>We consider <i><tt class="aplu">z</tt> = <tt class="aplu">x</tt><sup>2</sup> − <i>n</i></i> and check whether this is a square. If it is then we have finished, otherwise we try the next possible <code>x</code>, i.e. <code>m</code> + 1, and try again.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>[6]    z←(m mp.Fmul m) mp.Fsub n
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>[7]    a sqrem←mp.Isqrt z
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>[8]    →(0 0 mp.Fequal sqrem)/∆3
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>[9]   ∆2:z←z mp.Fadd 1 mp.Fadd 2 mp.Fmul m
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>[10]   m←1 mp.Fadd m
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>[11]   a sqrem←mp.Isqrt z
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>[12]   →(~0 0 mp.Fequal sqrem)/∆2
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>[13]  ∆3:r←(m mp.Fsub a)(m mp.Fadd a)
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>     ∇
+</span></code></pre></div>
+<p>This function is quick if the two factors are approximately the same size, and it is horribly slow if they are wide apart. It can be made to finish quicker by multiplying the number to be factored by small numbers, but how you decide which small numbers to use is a black art. I think most examples in the reference books are worked backwards from known results (I must confess that my examples were all worked backwards also!).</p>
+<p>It can also be made to run much faster for numbers of a certain type. For example, if we know that all the factors of a number have the form 2<i>kn</i> + 1 (which they do for most numbers of the form <em>a<sup>n</sup></em> ± <em>b<sup>n</sup></em> for example) then we can reduce the number of iterations by a factor of 2<i><i>n</i><sup>2</sup></i>. See Riesel, <em>p</em>.189, for the details. The function is very similar to the previous one, but supply the value of <em>n</em> as the left argument (here called <em>p</em> to confuse everybody):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>     ∇ r←p Fermatx n;a;m;mod;res;sqrem;t;x;z
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>[1]    n←mp.Fexec n
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>[2]    a sqrem←mp.Isqrt n
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>[3]    →(~0 0 mp.Fequal sqrem)/∆1
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>[4]    'Number is the square of ',0 mp.Ffmt r←a ⋄ →0
+</span></code></pre></div>
+<p>A bit of number theory comes in here. We calculate the modulus (2<i><i>p</i><sup>2</sup></i>) and residue of (<i>n</i>+1)/2 modulo 2<i><i>p</i><sup>2</sup></i>. The residue must be congruent to 1 modulo <em>p</em>, and we have an error if it isn’t.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>[5]   ∆1:res←(⊃(1 mp.Fadd n)mp.Idiv 2)mp.Imod mod←2×p×p
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>[6]    ⎕SIGNAL(1≠p|1↓res)/11
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>[7]    t←⊃(1 mp.Fadd a)mp.Idiv mod
+</span></code></pre></div>
+<p>The calculations are slightly different here, as we calculate an intermediate variable <code>x</code> to assist in the calculation of <code>z</code>. In order to avoid repetition of coding, an if-then-else block is provided to generate <code>z</code> differently first time round compared with further execution (the first time is identified by <code>z</code> = 0). <code>m</code> is only calculated if it is required to generate the next version of <code>z</code>. When we have finished we use <code>x</code> to obtain the factors.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>[8]    z←0 0
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>[9]   ∆2:x←res mp.Fadd mod mp.Fmul t←1 mp.Fadd t
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>[10]   →(0 0 mp.Fequal z)/∆3
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>[11]   z←z mp.Fadd m ⋄ →∆4
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>[12]  ∆3:z←(x mp.Fmul x)mp.Fsub n
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>[13]  ∆4:a sqrem←mp.Isqrt z
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>[14]   →(0 0 mp.Fequal sqrem)/∆5
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>[15]   m←(mod×2)mp.Fmul x mp.Fadd mod÷2
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>[16]   →∆2
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>[17]  ∆5:r←(x mp.Fsub a)(x mp.Fadd a)
+</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>     ∇
+</span></code></pre></div>
+<p>I tried to factor (10<sup>17</sup>−1)/9, a number that we know is composite, see earlier. I seemed to be getting nowhere, so I tried multiplying it by 34<i>k</i>+1 for some values of <em>k</em>. All values seemed to give the same result, i.e. a long wait for nothing, until I tried 2585 (<em>k</em> = 76). Then I got the following, in exceedingly quick time:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>      0 mp.Ffmt¨17 Fermatx 2585 mp.Fmul mp.Fexec 17⍴'1'
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>5355403955  5363222357
+</span></code></pre></div>
+<p>From this it is easy to see which factor should be divided by 2585 to obtain the factors of 1111111111111111.</p>
+<p>Of course, this is a trivial example: normally the numbers will be much bigger and take much longer to factor. There are many other methods of factorizing large numbers, and the best method may be a combination of several of them running concurrently, the task terminating when a factor is found in any of them.</p>
+<p>I hope that this article has been useful in showing how to apply the multiprecision functions to solve problems with primality testing and factorizing.</p>
+<h3 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Hans Riesel, <em>Prime numbers and computer methods for factorization</em> (Birkhäuser, 1985).</li>
+<li>Samuel Yates, <em>Repunits and Repetends</em> (Star Publishing, Florida, 1982).</li>
+<li><em>The APL Handbook of Techniques</em> (IBM DP Scientific Marketing, 1988. Order No. S320-5996-0).</li>
+</ol>
+<h3 id="books-on-number-theory">Books on Number Theory<a class="headerlink" href="#books-on-number-theory" title="Permanent link">&para;</a></h3>
+<p>In this article, I have mentioned several items from number theory which there is no room to explain. I would refer the reader to any standard text on number theory for further information, for example:</p>
+<ul>
+<li>G H Hardy and E M Wright, <em>An introduction to the theory of numbers</em>, Oxford University Press, 1938 and several later editions. I am sorry to say that the index in this book is atrocious, and is unworthy of a standard textbook.</li>
+<li>W Sierpinski, <em>Elementary theory of numbers</em>, North-Holland, 1988.</li>
+<li>D M Burton, <em>Elementary number theory</em>, Allyn and Bacon, 1980. This is the Open University set book, and its explanations are very clear.</li>
+</ul>
+<p>(webpage generated: 21 November 2007, 19:54)</p>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

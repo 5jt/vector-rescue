@@ -1,0 +1,1509 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/v4n2-p72-metaapl-an-apl-preprocessor/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>MetaAPL: an APL Preprocessor - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-performance-problem" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MetaAPL: an APL Preprocessor
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-performance-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Performance Problem
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#maintainability-as-a-barrier-to-the-use-of-apl" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Maintainability as a Barrier to the Use of APL
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#formal-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Formal Structures
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Formal Structures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-functional-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1. The Functional Approach
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-a-pre-compiler" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2. A Pre-Compiler
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-integration-with-the-interpreter" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3. Integration with the Interpreter
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metaapl" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        META\APL
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metaapl-structured-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        META\APL Structured Conditions
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#function-diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Function Diagnostics
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metaapl-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        META\APL Enhancements
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">MetaAPL: an APL Preprocessor</h1>
+
+  <p class="printed"><a href="../4/#n2-october-1987">Vector 4:2</a>, page 72</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-language-design">language design</a> <a class="md-tag" href="../tags/#tag-development-practice">development practice</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../4/2/VOL.4-NO.2-OCTOBER-1987.pdf#page=74">Read it in the PDF of the issue, page 72</a></em></p>
+<p class="byline">by Glen Tickner and Norval R Oswald</p>
+<p>Studies conducted by IBM in the 1960’s showed that APL, when compared with traditional languages, reduced the time required by programmers to develop systems. However, the use of APL has for the large part been restricted to small applications and applications for which the development time is necessarily short. In particular, APL has remained a language poorly suited to large applications which must be maintained over an appreciable length of time.</p>
+<h2 id="the-performance-problem">The Performance Problem<a class="headerlink" href="#the-performance-problem" title="Permanent link">&para;</a></h2>
+<p>The major factor prohibiting the use of APL in the development of large systems is its inefficiency when compared with compiled languages. For smaller applications performance was not a pressing problem, since the APL interpreter can efficiently handle most operations where repetitive execution is not required [3].</p>
+<p>The APL world has made a serious commitment toward solving the problem of efficiency; first, with the addition of efficient substring search and table lookup functions, either built into the language or provided as add-on functional interfaces to external programs. An example of the former would be STSC APL’s substring search function, quad SS, while the search functions available through INTERPROCESS’s CALL/AP or AFM systems provide examples of the latter. Secondly, with the advent of APL2, a new family of efficient (albeit external) subroutines has become possible, leading to a variety of new offerings from APL vendors.</p>
+<p>The third area of progress in improving the efficiency of APL may prove the most significant. Thanks to STSC, an APL Compiler has at last become practical and commercially available. At least two additional (or more properly, “translators”) have recently been developed.[2,3] These events may at last remove efficiency as a barrier to the use of APL in large applications.</p>
+<h2 id="maintainability-as-a-barrier-to-the-use-of-apl">Maintainability as a Barrier to the Use of APL<a class="headerlink" href="#maintainability-as-a-barrier-to-the-use-of-apl" title="Permanent link">&para;</a></h2>
+<p>Before it can achieve acceptance as a development tool for large systems APL must improve its reputation for maintainability. Most of those familiar with APL have heard the story of the APL programmer whose code must be discarded when he leaves the company. With maintenance costs typically running at 50% of costs over the software development life cycle,[1] APL will not broaden its acceptance as a language for developing large applications if what it gives in programmer productivity is later taken back in maintenance costs.</p>
+<p>Part of the reason APL code is difficult to modify and errors are difficult to diagnose lies in the powerful and condensed primitives. The primitives, alone or in combination, can form constructs whose meaning is extremely difficult to decipher. Because this problem is so intrinsic to the structure of the language, it may not have a solution other than the development of staff fluent in the use and interpretation of APL primitives.</p>
+<p>Other factors affecting APL’s maintainability are more tractable. These factors can be classified under one of two headings:</p>
+<ol>
+<li>features of the language which make APL less transparent</li>
+<li>the absence of structured conditions</li>
+</ol>
+<p>“Transparency” refers to the absence of hidden effects and the ease with which accurate function or program cross-reference information can be generated. Some of the opaque features of APL:</p>
+<ol>
+<li>The APL convention (entirely backwards from our point of view) that variables are assumed to be global unless they are explicitly designated as local in the function header. The typical consequence of the latter, unless the programmer is vigilant, are unintended globals, or “leaky” variables. Leaky variables may lead to side-effects and excessive space utilization. These pathologies are most likely in large systems developed by more than one programmer, where they are most difficult to correct.</li>
+<li>The capability of making multiple assignments on one line, encouraging “statement-gluing”, long lines of virtually unreadable APL code. The most severe offenders in this area may be the experienced programmers who have developed the most familiarity with APL primitives.</li>
+<li>APL contains primitives for the conversion of character strings into variables, variables into functions, and vice versa. These hidden assignments make cross-referencing a difficult accomplishment for both the programmer and automated tools.</li>
+</ol>
+<p>All of the above three problems can be overcome with proper programmer vigilance. For example, the programmer can adopt the convention of making explicit references to all global objects in the comments section at the top of each function. However, the programmer <em>need</em> not do so, and this fact has particular importance when multiple programmers contribute to the same application.</p>
+<h2 id="formal-structures">Formal Structures<a class="headerlink" href="#formal-structures" title="Permanent link">&para;</a></h2>
+<p>Similarly, it is quite possible to write structured code in APL (or with any language that depends upon branching to resolve conditions). In practice, APL conditions rarely correspond to Dijkstra’s eight allowable structures (for several examples, see Martin [7]).</p>
+<p>The language’s lack of structure has long been a source of embarrassment to supporters who feel that APL’s unique character make it superior to more traditional languages. In the early 1970’s, following Dijkstra’s criticisms of APL, several attempts were made to add control structures to the language. Three separate approaches have been taken:</p>
+<h3 id="1-the-functional-approach">1. The Functional Approach<a class="headerlink" href="#1-the-functional-approach" title="Permanent link">&para;</a></h3>
+<p>The simplest approach has been to define APL control functions such as “IF” and “DOWHILE” (see Lim and Lewis [6] and Mason [8]). This solution is also the least satisfactory, for two reasons. First, the procedure is inefficient, since it adds unnecessary function calls. Secondly, nothing would prevent or discourage a programmer from using a raw branch, since the GOTO remains an integral part of his programming environment.</p>
+<h3 id="2-a-pre-compiler">2. A Pre-Compiler<a class="headerlink" href="#2-a-pre-compiler" title="Permanent link">&para;</a></h3>
+<p>A significant improvement over the functional approach is to provide a structured control language which can be later compiled into APL code. The best-known example of an APL pre-compiler is APLGOL, written to take advantage of both APL’s powerful operators and ALGOL’s control structure.[5]</p>
+<p>Pre-compiled APL code carries no penalty in terms of either performance or space, since the functions which establish the control structures normally would not reside in the workspace at run-time. Furthermore, the source code can be indented to highlight the structure of code blocks. With some imagination, checks can be added to the compiler to bring to APL some of the code verification attributes of languages such as PASCAL.</p>
+<p>Mandatory features of any APL pre-compiler would be utilities for the printing of source code and the recompilation of object code. These features would help ameliorate the problem that the interpreted functions would not be the same as the functions as they were originally developed.[4]</p>
+<h3 id="3-integration-with-the-interpreter">3. Integration with the Interpreter<a class="headerlink" href="#3-integration-with-the-interpreter" title="Permanent link">&para;</a></h3>
+<p>There has been one documented case of integration of high-level control structures into an APL interpreter.[4] The modifications took little programming effort, code written with control structures such as <em>IF</em> and <em>DO WHILE</em> could run in conjunction with code using the raw APL branch, and the implementation actually improved performance.</p>
+<p>Clearly, the best option from a technical viewpoint is integration with an APL interpreter. However, for reasons of portability and compatibility with other APLs and releases of APL, an interpreter with improved control structures is not likely to become available, except through one of the major vendors. And, as the last fifteen years have demonstrated, the major vendors are unlikely to risk such fundamental modifications to the language syntax. The best alternative at this time would appear to be some form of pre-processor.</p>
+<p>The advantages of structured languages have been well documented. Structured code is easier to read and therefore easier to maintain and modify. Because structured code has fewer possible paths it is less likely to contain undetected errors.</p>
+<p>Why have more formal control structures not become an accepted part of APL? In part, because the APL operators are so well structured. Conditional logic has always been recognized by APL programmers as something to be avoided, particularly as it often exacts a heavy cost in machine resources.</p>
+<p>The development of APL compilers are likely to change the APL world’s resistance to structured controls. As larger APL systems become feasible the requirement for conditional execution will become of increasing significance. At the same time, the advent of compilers may change APL programming style, since they remove the penalty associated with APL branching.</p>
+<h2 id="metaapl">META\APL<a class="headerlink" href="#metaapl" title="Permanent link">&para;</a></h2>
+<p>Code maintainability and reliability are both central concerns of ACT Computer Services of Edmonton, Alberta. ACT began using VS/APL in 1983 and now has an APL programming team of from 5 to 8 programmers. The company’s APL programming group develops and maintains several large database and management information systems.</p>
+<p>ACT’s APL programming is responsible for the following databases and supporting software:</p>
+<ol>
+<li>Two time series databases:<ol>
+<li>CANSIM, the Government of Canada’s public database. ACT’s CANSIM holdings include approximately 63 megabytes of data.</li>
+<li type="a">ASIST, the Government of Alberta’s public database. 42 megabytes.</li>
+</ol>
+</li>
+<li>Two “multi-dimensional” databases stored in ALASS (A Large Array Storage System), which uses keyed and component files to simulate multi-dimensional APL arrays:<ol>
+<li>MDASIST, the Government of Alberta’s public database for multi-dimensional data. 64 megabytes.</li>
+<li type="a">EXPORTS, the Government of Alberta’s holdings of exports data for Canada and Alberta, 34 megabytes.</li>
+</ol>
+</li>
+<li>One relational database system storing records of doctor and hospital visits, practitioner and patient addresses, and billing and diagnostic code descriptions (approximately 200 megabytes).</li>
+</ol>
+<p>The APL software which provides the user interface to these databases includes between 60 and 70,000 lines of decommented code.</p>
+<p>ACT decided on the need for tools to improve the quality and maintainability of its systems written in APL. To this purpose, ACT developed META\APL, a pre-processor with the following features:</p>
+<ol>
+<li>A structured programming language.</li>
+<li>A decompiler.</li>
+<li>Automatic documentation during compilation. Documentation includes the programmer name, time of the compile, a box region listing global references, and a classification of the META\APL type.</li>
+<li>Function diagnostics.</li>
+</ol>
+<p>The current version of META\APL is written in APL and occupies about 40K of memory.</p>
+<p>META\APL is invoked as a function editor, so that the programmer would enter the command</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nv">MEDIT</span><span class="w"> </span><span class="s1">'fnname'</span>
+</span></code></pre></div>
+<p>where <em>'fnname'</em> is the name of the function to be edited. The syntax is the same whether <em>'fnname'</em> is a new function or an existing function that is being decompiled.</p>
+<p>If an existing function is to be edited, META\APL creates a canonical representation and enters edit mode using the available editor (in this case, the full-screen VS/APL XEDITOR). META\APL converts the functional representation into a character variable in order to permit indentation of code blocks. META\APL indents the blocks automatically when a function is decompiled.</p>
+<p>The version of META\APL currently in use at ACT is an elementary prototype. Despite its simplicity and some rather strict limitations imposed by the current version, all APL programmers have been required for the last two years to do all their development work in META\APL.</p>
+<h2 id="metaapl-structured-conditions">META\APL Structured Conditions<a class="headerlink" href="#metaapl-structured-conditions" title="Permanent link">&para;</a></h2>
+<p>META\APL’s syntax consists of two blocked conditions and two line conditions, as shown in figure 1 below.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>META\APL
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>SOURCE CODE                          OBJECT CODE
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>⊂WHEN ⍝ condition1                   ∆WB:
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>   function1                         →(condition1)⍴∆WE
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>   function2                         function1
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a> WHEN ⍝ condition2                   function2
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>   function3 ⊃                       →(condition2)⍴∆WE
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>                                     function3
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>                                     →∆WB
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>                                     ∆WE:
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a> CASES                               → caseselect
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>  ⊂CASES ⍝  caseselect               →∆C
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>     case1:                          case1:
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>       statement1                    statement1
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>     case2:                          →∆C
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>       statement2                    case2:
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>     case3:                          statement2
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>       statement3 ⊃                  →∆C
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>                                     case3:
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>                                     statement3
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>                                     ∆C:
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>IF ⍝ condition ⍝ s1 ⍝ s2              →(condition)⌽∆2,∆1
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>                                     ∆1:s1
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>                                      →∆3
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>                                     ∆2:s2
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>                                     ∆3:
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>QUIT ⍝ condition ⍝ endroutine         →(condition)↓∆Q1
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a> statement1                           endroutine
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a> statement2                           →∆Q
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>                                     ∆Q1:
+</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>                                      statement1
+</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>                                      statement2
+</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>                                     ∆Q:
+</span></code></pre></div>
+<p class="caption"><em>Figure 1. Source and Object Code for META\APL Conditions</em></p>
+<p>The following example shows how global, local, and semi-global objects would be entered into a new META\APL function:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="w">      </span><span class="bp">∇</span><span class="w"> </span><span class="nv">RESULT</span><span class="kd">←</span><span class="nv">FUNCTION</span><span class="w"> </span><span class="nv">ARG</span><span class="sr">;</span><span class="nv">SEMI1</span><span class="sr">;</span><span class="nv">SEMI2</span><span class="bp">::</span><span class="nv">GLOBAL1</span><span class="sr">;</span><span class="nv">GLOBAL2</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">   </span><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">  </span><span class="c1">⍝⊤⊤⊥⊥</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">   </span><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">  </span><span class="c1">⍝ Unformatted comment region.</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">   </span><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">  </span><span class="c1">⍝⊤⊤⊥⊥</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">   </span><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="nv">LOCAL1</span><span class="kd">←</span><span class="nv">FN1</span><span class="w"> </span><span class="nv">ARG</span><span class="sr">[</span><span class="m">1</span><span class="sr">]</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">   </span><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="nv">LOCAL2</span><span class="kd">←</span><span class="nv">FN2</span><span class="w"> </span><span class="nv">ARG</span><span class="sr">[</span><span class="m">2</span><span class="sr">]</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">   </span><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">   </span><span class="nv">GLOBAL1</span><span class="kd">←</span><span class="nv">FN3</span><span class="w"> </span><span class="nv">SEMI1</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">   </span><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="nv">GLOBAL2</span><span class="kd">←</span><span class="nv">FN4</span><span class="w"> </span><span class="nv">SEMI2</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">   </span><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">   </span><span class="nv">RESULT</span><span class="kd">←</span><span class="nv">GLOBAL1</span><span class="w"> </span><span class="nv">FN5</span><span class="w"> </span><span class="nv">GLOBAL2</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">      </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p class="caption"><em>Figure 2. Newly-entered META\APL source code.</em></p>
+<p>The semi-global variables, <em>semi1</em> and <em>semi2</em>, are assigned as globals in the subfunctions <em>fn1</em>, <em>fn2</em>, or <em>fn3</em>. Local variables (<em>local1</em> and <em>local2</em>) will be localized in the function header. The compiled function will appear as shown below:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="w">     </span><span class="bp">∇</span><span class="w"> </span><span class="nv">RESULT</span><span class="kd">←</span><span class="nv">FUNCTION</span><span class="w"> </span><span class="nv">ARG</span><span class="sr">;</span><span class="nv">LOCAL1</span><span class="sr">;</span><span class="nv">LOCAL2</span><span class="sr">;</span><span class="nv">SEMI1</span><span class="sr">;</span><span class="nv">SEMI2</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">    </span><span class="c1">⍝M←APL[1]SEMI1;SEMI2::GLOBAL1;GLOBAL2</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">    </span><span class="c1">⍝1987 3 16 0 49 24</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">    </span><span class="c1">⍝⊤⊤⊥⊥ ( Name ) 87/MAR/16(MON)  0:49 AM ------------------------</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">    </span><span class="c1">⍝-------------------------------------------------------------</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">    </span><span class="c1">⍝ Automatic Copyright Region</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="c1">⍝-------------------------------------------------------------</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">    </span><span class="c1">⍝</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">    </span><span class="c1">⍝ Formatted comment region (words are left and right justified).</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">    </span><span class="c1">⍝</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝⊤⊤⊥⊥---------------------------------------------------------</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="sr">[</span><span class="m">11</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝   FN1        FN3        FN5        GLOBAL2</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="sr">[</span><span class="m">12</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝   FN2        FN4        GLOBAL1</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="sr">[</span><span class="m">14</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝⊤⊤⊥⊥---------------------------------------------------------</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="sr">[</span><span class="m">15</span><span class="sr">]</span><span class="w">    </span><span class="nv">LOCAL1</span><span class="kd">←</span><span class="nv">FN1</span><span class="w"> </span><span class="nv">ARG</span><span class="sr">[</span><span class="m">1</span><span class="sr">]</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="sr">[</span><span class="m">16</span><span class="sr">]</span><span class="w">    </span><span class="nv">LOCAL2</span><span class="kd">←</span><span class="nv">FN2</span><span class="w"> </span><span class="nv">ARG</span><span class="sr">[</span><span class="m">2</span><span class="sr">]</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="sr">[</span><span class="m">17</span><span class="sr">]</span><span class="w">    </span><span class="nv">GLOBAL1</span><span class="kd">←</span><span class="nv">FN3</span><span class="w"> </span><span class="nv">SEMI1</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="sr">[</span><span class="m">18</span><span class="sr">]</span><span class="w">    </span><span class="nv">GLOBAL2</span><span class="kd">←</span><span class="nv">FN4</span><span class="w"> </span><span class="nv">SEMI2</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="sr">[</span><span class="m">19</span><span class="sr">]</span><span class="w">    </span><span class="nv">RESULT</span><span class="kd">←</span><span class="nv">GLOBAL1</span><span class="w"> </span><span class="nv">FN5</span><span class="w"> </span><span class="nv">GLOBAL2</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">     </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p class="caption"><em>Figure 3. Compiled META\APL function, showing comment region.</em></p>
+<p>Note the automatic generation of date and programmer identifier information (programmer identification is stored in a global variable, as is the copyright notice).</p>
+<p>Since local objects are automatically entered into the function header the programmer does not need to waste time entering insignificant local objects, such as loop counters, into the function header. However, META\APL requires the programmer to be vigilant in keeping track of global objects by forcing him to list them in the function header. This is as it should be, since it is far more important that the programmer remain conscious of global function outputs. Note the globals list automatically generated below the copyright region.</p>
+<h2 id="function-diagnostics">Function Diagnostics<a class="headerlink" href="#function-diagnostics" title="Permanent link">&para;</a></h2>
+<p>An APL pre-compiler provides an excellent vehicle for the integration of function diagnostics. META\APL performs the following checks during compilation:</p>
+<ol>
+<li>
+<p>META\APL syntax check</p>
+<p>The pre-compiler verifies that the source program has been written in correct META\APL syntax (closed blocks, no branches, etc.).</p>
+</li>
+<li>
+<p>APL syntax check</p>
+<p>Checks against unbalanced brackets, parentheses, or quotes or non-unique function headers.</p>
+</li>
+<li>
+<p>Multiple assignment check</p>
+<p>To ensure that META\APL code is fully restartable and to eliminate “statement-gluing”, a check is run against multiple assignments. This check can be bypassed so as to permit such necessary constructs as</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="s1">'var←fn cond2'</span><span class="w"> </span><span class="nf">⎕EA</span><span class="w"> </span><span class="s1">'var←fn cond1'</span>
+</span></code></pre></div>
+</li>
+</ol>
+<p>Several additional diagnostics can be performed after compilation:</p>
+<ol>
+<li>
+<p><em>prefix</em> LEAKYNAMES <em>nl</em></p>
+<p>Prints out the names of all global objects called by functions in the name list, <em>nl</em>, not prefixed with the characters provided in <em>prefix</em>.</p>
+<p>For LEAKYNAMES to be effective, consistent naming conventions must be adopted for all global objects (a good idea in any case) so that the function will not output long lists of objects intended to be global.</p>
+</li>
+<li>
+<p><em>prefix</em> UNUSEDNAMES <em>nl</em></p>
+<p>Prints out all objects called by functions in the name list, <em>nl</em>, that have been localized or input as arguments but never used.</p>
+<p><em>prefix</em> can be used to exclude semi-globals from the unused name search.</p>
+</li>
+<li>
+<p><em>prefix</em> UNASSIGNEDLOCALS <em>nl</em></p>
+<p>Prints out all objects called by functions in the name list, <em>nl</em>, that have been localized but never assigned. Like LEAKYNAMES, this function can be used to trap typographical errors in the naming of variables.</p>
+</li>
+</ol>
+<h2 id="metaapl-enhancements">META\APL Enhancements<a class="headerlink" href="#metaapl-enhancements" title="Permanent link">&para;</a></h2>
+<p>In response to requests from the APL programming group at ACT Computer Services, META\APL is currently undergoing modification. The new version will be written in C to allow for the addition of new features without a penalty in performance. The new version is being developed for a variety of micro and mainframe APLs. A version for STSC APL*Plus running on a Macintosh personal computer will be available at or shortly after the time of this conference.</p>
+<p>The following enhancements will be incorporated into the new release:</p>
+<ol>
+<li>The restriction of one condition block per function will be removed. Block structures can be nested or entered sequentially.</li>
+<li>IF and QUIT forms will be expanded to a block structure so that multiple-line DO blocks are permissible.</li>
+<li>Global and semi-global variable lists will be entered in a block region. The declaration block will have the same format as condition blocks.</li>
+<li>META\APL error messages will be improved to give better information regarding errors in the source code.</li>
+</ol>
+<p>The current version of META\APL is available on a beta-test basis from ACT Computer Services of Edmonton, Alberta.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Boehm, “The High Cost of Software”, <em>Practical Strategies for Developing Large Software Systems.</em> Addison-Wesley, 1975.</li>
+<li>Ching, Wai-Mee, “Program analysis and code generation in an APL/370 compiler”, <em>IBM Journal of Research and Development.</em> November 1986: Vol. 30, no. 6, p. 594.</li>
+<li>Driscoll, Graham C. Jr. and Donald L. Orth, “Compiling APL: The Yorktown APL Translator”, <em>IBM Journal of Research and Development.</em> November 1986: Vol. 30, no. 6, pp 583-593.</li>
+<li>Harris, Larry R., “A Logical Control Structure for APL”, <em>APL Congress 73,</em> P. Gjerlov, H.J. Helms and Johs Nielsen, eds. North-Holland, 1973.</li>
+<li>Kelley, R.A., “APLGOL, an Experimental Structured Programming Language”, <em>IBM Journal of Research and Development.</em> January 1973: Vol. 17, no. 1, p. 69.</li>
+<li>Lim, A.L. and G.R. Lewis, “Toward Structured Programs in APL”, <em>The Computer Journal.</em> August 1974: Vol. 18, no. 2, p. 140.</li>
+<li>Martin, B.R. “Concepts of Structure in APL”, <em>APL80; International Conference on APL,</em> Gijsbert Van Der Linden, ed. North-Holland, 1980.</li>
+<li>Mason, J.A., “Some User-Defined Control Functions for More Readable APL Programs”, <em>ACM SIGPLAN Notices.</em> 1975: Vol. 10, no. 8, p. 11.</li>
+</ol></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">language design</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">development practice</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1945 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10007420/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Regular Expressions and the PCRE Library - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#regular-expressions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Regular Expressions and the PCRE Library
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#regular-expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Regular Expressions
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-few-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A Few Examples
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-pcre-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The PCRE Library
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-apl_pcre-dll" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The APL_PCRE DLL
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-apl_pcre-workspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The APL_PCRE Workspace
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The APL_PCRE Workspace">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions-for-pattern-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Functions for Pattern Matching
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions-for-replacing-sub-strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Functions for Replacing Sub-strings
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        More Information
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distribution-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Distribution Software
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regular-expression-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Regular Expression Reference
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Regular Expressions and the PCRE Library</h1>
+
+  <p class="printed"><a href="../20/#n3-january-2004">Vector 20:3</a>, page 64</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-system-interfaces">system interfaces</a> <a class="md-tag" href="../tags/#tag-programming-techniques">programming techniques</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../20/3/VOL.20-NO.3-JANUARY-2004.pdf#page=66">Read it in the PDF of the issue, page 64</a></em></p>
+<p class="byline"><em>by William Rutiser (APL2000 Inc.)</em></p>
+<p>Following an introduction to the notation and a description of the Perl Compatible Regular Expression Library, we describe a DLL and cover functions that provide Regular Expression support for APL+Win. Based on open source code, the DLL is self-contained. There is a tabular description of much of the PCRE notation and options at the end.</p>
+<h2 id="regular-expressions">Regular Expressions<a class="headerlink" href="#regular-expressions" title="Permanent link">&para;</a></h2>
+<p>The regular expression notation, invented by mathematician Stephen Kleene in the 1940’s, is a powerful means to describe textual patterns; it underlies the pattern matching and searching facilities in many text-processing applications and scripting languages. While extensions to the basic notation have proliferated, the Perl language variant described here is close to a de-facto standard.</p>
+<p>In this brief, incomplete, and simplified introduction, double quotation marks, having no special meaning in the notation, delimit both regular expressions and character strings. The contractions <em>regex</em> and <em>regexes</em> are widely used.</p>
+<p>A regular expression defines a, possibly infinite, set of character strings. The regular expression and each of the strings it defines are said to <em>match</em>. The practical value of the regular expression notation is due to the compactness and manipulability of a regex definition relative to the set of strings it defines. Given a regex and a subject string, a regex matching engine attempts to discover a sub-string of the subject that matches the regex. If any such sub-string exists, the match is said to succeed; if none exists the match is said to fail. When there are multiple matching sub-strings, most engines find the longest of the leftmost matches.</p>
+<p>A regular expression is represented as a character string satisfying certain syntactic rules.</p>
+<p>Except for 12 non-alphanumeric <em>meta-characters</em> that have special meaning, most characters in a regex stand for themselves.</p>
+<p>Any character without special meaning is a regex that matches only the character itself. So the regex “<code>q</code>” matches only the single string “<code>q</code>”. Normally case sensitive, a regex can be made case insensitive by a matcher option.</p>
+<p>A backslash preceding a non-alphanumeric character is said to escape or quote the character, suppressing any special meaning. The regex “<code>\*</code>” matches only “<code>*</code>” and “<code>\\</code>” matches only “<code>\</code>”.</p>
+<p>A backslash may give special meaning to a following alphanumeric. For example, “<code>\n</code>” is a regex that matches the newline character (hex <code>0C</code>).</p>
+<p>A catenation of regular expressions forms a regular expression that matches a catenation of strings each matching its corresponding sub-expression. So the regex “<code>array</code>”, the catenation of five one-character expressions, matches sub-strings of “<code>an array language</code>”, “<code>anarrayofhope</code>”, and “<code>array of arrays</code>”.</p>
+<p>The period meta-character matches any single character. So the regex “<code>s.x</code>” matches “<code>sax</code>”, “<code>six</code>”, “<code>sxx</code>”, and “<code>s.x</code>” but not “<code>sx</code>” or “<code>sabx</code>”. The regex “<code>s\.x</code>” matches only “<code>s.x</code>”.</p>
+<p>Characters enclosed in square brackets form a <em>character class</em> regex that matches a single instance of any of its enclosed characters. The regex “<code>s[aeiou]x</code>” matches three-character strings such as “<code>sox</code>”, “<code>sax</code>”, and “<code>six</code>” but not “<code>sqx</code>”, “<code>s]x</code>”, or “<code>s[x</code>”. If a circumflex immediately follows the left bracket, the regex matches only characters not included. The regex “<code>[^aeiou]</code>” matches “<code>b</code>”, “<code>q</code>”, “<code>9</code>”, and “<code>^</code>” but not “<code>a</code>”, “<code>e</code>”, or “<code>u</code>”.</p>
+<p>Within a character class regex, a pair of non-meta-characters separated by a minus sign, represents a range of characters; so the character class regex “<code>[A-Za-z]</code>” matches any upper or lower case letter and “<code>[^0-9]</code>” matches all characters except digits.</p>
+<p>Several predefined character classes are denoted by a backslash followed by certain letters. For example, “<code>\d</code>” is equivalent to “<code>[0123456789]</code>” and “<code>\D</code>” is equivalent to “<code>[^0123456789]</code>”. So “<code>\d\d\d</code>” matches any string of three digits while “<code>x\Dy</code>” matches “<code>xay</code>”, “<code>x]y</code>”, as well as “<code>x\y</code>” and “<code>xDy</code>” but no string having a digit in its second position.</p>
+<p>A regex and a following <em>quantifier</em> form a regex that matches the catenation of some number of strings each matched by the base regex. A regex quantified by the question mark meta-character matches zero or once. So “<code>\d\d\.?</code>” matches two digit numbers with an optional trailing period.</p>
+<p>An asterisk quantified regex matches any number of times including zero. “<code>10*2</code>” matches “<code>12</code>”, “<code>102</code>” and “<code>10000002</code>” but not “<code>10*2</code>” or “<code>10abc2</code>”.</p>
+<p>The plus sign quantifier is similar but requires at least one match. So “<code>10+2</code>” doesn’t match “<code>12</code>” but does match “<code>102</code>” and “<code>1002</code>”.</p>
+<p>These quantifiers are shorthand for frequently needed cases of the min-max quantifier: “<em><code>regex{min,max}</code></em>” matches at least <em>min</em> and at most <em>max</em> instances of <em>regex</em>. “<code>\d{1,4}\.{0,1}\d{0,3}</code>” matches “<code>1</code>”, “<code>1234</code>”, “<code>5.</code>” and “<code>67.890</code>” but not “<code>12345</code>”, “<code>0.2345</code>”, or “<code>12..34</code>”.</p>
+<p>Quantifiers have higher syntactic precedence than catenation but parenthesis may be used to define their scope. So “<code>(10)*2</code>” matches “<code>2</code>”, “<code>102</code>”, and “<code>10102</code>”. “<code>M(iss)+ippi</code>” matches “<code>Missippi</code>”, and “<code>Mississississippi</code>” as well as the correct spelling.</p>
+<p>Alternative sub-patterns are separated by vertical bars, which have lower precedence than catenation so parenthesis may be needed to limit the first and last alternative. “<code>Booleans are true|false values</code>” matches “<code>Booleans are true</code>” and “<code>false values</code>” whereas “<code>Booleans are (true|false) values</code>” matches “<code>Booleans are true values</code>” and “<code>Booleans are false values</code>”.</p>
+<p>Modern regular expression notation incorporates many other pragmatically useful and convenient variations on the elements described above.</p>
+<p>Parentheses, used to indicate syntactic grouping as described above, have other important uses.</p>
+<p>Matching engines, in addition to reporting whether or not a pattern matches a subject string, report information about where and how the pattern matched. The positions of the ends of the matching sub-string are reported. PCRE reports such positions as the number of characters preceding the positions. In APL terms, these are the zero origin indices of the first character of the sub-string and character immediately following the sub-string.</p>
+<p>Similarly, the matcher reports where each parenthesis enclosed sub-expression matched. When the sub-expression matched at several places, the last match is reported. So “<code>abc(def|ghi)jkl</code>” matches “<code>123abcghijkl456</code>” between positions 3 and 12. The sub-expression “<code>def|ghi</code>” will be reported to match between positions 6 and 9. The parentheses are said to <em>capture</em> the matching sub-string. Complex regexes may include many pairs, possibly nesting, of capturing parentheses. The captures are numbered left to right according to the position of the opening parenthesis. The leftmost parenthesis is assigned the number one. The number zero is associated with the entire match.</p>
+<p>A backslash followed by a digit refers back to the sub-string captured by the correspondingly numbered parenthesis. “<code>\s+((\w+)\s+\2\)\s+</code>” matches a pair of identical words separated by white space. Capture 1 describes the pair of words and white space while capture 2 describes the first word.</p>
+<p>A question mark immediately following a left parenthesis modifies the meaning of the rest of the enclosed text in various ways. When followed by a question mark followed by a colon, a left parenthesis becomes non-capturing.</p>
+<p>The regular expressions described above all match one or more characters, at least potentially. The regular expression notation also provides so-called <em>assertions</em>, which never consume characters during the matching process; they succeed or fail depending on the current match position and the characters around it. The circumflex (APL’s AND primitive) succeeds only at the beginning of the subject; the dollar sign succeeds only at the end. These are used to anchor a pattern at the ends. “<code>^\d+$</code>” matches only strings consisting entirely of digits. “<code>\D\d{5}$</code>” matches only strings ending with exactly five digits. Note that some complexities involving new-line characters has been skipped.</p>
+<p>The assertion “<code>\b</code>” matches only at word boundaries, i.e. positions preceeded by a non-word character and followed by a word character or vice-versa. Neither character is consumed in the match. The assertion “<code>\B</code>” matches only at positions that are not word boundaries. So when “<code>(.*)\b(\w+)</code>” is matched to “<code>one   two   three</code>”, the first capture is “<code>one   two</code>” and the second it “<code>three</code>”.</p>
+<h2 id="a-few-examples">A Few Examples<a class="headerlink" href="#a-few-examples" title="Permanent link">&para;</a></h2>
+<p>The regex “<code>any ((T[io]m){1,3}|Di[cr]k|[HBL]arry)</code>” matches “<code>any Tom</code>”, “<code>any Tim</code>”, “<code>any Dick</code>”, “<code>any Dirk</code>”, “<code>any TomTom</code>”, “<code>any TomTim</code>”, and “<code>any Barry</code>”.</p>
+<p>“<code>\d\d\d-\d\d-\d\d\d\d</code>” matches a social security number.</p>
+<p>The regex “<code>((\(\d\d\d\))|(\d\d\d[\-\.]))?\d\d\d[\-\.]\d\d\d\d</code>” matches telephone numbers in several styles: “<code>555-1212</code>”, “<code>555.1212</code>”, “<code>(301)208-7217</code>”, and “<code>301.208.7217</code>”. It also matches “<code>301-208.7217</code>”. This can be corrected by using a back reference and conditional sub-pattern as in the regex:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>"^(\(\d\d\d\)|\d\d\d([\-\.]))?\d\d\d((?(2)\2|[\-.]))\d\d\d\d$"
+</span></code></pre></div>
+<h2 id="the-pcre-library">The PCRE Library<a class="headerlink" href="#the-pcre-library" title="Permanent link">&para;</a></h2>
+<p>The library is open-source software written by Philip Hazel of the University of Cambridge Computing Service, Copyright ©1997-2001 University of Cambridge.</p>
+<p>Its author describes the Perl Compatible Regular Expression Library as a set of functions that implement regular expression pattern matching using the same syntax and semantics as Perl, with just a few differences. The current implementation of PCRE (release 4.x) corresponds approximately with Perl 5.8.</p>
+<p>Its short and simple PCRE license is easily observed. Many open source software projects use the library and it is included in several Linux distributions.</p>
+<h2 id="the-apl_pcre-dll">The APL_PCRE DLL<a class="headerlink" href="#the-apl_pcre-dll" title="Permanent link">&para;</a></h2>
+<p>This pre-built DLL contains the PCRE library functions and extra routines needed when using the library from APL.</p>
+<p>The library has two central functions: <code>pcre_compile()</code> and <code>pcre_exec()</code>.</p>
+<p>Essentially, <code>pcre_compile()</code> accepts a regular expression string and returns a pointer to an opaque structure known as a <code>pcre</code>, which contains a compiled representation of the regex and tables needed for matching. A <code>pcre</code> is contained in storage managed by Windows and must be de-allocated when it is no longer needed. Several ancillary arguments communicate matching options and error codes.</p>
+<p>The <code>pcre_exec()</code> function takes a <code>pcre</code>, a subject string, and a pointer to space to store the results of matching the regex to the string. These results are offsets into the string of the beginnings and ends of the matching and captured sub-strings. Additional arguments communicate an offset into the string where matching is to begin, matching options, as well as a pointer to an optional block used for certain esoteric purposes.</p>
+<p>One extra-library routine, <code>pcre_dispose()</code>, frees a <code>pcre</code>’s storage into the storage pool used by the library. Any subsequent use of the pointer is likely to initiate a hard crash or data corruption. Failure to free a <code>pcre</code> will leak a small amount of storage. This is benign unless the small leak is repeated many times.</p>
+<p>These functions are called via <code>⎕WCALL</code>. The active aplw.ini file must contain the quad-wcall definitions for the <code>pcre_...()</code> functions and constants.</p>
+<p>The following steps summarize the direct use of the DLL’s functions to match a regular expression and a subject string. A family of APL functions encapsulates much of this detail, making PCRE much easier to use than this outline implies.</p>
+<ol>
+<li>Create an APL character vector containing the regular expression. This can be a quoted string or the result of other APL code.</li>
+<li>Prepare a character vector containing the names of such PCRE options as may be needed.</li>
+<li>Initialize three APL one item numeric vectors for the <code>errptr</code> and <code>erroffset</code> output arguments.</li>
+<li>Using <code>QUAD-WCALL</code>, invoke <code>pcre_compile()</code> passing the regular expression vector, the options vector, the <code>errptr</code> variable, the <code>erroffset</code> variable, and a numeric zero for the <code>tableptr</code> argument. Capture the result of the call. This will be a three item numeric variable. The first item will be a <code>pcre</code> pointer or zero. If the first item is zero, the compilation failed. The other two result items contain the address of an error message (inside the DLL) and an offset into the regular expression related to the error. Use <code>W_Mem</code> to retrieve the text of the message.</li>
+<li>Analyze the results of step 4. If it failed, using the error text and offset, figure out what went wrong and return to step 1. If it succeeded go on to step 6.</li>
+<li>Obtain or construct an APL character vector containing the subject string.</li>
+<li>Prepare a numeric vector to receive the starting and ending offsets of the matching substrings. PCRE uses the last third of this vector internally so it length should be more than three times the maximum expected number of matching and captured sub-strings. The length must be a multiple of three. PCRE refers to this as <code>ovector</code>.</li>
+<li>Prepare an APL character vector containing the names of any required matching options. If no options are needed, pass a numeric zero instead</li>
+<li>Using <code>QUAD-WCALL</code>, invoke <code>pcre_exec()</code> passing the <code>pcre</code> pointer, an integer zero, the subject vector, its length, an integer starting offset, the option vector or zero, the <code>ovector</code>, and the length of the <code>ovector</code>. Capture the result of the call. It should be a two item vector. The second item is the modified <code>ovector</code>. The first item is an integer return code. If the match succeeds, the return code will be 1 or greater and is the number of pairs of meaningful <code>ovector</code> items. If the call fails the return code is negative. A –1 indicates that the subject string didn’t match the pattern. Other negative numbers indicate serious errors. Consult the PCRE documents for their meaning.</li>
+<li>If the match in step 9 succeeds continue with step 11. If the match fails take whatever action is appropriate for your application then continue at step 13.</li>
+<li>It is convenient to reshape the meaningful leading elements of <code>ovector</code> into a two-column matrix. The first column contains starting offsets of matching or captured sub-strings of the subject. The second column contains their ending offsets. Offsets can be interpreted as zero origin indices of the first character and the character after the last character of a sub-string. Unused captures have offsets of –1. The first row, row zero in origin 0, describes the entire matching sub-string. Subsequent rows describe captured sub-strings in order. Their zero origin index is the same as their back-reference number. Row 1 corresponds to the string captured in Perl’s $1 variable, Row 2 to $2, and so forth.</li>
+<li>Use the results of the match as appropriate for your application.</li>
+<li>Repeat from step 6 to reapply the regular expression to a different subject string or with a different offset. Otherwise continue to step 14.</li>
+<li>This step releases the <code>pcre</code>’s storage for reuse. Using <code>QUAD-WCALL</code>, invoke <code>pcre_dispose()</code> passing the <code>pcre</code> pointer as the sole argument. No result is returned. <strong>This <code>pcre</code> pointer must not be used again. Doing so will crash the interpreter or induce data corruption.</strong></li>
+</ol>
+<h2 id="the-apl_pcre-workspace">The APL_PCRE Workspace<a class="headerlink" href="#the-apl_pcre-workspace" title="Permanent link">&para;</a></h2>
+<h3 id="functions-for-pattern-matching">Functions for Pattern Matching<a class="headerlink" href="#functions-for-pattern-matching" title="Permanent link">&para;</a></h3>
+<p>These functions encapsulate the complexity of direct calls to the PCRE library. Functions that directly call the library are described first, followed by functions that work with the result of a match. These are followed by simple compositions of the earlier functions. The last function displays the result of matching a regex to a string for experimentation and debugging.</p>
+<p><code>pcre &lt;- Compile regex options</code></p>
+<blockquote>
+<p><em><code>regex</code></em> should be a character vector representing a regular expression</p>
+<p><em><code>options</code></em> may be a character vector of the single letter option codes or a number. At least a zero or an empty string must be present.</p>
+<p><em><code>pcre</code></em> will be an integer containing a pointer to a <code>pcre</code> in the library’s memory pool.</p>
+</blockquote>
+<p>Syntactic errors in the regular expression are signalled as APL errors including PCRE’s description and offset.</p>
+<p><code>position_matrix &lt;- pcre offset Match subject</code></p>
+<blockquote>
+<p><em><code>pcre</code></em> must be a <code>pcre</code> pointer.</p>
+<p><em><code>offset</code></em> is the offset into the subject where matching should begin. If not present, matching starts at the beginning, which is equivalent to specifying zero.</p>
+<p><em><code>subject</code></em> should be a character vector of text to be matched.</p>
+<p><code>position_matrix</code> will be a two-column matrix with one row for each matching or captured sub-string of the subject. If the match fails, the matrix will have zero rows. The first column contains starting offsets into the subject string; the second contains ending offsets.</p>
+</blockquote>
+<p>The regular expression is matched against the subject string beginning at the offset specified. An APL error is signaled if the library returns an error other than a failing match.</p>
+<p><code>position_matrix_vector &lt;- pcre offset MatchMultiple subject</code></p>
+<blockquote>
+<p><em><code>pcre</code></em> must be a <code>pcre</code> pointer.</p>
+<p><em><code>offset</code></em> is the offset into the subject where matching should begin. If not present, matching starts at the beginning, which is equivalent to specifying zero.</p>
+<p><code>subject</code> should be a character vector of text to be matched.</p>
+<p><code>position_matrix_vector</code> will be a vector of two-column matrices as returned by <code>Match</code>.</p>
+</blockquote>
+<p>The regular expression is repeatedly matched against the subject string until matching fails. The first match begins at the offset specified. Subsequent match begins at the end of the previous match. The result contains a position matrix for each successful match. An APL error is signaled if the library returns an error other than a failing match.</p>
+<p><code>Dispose pcre</code></p>
+<blockquote>
+<p><em><code>pcre</code></em> must be a <code>pcre</code> pointer returned from the PCRE library.</p>
+</blockquote>
+<p>The <code>pcre</code> is freed into the storage pool used by the library. Dispose should be called exactly once for each <code>pcre</code> created by PCRE.</p>
+<p><code>vector_of_strings &lt;- position_matrix SplitCaptures subject_string</code></p>
+<blockquote>
+<p><em><code>positon_matrix</code></em> must be a matrix as returned by Match</p>
+<p><em><code>subject_string</code></em> is the subject character vector from the match</p>
+<p><em><code>vector_of_strings</code></em> will be a vector containing the sub-strings described by the position matrix.</p>
+</blockquote>
+<p>An empty vector is returned for a zero-row position matrix.</p>
+<p><code>vector_of_strings &lt;- pcre MatchAndCapture subject</code></p>
+<blockquote>
+<p><em><code>pcre</code></em> must be a <code>pcre</code> pointer.</p>
+<p><em><code>subject</code></em> should be a character vector of text to be matched.</p>
+<p><em><code>vector_of_strings</code></em> will be a vector containing the sub-strings matched or captured</p>
+</blockquote>
+<p>The regular expression is matched against subject to return a vector of matched and captured sub-strings. This is a simple composition of <code>Match</code> and <code>SplitCaptures</code>.</p>
+<p><code>vector_of_strings &lt;- regex options C_M_C subject</code></p>
+<blockquote>
+<p><em><code>regex</code></em> should be a character vector representing a regular expression</p>
+<p><em><code>options</code></em> may be a character vector of the single letter option codes or a number. At least a zero or an empty string must be present.</p>
+<p><em><code>subject</code></em> should be a character vector of text to be matched.</p>
+<p><em><code>vector_of_strings</code></em> will be a vector containing the sub-strings matched or captured.</p>
+</blockquote>
+<p>The regular expression is compiled and matched against the subject. A vector of matched and captured sub-strings. The <code>pcre</code> is disposed of internally. This is a convenient composition of Compile and MatchAndCapture.</p>
+<p><code>boolean_scalar &lt;- pcre DoesMatch subject</code></p>
+<blockquote>
+<p><em><code>pcre</code></em> must be a <code>pcre</code> pointer.</p>
+<p><em><code>subject</code></em> should be a character vector of text to be matched.</p>
+<p><em><code>boolean_scalar</code></em> will be 1 if the regular expression matches the subject and 0 if it does not.</p>
+</blockquote>
+<p>The regular expression is matched against subject to return a vector of matched and captured sub-strings. Most of the work is done by <code>Match</code>.</p>
+<p><code>result &lt;- regex options DemoRegex subject</code></p>
+<blockquote>
+<p><em><code>regex</code></em> should be a character vector representing a regular expression</p>
+<p><em><code>options</code></em> may be a character vector of the single letter option codes or a number. At least a zero or an empty string must be present.</p>
+<p><em><code>subject</code></em> should be a character vector of text to be matched.</p>
+<p><em><code>result</code></em> is a character matrix.</p>
+</blockquote>
+<p>The regular expression is compiled and matched against the subject. The subject and match results are formatted for display. The subject is on the top line. The capture matrix is at the right of the remaining lines. Digits mark the positions matched or captured. If the match fails, there is only one line.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>      '^ \s* (\w*) \s* (\d*)f \s* $' 'xi' DemoRegex '  Princeton 72F  '
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  Princeton 72F
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>00000000000000000  0 17
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>..111111111......  2 11
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>............22... 12 14
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>      '^ \s* (\w*) \s* (\d*)([fc]) \s* $' 'xi' DemoRegex 'Bethesda 20c'
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>Bethesda 20c
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>000000000000  0 12
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>11111111....  0  8
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>.........22.  9 11
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>...........3 11 12
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>      '^ \s* (\w*) \s* (\d*)([fc]) \s* $' 'xi' DemoRegex 'Erehwon 20R'
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>'Erehwon 20R'
+</span></code></pre></div>
+<h3 id="functions-for-replacing-sub-strings">Functions for Replacing Sub-strings<a class="headerlink" href="#functions-for-replacing-sub-strings" title="Permanent link">&para;</a></h3>
+<p>These functions interpolate captured sub-strings into a template. A template is a character vector. Within a template, most characters stand for themselves. A few meta-characters are used to specify points of substitution. [ While only one is currently in use, several more are envisioned. ]</p>
+<p>Interpolation replaces a dollar-sign followed by a digit, <em>n</em>, with the <em>n</em>th matched or captured sub-string. The sub-strings can be interpolated multiple times and in any order.</p>
+<p><code>string &lt;- template InterpolateCaptures vector_of_strings</code></p>
+<blockquote>
+<p><em><code>template</code></em> is a character vector.</p>
+<p><code>vector_of_strings</code> is a vector of character vectors.</p>
+<p><code>string</code> will be a character vector.</p>
+</blockquote>
+<p>The result is a copy of the template with the $-digit meta-sequences replaced by the corresponding item of vector_of_strings. $’s not followed by a digit are not changed.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>  $2 is 1st then $1. $0 else comes last' InterpolateCaptures 'all' 'one' 'two'
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>two is 1st then one. all else comes last
+</span></code></pre></div>
+<p><code>string &lt;- pcre template MatchAndReplace subject_string</code></p>
+<blockquote>
+<p><em><code>pcre</code></em> is a pcre pointer.</p>
+<p><em><code>template</code></em> is a character vector.</p>
+<p><em><code>subject_string</code></em> is a character vector.</p>
+<p><em><code>string</code></em> will be a character vector.</p>
+</blockquote>
+<p>The regular expression is matched with the subject. The matched and captured sub-strings of the subject are interpolated into the template. The result is a copy of the subject-string with the interpolated template replacing the segment that matched.</p>
+<p><code>string &lt;- pcre template ReplaceAll subject_string</code></p>
+<blockquote>
+<p><em><code>pcre</code></em> is a pcre pointer.</p>
+<p><em><code>template</code></em> is a character vector.</p>
+<p><code>subject_string</code> is a character vector.</p>
+<p><em><code>string</code></em> will be a character vector.</p>
+</blockquote>
+<p>All matches are found for the regex in the subject. Copies of the template are interpolated with the captured sub-strings for each match. The result is a copy of the subject-string with the interpolated templates replacing the matching segments. Since all matching and computation of replacement positions is done before any replacement, there is no risk of replacements being made in replacement text.</p>
+<h2 id="more-information">More Information<a class="headerlink" href="#more-information" title="Permanent link">&para;</a></h2>
+<p>The documentation contained in the PCRE Library distribution is the primary reference for the regular expression engine.</p>
+<p>Jeffrey E. F. Friedl. <em>Mastering Regular Expressions</em>. Second Edition. O’Reilly. 2002 Almost everything one would ever want to know about the use of regular expressions.</p>
+<p>Larry Wall, Tom Christiansen &amp; Jon Orwant. <em>Programming Perl. 3<sup>rd</sup> Edition.</em> O’Reilly. 2000. Affectionately known as the camel book, this is the standard reference for Larry Wall’s Perl language. The sections on regular expressions explain the extensions from the viewpoint of their inventor.</p>
+<p>There are many books on regular expressions and the languages and tools that use them. Those oriented to programmers working in your application domain may be helpful. Try not to be confused by examples in different regex dialects.</p>
+<p>Try a Google search on “regular expression tutorial”. This will locate Web tutorials intended for all levels and kinds of users. Those oriented to users of the Perl, Python, or Ruby languages may be most relevant.</p>
+<h2 id="distribution-software">Distribution Software<a class="headerlink" href="#distribution-software" title="Permanent link">&para;</a></h2>
+<p>The conference digital material contains a directory that includes the following files( “xx” will be replaced by a version identifier ):</p>
+<p><code>Readme.txt</code></p>
+<blockquote>
+<p>Late news, installation instructions, etc.</p>
+</blockquote>
+<p><code>APL_PCRE_xx.dll</code></p>
+<blockquote>
+<p>A DLL containing the PCRE regular expression library and support functions for its use from APL. The DLL is most conveniently installed in the same directory as <code>aplw.exe</code></p>
+</blockquote>
+<p><code>APL_PCRE_xx.w3</code></p>
+<blockquote>
+<p>This workspace contains cover functions for use with the DLL, a simple set of testing tools, and a set of test functions to exercise and validate the installation. The test function’s names begin with “t_” followed by an integer followed by the test’s subject. These functions are safely executable. Most produce no output unless something fails, in which case an error will be signaled. The niladic function <code>F12</code> runs all the tests. The dyadic function <code>AEM</code> uses the APL match primitive to compare its arguments, signaling an error if they differ. The test functions use AEM extensively to compare expected to actual results. The tests are intended to be useful as examples.</p>
+</blockquote>
+<p><code>APL_PCRE_xx.ini</code></p>
+<blockquote>
+<p>This file contains QUAD-WCALL definitions for the DLL’s functions and constants. The definitions should be copied into your <code>aplw.ini</code> file.</p>
+</blockquote>
+<p><code>Pcre-4.3.tar.gz</code></p>
+<blockquote>
+<p>This is an unmodified copy of the PCRE distribution. It can be uncompressed and opened with WinZip. The top-level directory contains source code for the PCRE library and several text files without suffixes. You should review the <code>AUTHORS</code>, <code>COPYING</code>, <code>LICENSE</code>, <code>NEWS</code>, and <code>README</code> files. The <code>doc</code> subdirectory contains PCRE documentation in several formats. <code>pcre.txt</code> is a plain text version. The version in the <code>html</code> directory can be opened with a web browser. Begin with <code>index.html</code>; it links to the other files. You should arrange ready access to this primary reference documentation.</p>
+</blockquote>
+<p><code>APL_PCRE_xx.zip</code></p>
+<blockquote>
+<p>This contains APL2000 written source code and MSVC project files needed to rebuild or modify the DLL.</p>
+</blockquote>
+<p><code>Apl_Regex_xx.doc</code></p>
+<blockquote>
+<p>This document, possibly corrected, extended, or updated.</p>
+</blockquote>
+<h2 id="regular-expression-reference">Regular Expression Reference<a class="headerlink" href="#regular-expression-reference" title="Permanent link">&para;</a></h2>
+<p><strong>Meta-Characters</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>\...</code></td>
+<td>Escape or quote the next non-alphanumeric character suppressing and special meaning.<br>Give the next alphanumeric character a special meaning if one is defined.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>...&#124;...</code></td>
+<td>Separate alternate sub-patterns</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>^</code></td>
+<td>Assert start of string (or line, in multi-line mode)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>$</code></td>
+<td>Assert end of string (or line, in multi-line mode)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>.</code></td>
+<td>Match any one character in the subject except new-line (by default)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>[</code></td>
+<td>Start character class definition</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>(</code></td>
+<td>Start sub-pattern</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>)</code></td>
+<td>End sub-pattern</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>?</code></td>
+<td>0 or 1 quantifier<br>Also extends the meaning of <code>(</code><br>Also quantifier minimizer</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>*</code></td>
+<td>0 or more quantifier</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>+</code></td>
+<td>1 or more quantifier<br>Also "possessive quantifier"</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>{</code></td>
+<td>Start min/max quantifier</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pre-defined Character Classes</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>\d</code></td>
+<td>Any decimal digit</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>\D</code></td>
+<td>Any character that is not a decimal digit</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>\s</code></td>
+<td>Any white-space character</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>\S</code></td>
+<td>Any character that is not a white space character</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>\w</code></td>
+<td>Any “word” character</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>\W</code></td>
+<td>Any “non-word” character</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Character Classes Defined Within Square Brackets</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>[</code></td>
+<td>Begin inclusive character class. Only those characters specified.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em><code>x-y</code></em></td>
+<td>Denotes characters from <em>x</em> thru <em>y</em></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>[^</code></td>
+<td>Begin exclusive character class. All characters except those specified.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>\</code><em><code>x</code></em></td>
+<td>The non-alphanumeric character <em>x</em> ignoring any special meaning.<br>Used to specify <code>] - ^ \</code> characters.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>\</code><em><code>c</code></em></td>
+<td>Include members of the pre-defined character class <code>\</code><em><code>c</code></em>. These characters are included, even within an exclusive definition( FIXME – EXAMPLE ).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em><code>x</code></em></td>
+<td>Denotes the character <em>x</em> itself except for <code>] - ^ \</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>\</code></td>
+<td>Quotes <code>] - ^ \</code> within square brackets.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>]</code></td>
+<td>Ends character class</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Simple Assertions</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>^</code></td>
+<td>Matches at start of subject</td>
+<td>Not multi-line</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>^</code></td>
+<td>Matches at start of subject and immediately after an internal new-line.</td>
+<td>Multi-line</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>$</code></td>
+<td>Matches at end of subject or before a newline at the end</td>
+<td>Not multi-line</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>$</code></td>
+<td>Matches at end of subject and immediately before an internal new-line</td>
+<td>Multi-line</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>\b</code></td>
+<td>Matches at a word boundary</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>\B</code></td>
+<td>Matches when not at a word boundary</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>\A</code></td>
+<td>Matches at start of subject</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>\G</code></td>
+<td>Matches at first matching position in subject</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>\Z</code></td>
+<td>Matches at end of subject or before newline at end</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>\z</code></td>
+<td>Matches at end of subject</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Assertion Sub-patterns</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>(?=</code><em><code>sp</code></em><code>)</code></td>
+<td>Matches if <em>sp</em> matches looking ahead</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>(?!</code><em><code>sp</code></em><code>)</code></td>
+<td>Matches if <em>sp</em> does not match looking ahead</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>(?&lt;!</code><em><code>sp</code></em><code>)</code></td>
+<td>Matches if <em>sp</em> does not match looking behind</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>(?&lt;=</code><em><code>sp</code></em><code>)</code></td>
+<td>Matches if <em>sp</em> matches looking behind</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Conditional Sub-patterns</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>(?(</code><em><code>condition</code></em><code>)</code><em><code>yes_pattern</code></em><code>)</code></td>
+<td>Selects <em><code>yes_pattern</code></em> for matching next if <em><code>condition</code></em> is true.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>(?(</code><em><code>condition</code></em><code>)</code><em><code>yes_pattern</code></em><code>&#124;</code><em><code>no_pattern</code></em><code>)</code></td>
+<td>Selects <em><code>yes_pattern</code></em> (or <em><code>no_pattern</code></em>) for matching next if <em><code>condition</code></em> is true (or false).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Conditional Sub-patterns Conditions</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>(</code><em><code>Number</code></em><code>)</code></td>
+<td>Satisfied if the capturing sub-pattern of that <em><code>number</code></em> has previously matched.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>(</code><em><code>assertion</code></em><code>)</code></td>
+<td>Satisfied if the look-ahead or look-behind <em><code>assertion</code></em> is satisfied</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>(R)</code></td>
+<td>Satisfied if a recursive call to the pattern has been made. The PCRE documentation describes this PCRE extension.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Quantifiers</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>{</code><em><code>min,max</code></em><code>}</code></td>
+<td>At least <em><code>min</code></em> but no more than <em><code>max</code></em> repetitions.</td>
+<td>Greedy</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>{</code><em><code>n</code></em><code>}</code></td>
+<td>Exactly <em>n</em> repetitions.</td>
+<td>Greedy</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>{</code><em><code>min,</code></em><code>}</code></td>
+<td>At least <em><code>min</code></em> repetitions.</td>
+<td>Greedy</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>*</code></td>
+<td>Equivalent to <code>{0,}</code></td>
+<td>Greedy</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>+</code></td>
+<td>Equivalent to <code>{1,}</code></td>
+<td>Greedy</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>?</code></td>
+<td>Equivalent to <code>{0,1}</code></td>
+<td>Greedy</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>{</code><em><code>min,max</code></em><code>}?</code></td>
+<td>At least <em><code>min</code></em> but no more than <em><code>max</code></em> repetitions.</td>
+<td>Non-greedy</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>{</code><em><code>n</code></em><code>}?</code></td>
+<td>Exactly <em>n</em> repetitions.</td>
+<td>Non-greedy</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>{</code><em><code>min,</code></em><code>}?</code></td>
+<td>At least <em><code>min</code></em> repetitions.</td>
+<td>Non-greedy</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>*?</code></td>
+<td>Equivalent to <code>{0,}?</code></td>
+<td>Non-greedy</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>+?</code></td>
+<td>Equivalent to <code>{1,}?</code></td>
+<td>Non-greedy</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>??</code></td>
+<td>Equivalent to <code>{0,1}?</code></td>
+<td>Non-greedy</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Compile and Execution Time Options</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align: center;"></th>
+<th style="text-align: center;"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PCRE_ANCHORED</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">C E</td>
+<td>Require matches to be anchored</td>
+</tr>
+<tr>
+<td>PCRE_CASELESS</td>
+<td style="text-align: center;"><code>i</code></td>
+<td style="text-align: center;">C</td>
+<td>Ignore alphabetic case distinctions</td>
+</tr>
+<tr>
+<td>PCRE_DOLLAR_ENDONLY</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">C</td>
+<td></td>
+</tr>
+<tr>
+<td>PCRE_DOTALL</td>
+<td style="text-align: center;"><code>s</code></td>
+<td style="text-align: center;">C</td>
+<td>Dot meta-character matches all characters including new-lines.</td>
+</tr>
+<tr>
+<td>PCRE_EXTENDED</td>
+<td style="text-align: center;"><code>x</code></td>
+<td style="text-align: center;">C</td>
+<td>Extended syntax. Un-escaped white space is ignored.</td>
+</tr>
+<tr>
+<td>PCRE_EXTRA</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">C</td>
+<td></td>
+</tr>
+<tr>
+<td>PCRE_MULTILINE</td>
+<td style="text-align: center;"><code>m</code></td>
+<td style="text-align: center;">C</td>
+<td></td>
+</tr>
+<tr>
+<td>PCRE_NO_AUTO_CAPTURE</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">C</td>
+<td>Suppresses numbered capturing parenthesis</td>
+</tr>
+<tr>
+<td>PCRE_UNGREEDY</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">C</td>
+<td>Inverts greediness of quantifiers</td>
+</tr>
+<tr>
+<td>PCRE_UTF8</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">C</td>
+<td>Controls UTF-8 support. This is not enabled in the APL2000 built DLL.</td>
+</tr>
+<tr>
+<td>PCRE_NOTBOL</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">E</td>
+<td>First char of subject is not beginning of line</td>
+</tr>
+<tr>
+<td>PCRE_NOTEOL</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">E</td>
+<td>End of subject is not the end of a line.</td>
+</tr>
+<tr>
+<td>PCRE_NOTEMPTY</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">E</td>
+<td>An empty string is not a valid match.</td>
+</tr>
+</tbody>
+</table>
+<p>The names in the first column are PCRE’s names for bit definitions used with the pcre functions. They have QUAD-WCALL definitions in the *.INI file.</p>
+<p>The letters in the second column can be used in the option argument to the APL Compile function. They correspond to PERL’s pattern modifier characters.</p>
+<p>The third column indicates whether the option works at compile or execution time.</p>
+<p>The last column briefly describes the effect of specifying the option. Consult the documentation for a more complete explanation. The options with letters in the second column are the most generally useful. The others control PCRE extensions, esoteric features, or specialized uses.</p></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">system interfaces</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">programming techniques</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

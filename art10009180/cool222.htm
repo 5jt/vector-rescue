@@ -1,0 +1,423 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=UTF-8">
+<title>In Search of a Cool Smooth</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <link rel="stylesheet" href="../arch.css" type="text/css">
+</head>
+
+<body>
+
+<!-- breadcrumbs -->
+
+<table width=100%>
+  <tr>
+    <td><font size=-1>
+	<a href="http://www.vector.org.uk"><img src="../../icons/iconppl.gif" align="middle" alt="VECTOR icon" border=0 title="VECTOR home" /></a> 
+	<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt; 
+	<a href="index.htm">contents of Vector 22.2</a></font></td>
+    <td align=right><font size=-1>For best results, install <a href="../../resource/apl385.zip">APL385 Unicode</a> and use Firefox <a href="http://www.mozilla.org/products/firefox/"><img src="../firefox.gif" align="middle" border=0></a></font></td>
+  </tr>
+</table>  
+<!-- Start of Galley -->
+<div class=section1>
+
+<h1>In Search of a Cool Smooth</h1>
+
+  <p class="author">by Adrian Smith and Jonathan
+Manktelow, Causeway<br>
+Talk given at the &#147;All APLs Day&#148;, Naples Beach, 2005</p>
+
+<h2>Outline</h2>
+
+<p>Rather than bore everyone with yet more
+PowerPoint and chat, Jonathan and I decided to act out a little scenario, illustrating
+one possible approach to mixing traditional APL development with the .Net
+future. I should point out that we picked the example quite carefully;
+everything from the APL side translated easily into C# and tripwires were
+avoided. The C# code was mostly written ahead of time, but nothing was hidden,
+and everything we did was genuine enough on the day. Just be aware that it is
+not quite as easy as we made out!</p>
+
+<h2>Cast in Order of Appearance</h2>
+
+  <p>Jonathan &#150; the unfortunate C# programmer
+with a particularly irritating boss.</p>
+
+  <p>Jonathan&#146;s boss (non-speaking part) &#150; who
+likes to think that a bit of bluster and some arm-waving are equivalent to a
+detailed specification.</p>
+
+  <p>Adrian &#150; the mad boffin with the cranky old
+APL system tucked away below the company radar.</p>
+
+<h2>The Challenge</h2>
+
+  <p>Jonathan&#146;s boss is in charge of a project to
+add an MPG summary to the typical in-car computer system to go alongside the
+SatNav and all the other fancy toys. He has collected some sample data, and
+given Jonathan the task of developing a nice timeseries graphic so the
+car-owner can see how things are progressing over time.</p>
+
+<p>Jonathan winds up the marvellous <i>SharpPlot</i>
+(aka <i>RainPro</i>) charting toolkit and proudly shows his boss the results.</p>
+
+  <pre>&#xa0; public Metafile DrawChart()
+&#xa0; {
+&#xa0;&#xa0;&#xa0; double[] data = new double[] {37.6,39.4,37.2, .... ,39.8,36.6,39.8};
+&#xa0; 
+&#xa0;&#xa0;&#xa0; SharpPlot.Heading = &quot;A Simple Timeseries&quot;;
+&#xa0;&#xa0;&#xa0; SharpPlot.DrawLineGraph(data);&#xa0; 
+&#xa0;&#xa0;&#xa0; return SharpPlot.RenderMetafile();
+&#xa0; }</pre>
+
+  <p>The data is quite genuine &#150; and gives you a
+good picture of the seasonal variations in fuel usage, as well as the large
+random errors introduced by inconsistent filling!</p>
+
+  <p align="center"><img src="uncool.png" width="576" height="432"></p>
+
+  <p>&#147;Wow&#148;says the boss, &#147;You did all that
+coding in less than a day&#148;. It actually took Jonathan 10 minutes, so he tries
+not to look too smug.</p>
+
+  <p>&#147;What we really need&#148; muses the boss &#147;is
+some kind of cool smooth&#148;. He waves a boss-like finger in an up and down kind
+of way at the data; &#147;See what you can do by this afternoon &#150; I promised to show
+this to a couple of customers at 3:00&#148;.</p>
+
+  <p>Jonathan breaks out in a cold sweat, and
+goes Googling for &#147;cool smooth&#148; which doesn&#146;t really help. Then he has a
+brainwave &#150; maybe that APL nut who hides out on the 5th floor can help. He
+knows about this sort of thing.</p>
+
+<h2>The APL Approach</h2>
+
+  <p>The APL nut is quite used to users who have
+no idea what they want. He starts by looking at the data, and mentally
+discarding concepts like <span class="APLU">12+/</span> as far too uncool. Simple moving averages never make a tidy job of
+the &#145;ends&#146; and their intrinsic &#145;top-hat&#146; shape often leads to all sorts of
+strange artifacts as the averaging period &#145;beats&#146; with the data.</p>
+
+  <p>How about a simple Gaussian? That&#146;s pretty
+cool, and easy to do in APL. Let&#146;s have a look ...</p>
+
+  <pre class="APLU">wt&#x2190;*-(xd&#xd7;dieaway)*2
+wt&#x2190;wt&#xf7;+&#x233F;wt</pre>
+
+  <p>... will create a weighting that falls off
+in a pretty &#145;bell-curve&#146; way depending only on the absolute x-distance. It is
+nice, in that every point in the series contributes something to every point on
+the average, but nearer points count most. The <span class="APLU">dieaway</span> controls how wide a bell we use &#150; it ranges from 0 (every point has
+equal weight) to about 5 when the average sees very little other than the
+nearest point. It looks like a good candidate for a trackbar to let the user
+play with the settings!</p>
+
+<p>After a few minutes fooling around, the
+APLer has come up with this:</p>
+
+  <pre class="APLU">    &#x2207;  xy&#x2190;dieaway flex vec;gx;ct;xd;wt;mm
+[1]   &#x235D; Generate Gaussian smooth from data array
+[2]
+[3]    mm&#x2190;1,&#x2374;vec
+[4]    gx&#x2190;mm[1]+(0.01&#xd7;0,&#x2373;100)&#xd7;--/mm   &#x235D; 100 is hard-wired for now
+[5]    xy&#x2190;gx,[1.5]0                   &#x235D; Pre-allocate
+[6]
+[7]   &#x235D; May as well loop here - outer product is a memory hog
+[8]    :for ct :in &#x2373;&#x2374;gx
+[9]      xd&#x2190;|(&#x2373;&#x2374;vec)-gx[ct]
+[10]     wt&#x2190;*-(xd&#xd7;dieaway)*2
+[11]     wt&#x2190;wt&#xf7;+&#x233F;wt
+[12]     xy[ct;2]&#x2190;vec+.&#xd7;wt
+[13]   :end
+[14]
+    &#x2207;</pre>
+
+  <pre class="APLU">      1 flex 4 5 6 5 4
+ 1    4.291876722
+ 1.04 4.31099321
+ 1.08 4.331030772
+ 1.12 4.351994593
+ 
+ ............
+ 
+ 4.92 4.331030772
+ 4.96 4.31099321
+ 5    4.291876722</pre>
+
+  <p>So we have a piece of working code, and some
+simple test-data. &#147;Great&#148; mutters Jonathan, looking bemused. &#147;How do I call
+this from C#?&#148;.</p>
+
+<h2>With one mighty bound, he was free ...</h2>
+
+  <p>It is Jonathan&#146;s lucky day &#150; Adrian has been
+playing around with a deceptively simple C# conversion tool that can take APL
+utilities like this and spit them out as compiled DLLs that any .Net
+application can call. First, he must agree the &#145;interface&#146; with Jonathan and
+then add a few extra comments to the APL code to assist in the translation
+process.</p>
+
+<p>They decide that the class will be called <b>CoolSmooth</b>
+(to conform with Microsoft naming style) and that it will have a method called <b>Flex</b>.
+Rather than passing in the dieaway as an extra argument, Jonathan decides it
+would be good to have a <b>Flexibility</b> property, ranging from 10 to 100
+(because users like percentages) with a default value of 10. He is very
+uncomfortable with the idea of getting the result as a matrix (C# programmers
+much prefer arrays of arrays) so they agree that Flex can return a 2-element
+array with the X and Y values needed to plot the smooth.</p>
+
+<p>Here is what Adrian needed to code to make
+this all work:</p>
+
+  <pre class="APLU">    &#x2207;  CoolSmooth flex
+[1]   &#x235D;&#x235D;s Constructor for CoolSmooth taking optional flexibility (default 10)
+[2]   &#x235D;:Constructor():this(10)
+[3]
+[4]    &#x2206;flexibility&#x2190;flex
+    &#x2207;</pre>
+
+  <pre class="APLU">    &#x2207;  SetFlex newvalue
+[1]   &#x235D; Set the Flexibility adjuster (constrained 0-100)
+[2]   &#x235D;:PSet Flexibility Set responsiveness of fitted Gaussian
+[3]   &#x235D;: int newvalue
+[4]
+[5]    &#x2206;flexibility&#x2190;100&#x230A;0&#x2308;newvalue
+    &#x2207;</pre>
+
+  <pre class="APLU">    &#x2207;  value&#x2190;GetFlex
+[1]   &#x235D; Get the Flexibility adjuster
+[2]   &#x235D;:PGet Flexibility Responsiveness of fitted Gaussian
+[3]   &#x235D;: int value
+[4]
+[5]    value&#x2190;&#x2206;flexibility
+    &#x2207;</pre>
+
+  <pre class="APLU">    &#x2207;  flexed&#x2190;Flex vec;dieaway;gx;xy;ct;xd;wt;mm
+[1]   &#x235D; Generate Gaussian smooth from data array
+[2]   &#x235D; Creates 100 points spanning range of original data
+[3]   &#x235D; Uses a gaussian curve weighted by the x-distance from each point.
+[4]   &#x235D;:Public
+[5]   &#x235D;: double[] vec
+[6]   &#x235D;: double[][] flexed
+[7]
+[8]    dieaway&#x2190;0&#x2308;0.01&#xd7;&#x2206;flexibility   &#x235D; Default parameter = 10
+[9]
+[10]   mm&#x2190;1,&#x2374;vec
+[11]   gx&#x2190;mm[1]+(0.01&#xd7;0,&#x2373;100)&#xd7;--/mm   &#x235D; 100 is hard-wired for now
+[12]   xy&#x2190;gx,[1.5]0                   &#x235D; Pre-allocate
+[13]
+[14]  &#x235D; May as well loop here - outer product is a memory hog
+[15]   :for ct :in &#x2373;&#x2374;gx
+[16]     xd&#x2190;|(&#x2373;&#x2374;vec)-gx[ct]
+[17]     wt&#x2190;*-(xd&#xd7;dieaway)*2
+[18]     wt&#x2190;wt&#xf7;+&#x233F;wt
+[19]     xy[ct;2]&#x2190;vec+.&#xd7;wt
+[20]   :end
+[21]
+[22]   flexed&#x2190;&#x2282;[1]xy
+    &#x2207;</pre>
+
+  <p>Let&#146;s look at the <span class="APLU">Flex</span> function first, to see what changed from the original APL code.
+Line[22] simply changes the result into an array of arrays, and line[8] uses a
+global variable instead of a left argument. That leaves lines [4-6] which
+appear to APL as comments, but are used by the code-conversion to give
+data-types to the argument and result. By default, all functions in a class are
+&#145;private&#146; (and invisible from outside) so we need a hint that this function is
+a public &#145;method&#146; of the class.</p>
+
+<p>Hopefully, the two functions to <i>Set</i>
+and <i>Get</i> the <b>Flexibility</b> are simple enough to be self-evident. The
+converter looks for comments like:</p>
+
+  <pre class="APLU">[2]   &#x235D;:PSet Flexibility</pre>
+
+<p>and uses these to create Properties in the
+generated C# code. The property will be available for Read/Write/Both depending
+on which functions are marked (the actual function names do not matter at all).</p>
+
+<p>In order to compile the converted APL code,
+we need a small amount of C# boilerplate, which is saved in a simple text
+variable:</p>
+
+  <pre class="APLU">      cs&#x2206;flex
+using System;
+using AE=Causeway.SharpArrays;
+
+namespace Causeway
+{
+ 
+!CoolSmooth=Flex,SetFlex,GetFlex,CoolSmooth,&#x2206;flexibility  /doc
+ 
+}</pre>
+
+<p>This mostly just passes straight to the
+generated source-code, except for lines beginning <i>!ClassName</i> which
+invoke the translator with a list of function and variable names. The <i>/doc</i>
+flag makes the translator create the XML documentation that Visual Studio uses
+for popup tips and auto-completion of code.</p>
+
+<p>Here is the complete C# source:</p>
+
+  <pre> using System;
+ using AE=Causeway.SharpArrays;
+ 
+ namespace Causeway
+ {
+&#xa0; public class CoolSmooth
+&#xa0; {
+&#xa0;&#xa0;&#xa0; int _flexibility = 10;
+ 
+&#xa0;&#xa0; // ============ Flex ============ 
+&#xa0;&#xa0; // Generate Gaussian smooth from data array
+&#xa0;&#xa0; // Creates 100 points spanning range of original data
+&#xa0;&#xa0; // Uses a gaussian curve weighted by the x-distance from each point.
+ 
+&#xa0;&#xa0;&#xa0; public double[][] Flex(double[] vec)
+&#xa0;&#xa0;&#xa0; {
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; int[]&#xa0;&#xa0;&#xa0;&#xa0; mm;
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; double&#xa0;&#xa0;&#xa0; dieaway;
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; double[]&#xa0; gx,xd,wt;
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; double[,] xy;
+ 
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; dieaway = AE.Max(0,0.01 * _flexibility);&#xa0; // Default parameter = 10
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; mm = AE.Join(1,vec.Length);
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; gx = AE.Plus(mm[0],AE.Times(AE.Times(0.01,AE.Join(0,AE.Range(100))),
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; -AE.MinusReduce(mm)));&#xa0; // 100 is hard-wired for now
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; xy = AE.Laminate(1.5,gx,0);&#xa0; // Pre-allocate
+&#xa0;&#xa0;&#xa0;&#xa0; // May as well loop here - outer product is a memory hog
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; for (int ct = 1; ct &lt;= gx.Length; ct++) {
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; xd = AE.Magnitude(AE.Minus(AE.Range(vec.Length),gx[ct-1]));
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; wt = AE.Exponential(AE.Negate(AE.Power(AE.Times(xd,dieaway),2)));
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; wt = AE.Divide(wt,AE.PlusReduceFirst(wt));
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; AE.IndexAssign(xy,ct,2,AE.SumTimes(vec,wt));
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; }
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; return AE.MatrixToRagged(AE.Transpose(xy));
+&#xa0;&#xa0;&#xa0; }
+ 
+&#xa0;&#xa0; // ============ SetFlex ============ 
+&#xa0;&#xa0; // Set the Flexibility adjuster (constrained 0-100)
+ 
+&#xa0;&#xa0;&#xa0; void SetFlex(int newvalue)
+&#xa0;&#xa0;&#xa0; {
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; _flexibility = AE.Min(100,AE.Max(0,newvalue));
+&#xa0;&#xa0;&#xa0; }
+ 
+&#xa0;&#xa0; // ============ GetFlex ============ 
+&#xa0;&#xa0; // Get the Flexibility adjuster
+ 
+&#xa0;&#xa0;&#xa0; int GetFlex()
+&#xa0;&#xa0;&#xa0; {
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; return _flexibility;
+&#xa0;&#xa0;&#xa0; }
+ 
+&#xa0;&#xa0; // ============ CoolSmooth ============ 
+&#xa0;&#xa0;&#xa0; public CoolSmooth():this(10) {}
+&#xa0;&#xa0;&#xa0; public CoolSmooth(int flex)
+&#xa0;&#xa0;&#xa0; {
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; _flexibility = flex;
+&#xa0;&#xa0;&#xa0; }
+ 
+&#xa0;&#xa0; // =========== Properties of CoolSmooth ============ 
+&#xa0;&#xa0;&#xa0; public int Flexibility {
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; set { SetFlex(value); }
+&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; get { return GetFlex(); }
+&#xa0;&#xa0;&#xa0; }
+&#xa0; }
+}</pre>
+
+<p>And here is the accompanying XML:</p>
+
+  <pre>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;doc&gt;
+&#xa0; &lt;assembly&gt;
+&#xa0;&#xa0; &lt;name&gt;flex&lt;/name&gt;
+&#xa0; &lt;/assembly&gt;
+&#xa0; &lt;members&gt;
+&#xa0;&#xa0; &lt;member name=&quot;M:Causeway.CoolSmooth.Flex(System.Double[])&quot;&gt;
+&#xa0;&#xa0;&#xa0; &lt;summary&gt;
+&#xa0;&#xa0;&#xa0;&#xa0; Generate Gaussian smooth from data array
+&#xa0;&#xa0;&#xa0; &lt;/summary&gt;
+&#xa0;&#xa0; &lt;/member&gt;
+&#xa0;&#xa0; &lt;member name=&quot;M:Causeway.CoolSmooth.#ctor(System.Int32)&quot;&gt;
+&#xa0;&#xa0;&#xa0; &lt;summary&gt;
+&#xa0;&#xa0;&#xa0;&#xa0; Constructor for CoolSmooth taking optional flexibility (default 10)
+&#xa0;&#xa0;&#xa0; &lt;/summary&gt;
+&#xa0;&#xa0; &lt;/member&gt;
+&#xa0;&#xa0;&#xa0; &lt;member name=&quot;P:Causeway.CoolSmooth.Flexibility&quot;&gt;
+&#xa0;&#xa0;&#xa0;&#xa0; &lt;summary&gt;Responsiveness of fitted Gaussian&lt;/summary&gt;
+&#xa0;&#xa0;&#xa0; &lt;/member&gt;
+&#xa0; &lt;/members&gt;
+ &lt;/doc&gt;</pre>
+
+<p>The
+source-code can be compiled from the command prompt like this:</p>
+
+  <pre> D:\Tools\aplc&gt;csc /t:library /r:sharparrays.dll flex.cs
+ Microsoft (R) Visual C# .NET Compiler version 7.10.6001.4
+ for Microsoft (R) .NET Framework version 1.1.4322
+ Copyright (C) Microsoft Corporation 2001-2002. All rights reserved.
+ 
+ D:\Tools\aplc&gt;dir flex.*
+ 30/01/2006&#xa0; 23:22&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; 1,958 flex.cs
+ 30/01/2006&#xa0; 23:25&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; 4,096 flex.dll
+ 30/01/2006&#xa0; 23:22&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; 582 flex.xml</pre>
+
+  <p>So Adrian copies flex.dll, flex.xml and
+sharparrays.dll (just under 500Kb) to his handy APL2000 keydrive and hands it
+over to Jonathan to plug in to the finished application. Yes, I&#146;m sure Jonathan
+could have coded it up in C# in a couple of days, but this is a classic example
+of the APL mode of thought in action. Adrian never sat down and designed the algorithm
+&#150; he just created some handy test data and typed away until the output looked
+right.</p>
+
+<h2>Happy Ending</h2>
+
+<p>Calling the new DLL from C# is a breeze:</p>
+
+  <p align="center"><img src="visnet.png" width="857" height="554"></p>
+
+<p>Jonathan added the lines to create an
+instance of the CoolSmooth class and set the Flexibility to 23 &#x2013; of course he
+could have passed this as an argument to the constructor. The screen-snap was
+taken with the mouse hovering over the <b>Flex</b> method name &#x2013; notice how the
+leading comment-line from the original APL function has appeared as the second
+line of the tip! This is why we made the XML file to accompany the DLL. If you
+look carefully, you can see exactly where the &#x2018;intellisense&#x2019; is coming from for
+the methods and properties.</p>
+
+<p>So let&#x2019;s test it &#x2013; hit that F5 key to
+compile and run ...</p>
+
+  <p align="center"><img src="cool.png" width="576" height="432"></p>
+
+<p>... well, the audience thought it was cool!
+This has to be the first time a simple dashed line got a spontaneous round of
+applause.</p>
+
+<h2>Summary</h2>
+
+  <p>My feeling is that .Net is beginning to
+compete on level terms with APL as a general-purpose application development
+tool. C# is a good language, the Framework is an excellent utility library, and
+the Gui designer is reasonable. When we have Framework-2 and XAML for the Gui,
+then I think C# may be ahead. What .Net is <i>not</i> (at least not yet) is an
+environment for mucking around with ideas. For that you need a <b>session</b>
+and a <b>workspace</b>, and an environment that lets you stop halfway through
+a function, play with the data, fix up the next line and <b>continue</b>.</p>
+
+<p>The little scenario that Jonathan and I
+tried to illustrate may be one way APL can continue to survive in a
+conventional application development shop.</p>
+<hr size=2 width="100%" noshade color=gray align=center>
+</div>
+
+  <!-- End of galley -->
+
+  
+<p><font size=-1><a href="http://www.vector.org.uk"><img src="../../icons/iconppl.gif" align="middle" alt="VECTOR home" border=0 title="VECTOR home" /></a>
+	<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt;
+	<a href="index.htm">contents of Vector 22.2</a></font></p>
+
+</body>
+</html>

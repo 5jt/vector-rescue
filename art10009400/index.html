@@ -1,0 +1,1557 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10009400/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Multiprecision Arithmetic – Part II - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-story-so-far" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Multiprecision Arithmetic – Part II
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-story-so-far" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Story so Far
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-and-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Input and Output
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#square-roots" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Square Roots
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#isqrt-integer-square-root" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Isqrt (Integer square root)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fsqrt-floating-point-square-root" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Fsqrt (Floating-point square root)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#raising-to-a-power" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Raising to a Power
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-user-defined-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A User-defined Operator
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#and-theres-more" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        And there’s more ...
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Multiprecision Arithmetic – Part II</h1>
+
+  <p class="printed"><a href="../12/#n2-october-1995">Vector 12:2</a>, page 76</p>
+
+
+<p class="byline">by John Sullivan <span class="affil"></span> <span class="email"></span></p>
+<h3 id="the-story-so-far">The Story so Far<a class="headerlink" href="#the-story-so-far" title="Permanent link">&para;</a></h3>
+<p>In Part I, I explained my motivation for writing a multiprecision arithmetic suite in APL, and I gave the code for the addition, subtraction, multiplication and division functions, together with some other goodies, such as changing the radix of a number and raising a multiprecision number to a small power. I also showed the matrix multiplication way of generating Fibonacci numbers using the inner product operator with two user-defined functions.</p>
+<p>Now read on ...</p>
+<h3 id="input-and-output">Input and Output<a class="headerlink" href="#input-and-output" title="Permanent link">&para;</a></h3>
+<p>If we set our radix to 10<sup>8</sup> and we multiply 0 11 by 0 9090910 we get 0 1 10, which is pretty meaningless. We need a function to convert our output to a suitable format so that we can read it. Similarly, we need an input function, because it is a lot easier to input large numbers in character format, with blanks or commas to group the digits in suitable blocks, than it is to input them directly as integers.</p>
+<p>The formatting function is called <code>Ffmt</code> (Float format). It takes a scalar left argument, which indicates the size of the blocks into which the number is separated. If this is positive the separator is a blank, if negative it is a comma. For example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>      ¯3 Ffmt ¯1 12345 67890000
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>12,345.678,9
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>      3 Ffmt ¯1 12345 67890000
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>12 345.678 9
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>      0 Ffmt ¯1 12345 67890000
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>12345.6789
+</span></code></pre></div>
+<p>Since we are preparing human-readable output, the radix of our operations should be a power of 10. For the purposes of this function I am going to change the radix to 10<sup>8</sup> if the radix is not already a power of 10.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>     ∇ z←{h}Ffmt a;b;x;k;n;p;s
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>[1]    →(0=1|p←10⍟base)/∆1
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>[2]    a←(100000000,base)chbase a ⋄ p←8
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>[3]   ∆1:p←⌊p
+</span></code></pre></div>
+<p>We now strip off the number of radix places, and drop trailing zeros.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>[4]    n←a[0] ⋄ a←1↓a
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>[5]    a←(-s←(0≠⌽a)⍳1)↓a ⋄ n+←s
+</span></code></pre></div>
+<p>But, if we have an integer with a positive exponent, we put the trailing zeros back, or add new zeros if there weren’t any.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>[6]    →(n≤0)/∆2
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>[7]    a,←n⍴0 ⋄ n←0
+</span></code></pre></div>
+<p>Get the sign of the number. If it is zero, then make a quick dash for the exit.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>[8]   ∆2:→(0≠s←×1↑a←((a≠0)⍳1)↓a)/∆3
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>[9]    z←'0' ⋄ →0
+</span></code></pre></div>
+<p>Having got the sign we now work with the absolute value of the number. If the number is fractional and we need leading zeros then supply them.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>[10]  ∆3:a←|a
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>[11]   →(n≥0)/∆4
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>[12]   a←(n⌊-⍴a)↑a
+</span></code></pre></div>
+<p>Format each part of the number into blank-separated blocks of numeric characters with leading zeros. Each block is <em>p</em> characters long, where <em>p</em> is log<sub>10</sub> of the radix. If we have a fraction then put the decimal point in the appropriate place (this is made easy by the blanks between the blocks of numbers.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>[13]  ∆4:z←,' ',('ZI',⌷p)⎕FMT a
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>[14]   →(n≥0)/∆5
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>[15]   z[(⍴z)+n×p+1]←'.'
+</span></code></pre></div>
+<p>Tidy up. If our number is not completely fractional drop the leading blank (line 16). If the number starts with one or more zeros, drop them (line 17), and replace one zero if this leaves the decimal point in the first character (line 18). If the number is negative put a minus sign at the start (line 19). If we have a decimal point then drop any trailing zeros (lines 20 and 21).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>[16]  ∆5:z←(' '=z[0])↓z
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>[17]   z←((z≠'0')⍳1)↓z
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>[18]   z←(('.'=z[0])/'0'),z
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>[19]   z←((s&lt;1)/'-'),z
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>[20]   →(~'.'∊z)/∆6
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>[21]   z←(-('0'≠⌽z)⍳1)↓z
+</span></code></pre></div>
+<p>If no left argument (<code>h</code>) was supplied, or if its value would result in no change to the appearance of the number as we have it now, then we have finished. If <code>h</code> is minus the size of the radix then we can bypass the code that puts the blanks into the right places.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>[22]  ∆6:→(0=⎕NC'h')/0
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>[23]   →(h=p×1 ¯1)/0,∆8
+</span></code></pre></div>
+<p>Get rid of all blanks. If <code>h</code> is 0 then we have finished. The base from where the separators (blanks or commas) are measured is the decimal point, so find that. Calculate a boolean vector that can be used to put blanks in the number: line 27 does it before the decimal point and line 29 after. Line 28 handles the case where we have an integer with no decimal point.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>[24]   z~←' '
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>[25]   →(0=k←|h)/0
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>[26]   n←z⍳'.'
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>[27]   s←⌽(⌊n×b←(k+1)÷k)⍴c←(k⍴1),0
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>[28]   →(n=⍴z)/∆7
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>[29]   s←s,1,(⌊((⍴z)-n+1)×b)⍴c
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>[30]  ∆7:z←s\z
+</span></code></pre></div>
+<p>Drop the resulting leading and trailing blanks. If there is a blank between the minus sign and the number then remove that also.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>[31]   z←(' '=z[0])↓z
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>[32]   z←(-' '=¯1↑z)↓z
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>[33]   →('- '∨.≠2↑z)/∆8
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>[34]   z←'-',2↓z
+</span></code></pre></div>
+<p>If <code>h</code> was negative then we want comma separators, and that’s it.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>[35]  ∆8:→(h≥0)/0
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>[36]   z[(z=' ')/⍳⍴z]←','
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>     ∇
+</span></code></pre></div>
+<p>The input function is called <code>Fexec</code> (Float execute). If the number is already numeric we get out quickly. The same comments about the radix for <code>Ffmt</code> apply to this function also. Be careful here with the terminology: we have two meanings of the word <em>exponent</em>: as the number that comes after the E in a number like 1.234E5, and as the number defining the position of the radix point in the multiprecision array. I have tried to avoid confusion, but I have probably failed!</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>     ∇ x←Fexec x;e;f;i;n;p;p1;p10;q;s
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>[1]    →(~(1↑x)∊⎕AV)/0
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>[2]    →(p10←0=1|p←10⍟base)/∆1
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>[3]    p←8
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>[4]   ∆1:p1←(p+1)÷p←⌊p
+</span></code></pre></div>
+<p>It is sometimes convenient to enter numbers in scientific notation, i.<code>e</code>. with an E to indicate multiplication by some power of 10. We handle that here. It is an error if there is more than one E (lower-case is also acceptable) in the number. Split the exponent off, drop any leading plus-sign, check that the exponent is all numbers with an optional leading minus, make it numeric (this function will crash here if the exponent is just a minus sign: this is deliberate, to allow the calling function to handle the error). The value of the exponent is stored in <code>e</code>, which will be 0 if there was no exponent. (Note: if your APL does not have <code>⎕D</code> you can replace it by <code>'0123456789'</code>).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>[5]    →(0=e←+/n←x∊'Ee')/∆2
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>[6]    ⎕SIGNAL(1≠e)/11
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>[7]    q←n⍳1
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>[8]    e←(q+1)↓x ⋄ x←q↑x
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>[9]    e←('+'=1↑e)↓e
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>[10]   ⎕SIGNAL(~^/(e∊⎕D)∨(⍴e)↑(1↑e)∊'¯-')/11
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>[11]   e←⍎e
+</span></code></pre></div>
+<p>Now we basically repeat on the main part of the number what we did to the exponent, but we also have to check on the decimal point if it is present (there must not be more than one of these), and we split the number into two at the decimal point. In this part of the function <code>s</code> is the sign of the number, <code>i</code> is the integer part and <code>f</code> is the fractional part.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>[12]  ∆2:x←(x∊⎕D,'.-¯')/x
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>[13]   x←(s←x[0]∊'-¯')↓x
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>[14]   →(0=⍴x)/0
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>[15]   i←(q←x⍳'.')↑x
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>[16]   →(0=⍴f←(q+1)↓x)/∆3
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>[17]   ⎕SIGNAL(f∨.='.')/11
+</span></code></pre></div>
+<p>Set up the result (null vector). If there is an integer part, convert it to numerics by spacing it out according to the size of the radix, catenate this to the result. Do the same with the fractional part, which may have to have added trailing zeros in order to ensure that the last block is the correct length.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>[18]  ∆3:x←∨
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>[19]   →(0=⍴i)/∆4
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>[20]   x←x,⍎(⌽(⌊p1×⍴i)⍴(p+1)↑p⍴1)\i
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>[21]  ∆4:→(0≠⍴f)/∆5
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>[22]   f←∨ ⋄ →∆6
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>[23]  ∆5:f←,⍎((p1×⍴f)⍴(p+1)↑p⍴1)\f←f,(p|-⍴f)⍴'0'
+</span></code></pre></div>
+<p>Put the number all together, multiply all but the first element (which is the location of the radix point) by the sign of the number. Drop leading and trailing zeros.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>[24]  ∆6:→(0^.=x←(-⍴f),1 ¯1[s]×x,f)/0
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>[25]   x←(-f←(0≠⌽x)⍳1)↓x
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>[26]   f←x[0]+f
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>[27]   x←f,((x≠0)⍳1)↓x←1↓x
+</span></code></pre></div>
+<p>If the radix we used in this function is not the same as the global radix then recalculate the number in the global radix.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>[28]   →p10/∆7
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>[29]   x←(base,100000000)chbase x
+</span></code></pre></div>
+<p>Process the exponent if it is non-zero. This is done the lazy way, by generating a character number of the appropriate size and recursively calling this function. (This is the reason why this function is in part 2: we needed to define <code>Fmul</code> first.)</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>[30]  ∆7:→(1+×e)⊃∆8,0,∆9
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>[31]  ∆8:x←x Fmul Fexec'0.',((¯1-e)⍴'0'),'1' ⋄ →∆9
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>[32]  ∆9:x←x Fmul Fexec'1',e⍴'0'
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>     ∇
+</span></code></pre></div>
+<h3 id="square-roots">Square Roots<a class="headerlink" href="#square-roots" title="Permanent link">&para;</a></h3>
+<p>There are several algorithms for extracting square roots, but they all seem to have disadvantages somewhere along the line. I had to make a choice of algorithm here, and the one I have chosen seems to be the fastest function around, but it uses multiprecision floating-point numbers and we have to be careful to prevent the intermediate results blowing up and giving <code>WS FULL</code>. IBM[3] gives an algorithm using long division that is only slightly slower than this version, but it only works with even radices (because at one point the radix is divided by 2), whereas this version works with all radices as defined in part 1. For yet another algorithm, which is slower than these two, see [2].</p>
+<p>As with division there are two functions for square roots, one for integer square roots with remainder, and the other for floating square roots, rounded to the nearest value. Again, as with division, the floating function calls the integer function and massages the results.</p>
+<h3 id="isqrt-integer-square-root">Isqrt (Integer square root)<a class="headerlink" href="#isqrt-integer-square-root" title="Permanent link">&para;</a></h3>
+<p>First we make sure our input is multiprecision, then we check that it is not negative. It’s also an error in this function if the input is not an integer.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>     ∇ z←Isqrt a;b;f;n;q;r
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>[1]    a←scalar a
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>[2]    ⎕SIGNAL(0∨.&gt;a)/11
+</span></code></pre></div>
+<p>If our number is 0 then we can exit at once.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>[3]    →(0∨.≠1↓a)/∆1
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>[4]    z←(0 0)(0 0) ⋄ →0
+</span></code></pre></div>
+<p>Use the full precision of the number.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>[5]   ∆1:a←fullint a
+</span></code></pre></div>
+<p>If the square is small we can use APL’s built-in exponentiation primitive, rounding the result, then go to the end for processing of the remainder.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>[6]    →(3&lt;⍴a)/∆2
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>[7]    z←0,⌊(base⊥a)*0.5 ⋄ →∆8
+</span></code></pre></div>
+<p>First, we get an accurate starting value. Rather than just looking at the first pair of “digits”, we try to take as much as we can of the number for the starting value. For example, in base 100, if we try to extract the square root of (10 73 74 18 24)<sub>100</sub>, our starting value is (3 27 68)<sub>100</sub>, rather than the 3<sub>100</sub> we would get from just looking at 10<sub>100</sub>. If we decide to work in base 10 (heaven forbid!) the starting value is the same, i.<code>e</code>. (3 2 7 6 8)<sub>10</sub>, which is still a lot better than the 3<sub>10</sub> from 1<sub>10</sub>0<sub>10</sub>. And in both these cases the starting value is the square root, so we can exit straight away having saved ourselves a lot of unnecessary effort. The 0 <code>Fadd</code> on line 9 is the quickest way to convert the scalar starting value to a multiprecision number.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>[8]   ∆2:n←(⍴a)⌊(2|⍴a)+2×1⌈⌊8÷10⍟base
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>[9]    z←(n←1+⌊0.5×⍴a)↑0 Fadd⌊(base⊥n↑a)*0.5
+</span></code></pre></div>
+<p>Have we hit upon the square root straight away?</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>[10]   →(0 0≡r←a Fsub z Fmul z)/∆9
+</span></code></pre></div>
+<p>Now we have the usual Newton-Raphson iteration: <em><code>z</code><sub>n+1</sub> = <code>z</code><sub>n</sub> +</em> (<i>a - <tt class="aplu">f</tt></i>(<em><code>z</code><sub>n</sub></em>))/<i><tt class="aplu">f</tt>′</i>(<em><code>z</code><sub>n</sub></em>)</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>[11]  ∆3:b←z Fadd(a Fsub z Fmul z)Fdiv z Fmul 2
+</span></code></pre></div>
+<p>If we have more than 2 radix places we should ignore the extra (because they are not really needed, they slow down the algorithm, and they can give rise to <code>WS FULL</code> as we iterate).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>[12]   ⍎(b[0]&lt;¯2)/'b←¯2,1↓(2+b[0])↓b'
+</span></code></pre></div>
+<p>If the integer part of this iteration equals the integer part of the previous iteration we have finished, otherwise iterate again.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>[13]   →((floor b)Fequal floor z)/∆4
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>[14]   z←b ⋄ →∆3
+</span></code></pre></div>
+<p>Drop the fractional part of the result, calculate the square-root remainder, catenate it to the result, and exit.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>[15]  ∆4:⍎(0&gt;z[0])/'z←floor z'
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>[16]  ∆8:r←a Fsub z Fmul z
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>[17]  ∆9:z←z r
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>     ∇
+</span></code></pre></div>
+<p>The called function <code>floor</code> removes the fractional part of the number (just like ⌊):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>     ∇ z←floor z
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>[1]    →(z[0]≥0)/0
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>[2]    z←0,1↓z[0]↓z
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>     ∇
+</span></code></pre></div>
+<h3 id="fsqrt-floating-point-square-root">Fsqrt (Floating-point square root)<a class="headerlink" href="#fsqrt-floating-point-square-root" title="Permanent link">&para;</a></h3>
+<p>The floating square root function starts off the same way as the integer version.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>     ∇ z←Fsqrt a;b;d;r
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>[1]    a←scalar a
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>[2]    ⎕SIGNAL(0^.&gt;a)/11
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>[3]    →(0∨.≠1↓a)/∆1
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>[4]    z←0 0 ⋄ →0
+</span></code></pre></div>
+<p>We now pretend that our numbers are integers, and perform the integer square root. The number of radix places must be even, so add an extra trailing zero if they are not.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>[5]   ∆1:→(~2|d←a[0])/∆2
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>[6]    d←d-1 ⋄ a←a,0
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>[7]   ∆2:z r←Isqrt 0,1↓a
+</span></code></pre></div>
+<p>If the remainder is greater than the square root add 1 to the root. Put the radix point in the correct place.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>[8]    →(~r Fgt z)/∆4
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>[9]    z←z Fadd 0 1
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>[10]  ∆4:z[0]←z[0]+⌊0.5×d
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>     ∇
+</span></code></pre></div>
+<h3 id="raising-to-a-power">Raising to a Power<a class="headerlink" href="#raising-to-a-power" title="Permanent link">&para;</a></h3>
+<p>In part 1 I showed how to raise a multiprecision number to a small power. In many algorithms we need to raise a small number to a multiprecision power, taking the result modulo some prime <em>p</em> (if we do not take the result modulo <em>p</em> we could soon get <code>WS FULL</code>).</p>
+<p>The following function takes a scalar or multiprecision number <code>m</code>, and raises it to the power of <code>x[0]</code> modulo <code>x[1]</code>. The method is a variant of the small-power function shown in part 1, and is described in Ribenboim[1], <em>p</em>.38.</p>
+<p>First we separate the right argument into power and modulus. Convert the power into a bit string. If this is null then our power was 0 and the result is 1, so we can exit.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>     ∇ z←m Impow x;i;mod;n;q;r
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>[1]    x mod←x
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>[2]    z←1
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>[3]    →(0=⍴n←binary x)/0
+</span></code></pre></div>
+<p>If the power is 1 then the result is the number we started with. We do not reduce by the modulus since we assume that the programmer has ensured that the number starts off smaller than the modulus.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>[4]    z←m
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>[5]    →(1=⍴n)/0
+</span></code></pre></div>
+<p>Square <code>z</code>. Starting at the left, look at the bits of the power. If the current bit is 1 we also multiply <code>z</code> by the number <code>m</code>. Then take the residue modulo <code>mod</code>. Proceed this way until the right of the power is reached.</p>
+<p>Of course, the first bit in the power is always 1, so we can cut some processing, and we get the following:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>[6]   i←1
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>[7]  ∆1:z←z Fmul z
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>[8]   →(~n[i])/∆2
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a>[9]   z←z Fmul m
+</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>[10] ∆2:z←z Imod mod
+</span><span id="__span-35-6"><a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a>[11]  →((⍴n)&gt;i←i+1)/∆1
+</span><span id="__span-35-7"><a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a>     ∇
+</span></code></pre></div>
+<p>The two functions called by <code>Impow</code> are as follows:</p>
+<p><code>binary</code> converts a multiprecision integer to bits by changing its base to a power of 2, then converting each element of the resulting number to bits. Note that we do not check that the number is a multiprecision integer: the function will fail with a <code>DOMAIN ERROR</code> if it is not.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>     ∇ z←binary x
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>[1]    z←(1073741824,base)chbase x
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>[2]    z←(z⍳1)↓z←,⍉(30⍴2)⊤z←1↓z,z[0]⍴0
+</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>     ∇
+</span></code></pre></div>
+<p><code>Imod</code> returns the residue of one number modulo another. It is, of course, possible to extract this result by using the remainder from <code>Idiv</code>, but there is a lot of processing in that function that is wasted when you only want the remainder, so <code>Imod</code> has been coded to run much faster.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>     ∇ a←x Imod b;b1;j;q;qf;s
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>[1]    x←scalar x ⋄ b←scalar b
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>[2]    ⎕SIGNAL(0∨.&gt;b[0],x[0])/11
+</span><span id="__span-37-4"><a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>[3]    s←0 ⋄ a←x
+</span><span id="__span-37-5"><a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>[4]    →(2&lt;⍴,b←fullint b)/∆1
+</span><span id="__span-37-6"><a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a>[5]    →(b[1]≤bsqr)/∆7
+</span><span id="__span-37-7"><a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a>[6]   ∆1:b1←b[1]+(3↑b)[2]÷base
+</span><span id="__span-37-8"><a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a>[7]   ∆2:→(~0 0 Fgt a)/∆3
+</span><span id="__span-37-9"><a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a>[8]    a←|a ⋄ s←~s
+</span></code></pre></div>
+<p>If line 9 signals an error then there is a programming error in the function. This hasn’t happened for me yet!</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>[9]   ∆3:⎕SIGNAL(a Fgt|x)/11
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>[10]   →(~(a Fgt 0 ¯1)^b Fgt a)/∆5
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>[11]   →(~s^~a Fequal 0 0)/∆4
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>[12]   a←b Fsub a
+</span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>[13]  ∆4:→0
+</span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a>[14]  ∆5:q←⌊qf←(a[1]+(3↑a)[2]÷base)÷b1
+</span><span id="__span-38-7"><a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a>[15]   j←0
+</span><span id="__span-38-8"><a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a>[16]   →(0≠q)/∆6
+</span><span id="__span-38-9"><a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a>[17]   q←⌊qf←qf×base ⋄ j←1
+</span><span id="__span-38-10"><a id="__codelineno-38-10" name="__codelineno-38-10" href="#__codelineno-38-10"></a>[18]  ∆6:a←a Fsub q Fmul(a[0]+(⍴a)-j)↑b
+</span><span id="__span-38-11"><a id="__codelineno-38-11" name="__codelineno-38-11" href="#__codelineno-38-11"></a>[19]   →∆2
+</span><span id="__span-38-12"><a id="__codelineno-38-12" name="__codelineno-38-12" href="#__codelineno-38-12"></a>[20]  ∆7:b←b[1] ⋄ x←fullint x
+</span><span id="__span-38-13"><a id="__codelineno-38-13" name="__codelineno-38-13" href="#__codelineno-38-13"></a>[21]   a←x[1] ⋄ x←2↓x
+</span><span id="__span-38-14"><a id="__codelineno-38-14" name="__codelineno-38-14" href="#__codelineno-38-14"></a>[22]  ∆8:a←b|a
+</span><span id="__span-38-15"><a id="__codelineno-38-15" name="__codelineno-38-15" href="#__codelineno-38-15"></a>[23]   →(0=⍴x)/∆9
+</span><span id="__span-38-16"><a id="__codelineno-38-16" name="__codelineno-38-16" href="#__codelineno-38-16"></a>[24]   a←base⊥a,1↑x
+</span><span id="__span-38-17"><a id="__codelineno-38-17" name="__codelineno-38-17" href="#__codelineno-38-17"></a>[25]   x←1↓x
+</span><span id="__span-38-18"><a id="__codelineno-38-18" name="__codelineno-38-18" href="#__codelineno-38-18"></a>[26]   →∆8
+</span><span id="__span-38-19"><a id="__codelineno-38-19" name="__codelineno-38-19" href="#__codelineno-38-19"></a>[27]  ∆9:→(~s^0≠a)/∆10
+</span><span id="__span-38-20"><a id="__codelineno-38-20" name="__codelineno-38-20" href="#__codelineno-38-20"></a>[28]   a←b-a
+</span><span id="__span-38-21"><a id="__codelineno-38-21" name="__codelineno-38-21" href="#__codelineno-38-21"></a>[29]  ∆10:a←0,a
+</span><span id="__span-38-22"><a id="__codelineno-38-22" name="__codelineno-38-22" href="#__codelineno-38-22"></a>     ∇
+</span></code></pre></div>
+<h3 id="a-user-defined-operator">A User-defined Operator<a class="headerlink" href="#a-user-defined-operator" title="Permanent link">&para;</a></h3>
+<p>I suggested last time that the Fibonacci calculation could go much quicker if we wrote our own scan operator. This is because the primitive scan operator does far too much work for our purposes. As an example, consider the following function:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>     ∇ z←a plus b
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>[1]    i←i+1
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>[2]    z←a+b
+</span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a>     ∇
+</span></code></pre></div>
+<p>If we perform <code>plus</code> reduction on the first 10 numbers, we get the following:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>      i←0
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>      a←plus/⍳10
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>      i
+</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a>9
+</span></code></pre></div>
+<p>But scan in the same position is horrifying:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>      i←0
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>      a←plus\⍳10
+</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>      i
+</span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>45
+</span></code></pre></div>
+<p>And this is what is happening in our Fibonacci example. Normally we do not mind the extra processing all that much, because it does not take too much time, but with the multiprecision suite it takes up far too much.</p>
+<p>For these circumstances we need a new operator, like this one:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>     ∇ z←(F scan)x;y
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>[1]    z←⊂y←⊃x
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>[2]   ∆1:→(0=⍴x←1↓x)/0
+</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a>[3]    z,←⊂y←y F⊃x
+</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a>[4]    →∆1
+</span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a>     ∇
+</span></code></pre></div>
+<p>This operator only works on vectors, and <code>F scan 1 2 3 4</code> is equivalent to</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>      1 (1 F 2) ((1 F 2)F 3) (((1 F 2)F 3)F 4)
+</span></code></pre></div>
+<p>In particular it does not replace <code>\</code> (try <code>-\1 2 3 4</code> and <code>-scan 1 2 3 4</code>). However, it will speed up the operation we are doing here considerably.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>      Fadd.Fmul scan 10⍴⊂2 2⍴1 1 1 2
+</span></code></pre></div>
+<h3 id="and-theres-more">And there’s more ...<a class="headerlink" href="#and-theres-more" title="Permanent link">&para;</a></h3>
+<p>You now have all of the “basic” functions: the ”building blocks” of the multiprecision suite. If you have Dyalog APL you could have keyed these into a namespace called <code>mp</code> in order to keep them out of the way; if your APL does not support namespaces the functions will just be available in the workspace.</p>
+<p>In Part III I shall introduce some applications of these functions.</p>
+<h3 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Paulo Ribenboim, <em>The Book of Prime Number Records</em> (Springer, 1988)</li>
+<li>George McCarty, <em>Calculator Calculus</em> (EduCALC Publications, 1975)</li>
+<li><em>The APL Handbook of Techniques</em> (IBM DP Scientific Marketing, 1988. Order No. S320–5996–0)</li>
+</ol>
+<p>(webpage generated: 11 November 2006, 22:06)</p>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

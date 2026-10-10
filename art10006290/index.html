@@ -1,0 +1,1822 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10006290/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>AMORTIZE: a Windows Application in J - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#abstract" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              AMORTIZE: a Windows Application in J
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Abstract
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#program-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Program Description
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#message-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Message Loop
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parent-and-child-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Parent and Child Windows
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-validation-and-error-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Input Validation and Error Messages
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Output Display
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tacit-vs-explicit-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tacit vs. Explicit Execution
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Implementation Notes
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Documentation Notes
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgments" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Acknowledgments
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-a-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix A — Initialization
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-b-verbs-mapped-from-menu-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix B — Verbs Mapped from Menu Items
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-c-input-window-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix C — Input-Window Definition
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-d-verbs-for-inputoutput-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix D — Verbs for Input/Output Windows
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-e-error-message-programs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix E — Error Message Programs
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-f-mostly-tacit-algorithms-for-amortization-schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix F — Mostly Tacit Algorithms for Amortization Schedule
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-g-explicit-algorithms-for-amortization-schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix G — Explicit Algorithms for Amortization Schedule
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-h-help-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix H — Help Text
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">AMORTIZE: a Windows Application in J</h1>
+
+  <p class="printed"><a href="../10/#n4-april-1994">Vector 10:4</a>, page 92</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-user-interfaces">user interfaces</a> <a class="md-tag" href="../tags/#tag-applications">applications</a> <a class="md-tag" href="../tags/#tag-language-design">language design</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../10/4/VOL.10-NO.4-APRIL-1994.pdf#page=94">Read it in the PDF of the issue, page 92</a></em></p>
+<p class="byline"><em>by Thomas M. Olsen</em></p>
+<h2 id="abstract">Abstract<a class="headerlink" href="#abstract" title="Permanent link">&para;</a></h2>
+<p>A simple application for Windows is described, assuming some previous exposure to J. The message loop verbs are explained and may serve as a departure point for further development. Execution speed is compared for tacit and explicit definition of the numerically-intensive part of the program.</p>
+<h2 id="program-description">Program Description<a class="headerlink" href="#program-description" title="Permanent link">&para;</a></h2>
+<p>AMORTIZE was written to gain experience with the Windows version of J and to provide a useful but simple demonstration of utility: people often borrow money or consider an annuity. The program produces an amortization schedule for a specified present value and total number of fixed payments. Multiple values of compound interest are allowed. In Windows fashion, it has an <em>About Box</em>, appropriate <em>Message Boxes</em>, and <em>User Help</em>.</p>
+<p>The program is implemented as script files, for easy inspection and editing by the reader, and can be downloaded from CompuServe (GO CODEPORT, Library 3 (C Language), filename AMORTIZE.ZIP; PKUNZIP d-option). At the expense of brevity and with administration overhead, but consistent with object orientation, defined vocabulary could instead be encapsulated by saving locally (<code>[x] 2!:2 y</code>) and copying in when needed. Where practical, J sentences appear both tacitly and explicitly.</p>
+<h2 id="message-loop">Message Loop<a class="headerlink" href="#message-loop" title="Permanent link">&para;</a></h2>
+<p>The script in Fig. 1 is run silently (<code>0!:3 y</code>) from J to start the application. If the interpreter would accept a command at invocation, this could be attached to a custom icon, via the Windows Properties feature. A double click on the icon would then suffice to start the program.</p>
+<p>To understand the verbs <code>WinExec</code> and <code>WinRet</code> in Fig. 1, consider a typical n by 2 array returned by the <code>wait</code> command. See Fig. 2. Row zero indicates ENTER was pushed; row one the parent window, row two the menu item or child window. If the Windows program, or subprogram, has no wait command, the result is:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────┬────────┐
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│*type│2 nowait│
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>└─────┴────────┘
+</span></code></pre></div>
+<p>Here and in Fig. 2, a <code>*</code> indicates a system result. When given the n by 2 array, the verb <code>WinExec</code> extracts the name of the menu item or child window and executes, with null argument dq (double quote), a verb by that name. Any remaining 1-cells (rows) of the n by 2 array from wait are ignored until later. See Fig. 3.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>NB. c:\j\amortize\amortize.js
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>NB. Amortization Schedule. TMO   7 June 1993
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>NB. J PC386 Vers 6.1.0 was used for Windows 3.1 application
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>NB. Interpreter: ISI/33 Major Street/Toronto, ONT  M5S 2K9/Canada
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>NB. Initialize to application vocabulary:
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>     dir=. 'amortize\'
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>0!:3 &lt;dir,'initial.js'                       NB. See Appendix A
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>NB. Execute "child name" from Wait:
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a> WinExec=. ".@(,&amp;dq@(;@({.@(2 1&amp;}.@])))))   NB. ".dq,;{. 2 1 }. y.
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>NB. Respond to menu select, ENTER, and ALT F4.
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>NB. '$.=. 0' is not equivalent to '$.=. start'
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>NB. A message box doesn't need a wait loop.
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>       m=. 'start) ". y.                  NB. Name parent window'
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>       m=. m;'loop) a=: wwait dq          NB. Ignores 1st ENTER'
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>       m=. m,&lt;'NB. wwait result: 4-menu; 6-close; 7-ENTER'
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>       m=. m,&lt;'$.=. ;(''467''i. 1{;1{,a){menu;quit;menu;loop'
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>       m=. m,'menu) a=: WinExec a';'$.=. loop'
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>       m=. m,&lt;'quit) 0!:55 dq                 NB. Immediate exit'
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>  WinRet=. m : ''
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>WinRet 'wpd ''main.wp'' '                    NB. Open parent window
+</span></code></pre></div>
+<p class="caption">Fig. 1. Main script including message loop verbs.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*type</code></td>
+<td><code>7 enter</code></td>
+</tr>
+<tr>
+<td><code>*parent</code></td>
+<td><code>amortization parameters</code></td>
+</tr>
+<tr>
+<td><code>*id</code></td>
+<td><code>inp3val</code></td>
+</tr>
+<tr>
+<td><code>inp0val</code></td>
+<td><code>1000</code></td>
+</tr>
+<tr>
+<td><code>inp1val</code></td>
+<td><code>6+i.6</code></td>
+</tr>
+<tr>
+<td><code>inp2val</code></td>
+<td><code>12</code></td>
+</tr>
+<tr>
+<td><code>inp3val</code></td>
+<td><code>360</code></td>
+</tr>
+<tr>
+<td><code>inp4val</code></td>
+<td><code>9</code></td>
+</tr>
+</tbody>
+</table>
+<p class="caption">Fig. 2. Typical array returned by wait command.</p>
+<p>![The boxed display of WinExec: ". @ applied to a nest of boxes holding , &amp; dq, then ; @, then {. @, then 2 1 &amp; }. with @ ]](fig3.png)</p>
+<p class="caption">Fig. 3. The J-verb <em>WinExec</em>.</p>
+<p><code>WinRet</code> (from Fig. 1) is the message loop:</p>
+<p><img alt="The boxed display of WinRet: the lines start) &quot;. y. / loop) a=: wwait dq / NB. wwait result … / $.=. ;('467'i. 1{;1{,a){menu;quit;menu;loop / menu) a=: WinExec a / $.=. loop / quit) 0!:55 dq, beside a colon" src="winret.png" /></p>
+<h2 id="parent-and-child-windows">Parent and Child Windows<a class="headerlink" href="#parent-and-child-windows" title="Permanent link">&para;</a></h2>
+<p>When AMORTIZE is launched via the last line in Fig. 1, <code>WinRet 'wpd ''main.wp'' '</code>, the <code>start)</code> sentence executes a Windows program:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>rem c:\j\amortize\main.wp;
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>pc Amortize;
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>menupop "&amp;File";
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>     menu main_file0 "&amp;Enter Input"; menu main_file1 "&amp;Quit";
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>     menupopz;
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>menupop "&amp;Help";
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>     menu main_help0 "&amp;About Amortize";
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>     menupopz;
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>pmove 6 15 300 200;
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>pshow;
+</span></code></pre></div>
+<p>where two menu commands map three menu items to corresponding J verbs in Appendix B; J locative names here and in Appendix B correspond to the three parent windows in AMORTIZE: <strong>main</strong>, <strong>input</strong>, and <strong>output</strong>. Here, <strong>main</strong> has the alias "Amortize". There is no wait command in <code>main.wp</code> and control returns to the J-interpreter; <code>WinRet</code> rests at the <code>loop)</code> sentence <code>wwait</code> command.</p>
+<p>Assume the user now selects "Enter Input" from the popup menu, so the WinRet <code>menu)</code> sentence executes <code>main_file0</code>:</p>
+<p><img alt="The boxed display of main_file0: wpd 'input.wp' / 0 ShowInp 'PV' / 1 ShowInp 'APR' / 2 ShowInp 'PPA' / 3 ShowInp 'TNP' / 4 ShowInp 'PNTS'" src="mainfile0.png" /></p>
+<p>where the first sentence opens the <code>input</code> window, defined in Appendix C under the alias "Amortization Parameters", with its own popup menu items. Corresponding J-verbs for <code>input.vp</code> are defined in Appendices A and B. This parent window, <code>input</code>, uses two child windows for each input noun, one for a static descriptive label and the other for an edit box:</p>
+<p><img alt="The Amortization Parameters window: Present Value 1000, Interest Rates (%) 6+i.6, Periods per Year 12, Total No. of Payments 360, Displayed-Cell Limit 9" src="fig4.jpg" /></p>
+<p class="caption">Fig. 4. Input window with data.</p>
+<p>The first four default values in Fig. 4 would only appear if the user had entered them during the current session. J sentences can be used here for compact specification of input. Remaining sentences shown above for <code>main_file0</code> display these default nouns via the verb <code>ShowInp</code>. Appendix D defines it:</p>
+<p><img alt="The boxed display of ShowInp: $.=. (2=4!:0 &lt;y.)#1 / wd 'csel inp',(&quot;:x.),'val;ctext &quot;',(&quot;.y.),'&quot;;'" src="showinp.png" /></p>
+<p>where the suite <code>$.</code> is null unless the noun exists. The second sentence focuses on the corresponding child edit window and writes the formatted value. Finally, since <code>main_file0</code> has no wait command, control again returns to the <code>loop)</code> sentence of <code>WinRet</code>.</p>
+<h2 id="input-validation-and-error-messages">Input Validation and Error Messages<a class="headerlink" href="#input-validation-and-error-messages" title="Permanent link">&para;</a></h2>
+<p>Pushing ENTER in the window shown in Fig. 4 returns the 8 by 2 array shown in Fig. 2. The cursor could have been in any of the five child windows, <code>inp0val</code> thru <code>inp4val</code>, but the corresponding J-verbs are all synonymous with <code>InpEval</code>. See Appendix B and the definition of <code>InpEval</code> in Appendix D. <code>WinRet</code> passes the 8 by 2 array to <code>WinExec</code>, which executes <code>InpEval</code>:</p>
+<p><img alt="The boxed display of InpEval: NB. ExecChk left arg sets n for err msg / start) b=. 2 1}.a / five $.=. lines applying ExecChk to PV, APR, PPA, TNP and PNTS / error) a=. WinRet 'FieldMsg ',q,(&quot;:n),q / $.=. start / ok) WinRet ' ''calsched.js'' Output ''SCHED'' '" src="inpeval.png" /></p>
+<p>where the supporting verbs are again defined in Appendix D. In brief, the five sentences which conditionally redefine the suite <code>$.</code> each extract an input value and test it. The second sentence in <code>ExecChk</code> guarantees a result by returning the left argument of <code>".</code> on syntax errors:</p>
+<p><img alt="The boxed display of ExecChk: n=: x. / 'r=. 1' &quot;. 'r=. ',y." src="execchk.png" /></p>
+<p><code>FieldMsg</code> opens an appropriate error message box:</p>
+<p><img alt="The boxed display of FieldMsg: wd 'csel inp',y.,'val; cfocus; beep 3;' / wpd 'inpmsg',y.,'.wp'" src="fieldmsg.png" /></p>
+<p>where the two child commands select the offending field and move the cursor to it, respectively. The various message definitions are shown in Appendix E.</p>
+<p>The user must respond to the message box:</p>
+<p><img alt="An Input Error message box with a STOP icon: “Present Value must be a positive, scalar number”, and OK" src="inputerror.jpg" /></p>
+<h2 id="output-display">Output Display<a class="headerlink" href="#output-display" title="Permanent link">&para;</a></h2>
+<p>If the amortization parameters pass all tests, <code>InpEval</code> proceeds to calculate and display a schedule:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ok) WinRet ' ''calsched.js'' Output ''SCHED'' '
+</span></code></pre></div>
+<p>where the verb <code>Output</code> defined in Appendix D is:</p>
+<p>![The boxed display of Output: NB. Left refs script to make text named in right / 0!:3 {.a=. (<dir),&.> x.;'output.wp' / wp {:a / wd ('ctext "'&amp;,@(}.@,@(cr&amp;,"1@(,&amp;'";')@(".@])))) y.](output.png)</p>
+<p>With the <code>dir</code> defined in Fig. 1, sentence one produces two file names,</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>amortize\calsched.js</code></td>
+<td><code>amortize\output.wp</code></td>
+</tr>
+</tbody>
+</table>
+<p>and silently executes the file named by the first atom, defining a pronoun, <code>SCHED</code>. See Appendix F. Sentence two produces the output parent window, with alias "Amortization Schedule":</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>rem c:\j\amortize\output.wp;
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>pc "Amortization Schedule";
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>menupop "&amp;File";
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>          menu output_file0 "&amp;Save";
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>          menu wclose "&amp;Exit";
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>          menupopz;
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>menupop "&amp;Help";
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>          menu output_help0 "&amp;Items";
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>          menupopz;
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>xywh 0 0 267 96; cc results listbox ws_thickframe ws_hscroll
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>ws_vscroll; pas 0 0; pcenter; pshow;
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>csel results; cfoem; cfocus;
+</span></code></pre></div>
+<p>Here, the window style <code>ws_hscroll</code> is included but does not produce the horizontal scroll bar when needed. Sentence three of <code>Output</code> formats the result, <code>SCHED</code>, and writes it to the child window, "results":</p>
+<p><img alt="The Amortization Schedule window: column headings 6%; 6.00 to 11%; 9.52, and blocks of four figures for payments 1, 52 and 104 under each rate" src="schedule.jpg" /></p>
+<p>Characteristically, the user is not limited to a single output window, but can focus on the input window (Fig. 4), change the data, and push ENTER again. Thus, multiple schedules can be compared side-by-side. However, no special code is included to detect such operation and, if <u>E</u>xit is commanded from any of the windows, including the input window, the last output window opened is the first window closed.</p>
+<p>The amortization schedule algorithms in Appendix F are straightforward and can be illuminated by executing them individually. Students are encouraged to display the defined verbs.</p>
+<h2 id="tacit-vs-explicit-execution">Tacit vs. Explicit Execution<a class="headerlink" href="#tacit-vs-explicit-execution" title="Permanent link">&para;</a></h2>
+<p>The tacitly defined algorithms for SCHED were interchanged with their explicit analogues, which appear as comments in Appendix F, yielding an alternate script: <code>xplsched.js</code>, shown in Appendix G. Recall that tacit definitions in J are pre-parsed. Using the sample input of Fig. 4, average times for SCHED only, on an IBM PS/2 77 (80486DX2, 66 MHz) are:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>   tacit definition: 286 ms   (calsched.js)
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>explicit definition: 275 ms   (xplsched.js)
+</span></code></pre></div>
+<p>The sentence <code>10 (6!:2) '0!:3 &lt;dir,''____sched.js'' '</code> was used to execute the two cases. The conclusion that it doesn’t really matter here is qualified by the style of programming in Appendices F and G; only four of the 22 algorithms use the defined verbs <code>payment</code>, <code>subset</code>, and <code>twofix</code>. Thus, the sentence defining Interest Factor is, e.g.:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>   tacit definition (App. F): IF=. I (&gt;:@[ ^/ -@]) K
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>explicit definition (App. G): IF=. (&gt;:I)^/-K
+</span></code></pre></div>
+<p>Moreover, the advantage of pre-parsing is masked in the example, because of the array dimensions: nine rows by six columns; parsing occurs only once for each algorithm. A slight reduction of execution time would result from reworking the tacit-definition algorithms to avoid, in Appendix F, deeply-nested right compositions and unneeded use of <code>@]</code>.</p>
+<h2 id="implementation-notes">Implementation Notes<a class="headerlink" href="#implementation-notes" title="Permanent link">&para;</a></h2>
+<p>The Codewright (Premia Software, Inc.) text editor was convenient in developing the program. J includes Windows Visual Edit (foreign conjunction <code>11!:1</code>), useful but limited to adjusting size and location of existing child windows. The multi-line message box text shown in Appendix H had to be centred left-and-right by trial and error. Hopefully, ISI or an enterprising user will eventually add a GUI development environment with toolbar icons for Windows widgets, to put J on a par with Dyalog APL/W, Visual Basic, and Visual C++.</p>
+<h2 id="documentation-notes">Documentation Notes<a class="headerlink" href="#documentation-notes" title="Permanent link">&para;</a></h2>
+<p>The editable manuscript file, not printout, for this paper was composed with Windows Write, using the Arial TrueType font. On an IBM PC, the boxed items used here for illustration were cut-and-pasted from the J window and mapped directly to the MS Line Draw font using WRITE Character. Microsoft scrupulously removed all other ASCII characters from MS Line Draw and these appear as dots. But they can be highlighted and mapped immediately into True Type Courier New font. On a given boxed item, Character must be applied to each contiguous string of common-font characters.</p>
+<p>Inclusion of illustrations requires only the Windows Clipboard. For best contrast, select the Monochrome colour scheme for the Desktop.</p>
+<h2 id="acknowledgments">Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permanent link">&para;</a></h2>
+<p>This paper resulted from the October 1992 J-Workshop given at Karsten Mfg. by Donald B. McIntyre, who through his boundless energy provided continuing inspiration and advice. Louis Solheim and Hadi Polynin enabled the project and the staff of Information Systems encouraged it. The J interpreter is a product of Iverson Software Inc.</p>
+<h2 id="appendix-a-initialization">Appendix A — Initialization<a class="headerlink" href="#appendix-a-initialization" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>NB. c:\j\amortize\initial.js
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>NB. Initialize to application vocabulary:
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>     cr=: {. crlf=. 13 10{a.
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    eof=: 26{a.
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>     dq=: 2#q=. ''''
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>   read=: 1!:1
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>     wd=: 11!:0
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>     vp=: wd@(-.&amp;eof)@read
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    wpd=: vp@(&lt;@(dir&amp;,@]))
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>  wwait=: wd@('wait; '&amp;[)
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a> wclose=: wd@('pclose;' &amp;[)
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a> wreset=: wd@('reset; ' &amp;[)
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>NB. Define child name returned by wait command:
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>0!:3 &lt;dir,'children.js'
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>NB. Define verbs referenced in child name from wait command.
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>0!:3 &lt;dir,'chdverbs.js'
+</span></code></pre></div>
+<h2 id="appendix-b-verbs-mapped-from-menu-items">Appendix B — Verbs Mapped from Menu Items<a class="headerlink" href="#appendix-b-verbs-mapped-from-menu-items" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>NB. c:\j\amortize\children.js
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>NB. Child name returned by wait command points to verb:
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>          m=. &lt;'wpd ''input.wp'' '
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>          m=. m,'0 ShowInp ''PV'' ';'1 ShowInp ''APR'' '
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>          m=. m,'2 ShowInp ''PPA'' ';'3 ShowInp ''TNP'' '
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>             m=. m,&lt;'4 ShowInp ''PNTS'' '
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>  main_file0=: m : ''
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>  main_file1=: ('wclose dq';'0!:55 dq') : ''
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>  main_help0=: wpd'about.vp'&amp;,@]
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a> input_help0=: wpd'parmdefs.vp'&amp;,@]
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a> input_help1=: wpd'parmnavi.vp'&amp;,@]
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>     inp0val=: InpEval : ''
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>     inp1val=: InpEval : ''
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>     inp2val=: InpEval : ''
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>     inp3val=: InpEval : ''
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>     inp4val=: InpEval : ''
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>          m=. 'fn=. &lt;dir,''amortize.txt'' '
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>output_file0=: (m;'FILE_TXT 1!:2 fn') : ''   NB. Replaces old file
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>output_help0=: wpd'outitems.vp'&amp;,@]
+</span></code></pre></div>
+<h2 id="appendix-c-input-window-definition">Appendix C — Input-Window Definition<a class="headerlink" href="#appendix-c-input-window-definition" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>rem c:\j\amortize\input.vp;
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>pc "Amortization Parameters";
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>menupop "&amp;File"; menu wclose "&amp;Exit";
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>                 menupopz;
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>menupop "&amp;Help"; menu input_help0 "&amp;Definitions";
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>                 menu input_help1 "&amp;Navigation";
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>                 menupopz;
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>pmove 60 1 198 90;
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>pshow;
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>rem Vertical size of 10 units allows space for _ underscore:;
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>xywh 0 0 194 70;cc inp_background static ws_border;cn " ";
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>xywh 6 3 77 10;cc inp0 static ss_right;cn "Present Value:  ";
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>xywh 87 1 38 13;cc inp0val edit es_autohscroll ws_thickframe;cfocus;
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>xywh 6 16 77 10;cc inp1 static ss_right;cn "Interest Rates (%):  ";
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>xywh 87 14 100 13;cc inp1val edit es_autohscroll ws_thickframe;
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>xywh 6 29 77 10;cc inp2 static ss_right;cn "Periods per Year:  ";
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>xywh 87 27 17 13;cc inp2val edit ws_thickframe;
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>xywh 4 42 77 10;cc inp3 static ss_right;cn "Total No. of Payments:  ";
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>xywh 87 40 17 13;cc inp3val edit ws_thickframe;
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>xywh 7 55 77 10;cc inp4 static ss_right;cn "Displayed-Cell Limit:  ";
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>xywh 87 53 17 13;cc inp4val edit ws_thickframe;
+</span></code></pre></div>
+<h2 id="appendix-d-verbs-for-inputoutput-windows">Appendix D — Verbs for Input/Output Windows<a class="headerlink" href="#appendix-d-verbs-for-inputoutput-windows" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>NB. c:\j\amortize\chdverbs.js
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>NB. Define verbs referenced in child name from wait command.
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>NB. Display input noun if it exists:
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    PNTS=: '9'                      NB. default fills output page
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>       m=. '$.=. (2=4!:0 &lt;y.)#1'
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>       m=. m;'wd ''csel inp'',(":x.),''val;ctext "'',(".y.),''";'' '
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a> ShowInp=: '' : m
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>NB. Report error condition:
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>       m=. 'wd ''csel inp'',y.,''val; cfocus; beep 3;'' '
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>       m=. m;'wpd ''inpmsg'',y.,''.wp'' '
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>FieldMsg=: m : ''
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>NB. Boolean zero if positive scalar:
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>  Scalar=: 1&amp;=@#@,
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a> PlusChk=: Scalar *: (*./@(0&amp;&lt;))   NB. Monadic fork
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>NB.                                NB. (1=#,y.)*:*./0&lt;y.
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>NB. Boolean zero if atoms bounded by left arg:
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>  LimChk=: (+./@,)@(&gt;"1(,"0-)) NB. Verb @ dyadic hook w/monadic hook
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>NB.                                NB. +./, x. &gt;"1 y.,"0 -y.
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>NB. Boolean zero if positive, scalar integer:
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>  PosInt=: *./@((=&gt;.)*.(0&amp;&lt;))      NB. Monadic hook in monadic fork
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>  IntChk=: Scalar *: PosInt        NB. (1=#,y.)*:*./(y.=&gt;.y.)*.0&lt;y.
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>NB. Validate content of an input field:
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a> ExecChk=: '' : ('n=: x.';'''r=. 1'' ". ''r=. '',y.')
+</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>NB. Validate all input fields:
+</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>       m=. 'NB. ExecChk left arg sets n for err msg';'start) b=. 2 1}.a'
+</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a>       m=. m,&lt;'$.=. (4*0 ExecChk ''PlusChk '',PV=: ,&gt;1{b)}.$.'
+</span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a>       m=. m,&lt;'$.=. (3*1 ExecChk ''0 _100 LimChk '',APR=: ,&gt;2{b)}.$.'
+</span><span id="__span-10-28"><a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a>       m=. m,&lt;'$.=. (2*2 ExecChk ''IntChk '',PPA=: ,&gt;3{b)}.$.'
+</span><span id="__span-10-29"><a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>       m=. m,&lt;'$.=. ;(3 ExecChk ''IntChk '',TNP=: ,&gt;4{b)}.$.'
+</span><span id="__span-10-30"><a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a>       m=. m,&lt;'$.=. ;(4 ExecChk ''3&gt;'',PNTS=: ,&gt;5{b){ok;error'
+</span><span id="__span-10-31"><a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a>       m=. m,'error) a=. WinRet ''FieldMsg '',q,(":n),q';'$.=. start'
+</span><span id="__span-10-32"><a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a>       m=. m,&lt;'ok) WinRet '' ''''calsched.js'''' Output ''''SCHED'''' ''
+</span><span id="__span-10-33"><a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a>'
+</span><span id="__span-10-34"><a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a> InpEval=: m : ''
+</span><span id="__span-10-35"><a id="__codelineno-10-35" name="__codelineno-10-35" href="#__codelineno-10-35"></a>NB. Open parent window for output and format the text:
+</span><span id="__span-10-36"><a id="__codelineno-10-36" name="__codelineno-10-36" href="#__codelineno-10-36"></a>       m=. &lt;'NB. Left refs script to make text named in right'
+</span><span id="__span-10-37"><a id="__codelineno-10-37" name="__codelineno-10-37" href="#__codelineno-10-37"></a>       m=. m,'0!:3 {.a=. (&lt;dir),&amp;.&gt; x.;''output.wp'' ';'wp {:a'
+</span><span id="__span-10-38"><a id="__codelineno-10-38" name="__codelineno-10-38" href="#__codelineno-10-38"></a>       m=. m,&lt;'wd (''ctext "''&amp;,@(}.@,@(cr&amp;,"1@(,&amp;''";'')@(".@])))) y.'
+</span><span id="__span-10-39"><a id="__codelineno-10-39" name="__codelineno-10-39" href="#__codelineno-10-39"></a>  Output=: '' : m
+</span></code></pre></div>
+<h2 id="appendix-e-error-message-programs">Appendix E — Error Message Programs<a class="headerlink" href="#appendix-e-error-message-programs" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>rem c:\j\amortize\inpmsg0.vp;
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>mb "Input Error" "Present Value must be a positive, scalar number"
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>mb_iconstop;
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>rem c:\j\amortize\inpmsg1.vp;
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>mb "Input Error" "Rates must lie between zero and 100"
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>mb_iconstop;
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>rem c:\j\amortize\inpmsg2.vp;
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>mb "Input Error" "Periods per Year must be a positive, scalar integer"
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>mb_iconstop;
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>rem c:\j\amortize\inpmsg3.vp;
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>mb "Input Error" "No. of Payments must be a positive, scalar integer"
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>mb_iconstop;
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>rem c:\j\amortize\inpmsg4.vp;
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>mb "Input Error" "Displayed-Cell Limit must exceed two"
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>mb_iconstop;
+</span></code></pre></div>
+<h2 id="appendix-f-mostly-tacit-algorithms-for-amortization-schedule">Appendix F — Mostly Tacit Algorithms for Amortization Schedule<a class="headerlink" href="#appendix-f-mostly-tacit-algorithms-for-amortization-schedule" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>NB. c:\j\amortize\calsched.js
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>NB. Numerical values:
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>A=. ". &amp;.&gt; PV;APR;PPA;TNP;PNTS
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>NB. Interest each period:
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>I=. 0.01&amp;*,@(%&amp;&gt;/@(1 2&amp;{@]))A          NB. 0.01*,%&amp;&gt;/1 2{y.
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>NB. Fixed payment from present value, interest per period, and periods:
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>payment=.  ({.@]) *&amp;&gt; [ % -.@(&gt;:@[ ^ -&amp;&gt;@(3&amp;{@]))
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>PMT=. I payment A                       NB. ({.y.)*&amp;&gt;x.%-.(&gt;:x.)^-&amp;&gt;3{y.
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>NB. First, last, and sufficient intermediate periods for display:
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>subset=. /:~@~.@(&lt;:@[ , 1&amp;,@([ &lt;. ([ &gt;.@% ]) * (&gt;:@(i.@]))))
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>NB.                                     NB.
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>/:~@~.(&lt;:x.),1,x.&lt;.(x.&gt;.@%y.)*&gt;:i.y.
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>NB. Right arg limits number of amortization points:
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>K=. (&gt;@(3&amp;{) A) subset _2&amp;+&gt;(4&amp;{A)   NB. (&gt;3{A) subset _2+&gt;4{A
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>NB. Interest factor:
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>IF=. I (&gt;:@[ ^/ -@]) K                 NB. (&gt;:I)^/-K
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>NB. Balance after K payments:
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>BAL=. |:IF%~({.A)+&amp;&gt;PMT*I%~&lt;:IF
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>NB. Payment between amortization points K:
+</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>twofix=. 2&amp;(+\)@]
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>PAY=. A (-/"2@twofix@(&gt;&amp;{.@[,])) BAL  NB. -/"2 twofix(&gt;&amp;{.A),BAL
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>NB. Cumulative payment against principal:
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>PAID=. +/"2@(+\@]) PAY                 NB. +/"2 +\PAY
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>NB. Cumulative interest on principal:
+</span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a>INT=. PAID-~K*/PMT
+</span><span id="__span-12-26"><a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a>NB. Fraction of payment to principal:
+</span><span id="__span-12-27"><a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a>FPTP=. PAY%PMT ([ */~ 1&amp;,@(-@(-/"1@twofix@]))) K
+</span><span id="__span-12-28"><a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a>NB.                             NB. PAY%PMT*/~1,--/"1 twofix K
+</span><span id="__span-12-29"><a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a>NB. Width of formatted result columns:
+</span><span id="__span-12-30"><a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a>B=. FPTP,. PAID,. BAL,:"1 INT
+</span><span id="__span-12-31"><a id="__codelineno-12-31" name="__codelineno-12-31" href="#__codelineno-12-31"></a>v1=. 6.2&amp;+@(&gt;.@(10&amp;^.@(&gt;./@(;@])))) B NB. 6.2+&gt;.10^.&gt;./;B
+</span><span id="__span-12-32"><a id="__codelineno-12-32" name="__codelineno-12-32" href="#__codelineno-12-32"></a>NB. Width of formatted payment number:
+</span><span id="__span-12-33"><a id="__codelineno-12-33" name="__codelineno-12-33" href="#__codelineno-12-33"></a>C=. 4&amp;({."2)@(":@(,."_1@(,.@]))) K    NB. 4{."2 ":,."_1,. K
+</span><span id="__span-12-34"><a id="__codelineno-12-34" name="__codelineno-12-34" href="#__codelineno-12-34"></a>v2=. 2&amp;{@($@]) C                       NB. 2{$y.
+</span><span id="__span-12-35"><a id="__codelineno-12-35" name="__codelineno-12-35" href="#__codelineno-12-35"></a>NB. Interest rate formatted for column headings:
+</span><span id="__span-12-36"><a id="__codelineno-12-36" name="__codelineno-12-36" href="#__codelineno-12-36"></a>D=. '%; '&amp;(,"1~)@(":&amp;,.@(&gt;&amp;(1&amp;{)@]))A NB. '%; ',"1~":,.&gt;1{A
+</span><span id="__span-12-37"><a id="__codelineno-12-37" name="__codelineno-12-37" href="#__codelineno-12-37"></a>NB. Payment formatted for column headings:
+</span><span id="__span-12-38"><a id="__codelineno-12-38" name="__codelineno-12-38" href="#__codelineno-12-38"></a>E=. 0.2&amp;(":"0)@] PMT                   NB. 0.2":"0 PMT
+</span><span id="__span-12-39"><a id="__codelineno-12-39" name="__codelineno-12-39" href="#__codelineno-12-39"></a>NB. Width of column headings:
+</span><span id="__span-12-40"><a id="__codelineno-12-40" name="__codelineno-12-40" href="#__codelineno-12-40"></a>v3=. 1{$ F=. ' ',"1 D ,"1 E
+</span><span id="__span-12-41"><a id="__codelineno-12-41" name="__codelineno-12-41" href="#__codelineno-12-41"></a>v1=. v1+0&gt;.v3-&lt;.v1
+</span><span id="__span-12-42"><a id="__codelineno-12-42" name="__codelineno-12-42" href="#__codelineno-12-42"></a>
+</span><span id="__span-12-43"><a id="__codelineno-12-43" name="__codelineno-12-43" href="#__codelineno-12-43"></a>NB. Payment number and payment cells:
+</span><span id="__span-12-44"><a id="__codelineno-12-44" name="__codelineno-12-44" href="#__codelineno-12-44"></a>G=. C,"1 v1":B
+</span><span id="__span-12-45"><a id="__codelineno-12-45" name="__codelineno-12-45" href="#__codelineno-12-45"></a>NB. Table header, right-justified:
+</span><span id="__span-12-46"><a id="__codelineno-12-46" name="__codelineno-12-46" href="#__codelineno-12-46"></a>H=. (-2{$G){.&amp;,(-v3&gt;.&lt;.v1){."1 F
+</span><span id="__span-12-47"><a id="__codelineno-12-47" name="__codelineno-12-47" href="#__codelineno-12-47"></a>NB. Table for list box:
+</span><span id="__span-12-48"><a id="__codelineno-12-48" name="__codelineno-12-48" href="#__codelineno-12-48"></a>SCHED=: H ([,' '&amp;,@(,/@(5&amp;{."_1@]))))G NB. H,' ',,/5&amp;{."_1 G
+</span><span id="__span-12-49"><a id="__codelineno-12-49" name="__codelineno-12-49" href="#__codelineno-12-49"></a>NB. Text ready for file save:
+</span><span id="__span-12-50"><a id="__codelineno-12-50" name="__codelineno-12-50" href="#__codelineno-12-50"></a>T=. 'Schedule for Amortizing ',PV,' under Compound Interest',crlf
+</span><span id="__span-12-51"><a id="__codelineno-12-51" name="__codelineno-12-51" href="#__codelineno-12-51"></a>T=. T,'At payment on left: fptp, cum paid, balance, interest',4&amp;$crlf
+</span><span id="__span-12-52"><a id="__codelineno-12-52" name="__codelineno-12-52" href="#__codelineno-12-52"></a>FILE_TXT=: T,2&amp;}.@,crlf,"1 SCHED      NB. T,2}.,crlf,"1 SCHED
+</span></code></pre></div>
+<h2 id="appendix-g-explicit-algorithms-for-amortization-schedule">Appendix G — Explicit Algorithms for Amortization Schedule<a class="headerlink" href="#appendix-g-explicit-algorithms-for-amortization-schedule" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>NB. c:\j\amortize\xplsched.js
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>NB. Numerical values:
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>A=. ". &amp;.&gt; PV;APR;PPA;TNP;PNTS
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>NB. Interest each period:
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>I=. 0.01*,%&amp;&gt;/1 2{A                   NB. 0.01&amp;*,@(%&amp;&gt;/@(1 2&amp;{@]))
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>NB. Fixed payment from present value, interest per period, and periods:
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>payment=. '' : '({.y.)*&amp;&gt;x.%-.(&gt;:x.)^-&amp;&gt;3{y.'
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>PMT=. I payment A                      NB. ({.@])*&amp;&gt;[%-.@(&gt;:@[^-&amp;&gt;@(3&amp;{@]))
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>NB. First, last, and sufficient intermediate periods for display:
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>subset=. '' : '/:~~.(&lt;:x.),1,x.&lt;.(x.&gt;.@%y.)*&gt;:i.y.'
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>NB. /:~@~.@(&lt;:@[,1&amp;,@([&lt;.([&gt;.@% ])*(&gt;:@(i.@]))))
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>NB. Right arg limits number of amortization points:
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>K=. (&gt;3{A) subset _2+&gt;4{A              NB. (&gt;@(3&amp;{) A) subset _2&amp;+&gt;(4&amp;{A)
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>NB. Interest factor:
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>IF=. (&gt;:I)^/-K                         NB. I (&gt;:@[ ^/ -@]) K
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>NB. Balance after K payments:
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>BAL=. |:IF%~({.A)+&amp;&gt;PMT*I%~&lt;:IF
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>NB. Payment between amortization points K:
+</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>twofix=. '2(+\)y.' : ''                NB. 2&amp;(+\)@]
+</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>PAY=. -/"2 twofix(&gt;&amp;{.A),BAL          NB. A (-/"2@twofix@(&gt;&amp;{.@[,])) BAL
+</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>NB. Cumulative payment against principal:
+</span><span id="__span-13-22"><a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a>PAID=. +/"2 +\PAY                      NB. +/"2@(+\@]) PAY
+</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>
+</span><span id="__span-13-24"><a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a>NB. Cumulative interest on principal:
+</span><span id="__span-13-25"><a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a>INT=. PAID-~K*/PMT
+</span><span id="__span-13-26"><a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a>NB. Fraction of payment to principal:
+</span><span id="__span-13-27"><a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a>FPTP=. PAY%PMT*/~1,--/"1 twofix K   NB. PAY%PMT([*/~1&amp;,@(-@(-
+</span><span id="__span-13-28"><a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a>/"1@twofix@])))K
+</span><span id="__span-13-29"><a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a>NB. Width of formatted result columns:
+</span><span id="__span-13-30"><a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a>B=. FPTP,. PAID,. BAL,:"1 INT
+</span><span id="__span-13-31"><a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a>v1=. 6.2+&gt;.10^.&gt;./;B                   NB. 6.2&amp;+@(&gt;.@(10&amp;^.@(&gt;./@(;@]))))B
+</span><span id="__span-13-32"><a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a>NB. Width of formatted payment number:
+</span><span id="__span-13-33"><a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a>C=. 4{."2 ":,."_1,. K                  NB. 4&amp;({."2)@(":@(,."_1@(,.@]))) K
+</span><span id="__span-13-34"><a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a>v2=. 2{$C                              NB. 2&amp;{@($@]) C
+</span><span id="__span-13-35"><a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a>NB. Interest rate formatted for column headings:
+</span><span id="__span-13-36"><a id="__codelineno-13-36" name="__codelineno-13-36" href="#__codelineno-13-36"></a>D=. '%; ',"1~":,.&gt;1{A                  NB. '%;
+</span><span id="__span-13-37"><a id="__codelineno-13-37" name="__codelineno-13-37" href="#__codelineno-13-37"></a>'&amp;(,"1~)@(":&amp;,.@(&gt;&amp;(1&amp;{)@]))A
+</span><span id="__span-13-38"><a id="__codelineno-13-38" name="__codelineno-13-38" href="#__codelineno-13-38"></a>NB. Payment formatted for column headings:
+</span><span id="__span-13-39"><a id="__codelineno-13-39" name="__codelineno-13-39" href="#__codelineno-13-39"></a>E=. 0.2":"0 PMT                        NB. (0.2&amp;(":"0)@]) PMT
+</span><span id="__span-13-40"><a id="__codelineno-13-40" name="__codelineno-13-40" href="#__codelineno-13-40"></a>NB. Width of column headings:
+</span><span id="__span-13-41"><a id="__codelineno-13-41" name="__codelineno-13-41" href="#__codelineno-13-41"></a>v3=. 1{$ F=. ' ',"1 D ,"1 E
+</span><span id="__span-13-42"><a id="__codelineno-13-42" name="__codelineno-13-42" href="#__codelineno-13-42"></a>v1=. v1+0&gt;.v3-&lt;.v1
+</span><span id="__span-13-43"><a id="__codelineno-13-43" name="__codelineno-13-43" href="#__codelineno-13-43"></a>
+</span><span id="__span-13-44"><a id="__codelineno-13-44" name="__codelineno-13-44" href="#__codelineno-13-44"></a>NB. Payment number and payment cells:
+</span><span id="__span-13-45"><a id="__codelineno-13-45" name="__codelineno-13-45" href="#__codelineno-13-45"></a>G=. C,"1 v1":B
+</span><span id="__span-13-46"><a id="__codelineno-13-46" name="__codelineno-13-46" href="#__codelineno-13-46"></a>NB. Table header, right-justified:
+</span><span id="__span-13-47"><a id="__codelineno-13-47" name="__codelineno-13-47" href="#__codelineno-13-47"></a>H=. (-2{$G){.&amp;,(-v3&gt;.&lt;.v1){."1 F
+</span><span id="__span-13-48"><a id="__codelineno-13-48" name="__codelineno-13-48" href="#__codelineno-13-48"></a>NB. Table for list box:
+</span><span id="__span-13-49"><a id="__codelineno-13-49" name="__codelineno-13-49" href="#__codelineno-13-49"></a>SCHED=: H,' ',,/5&amp;{."_1 G             NB. H ([,' '&amp;,@(,/@(5&amp;{."_1@])))) G
+</span><span id="__span-13-50"><a id="__codelineno-13-50" name="__codelineno-13-50" href="#__codelineno-13-50"></a>NB. Text ready for file save:
+</span><span id="__span-13-51"><a id="__codelineno-13-51" name="__codelineno-13-51" href="#__codelineno-13-51"></a>T=. 'Schedule for Amortizing ',PV,' under Compound Interest',crlf
+</span><span id="__span-13-52"><a id="__codelineno-13-52" name="__codelineno-13-52" href="#__codelineno-13-52"></a>T=. T,'At payment on left: fptp, cum paid, balance, interest',4&amp;$crlf
+</span><span id="__span-13-53"><a id="__codelineno-13-53" name="__codelineno-13-53" href="#__codelineno-13-53"></a>FILE_TXT=: T,2}.,crlf,"1 SCHED NB. T,2&amp;}.@,crlf,"1 SCHED
+</span></code></pre></div>
+<h2 id="appendix-h-help-text">Appendix H — Help Text<a class="headerlink" href="#appendix-h-help-text" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>rem c:\j\amortize\about.vp;
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>mb "About Amortize" "  A schedule is displayed from your input.
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>Not copyrighted; not liable for your results.
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>                  Thomas M. Olsen
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>        71303.3615@compuserve.com
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>                 Karsten Mfg. Corp.
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>                     12 July 1993"
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>mb_iconinformation;
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>rem c:\j\amortize\parmdefs.vp;
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>mb "Parameter Definitions" "          Present Value: amount of
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>loan/annuity
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>          Interest Rates: annual percentage rate
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>                                  of compound interest;
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>                                  multiple values allowed;
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>                                  e.g., 6+i.7
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>       Periods per Year: payments per annum
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>   Total No. Payments: payments to retire
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>                                  loan/annuity
+</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>Displayed-Cell Limit: default of 9 fills one page
+</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a>                                  of saved output; includes
+</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a>                                  first, last, and penultimate"
+</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a>mb_iconinformation;
+</span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a>rem c:\j\amortize\parmnavi.vp;
+</span><span id="__span-14-25"><a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a>mb "Navigation" "Push ENTER to display amortization schedule"
+</span><span id="__span-14-26"><a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a>mb_iconinformation;
+</span><span id="__span-14-27"><a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a>rem c:\j\amortize\outitems.vp;
+</span><span id="__span-14-28"><a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a>mb "Items" "     Heading: compound interest,
+</span><span id="__span-14-29"><a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a>                     fixed payment
+</span><span id="__span-14-30"><a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a>Left margin: payment number
+</span><span id="__span-14-31"><a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a>   Cell items: fraction to principal,
+</span><span id="__span-14-32"><a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a>                     cumulative paid,
+</span><span id="__span-14-33"><a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a>                     balance,
+</span><span id="__span-14-34"><a id="__codelineno-14-34" name="__codelineno-14-34" href="#__codelineno-14-34"></a>                     cumulative interest"
+</span><span id="__span-14-35"><a id="__codelineno-14-35" name="__codelineno-14-35" href="#__codelineno-14-35"></a>mb_iconinformation;
+</span></code></pre></div></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">user interfaces</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">applications</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">language design</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

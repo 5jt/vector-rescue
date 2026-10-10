@@ -1,0 +1,1220 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10002580/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Efficient Compilation of Array Expressions - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        <a href="#__skip" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Efficient Compilation of Array Expressions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Efficient Compilation of Array Expressions</h1>
+
+  <p class="printed"><a href="../21/#n2-february-2005">Vector 21:2</a>, page 91</p>
+
+
+<p class="byline">Paul Cockshott</p>
+<p>The text of this article is not yet online.</p>
+<p><a href="../21/2/VOL.21-NO.2-SPRING-2005.pdf#page=93">Read it in the PDF of the issue, page 91</a></p>
+<details class="ocr">
+<summary>Unedited OCR text, machine-read from the scan: it contains errors, and its APL is wrong. Shown for searching; read the PDF.</summary>
+<p>VECTOR Vol.21 No.2</p>
+<p>Efficient Compilation of Array Expressions by Paul Cockshott ABSTRACT. This article investigates someofthe problems involvedin generating efficient code for array expressions. It considers issues of cache pollution,effective register use, and vector instructions. It considers the impacts that such compilation efficiency issues can haveofthe definition of imperative array languages.</p>
+<p>Let us consider compiled programming languagesthat allow generalised array expres- sions, for example F[5], ZPL[6] and Vector Pascal[4]. Theseall allow expressions of the form xwy where w is drawn from somesetofarithmetic operators and x,y are either array variables or other array expressions. This class or languages derivesits inspiration from APL whichis generally implemented as an interpretive language and whichhas inspired a family of other interpretive languages J, K, At. In order to bring out some ofthe issues involved in compiling such expressionslet us first consider how aninterpretive language might handle them. Initially consider where w is a primitive operatorlike addition or multiplication.If the interpreter is written in C then the array expression can be evaluated by a generalised function of the form: arrayt eval(arrayt x, arrayt y, char omega)</p>
+<p>where arraytis a type representing a pointer to an array descriptor on the heap, When the function eval returnsit will have allocated a new array on the heap into whichit will have written the result of applying the operation omegato corresponding elements of x and y. If we abstract from the problem of handling arrays of different rank, and considerintially the case where x and y are vectors then this can be done with the following algorithm:</p>
+<p>Algorithm Interpretive array expression evaluation Find L the minimum of the lengths of x and y. Allocate a new array R of length L. For i= 0 to L-1 set R= primeval( 2;,y;,w) Return R</p>
+<p>Here primevalis a function that evaluatesthe scalar expression awh, for scalars a, b. We chose aninterpretation of awy that returns an array whose length is the minimumofthe lengthsof x, y for simplicity of explanation. This is clearly a very naive interpretive algorithm since it costs a function call for each primitive evaluation. Efficiency can be greatly improved by using a case statement to branch on w prior to for loops: switch(omega){ case ('t'):for(i=0;i&lt;L;it+)R[i]=x[{ijty[i]; break; case ('-'):for(i=0;i&lt;L;it+)R[i]=x[ij- yli]; break; w-~etc... In this case, the efficiency of the interpretive code can be quite high, indeed it appears to tendsto the limiting efficiency of compiled code as LE + oo. This sort of optimisation explains whythe performanceof good interpretive array languages can be comparable with compiled code.</p>
+<p>91</p>
+<p>VECTOR</p>
+<p>Howeverthe fina] run time performance of a program though crucially dependent on the number ofarithmetic instructions in inner loops. the optimisation addressed above. also depends uponotherfactors. Among these are the efficient use ofthe storage hierarchy and the ability to exploit vector instructions.</p>
+<p>garbage</p>
+<p>Tl</p>
+<p>T2</p>
+<p>FIGURE 0.1. Data flow for ze-xty.</p>
+<p>Suppose we evaluate the assignment statement z¢~x+y, thenthe data flow is as shown in Fig 0.1. At time T1 priorto the execution of the statement we have3 buffers in memory carresponding to the arrays referenced by the three variables, We disregard the case where z has no initial value. It can be seen that the operation results in the discarding of the original buffer for z which becomes garbage.In a long running algorithm this will have to be recovered. This is storage overhead becomes moresignificant when we consider more complex array expressionslike Zz &amp; a*(b-c) In this case a temporary array will be created for the result of b-c prior to the array multiply. The first order cost of recovering the space will depend on the sort of storage managementalgorithm used, andin particular on whetherthe algorithmalways clears any buffer that it allocates. If it is not cleared. then the allocation and recovery will be inde- pendent ofthe buffer size. If the buffer is cleared. then this imposes an overheadofat least one memory store for each pair of primitive operands evaluatedin an array expression. By itself, this is a relatively smal] overhead which can be avoidedif there is a non-initialising call to the buffer allocation API. But it becomes more significant once we consider the interaction of buffer allocation with the memory hierarchy. Thelevels to considerare registers, cache and main memoryandinverylarge applica- tions virtual memory. The interpretive implementation makesno attemptto exploit regis- ters and makes very inefficient use of the cache. Since the result of each primitive binary operation is written to memory, and since the memory blockis always newlyallocated,it will tend not to be present in cache. Whenit is written to for the first time, and in this approachbuffers tend to be written to only once, the result will be stored in cache. By the time the multiplication in a* (b-c )is done. the result of the subtraction is in cache, so the multiplication proceedsrelatively fast. But a costofstoring the result of subtraction in cache is that an equivalent numberofbytes of other data must be purged from the cache. If the arrays are sufficiently large relative to cache sizes, then theresult ofthe subtraction couldflush the array @ outof the cache, Given that access to main memory can be 20 times slower than cache access such cacheflushing could seriously affect performance. A naive array expression compiler would generate code whose dynamic execution would mode] the dynamic executionof an interpreter. We will modelthe compilation process by producing equivalent C code, Clearly one route to compilationis totranslatethe array code</p>
+<p>92</p>
+<p>VECTOR Vol.21 No.2</p>
+<p>into C and leave the machine dependentpart of the compilation to the code generator. We will see later that this is not always optimal. The statement Zz &amp; a*(be-c) Would mapto the code shown in Algorithm 2.</p>
+<p>Algorithm 2 Naive compiled algorithm. ti=memalloc(b_min_c); for (i=0;i&lt;b_min_c;it+)tl{il]=b[i}-cfil; t2=memalloc(tl_min_a); for (i=0;i&lt;tl1_min_a;it+)t2[iJ=a[i]*ti[i); dispose(z}; Bat2;</p>
+<p>For simplicity we assumethatthe sizes of the result arrays b_min_cete, have been pre- computed either at compile time or in an earlier code fragment. This C code, whilst it has removedthe interpretive overheads still retains the same cache penalties as the interpretive code and memoryallocation penalties as the original interpretive version. An alternative approach would be to decomposethe array operations so that the whole expression was evaluated as a single loop equivalent to the C code shown in Algorithm 3. This approach, termed drag-through, was described by Budd[3] and by Abrams(1] and has a number ofadvantages.</p>
+<p>Algorithm 3 Optimal version. for (i=0;i&lt;zlen;itt) z[i]=a[i]*(b(ij-cfil);</p>
+<p>In this example we have actually carried out two transformations, we have removed the redundant creation of temporary vectors, and also re-organised the code so that the final result is written into the original buffer z, rather than a newly created buffer z. This optimisation is possible so long as 2 already references a buffer of the appropriate size, something that a compiler can usually determine. The expressionali]*(b[i}-c[i]) is a scalar one, and as such can be effectively computed within registers. This gives us two advantages: (1) Since the temporary result of b[i]-c[i] is in a register, it can be accessed without any store accesses whenneeded for the subsequent multiply. (2) Since no cache writes occur for the vector result of b-c, the elementsof the array a are morelikely to be in cache when needed. Theeffects of both these optimisations are shown in Tables | and 2. The broad features to note are: « As vector lengths rise, the time taken to produce each byte of the result rises, this is due to generally poorerlocality of access and thus generally poorer cache utilisation for larger vectors. In all cases the optimal code which evaluates temporary results in registers per- forms better than the naive code which allocates temporaries to memory buffers. In somecases it performstwice as well. Thedegree of advantageofthe optimal code varies non-linearly with vector length as a result of interaction of the vector block sizes with the levels of the cache hierarchy. With certain combinationsofsizes ofvector and cache,the temporaries produced bythe initial subtraction donotinterfere with the source data. In these cases the performance penalty for the naive implementationis less.</p>
+<p>93</p>
+<p>VECTOR Vol.21 No.2</p>
+<p>vectorfength 2! 28% gl4- pth 918920 naive ps 0.053 0.047 0.056 0,082 0.088 0,105 optimal ps 0,036 0.032 0.037 0.048 0.057 0.071 naive/optimal 148 148 149 1.70 1.53 1.48 TABLE 1. Crusoe performance on x:=a*(b-c) implemented in registers versus naively. Code generated using 16 bit numbers with MMXvectori- sation enabled. Total numberof integer operations were held constant as the vector length varies by altering the numberoftimes the opera- tion is repeated. Times are in microseconds to perform the arithmetic to produce each 16 bit result averaged over a large number of runs on a 750MHzCrusoe processor with a 64KB primary cache. Compiled using the Vector Pascal compiler. The naive version was emulated bysplitting the statementinto twoparts thus fi=b-c:x:=a*t,</p>
+<p>vectortength 210 21? gi 216 gtB 20 naive ps 0.016 0.02 0.021 0.029 0.029 0.03 optimal ys 0.009 0.012 0.0019 0.013 0.014 0.015 naive/optimal 1.66 1.61 1.1L 2.2 2.13 2.03 TABLE 2. P4 performance on x:=a*(b-c) implementedin registers ver- sus naively. Vectorisation was enabled. Times are in microseconds to perform the arithmetic to produce each [6 bit result on a 1300MHz P4 processor with a 8KB primary cache and 256k secondary ¢ache. Com- piled as described in Table 1.</p>
+<p>VECTORISATION OF OPERATIONS</p>
+<p>It is desirable to makeuse ofthe vectorinstructions of current CPUsfor array program- ming. Once an array expression has been re-organised by the compiler into the optimal form, it can be vectorised. Let us assume we are working with a CPU capable of perfarm- ing operations on 4 numbers at a time. We can denotethis in pseudo C as:</p>
+<p>Algorithm 4 Vector version. // assume vector length 4 for(i=0;i&lt;(zlen-3);i+=4) zlir4]=aliz4)*(blis4j -clis4]); if( zlen $4) for(i=zlen-(zlen % 4);i&lt;zlen;i++) 2(ij=ali]*(blil-cli));</p>
+<p>Here the notation z{i:4] represents a sub-vector of tength 4 starting at position i in z. Because wecan not be sure that the vectors to be processed willall be divisible by 4 we need twoloops. Thefirst handles the vectorisable code, the second a remainder that has to be evalued in scalar fashion. Consider the case ofa vectorof length 8. Thefirst algorithm will evolve as follows i=0 compute result for z2[0:4] i=4 i&lt;5 yess compute result for z[4:4] i=8</p>
+<p>94</p>
+<p>VECTOR Vol.21 No.2</p>
+<p>i&lt;5 no terminate first loop, skip second For a vector of fength 6 the algorithmwill evolve as: i=0 compute result for z[0:4] i=4 i&lt;x3 no 684 nonzero i=(6-(684))=4 compute result for 2[4] iss compute result for z{5] exit If the length of the vectors is known at compile time, it is possible for the constant folding stage of the code generator to spot whenthetest: if(zlen %4) will return zero and delete both the test and the secondloop from the code.</p>
+<p>vector length gto ate gtd gt glib 920 optimal scalar ws 0.18 0.192 0.211 0.228 0.281 0.331 optimal vector ws 0.036 0.032 0.037 0.048 0.057 0.071 sealar/vector 474 60 57 4.75 493 4.66 TABLE 3. Comparisonofscalar and vector code times for the statement used in the previous examples,</p>
+<p>Useof vectorisation brings big performance benefits as is shownby Table 3. These are substantially greater than the speedups that can be obtained by the register optimisations discussed earlier. These sorts of optimisations are discussed in more detail in (2).</p>
+<p>Implementation Issues. In the model advanced above,an array assignmentwrite directly into store that has already been allocated. In the statement x:=a*(b-c), the variable x is assumed to stand for an array whose rank is known at compile time, and whose size is either known at compile time, or has been determined at run time prior to the execution of the statement. Thus when performing left to right parse of the statement, the parser knowsrank of the destination before parsing the source expression. This lends itself to a simple extension of recursive descent compiling techniques. Let us assume we have a procedure expression to parse expressions which returns a semantic tee for the expression. After determining the rank r of the destination, the parser carries out the following steps: (1) Declare hidden loop iterator variables tq, 1, .--tr 1 (2) Create an semantic tree / made upof r nested for loops using these iterators (3) Let e= expression{lio, 41, ---4p 1]) to obtain a scalar semantic tree for the array expression (4) Build the semantic tree of a scalar assignmentof the form 2.g.41,...¢n01 and incorporate this into the loop nest /. Onencountering an array identifier the procedure expression attempts to reduce it to a scalar usingthelist of iterators passedto it. If the rankofthe arrayis too largeto allowits reduction, then a type error is signaled. If instead of the parser being hand written, an automatically constructed bottom up parser is used in the compiler, an analogous algorithm can be performed whilst walking the syntax tree generated by the automatic parser.</p>
+<p>95</p>
+<p>VECTOR Vol.21 No.2</p>
+<p>DATA FLOW ISSUES</p>
+<p>The previous section has argued against evaluating each binary array operator to pro- duce a newarray value. because it is moreefficient to combineall subexpressions within a loop operating on a seatar expression. So long as one is dealing with vector or matrix ex- pressions of the form M &lt;~ Aut BuC where «1, w2 are pairwise scalar operators. such as + or -. which are mapped over the matrices, no problemsarise. The semantics of both implementation approaches are the same. When weallow other operators such a matrix transpose or matrix multiply. problems canarise. 1 Suppose wetranspose the matrix using the assignment A + B7, then A ends 34 -» 1 3 A r 13 up with 2 4° and if we evaluated B ¢- B we would expect B to also equal 24°</p>
+<p>Howeverif we havetranslated X + YT for 2 by 2 matrices X,Y, as: for(i=0;i&lt;2;i++) for(j=0;5&lt;275++) X(i,31]=¥(5,41] using this approach B &lt; B? would result in the corruption of B as the transpose was being evaluated giving 3 ; . A similar corruption would occur with the evaluation of some matrix products by simple nested loops: A &lt; B.C would be safe but A B.Awould not. It is to obviate these dangers that Fortran 90 defines the semantics of array assignments as having to evaluate the entire array valued expression on the right hand side of the assignmentprior to performing the assignmentitself. Vector Pascal takes the opposite approach, specifying that the semantics of array expressions is defined in terms of the equivalent loop construct with the compiler signaling an errorif it encounters a data flow hazard in an array expression. Since, in the presence of parameteraliasing, it is not always possible to detect such data-flow hazards at compile time. one can argue that the Fortran 90 approach is safer. The additional cost incurred by the Fortran 90 semantics can be avoided in those cases where data-flow analysis can prove that no hazard exists - for instance where the arrays are not function parameters.</p>
+<p>ARRAY BOUNDS CHECKING</p>
+<p>It is highly desirable that an array language have somesystem ofarray bounds checking to detect errors. The simplest way to do this is to plant explicit tests on array bounds whenever an array is indexed. Using C as an algorithmic notation this would take the general form: L£(i&lt;lwb_a) boundsfault(); if (i&gt;upb_a)boundsfault(); beafi]; Which is clearly expensive and would dominate the cost of actual array access. But this can be done with aslittle as one extra instruction on an Intel processor using the BOUND r, pair instruction where rx is aregister and pairis reference to a two elementvector in memory. This checks whether a register x is between the values pair[0], and pair[1] gen- erating an interruptif it fails. Since a modern processor will be able to fetch 64 bits at time from memory, both boundscan be accessed in a single memory fetch, but the extra instruction and extra memory fetch canstill represent an overhead of 50% or more on the original cost of array access. It is thus desirable to try and minimise the numberof array bounds checks that are done. Suppose westart with a loop with naive bounds checking:</p>
+<p>96</p>
+<p>VECTOR Vol.21 No.2</p>
+<p>for (Lax; i&lt;=y;it+){ if(i&lt;lwb_a) boundsfault() 3 if(i&gt;upb_a) boundsfault() ? totalt=a[(i}; } Then it is clear that x &lt; i &lt; y throughout the loop. Thus if an array bounds fault is to occur, either z &lt;fvb_a or y &gt;upb_a. We can safely move the boundscheck to before the start of the Loop: if(x&lt;lwb_a} boundsfault() ; if(y&gt;upb_a) boundsfault() i for(i=x;i&lt;=y;it+) totalt=a[i]; So long as z &lt; y this formulation will have a lower overhead. Indeed in many caseit allow the bounds check to betotally eliminated. If the array bounds and loop bounds are known at compile time, then the tests can be evaluated during compilation. If they pass the compiler canelide the bounds checking code,if they fail, it can signal a type errorat compile time.</p>
+<p>code ys ratio optimal array bounds vector 0.03 naive array bounds vector 0,036 naive/optimal vector 1.2 optimal array bounds scalar 0.076 naive array bounds scalar 0.18 naive/optimal scalar 2.36 TABLE 4. Crusoe performance on x:=a*(b-c) in registers with no inter- mediate buffer assignment comparing naive with optimised array bounds checking, otherwise same test conditions as in tables 1 and 3.Vector lengths 1024.</p>
+<p>In an array language, most of the for loopsthatthe compiler deals with are automatically generated ones arising from array assignments. These lend themselves very well to the optimisations described above. Forstatically sized arrays, which are the predominant ones in classical Fortran or Pascal programming, most array bounds checks can be performed at compile time. For dynamically sized arrays most bounds checks can precede the loop. An exception comes in scatter-gather statements such as: b:=a[c], where c is an array. In this case we must plant code to check that each c{ i} is within the bounds of a. AsTable 4 shows,the propagation of array bounds checking outside of loops can make modest but very worthwhile improvement to performance for vectorised code, but makes a very big difference to performance on non-vectorised code, For the vectorised code, array bounds are checked for only 25% ofthe entries anyway, reducing the advantage of optimising the checks. Hazards. With ordinary for loops certain hazards can arise with this sort of optimisation of array bounds checking. Considerthe following Java code: int {] a={1,2,4,8};</p>
+<p>pi&lt;lO;itt){ =0) a=new int[{10]; a[il=getdata({};</p>
+<p>97</p>
+<p>VECTOR Vol.21 No.2</p>
+<p>If we propagated the bounds check for afi] to before the for loop thus if(a.length&lt;9)throw new ArrayBoundsExcep- tion( a"); for (i=0;i&lt;10;i++){ if (i==0) a=new int[10]; ali]=getdata(); } An exception would be falsely signaled by the propagated boundschecking code. In gen- eral this hazard can arise with languages that have arrays implemented as pointers to heap data structures. In this case array bounds optimisations are only safe if data-flow analysis can prove that the array variable points to the same heap block throughout the loop. If ar- rays are static this problem obviously doesnot arise. Nordoesit arise in array expressions, allowing these to be optimised moreeasily than standard for loops.</p>
+<p>Condition Truth value Action knownat compile time true signal compiletime error known at compile time false do nothing unknownat compile time plantcode for check TABLE5. Rules followed by plantcheck.</p>
+<p>Implementation Issues. How can these bounds checking optimisations be implemented? One simple approach is for the compiler to maintain a stack of currently active loop iteratorsas it process the code. Associated with each loopiterator is an upper boundlist and a lower bound list. The stack and loops are manipulated as shownin algorithm 5. When an array index operation a[i] is encountered algorithm 6 is invoked. The function plantcheckeither follows the rules given in table 5.</p>
+<p>Algorithm 5 to propagate bounds checks. push iterator i onto iterator stack parse the body of the loop saving the gener- ated code in buffer B pop the iterator i from the stack for each element e of the i.lwbList plantcheck(loopstart&lt;e) for each element e of the i.upbList plantcheck(loopfinish&gt;e) plant code in buffer B</p>
+<p>Algorithm to plant array bounds checking CheckIndex(Array a, Expression i) if i is an active loop iterator then append (i.lwbList,a.lwb) append (i.upbList,a.upb) else plantcheck(i&lt;a.lwb) plantcheck(i&gt;a,upb)</p>
+<p>98</p>
+<p>VECTOR Vol.21 No.2</p>
+<p>Loop UNROLLING</p>
+<p>code ps ratio unrolling vector 0.018 nounrolling vector 0,028 unrolling gain vector 1.55 unrolling scalar 0.49 no unrolling scalar 0.6 unrolling gain scalar 1.22 TABLE 6. Effects of use of loop unrolling , otherwise sametest condi- tions as in tables 4 and 3. Vector lengths 1024.</p>
+<p>A final optimisation that can be applied in a compileris to unroll the loops. Suppose we have vectors that we knowfrom type information is going to be of Jength 4, for example the quaternions used in graphics processing. In this case we can replace loops by the equivalent sequential code even in the absenceofa vector instruction-set: for(i=0j;i&lt;4;it+)z[iJ=ali}*(bli]-efi)): gets replaced by 2[O]=a[0]*(b(0}-clO]); a{il=al1]*(bflj}-c{1]); 2(2]=a[2}*(b[2]-c[2]); z(3]=a(3}*(b{3]-c[3)); The sameprinciple can be extendedto other loops whoseiteration countis exactly divisible by someunrolling factor. The unrolling optimisation should be applied after vectorisation to getthe best effect, Thusfor arrays of length 1024 and a processorvector length of 4 we might have: for(i pi&lt;1021);it=4){ 2[i Ajealiz4]*(bliza]-cfis4])sit=4; z[is4J=a[iz4]*(bf[is4]-c[iz4]);it=4; z[iz4]=a[is4]*(b{iz4)-c[is4]);it=4; z(is4]sa(i24]*(b(iz4)}-c[is4]); } In the original un-vectorised loop, we had a conditional branch instruction for every word. of the answer. In the vectorised and unrolled version we have one conditional branch per 16 wordsof the answer. AGGREGATE EFFECT If we now consider the combinedeffects ofall of the optimisations we canseethat they speed array expressions up more than 10 times(table 7). The gains from each optimisation</p>
+<p>improvement cumulative contribution improvement registers versus temporary array results 1.48 1.48 vectorisation 4.74 7.01 optimal array bound checks 12 8.41 Loopunrolling 1.55 13.0 TABLE 7. The cumulative effects on performanceofall the array optimisations.</p>
+<p>combine multiplicatively. The exactfigures given for each ofthe optimisations will depend</p>
+<p>99</p>
+<p>VECTOR Vol.21 No.2</p>
+<p>on the machineit is being run on, the vector lengths and the efficiency of other aspects of the compilation process. In our examples we have used 16 bit arithmetic becausethis vectorises on any common-denominator Pentium compatible machine. The vectorisation gains for floating point code can beless. Several of the optimisations are equally valid for array language interpreters. If these are partly written in assembler. then they can make use of vector instructions. Whether written in C or assembler they can unroll the inner loops oftheir primitive array arithmetic routines. Interpreters routinely eliminate array bound tests from their inner loops. A good interpreter can be competitive with compiled code. Table 8 shows comparisons betweenthe A+ advanced APLinterpreter and compiled Vector Pascal. Timingsare givenper floating pointresult for the calculation x &lt;- a x 6 c using vectors of length 1024. As before the non-pull-through version of the compiled code was implementedas two statements tebe reaxt to get roundthe fact that Vector Pascal uses pul!-through by default. It can be seenthat on both machinesthe interpretive code was competitive with the worst compiled code. Ap- plyingall of the optimisations described in this paper improves the speed ofthe compiled code by a factor of about 10, The peak performance of the compiled code is one useful floating point operation every twoclock cycles, taking into account all the overheads of addressing 3 source and | destination arrays.</p>
+<p>750MHz Crusoe | 1000MHzAthton us MFLOPS ys MFLOPS at version interpreted 0.097 20 0.036 56 no-pull-through compiled 0.077 26 0.042 48 pull-through compiled 0.047 42 0.026 76 pull-through plus loop unrolling compiled 0.018 110 0.008 250 pull-through. loop unroll, vectorise compiled nia 0.004 500 TABLE 8. Comparison of compiled versus interpreted loops. The in- terpretive timings are clone using the A+ advanced APLinterpreter. All compiled timings are for Vector Pascal. MFLOPsare calculated on the basis that there are 2 floating point operations per result</p>
+<p>Although for many purposes theflexibility of an interpretive solution will outweigh the speed of compiled code, for others such as graphics, speed is important. In these cases a compiled array language provides an effective solution, combining relatively concise notation with very high computational speed. REFERENCES</p>
+<p>{11 Abrams, P.An APL Machine, SLAC rep 114, Stanford Univ, 1970. (2) Bik, A. J, C., Girkar, M., Grey, P, M., Tian, X., Aulomatic Intra-Register Vectorizationfor the Intel Architec- ture, Imemational Journal of Parallel Programming, Vol 30, No.2, 2002.pp.65..97. (3) Budd, T., An APL Compiler for a Vector Processor, ACM Transactions on Programming Languages and Systems, Vol 6, No.3, July. 1984, {4] Cockshott, P.. Vector Pascal Reference Manual, ACM SigplanNotices, Vol 37, pp 59-81, June 2002, {5] Metcalf, M.. and Reid. J.. The F Programming Language, OUP, 1996. (6) Snyder, L., A Programmer's Guide lo ZPL. MITPress, 1999.</p>
+<p>100</p>
+</details>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

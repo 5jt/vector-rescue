@@ -1,0 +1,1465 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10000990/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Error Trapping Tutorial for IPSA APL - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#abstract" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Error Trapping Tutorial for IPSA APL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Abstract
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errors-and-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Errors and Events
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handling-of-untrapped-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Handling of Untrapped Events
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Event Numbers
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-signal-for-user-defined-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Using ⎕signal for User-defined Errors
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-format-of-trap" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The format of ⎕trap
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-format-of-trap-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Format of Trap Definitions
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#treatment-of-bad-trap-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Treatment of ‘bad’ ⎕trap Settings
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-system-decides-which-trap-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        How the System Decides Which ⎕trap to Use
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#possible-actions-in-trap-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Possible Actions in Trap Definitions
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#watch-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Watch out!
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ec-environment-condition" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ⎕ec - Environment Condition
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-ec-works-when-event-traps-are-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        How ⎕ec Works when Event Traps are Set
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Summary
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Error Trapping Tutorial for IPSA APL</h1>
+
+  <p class="printed"><a href="../6/#n3-january-1990">Vector 6:3</a>, page 102</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-programming-techniques">programming techniques</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../6/3/VOL.6-NO.3-JANUARY-1990.pdf#page=104">Read it in the PDF of the issue, page 102</a></em></p>
+<p class="byline"><em>by Peter Biddlecombe (I.P.Sharp Associates)</em></p>
+<h2 id="abstract">Abstract<a class="headerlink" href="#abstract" title="Permanent link">&para;</a></h2>
+<p>This article describes the event trapping facilities available in Sharp APL. As the basic elements of event trapping were covered by the articles in VECTOR 6.1, they are not repeated here. Readers wanting to refresh their memory should use Pauline Brand’s article on error trapping in Dyalog, as Sharp APL, like Dyalog, traps specific events rather than ‘any error’. This article does not cover the use of error trapping in areas specific to Sharp APL such as batch and non-terminal tasks.</p>
+<h2 id="errors-and-events">Errors and Events<a class="headerlink" href="#errors-and-events" title="Permanent link">&para;</a></h2>
+<p>In Sharp APL we trap events, not just errors. Events include interrupts and ‘return to immediate execution’. When we trap an event, we simply specify an alternate set of actions to be performed when an event occurs. This is appropriate when</p>
+<p>(i) a particular event does not always happen, or may happen at any time; and<br>
+(ii) we know the required action when it does happen.</p>
+<h2 id="handling-of-untrapped-events">Handling of Untrapped Events<a class="headerlink" href="#handling-of-untrapped-events" title="Permanent link">&para;</a></h2>
+<p>If an untrapped event occurs, then APL execution halts, and an error message is displayed in the usual manner. The text of this error message is stored in the system variable <code>⎕er</code>, which is normally a 3-row character matrix.</p>
+<p>The rows of <code>⎕er</code> contain the event number and an event title, the function line or APL statement in which the error occurred, and the caret indicating the point reached by the APL interpreter.</p>
+<h2 id="event-numbers">Event Numbers<a class="headerlink" href="#event-numbers" title="Permanent link">&para;</a></h2>
+<p>Event numbers are divided into the following four groups (The number ranges shown are those reserved for event groups, not the ones actually used):</p>
+<dl>
+<dt>1-499 ……… Errors detected by the system</dt>
+<dd>These include some events (e.g. <code>FILE SYSTEM NOT AVAILABLE</code>) which can’t be fixed by actions taken inside the active workspace.</dd>
+<dt>500-999 ……… User-defined errors</dt>
+<dd>System function <code>⎕signal</code> can be used to signal an error in the same fashion as an error detected by the system, and such errors can be trapped. Any event number from 1 to 999 can be used by <code>⎕signal</code>, but it is bad practice to use numbers below 501.</dd>
+<dt>1000-1999 ……… Interrupts</dt>
+<dd>These are signals which cause execution to be halted, and are classified by the activity in progress (e.g. <code>INPUT INTERRUPT</code>), as well as the type of interrupt.</dd>
+<dt>2001 ……… Return to immediate execution</dt>
+<dd>This event does not cause <code>⎕er</code> to be set, but can be trapped. The range of actions which can be carried out when it is detected is restricted. This event is often trapped as a security measure in systems where the user should not be using immediate execution mode.</dd>
+</dl>
+<h2 id="using-signal-for-user-defined-errors">Using ⎕signal for User-defined Errors<a class="headerlink" href="#using-signal-for-user-defined-errors" title="Permanent link">&para;</a></h2>
+<p>Syntax: [error text] <code>⎕signal</code> event</p>
+<p>where <strong>error text</strong> is optional, and <strong>event</strong> is treated like a right argument of ‘branch’ - if it is empty, no error is signalled, otherwise the first number is used, and the event is signalled in the same way as an error detected by the system, with the optional left argument <strong>error text</strong> included in <code>⎕er</code>. User-defined errors can be trapped.</p>
+<h2 id="the-format-of-trap">The format of ⎕trap<a class="headerlink" href="#the-format-of-trap" title="Permanent link">&para;</a></h2>
+<p>Each <code>⎕trap</code> setting can include any number of <strong>trap definitions</strong>. The data assigned to <code>⎕trap</code> may be a character matrix or character vector. The matrix form contains one trap definition per line. The vector form (which is more commonly used) <strong>must</strong> contain a delimiter as its first character.</p>
+<h2 id="the-format-of-trap-definitions">The Format of Trap Definitions<a class="headerlink" href="#the-format-of-trap-definitions" title="Permanent link">&para;</a></h2>
+<p>Each trap definition contains at least one part, and two optional others, separated by blanks:</p>
+<ol>
+<li>Event number or numbers (optional) - a list of event numbers or ranges of numbers to which the definition applies. If omitted, a default set of event numbers (depending on action code) is used.</li>
+<li>Action code (mandatory) - a single letter, optionally preceded by an action code modifier.</li>
+<li>Trap line or keyword (optional for some actions). Tells the system what to do following the event, and how to resume execution if this is required. A trap line may use multiple statements separated by diamonds.</li>
+</ol>
+<h2 id="treatment-of-bad-trap-settings">Treatment of ‘bad’ ⎕trap Settings<a class="headerlink" href="#treatment-of-bad-trap-settings" title="Permanent link">&para;</a></h2>
+<p>If a <code>⎕trap</code> setting does not obey these rules (e.g. if the delimiter is omitted from the start of a vector trap setting), then it is set by the system to an empty vector - no error is signalled. Because trap lines are not used until the relevant event occurs, a trap line which causes an error will not come to light until the trap line is tested or the error occurs. Moral: test your trap lines!</p>
+<h2 id="how-the-system-decides-which-trap-to-use">How the System Decides Which ⎕trap to Use<a class="headerlink" href="#how-the-system-decides-which-trap-to-use" title="Permanent link">&para;</a></h2>
+<p>When a trappable event occurs, the system searches the most local value of <code>⎕trap</code> (from left to right) until it finds an action for the event. If it finds none, it continues searching in the next most local shadowed value, until either a value is found or the stack is exhausted. This search does not of itself affect the state indicator or <code>⎕LC</code>. This treatment is <strong>different</strong> to that of other local variables, and means that:</p>
+<ol>
+<li>As long as a trap definition exists for a particular event, it applies unless a more local definition supersedes it.</li>
+<li>We <strong>cannot</strong> suspend event trapping by setting a localised <code>⎕trap</code> to an empty vector, but in any particular function we can replace the standard trap definitions by using trap definitions with event ranges covering all events.</li>
+</ol>
+<h2 id="possible-actions-in-trap-definitions">Possible Actions in Trap Definitions<a class="headerlink" href="#possible-actions-in-trap-definitions" title="Permanent link">&para;</a></h2>
+<p>There are six possible action codes and one action code modifier, which are used in definitions as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[evnums]</td>
+<td>[O] C [trap line]</td>
+<td>Cut</td>
+</tr>
+<tr>
+<td>[evnums]</td>
+<td>[O] E [trap line]</td>
+<td>Execute</td>
+</tr>
+<tr>
+<td>[evnums]</td>
+<td>[O] N</td>
+<td>Next</td>
+</tr>
+<tr>
+<td>[evnums]</td>
+<td>[O] S</td>
+<td>Stop</td>
+</tr>
+<tr>
+<td>[evnums]</td>
+<td>[O] D [keyword]</td>
+<td>Do</td>
+</tr>
+<tr>
+<td>6</td>
+<td>[O] I</td>
+<td>execute In mid-line</td>
+</tr>
+</tbody>
+</table>
+<p>Where <strong>evnums</strong> is a an event number list or range.</p>
+<dl>
+<dt>C - Cut back the stack and execute trap line</dt>
+<dd>If an event in evnums is detected, all functions called later than the one in which this definition is localised are removed from the SI stack. The state indicator and <code>⎕LC</code> are amended, and <code>⎕er</code> is set. Note that any line label included in the trap definition is interpreted in the context of the function where the definition is localised, <strong>not</strong> the function where the error is detected. Trap settings which use action code C should be localised.</dd>
+<dt>E - Execute trap line</dt>
+<dd>
+<p>If an event in evnums is detected, the system immediately sets <code>⎕er</code>, and then executes the trap line, acting as if execution had been halted and the trap line entered at the terminal. This means that any line labels in this setting are interpreted in the context of the function in which the error occurred, not necessarily the one containing the trap definition. This means that the only branch whose effect is certain is to <code>⎕lc</code>.</p>
+<p>Example - using a trap definition in a ‘main’ function to handle errors which are not trapped at a more local stack level:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">⎕trap</span><span class="kd">←</span><span class="s1">'∇ 900 C →errline ∇ 0 e errlog ⋄ ⎕signal 900'</span>
+</span></code></pre></div>
+<p>(<code>errlog</code> is a function which files details of the error, <code>errline</code> is a line label in this function. Event number 0 denotes the range 1-999.)</p>
+</dd>
+<dt>N - Skip to next level</dt>
+<dd>If an error in evnums is detected, the system abandons the search for trap definitions at this level of localisation, and moves to the next one where <code>⎕trap</code> is localised. It can be used just before a trap definition which uses a range of event numbers, in order to remove a few event numbers from the range.</dd>
+<dt>S - Stop</dt>
+<dd>When an event in evnums is detected, the system halts work and displays <code>⎕er</code>. This action code is mainly used in debugging to suspend the trapping of certain events.</dd>
+<dt>D - Do keyword</dt>
+<dd>
+<p>This is the only action which may be used with event 2001 (return to immediate execution). If no keyword is used, no action is taken. Valid keywords are:</p>
+<p>EXIT ……… signals event 2001 to the next level of localisation, where event 2001 may be trapped in turn.<br>
+CLEAR ……… clears the active WS.<br>
+OFF ……… does an automatic <code>)OFF</code>.</p>
+</dd>
+<dt>I - execute In mid-line</dt>
+<dd>
+<p>This code can only be used with event 6 (<code>VALUE ERROR</code>). It is similar to E except that (i) information about the execution of the current line is retained, (ii) if no branch is specified, execution is resumed at the same point as the error occurred, and (iii) an additional line is catenated onto <code>⎕er</code>, containing the name of the missing object.</p>
+<p>Example - use of a global trap definition to trigger a function which fetches objects from file if they are not in the WS when required:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nf">⎕trap</span><span class="kd">←</span><span class="s1">'∇ 6 i fetch ⎕er[⎕io+3;]'</span>
+</span></code></pre></div>
+</dd>
+<dt>O - Only (Action code modifier)</dt>
+<dd>This restricts a trap definition to the environment of the function in which it is set. This includes uses of ⍎ but not calls to other functions.</dd>
+</dl>
+<h2 id="watch-out">Watch out!<a class="headerlink" href="#watch-out" title="Permanent link">&para;</a></h2>
+<p>Event trapping is a double-edged sword, and if misused can cause as many problems as it solves. Some reasons for this are:</p>
+<ol>
+<li>It provides a method of branching which is not explicit in all the functions which could be affected.</li>
+<li>A trap line containing an error may not be executed for many months or years after it is written.</li>
+<li>Badly formed traps are ignored without comment.</li>
+<li>It is possible to write trap lines which cause endless loops.</li>
+<li>The system can see trap definitions which a programmer can’t. In a suspended function, <code>⎕trap</code> entered at the terminal will only show definitions at the current stack level.</li>
+</ol>
+<p>Anyone about to embark on using <code>⎕trap</code> is well advised to read the advice in Chapter 13 of the Sharp APL reference manual on testing functions which use event trapping.</p>
+<h2 id="ec-environment-condition">⎕ec - Environment Condition<a class="headerlink" href="#ec-environment-condition" title="Permanent link">&para;</a></h2>
+<p>This system variable exists to add an extra level of security in systems where it is desired to prevent users from interrupting processing. Although <code>⎕trap</code> can be used in the first line of a function to trap interrupts, it is possible to generate an interrupt before <code>⎕trap</code> has been assigned, and thus suspend the function.</p>
+<p><code>⎕ec</code> may be set to 0 (the global default) or 1. Whenever it is localised in a function, the system immediately sets it to 1 when the function starts execution. If any error occurs when <code>⎕ec</code> is 1, the SI stack is cut back one level, and the error is signalled again. If <code>⎕ec</code> is 1 at any level of the stack, this process is repeated until <code>⎕ec</code> is zero at all stack levels.</p>
+<p>ATTENTION (event 1002) is ignored , but left pending and responded to as soon as <code>⎕ec</code> is zero at all SI levels. Other Interrupt events are treated like errors. Return to immediate execution and stops via <code>s∆</code> are treated normally, which allows us to use stop vectors for debugging purposes without removing assignments of <code>⎕ec</code>.</p>
+<h2 id="how-ec-works-when-event-traps-are-set">How ⎕ec Works when Event Traps are Set<a class="headerlink" href="#how-ec-works-when-event-traps-are-set" title="Permanent link">&para;</a></h2>
+<p>When an event occurs, each level of the SI stack is examined, starting at the most local level. The following tests are made, and if neither is satisfied at any level, the default action for handling events is taken.</p>
+<p>(1) Does the visible <code>⎕trap</code> contain a definition for the event? If so, and the visible trap definition is localised at this level, execute the trap line.<br>
+(2) Is <code>⎕ec</code> localised at this level? If so and it is set to 1, handle the event as in (1). If it is 0, continue the search at the next level.</p>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>Event trapping is a very useful facility, <strong>provided</strong> it is used correctly. In combination with <code>⎕ec</code>, it can be used to make systems secure, and to ensure that users are not required to type APL expressions or system commands.</p></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">programming techniques</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

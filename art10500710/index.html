@@ -1,0 +1,1401 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Bernd Ulmann mixes a tiny but potent blend of APL and Forth">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10500710/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>5 – a stack-based array language - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#what-is-5-and-why-was-it-developed" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              5 – a stack-based array language
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-5-and-why-was-it-developed" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What is 5 and why was it developed?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#first-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        First steps
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="First steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-and-installing-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Getting and installing 5
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-5-interactively" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Using 5 interactively
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-complex-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        More complex examples
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="More complex examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-list-of-primes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Generating a list of primes
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sum-of-cubes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sum of cubes
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dressed-data-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dressed data structures
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conclusion
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">5 – a stack-based array language</h1>
+
+  <p class="printed"><a href="../25/#n23-march-2012">Vector 25:3</a>, page 119</p>
+
+
+<p class="byline">Bernd Ulmann (ulmann@vaxman.de)</p>
+<p class="abstract">5 is a portable and extensible stack-oriented array language that combines the features of APL and Forth and some ideas from Perl to yield a highly interactive environment for the professional developer as well as students of computer science. The interpreter is very lightweight (about 650 Kb all in all, including documentation) and runs readily on a variety of operating systems including Windows, LINUX, Mac OS X and even OpenVMS (VAX, Alpha, Itanium). 5 is Open Source and resides on SourceForge<a href="#ref1">[1]</a>.</p>
+<h2 id="what-is-5-and-why-was-it-developed">What is 5 and why was it developed?<a class="headerlink" href="#what-is-5-and-why-was-it-developed" title="Permanent link">&para;</a></h2>
+<p>The development of 5 started in August 2009 during a boring train ride when I programmed my beloved HP48GX pocket calculator to kill some time. As much as I love the stack-oriented approach of HP’s calculator-language RPL, I always thought that one could have done better by not combining Forth and LISP but Forth and APL instead. I wondered what such a language inheriting the main ideas of APL and Forth (and some bits from Perl) would look like and started writing a simple interpreter as a proof of concept. Since this new language looked like ‘Forth on steroids’ the name 5 seemed quite natural (quickly abandoning the idea of ‘Fifth’).</p>
+<p>It turned out that a stack-based array language yielded very concise code and during the next six months the language was steadily extended until it turned out that this first interpreter was indeed too limited in its design to incorporate all of the new ideas that popped up. Thus Mr Thomas Kratz and I decided to restart from scratch and implement a more flexible interpreter. (Most of the interpreter has been written since by Mr Kratz, whom I would like to thank for this truly great work).</p>
+<h2 id="first-steps">First steps<a class="headerlink" href="#first-steps" title="Permanent link">&para;</a></h2>
+<p>The 5 interpreter is quite mighty and thus the following sections can and will only give a brief overview by showing and explaining a couple of typical 5-programs – much more information can be found in the introductory manual<a href="#ref2">[2]</a>.</p>
+<h3 id="getting-and-installing-5">Getting and installing 5<a class="headerlink" href="#getting-and-installing-5" title="Permanent link">&para;</a></h3>
+<p>The 5 interpreter and its accompanying documentation can be downloaded from SourceForge<a href="#ref1">[1]</a>. The only prerequisite for installing 5 is a Perl interpreter, which is already found on most UNIX systems and easily installed on Windows machines (ActiveState Perl works fine). Since the 5 interpreter does not need any special Perl-packages, its installation does not require any changes on an existing Perl installation. To install 5 all you need to do is to unzip the distribution kit, which is only about 330 Kb in size to any suitable location and make the file <code>5</code> executable. On UNIX systems you might want to extend your environment variable PATH by the directory into which you unzipped the distribution kit. On Windows and OpenVMS systems the interpreter can be started most easily from the command line by typing <code>perl 5</code> (although one would normally define a foreign command on OpenVMS to make 5 directly callable).</p>
+<p>The distribution kit not only contains the interpreter itself but also detailed documentation, as well as many examples which will help one get used to the language and the interpreter.</p>
+<h3 id="using-5-interactively">Using 5 interactively<a class="headerlink" href="#using-5-interactively" title="Permanent link">&para;</a></h3>
+<p>Let us use the 5 interpreter interactively to simulate dice being thrown 100 times and computing the arithmetic mean of the outcomes:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>6 100 reshape ? int 1 + '+ reduce 100 / .
+</span></code></pre></div>
+<p>There is not much to say about this simple program which would not be obvious to people inclined to work in APL and other array languages. The most noteworthy thing is the stack-oriented operation of the interpreter, so all programs are read strictly from left to right. (As a result there are neither parentheses nor operator precedence rules in 5.)</p>
+<ol>
+<li>First two scalars, <code>6</code> and <code>100</code>, are pushed onto the stack.</li>
+<li>These values are used for the operator <code>reshape</code> which removes both from the stack and pushes an array containing 100 elements back onto the stack: <code>[6 6 6 … 6]</code></li>
+<li>To this array, the unary <code>?</code> operator is applied, which generates pseudorandom numbers in a range between 0 and a given maximum value (exclusively). Since this operator is unary it is applied to all elements of the vector automatically and yields a new vector on the stack containing 100 elements between 0 (inclusively) and 6 (exclusively). Applying the unary <code>int</code> operator to this vector yields a vector of integer values which are then incremented all by one due to <code>1 +</code>.</li>
+<li>The next step pushes the name of the binary addition operator onto the stack, <code>'+</code>, and applies the <code>reduce</code> function, which in turn sums all vector elements into a scalar.</li>
+<li>Dividing this result by 100 and printing it to the console is accomplished by <code>100 / .</code></li>
+</ol>
+<p>Although one has to get used to the reverse-Polish notation style of 5 it turns out to be very efficient and intuitive after a short time of playing with the interpreter. The main advantage of the stack-based nature is that one can build complex expressions iteratively and ‘watch’ the results of a computation through the different stages step by step. (Using the word <code>.s</code> one can generate a pretty printed view of the stack without destroying its contents, which is quite handy for understanding the actions of a program.)</p>
+<h2 id="more-complex-examples">More complex examples<a class="headerlink" href="#more-complex-examples" title="Permanent link">&para;</a></h2>
+<p>The following examples introduce some of the more sophisticated features of 5 – due to the complexity of the language many concepts will be mentioned only briefly – a comprehensive description of the language and its many operators and functions can be found in the documentation (see above).</p>
+<h3 id="generating-a-list-of-primes">Generating a list of primes<a class="headerlink" href="#generating-a-list-of-primes" title="Permanent link">&para;</a></h3>
+<p>One of the archetypical examples found in nearly every introductory text for APL is the generation of a list of primes without any explicit loops or the like. The following program shows how this is done in 5:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>: prime_list
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>1 - iota 2 + dup dup dup
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>'* outer swap in not select
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>;
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>100 prime_list .
+</span></code></pre></div>
+<p>This example is much more complex than the one before and could be run from a file using 5 in batch mode. To accomplish this just call the 5 interpreter with the name of the source code file as a command line parameter. (5 also supports quite a lot of qualifiers to get statistical information about program runs and the like, which are described in the documentation.) Assuming that there is a file named <code>prime.5</code> containing the code shown above, it can be run by typing <code>5 prime.5</code> or <code>perl 5 prime.5</code>.</p>
+<p>This example introduces the concept of so called ‘user defined words’ (‘UDW’ or just ‘word’ for short) that effectively extend the language itself and can be used in exactly the same way as built-in functions and unary or binary operators (in that respect they are much more powerful than the traditional words of Forth which have no provisions for acting as unary or binary operators extending their usability to nested data structures).</p>
+<p>First a word named <code>prime_list</code> is created – the colon starts a word definition that ends with a semicolon. This user-defined word is neither unary nor binary, so it just sees the stack as it is and operates on it. (In contrast to that, unary and binary words get a local stack with only one or two elements on it to operate on when they are being called. When such a unary or binary word terminates only the top most stack element of its local stack is copied back to the main stack of 5 thus unary or binary operators are side-effect free with regard to the main stack.)</p>
+<p>The basic idea of generating a list of primes up to some value <code>n</code> is to generate two vectors <code>[2 3 4 … n]</code> and generate a matrix by applying an outer product operator to these two vectors. Since this matrix obviously contains only non-primes, it can be used to select all primes from a copy of such a vector. The vector itself is generated by <code>1 - iota 2 +</code> which expects a number like <code>100</code> on the stack: Subtracting one yields <code>99</code>, applying <code>iota</code> yields a vector <code>[0 1 2 … 98]</code>, adding two to this vector yields the desired vector <code>[2 3 4 … 100]</code>. The command sequence <code>dup dup dup</code> creates three copies of this vector which will be needed soon.</p>
+<p>In the next step the name of the multiplication operator, <code>'*</code>, is pushed onto the stack and <code>outer</code> is called, which expects an operator’s name (<code>*</code>) and two vectors on the stack and creates a matrix as the result of an outer product in this case.</p>
+<p><code>swap</code> swaps the two topmost stack elements, so now one of the remaining copies of the vector is on top and the matrix is the second element from top. Applying the <code>in</code> function generates a vector containing a <code>1</code> in every place corresponding to an element of the vector that exists in the matrix and a <code>0</code> otherwise. Inverting this vector with <code>not</code> yields a selection vector which is then applied to the last copy of the original vector by <code>select</code>. This yields a vector containing prime numbers between <code>2</code> and <code>n</code> only.</p>
+<p>The main program only consists of <code>100 prime_list .</code> This places the value <code>100</code> onto the stack, calls the word <code>prime_list</code> and prints the resulting vector using the dot.</p>
+<h3 id="sum-of-cubes">Sum of cubes<a class="headerlink" href="#sum-of-cubes" title="Permanent link">&para;</a></h3>
+<p>The following two-liner computes all natural numbers less than 1000 that equal the sum of the cubes of their digits:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>: cube_sum(*) "" split 3 ** '+ reduce ;
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>999 iota 1 + dup dup cube_sum == select .
+</span></code></pre></div>
+<p>The first line again defines a word but this time it is a unary word – denoted by <code>(*)</code> following the name of the word. This has the effect that this word will not only work on scalar values but will be automatically applied to all elements of nested data structures. (So applying this word to a vector like <code>[1 2 3]</code> will implicitly and automatically apply it to the three vector elements <code>1</code>, <code>2</code> and <code>3</code> and return another three element vector containing the particular results.) The star denotes that the type of the argument is not relevant (a later example will show the ability of 5 to ‘dress’ data structures – the 5 way of overloading operators etc.).</p>
+<p>What does the word <code>cube_sum</code> do? First of all it pushes an empty string onto the stack and calls the <code>split</code>-function. This function expects a regular expression on the stack and splits the scalar found below on every place where this expression matches. Since the expression is an empty string in this case, it will perform a split after each character of a value. The nice thing is that this naturally extends to numerical values, too – if there was the value <code>123</code> on the top of the stack prior to performing <code>"" split</code> the result of this operation would be a vector <code>[1 2 3]</code>.</p>
+<p>This vector is then cubed element wise by <code>3 **</code> and summed (element wise) yielding a scalar value by <code>'+ reduce</code>, so the word <code>cube_sum</code> expects a value on the stack and returns the sum of the cubes of its digits.</p>
+<p>The main program is equally simple: First a vector running from <code>1</code> to <code>999</code> is generated by <code>999 iota 1 +</code>. This vector is then copied two times with <code>dup dup</code> before <code>cube_sum</code> is applied. Since <code>cube_sum</code> is a unary word, it will be applied in an element wise fashion to the elements of this vector and yields another vector with 999 elements which are the sums of the cubes of the digits of the numbers of the original value. This cube-sum-vector is then compared element wise with one of the copies made before, which yields another vector with 999 elements being <code>1</code> or <code>0</code> reflecting the result of the comparison operator. This vector is in turn used to <code>select</code> only those elements from the last copy of the original vector that equal their digit-cube-sum, which is then printed with the dot.</p>
+<h2 id="dressed-data-structures">Dressed data structures<a class="headerlink" href="#dressed-data-structures" title="Permanent link">&para;</a></h2>
+<p>If that were about all that 5 can do, it would not be too worthwhile but there is more: 5 allows one to "dress" data structures – i.e. mark some data as being of a certain type like a complex number, a quaternion, a matrix, whatever. The following example shows how to use this feature in the generation of a Mandelbrot set:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>: d2c(*,*) 2 compress 'c dress ;
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>: iterate(c) [0 0](c) "dup * over +" steps reshape execute ;
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>: print_line(*) "#*+-. " "" split swap subscript "" join . "\n" . ;
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>75 iota 45 - 20 /
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>29 iota 14 - 10 /
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>'d2c outer
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>10 'steps set
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>iterate abs int 5 min 'print_line apply
+</span></code></pre></div>
+<p>What is a Mandelbrot set anyhow? It is the result of applying an iterative calculation to points of the complex plane, so first of all we will need a matrix of complex numbers. The 5 interpreter has no idea what a complex number might be but it is easy to extend the language by overloading operators to handle data dressed in a special way. So the basic arithmetic operators are already overloaded in <code>mathlib.5</code> to handle complex numbers, which are dressed by the letter <code>c</code>. This ‘dress code’ is just a convention – one could have chosen anything but in order to keep 5 code short and concise, a single letter was chosen to denote complex numbers (<code>m</code> denotes a matrix, <code>v</code> a vector and <code>p</code> a polar coordinate).</p>
+<p>Generating a matrix from two vectors by creating an outer product was already shown in the prime number example above. We will use this technique to generate a matrix consisting of complex numbers. Therefore we need a binary word which takes two scalar values and returns a complex number made from these two values. This word is called <code>d2c</code> in the code shown above, short for “dupel to complex”. Since the name of the word is followed by <code>(*,*)</code> it is a binary word which does not care about the type of its arguments. All that it does is to compress the two values found on its local stack by <code>2 compress</code> into a simple two-element vector. This vector is then dressed by <code>'c dress</code> to form a complex number. Let us assume that <code>d2c</code> is called with <code>1 2 d2c</code>, so it finds the values <code>1</code> and <code>2</code> on its local stack. Executing <code>2 compress</code> yields the vector <code>[1 2]</code> which is then dressed to return <code>[1 2](c)</code> – a complex number.</p>
+<p>To see how this word is used, let us look at the three lines in the middle of the program: <code>75 iota 45 - 20 /</code> generates a vector <code>[-2.25 -2.2 -2.15 … 1.3 1.35 1.4 1.45]</code> while <code>29 iota 14 - 10 /</code> yields <code>[-1.4 -1.3 … 1.3 1.4]</code> respectively. These two vectors are then combined into a matrix by using <code>d2c</code> as the binary operator for the <code>outer</code>-function. The result of this is a two dimensional matrix of complex numbers – the basis of our Mandelbrot set.</p>
+<p>Now that we have a complex matrix, a unary word is needed that operates on complex numbers and performs the necessary iteration for a Mandelbrot set. This iteration has the form z<sub>i+1</sub>=z<sub>i</sub><sup>2</sup>+c, where c is a point of the complex plane with z<sub>0</sub>=0. If this series is non-divergent, the point c belongs to the Mandelbrot set. In the program shown above this iterative formula is applied 10 times and the resulting value is used to choose a display character for the point c in question.</p>
+<p>To compute this iterative formula, the word <code>iterate</code> is defined, which is a unary operator expecting a complex number which is denoted by the start of the word definition: <code>: iterate(c)</code>. In a first step this word pushes the complex number <code>[0 0](c)</code> onto the stack which serves as z<sub>0</sub>. A single iteration step can now be performed by the instruction sequence <code>dup * over +</code>. The function <code>dup</code> makes a copy of the value on the top of the stack, <code>*</code> multiplies the two topmost stack elements, effectively computing z<sub>i</sub><sup>2</sup> while <code>over</code> fetches the element below the top of stack, which is c, so z<sub>i</sub><sup>2</sup>+c is computed with <code>+</code> .</p>
+<p>To perform a given number of iterations a sequence of these steps must be generated. A traditional language like C or Java would need an explicit loop for this, but array languages like APL or 5 have the means to express this much more elegantly. (“Look Ma – no loops!”) The main program sets a variable named <code>steps</code> to <code>10</code> which is used in this word to control the number of iteration steps being performed. The result of <code>"dup * over +" steps reshape</code> in this case yields a one-dimensional vector with 10 elements, looking like this (effectively unrolling the loop): <code>["dup * over +" … "dup * over +"]</code> This vector is then used as an instruction stream by means of the <code>execute</code> function, which effectively computes the iterative sequence desired.</p>
+<p>The main program now calls <code>iterate</code>, which is implicitly applied to all elements of the complex matrix built before. The result of this is another complex matrix, which is transformed into a matrix of simple scalars by applying the <code>abs</code>-operator to it (<code>abs</code> has been already overloaded in <code>mathlib.5</code> to work on complex numbers and returns simple floats). The resulting elements are then capped by <code>5 min</code> and then another unary user defined word, <code>print_line</code>, is applied in a row-like fashion to the matrix by using it as an argument to the <code>apply</code>-function.</p>
+<p><code>print_line</code> is now called for every row of the matrix. It first generates a vector <code>["#" "*" "+" "-" "." " "]</code> by <code>split</code>ting the string <code>"#*+-. "</code> on an empty regular expression and then uses the elements of the line vector, which are integers between <code>0</code> and <code>5</code>, as an index into this character vector. The result is a vector containing as many characters as the line contained integer values. This vector is then concatenated into a simple string by <code>join</code>ing it with an empty string. This resulting string is then printed with a newline character appended. The resulting picture looks like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>                                         #
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>                                          * **
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>                                          ##*
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>                                        *#####
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>                                       +*####*-     *
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>                                 *###############*#*#*
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>                                #*###################
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>                    *          *#####################-*
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>                    -##*###*..*#######################
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>                    *#################################
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>                 *###################################
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>     +*#*#*#***####################################*
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>                 *###################################
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>                    *#################################
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>                    -##*###*..*#######################
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>                    *          *#####################-*
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>                                #*###################
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>                                 *###############*#*#*
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>                                       +*####*-     *
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>                                        *#####
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>                                          ##*
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>                                          * **
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>                                         #
+</span></code></pre></div>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>Although there is much more to say about 5, I hope that the few examples given above made you curious about this language and I would like to refer you to the extensive documentation which comes with the installation kit. Why should one use 5 when there are APL, J, K etc. implementations available? Some things that may speak in favour of 5 are listed below:</p>
+<ol>
+<li>5 is Open Source and easily portable to any architecture for which a Perl interpreter exists.</li>
+<li>Since 5 does not need any special characters there is no need to install additional fonts, which makes its installation even simpler.</li>
+<li>Installing 5 does not require any special rights – even end-users can install it locally in any directory, even <code>C:\Temp</code> on Windows systems, which makes the interpreter an ideal tool for ad-hoc analyses and experiments at customer locations.</li>
+<li>The interpreter is very well structured, which makes extensions to the 5 code quite straight forward, thus facilitating experiments in language design etc. (The complete interpreter consists of only 2895 lines of Perl code and 457 lines of 5 code contained in the standard libraries <code>stdlib.5</code> and <code>mathlib.5</code>.)</li>
+<li>5 is an emerging language where the individual can have a real impact on the directions of future developments. The development of the interpreter is still ongoing and we would love to hear about your suggestions and needs.</li>
+</ol>
+<p>Some of the areas which will see future developments are those listed in the following:</p>
+<ul>
+<li>The mathematical library <code>mathlib.5</code> needs to be extended to overload more operators for complex numbers, polar coordinates, quaternions and the like. Also the library is still lacking most of the common linear algebraic operators and functions.</li>
+<li>The interpreter currently lacks powerful operators for transposing and rotating matrices etc.</li>
+<li>We need more test cases for the interpreter – although there are a lot of test cases defined, which are run every time changes to the interpreter have been made, these are no longer sufficient and need to be extended heavily.</li>
+<li>We need example programs from the field to learn more about the power of 5 and to enhance the interpreter.</li>
+</ul>
+<p>We would love to hear from you and I hope that I could interest you in this new array language. Have fun with 5 and happy array programming.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a id="ref1"></a> 5 at SourceForge: <a href="http://lang5.sourceforge.net">lang5.sourceforge.net</a></li>
+<li><a id="ref2"></a> 5 documentation at SourceForge:  <a href="http://lang5.svn.sourceforge.net/viewvc/lang5/trunk/doc/introduction/introduction.pdf">lang5.sourceforge.net/viewvc/lang5/trunk/doc/introduction/introduction.pdf</a></li>
+</ol>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

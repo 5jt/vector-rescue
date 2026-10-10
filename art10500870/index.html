@@ -1,0 +1,1580 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="With version 13 Dyalog introduced two new system operators to deal with regular expressions using the open-source regular-expression search engine PCRE (Perl Compatible Regular Expressions).">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10500870/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>⎕S and ⎕R - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#who-should-read-this" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ⎕S and ⎕R
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#who-should-read-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Who should read this
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Basics
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Transformations
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Examples
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#r" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>⎕R</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#details" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Details
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-variant-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Variant operator <code>⍠</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Examples
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-files-as-input-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Using files as input source
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solved-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Solved patterns
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finding-apl-names-or-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Finding APL names or numbers
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technicalities" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Technicalities
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#real-life-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Real life example
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Real life example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#explanation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Explanation:
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conclusion
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conclusion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">⎕S and ⎕R</h1>
+
+  <p class="printed"><a href="../25/#n4-november-2012">Vector 25:4</a>, page 61</p>
+
+
+<p class="byline">Dan Baronet (danb@dyalog.com)</p>
+<p class="abstract">With version 13 Dyalog introduced two new system operators to deal with regular expressions.<br />
+The implementation uses the open-source regular-expression search engine PCRE (Perl Compatible Regular Expressions), a library, which is built into Dyalog APL. The regular expression syntax which the library supports is not unique to APL nor is it part of the language. Dyalog introduces new features and the way to use it is more like APL.<br />
+<code>⎕S</code> and <code>⎕R</code> are the new system operators that use the PCRE engine to do their job.<br />
+Like all other functions, <code>⎕S/R</code>  work with Unicode.</p>
+<h2 id="who-should-read-this">Who should read this<a class="headerlink" href="#who-should-read-this" title="Permanent link">&para;</a></h2>
+<p>This article assumes the reader knows a little bit about regular expressions. Although some basic syntax is given, few details will be provided. It will focus on the APL part of it instead and the examples will use simple regular expressions. Some advanced examples are shown towards the end for those interested in that sort of thing.</p>
+<h2 id="basics">Basics<a class="headerlink" href="#basics" title="Permanent link">&para;</a></h2>
+<p><code>⎕S</code> is used to report information on string matches and <code>⎕R</code> is used to make replacements in situ. They use regular expressions for that.</p>
+<p>A regular expression, often called a <strong>regex</strong>, is a string representing a pattern, a way to match text (e.g. words) in another piece of text. Here are 2 examples.</p>
+<p>1. Find the <strong>offset</strong> of all single characters followed by ‘at’</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>    (‘.at’ ⎕S 0) ‘The cat sat on the mattress’
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>4 8 17
+</span></code></pre></div>
+<p>2. Change to uppercase all occurrences of single letters followed by ‘at’</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>    (‘.at’ ⎕R ‘\u&amp;’) ‘The cat sat on the mattress’
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>The CAT SAT on the MATtress
+</span></code></pre></div>
+<p><code>⎕S</code> (and <code>⎕R</code>) being a dual operator, it takes 2 operands and returns a function. The left operand is always the pattern(s) and the right operand is the transformation, if any, to apply. It can either be a code (example 1 above: 0 means return the offset of each match), a transformation pattern (example 2: ‘\u&amp;’<a href="#ref1">[1]</a> means Uppercase the whole match), or a user function discussed below. The result, a function, is applied to an argument which holds text or a number tied to a native text file (including Unicode encoded files).</p>
+<p>Regular expressions, or regexes, can specify more complex patterns and an expression to find the length AND offset of <em>cat</em> or <em>lion</em> would be:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>    ('cat|lion' ⎕s 1 0) 'the cat sat on the medallion'
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>3 4   4 24
+</span></code></pre></div>
+<p>The result is 2 pairs of numbers: ‘a 3 long match at offset 4’ and ‘a 4 long match at offset 24’.</p>
+<p>Note that <strong>lion</strong> was found in <strong>medallion</strong>. Regexes allow you to specify whether a letter should be on a word boundary by using <strong>\b</strong> before and/or after it. For example to look for the offset of exact words <strong>cat</strong> and <strong>lion</strong> (using <code>⊢</code> this time to separate the right operand from the argument):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>    ⍴ '\bcat\b|\blion\b' ⎕S 0 ⊢ 'the cats sat on the medallion'
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>0
+</span></code></pre></div>
+<p>Nothing found. And this is right, the words cat and lion nowhere appear by themselves.</p>
+<p>There are many rules which are out of the scope of this article. They can be found either on the Net or in Dyalog’s manuals; too many to list them all here. It suffices to say that you can look for patterns in a very flexible and concise manner. Here is a short list of pattern characters and what they mean:</p>
+<table>
+        <tr><td>.   </td><td>stands for any char but line delimiter </td></tr>
+        <tr><td>{n} </td><td>stands for N times</td></tr>
+        <tr><td>?   </td><td>stands for 0 or 1 time</td></tr>
+        <tr><td>+   </td><td>stands for 1 or more times</td></tr>
+        <tr><td>*   </td><td>stands for 0 or more times</td></tr>
+        <tr><td>|   </td><td>means OR</td></tr>
+        <tr><td>()  </td><td>group elements or alternatives</td></tr>
+        <tr><td>][  </td><td>group possible characters</td></tr>
+        <tr><td>\b  </td><td>means “at a word Boundary”</td></tr>
+        <tr><td>^   </td><td>means the beginning of a line</td></tr>
+        <tr><td>$   </td><td>means the end of a line</td></tr>
+    </table>
+
+<p>For example to look for a string representing a number smaller or equal to 2012 (remember we are dealing with characters here) the pattern <strong>“\b ( 1\d{3} | 200\d | 201[012] ) \b”</strong><a href="#ref2">[2]</a> would do it. It means: look for either</p>
+<p>a <strong>‘1’</strong> followed by 3 digits (<strong>\d</strong> is any numeric digit – 0 to 9, <strong>{3}</strong> means repeat 3 times)<br />
+OR (the vertical bar <strong>|</strong> )<br />
+<strong>‘200’</strong>  followed by a digit <strong>(\d)</strong><br />
+OR (|)<br />
+<strong>‘201’</strong> followed by either <strong>‘0’</strong>, <strong>‘1’</strong> or <strong>‘2’</strong> (square brackets regroup the set of characters that the next character should be in)</p>
+<p>The parentheses regroup the 3 alternatives and the <strong>\b</strong> before and after ensures the string found is not part of a bigger number (like 1<strong>2000</strong>9)</p>
+<p>You can look for patterns that repeat, recurse, and do all kinds of things.</p>
+<p>But like anything else you need to spend a bit of time to do more fancy things.</p>
+<p>Again, if you want to delve into this, type ‘regular expressions’ in your favourite search engine and let yourself loose. If you want APL examples see “Tools, Part 4: Regular Expressions” in Vector 21:2, p.126.</p>
+<p>We will now look into what Dyalog did with this.</p>
+<h2 id="transformations">Transformations<a class="headerlink" href="#transformations" title="Permanent link">&para;</a></h2>
+<p>There are 3 types of results we may want to get from <code>⎕S:</code></p>
+<ol>
+<li>Frequent values like offset, length, line number for which codes (small ints) can be used</li>
+<li>Transformation (text) pattern like “uppercase the hit”</li>
+<li>More complex expression for which you must provide a function.</li>
+</ol>
+<p>We have seen examples of 1 and 2 above. If you cannot do what you want with those you’ll need to write a monadic function which will accept a namespace as argument. This namespace will contain a series of variables related to the current match:</p>
+<table>
+        <tr><td>Block       </td><td>the text being searched, in line mode<a href="#ref3">[3]</a>  this is the line we’re looking at</td></tr>
+        <tr><td>BlockNum    </td><td>the line number (<code>⎕IO 0</code>), in line mode again</td></tr>
+        <tr><td>Pattern     </td><td>the pattern used</td></tr>
+        <tr><td>PatternNum  </td><td>the pattern number (<code>⎕IO 0</code>)</td></tr>
+        <tr><td>Match       </td><td>the string that matches the pattern</td></tr>
+        <tr><td>Offsets     </td><td>the offset of each sub pattern </td></tr>
+        <tr><td>Lengths     </td><td>the length of each sub pattern</td></tr>
+        <tr><td>Names       </td><td>the names of each sub pattern</td></tr>
+        <tr><td>ReplaceMode </td><td>whether we are using <code>⎕R</code> (1) or <code>⎕S</code> (0)</td></tr>
+    </table>
+
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>1. Find all but the 1st digit of all unsigned integers found in a text</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>    '\d(\d+)' ⎕S '\1' ⊢ 'dsa  1233  30  3 xyz'
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a> 233  0
+</span></code></pre></div>
+<p><strong>Explanation:</strong> the pattern \d(\d+) means “find a digit (\d) followed by “more-than-1 digits” (\d+). The parentheses capture that sub pattern and since it is the 1st (and only) sub pattern it is #1 (#0 is given to the whole match). So ‘1233’ is the 1st match found (and sub pattern 0), in it is the sub pattern ‘233’ which is returned because this is what the right operand (\1) says to do. The same thing happens with the 2nd match: 30. So <code>⎕S</code> returns 2 results: ‘233’ and ‘0’. Note that ‘3’, the 3rd integer in the string does NOT match the pattern as there is no “more-than-1 digit” (\d+) after the 1st one.</p>
+<p>2. Reverse and return all the words in a sentence<br />
+This one is impossible to do with a transformation string so we use a function:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>'\w+' ⎕S {⌽⍵.Match} 'The cat sat on the mat'
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a> ehT  tac  tas  no  eht  tam
+</span></code></pre></div>
+<p><strong>Explanation:</strong> each time the <code>⎕S</code> derived function finds a match, e.g. ‘The’, it gives the right operand function a namespace as argument which contains the variables mentioned above. In it is found ‘Match’ which can be referred to and, in this case, flipped and returned. This is done each time a match is found (6 times). So here <code>⎕S</code> returns a Vector of 6 Text Vectors (a VTV).</p>
+<h2 id="r"><code>⎕R</code><a class="headerlink" href="#r" title="Permanent link">&para;</a></h2>
+<p>So far we’ve only seen searches. <code>⎕R</code> is the other new system operator introduced in V13.</p>
+<p>It is very much like <code>⎕S</code>. except that it performs replacement in the argument string. If we were to run the last 2 examples with <code>⎕R</code> instead we would get this:</p>
+<p>1. Remove the 1st digit of all integers &gt;9 :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a> '\d(\d+)' ⎕R'\1' ⊢ 'dsa  1233  30  3 xyz'
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>dsa  233  0  3 xyz
+</span></code></pre></div>
+<p><strong>Explanation:</strong> the pattern \d(\d+) means “find a digit (\d) followed by “more-than-1 digits” (\d+) just like before. The parentheses capture that sub pattern. So ‘1233’ is the 1st match found, and it is replaced by the sub pattern ‘233’ because this is what the right operand (\1) says to do. The same thing happens with the 2nd match: 30. So <code>⎕R</code> returns the argument minus the 1st digit of each match.</p>
+<p>2. Reverse all the words in a sentence</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>    '\w+' ⎕R {⌽⍵.Match} 'The cat sat on the mat'
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>ehT tac tas no eht tam
+</span></code></pre></div>
+<p><strong>Explanation:</strong> each time the <code>⎕R</code> derived function finds a match, e.g. ‘The’, it gives the right operand function a namespace as argument which contains, among other things, ‘Match’, which can be referred to and, in this case, flipped and used to replace the original match. This is done each time a match is found (6 times) resulting in a modified argument. Note that there is no need to separate the right operand function from the argument since it binds with <code>⎕R</code> first.</p>
+<h2 id="details">Details<a class="headerlink" href="#details" title="Permanent link">&para;</a></h2>
+<p>Normally a regex engine like PCRE works on a string in two possible modes: as a whole, called singleline, or as a series of lines delimited by a line delimiter (like NL), called multiline. This affects the way some searches are performed: in singleline mode the ^ and $ only match at the beginning and end of the searched string. In multiline mode they match at the beginning and end of every line in it. For example, an expression like <strong>^a.*b$</strong> would find all lines starting with <strong>a</strong> and ending with <strong>b</strong>. The <strong>^</strong> means “the beginning of the line”, the dot (.) means “any character but NL”, the star (<strong>*</strong>) means “as many times as possible” and the <strong>$</strong> means “the end of the line”.</p>
+<p><code>⎕S/R</code> have the same 2 modes called Document mode (=PCRE <em>singleline</em> mode) and Mixed mode (=PCRE multiline mode) plus another mode called Line mode. Line mode splits the searched text into logical lines so searches cannot span across them. It effectively treats every line as a different text to be searched. This is something not available with PCRE. Line mode is less prone to WSFULLs. <strong>It is the default mode.</strong></p>
+<p>APL being array oriented it also works on VTVs (Vectors of Text Vectors). With VTVs each vector represents a line in the text separated (by default) by CRLF and all results are the same in every mode, whether you use a VTV or <code>(⍴,LineDel)↓⊃,/LineDel∘,¨VTV</code>.</p>
+<h2 id="the-variant-operator">The Variant operator <code>⍠</code><a class="headerlink" href="#the-variant-operator" title="Permanent link">&para;</a></h2>
+<p>A regex program like PCRE is a complex program that assumes some settings to be present. Just like dyadic iota uses implicit arguments like <code>⎕IO</code> and <code>⎕CT</code>, a regex engine uses implicit arguments that can be modified.</p>
+<p>This new primitive operator is used to modify the behaviour of a function<a href="#ref4">[4]</a>. Here it is used to modify the way the resulting function from <code>⎕S</code> will be used. Note that the <code>⍠</code> character is not in <code>⎕AV</code><a href="#ref5">[5]</a>.</p>
+<p>Variant takes a function to the left and an array to the right. The array specifies the options that modify the function, resulting in a new function returned by Variant. For example, in</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>        F2← F1 ⍠ array
+</span></code></pre></div>
+<p>F2 is now a modified version of F1.</p>
+<p>There are many parameters that can be set via <code>⍠</code> for <code>⎕S</code> and <code>⎕R</code>. Here are the main ones (the 1st value is the default):</p>
+<table>
+        <tr>
+            <td>IC      </td>
+            <td>Ignore Case. Possible values: 0 or 1 </td>
+        </tr>
+       <tr>
+            <td>Mode    </td>
+            <td>Operating mode. Possible values: L=line mode, D=document mode, M=mixed mode</td>
+        </tr>
+       <tr>
+            <td>DotAll  </td>
+            <td>makes the dot match line delimiters too. Possible values: 0 or 1</td>
+        </tr>
+       <tr>
+            <td>EOL     </td>
+            <td>what the line delimiter is. Possible values: CR, LF, CRLF, VT, NEL, FF, LS, PS</td>
+        </tr>
+       <tr>
+            <td>ML      </td>
+            <td>Match Limit. Possible values: an integer. 0=no limit, &lt;0=only match |ML</td>
+        </tr>
+       <tr>
+            <td>Greedy  </td>
+            <td>whether matches are the longest or shortest. Possible values: 1 or 0</td>
+        </tr>
+    </table>
+
+<h2 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h2>
+<p>1. Change each vowel into XX</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>    ('[AEIOU]' ⎕R 'XX' ⍠ 'IC' 1) 'ABCDE abcde'
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>XXBCDXX XXbcdXX
+</span></code></pre></div>
+<p><strong>Explanation:</strong> the pattern specifies a set of letters to match, 5 vowels, each to be replaced by ‘XX’. Normally only the ‘A’ and the ‘E’ would be replaced but because the Variant operator has modified the <code>⎕R</code> resulting function to be Case Insensitive (with <code>⍠'IC' 1</code>) then ‘a’ and ‘e’ are also modified.</p>
+<p>2. Change ‘C’ followed by any character then ‘D’ by dash (-) in a multi line text</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>    ('C.D' ⎕R '-' ⍠ ('Mode' 'D')('DotAll' 1)) 'ABC',CR,'DEF',CR,'CAD'
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>AB-EF
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>-
+</span></code></pre></div>
+<p><strong>Explanation:</strong> the dot in the pattern usually means ‘any character but EOL’ but because Variant specifies that the <strong>dot</strong> matches <strong>all</strong> characters and because it also specifies ‘Document mode’ (Mixed mode would do too) then the sequence ‘C’,CR,’D’ matches and it is replaced by ‘-‘. The sequence ‘CAD’ also matches and is replaced accordingly. Note how multiple options are written. Because Variant modifies an existing function it can be applied many times. The following is all equivalent:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>  ('C.D' ⎕R '-' ⍠ ('Mode' 'M')('DotAll' 1))…
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  ('C.D' ⎕R '-' ⍠ 'Mode' 'M' ⍠ 'DotAll' 1)…
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>  CXD←'C.D' ⎕R '-' ⋄ (CXD ⍠ ('Mode' 'M')('DotAll' 1))…
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>  (CXD ⍠ 'DotAll' 1 ⍠ 'Mode' 'M')…
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>  CXM← CXD ⍠ 'Mode' 'M' ⋄ (CXM ⍠ 'DotAll' 1)…
+</span></code></pre></div>
+<p>3. Change the first 2 letters of each line by ‘x’</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>    ('[A-Z]' ⎕R 'x' ⍠ 'ML' 2) 'ABC' 'DEF'
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>xxC xxF
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    ('[A-Z]' ⎕R 'x' ⍠ 'ML' ¯2) 'ABC' 'DEF'
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>AxC DxF
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    ('[A-Z]' ⎕R 'x' ⍠ 'ML' ¯4 ⍠ 'Mode' 'D') 'ABC' 'DEF'
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>ABC xEF
+</span></code></pre></div>
+<p><strong>Explanation :</strong> in the first case we ask to change any character in the set A-Z by x. Because we are working in line mode, each vector is processed independently and the first 2 letters of each line is modified. In the second case we ask that only the <strong>second</strong> (<code>¯2</code>) match be acted upon, again in each line. In the last case we ask that only the 4th match be processed. Because we now treat the argument as a whole document (<code>'Mode''D'</code>), only the 4th letter, ‘D’ is modified.</p>
+<h2 id="using-files-as-input-source">Using files as input source<a class="headerlink" href="#using-files-as-input-source" title="Permanent link">&para;</a></h2>
+<p>It is possible to use a native file as source instead of a array (character vector or VTV).</p>
+<p>To do so you supply the tie number of the file to process. If the file is read from the start, and there is a valid Byte Order Mark (BOM) at the start of it, the data encoding is determined by this BOM.</p>
+<p>The input document may be processed in any mode. In document mode and mixed mode, the entire input document, line ending characters included, is passed to the search engine; in line mode the document is split on line endings and passed to the search engine in sections without the line ending characters. The choice of mode affects both memory usage and behaviour.</p>
+<h2 id="solved-patterns">Solved patterns<a class="headerlink" href="#solved-patterns" title="Permanent link">&para;</a></h2>
+<p>Find a number from 0 to 255: \b(25[0-5]|2[0-4]\d|[01]?\d\d?)\b</p>
+<p>Find an IP address:</p>
+<p>\b((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)\b</p>
+<p>Finding a date:</p>
+<p>\b(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])\b</p>
+<h2 id="finding-apl-names-or-numbers">Finding APL names or numbers<a class="headerlink" href="#finding-apl-names-or-numbers" title="Permanent link">&para;</a></h2>
+<p>It may be interesting to know where some names are in some code.</p>
+<p>Finding a name with a regex in a conventional language is fairly easy: <strong>[A-Za-z]\w*</strong> will usually do it: that’s 1 letter followed by 0 or more word characters (the * means 0 or more times). Not in APL. APL names in Dyalog can have all sorts of characters like <code>∆</code> and <code>⍙</code>. A regular expression to find such a name would look like</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>(?x) # ignore spaces and comments
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a># define what the Leading character of a name and what an APL ID is
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>(?(DEFINE)(?&lt;L1&gt;[_A-Z∆a-
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>z⍙ÁÂÃÇÈÊËÌÍÎÏÐÒÓÔÕÙÚÛÝþãìðòõÀÄÅÆÉÑÖØÜßàáâäåæçèéêëíîïñóôöøùúûü]) )
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>(?:            # do not capture
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>(?&lt;!\s:|::)    # not preceded by space: or ::
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>(?&lt;!(?&amp;L1))    # not preceded by any of the characters above
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>(?&amp;L1)         # must start with one of them
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>(?:(?&amp;L1)|\d)* # followed by 1 of them or a digit 0 or more times
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>|⍺⍺|⍺|⍵⍵|⍵)    # or any of those
+</span></code></pre></div>
+<p>which is a bit hard to remember and type – and to explain in details here, even with the comments.</p>
+<p>Assuming we put the above pattern in variable ‘patid’ we can find APL names in code like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>    patid ⎕S {⍵.Offsets,⍵.Lengths} '⎕←dsÀÄa←_-.=0 u∆io8 321'
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>2 5  8 1  14 5
+</span></code></pre></div>
+<p>Numbers are similar. A number in Dyalog would require a long expression to be used.</p>
+<p>There is a project at Dyalog to provide a shortcut for such patterns. For now if you wish to find general APL names or numbers in your code you have to resort to user command <code>]WSLOCATE</code>. Type <code>]?WSLOCATE</code> for details.</p>
+<h2 id="technicalities">Technicalities<a class="headerlink" href="#technicalities" title="Permanent link">&para;</a></h2>
+<p>The engine needs to prepare the search before using it.</p>
+<p>This involves parsing the pattern and compiling a structure subsequently used in the process. If a search will be performed repeatedly it would be inefficient to recompile it each time. The interpreter tries to account for this by keeping the last few structures around for a while in case they are to be reused. The interpreter keeps a cache of compiled patterns and flushes the one least recently used when the cache is full and a new pattern is created. This cache is saved in the workspace; and is never garbage collected.</p>
+<h2 id="real-life-example">Real life example<a class="headerlink" href="#real-life-example" title="Permanent link">&para;</a></h2>
+<p>This example is for those with a good understanding of regular expression.</p>
+<p>In 2011 I needed to look into a log file and extract some data in a log file tied to <strong>tieno</strong>. I was looking for the patterns</p>
+<p>P1: <code>'(type=\d+, shape=(?:(?:\d+[ ,])+))'</code> (here I wanted the whole thing)</p>
+<p>Followed by anything and then by</p>
+<p>P2: <code>'≡⍴2 0⍕B *\d+ (\d+)'</code>  (here I only wanted the number in the parentheses)</p>
+<p>This is basically the pattern P1.*?P2.</p>
+<p>By doing <code>'P1.*?P2.' ⎕S info tieno'</code> I should have been able to extract all the data with &lt;info&gt; a function catenating P1 with P2 results for each match.</p>
+<p>Unfortunately the file sometimes contained P1…P1…P2 which means that the 1st P1 (and not the 2nd) was matched with P2. So I had to use a different pattern.</p>
+<p>I used <code>p1((?!p1|p2).)*p2</code></p>
+<p>This is “look for p1, advance while you don’t have either p1 or p2, then look for p2”.</p>
+<h3 id="explanation">Explanation:<a class="headerlink" href="#explanation" title="Permanent link">&para;</a></h3>
+<p>Let’s use the following text as an example:</p>
+<p>aap1bbp1ccp2dd</p>
+<p>The 'p1' at the start of the pattern will cause the text pointer to skip over the "aa" characters and match the first "p1" characters.</p>
+<p>The next part in parentheses breaks down to a negative lookahead (the ?! part) and the '.'. The negative lookahead will check the next character(s) (here "bb") and, since there is no match either with p1 or p2 (the 2 alternatives), will succeed and so the '.' will match the first "b". This is repeated with the "bp" characters.</p>
+<p>As the next characters are "p1" the lookahead will fail (because of its negative aspect). Because the quantifier that controls this part of the pattern is '*' (0 or more matches) the fact that the lookahead failed is not a problem, it’s only the parentheses group that stops matching. The next thing in the pattern is p2 which is compared with the "p1" in the text - which will fail. This global failure causes the regex engine to start backtracking. In this case, there are no alternative ways that they can match so the whole pattern match is rejected. ‘p1bbp1’ failed to match.</p>
+<p>When this occurs, the regex engine will step forward 1 character over the 1st "p" and start the match at the "1bb" character sequence. In this case the regex engine will again start skipping forward until it gets to the 2nd "p1". The process described above will be repeated except that the lookahead will stop the '.' matching when it gets to the "p2" characters. Now, the last part of the pattern (p2) does match which lets the regex engine declare that a complete match has been found.</p>
+<p>The sequence ‘p1ccp2’ matches, &lt;info&gt; grabs it, extract the sections I want, merges and returns them. I’m one happy camper.</p>
+<p>This last example is a real life example which would have been more difficult to program in APL (or any other language for that matter). The ability to use regexes combined with APL allowed me to perform the task in a fraction of the time it would have taken me normally.</p>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>Regular expressions are extremely useful when dealing with complicated patterns. Without them you must spend time writing code, sometimes a lot of, to parse and extract, time that could be better spent, well, any other way. Up until now there was no choice, but now there is.</p>
+<p>You have to be careful and not over do it. Using code like <code>‘x’ ⎕R ‘X’ +text</code> is very inefficient compared to <code>((text=’x’)/text) ← ‘X’</code></p>
+<p>Caveat emptor.</p>
+<p>Books : Regular Expressions Cookbook (O’Reilly 2009)</p>
+<h3 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h3>
+<ol>
+<li><a id="ref1"></a> Another one is \ln to Lowercase match of sub pattern ‘n’</li>
+<li><a id="ref2"></a> Spaces are important in regular expressions but ignore them here</li>
+<li><a id="ref3"></a> Modes are explained below</li>
+<li><a id="ref4"></a> For example used with iota (<code>⍳</code>) it could generate a function to generate series from either 0 or 1. By using <code>⍳⍠ 0</code> we could create a function that generates numbers starting at 0 regardless of <code>⎕IO</code>.</li>
+<li><a id="ref5"></a> Astute observers will wonder what Classic users do. For them there is an equivalent <code>⎕OPT</code> system operator.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

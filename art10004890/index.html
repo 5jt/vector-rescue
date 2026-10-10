@@ -1,0 +1,1733 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10004890/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Writing Operators for Dyalog APL - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        <a href="#__skip" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Writing Operators for Dyalog APL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Writing Operators for Dyalog APL</h1>
+
+  <p class="printed"><a href="../8/#n4-april-1992">Vector 8:4</a>, page 119</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-language-design">language design</a> <a class="md-tag" href="../tags/#tag-programming-techniques">programming techniques</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../8/4/VOL.8-NO.4-APRIL-1992.pdf#page=121">Read it in the PDF of the issue, page 119</a></em></p>
+<p class="byline"><em>by Phil Last</em></p>
+<p>In this article I shall discuss operator syntax, introduce a new idiom, and describe some defined operators which use it.</p>
+<p>In expressions and identities (distinguished by having ‘↔’ between two equivalent expressions) I shall try to use symbols consistently as:</p>
+<blockquote>
+<p>(a) (b) (l) (r) are arrays.<br>
+(f) (g) (h) are functions.<br>
+(A) is an ambivalent object which might be an array or a function according to parameter substitution for operators.<br>
+(O) and (P) are operators.</p>
+</blockquote>
+<p><strong>A grasp of operator syntax and of the construction and derivation of derived functions is a prerequisite to the understanding of what follows.</strong></p>
+<p>I have used the old terminology of distinguishing OPERANDS from ARGUMENTS. In fact the word ’argument’ is generic and can be used to refer to parameters to both functions and operators while the word ’operand’ is (within APL) reserved for operator arguments. I shall use the words from now on as follows:</p>
+<blockquote>
+<p>An ARGUMENT is exclusively an array parameter to a FUNCTION (primitive, defined or derived).<br>
+An OPERAND is a parameter (function or array) to an OPERATOR (primitive or defined).</p>
+</blockquote>
+<p>Functions are ambivalent - left arguments may be elided. Operators are either monadic or dyadic - never ambivalent. Monadic Operators take their single operand on the LEFT. Operands are ambivalent in the sense that they may be either functions or arrays.</p>
+<p>In the expression:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nv">a</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">O</span><span class="w"> </span><span class="nv">g</span><span class="w"> </span><span class="nv">b</span>
+</span></code></pre></div>
+<p>wherein (<em>O</em>) is a DYADIC operator</p>
+<blockquote>
+<p>(<em>f</em>) and (<em>g</em>) are the operands to (<em>O</em>).<br>
+(<em>a</em>) and (<em>b</em>) are the arguments to the derived function (<em>f O g</em>).</p>
+</blockquote>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">a</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">O</span><span class="w"> </span><span class="nv">g</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">a</span><span class="p">(</span><span class="nv">f</span><span class="w"> </span><span class="nv">O</span><span class="w"> </span><span class="nv">g</span><span class="p">)</span><span class="nv">b</span><span class="w">  </span><span class="c1">⍝ for dyadic O</span>
+</span></code></pre></div>
+<p>In the expression:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">a</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">P</span><span class="w"> </span><span class="nv">g</span><span class="w"> </span><span class="nv">b</span>
+</span></code></pre></div>
+<p>wherein (<em>P</em>) is a MONADIC operator</p>
+<blockquote>
+<p>(<em>f</em>) is the operand to (<em>P</em>).<br>
+(<em>a</em>) is the left argument to the derived function (<em>f P</em>).<br>
+(<em>b</em>) is the right argument to function (<em>g</em>).<br>
+(<em>g b</em>) is the right argument to the derived function (<em>f P</em>).</p>
+</blockquote>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nv">a</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">P</span><span class="w"> </span><span class="nv">g</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">a</span><span class="p">(</span><span class="nv">f</span><span class="w"> </span><span class="nv">P</span><span class="p">)</span><span class="nv">g</span><span class="w"> </span><span class="nv">b</span><span class="w">  </span><span class="c1">⍝ for monadic P</span>
+</span></code></pre></div>
+<p>In the expression:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nv">R</span><span class="kd">←</span><span class="nv">a</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">O</span><span class="w"> </span><span class="nv">g</span><span class="w"> </span><span class="nv">P</span><span class="w"> </span><span class="nv">h</span><span class="w"> </span><span class="nv">b</span>
+</span></code></pre></div>
+<p>wherein (<em>O</em>) and (<em>P</em>) are DYADIC operators</p>
+<blockquote>
+<p>(<em>h</em>) is the right operand to (<em>P</em>)<br>
+(<em>f O g</em>) is the left operand to (<em>P</em>)<br>
+(<em>f</em>) (<em>g</em>) are the operands to (<em>O</em>)<br>
+(<em>a</em>) (<em>b</em>) are the arguments to function (<em>f O g P h</em>)</p>
+</blockquote>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nv">a</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">O</span><span class="w"> </span><span class="nv">g</span><span class="w"> </span><span class="nv">P</span><span class="w"> </span><span class="nv">h</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">a</span><span class="p">(</span><span class="nv">f</span><span class="w"> </span><span class="nv">O</span><span class="w"> </span><span class="nv">g</span><span class="p">)</span><span class="nv">P</span><span class="w"> </span><span class="nv">h</span><span class="w"> </span><span class="nv">b</span><span class="w">  </span><span class="c1">⍝ for dyadic O and P</span>
+</span></code></pre></div>
+<p>It is this fact which gives rise to the oft mentioned misapprehension that in function expressions (containing operators) execution proceeds from left to right. In fact the left operand (<em>f O g</em>) is derived prior to the execution of (<em>P</em>) but is then only executed under the control of (<em>P</em>) if at all. In other words as always execution proceeds from right to left unless parentheses are used to alter that order. In the expression:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">a</span><span class="p">(</span><span class="nv">f</span><span class="w"> </span><span class="nv">O</span><span class="w"> </span><span class="nv">r</span><span class="p">)</span><span class="nv">b</span>
+</span></code></pre></div>
+<p>wherein (<em>O</em>) is a DYADIC operator</p>
+<blockquote>
+<p>(<em>f</em>) is the left function operand to (<em>O</em>)<br>
+(<em>r</em>) is the right array operand to (<em>O</em>)<br>
+(<em>a</em>) and (<em>b</em>) are the arguments to derived function (<em>f O r</em>)</p>
+</blockquote>
+<p>The parentheses are non-redundant.</p>
+<p>The expression:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nv">a</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">O</span><span class="w"> </span><span class="nv">r</span><span class="w"> </span><span class="nv">b</span>
+</span></code></pre></div>
+<p>is a <em>SYNTAX ERROR</em> for dyadic (<em>O</em>) as:</p>
+<blockquote>
+<p>(<em>r b</em>) is either the right operand to (<em>O</em>) <code>a(f O r b)</code><br>
+or the right argument to (<em>f O</em>) <code>a(f O)r b</code></p>
+</blockquote>
+<p>The expression is missing either a right argument or a right operand. APL syntax does not permit the derivation of left monadic functions or the elision of right operands.</p>
+<blockquote>
+<p>Unfortunately IBM’s APL2 and compatibles make the binding of right operands take precedence over vector binding, viz: the <code>1 2 3 4</code> in the statement:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nv">R</span><span class="kd">←</span><span class="nv">A</span><span class="w"> </span><span class="nv">fn</span><span class="w"> </span><span class="nv">DOP</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span></code></pre></div>
+<p>is not necessarily a vector. Then:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nv">a</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">O</span><span class="w"> </span><span class="nv">r</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">a</span><span class="p">(</span><span class="nv">f</span><span class="w"> </span><span class="nv">O</span><span class="w"> </span><span class="nv">r</span><span class="p">)</span><span class="nv">b</span><span class="w">   </span><span class="c1">⍝ for dyadic O in IBM APL2</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">                        </span><span class="c1">⍝  and compatibles only</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nv">a</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">O</span><span class="w"> </span><span class="nv">r</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">a</span><span class="p">(</span><span class="nv">f</span><span class="w"> </span><span class="nv">O</span><span class="p">)</span><span class="nv">r</span><span class="w"> </span><span class="nv">b</span><span class="w">   </span><span class="c1">⍝ for monadic O</span>
+</span></code></pre></div>
+<p>whereas DYALOG, APL*PLUS II etc. interpret:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nv">a</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">O</span><span class="w"> </span><span class="nv">r</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">a</span><span class="p">(</span><span class="nv">f</span><span class="w"> </span><span class="nv">O</span><span class="p">)</span><span class="nv">r</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="c1">⍝ in all cases</span>
+</span></code></pre></div>
+<p>and generate a <em>SYNTAX ERROR</em> for dyadic O.</p>
+</blockquote>
+<p>In fact parentheses around function expressions, although often required for clarity, are only absolutely necessary when:</p>
+<ul>
+<li>a dyadic call is made to a function derived from an operator having an array left operand:</li>
+</ul>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nv">a</span><span class="w"> </span><span class="nv">l</span><span class="w"> </span><span class="nv">O</span><span class="w"> </span><span class="nv">g</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="p">(</span><span class="nv">a</span><span class="w"> </span><span class="nv">l</span><span class="w"> </span><span class="nv">O</span><span class="w"> </span><span class="nv">g</span><span class="p">)</span><span class="nv">b</span><span class="w"> </span><span class="c1">⍝ monadic call to (a l O g)</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nv">a</span><span class="p">(</span><span class="nv">l</span><span class="w"> </span><span class="nv">O</span><span class="w"> </span><span class="nv">g</span><span class="p">)</span><span class="nv">b</span><span class="w">              </span><span class="c1">⍝ parentheses required for dyadic call.</span>
+</span></code></pre></div>
+<ul>
+<li>or a derived function is used as right operand to a dyadic operator.</li>
+</ul>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nv">a</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">O</span><span class="w"> </span><span class="nv">g</span><span class="w"> </span><span class="nv">P</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">a</span><span class="p">(</span><span class="nv">f</span><span class="w"> </span><span class="nv">O</span><span class="w"> </span><span class="nv">g</span><span class="p">)</span><span class="nv">P</span><span class="w"> </span><span class="nv">b</span><span class="w">  </span><span class="c1">⍝ fn derived from O is operand to P</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nv">a</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">O</span><span class="p">(</span><span class="nv">g</span><span class="w"> </span><span class="nv">P</span><span class="p">)</span><span class="nv">b</span><span class="w">                </span><span class="c1">⍝ fn derived from P is operand to O</span>
+</span></code></pre></div>
+<p>The separation of array right operands from right arguments to the derived function can often be achieved without parentheses by use of a right identity:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="o">⊢</span><span class="w">   </span><span class="c1">⍝ where implemented</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="o">+</span><span class="w">   </span><span class="c1">⍝ where the domain is real</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="o">,</span><span class="w">   </span><span class="c1">⍝ where the argument is a vector etc.</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="nv">a</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">O</span><span class="w"> </span><span class="nv">r</span><span class="w"> </span><span class="o">⊢</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">a</span><span class="p">(</span><span class="nv">f</span><span class="w"> </span><span class="nv">O</span><span class="w"> </span><span class="nv">r</span><span class="p">)</span><span class="nv">b</span><span class="w"> </span><span class="c1">⍝ for dyadic O</span>
+</span></code></pre></div>
+<p>What follows makes extensive use of:</p>
+<p><code>⊢</code> dex - the ambivalent right identity function</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nv">a</span><span class="w"> </span><span class="o">⊢</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">b</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span><span class="o">⊢</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">b</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="nv">f</span><span class="w"> </span><span class="o">⊢</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">b</span>
+</span></code></pre></div>
+<p><code>∘</code> the compose operator</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nv">a</span><span class="p">(</span><span class="nv">f</span><span class="na">∘</span><span class="nv">g</span><span class="p">)</span><span class="nv">b</span><span class="w">  </span><span class="err">↔</span><span class="w">  </span><span class="nv">a</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">g</span><span class="w"> </span><span class="nv">b</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w"> </span><span class="p">(</span><span class="nv">f</span><span class="na">∘</span><span class="nv">g</span><span class="p">)</span><span class="nv">b</span><span class="w">  </span><span class="err">↔</span><span class="w">  </span><span class="nv">f</span><span class="w"> </span><span class="nv">g</span><span class="w"> </span><span class="nv">b</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w"> </span><span class="p">(</span><span class="nv">l</span><span class="na">∘</span><span class="nv">g</span><span class="p">)</span><span class="nv">b</span><span class="w">  </span><span class="err">↔</span><span class="w">  </span><span class="nv">l</span><span class="w"> </span><span class="nv">g</span><span class="w"> </span><span class="nv">b</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w"> </span><span class="p">(</span><span class="nv">f</span><span class="na">∘</span><span class="nv">r</span><span class="p">)</span><span class="nv">b</span><span class="w">  </span><span class="err">↔</span><span class="w">  </span><span class="nv">b</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">r</span>
+</span></code></pre></div>
+<p>Either or both of these might be implemented using a different character on your system, or one or both might not have been implemented. They are both very simple to define … combining dex and compose:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="w">    </span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">f</span><span class="p">)</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">b</span><span class="w">              </span><span class="p">(</span><span class="nv">i</span><span class="p">)</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">   </span><span class="nv">a</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">f</span><span class="p">)</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">b</span><span class="w">             </span><span class="p">(</span><span class="nv">ii</span><span class="p">)</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">r</span><span class="p">)</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">r</span><span class="w">              </span><span class="p">(</span><span class="nv">iii</span><span class="p">)</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w"> </span><span class="o">⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">f</span><span class="p">)</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">b</span><span class="w">              </span><span class="p">(</span><span class="nv">iv</span><span class="p">)</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w"> </span><span class="o">⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">r</span><span class="p">)</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">r</span><span class="w">                 </span><span class="p">(</span><span class="nv">v</span><span class="p">)</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="nv">a</span><span class="o">⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">f</span><span class="p">)</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">b</span><span class="w">              </span><span class="p">(</span><span class="nv">vi</span><span class="p">)</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="nv">a</span><span class="o">⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">r</span><span class="p">)</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">r</span><span class="w">               </span><span class="p">(</span><span class="nv">vii</span><span class="p">)</span>
+</span></code></pre></div>
+<p>(<code>⊢∘f</code>) and (<code>⊢∘(⊢∘f)</code>) are both ambivalent functions which ignore their left arguments and call function (<em>f</em>) MONADICALLY. (<code>⊢∘r</code>) and (<code>⊢∘(⊢∘r)</code>) are respectively MONADIC and AMBIVALENT CONSTANT functions which return (<em>r</em>) whatever their argument(s).</p>
+<p>An aside: by definition of reduction:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="o">⊃</span><span class="nv">f</span><span class="na">/</span><span class="o">⊂</span><span class="nv">a</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="o">⊃</span><span class="nv">f</span><span class="na">/</span><span class="o">,⊂</span><span class="nv">a</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">a</span><span class="w">          </span><span class="p">(</span><span class="nv">viii</span><span class="p">)</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="o">⊃</span><span class="nv">f</span><span class="na">/</span><span class="p">(</span><span class="o">⊂</span><span class="nv">a</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">b</span><span class="w">        </span><span class="p">(</span><span class="nv">ix</span><span class="p">)</span>
+</span></code></pre></div>
+<p>We can now derive the idiom:</p>
+<p>using (viii) and (ix)</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="o">⊃</span><span class="nv">f</span><span class="na">/</span><span class="p">(</span><span class="m">0</span><span class="o">⍴⊂</span><span class="nv">a</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">b</span><span class="w">         </span><span class="c1">⍝ conditional execution     (1)</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="o">⊃</span><span class="nv">f</span><span class="na">/</span><span class="p">(</span><span class="m">1</span><span class="o">⍴⊂</span><span class="nv">a</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">b</span><span class="w">     </span><span class="c1">⍝ of dyadic function f      (2)</span>
+</span></code></pre></div>
+<p>substitute ambivalent function from (ii)</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="o">⊃⊢</span><span class="na">∘</span><span class="nv">f</span><span class="na">/</span><span class="p">(</span><span class="m">0</span><span class="o">⍴⊂</span><span class="nv">a</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">b</span><span class="w">       </span><span class="c1">⍝ conditional execution     (3)</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="o">⊃⊢</span><span class="na">∘</span><span class="nv">f</span><span class="na">/</span><span class="p">(</span><span class="m">1</span><span class="o">⍴⊂</span><span class="nv">a</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">b</span><span class="w">     </span><span class="c1">⍝ of monadic function f     (4)</span>
+</span></code></pre></div>
+<p>remove now redundant reference to (a)</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="o">⊃⊢</span><span class="na">∘</span><span class="nv">f</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="m">0</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">b</span><span class="w">         </span><span class="c1">⍝ conditional execution     (5)</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="o">⊃⊢</span><span class="na">∘</span><span class="nv">f</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="m">1</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">b</span><span class="w">       </span><span class="c1">⍝ of monadic function f     (6)</span>
+</span></code></pre></div>
+<p>substitute equivalent function from (vi)</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="o">⊃⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">f</span><span class="p">)</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="m">0</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">b</span><span class="w">     </span><span class="c1">⍝ conditional execution     (7)</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="o">⊃⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">f</span><span class="p">)</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="m">1</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">b</span><span class="w">   </span><span class="c1">⍝ of monadic function f     (8)</span>
+</span></code></pre></div>
+<p>substitute constant function from (vii)</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="o">⊃⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">r</span><span class="p">)</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="m">0</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">b</span><span class="w">     </span><span class="c1">⍝ condition selection       (9)</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="o">⊃⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">r</span><span class="p">)</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="m">1</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">r</span><span class="w">     </span><span class="c1">⍝ of array r               (10)</span>
+</span></code></pre></div>
+<p>Most important is the similarity of 7, 8, 9 and 10 which differ only in a single logical value and the function/array ambivalence of f and r</p>
+<p>These permit the coding of the conditional ambivalent expression:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="o">⊃⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">A</span><span class="p">)</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="nv">L</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">b</span><span class="w">     </span><span class="c1">⍝ when L is untrue         (11)</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">                 </span><span class="err">↔</span><span class="w"> </span><span class="nv">A</span><span class="w"> </span><span class="nv">b</span><span class="w">   </span><span class="c1">⍝ when L is true and A is a function</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">                 </span><span class="err">↔</span><span class="w"> </span><span class="nv">A</span><span class="w">     </span><span class="c1">⍝ when L is true and A is an array</span>
+</span></code></pre></div>
+<p>I believe this idiom to be new. It is very useful.</p>
+<p>I have used dex and compose because compose is implemented on my system; an alternative pair will do the same job:</p>
+<p><code>⊣</code> lev - the ambivalent left identity function</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nv">a</span><span class="w"> </span><span class="o">⊣</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">a</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">  </span><span class="o">⊣</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">b</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="nv">f</span><span class="w"> </span><span class="o">⊣</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">b</span>
+</span></code></pre></div>
+<p>and lever - a defined operator</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="w"> </span><span class="p">(</span><span class="nv">f</span><span class="w"> </span><span class="nv">lever</span><span class="p">)</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">b</span><span class="w">        </span><span class="c1">⍝ cf. (iv) (v) (vi) and (vii)</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w"> </span><span class="p">(</span><span class="nv">l</span><span class="w"> </span><span class="nv">lever</span><span class="p">)</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">l</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="nv">a</span><span class="p">(</span><span class="nv">f</span><span class="w"> </span><span class="nv">lever</span><span class="p">)</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">b</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="nv">a</span><span class="p">(</span><span class="nv">l</span><span class="w"> </span><span class="nv">lever</span><span class="p">)</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">l</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="w">  </span><span class="nv">A</span><span class="w"> </span><span class="nv">lever</span><span class="w">   </span><span class="err">↔</span><span class="w">  </span><span class="o">⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">A</span><span class="p">)</span><span class="w">                                 </span><span class="p">(</span><span class="nv">x</span><span class="p">)</span>
+</span></code></pre></div>
+<p>(<em>f lever</em>) is an ambivalent function which calls the function operand (<em>f</em>) MONADICALLY. (<em>l lever</em>) is an ambivalent constant function which always returns array (<em>l</em>)</p>
+<p>Substituting (x) into (11) gives: (12)</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="o">⊃</span><span class="nv">A</span><span class="w"> </span><span class="nv">lever</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="nv">L</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">b</span><span class="w">     </span><span class="c1">⍝ when L is untrue</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w">                 </span><span class="err">↔</span><span class="w"> </span><span class="nv">A</span><span class="w"> </span><span class="nv">b</span><span class="w">   </span><span class="c1">⍝ when L is true and A is a function</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">                 </span><span class="err">↔</span><span class="w"> </span><span class="nv">A</span><span class="w">     </span><span class="c1">⍝ when L is true and A is an array</span>
+</span></code></pre></div>
+<p>If your system has <code>∘</code> (or equivalent) but lacks <code>⊢</code> and <code>⊣</code> then:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="o">⊃</span><span class="nv">dex</span><span class="na">∘</span><span class="p">(</span><span class="nv">dex</span><span class="na">∘</span><span class="nv">A</span><span class="p">)</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="nv">L</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span><span class="w">    </span><span class="c1">⍝ from (11)</span>
+</span></code></pre></div>
+<p>… is the better alternative as dex does not have a great deal to do:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">L</span><span class="w"> </span><span class="nv">dex</span><span class="w"> </span><span class="nv">R</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="bp">∇</span>
+</span></code></pre></div>
+<p>If your system has <code>⊢</code> and <code>⊣</code> but lacks compose then:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="o">⊃</span><span class="nv">A</span><span class="w"> </span><span class="nv">lever</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="nv">L</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span><span class="w">             </span><span class="c1">⍝ from (12)</span>
+</span></code></pre></div>
+<p>is preferable as the defined operator is unconditional:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">A</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">lever</span><span class="p">)</span><span class="nv">B</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">R</span><span class="kd">←</span><span class="nv">F</span><span class="o">⊣</span><span class="nv">B</span>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>My first use of this idiom is in defined operator <code>IF_</code>:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">IF_</span><span class="w"> </span><span class="nv">G</span><span class="p">)</span><span class="nv">R</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ IF G or G R then R←F or F R</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ F: any array or monadic function</span>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ G: any array or (conditional) monadic function</span>
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ R: any array in domains of (F) and (G) if functions</span>
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">    </span><span class="nv">R</span><span class="kd">←</span><span class="o">⊃⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">F</span><span class="p">)</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="m">1</span><span class="o">∊</span><span class="nv">G</span><span class="o">⊣</span><span class="nv">R</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">R</span>
+</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">IF_</span><span class="w"> </span><span class="nv">G</span><span class="p">)</span><span class="nv">R</span><span class="w"> </span><span class="na">...</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ alternative defn without primitive lev and dex:</span>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="nv">R</span><span class="kd">←</span><span class="o">⊃</span><span class="nv">dex</span><span class="na">∘</span><span class="p">(</span><span class="nv">dex</span><span class="na">∘</span><span class="nv">F</span><span class="p">)</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="m">1</span><span class="o">∊</span><span class="p">(</span><span class="nv">dex</span><span class="na">∘</span><span class="nv">G</span><span class="p">)</span><span class="nv">R</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">R</span>
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">IF_</span><span class="w"> </span><span class="nv">G</span><span class="p">)</span><span class="nv">R</span><span class="w"> </span><span class="na">...</span>
+</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ alternative defn without primitive compose:</span>
+</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="nv">R</span><span class="kd">←</span><span class="o">⊃</span><span class="nv">F</span><span class="w"> </span><span class="nv">lever</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="m">1</span><span class="o">∊</span><span class="nv">G</span><span class="o">⊣</span><span class="nv">R</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">R</span>
+</span><span id="__span-32-9"><a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-32-10"><a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a>
+</span><span id="__span-32-11"><a id="__codelineno-32-11" name="__codelineno-32-11" href="#__codelineno-32-11"></a><span class="w">      </span><span class="p">(</span><span class="o">-</span><span class="nv">IF_</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="m">3</span><span class="w">                </span><span class="c1">⍝ operands: function and array</span>
+</span><span id="__span-32-12"><a id="__codelineno-32-12" name="__codelineno-32-12" href="#__codelineno-32-12"></a><span class="m">¯3</span>
+</span><span id="__span-32-13"><a id="__codelineno-32-13" name="__codelineno-32-13" href="#__codelineno-32-13"></a><span class="w">      </span><span class="p">(</span><span class="o">-</span><span class="nv">IF_</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="m">3</span>
+</span><span id="__span-32-14"><a id="__codelineno-32-14" name="__codelineno-32-14" href="#__codelineno-32-14"></a><span class="m">3</span>
+</span><span id="__span-32-15"><a id="__codelineno-32-15" name="__codelineno-32-15" href="#__codelineno-32-15"></a><span class="w">      </span><span class="o">÷</span><span class="nv">IF_</span><span class="o">×</span><span class="m">3</span><span class="w">                    </span><span class="c1">⍝ operands: function and function</span>
+</span><span id="__span-32-16"><a id="__codelineno-32-16" name="__codelineno-32-16" href="#__codelineno-32-16"></a><span class="m">0.3333333333</span>
+</span><span id="__span-32-17"><a id="__codelineno-32-17" name="__codelineno-32-17" href="#__codelineno-32-17"></a><span class="w">      </span><span class="o">÷</span><span class="nv">IF_</span><span class="o">×</span><span class="m">0</span>
+</span><span id="__span-32-18"><a id="__codelineno-32-18" name="__codelineno-32-18" href="#__codelineno-32-18"></a><span class="m">0</span>
+</span><span id="__span-32-19"><a id="__codelineno-32-19" name="__codelineno-32-19" href="#__codelineno-32-19"></a><span class="w">      </span><span class="s1">'WRONG'</span><span class="w"> </span><span class="nv">IF_</span><span class="p">(</span><span class="m">0</span><span class="na">∘</span><span class="o">∊</span><span class="p">)</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w">     </span><span class="c1">⍝ operands: array and function</span>
+</span><span id="__span-32-20"><a id="__codelineno-32-20" name="__codelineno-32-20" href="#__codelineno-32-20"></a><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span>
+</span><span id="__span-32-21"><a id="__codelineno-32-21" name="__codelineno-32-21" href="#__codelineno-32-21"></a><span class="w">      </span><span class="s1">'WRONG'</span><span class="w"> </span><span class="nv">IF_</span><span class="p">(</span><span class="m">0</span><span class="na">∘</span><span class="o">∊</span><span class="p">)</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-32-22"><a id="__codelineno-32-22" name="__codelineno-32-22" href="#__codelineno-32-22"></a><span class="nv">WRONG</span>
+</span></code></pre></div>
+<p>A simple switching of operands makes the following operator more convenient to use in certain syntactical circumstances.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">THEN_</span><span class="w"> </span><span class="nv">G</span><span class="p">)</span><span class="nv">R</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ if F or F R THEN R←G or G R</span>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ F: any array or (conditional) monadic function</span>
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ G: any array or monadic function</span>
+</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ R: any array in domains of (F) and (G) if functions</span>
+</span><span id="__span-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">    </span><span class="nv">R</span><span class="kd">←</span><span class="o">⊃⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">G</span><span class="p">)</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="m">1</span><span class="o">∊</span><span class="nv">F</span><span class="o">⊣</span><span class="nv">R</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">R</span>
+</span><span id="__span-33-7"><a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-33-8"><a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a>
+</span><span id="__span-33-9"><a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a><span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="nv">THEN_</span><span class="w"> </span><span class="o">⌽</span><span class="w"> </span><span class="o">⍳</span><span class="m">4</span>
+</span><span id="__span-33-10"><a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a><span class="m">3</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-33-11"><a id="__codelineno-33-11" name="__codelineno-33-11" href="#__codelineno-33-11"></a><span class="w">      </span><span class="m">0</span><span class="w"> </span><span class="nv">THEN_</span><span class="w"> </span><span class="o">⌽</span><span class="w"> </span><span class="o">⍳</span><span class="m">4</span>
+</span><span id="__span-33-12"><a id="__codelineno-33-12" name="__codelineno-33-12" href="#__codelineno-33-12"></a><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span>
+</span></code></pre></div>
+<p>When an alternative to the execution or non-execution of a function is required:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">L</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">ELSE_</span><span class="w"> </span><span class="nv">G</span><span class="p">)</span><span class="nv">R</span>
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ if L then R←F or F R ELSE R←G or G R</span>
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ L: any array (which may or may not contain a 1)</span>
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ F: any array or monadic function</span>
+</span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ G: any array or monadic function</span>
+</span><span id="__span-34-6"><a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ R: any array in domains of (F) and (G) if functions</span>
+</span><span id="__span-34-7"><a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="nv">R</span><span class="kd">←</span><span class="o">⊃⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">F</span><span class="p">)</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="m">1</span><span class="o">∊</span><span class="nv">L</span><span class="p">)</span><span class="o">,⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">G</span><span class="p">)</span><span class="na">/</span><span class="p">(</span><span class="m">1</span><span class="o">~</span><span class="nv">L</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">R</span>
+</span><span id="__span-34-8"><a id="__codelineno-34-8" name="__codelineno-34-8" href="#__codelineno-34-8"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-34-9"><a id="__codelineno-34-9" name="__codelineno-34-9" href="#__codelineno-34-9"></a>
+</span><span id="__span-34-10"><a id="__codelineno-34-10" name="__codelineno-34-10" href="#__codelineno-34-10"></a><span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="p">(</span><span class="o">+</span><span class="na">\</span><span class="p">)</span><span class="w"> </span><span class="nv">ELSE_</span><span class="w"> </span><span class="p">(</span><span class="o">×</span><span class="na">/</span><span class="p">)</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-34-11"><a id="__codelineno-34-11" name="__codelineno-34-11" href="#__codelineno-34-11"></a><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">10</span>
+</span><span id="__span-34-12"><a id="__codelineno-34-12" name="__codelineno-34-12" href="#__codelineno-34-12"></a><span class="w">      </span><span class="m">0</span><span class="w"> </span><span class="p">(</span><span class="o">+</span><span class="na">\</span><span class="p">)</span><span class="w"> </span><span class="nv">ELSE_</span><span class="w"> </span><span class="p">(</span><span class="o">×</span><span class="na">/</span><span class="p">)</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-34-13"><a id="__codelineno-34-13" name="__codelineno-34-13" href="#__codelineno-34-13"></a><span class="m">24</span>
+</span></code></pre></div>
+<p>Here is a complete résumé of all four calling sequences for each of the three operators wherein:</p>
+<blockquote>
+<p>cond fn0 and fn1 are monadic functions<br>
+true ar0 and ar1 are arrays<br>
+a condition is fulfilled if (1∊true) or (1∊cond R)</p>
+</blockquote>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">fn0</span><span class="w"> </span><span class="nv">IF_</span><span class="w"> </span><span class="nv">cond</span><span class="w"> </span><span class="nv">R</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">IF</span><span class="w"> </span><span class="nv">cond</span><span class="w"> </span><span class="nv">R</span><span class="w"> </span><span class="nv">THEN</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">fn0</span><span class="w"> </span><span class="nv">R</span><span class="w"> </span><span class="nv">ELSE</span><span class="w"> </span><span class="nv">no</span><span class="o">-</span><span class="nv">op</span>
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">ar0</span><span class="w"> </span><span class="nv">IF_</span><span class="w"> </span><span class="nv">cond</span><span class="w"> </span><span class="nv">R</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">IF</span><span class="w"> </span><span class="nv">cond</span><span class="w"> </span><span class="nv">R</span><span class="w"> </span><span class="nv">THEN</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">ar0</span><span class="w">   </span><span class="nv">ELSE</span><span class="w"> </span><span class="nv">no</span><span class="o">-</span><span class="nv">op</span>
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="nv">R</span><span class="kd">←</span><span class="p">(</span><span class="nv">fn0</span><span class="w"> </span><span class="nv">IF_</span><span class="w"> </span><span class="nv">true</span><span class="p">)</span><span class="nv">R</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">IF</span><span class="w"> </span><span class="nv">true</span><span class="w">   </span><span class="nv">THEN</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">fn0</span><span class="w"> </span><span class="nv">R</span><span class="w"> </span><span class="nv">ELSE</span><span class="w"> </span><span class="nv">no</span><span class="o">-</span><span class="nv">op</span>
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="nv">R</span><span class="kd">←</span><span class="p">(</span><span class="nv">ar0</span><span class="w"> </span><span class="nv">IF_</span><span class="w"> </span><span class="nv">true</span><span class="p">)</span><span class="nv">R</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">IF</span><span class="w"> </span><span class="nv">true</span><span class="w">   </span><span class="nv">THEN</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">ar0</span><span class="w">   </span><span class="nv">ELSE</span><span class="w"> </span><span class="nv">no</span><span class="o">-</span><span class="nv">op</span>
+</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>
+</span><span id="__span-35-6"><a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">cond</span><span class="w"> </span><span class="nv">THEN_</span><span class="w"> </span><span class="nv">fn1</span><span class="w"> </span><span class="nv">R</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">IF</span><span class="w"> </span><span class="nv">cond</span><span class="w"> </span><span class="nv">R</span><span class="w"> </span><span class="nv">THEN</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">fn1</span><span class="w"> </span><span class="nv">R</span><span class="w"> </span><span class="nv">ELSE</span><span class="w"> </span><span class="nv">no</span><span class="o">-</span><span class="nv">op</span>
+</span><span id="__span-35-7"><a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a><span class="nv">R</span><span class="kd">←</span><span class="p">(</span><span class="nv">cond</span><span class="w"> </span><span class="nv">THEN_</span><span class="w"> </span><span class="nv">ar1</span><span class="p">)</span><span class="nv">R</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">IF</span><span class="w"> </span><span class="nv">cond</span><span class="w"> </span><span class="nv">R</span><span class="w"> </span><span class="nv">THEN</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">ar1</span><span class="w">   </span><span class="nv">ELSE</span><span class="w"> </span><span class="nv">no</span><span class="o">-</span><span class="nv">op</span>
+</span><span id="__span-35-8"><a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">true</span><span class="w"> </span><span class="nv">THEN_</span><span class="w"> </span><span class="nv">fn1</span><span class="w"> </span><span class="nv">R</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">IF</span><span class="w"> </span><span class="nv">true</span><span class="w">   </span><span class="nv">THEN</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">fn1</span><span class="w"> </span><span class="nv">R</span><span class="w"> </span><span class="nv">ELSE</span><span class="w"> </span><span class="nv">no</span><span class="o">-</span><span class="nv">op</span>
+</span><span id="__span-35-9"><a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a><span class="nv">R</span><span class="kd">←</span><span class="p">(</span><span class="nv">true</span><span class="w"> </span><span class="nv">THEN_</span><span class="w"> </span><span class="nv">ar1</span><span class="p">)</span><span class="nv">R</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">IF</span><span class="w"> </span><span class="nv">true</span><span class="w">   </span><span class="nv">THEN</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">ar1</span><span class="w">   </span><span class="nv">ELSE</span><span class="w"> </span><span class="nv">no</span><span class="o">-</span><span class="nv">op</span>
+</span><span id="__span-35-10"><a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a>
+</span><span id="__span-35-11"><a id="__codelineno-35-11" name="__codelineno-35-11" href="#__codelineno-35-11"></a><span class="w">     </span><span class="nv">R</span><span class="kd">←</span><span class="nv">true</span><span class="w"> </span><span class="nv">fn0</span><span class="w"> </span><span class="nv">ELSE_</span><span class="w"> </span><span class="nv">fn1</span><span class="w"> </span><span class="nv">R</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">IF</span><span class="w"> </span><span class="nv">true</span><span class="w"> </span><span class="nv">THEN</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">fn0</span><span class="w"> </span><span class="nv">R</span><span class="w"> </span><span class="nv">ELSE</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">fn1</span>
+</span><span id="__span-35-12"><a id="__codelineno-35-12" name="__codelineno-35-12" href="#__codelineno-35-12"></a><span class="w">    </span><span class="nv">RR</span><span class="kd">←</span><span class="nv">true</span><span class="p">(</span><span class="nv">fn0</span><span class="w"> </span><span class="nv">ELSE_</span><span class="w"> </span><span class="nv">ar1</span><span class="p">)</span><span class="nv">R</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">IF</span><span class="w"> </span><span class="nv">true</span><span class="w"> </span><span class="nv">THEN</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">fn0</span><span class="w"> </span><span class="nv">R</span><span class="w"> </span><span class="nv">ELSE</span>
+</span><span id="__span-35-13"><a id="__codelineno-35-13" name="__codelineno-35-13" href="#__codelineno-35-13"></a><span class="nv">R</span><span class="kd">←</span><span class="nv">ar1R</span><span class="kd">←</span><span class="nv">true</span><span class="p">(</span><span class="nv">ar0</span><span class="w"> </span><span class="nv">ELSE_</span><span class="w"> </span><span class="nv">fn1</span><span class="p">)</span><span class="nv">R</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">IF</span><span class="w"> </span><span class="nv">true</span><span class="w"> </span><span class="nv">THEN</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">ar0</span><span class="w">   </span><span class="nv">ELSE</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">fn1</span>
+</span><span id="__span-35-14"><a id="__codelineno-35-14" name="__codelineno-35-14" href="#__codelineno-35-14"></a><span class="w">    </span><span class="nv">RR</span><span class="kd">←</span><span class="nv">true</span><span class="p">(</span><span class="nv">ar0</span><span class="w"> </span><span class="nv">ELSE_</span><span class="w"> </span><span class="nv">ar1</span><span class="p">)</span><span class="nv">R</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">IF</span><span class="w"> </span><span class="nv">true</span><span class="w"> </span><span class="nv">THEN</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">ar0</span><span class="w">   </span><span class="nv">ELSE</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">ar1</span>
+</span></code></pre></div>
+<p>The three operators are related in the following way:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="nv">f</span><span class="w"> </span><span class="nv">THEN_</span><span class="w"> </span><span class="nv">g</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">g</span><span class="w"> </span><span class="nv">IF_</span><span class="w"> </span><span class="nv">f</span>
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="nv">true</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">ELSE_</span><span class="w"> </span><span class="nv">g</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="p">(</span><span class="nv">f</span><span class="w"> </span><span class="nv">IF_</span><span class="w"> </span><span class="nv">true</span><span class="p">)(</span><span class="nv">g</span><span class="w"> </span><span class="nv">IF_</span><span class="p">(</span><span class="o">~</span><span class="nv">true</span><span class="p">))</span><span class="nv">b</span>
+</span></code></pre></div>
+<p>which identities can readily be observed in the code.</p>
+<p>The idiom as stated above:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="o">⊃⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">A</span><span class="p">)</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="nv">L</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span>
+</span></code></pre></div>
+<p>can be extended in use if we remember that <code>⍳</code> has a larger domain than merely logical values.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="o">⊃⊢</span><span class="na">∘</span><span class="nv">F</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="m">0</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">b</span>
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="o">⊃⊢</span><span class="na">∘</span><span class="nv">F</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="m">1</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">F</span><span class="w"> </span><span class="nv">b</span>
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="o">⊃⊢</span><span class="na">∘</span><span class="nv">F</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="m">2</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">F</span><span class="w"> </span><span class="nv">F</span><span class="w"> </span><span class="nv">b</span>
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="na">...</span>
+</span></code></pre></div>
+<p>Hence:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">POWER_</span><span class="w"> </span><span class="nv">G</span><span class="p">)</span><span class="nv">R</span>
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ DO R←F R FOR N=1 TO G or G R</span>
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ F: a monadic fn whose codomain is a subset of its domain</span>
+</span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ G: any single non-negative integer or function on R</span>
+</span><span id="__span-39-5"><a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝    returning any single non-negative integer.</span>
+</span><span id="__span-39-6"><a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ R: any array in domain of F (and of G if a function)</span>
+</span><span id="__span-39-7"><a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="nv">R</span><span class="kd">←</span><span class="o">⊃⊢</span><span class="na">∘</span><span class="nv">F</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="nv">G</span><span class="o">⊣</span><span class="nv">R</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">R</span>
+</span><span id="__span-39-8"><a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>Here are two more:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">WHILE_</span><span class="w"> </span><span class="nv">G</span><span class="p">)</span><span class="nv">R</span>
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ DO R←F R WHILE G R</span>
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ F: any monadic function</span>
+</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ G: any monadic (conditional) function</span>
+</span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ R: any array in domains of F and G</span>
+</span><span id="__span-40-6"><a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">    </span><span class="nv">R</span><span class="kd">←</span><span class="o">⊃⊢</span><span class="na">∘</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">WHILE_</span><span class="w"> </span><span class="nv">G</span><span class="p">)</span><span class="na">∘</span><span class="nv">F</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="m">1</span><span class="o">∊</span><span class="nv">G</span><span class="w"> </span><span class="nv">R</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">R</span>
+</span><span id="__span-40-7"><a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>This is a vivid illustration that we are dealing with conditional execution without <code>⍎</code> or <code>→</code>. Whoever saw a recursive function without either?</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">L</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">WHILEC_</span><span class="w"> </span><span class="nv">G</span><span class="p">)</span><span class="nv">R</span>
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ DO R←F R WHILE G R FOR N=1 TO L</span>
+</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ F: any monadic function</span>
+</span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ G: any monadic (conditional) function</span>
+</span><span id="__span-41-5"><a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ R: any array in domains of F and G</span>
+</span><span id="__span-41-6"><a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ L: non-negative integer defining maximum iterations</span>
+</span><span id="__span-41-7"><a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="nv">R</span><span class="kd">←</span><span class="o">⊃⊢</span><span class="na">∘</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">IF_</span><span class="w"> </span><span class="nv">G</span><span class="p">)</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="nv">L</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">R</span>
+</span><span id="__span-41-8"><a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-41-9"><a id="__codelineno-41-9" name="__codelineno-41-9" href="#__codelineno-41-9"></a>
+</span><span id="__span-41-10"><a id="__codelineno-41-10" name="__codelineno-41-10" href="#__codelineno-41-10"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">SINGLE</span><span class="w"> </span><span class="nv">B</span>
+</span><span id="__span-41-11"><a id="__codelineno-41-11" name="__codelineno-41-11" href="#__codelineno-41-11"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">R</span><span class="kd">←</span><span class="nv">B</span><span class="o">&lt;</span><span class="m">10</span>
+</span><span id="__span-41-12"><a id="__codelineno-41-12" name="__codelineno-41-12" href="#__codelineno-41-12"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-41-13"><a id="__codelineno-41-13" name="__codelineno-41-13" href="#__codelineno-41-13"></a>
+</span><span id="__span-41-14"><a id="__codelineno-41-14" name="__codelineno-41-14" href="#__codelineno-41-14"></a><span class="w">      </span><span class="p">(</span><span class="m">2</span><span class="na">∘</span><span class="o">×</span><span class="p">)</span><span class="w"> </span><span class="nv">WHILE_</span><span class="w"> </span><span class="nv">SINGLE</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-41-15"><a id="__codelineno-41-15" name="__codelineno-41-15" href="#__codelineno-41-15"></a><span class="m">16</span>
+</span><span id="__span-41-16"><a id="__codelineno-41-16" name="__codelineno-41-16" href="#__codelineno-41-16"></a><span class="w">      </span><span class="p">(</span><span class="o">*</span><span class="na">∘</span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="nv">WHILE_</span><span class="w"> </span><span class="nv">SINGLE</span><span class="w"> </span><span class="m">3</span>
+</span><span id="__span-41-17"><a id="__codelineno-41-17" name="__codelineno-41-17" href="#__codelineno-41-17"></a><span class="m">81</span>
+</span><span id="__span-41-18"><a id="__codelineno-41-18" name="__codelineno-41-18" href="#__codelineno-41-18"></a><span class="w">      </span><span class="p">(</span><span class="m">2</span><span class="na">∘</span><span class="o">×</span><span class="p">)</span><span class="w"> </span><span class="nv">WHILE_</span><span class="w"> </span><span class="nv">SINGLE</span><span class="w"> </span><span class="m">10</span>
+</span><span id="__span-41-19"><a id="__codelineno-41-19" name="__codelineno-41-19" href="#__codelineno-41-19"></a><span class="m">10</span>
+</span><span id="__span-41-20"><a id="__codelineno-41-20" name="__codelineno-41-20" href="#__codelineno-41-20"></a><span class="w">      </span><span class="p">(</span><span class="o">*</span><span class="na">∘</span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="nv">WHILE_</span><span class="w"> </span><span class="nv">SINGLE</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-41-21"><a id="__codelineno-41-21" name="__codelineno-41-21" href="#__codelineno-41-21"></a><span class="nv">INTERRUPT</span>
+</span><span id="__span-41-22"><a id="__codelineno-41-22" name="__codelineno-41-22" href="#__codelineno-41-22"></a><span class="nv">WHILE_</span><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="o">⊃⊢</span><span class="na">∘</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">WHILE_</span><span class="w"> </span><span class="nv">G</span><span class="p">)</span><span class="na">∘</span><span class="nv">F</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="m">1</span><span class="o">∊</span><span class="nv">G</span><span class="w"> </span><span class="nv">R</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">R</span>
+</span><span id="__span-41-23"><a id="__codelineno-41-23" name="__codelineno-41-23" href="#__codelineno-41-23"></a><span class="w">          </span><span class="err">^</span>
+</span><span id="__span-41-24"><a id="__codelineno-41-24" name="__codelineno-41-24" href="#__codelineno-41-24"></a><span class="w">      </span><span class="nv">R</span>
+</span><span id="__span-41-25"><a id="__codelineno-41-25" name="__codelineno-41-25" href="#__codelineno-41-25"></a><span class="m">1</span>
+</span><span id="__span-41-26"><a id="__codelineno-41-26" name="__codelineno-41-26" href="#__codelineno-41-26"></a><span class="w">      </span><span class="o">⍴</span><span class="nf">⎕LC</span>
+</span><span id="__span-41-27"><a id="__codelineno-41-27" name="__codelineno-41-27" href="#__codelineno-41-27"></a><span class="m">1071</span>
+</span><span id="__span-41-28"><a id="__codelineno-41-28" name="__codelineno-41-28" href="#__codelineno-41-28"></a><span class="w">      </span><span class="c1">⍝ infinitely recursive!</span>
+</span><span id="__span-41-29"><a id="__codelineno-41-29" name="__codelineno-41-29" href="#__codelineno-41-29"></a><span class="w">      </span><span class="kd">→</span>
+</span><span id="__span-41-30"><a id="__codelineno-41-30" name="__codelineno-41-30" href="#__codelineno-41-30"></a><span class="w">      </span><span class="m">100</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="na">∘</span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="nv">WHILEC_</span><span class="w"> </span><span class="nv">SINGLE</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-41-31"><a id="__codelineno-41-31" name="__codelineno-41-31" href="#__codelineno-41-31"></a><span class="m">1</span>
+</span><span id="__span-41-32"><a id="__codelineno-41-32" name="__codelineno-41-32" href="#__codelineno-41-32"></a><span class="w">      </span><span class="p">(</span><span class="m">1.1</span><span class="na">∘</span><span class="o">×</span><span class="p">)</span><span class="w"> </span><span class="nv">WHILE_</span><span class="w"> </span><span class="nv">SINGLE</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-41-33"><a id="__codelineno-41-33" name="__codelineno-41-33" href="#__codelineno-41-33"></a><span class="m">10.83470594</span>
+</span><span id="__span-41-34"><a id="__codelineno-41-34" name="__codelineno-41-34" href="#__codelineno-41-34"></a><span class="w">      </span><span class="m">1.1</span><span class="o">⍟</span><span class="m">10.8347059425</span>
+</span><span id="__span-41-35"><a id="__codelineno-41-35" name="__codelineno-41-35" href="#__codelineno-41-35"></a><span class="m">25</span>
+</span><span id="__span-41-36"><a id="__codelineno-41-36" name="__codelineno-41-36" href="#__codelineno-41-36"></a><span class="w">      </span><span class="p">(</span><span class="m">1.1</span><span class="na">∘</span><span class="o">×</span><span class="p">)</span><span class="w"> </span><span class="nv">WHILEC_</span><span class="w"> </span><span class="nv">SINGLE</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-41-37"><a id="__codelineno-41-37" name="__codelineno-41-37" href="#__codelineno-41-37"></a><span class="m">10.83470594</span>
+</span><span id="__span-41-38"><a id="__codelineno-41-38" name="__codelineno-41-38" href="#__codelineno-41-38"></a><span class="w">      </span><span class="m">24</span><span class="w"> </span><span class="p">(</span><span class="m">1.1</span><span class="na">∘</span><span class="o">×</span><span class="p">)</span><span class="w"> </span><span class="nv">WHILEC_</span><span class="w"> </span><span class="nv">SINGLE</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-41-39"><a id="__codelineno-41-39" name="__codelineno-41-39" href="#__codelineno-41-39"></a><span class="m">9.849732676</span>
+</span></code></pre></div>
+<p>Both of these operators have the domain of both operands as strictly FUNCTION. As indicated in the examples (<code>WHILE_</code>) has the problems:</p>
+<p>(i) possible infinite recursion. While (<code>WHILEC_</code>) overcomes this problem by setting a limit on the number of iterations it introduces two others the first of which is also indicated in the examples:</p>
+<p>(ii) The condition might remain true throughout the permitted iterations although it would have become untrue some time later.</p>
+<p>(iii) The condition is tested for the full number of permitted iterations although it might have become untrue at or near the first iteration.</p>
+<blockquote>
+<p>Problems (i) and (ii) are in the nature of the semantics of DO WHILE and therefore require no further consideration. There does not seem to be any way to overcome problem (iii) without undue additional processing overhead.</p>
+</blockquote>
+<p>( Unless of course, you code a loop! I hope (but I’m not too hopeful) that I am not going to overly great lengths to avoid looping. I’m afraid that I do have an aversion to ’→’, indeed, at least as much as to ’⍎’. Mainly I would like to see interpreter writers giving priority to parts of the language which facilitate the avoidance of these. I have been known (even if only to myself) to allow a less efficient construct when it avoids a loop, skip or execute. )</p>
+<p>While we are at it here are the DO UNTIL counterparts of the above:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">UNTIL_</span><span class="w"> </span><span class="nv">G</span><span class="p">)</span><span class="nv">R</span><span class="sr">;</span><span class="nv">L</span>
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ DO R←F R UNTIL G R</span>
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ F: any monadic function</span>
+</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ G: any monadic (conditional) function</span>
+</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ R: any array in domains of F and G</span>
+</span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">    </span><span class="nv">R</span><span class="kd">←</span><span class="o">⊃⊢</span><span class="na">∘</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">UNTIL_</span><span class="w"> </span><span class="nv">G</span><span class="p">)</span><span class="na">/</span><span class="p">(</span><span class="m">1</span><span class="o">~</span><span class="nv">G</span><span class="w"> </span><span class="nv">L</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">L</span><span class="kd">←</span><span class="nv">F</span><span class="w"> </span><span class="nv">R</span>
+</span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-42-8"><a id="__codelineno-42-8" name="__codelineno-42-8" href="#__codelineno-42-8"></a>
+</span><span id="__span-42-9"><a id="__codelineno-42-9" name="__codelineno-42-9" href="#__codelineno-42-9"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">L</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">UNTILC_</span><span class="w"> </span><span class="nv">G</span><span class="p">)</span><span class="nv">R</span>
+</span><span id="__span-42-10"><a id="__codelineno-42-10" name="__codelineno-42-10" href="#__codelineno-42-10"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ DO R←F R UNTIL G R FOR N=1 TO L</span>
+</span><span id="__span-42-11"><a id="__codelineno-42-11" name="__codelineno-42-11" href="#__codelineno-42-11"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ F: any monadic function</span>
+</span><span id="__span-42-12"><a id="__codelineno-42-12" name="__codelineno-42-12" href="#__codelineno-42-12"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ G: any monadic (conditional) function</span>
+</span><span id="__span-42-13"><a id="__codelineno-42-13" name="__codelineno-42-13" href="#__codelineno-42-13"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ R: any array in domains of F and G</span>
+</span><span id="__span-42-14"><a id="__codelineno-42-14" name="__codelineno-42-14" href="#__codelineno-42-14"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ L: non-negative integer defining maximum iterations</span>
+</span><span id="__span-42-15"><a id="__codelineno-42-15" name="__codelineno-42-15" href="#__codelineno-42-15"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="nv">R</span><span class="kd">←</span><span class="o">⊃⊢</span><span class="na">∘</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">IF_</span><span class="p">(</span><span class="m">1</span><span class="na">∘</span><span class="o">~</span><span class="na">∘</span><span class="nv">G</span><span class="p">))</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="nv">L</span><span class="o">-</span><span class="m">1</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">F</span><span class="w"> </span><span class="nv">R</span>
+</span><span id="__span-42-16"><a id="__codelineno-42-16" name="__codelineno-42-16" href="#__codelineno-42-16"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>As expected the test is done AFTER the operation as opposed to before as in the DO WHILE operators. All problems and advantages are exactly as above.</p>
+<p>And a special case of UNTIL:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">LIMIT_</span><span class="p">)</span><span class="nv">R</span><span class="sr">;</span><span class="nv">L</span>
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ DO R←F R UNTIL R≡F R</span>
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ F: any monadic function</span>
+</span><span id="__span-43-4"><a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ R: any array in domain of F</span>
+</span><span id="__span-43-5"><a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">    </span><span class="nv">R</span><span class="kd">←</span><span class="o">⊃⊢</span><span class="na">∘</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">LIMIT_</span><span class="p">)</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="nv">L</span><span class="o">≢</span><span class="nv">R</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">L</span><span class="kd">←</span><span class="nv">F</span><span class="w"> </span><span class="nv">R</span>
+</span><span id="__span-43-6"><a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>The function is applied. If its result is different from its argument then apply it again. Infinite recursion is yet again a possibility. I do have a (<code>LIMITC_</code>) alternative but it has to do some nasty tricks to avoid a loop and I’m not showing it to anyone.</p>
+<p>This is getting a bit complicated now. The next operator actually runs into two lines of code:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">L</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">SEL_</span><span class="w"> </span><span class="nv">G</span><span class="p">)</span><span class="nv">R</span><span class="sr">;</span><span class="nv">I</span><span class="sr">;</span><span class="nv">J</span><span class="sr">;</span><span class="nv">K</span>
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ R←L M N... (F SEL_ G SEL_ H... )R</span>
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ SELECT</span>
+</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝   IF L THEN IF FN F THEN R←F R ELSE R←F</span>
+</span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝   IF M THEN IF FN G THEN R←G R ELSE R←G</span>
+</span><span id="__span-44-6"><a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝   IF N THEN IF FN H THEN R←H R ELSE R←H</span>
+</span><span id="__span-44-7"><a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝   ...</span>
+</span><span id="__span-44-8"><a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ END</span>
+</span><span id="__span-44-9"><a id="__codelineno-44-9" name="__codelineno-44-9" href="#__codelineno-44-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ L: logical vector</span>
+</span><span id="__span-44-10"><a id="__codelineno-44-10" name="__codelineno-44-10" href="#__codelineno-44-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ F: any array or monadic fn or fn derived by SEL_</span>
+</span><span id="__span-44-11"><a id="__codelineno-44-11" name="__codelineno-44-11" href="#__codelineno-44-11"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">  </span><span class="c1">⍝ G: any array or monadic function</span>
+</span><span id="__span-44-12"><a id="__codelineno-44-12" name="__codelineno-44-12" href="#__codelineno-44-12"></a><span class="sr">[</span><span class="m">11</span><span class="sr">]</span><span class="w">  </span><span class="c1">⍝ R: any array in domain of F or G if selected</span>
+</span><span id="__span-44-13"><a id="__codelineno-44-13" name="__codelineno-44-13" href="#__codelineno-44-13"></a><span class="sr">[</span><span class="m">12</span><span class="sr">]</span><span class="w">   </span><span class="nv">J</span><span class="kd">←</span><span class="p">(</span><span class="o">∨</span><span class="na">/</span><span class="nv">J</span><span class="p">)</span><span class="o">&gt;⍴</span><span class="p">(</span><span class="nv">K</span><span class="kd">←</span><span class="o">⍳</span><span class="m">0</span><span class="o">⊥</span><span class="nv">J</span><span class="p">)</span><span class="o">,</span><span class="nv">I</span><span class="kd">←</span><span class="o">⍳</span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="o">≡</span><span class="nv">J</span><span class="kd">←</span><span class="o">&lt;</span><span class="na">\</span><span class="nv">L</span><span class="o">=</span><span class="m">1</span>
+</span><span id="__span-44-14"><a id="__codelineno-44-14" name="__codelineno-44-14" href="#__codelineno-44-14"></a><span class="sr">[</span><span class="m">13</span><span class="sr">]</span><span class="w">   </span><span class="nv">R</span><span class="kd">←</span><span class="o">⊃⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">F</span><span class="p">)</span><span class="na">/</span><span class="nv">I</span><span class="o">,</span><span class="nv">F</span><span class="na">/</span><span class="p">(</span><span class="nv">J</span><span class="o">⍴⊂</span><span class="m">¯1</span><span class="o">↓</span><span class="nv">L</span><span class="p">)</span><span class="o">,⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">G</span><span class="p">)</span><span class="na">/</span><span class="nv">K</span><span class="o">,⊂</span><span class="nv">R</span><span class="w"> </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>The following description applies to a derived function which contains multiple calls to <code>SEL_</code> as depicted in the comment.</p>
+<dl>
+<dt>L M N</dt>
+<dd>is a boolean vector equal in length to the number of operands in the SELECT statement (i.e. 1 more than the number of calls to the operator (<code>SEL_</code>). It is treated as (<code>&lt;\L M N …</code>) i. e. the first only if any (1) in the vector selects the operand to be used.</dd>
+<dt>F G H</dt>
+<dd>the operands, are any arrays or monadic functions. Parentheses are only required around individual operands if they are derived within the statement and not the first, e.g. <code>((⍳4)∊I) FOO/ SEL_(FO1\)SEL_ FO2 SEL_(FO3¨) R</code> but are probably preferable in any case for clarity. The entire function expression excluding only the arguments must be parenthesised if either the first or last operand is an array.</dd>
+<dt>R</dt>
+<dd>is any array in the domain of the function, if any, eventually selected to be run.</dd>
+<dt>R</dt>
+<dd>becomes the result of (fn R) where fn is the selected function or it is the selected array or it is the unchanged argument R when no operand is selected.</dd>
+</dl>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="w">      </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">+</span><span class="na">/</span><span class="nv">SEL_</span><span class="p">(</span><span class="o">+</span><span class="na">\</span><span class="p">)</span><span class="nv">SEL_</span><span class="p">(</span><span class="o">×</span><span class="na">/</span><span class="p">)</span><span class="nv">SEL_</span><span class="p">(</span><span class="o">×</span><span class="na">\</span><span class="p">)</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a><span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">+</span><span class="na">/</span><span class="nv">SEL_</span><span class="p">(</span><span class="o">+</span><span class="na">\</span><span class="p">)</span><span class="nv">SEL_</span><span class="p">(</span><span class="o">×</span><span class="na">/</span><span class="p">)</span><span class="nv">SEL_</span><span class="p">(</span><span class="o">×</span><span class="na">\</span><span class="p">)</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a><span class="m">10</span>
+</span><span id="__span-45-5"><a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a><span class="w">      </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">+</span><span class="na">/</span><span class="nv">SEL_</span><span class="p">(</span><span class="o">+</span><span class="na">\</span><span class="p">)</span><span class="nv">SEL_</span><span class="p">(</span><span class="o">×</span><span class="na">/</span><span class="p">)</span><span class="nv">SEL_</span><span class="p">(</span><span class="o">×</span><span class="na">\</span><span class="p">)</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-45-6"><a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">10</span>
+</span><span id="__span-45-7"><a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a><span class="w">      </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">+</span><span class="na">/</span><span class="nv">SEL_</span><span class="p">(</span><span class="o">+</span><span class="na">\</span><span class="p">)</span><span class="nv">SEL_</span><span class="p">(</span><span class="o">×</span><span class="na">/</span><span class="p">)</span><span class="nv">SEL_</span><span class="p">(</span><span class="o">×</span><span class="na">\</span><span class="p">)</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-45-8"><a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a><span class="m">24</span>
+</span><span id="__span-45-9"><a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a><span class="w">      </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">+</span><span class="na">/</span><span class="nv">SEL_</span><span class="p">(</span><span class="o">+</span><span class="na">\</span><span class="p">)</span><span class="nv">SEL_</span><span class="p">(</span><span class="o">×</span><span class="na">/</span><span class="p">)</span><span class="nv">SEL_</span><span class="p">(</span><span class="o">×</span><span class="na">\</span><span class="p">)</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-45-10"><a id="__codelineno-45-10" name="__codelineno-45-10" href="#__codelineno-45-10"></a><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">24</span>
+</span></code></pre></div>
+<p>The conditional execution of functions relies this time on identities (1) and (2) as well as (11).</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="w">    </span><span class="o">⊃</span><span class="nv">f</span><span class="na">/</span><span class="p">(</span><span class="nv">L</span><span class="o">⍴⊂</span><span class="nv">a</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">b</span><span class="w">         </span><span class="c1">⍝ when L is untrue</span>
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="w">                 </span><span class="err">↔</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="nv">b</span><span class="w">     </span><span class="c1">⍝ when L is true</span>
+</span><span id="__span-46-3"><a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a><span class="o">⊃⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">A</span><span class="p">)</span><span class="na">/</span><span class="p">(</span><span class="o">⍳</span><span class="nv">L</span><span class="p">)</span><span class="o">,⊂</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">b</span><span class="w">         </span><span class="c1">⍝ when L is untrue</span>
+</span><span id="__span-46-4"><a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a><span class="w">                 </span><span class="err">↔</span><span class="w"> </span><span class="nv">A</span><span class="w"> </span><span class="nv">b</span><span class="w">       </span><span class="c1">⍝ when L is true and A is a function</span>
+</span><span id="__span-46-5"><a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a><span class="w">                 </span><span class="err">↔</span><span class="w"> </span><span class="nv">A</span><span class="w">         </span><span class="c1">⍝ when L is true and A is an array</span>
+</span></code></pre></div>
+<p>This is because we have also a conditional dyadic function call.</p>
+<p>When the left argument is all zeros then none of the conditional expressions results in an operand being selected and the argument returned. When only the last item in the left argument is (1) the right operand is selected and its result returned. When other than the last item is (1) then one of two things occurs. If there are only two items then the left operand is selected and its result returned. If there are three or more items then the left operand is run dyadically with the minus one drop (<code>¯1↓</code>) of the left argument. This is because more than two items indicate that another call to (<code>SEL_</code>) is a component of the left derived function and a blind recursive call is made.</p>
+<p>The next is a very similar operator which will run any number of its selected operands rather than only the first. Any selected function acts on the result of previously selected operands (or the right argument if it is the first selected) while selected array operands replace previous results. In this case execution is forced to APPEAR to be left to right.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">L</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">SEQ_</span><span class="w"> </span><span class="nv">G</span><span class="p">)</span><span class="nv">R</span><span class="sr">;</span><span class="nv">I</span><span class="sr">;</span><span class="nv">J</span><span class="sr">;</span><span class="nv">K</span>
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ R←L M N... (F SEQ_ G SEQ_ H... )R</span>
+</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ SEQUENTIAL</span>
+</span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝   IF L THEN IF FN F THEN R←F R ELSE R←F</span>
+</span><span id="__span-47-5"><a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝   IF M THEN IF FN G THEN R←G R ELSE R←G</span>
+</span><span id="__span-47-6"><a id="__codelineno-47-6" name="__codelineno-47-6" href="#__codelineno-47-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝   IF N THEN IF FN H THEN R←H R ELSE R←H</span>
+</span><span id="__span-47-7"><a id="__codelineno-47-7" name="__codelineno-47-7" href="#__codelineno-47-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝   ...</span>
+</span><span id="__span-47-8"><a id="__codelineno-47-8" name="__codelineno-47-8" href="#__codelineno-47-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ END</span>
+</span><span id="__span-47-9"><a id="__codelineno-47-9" name="__codelineno-47-9" href="#__codelineno-47-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ L: logical vector</span>
+</span><span id="__span-47-10"><a id="__codelineno-47-10" name="__codelineno-47-10" href="#__codelineno-47-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ F: any array or monadic fn or fn derived by SEQ_</span>
+</span><span id="__span-47-11"><a id="__codelineno-47-11" name="__codelineno-47-11" href="#__codelineno-47-11"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">  </span><span class="c1">⍝ G: any array or monadic function</span>
+</span><span id="__span-47-12"><a id="__codelineno-47-12" name="__codelineno-47-12" href="#__codelineno-47-12"></a><span class="sr">[</span><span class="m">11</span><span class="sr">]</span><span class="w">  </span><span class="c1">⍝ R: any array in domains of F and G if selected</span>
+</span><span id="__span-47-13"><a id="__codelineno-47-13" name="__codelineno-47-13" href="#__codelineno-47-13"></a><span class="sr">[</span><span class="m">12</span><span class="sr">]</span><span class="w">   </span><span class="nv">K</span><span class="kd">←</span><span class="o">⍳</span><span class="m">0</span><span class="o">⊥</span><span class="nv">J</span><span class="kd">←</span><span class="nv">L</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nv">J</span><span class="kd">←</span><span class="p">(</span><span class="o">∨</span><span class="na">/</span><span class="m">¯1</span><span class="o">↓</span><span class="nv">J</span><span class="p">)</span><span class="o">&gt;⍴</span><span class="nv">I</span><span class="kd">←</span><span class="o">⍳</span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="o">≡&lt;</span><span class="na">\</span><span class="nv">J</span>
+</span><span id="__span-47-14"><a id="__codelineno-47-14" name="__codelineno-47-14" href="#__codelineno-47-14"></a><span class="sr">[</span><span class="m">13</span><span class="sr">]</span><span class="w">   </span><span class="nv">R</span><span class="kd">←</span><span class="o">⊃⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">G</span><span class="p">)</span><span class="na">/</span><span class="nv">K</span><span class="o">,</span><span class="nv">F</span><span class="na">/</span><span class="p">(</span><span class="nv">J</span><span class="o">⍴⊂</span><span class="m">¯1</span><span class="o">↓</span><span class="nv">L</span><span class="p">)</span><span class="o">,⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">F</span><span class="p">)</span><span class="na">/</span><span class="nv">I</span><span class="o">,⊂</span><span class="nv">R</span>
+</span><span id="__span-47-15"><a id="__codelineno-47-15" name="__codelineno-47-15" href="#__codelineno-47-15"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-47-16"><a id="__codelineno-47-16" name="__codelineno-47-16" href="#__codelineno-47-16"></a>
+</span><span id="__span-47-17"><a id="__codelineno-47-17" name="__codelineno-47-17" href="#__codelineno-47-17"></a><span class="w">      </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">+</span><span class="nv">SEQ_</span><span class="o">-</span><span class="nv">SEQ_</span><span class="o">×</span><span class="nv">SEQ_</span><span class="o">÷</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">5</span>
+</span><span id="__span-47-18"><a id="__codelineno-47-18" name="__codelineno-47-18" href="#__codelineno-47-18"></a><span class="m">¯0.5</span><span class="w"> </span><span class="m">¯0.2</span>
+</span></code></pre></div>
+<p>And last of this set:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">A</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">PAR_</span><span class="w"> </span><span class="nv">G</span><span class="p">)</span><span class="nv">B</span><span class="sr">;</span><span class="nv">I</span><span class="sr">;</span><span class="nv">J</span><span class="sr">;</span><span class="nv">K</span><span class="sr">;</span><span class="nv">L</span><span class="sr">;</span><span class="nv">M</span>
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ X Y Z... ←I J K... (F PAR_ G PAR_ H... )X Y Z...</span>
+</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ PARALLEL</span>
+</span><span id="__span-48-4"><a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝   IF I THEN IF FN F THEN X←F X ELSE X←F</span>
+</span><span id="__span-48-5"><a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝   IF J THEN IF FN G THEN X←G Y ELSE Y←G</span>
+</span><span id="__span-48-6"><a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝   IF K THEN IF FN H THEN X←H Z ELSE Z←H</span>
+</span><span id="__span-48-7"><a id="__codelineno-48-7" name="__codelineno-48-7" href="#__codelineno-48-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝   ...</span>
+</span><span id="__span-48-8"><a id="__codelineno-48-8" name="__codelineno-48-8" href="#__codelineno-48-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ END</span>
+</span><span id="__span-48-9"><a id="__codelineno-48-9" name="__codelineno-48-9" href="#__codelineno-48-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ A: logical vector</span>
+</span><span id="__span-48-10"><a id="__codelineno-48-10" name="__codelineno-48-10" href="#__codelineno-48-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ F: any array or monadic fn or fn derived by PAR_</span>
+</span><span id="__span-48-11"><a id="__codelineno-48-11" name="__codelineno-48-11" href="#__codelineno-48-11"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">  </span><span class="c1">⍝ G: any array or monadic function</span>
+</span><span id="__span-48-12"><a id="__codelineno-48-12" name="__codelineno-48-12" href="#__codelineno-48-12"></a><span class="sr">[</span><span class="m">11</span><span class="sr">]</span><span class="w">  </span><span class="c1">⍝ B: vector to items of which F and/or G may be applied</span>
+</span><span id="__span-48-13"><a id="__codelineno-48-13" name="__codelineno-48-13" href="#__codelineno-48-13"></a><span class="sr">[</span><span class="m">12</span><span class="sr">]</span><span class="w">   </span><span class="nv">K</span><span class="w"> </span><span class="nv">I</span><span class="kd">←</span><span class="o">⍳</span><span class="na">¨</span><span class="p">(</span><span class="m">0</span><span class="o">⊥</span><span class="nv">L</span><span class="p">)</span><span class="o">,</span><span class="p">(</span><span class="o">⊃</span><span class="nv">L</span><span class="p">)</span><span class="o">∧⊃</span><span class="nv">M</span><span class="w"> </span><span class="nv">J</span><span class="kd">←</span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="o">=</span><span class="m">2</span><span class="o">=⍴⊃</span><span class="nv">L</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="o">↓</span><span class="p">(</span><span class="nv">A</span><span class="o">=</span><span class="m">1</span><span class="p">)</span><span class="o">,</span><span class="sr">[</span><span class="nf">⎕IO</span><span class="o">-</span><span class="m">0.1</span><span class="sr">]</span><span class="nv">B</span>
+</span><span id="__span-48-14"><a id="__codelineno-48-14" name="__codelineno-48-14" href="#__codelineno-48-14"></a><span class="sr">[</span><span class="m">13</span><span class="sr">]</span><span class="w">   </span><span class="nv">R</span><span class="kd">←</span><span class="p">(</span><span class="nv">M</span><span class="na">/</span><span class="o">⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">F</span><span class="p">)</span><span class="na">/</span><span class="nv">I</span><span class="o">,⊂⊃</span><span class="nv">R</span><span class="p">)</span><span class="o">,</span><span class="p">(</span><span class="nv">J</span><span class="na">/</span><span class="o">⊃</span><span class="nv">F</span><span class="na">/</span><span class="nv">M</span><span class="o">↓</span><span class="m">¯1</span><span class="o">↓</span><span class="na">¨</span><span class="nv">L</span><span class="w"> </span><span class="nv">R</span><span class="p">)</span><span class="o">,⊢</span><span class="na">∘</span><span class="p">(</span><span class="o">⊢</span><span class="na">∘</span><span class="nv">G</span><span class="p">)</span><span class="na">/</span><span class="nv">K</span><span class="o">,⊂⊃⌽</span><span class="nv">R</span>
+</span><span id="__span-48-15"><a id="__codelineno-48-15" name="__codelineno-48-15" href="#__codelineno-48-15"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-48-16"><a id="__codelineno-48-16" name="__codelineno-48-16" href="#__codelineno-48-16"></a>
+</span><span id="__span-48-17"><a id="__codelineno-48-17" name="__codelineno-48-17" href="#__codelineno-48-17"></a><span class="w">      </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">⌊</span><span class="nv">PAR_</span><span class="o">⌈</span><span class="nv">PAR_</span><span class="o">-</span><span class="nv">PAR_</span><span class="o">÷</span><span class="w"> </span><span class="m">1.1</span><span class="w"> </span><span class="m">2.2</span><span class="w"> </span><span class="m">3.3</span><span class="w"> </span><span class="m">4.4</span>
+</span><span id="__span-48-18"><a id="__codelineno-48-18" name="__codelineno-48-18" href="#__codelineno-48-18"></a><span class="m">1.1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">¯3.3</span><span class="w"> </span><span class="m">4.4</span>
+</span></code></pre></div>
+<p>This one applies operands selected by its scalar conforming logical vector left argument to respective items in its conforming right argument. N.B. The term parallel is NOT, in this implementation, concerned with WHEN but WHERE to apply particular operands. In fact selected operands are applied temporally right to left but as they are applied to different items this is entirely irrelevant.</p>
+<p>The array/function ambivalence permitted in operands and tolerated by idioms such as:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="nv">A</span><span class="o">⊣</span><span class="nv">b</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="nv">A</span><span class="w">       </span><span class="nv">when</span><span class="w"> </span><span class="p">(</span><span class="nv">A</span><span class="p">)</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">an</span><span class="w"> </span><span class="nv">array</span>
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a><span class="w">    </span><span class="err">↔</span><span class="w"> </span><span class="nv">A</span><span class="w"> </span><span class="nv">b</span><span class="w">     </span><span class="nv">when</span><span class="w"> </span><span class="p">(</span><span class="nv">A</span><span class="p">)</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">function</span>
+</span></code></pre></div>
+<p>is a very powerful feature and allows us to write entirely ambivalent statements.</p>
+<p>When left arguments to functions are elided, assigning the ambivalent right identity to the name by:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="o">⍎</span><span class="p">(</span><span class="m">0</span><span class="o">=</span><span class="nf">⎕NC</span><span class="s1">'A'</span><span class="p">)</span><span class="na">/</span><span class="s1">'A←⊢'</span>
+</span></code></pre></div>
+<p>or</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="m">1</span><span class="o">+</span><span class="p">(</span><span class="m">0</span><span class="o">≠</span><span class="nf">⎕NC</span><span class="s1">'A'</span><span class="p">)</span><span class="o">⍴</span><span class="nf">⎕LC</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nv">A</span><span class="kd">←</span><span class="o">⊢</span>
+</span></code></pre></div>
+<p>or fixing an equivalent function by:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="o">⍴</span><span class="nf">⎕FX</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5</span><span class="o">⍴</span><span class="s1">'R←A R'</span>
+</span></code></pre></div>
+<p>instead of the conditional assignment of an array value permits us to continue with ambivalent statements throughout the function.</p>
+<p>Calls to subfunctions with the elided left argument as their left argument are genuinely monadic (we don’t have to guess what the SUBFN’s defaults are),</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="nv">R</span><span class="kd">←</span><span class="nv">A</span><span class="w"> </span><span class="nv">SUBFN</span><span class="w"> </span><span class="s1">'this might well be a monadic call'</span>
+</span></code></pre></div>
+<p>while default values can be assigned transparently when required.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="nv">PARM</span><span class="kd">←</span><span class="nv">A</span><span class="o">⊣</span><span class="nv">default</span><span class="w"> </span><span class="c1">⍝ A if an array, default otherwise</span>
+</span></code></pre></div>
+<p>It seems probable that there are NO cases when this is NOT applicable.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="o">~</span><span class="na">∘</span><span class="p">(</span><span class="o">∨</span><span class="na">/</span><span class="p">)</span><span class="na">∘</span><span class="o">~</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="o">∧</span><span class="na">/</span><span class="w">  </span><span class="c1">⍝ De Morgan</span>
+</span></code></pre></div>
+<p>This surely is a case for an alternative form of function ambivalence wherein the left argument has an array value by parameter substitution or defaults to the ambivalent right identity, all done by the interpreter.</p>
+<p>When I first wrote this that was as far as I was concerned an original thought. I have since read an article of Maurice Jordan (Vector 7.4) in which he suggested almost exactly the same thing.</p>
+<p>This should banish at least the most common reason for conditional <code>⍎</code> or <code>→1+condition⍴⎕LC</code></p>
+<p>The last operator I want to describe derives functions which are identical to that contentious and hypothetical animal, the function vector. Honest Guv! Come on, you must have known it was coming when you saw the previous one!</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="nv">A</span><span class="w"> </span><span class="nv">B</span><span class="w"> </span><span class="nv">C</span><span class="na">...</span><span class="w"> </span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">_</span><span class="w"> </span><span class="nv">G</span><span class="w"> </span><span class="nv">_</span><span class="w"> </span><span class="nv">H</span><span class="na">...</span><span class="p">)</span><span class="nv">X</span><span class="w"> </span><span class="nv">Y</span><span class="w"> </span><span class="nv">Z</span><span class="na">...</span><span class="w"> </span><span class="err">↔</span><span class="w">  </span><span class="p">(</span><span class="nv">A</span><span class="w"> </span><span class="nv">F</span><span class="w"> </span><span class="nv">X</span><span class="p">)(</span><span class="nv">B</span><span class="w"> </span><span class="nv">G</span><span class="w"> </span><span class="nv">Y</span><span class="p">)(</span><span class="nv">C</span><span class="w"> </span><span class="nv">H</span><span class="w"> </span><span class="nv">Z</span><span class="p">)</span><span class="na">...</span>
+</span><span id="__span-56-2"><a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a><span class="w">         </span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">_</span><span class="w"> </span><span class="nv">G</span><span class="w"> </span><span class="nv">_</span><span class="w"> </span><span class="nv">H</span><span class="na">...</span><span class="p">)</span><span class="nv">X</span><span class="w"> </span><span class="nv">Y</span><span class="w"> </span><span class="nv">Z</span><span class="na">...</span><span class="w"> </span><span class="err">↔</span><span class="w">  </span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">X</span><span class="p">)(</span><span class="nv">G</span><span class="w"> </span><span class="nv">Y</span><span class="p">)(</span><span class="nv">H</span><span class="w"> </span><span class="nv">Z</span><span class="p">)</span><span class="na">...</span>
+</span><span id="__span-56-3"><a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a>
+</span><span id="__span-56-4"><a id="__codelineno-56-4" name="__codelineno-56-4" href="#__codelineno-56-4"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">A</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">_</span><span class="w"> </span><span class="nv">G</span><span class="p">)</span><span class="nv">B</span><span class="sr">;</span><span class="nv">L</span><span class="sr">;</span><span class="nv">N</span>
+</span><span id="__span-56-5"><a id="__codelineno-56-5" name="__codelineno-56-5" href="#__codelineno-56-5"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ Function vector operator</span>
+</span><span id="__span-56-6"><a id="__codelineno-56-6" name="__codelineno-56-6" href="#__codelineno-56-6"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ A: optional (scalar conformable with B)</span>
+</span><span id="__span-56-7"><a id="__codelineno-56-7" name="__codelineno-56-7" href="#__codelineno-56-7"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ F: function (possibly derived by this operator)</span>
+</span><span id="__span-56-8"><a id="__codelineno-56-8" name="__codelineno-56-8" href="#__codelineno-56-8"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ G: function to be applied to last item(s) of (A and) B</span>
+</span><span id="__span-56-9"><a id="__codelineno-56-9" name="__codelineno-56-9" href="#__codelineno-56-9"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ B: vector (may be a scalar if A is a vector)</span>
+</span><span id="__span-56-10"><a id="__codelineno-56-10" name="__codelineno-56-10" href="#__codelineno-56-10"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="o">⍎</span><span class="p">(</span><span class="m">0</span><span class="o">=</span><span class="nf">⎕NC</span><span class="s1">'A'</span><span class="p">)</span><span class="na">/</span><span class="s1">' A←⊢ ⋄ F←⊢∘F ⋄ G←⊢∘G '</span>
+</span><span id="__span-56-11"><a id="__codelineno-56-11" name="__codelineno-56-11" href="#__codelineno-56-11"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">    </span><span class="nv">L</span><span class="w"> </span><span class="nv">N</span><span class="kd">←</span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="o">=</span><span class="m">2</span><span class="o">=⍴⊃</span><span class="nv">R</span><span class="kd">←</span><span class="nv">R</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="o">↓</span><span class="p">(</span><span class="nv">A</span><span class="o">⊣</span><span class="nv">B</span><span class="p">)</span><span class="o">,</span><span class="sr">[</span><span class="nf">⎕IO</span><span class="o">-</span><span class="m">0.1</span><span class="sr">]</span><span class="nv">B</span>
+</span><span id="__span-56-12"><a id="__codelineno-56-12" name="__codelineno-56-12" href="#__codelineno-56-12"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">    </span><span class="nv">R</span><span class="kd">←</span><span class="p">(</span><span class="nv">L</span><span class="na">/</span><span class="nv">F</span><span class="na">/</span><span class="o">⊃</span><span class="na">¨</span><span class="nv">N</span><span class="o">↓</span><span class="nv">R</span><span class="p">)</span><span class="o">,</span><span class="p">(</span><span class="nv">N</span><span class="na">/</span><span class="o">⊃</span><span class="nv">F</span><span class="na">/</span><span class="m">¯1</span><span class="o">↓</span><span class="na">¨</span><span class="nv">L</span><span class="o">↓</span><span class="nv">R</span><span class="p">)</span><span class="o">,</span><span class="nv">G</span><span class="na">/</span><span class="o">⊃</span><span class="na">∘</span><span class="o">⌽</span><span class="na">¨</span><span class="nv">R</span>
+</span><span id="__span-56-13"><a id="__codelineno-56-13" name="__codelineno-56-13" href="#__codelineno-56-13"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>I have broken several of my own rules here so I shall list my excuses first:</p>
+<p>The name I have given this operator is ’_’</p>
+<blockquote>
+<p>Single character names should be reserved for strictly local purposes but I have tended to view this operator since its creation as a semi-primitive, and its having an almost invisible name allows its derived functions more easily to be viewed as idioms.</p>
+</blockquote>
+<p>I have used conditional execute (and with diamonds do you believe).</p>
+<blockquote>
+<p>The functions derived by this operator have argument ambivalence. A conforming left argument is required for laminate on line [7], which subsequently becomes the left argument to functions run under reduction on line [8] whether the operands are dyadic or monadic. In the monadic case the functions must be run monadically under reduction. This requires:</p>
+<p>(<code>⊢∘F</code>)<code>/</code> instead of <code>F/</code> and (<code>⊢∘G</code>)<code>/</code> instead of <code>G/</code></p>
+<p>I could have put in a skip around one line with diamonds or three lines without. I could have put a skip at the start of a single line with diamonds. In the end I chose the expression you see as being the one of several more or less equivalent evils which looked nicest in view of the relative length of the other lines of code.</p>
+</blockquote>
+<p>I have re-assigned parameter names within a defined operation (<em>A</em>, <em>F</em> and <em>G</em>).</p>
+<blockquote>
+<p>Remarks above relate to (<em>A</em>). I suppose I could have assigned: <code>U←F ⋄ V←G</code> prior to the conditional <code>U←⊢∘U ⋄ V←⊢∘V</code> and changed line 3 to call <em>U</em> and <em>V</em> instead. Perversity won in this case (aesthetics played a hand).</p>
+</blockquote>
+<p>And now an example:</p>
+<p><img alt="Matrices A (wide, short), B (narrow, tall) and C (square), and a matrix D made of B next to C with A above" src="fig1.png" /></p>
+<p class="caption"><em>If A, B and C are variable sized matrices and we want the overall size of D which consists of B next to C with A above:</em></p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="o">⍴</span><span class="nv">D</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="p">((</span><span class="m">1</span><span class="o">↑⍴</span><span class="nv">A</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="m">1</span><span class="o">↑⍴</span><span class="nv">B</span><span class="p">)</span><span class="o">⌈</span><span class="m">1</span><span class="o">↑⍴</span><span class="nv">C</span><span class="p">)</span><span class="o">,</span><span class="p">(</span><span class="m">¯1</span><span class="o">↑⍴</span><span class="nv">A</span><span class="p">)</span><span class="o">⌈</span><span class="p">(</span><span class="m">¯1</span><span class="o">↑⍴</span><span class="nv">B</span><span class="p">)</span><span class="o">+</span><span class="m">¯1</span><span class="o">↑⍴</span><span class="nv">C</span>
+</span></code></pre></div>
+<p>Look at the functions in the above:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a><span class="o">+</span><span class="w">   </span><span class="o">⌈</span><span class="w">   </span><span class="o">⌈</span><span class="w">   </span><span class="o">+</span>
+</span></code></pre></div>
+<p>How about:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="o">⍴</span><span class="nv">D</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="p">(</span><span class="o">⍴</span><span class="nv">A</span><span class="p">)(</span><span class="o">+⌈</span><span class="p">)(</span><span class="o">⍴</span><span class="nv">B</span><span class="p">)(</span><span class="o">⌈+</span><span class="p">)</span><span class="o">⍴</span><span class="nv">C</span>
+</span></code></pre></div>
+<p>which is precisely what I coded several years ago when I required the answer and was not yet fully conversant with all the restrictions in APL and had never heard of function arrays, merely assuming that consistent and meaningful statements would give me the answer I required.</p>
+<p>Well, now I can code:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a><span class="o">⍴</span><span class="nv">D</span><span class="w"> </span><span class="err">↔</span><span class="w"> </span><span class="p">(</span><span class="o">⍴</span><span class="nv">A</span><span class="p">)</span><span class="o">+</span><span class="nv">_</span><span class="o">⌈</span><span class="p">(</span><span class="o">⍴</span><span class="nv">B</span><span class="p">)</span><span class="o">⌈</span><span class="nv">_</span><span class="o">+⍴</span><span class="nv">C</span>
+</span></code></pre></div>
+<p>and it DOES give me the answer.</p>
+<p>In fact a defined operator to do that task can be much simpler than that coded above as there are only two operands.</p>
+<p>What we can do with this one is slightly more generalised.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a><span class="w">      </span><span class="c1">⍝ dyadic vector/vector</span>
+</span><span id="__span-61-2"><a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a><span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="o">+</span><span class="nv">_</span><span class="o">-</span><span class="nv">_</span><span class="o">×</span><span class="nv">_</span><span class="o">÷</span><span class="nv">_</span><span class="o">⌈</span><span class="nv">_</span><span class="o">⌊</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">11</span><span class="w"> </span><span class="m">12</span>
+</span><span id="__span-61-3"><a id="__codelineno-61-3" name="__codelineno-61-3" href="#__codelineno-61-3"></a><span class="m">8</span><span class="w"> </span><span class="m">¯6</span><span class="w"> </span><span class="m">27</span><span class="w"> </span><span class="m">0.4</span><span class="w"> </span><span class="m">11</span><span class="w"> </span><span class="m">6</span>
+</span><span id="__span-61-4"><a id="__codelineno-61-4" name="__codelineno-61-4" href="#__codelineno-61-4"></a>
+</span><span id="__span-61-5"><a id="__codelineno-61-5" name="__codelineno-61-5" href="#__codelineno-61-5"></a><span class="w">      </span><span class="c1">⍝ dyadic scalar/vector</span>
+</span><span id="__span-61-6"><a id="__codelineno-61-6" name="__codelineno-61-6" href="#__codelineno-61-6"></a><span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="o">+</span><span class="nv">_</span><span class="o">-</span><span class="nv">_</span><span class="o">×</span><span class="nv">_</span><span class="o">÷</span><span class="nv">_</span><span class="o">⌈</span><span class="nv">_</span><span class="o">⌊</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">7</span>
+</span><span id="__span-61-7"><a id="__codelineno-61-7" name="__codelineno-61-7" href="#__codelineno-61-7"></a><span class="m">3</span><span class="w"> </span><span class="m">¯2</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">0.2</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-61-8"><a id="__codelineno-61-8" name="__codelineno-61-8" href="#__codelineno-61-8"></a>
+</span><span id="__span-61-9"><a id="__codelineno-61-9" name="__codelineno-61-9" href="#__codelineno-61-9"></a><span class="w">      </span><span class="c1">⍝ dyadic vector/scalar</span>
+</span><span id="__span-61-10"><a id="__codelineno-61-10" name="__codelineno-61-10" href="#__codelineno-61-10"></a><span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="o">+</span><span class="nv">_</span><span class="o">-</span><span class="nv">_</span><span class="o">×</span><span class="nv">_</span><span class="o">÷</span><span class="nv">_</span><span class="o">⌈</span><span class="nv">_</span><span class="o">⌊</span><span class="w"> </span><span class="m">7</span>
+</span><span id="__span-61-11"><a id="__codelineno-61-11" name="__codelineno-61-11" href="#__codelineno-61-11"></a><span class="m">8</span><span class="w"> </span><span class="m">¯5</span><span class="w"> </span><span class="m">21</span><span class="w"> </span><span class="m">0.5714285714</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">6</span>
+</span><span id="__span-61-12"><a id="__codelineno-61-12" name="__codelineno-61-12" href="#__codelineno-61-12"></a>
+</span><span id="__span-61-13"><a id="__codelineno-61-13" name="__codelineno-61-13" href="#__codelineno-61-13"></a><span class="w">      </span><span class="c1">⍝ monadic vector</span>
+</span><span id="__span-61-14"><a id="__codelineno-61-14" name="__codelineno-61-14" href="#__codelineno-61-14"></a><span class="w">      </span><span class="o">+</span><span class="nv">_</span><span class="o">-</span><span class="nv">_</span><span class="o">×</span><span class="nv">_</span><span class="o">÷</span><span class="nv">_</span><span class="o">⌈</span><span class="nv">_</span><span class="o">⌊</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span>
+</span><span id="__span-61-15"><a id="__codelineno-61-15" name="__codelineno-61-15" href="#__codelineno-61-15"></a><span class="m">1</span><span class="w"> </span><span class="m">¯2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0.25</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span>
+</span></code></pre></div>
+<p>And it works uniformly with mixed, defined and derived functions and with nested arguments so long as at least one argument has length equal to the number of function operands and the other, for a dyadic call, is the same length or is a scalar.</p>
+<p>The reason it works is as for operator (<code>SEL_</code>) described previously. The control on which function is run is by the length of the argument(s). When the length is 2 then the left operand must be the function to run on the first (<code>⊃</code>) item of the argument(s). If the length is greater than 2 then the left operand must be a function derived with a further call to ’_’ so its arguments are passed as the <code>¯1↓¨</code> of the arguments at this calling level and a blind recursive call is made. The right operand is always the function to be run on the last (<code>⊃⌽</code>) item(s).</p>
+<p>That’s it.</p></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">language design</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">programming techniques</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

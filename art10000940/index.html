@@ -1,0 +1,2171 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10000940/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Turtle Graphics in J - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Turtle Graphics in J
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introduction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#turtle-graphics" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Turtle Graphics
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#turtle-procedure-notation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Turtle Procedure Notation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#turtle-graphics-extension-for-j" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Turtle Graphics Extension for J
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jtg-example-interaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        JTG Example Interaction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Future Enhancements
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deficiencies-noted-in-j" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Deficiencies Noted in J
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conclusion
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-1-jtg-interface-commandfunction-syntax-and-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix 1: JTG interface command/function syntax and description
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scripts-available-via-ftp" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Scripts available via FTP!
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-2-example-jtg-programs-tgegjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix 2: Example JTG Programs (tgeg.js)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-3-complete-source-code-for-jtg-tgjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix 3: Complete Source Code for JTG (tg.js)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Turtle Graphics in J</h1>
+
+  <p class="printed"><a href="../12/#n3-january-1996">Vector 12:3</a>, page 79</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-graphics">graphics</a> <a class="md-tag" href="../tags/#tag-programming-techniques">programming techniques</a> <a class="md-tag" href="../tags/#tag-education">education</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../12/3/VOL.12-NO.3-JANUARY-1996.pdf#page=81">Read it in the PDF of the issue, page 79</a></em></p>
+<p class="byline"><em>by David J. Benn</em></p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>Soon after starting to learn J in earnest, I encountered a book called <em>Fractals Visualisation and J</em> [Reiter95]. Having long held a fascination for chaos theory and fractals, I was interested - and somewhat relieved - to note that J had been seriously used for the creation and exploration of fractal geometry, at a time when I was sceptical about the benefits of J over other languages.</p>
+<p>Having studied J in the context of a coursework Masters unit on numerical computation, I have glimpsed something of the power of the language. It is an uncommon thing to find a powerful functional language which does not require exorbitant resources and at the same time provides good support for system-level programming in general and the Windows API and Macintosh Toolbox in particular. Indeed, I have moved from outright scepticism, to grudging respect, to admiration of J in only a few months of working with the language.</p>
+<p>While looking through a number of issues of <em>Vector</em> recently, I came across Reiter’s paper on fractals and J. [Reiter94]. Upon seeing a picture of the Koch curve (fractal snowflake) I was reminded of a Turtle Graphics program I had written to render this appealing shape. It occurred to me that it might be interesting - and even useful - to provide some means for doing Turtle Graphics in J.</p>
+<h2 id="turtle-graphics">Turtle Graphics<a class="headerlink" href="#turtle-graphics" title="Permanent link">&para;</a></h2>
+<p>Turtle Graphics (TG) has its origins with the Logo language, created in the late 1960s by a team led by Seymour Papert [Papert80]. Logo was invented as a vehicle to help children think about problem solving [Wilson93] and for the interactive exploration of mathematics [Abelson92].</p>
+<p>Logo can be considered to be a dialect of Lisp [Wilson93] and implementations are characterised by the following:</p>
+<blockquote>
+<p>Logo is highly interactive, organises programs as collections of procedures, includes lists as first-class data objects, and has built-in turtle graphics.</p>
+<p>Imagine that you have control of a little creature called a turtle that exists in a mathematical plane or, better yet, on a computer display screen. The turtle can respond to a few simple commands: FORWARD moves the turtle, in the direction it is facing, some number of units. RIGHT rotates it in place, clockwise, some number of degrees. BACK and LEFT cause the opposite movements. [Abelson92]</p>
+</blockquote>
+<p>While some early Logo systems used a dome-shaped robot (attached to a computer) which moved about on the floor, drawing on a large sheet of paper, most Logo systems represent the turtle as a triangle on a computer screen. In some systems, there is no turtle of any kind, merely the <em>notion</em> of one, for example [Benn95]. Where speed of rendering is important, in TG systems which do provide a visual turtle, the turtle may be hidden.</p>
+<p>More recent versions such as Berkeley Logo take advantage of the windowing capabilities of modern operating systems (Windows, Macintosh) [Harvey93].</p>
+<h2 id="turtle-procedure-notation">Turtle Procedure Notation<a class="headerlink" href="#turtle-procedure-notation" title="Permanent link">&para;</a></h2>
+<p>Abelson and DiSessa have the following to say in Appendix A to their book <em>Turtle Geometry</em>:</p>
+<blockquote>
+<p>"Turtle Procedure Notation is meant to be a consistent and readable way to describe turtle programs independent of the quirks, details, and limitations of common computer languages, yet in such a way that the programs can be readily translated into whatever computer language is available." [Abelson92]</p>
+</blockquote>
+<p>The authors used Logo for all the TG work done in developing the material for their book and in fact suggest that Logo is, except for minor variations in syntax, an actual implementation of Turtle Procedure Notation.</p>
+<p>They discuss the basic operations and language features necessary for TG. These include features common to all programming languages, such as expression evaluation, integer and real data types, variables, procedures/functions, conditional evaluation (if...then...else), iteration and recursion.</p>
+<p>Other language features such as a list datatype and delayed evaluation while arguably useful are not essential. Having said that, delayed evaluation <em>was</em> found to be useful when creating the <strong>repeat</strong> command for the current J implementation, while lists (vectors) were of great help in the maintenance of information about TG activity. Both are detailed below in the section entitled <em>Turtle Graphics Extension for J</em>.</p>
+<p>They also discuss the relative merits of a number of commonly available programming languages as platforms for TG.</p>
+<p>Circa 1980 BASIC is dismissed by the authors of <em>Turtle Geometry</em> as being unsuitable for TG due to a lack of support for modularisation, local scope, and recursion. This indicates that while the book has been reprinted several times, it has not been updated to consider modern BASIC dialects which <em>do</em> support such features. In fact, circa 1990 BASIC has more in common with Pascal and other modern imperative languages than with these early offerings.</p>
+<p>One such example [Benn95] includes inbuilt TG commands, C-like structures, recursion, and sub-programs which double as procedures and functions. It is in any case encouraging to see that the authors of J for Windows recognise the need for inter-operability with languages such as Visual BASIC. [Pountain95]</p>
+<p>Lisp, Smalltalk and APL all receive high marks from Abelson as languages which are well suited to the implementation of TG as language extensions. In particular:</p>
+<blockquote>
+<p>APL is quite suitable for turtle geometry. It is procedure-oriented, with inputs and outputs. It allows "environment building" in the way Logo does. Furthermore, it is recursive and handles compound data, such as vectors, in the cleanest fashion of any language mentioned here.</p>
+<p>We...know of at least one major installation that has turtle commands built into APL. [Abelson92]</p>
+</blockquote>
+<p>The parallels to J in the above commentary are obvious.</p>
+<h2 id="turtle-graphics-extension-for-j">Turtle Graphics Extension for J<a class="headerlink" href="#turtle-graphics-extension-for-j" title="Permanent link">&para;</a></h2>
+<p>Procedure definitions can be thought of as a way of extending the set of operations in a programming language [Abelson92], and since J provides the means by which functions can be defined and stored in scripts, such extension is supported by J. But at least as important is the degree to which a language permits interactive environment building in an experimental fashion, as opposed to the edit-compile-test cycle of languages such as Pascal and C (since programs written using them are most often compiled). Like Logo, J is quite suitable for this style of programming.</p>
+<p>In setting out to implement Turtle Procedure Notation in J, it was determined that greater use would have to be made of J’s control structures and explicit function definition than is perhaps customary. Purists who believe these to be largely unnecessary may consider the extent to which they have been used here excessive, but in reality the primitive commands and operations required for TG are essentially procedural in nature.</p>
+<p>It should come as no surprise that J’s Window Driver was also used extensively. A close examination of the code will however reveal smatterings of more traditional J code. The code was implemented and tested under J FreeWare for Windows. It was later also tested under the Standard edition (v2) of J for the Macintosh.</p>
+<p>The current J implementation, hereafter referred to as JTG, supports multiple windows with one imaginary turtle per Window. Up to MAXWDW (currently defined as 10) windows may be open at once, allowing one to have multiple images in various stages of completion. TG operations are therefore directed at particular windows. This is facilitated by making the first parameter of each command or operation a number from 1 to MAXWDW indicating the window-id.</p>
+<p>The following information is maintained about each window via J lists: whether or not the Nth window is open, whether the pen is up or down in each window (presumably stemming from the original turtle robots which lifted a pen up and down so that drawing would occur only when desired, but nevertheless useful), the heading in degrees for the turtle in each window, and the current x,y coordinates for each window’s turtle. J verbs such as <em>head, behead, tail, amend</em> and <em>from</em> are used extensively for the maintenance of these lists.</p>
+<p>JTG consists of a number of functions intended for internal use by a set of "public" interface functions. The internal functions will not be discussed here but can be found in Appendix 3, with comments. The interface commands/functions with the necessary parameters are as follows:</p>
+<blockquote>
+<p><strong>openwdw</strong> wdw<br>
+<strong>closewdw</strong> wdw<br>
+<strong>wait</strong> wdw<br>
+<strong>clear</strong> wdw<br>
+<strong>home</strong> wdw<br>
+<strong>setxy</strong> wdw x y<br>
+<strong>xycor</strong> wdw<br>
+<strong>penup</strong> wdw<br>
+<strong>pendown</strong> wdw<br>
+<strong>setheading</strong> wdw degrees<br>
+<strong>heading</strong> wdw<br>
+<strong>left</strong> wdw degrees<br>
+<strong>right</strong> wdw degrees<br>
+<strong>forward</strong> wdw distance<br>
+<strong>back</strong> wdw distance<br>
+n <strong>repeat</strong> commands</p>
+</blockquote>
+<p>This list constitutes the essential commands and functions found in the specification for the Turtle Procedure Notation of [Abelson92] in addition to commands for handling windows. For a more detailed description of each of the above, see Appendix 1.</p>
+<h2 id="jtg-example-interaction">JTG Example Interaction<a class="headerlink" href="#jtg-example-interaction" title="Permanent link">&para;</a></h2>
+<p>Here are some examples of the kind of interaction possible with JTG. What follows assumes that you have executed the functions in Appendix 3 on a suitable J system.</p>
+<p>Consider what happens when typing the following code one line at a time. A space will be left between each line by JTG. After the <strong>openwdw</strong> command has been issued you will need to reselect the <em>jx</em> window into which the commands are being typed:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>openwdw 1
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>forward 1 300
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>right 1 90
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>forward 1 300
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>right 1 90
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>forward 1 300
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>right 1 90
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>forward 1 300
+</span></code></pre></div>
+<p><img alt="A window titled “J Turtle Graphics [1]” containing a square" src="fig1.jpg" /></p>
+<p class="caption">Figure 1 - humble beginnings with JTG.</p>
+<p>This opens a window called "Turtle Graphics [1]", moves the turtle forward 300 steps, rotates the turtle right by 90 degrees, and then repeats the last two steps 3 more times. By this time there is a 300x300 square in JTG window 1. For such repetition, JTG provides the <strong>repeat</strong> function, which is essentially the same as that provided by Logo, differing only in syntax. Try the following sequence:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>clear 1
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>4 repeat 'fd 1 300' then 'rt 1 90'
+</span></code></pre></div>
+<p>This clears the previously opened window, and draws a square in it, this time with a single line of code. The results are the same as in Figure 1. Note that all windows were resized before being copied and pasted so as to take up less space in the body of this paper.</p>
+<p>Next, try the following code:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>clear 1
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>penup 1
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>setxy 1 _50 _350
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>pendown 1
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>9 repeat 'fd 1 700' then 'rt 1 160'
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>closewdw 1
+</span></code></pre></div>
+<p><img alt="A nine-pointed star" src="fig2.jpg" /></p>
+<p class="caption">Figure 2 - A star is born.</p>
+<p>The window is cleared again, the turtle is repositioned and a star is plotted. The last command closes the window. Figure 2 shows the star.</p>
+<p>It is also instructive to examine the return values of the <strong>xycor</strong> and <strong>heading</strong> functions at various stages, although no examples of this are shown here.</p>
+<p>Appendix 2 contains more JTG examples, via explicit function definitions. Example usages are:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>polygon 1 7 200
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>polygon 2 50 20
+</span></code></pre></div>
+<p>which open two windows - one after the other, these do <em>not</em> run concurrently however - creating a pentagon and a circle (or a polygon with enough sides to <em>look</em> like one, but try increasing the length of each side) respectively. The <strong>wait</strong> command is used to await window closure via the window close-box, and finally the window is closed automatically by the <strong>closewdw</strong> command. Figures 3 and 4 show these polygons.</p>
+<p><img alt="A seven-sided polygon" src="fig3.jpg" /></p>
+<p class="caption">Figure 3 – a 7-sided polygon.</p>
+<p><img alt="A circle drawn as a many-sided polygon" src="fig4.jpg" /></p>
+<p class="caption">Figure 4 – a circle, almost.</p>
+<p>Two TG favourites are the fractal tree and the fractal snowflake (Koch curve). Try the following:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>tree 1 100           and
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>                     openwdw 1
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>                     penup 1
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>                     setxy 1 150 300
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>                     pendown 1
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>                     snowflake 1 3 600
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>                     closewdw 1
+</span></code></pre></div>
+<p>Notice that both the tree and snowflake procedures make good use of recursion. Figures 5 and 6 show the result of executing the above code. These fractals are described in [Abelson92] and a variety of other sources. Note the difference between the approach taken in the creation of the snowflake via TG as compared with Reiter’s polygon approach [Reiter94].</p>
+<p><img alt="A branching fractal tree" src="fig5.jpg" /></p>
+<p class="caption">Figure 5 – a fractal tree.</p>
+<p><img alt="A Koch snowflake" src="fig6.jpg" /></p>
+<p class="caption">Figure 6 – a fractal snowflake.</p>
+<p>For something a little different, one can easily create what appears to be a 3D torus by drawing a series of circles around a common centre. This is shown in Figure 7 and the code to do this is as follows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>36 repeat '24 repeat "fd 1 60" then "rt 1 15"' then 'fd 1 3' then 'rt 1 10'
+</span></code></pre></div>
+<p>and assumes the existence of window 1.</p>
+<p><img alt="Thirty-six overlapping circles around a common centre, like a torus" src="fig7.jpg" /></p>
+<p class="caption">Figure 7 - what appears to be a 3D torus.</p>
+<p>Last but not least, executing the following code: <strong>flower 1 5</strong> and assuming the existence of window 1 gives the result shown in Figure 8. The code for this can be found in Appendix 2. The flower function calls <strong>petal</strong> and <strong>arcr</strong> (arc right).</p>
+<p><img alt="Six petals radiating from a centre" src="fig8.jpg" /></p>
+<p class="caption">Figure 8 - beginnings of a flower.</p>
+<h2 id="future-enhancements">Future Enhancements<a class="headerlink" href="#future-enhancements" title="Permanent link">&para;</a></h2>
+<p>A number of improvements are possible. For one thing, even on a 100 MHz 486DX4 running Windows 95, J Freeware for Windows executes JTG code quite slowly. Using the commercial Windows version might result in faster execution. JTG was also tested using the Macintosh Standard edition (v2) of J running on a Mac Centris 660AV, and approximately the same execution speed was noted.</p>
+<p>As a rough comparison, the tree algorithm above takes several seconds to complete with JTG, while in ACE BASIC - a compiled language admittedly - on a 50 MHz 68030 Amiga 1200, the drawing takes less than a second.</p>
+<p>Other reasons for the slow execution speed are:</p>
+<ul>
+<li>Each JTG interface function’s first parameter is a window-id which is checked for validity each time the function is called. Enforcing the use of a <strong>selectwdw</strong> interface function (which already exists internally) and having JTG commands act upon the last window selected would remove much of this overhead. However, the beauty of having to specify a window for each JTG command/function is that it is immediately obvious which window will be targeted.</li>
+<li>There is a certain amount of overhead involved in the maintenance of lists as outlined above, which would not exist if multiple windows weren’t allowed.</li>
+</ul>
+<p>A further overhead could be <em>introduced</em> if the number and nature of all parameters (not just the window-id) for each JTG command/function were to be checked before use. As it now stands, J will produce errors if the formal and actual parameters don’t match.</p>
+<p>One problem that should be attended to is that if a window is closed via its close-box, and no <strong>closewdw</strong> command is issued for the window subsequently, the window lists will contain incorrect information for that window.</p>
+<p>Other possible enhancements include:</p>
+<ul>
+<li>A function which returns TRUE if a mouse button is depressed, or the close-box of a window has been activated. These would be useful for cutting a program’s execution short.</li>
+<li>The repeat command could be enhanced to allow a test for a condition (e.g. mouse press) as well as just a count. [Abelson92]</li>
+<li>Being able to change a turtle’s pen colour.</li>
+<li>Having JTG display error messages instead of just "beeping" when an error occurs (e.g. when a non-existent window is targeted).</li>
+</ul>
+<p>Other possibilities (albeit probably less useful) include displaying the turtle, and multiple turtles per window. The latter would permit turtle interactions [Abelson92]. Such additions would be likely to slow execution even further.</p>
+<p>One advantage of the current slow execution is that it is possible to watch images being drawn at a reasonable pace, so making it possible to understand the algorithm being carried out more easily than if the drawing were to be all over in a flash. In a faster compiled language, the rendering can of course be slowed by inserting delays between certain commands.</p>
+<h2 id="deficiencies-noted-in-j">Deficiencies Noted in J<a class="headerlink" href="#deficiencies-noted-in-j" title="Permanent link">&para;</a></h2>
+<p>While the author is in general very impressed by J, a few problems were noted in creating JTG:</p>
+<ul>
+<li>Logical operators (eg. and (<code>*.</code>)) are not short-circuit operators. This means that instead of being able to say:</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>if. inrange wdw and windowactive wdw do.
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>   .
+</span></code></pre></div>
+<p>one is forced to write:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>if. inrange wdw do.
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>   if. windowactive wdw do.
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>      .
+</span></code></pre></div>
+<p>or risk a run-time error, say, if the window-id is not in range. This may impact upon performance and increase the level of control-structure nesting required.</p>
+<ul>
+<li>Explicitly defined functions seem to be permitted only if parameters are supplied. This was a problem when attempting to make some functions/commands parameterless for the purpose of removing the requirement of having each operation specify a window explicitly, as mentioned in the previous section, e.g.</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>   xycor
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>instead of
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>   xycor wdw
+</span></code></pre></div>
+<p>This may very well amount to no more than a deficiency in the author’s understanding of J however.</p>
+<ul>
+<li>No support for concurrency. It would be nice to have multiple TG programs running at once, to test out more than one idea at a time. Note that this is different from having multiple windows open, only one of which can be in use by the programmer at a given time.</li>
+<li>No programmer-controllable user-break mechanism. Something like an event trapping or exception handling mechanism would be useful when there is reason to think that a program might migrate to fairy land.</li>
+</ul>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>Despite a few problems, J was found to be a most suitable platform on which to base TG. This exercise has served to reinforce the author’s belief that J is a language to be reckoned with, a serious functional language which deserves recognition for its innovations, and serious consideration by software engineers who find themselves involved with numerical computation but also require inter-operability with the OS and other languages.</p>
+<p>TG is a fun, powerful vehicle for understanding mathematics (in particular, geometry and certain fractal algorithms) which encourages an interactive, experimental approach, and like Logo, J provides a means - via appropriate extensions - to do this.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<p>[Abelson92] H. Abelson and A. DiSessa, 1992, <em>Turtle Geometry: The Computer as a Medium for Exploring Mathematics</em>, MIT Press: USA.</p>
+<p>[Benn95] D.J. Benn, 1995, <em>ACE Programmer’s Guide and Language Reference</em>, http://www.appcomp.utas.edu.au/users/dbenn/</p>
+<p>[Harvey93] B. Harvey et al, <em>1993, Berkeley Logo</em>, Regents of the University of California.</p>
+<p>[Iverson95] K. Iverson, 1995, <em>J Introduction &amp; Dictionary</em>, Iverson Software Inc.</p>
+<p>[Papert80] S. Papert, 1980, <em>Mindstorms: Children, Computers and Powerful Ideas</em>, Basic Books, Inc.</p>
+<p>[Pountain95] D. Pountain, September 1995, <em>The Joy of J</em>, BYTE Magazine, p 267.</p>
+<p>[Reiter94] C.A. Reiter, October 1994, <em>Fractals RYIJ</em>, Vector, vol. 11 no. 2, p 86.</p>
+<p>[Reiter95] C.A. Reiter, 1995, <em>Fractals Visualisation and J</em>, Iverson Software Inc.</p>
+<p>[Wilson93] L.B. Wilson and R.G. Clark, 1993, <em>Comparative Programming Languages</em>, Addison-Wesley.</p>
+<h2 id="appendix-1-jtg-interface-commandfunction-syntax-and-description">Appendix 1: JTG interface command/function syntax and description<a class="headerlink" href="#appendix-1-jtg-interface-commandfunction-syntax-and-description" title="Permanent link">&para;</a></h2>
+<p>Each command or function is presented with the required syntax, and is followed by a brief description. This information was extracted from the commented code in Appendix 2. The command or function name is in <strong>bold</strong> print.</p>
+<dl>
+<dt><strong>openwdw</strong> wdw</dt>
+<dd>Open TG window (1000x1000 pixels) with specified numeric ID in the range 1..MAXWDW. The TG grid x,y range is -500..+500, -500..+500. The window contents are auto-scaling when window size is changed.</dd>
+<dt><strong>closewdw</strong> wdw</dt>
+<dd>Closes specified TG window, amending lists.</dd>
+<dt><strong>wait</strong> wdw</dt>
+<dd>Waits for some kind of message from the current window, typically a close-box click.</dd>
+<dt><strong>clear</strong> wdw</dt>
+<dd>Clears specified window, resetting turtle position and heading to the defaults.</dd>
+<dt><strong>home</strong> wdw</dt>
+<dd>Returns turtle to the home position, resetting turtle position and heading to the defaults. If the pen is down a line is drawn from the current to the home position.</dd>
+<dt><strong>setxy</strong> wdw x y</dt>
+<dd>Sets the x,y position, drawing a line if the pen is down.</dd>
+<dt><strong>xycor</strong> wdw</dt>
+<dd>Returns current x,y coordinate of turtle in specified window as a list.</dd>
+<dt><strong>penup</strong> wdw</dt>
+<dd>Retracts the pen of the specified window’s turtle.</dd>
+<dt><strong>pendown</strong> wdw</dt>
+<dd>Lowers the pen of the specified window’s turtle.</dd>
+<dt><strong>setheading</strong> wdw degrees</dt>
+<dd>Changes the heading of the specified window’s turtle.</dd>
+<dt><strong>heading</strong> wdw</dt>
+<dd>Returns current heading of turtle in specified window.</dd>
+<dt><strong>left</strong> wdw degrees</dt>
+<dd>Rotates turtle left by number of degrees specified. Note: a negative value will result in a right turn! (<strong>left</strong> may be abbreviated as <strong>lt</strong>).</dd>
+<dt><strong>right</strong> wdw degrees</dt>
+<dd>Rotates turtle right by number of degrees specified. Note: a negative value will result in a left turn! (<strong>right</strong> may be abbreviated as <strong>rt</strong>).</dd>
+<dt><strong>forward</strong> wdw distance</dt>
+<dd>Moves turtle forward by specified number of steps. Note: a negative distance will result in backward motion! (<strong>forward</strong> may be abbreviated as <strong>fd</strong>).</dd>
+<dt><strong>back</strong> wdw distance</dt>
+<dd>Moves turtle back by specified number of steps. Note: a negative distance will result in forward motion! (<strong>back</strong> may be abbreviated as <strong>bk</strong>).</dd>
+<dt>n <strong>repeat</strong> commands</dt>
+<dd>Repeats the specified commands N times. The commands are expected to be laminated character strings. For example: <em>4 repeat 'fd 1 100' then 'right 1 90'</em>.</dd>
+</dl>
+<h2 id="scripts-available-via-ftp">Scripts available via FTP!<a class="headerlink" href="#scripts-available-via-ftp" title="Permanent link">&para;</a></h2>
+<p>I have just placed the files tg.js and tgeg.js (along with 2 readme files) in:</p>
+<blockquote>
+<p>/pub/ACE/otherlang/J/tg</p>
+</blockquote>
+<p>on:</p>
+<blockquote>
+<p>ftp.appcomp.utas.edu.au</p>
+</blockquote>
+<p><em>[message received on CompuServe 5th January 1996 – thanks, Ed]</em></p>
+<h2 id="appendix-2-example-jtg-programs-tgegjs">Appendix 2: Example JTG Programs (tgeg.js)<a class="headerlink" href="#appendix-2-example-jtg-programs-tgegjs" title="Permanent link">&para;</a></h2>
+<p>Note: The script <em>tg.js</em> (Appendix 3) must be executed before this code is used.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>NB.
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>NB. Examples of using TG from J.
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>NB. David Benn, Semester II, 1995.
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>NB.
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>NB. Execute the script tg.js before running
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>NB. the following code.
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>NB.
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>NB. SYNTAX: polygon wdw sides length
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>NB.
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>NB. eg. polygon 1 4 200     [square]
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>NB.         polygon 1 50 20     [circle]
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>NB.
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>polygon =. 3 : 0
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>wdw =. head y.
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>n =. head behead y.
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>length =. tail y.
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>degs =. 360 % n
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>i =. 0
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>openwdw wdw
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>while. i &lt; n do.
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>  forward wdw , length
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>  right wdw , degs
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>  i =. i + 1
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>end.
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>wait wdw
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>closewdw wdw
+</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>)
+</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>
+</span><span id="__span-9-30"><a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>NB. SYNTAX: tree wdw length
+</span><span id="__span-9-31"><a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a>NB.
+</span><span id="__span-9-32"><a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a>NB. eg. tree 1 100
+</span><span id="__span-9-33"><a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a>NB.
+</span><span id="__span-9-34"><a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a>drawtree =. 3 : 0
+</span><span id="__span-9-35"><a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a>wdw =. head y.
+</span><span id="__span-9-36"><a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a>length =. tail y.
+</span><span id="__span-9-37"><a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a>if. length &gt;: 20 do.
+</span><span id="__span-9-38"><a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a>  right wdw , 30
+</span><span id="__span-9-39"><a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a>  forward wdw , length
+</span><span id="__span-9-40"><a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a>  drawtree wdw , length*0.75
+</span><span id="__span-9-41"><a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a>  back wdw , length
+</span><span id="__span-9-42"><a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a>  left wdw , 60
+</span><span id="__span-9-43"><a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a>  forward wdw , length
+</span><span id="__span-9-44"><a id="__codelineno-9-44" name="__codelineno-9-44" href="#__codelineno-9-44"></a>  drawtree wdw , length*0.75
+</span><span id="__span-9-45"><a id="__codelineno-9-45" name="__codelineno-9-45" href="#__codelineno-9-45"></a>  back wdw , length
+</span><span id="__span-9-46"><a id="__codelineno-9-46" name="__codelineno-9-46" href="#__codelineno-9-46"></a>  right wdw , 30
+</span><span id="__span-9-47"><a id="__codelineno-9-47" name="__codelineno-9-47" href="#__codelineno-9-47"></a>end.
+</span><span id="__span-9-48"><a id="__codelineno-9-48" name="__codelineno-9-48" href="#__codelineno-9-48"></a>)
+</span><span id="__span-9-49"><a id="__codelineno-9-49" name="__codelineno-9-49" href="#__codelineno-9-49"></a>
+</span><span id="__span-9-50"><a id="__codelineno-9-50" name="__codelineno-9-50" href="#__codelineno-9-50"></a>tree =. 3 : 0
+</span><span id="__span-9-51"><a id="__codelineno-9-51" name="__codelineno-9-51" href="#__codelineno-9-51"></a>wdw =. head y.
+</span><span id="__span-9-52"><a id="__codelineno-9-52" name="__codelineno-9-52" href="#__codelineno-9-52"></a>openwdw wdw
+</span><span id="__span-9-53"><a id="__codelineno-9-53" name="__codelineno-9-53" href="#__codelineno-9-53"></a>drawtree y.
+</span><span id="__span-9-54"><a id="__codelineno-9-54" name="__codelineno-9-54" href="#__codelineno-9-54"></a>wait wdw
+</span><span id="__span-9-55"><a id="__codelineno-9-55" name="__codelineno-9-55" href="#__codelineno-9-55"></a>closewdw wdw
+</span><span id="__span-9-56"><a id="__codelineno-9-56" name="__codelineno-9-56" href="#__codelineno-9-56"></a>)
+</span><span id="__span-9-57"><a id="__codelineno-9-57" name="__codelineno-9-57" href="#__codelineno-9-57"></a>
+</span><span id="__span-9-58"><a id="__codelineno-9-58" name="__codelineno-9-58" href="#__codelineno-9-58"></a>NB. SYNTAX: snowflake wdw depth side
+</span><span id="__span-9-59"><a id="__codelineno-9-59" name="__codelineno-9-59" href="#__codelineno-9-59"></a>NB.
+</span><span id="__span-9-60"><a id="__codelineno-9-60" name="__codelineno-9-60" href="#__codelineno-9-60"></a>NB. eg. snowflake 1 3 600
+</span><span id="__span-9-61"><a id="__codelineno-9-61" name="__codelineno-9-61" href="#__codelineno-9-61"></a>NB.
+</span><span id="__span-9-62"><a id="__codelineno-9-62" name="__codelineno-9-62" href="#__codelineno-9-62"></a>NB. This assumes that window 1 is open and the
+</span><span id="__span-9-63"><a id="__codelineno-9-63" name="__codelineno-9-63" href="#__codelineno-9-63"></a>NB. turtle has been suitably positioned.
+</span><span id="__span-9-64"><a id="__codelineno-9-64" name="__codelineno-9-64" href="#__codelineno-9-64"></a>NB.
+</span><span id="__span-9-65"><a id="__codelineno-9-65" name="__codelineno-9-65" href="#__codelineno-9-65"></a>koch =. 3 : 0
+</span><span id="__span-9-66"><a id="__codelineno-9-66" name="__codelineno-9-66" href="#__codelineno-9-66"></a>wdw =. head y.
+</span><span id="__span-9-67"><a id="__codelineno-9-67" name="__codelineno-9-67" href="#__codelineno-9-67"></a>depth =. head behead y.
+</span><span id="__span-9-68"><a id="__codelineno-9-68" name="__codelineno-9-68" href="#__codelineno-9-68"></a>side =. tail y.
+</span><span id="__span-9-69"><a id="__codelineno-9-69" name="__codelineno-9-69" href="#__codelineno-9-69"></a>if. depth = 0 do.
+</span><span id="__span-9-70"><a id="__codelineno-9-70" name="__codelineno-9-70" href="#__codelineno-9-70"></a>  forward wdw , side
+</span><span id="__span-9-71"><a id="__codelineno-9-71" name="__codelineno-9-71" href="#__codelineno-9-71"></a>else.
+</span><span id="__span-9-72"><a id="__codelineno-9-72" name="__codelineno-9-72" href="#__codelineno-9-72"></a>  koch wdw , depth-1 , side % 3
+</span><span id="__span-9-73"><a id="__codelineno-9-73" name="__codelineno-9-73" href="#__codelineno-9-73"></a>  left wdw , 60
+</span><span id="__span-9-74"><a id="__codelineno-9-74" name="__codelineno-9-74" href="#__codelineno-9-74"></a>  koch wdw , depth-1 , side % 3
+</span><span id="__span-9-75"><a id="__codelineno-9-75" name="__codelineno-9-75" href="#__codelineno-9-75"></a>  right wdw , 120
+</span><span id="__span-9-76"><a id="__codelineno-9-76" name="__codelineno-9-76" href="#__codelineno-9-76"></a>  koch wdw , depth-1 , side % 3
+</span><span id="__span-9-77"><a id="__codelineno-9-77" name="__codelineno-9-77" href="#__codelineno-9-77"></a>  left wdw , 60
+</span><span id="__span-9-78"><a id="__codelineno-9-78" name="__codelineno-9-78" href="#__codelineno-9-78"></a>  koch wdw , depth-1 , side % 3
+</span><span id="__span-9-79"><a id="__codelineno-9-79" name="__codelineno-9-79" href="#__codelineno-9-79"></a>end.
+</span><span id="__span-9-80"><a id="__codelineno-9-80" name="__codelineno-9-80" href="#__codelineno-9-80"></a>)
+</span><span id="__span-9-81"><a id="__codelineno-9-81" name="__codelineno-9-81" href="#__codelineno-9-81"></a>
+</span><span id="__span-9-82"><a id="__codelineno-9-82" name="__codelineno-9-82" href="#__codelineno-9-82"></a>snowflake =. 3 : 0
+</span><span id="__span-9-83"><a id="__codelineno-9-83" name="__codelineno-9-83" href="#__codelineno-9-83"></a>wdw =. head y.
+</span><span id="__span-9-84"><a id="__codelineno-9-84" name="__codelineno-9-84" href="#__codelineno-9-84"></a>depth =. head behead y.
+</span><span id="__span-9-85"><a id="__codelineno-9-85" name="__codelineno-9-85" href="#__codelineno-9-85"></a>side =. tail y.
+</span><span id="__span-9-86"><a id="__codelineno-9-86" name="__codelineno-9-86" href="#__codelineno-9-86"></a>koch wdw , depth , side
+</span><span id="__span-9-87"><a id="__codelineno-9-87" name="__codelineno-9-87" href="#__codelineno-9-87"></a>right wdw , 120
+</span><span id="__span-9-88"><a id="__codelineno-9-88" name="__codelineno-9-88" href="#__codelineno-9-88"></a>koch wdw , depth , side
+</span><span id="__span-9-89"><a id="__codelineno-9-89" name="__codelineno-9-89" href="#__codelineno-9-89"></a>right wdw , 120
+</span><span id="__span-9-90"><a id="__codelineno-9-90" name="__codelineno-9-90" href="#__codelineno-9-90"></a>koch wdw , depth , side
+</span><span id="__span-9-91"><a id="__codelineno-9-91" name="__codelineno-9-91" href="#__codelineno-9-91"></a>right wdw , 120
+</span><span id="__span-9-92"><a id="__codelineno-9-92" name="__codelineno-9-92" href="#__codelineno-9-92"></a>)
+</span><span id="__span-9-93"><a id="__codelineno-9-93" name="__codelineno-9-93" href="#__codelineno-9-93"></a>
+</span><span id="__span-9-94"><a id="__codelineno-9-94" name="__codelineno-9-94" href="#__codelineno-9-94"></a>NB. SYNTAX: flower wdw size
+</span><span id="__span-9-95"><a id="__codelineno-9-95" name="__codelineno-9-95" href="#__codelineno-9-95"></a>NB.
+</span><span id="__span-9-96"><a id="__codelineno-9-96" name="__codelineno-9-96" href="#__codelineno-9-96"></a>NB. eg. flower wdw 200
+</span><span id="__span-9-97"><a id="__codelineno-9-97" name="__codelineno-9-97" href="#__codelineno-9-97"></a>NB.
+</span><span id="__span-9-98"><a id="__codelineno-9-98" name="__codelineno-9-98" href="#__codelineno-9-98"></a>arcr =. 3 : 0
+</span><span id="__span-9-99"><a id="__codelineno-9-99" name="__codelineno-9-99" href="#__codelineno-9-99"></a>wdw =. head y.
+</span><span id="__span-9-100"><a id="__codelineno-9-100" name="__codelineno-9-100" href="#__codelineno-9-100"></a>r =. head behead y.
+</span><span id="__span-9-101"><a id="__codelineno-9-101" name="__codelineno-9-101" href="#__codelineno-9-101"></a>degs =. tail y.
+</span><span id="__span-9-102"><a id="__codelineno-9-102" name="__codelineno-9-102" href="#__codelineno-9-102"></a>i =. 1
+</span><span id="__span-9-103"><a id="__codelineno-9-103" name="__codelineno-9-103" href="#__codelineno-9-103"></a>while. i &lt;: degs do.
+</span><span id="__span-9-104"><a id="__codelineno-9-104" name="__codelineno-9-104" href="#__codelineno-9-104"></a>  fd wdw , r
+</span><span id="__span-9-105"><a id="__codelineno-9-105" name="__codelineno-9-105" href="#__codelineno-9-105"></a>  rt wdw , 1
+</span><span id="__span-9-106"><a id="__codelineno-9-106" name="__codelineno-9-106" href="#__codelineno-9-106"></a>  i =. &gt;: i
+</span><span id="__span-9-107"><a id="__codelineno-9-107" name="__codelineno-9-107" href="#__codelineno-9-107"></a>end.
+</span><span id="__span-9-108"><a id="__codelineno-9-108" name="__codelineno-9-108" href="#__codelineno-9-108"></a>)
+</span><span id="__span-9-109"><a id="__codelineno-9-109" name="__codelineno-9-109" href="#__codelineno-9-109"></a>
+</span><span id="__span-9-110"><a id="__codelineno-9-110" name="__codelineno-9-110" href="#__codelineno-9-110"></a>petal =. 3 : 0
+</span><span id="__span-9-111"><a id="__codelineno-9-111" name="__codelineno-9-111" href="#__codelineno-9-111"></a>wdw =. head y.
+</span><span id="__span-9-112"><a id="__codelineno-9-112" name="__codelineno-9-112" href="#__codelineno-9-112"></a>size =. tail y.
+</span><span id="__span-9-113"><a id="__codelineno-9-113" name="__codelineno-9-113" href="#__codelineno-9-113"></a>  arcr wdw , size , 60
+</span><span id="__span-9-114"><a id="__codelineno-9-114" name="__codelineno-9-114" href="#__codelineno-9-114"></a>  right wdw , 120
+</span><span id="__span-9-115"><a id="__codelineno-9-115" name="__codelineno-9-115" href="#__codelineno-9-115"></a>  arcr wdw , size , 60
+</span><span id="__span-9-116"><a id="__codelineno-9-116" name="__codelineno-9-116" href="#__codelineno-9-116"></a>  right wdw , 120
+</span><span id="__span-9-117"><a id="__codelineno-9-117" name="__codelineno-9-117" href="#__codelineno-9-117"></a>)
+</span><span id="__span-9-118"><a id="__codelineno-9-118" name="__codelineno-9-118" href="#__codelineno-9-118"></a>
+</span><span id="__span-9-119"><a id="__codelineno-9-119" name="__codelineno-9-119" href="#__codelineno-9-119"></a>flower =. 3 : 0
+</span><span id="__span-9-120"><a id="__codelineno-9-120" name="__codelineno-9-120" href="#__codelineno-9-120"></a>wdw =. head y.
+</span><span id="__span-9-121"><a id="__codelineno-9-121" name="__codelineno-9-121" href="#__codelineno-9-121"></a>size =. tail y.
+</span><span id="__span-9-122"><a id="__codelineno-9-122" name="__codelineno-9-122" href="#__codelineno-9-122"></a>i =. 1
+</span><span id="__span-9-123"><a id="__codelineno-9-123" name="__codelineno-9-123" href="#__codelineno-9-123"></a>while. i &lt;: 6 do.
+</span><span id="__span-9-124"><a id="__codelineno-9-124" name="__codelineno-9-124" href="#__codelineno-9-124"></a>  petal wdw , size
+</span><span id="__span-9-125"><a id="__codelineno-9-125" name="__codelineno-9-125" href="#__codelineno-9-125"></a>  rt wdw , 60
+</span><span id="__span-9-126"><a id="__codelineno-9-126" name="__codelineno-9-126" href="#__codelineno-9-126"></a>  i =. &gt;: i
+</span><span id="__span-9-127"><a id="__codelineno-9-127" name="__codelineno-9-127" href="#__codelineno-9-127"></a>end.
+</span><span id="__span-9-128"><a id="__codelineno-9-128" name="__codelineno-9-128" href="#__codelineno-9-128"></a>novalue
+</span><span id="__span-9-129"><a id="__codelineno-9-129" name="__codelineno-9-129" href="#__codelineno-9-129"></a>)
+</span></code></pre></div>
+<h2 id="appendix-3-complete-source-code-for-jtg-tgjs">Appendix 3: Complete Source Code for JTG (tg.js)<a class="headerlink" href="#appendix-3-complete-source-code-for-jtg-tgjs" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>NB.
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>NB. Turtle Graphics and J (JTG).
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>NB. Author: David Benn, Semester II, 1995.
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>NB.
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>NB.
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>NB. Global values.
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>NB.
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>TRUE =. 1
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>FALSE =. 0
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>novalue =. ' '
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>RADCONV =. 57.295779      NB. to convert degs to radians.
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>hx =. 500
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>hy =. 500           NB. Turtle's x,y home position at center of 1000x1000 grid.
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>DEGS =. 90          NB. Turtle's home heading.
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>MAXWDW =. 10
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>UP =. 0
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>DOWN =. 1
+</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>FREE =. 0
+</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>TAKEN =. 1
+</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a>FORWARD =. 0
+</span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a>REVERSE =. 1
+</span><span id="__span-10-28"><a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a>
+</span><span id="__span-10-29"><a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>penlist =. MAXWDW # DOWN
+</span><span id="__span-10-30"><a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a>wdwlist =. MAXWDW # FREE
+</span><span id="__span-10-31"><a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a>degslist =. MAXWDW # DEGS
+</span><span id="__span-10-32"><a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a>txlist =. MAXWDW # 0
+</span><span id="__span-10-33"><a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a>tylist =. MAXWDW # 0
+</span><span id="__span-10-34"><a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a>
+</span><span id="__span-10-35"><a id="__codelineno-10-35" name="__codelineno-10-35" href="#__codelineno-10-35"></a>NB.
+</span><span id="__span-10-36"><a id="__codelineno-10-36" name="__codelineno-10-36" href="#__codelineno-10-36"></a>NB. Miscellaneous functions.
+</span><span id="__span-10-37"><a id="__codelineno-10-37" name="__codelineno-10-37" href="#__codelineno-10-37"></a>NB.
+</span><span id="__span-10-38"><a id="__codelineno-10-38" name="__codelineno-10-38" href="#__codelineno-10-38"></a>
+</span><span id="__span-10-39"><a id="__codelineno-10-39" name="__codelineno-10-39" href="#__codelineno-10-39"></a>wd =. 11!:0         NB. Window driver foreign conjunction.
+</span><span id="__span-10-40"><a id="__codelineno-10-40" name="__codelineno-10-40" href="#__codelineno-10-40"></a>head =. {.
+</span><span id="__span-10-41"><a id="__codelineno-10-41" name="__codelineno-10-41" href="#__codelineno-10-41"></a>behead =. }.
+</span><span id="__span-10-42"><a id="__codelineno-10-42" name="__codelineno-10-42" href="#__codelineno-10-42"></a>tail =. {:
+</span><span id="__span-10-43"><a id="__codelineno-10-43" name="__codelineno-10-43" href="#__codelineno-10-43"></a>from =. {
+</span><span id="__span-10-44"><a id="__codelineno-10-44" name="__codelineno-10-44" href="#__codelineno-10-44"></a>amend =. }
+</span><span id="__span-10-45"><a id="__codelineno-10-45" name="__codelineno-10-45" href="#__codelineno-10-45"></a>and =. *.
+</span><span id="__span-10-46"><a id="__codelineno-10-46" name="__codelineno-10-46" href="#__codelineno-10-46"></a>not =. -.
+</span><span id="__span-10-47"><a id="__codelineno-10-47" name="__codelineno-10-47" href="#__codelineno-10-47"></a>sin =. 1&amp;o.
+</span><span id="__span-10-48"><a id="__codelineno-10-48" name="__codelineno-10-48" href="#__codelineno-10-48"></a>cos =. 2&amp;o.
+</span><span id="__span-10-49"><a id="__codelineno-10-49" name="__codelineno-10-49" href="#__codelineno-10-49"></a>execute =. ".
+</span><span id="__span-10-50"><a id="__codelineno-10-50" name="__codelineno-10-50" href="#__codelineno-10-50"></a>count =. #
+</span><span id="__span-10-51"><a id="__codelineno-10-51" name="__codelineno-10-51" href="#__codelineno-10-51"></a>then =. ,:          NB. See 'repeat' definition.
+</span><span id="__span-10-52"><a id="__codelineno-10-52" name="__codelineno-10-52" href="#__codelineno-10-52"></a>
+</span><span id="__span-10-53"><a id="__codelineno-10-53" name="__codelineno-10-53" href="#__codelineno-10-53"></a>NB. SYNTAX: beep n
+</span><span id="__span-10-54"><a id="__codelineno-10-54" name="__codelineno-10-54" href="#__codelineno-10-54"></a>NB.
+</span><span id="__span-10-55"><a id="__codelineno-10-55" name="__codelineno-10-55" href="#__codelineno-10-55"></a>NB. Sound the bell N times.
+</span><span id="__span-10-56"><a id="__codelineno-10-56" name="__codelineno-10-56" href="#__codelineno-10-56"></a>NB.
+</span><span id="__span-10-57"><a id="__codelineno-10-57" name="__codelineno-10-57" href="#__codelineno-10-57"></a>beep =. 3 : 0
+</span><span id="__span-10-58"><a id="__codelineno-10-58" name="__codelineno-10-58" href="#__codelineno-10-58"></a>wd 'beep ',(":y.),';'
+</span><span id="__span-10-59"><a id="__codelineno-10-59" name="__codelineno-10-59" href="#__codelineno-10-59"></a>)
+</span><span id="__span-10-60"><a id="__codelineno-10-60" name="__codelineno-10-60" href="#__codelineno-10-60"></a>
+</span><span id="__span-10-61"><a id="__codelineno-10-61" name="__codelineno-10-61" href="#__codelineno-10-61"></a>NB.
+</span><span id="__span-10-62"><a id="__codelineno-10-62" name="__codelineno-10-62" href="#__codelineno-10-62"></a>NB. Internal turtle graphics functions.
+</span><span id="__span-10-63"><a id="__codelineno-10-63" name="__codelineno-10-63" href="#__codelineno-10-63"></a>NB.
+</span><span id="__span-10-64"><a id="__codelineno-10-64" name="__codelineno-10-64" href="#__codelineno-10-64"></a>
+</span><span id="__span-10-65"><a id="__codelineno-10-65" name="__codelineno-10-65" href="#__codelineno-10-65"></a>NB. SYNTAX: inrange wdw
+</span><span id="__span-10-66"><a id="__codelineno-10-66" name="__codelineno-10-66" href="#__codelineno-10-66"></a>NB.
+</span><span id="__span-10-67"><a id="__codelineno-10-67" name="__codelineno-10-67" href="#__codelineno-10-67"></a>NB. Is specified window-id in the range 1..MAXWDW?
+</span><span id="__span-10-68"><a id="__codelineno-10-68" name="__codelineno-10-68" href="#__codelineno-10-68"></a>NB.
+</span><span id="__span-10-69"><a id="__codelineno-10-69" name="__codelineno-10-69" href="#__codelineno-10-69"></a>inrange =. 3 : 0
+</span><span id="__span-10-70"><a id="__codelineno-10-70" name="__codelineno-10-70" href="#__codelineno-10-70"></a>(y. &gt;: 1) and (y. &lt;: MAXWDW)
+</span><span id="__span-10-71"><a id="__codelineno-10-71" name="__codelineno-10-71" href="#__codelineno-10-71"></a>)
+</span><span id="__span-10-72"><a id="__codelineno-10-72" name="__codelineno-10-72" href="#__codelineno-10-72"></a>
+</span><span id="__span-10-73"><a id="__codelineno-10-73" name="__codelineno-10-73" href="#__codelineno-10-73"></a>NB. SYNTAX: windowactive wdw
+</span><span id="__span-10-74"><a id="__codelineno-10-74" name="__codelineno-10-74" href="#__codelineno-10-74"></a>NB.
+</span><span id="__span-10-75"><a id="__codelineno-10-75" name="__codelineno-10-75" href="#__codelineno-10-75"></a>NB. Is specified window active (open)?
+</span><span id="__span-10-76"><a id="__codelineno-10-76" name="__codelineno-10-76" href="#__codelineno-10-76"></a>NB.
+</span><span id="__span-10-77"><a id="__codelineno-10-77" name="__codelineno-10-77" href="#__codelineno-10-77"></a>windowactive =. 3 : 0
+</span><span id="__span-10-78"><a id="__codelineno-10-78" name="__codelineno-10-78" href="#__codelineno-10-78"></a>((&lt;: y.) from wdwlist) = TAKEN
+</span><span id="__span-10-79"><a id="__codelineno-10-79" name="__codelineno-10-79" href="#__codelineno-10-79"></a>)
+</span><span id="__span-10-80"><a id="__codelineno-10-80" name="__codelineno-10-80" href="#__codelineno-10-80"></a>
+</span><span id="__span-10-81"><a id="__codelineno-10-81" name="__codelineno-10-81" href="#__codelineno-10-81"></a>NB. SYNTAX: penactive wdw
+</span><span id="__span-10-82"><a id="__codelineno-10-82" name="__codelineno-10-82" href="#__codelineno-10-82"></a>NB.
+</span><span id="__span-10-83"><a id="__codelineno-10-83" name="__codelineno-10-83" href="#__codelineno-10-83"></a>NB. Is pen of turtle in current window down?
+</span><span id="__span-10-84"><a id="__codelineno-10-84" name="__codelineno-10-84" href="#__codelineno-10-84"></a>NB.
+</span><span id="__span-10-85"><a id="__codelineno-10-85" name="__codelineno-10-85" href="#__codelineno-10-85"></a>penactive =. 3 : 0
+</span><span id="__span-10-86"><a id="__codelineno-10-86" name="__codelineno-10-86" href="#__codelineno-10-86"></a>((&lt;: y.) from penlist) = DOWN
+</span><span id="__span-10-87"><a id="__codelineno-10-87" name="__codelineno-10-87" href="#__codelineno-10-87"></a>)
+</span><span id="__span-10-88"><a id="__codelineno-10-88" name="__codelineno-10-88" href="#__codelineno-10-88"></a>
+</span><span id="__span-10-89"><a id="__codelineno-10-89" name="__codelineno-10-89" href="#__codelineno-10-89"></a>NB. SYNTAX: move x y
+</span><span id="__span-10-90"><a id="__codelineno-10-90" name="__codelineno-10-90" href="#__codelineno-10-90"></a>NB.
+</span><span id="__span-10-91"><a id="__codelineno-10-91" name="__codelineno-10-91" href="#__codelineno-10-91"></a>NB. Move to x,y in currently selected window.
+</span><span id="__span-10-92"><a id="__codelineno-10-92" name="__codelineno-10-92" href="#__codelineno-10-92"></a>NB.
+</span><span id="__span-10-93"><a id="__codelineno-10-93" name="__codelineno-10-93" href="#__codelineno-10-93"></a>move =. 3 : 0
+</span><span id="__span-10-94"><a id="__codelineno-10-94" name="__codelineno-10-94" href="#__codelineno-10-94"></a>wd 'gmove ',(":hx + head y.),' ',(":hy + tail y.),';'
+</span><span id="__span-10-95"><a id="__codelineno-10-95" name="__codelineno-10-95" href="#__codelineno-10-95"></a>wd 'gshow;'
+</span><span id="__span-10-96"><a id="__codelineno-10-96" name="__codelineno-10-96" href="#__codelineno-10-96"></a>)
+</span><span id="__span-10-97"><a id="__codelineno-10-97" name="__codelineno-10-97" href="#__codelineno-10-97"></a>
+</span><span id="__span-10-98"><a id="__codelineno-10-98" name="__codelineno-10-98" href="#__codelineno-10-98"></a>NB. SYNTAX: line x y
+</span><span id="__span-10-99"><a id="__codelineno-10-99" name="__codelineno-10-99" href="#__codelineno-10-99"></a>NB.
+</span><span id="__span-10-100"><a id="__codelineno-10-100" name="__codelineno-10-100" href="#__codelineno-10-100"></a>NB. Draw a line from current location to x,y
+</span><span id="__span-10-101"><a id="__codelineno-10-101" name="__codelineno-10-101" href="#__codelineno-10-101"></a>NB. in currently selected window.
+</span><span id="__span-10-102"><a id="__codelineno-10-102" name="__codelineno-10-102" href="#__codelineno-10-102"></a>NB.
+</span><span id="__span-10-103"><a id="__codelineno-10-103" name="__codelineno-10-103" href="#__codelineno-10-103"></a>line =. 3 : 0
+</span><span id="__span-10-104"><a id="__codelineno-10-104" name="__codelineno-10-104" href="#__codelineno-10-104"></a>wd 'gline ',(":hx + head y.),' ',(":hy + tail y.),';'
+</span><span id="__span-10-105"><a id="__codelineno-10-105" name="__codelineno-10-105" href="#__codelineno-10-105"></a>wd 'gshow;'
+</span><span id="__span-10-106"><a id="__codelineno-10-106" name="__codelineno-10-106" href="#__codelineno-10-106"></a>)
+</span><span id="__span-10-107"><a id="__codelineno-10-107" name="__codelineno-10-107" href="#__codelineno-10-107"></a>
+</span><span id="__span-10-108"><a id="__codelineno-10-108" name="__codelineno-10-108" href="#__codelineno-10-108"></a>NB. SYNTAX: selectwdw wdw
+</span><span id="__span-10-109"><a id="__codelineno-10-109" name="__codelineno-10-109" href="#__codelineno-10-109"></a>NB.
+</span><span id="__span-10-110"><a id="__codelineno-10-110" name="__codelineno-10-110" href="#__codelineno-10-110"></a>NB. Make specified window the target for TG commands.
+</span><span id="__span-10-111"><a id="__codelineno-10-111" name="__codelineno-10-111" href="#__codelineno-10-111"></a>NB.
+</span><span id="__span-10-112"><a id="__codelineno-10-112" name="__codelineno-10-112" href="#__codelineno-10-112"></a>selectwdw =. 3 : 0
+</span><span id="__span-10-113"><a id="__codelineno-10-113" name="__codelineno-10-113" href="#__codelineno-10-113"></a>wd 'psel TGparent',(":y.),';'
+</span><span id="__span-10-114"><a id="__codelineno-10-114" name="__codelineno-10-114" href="#__codelineno-10-114"></a>wd 'csel TG',(":y.),';'
+</span><span id="__span-10-115"><a id="__codelineno-10-115" name="__codelineno-10-115" href="#__codelineno-10-115"></a>)
+</span><span id="__span-10-116"><a id="__codelineno-10-116" name="__codelineno-10-116" href="#__codelineno-10-116"></a>
+</span><span id="__span-10-117"><a id="__codelineno-10-117" name="__codelineno-10-117" href="#__codelineno-10-117"></a>NB. SYNTAX: changedegslist wdw degrees
+</span><span id="__span-10-118"><a id="__codelineno-10-118" name="__codelineno-10-118" href="#__codelineno-10-118"></a>NB.
+</span><span id="__span-10-119"><a id="__codelineno-10-119" name="__codelineno-10-119" href="#__codelineno-10-119"></a>NB. Change degslist entry for specified window.
+</span><span id="__span-10-120"><a id="__codelineno-10-120" name="__codelineno-10-120" href="#__codelineno-10-120"></a>NB.
+</span><span id="__span-10-121"><a id="__codelineno-10-121" name="__codelineno-10-121" href="#__codelineno-10-121"></a>changedegslist =. 3 : 0
+</span><span id="__span-10-122"><a id="__codelineno-10-122" name="__codelineno-10-122" href="#__codelineno-10-122"></a>degslist =: (360 | (tail y.)) (&lt;: head y.) amend degslist
+</span><span id="__span-10-123"><a id="__codelineno-10-123" name="__codelineno-10-123" href="#__codelineno-10-123"></a>)
+</span><span id="__span-10-124"><a id="__codelineno-10-124" name="__codelineno-10-124" href="#__codelineno-10-124"></a>
+</span><span id="__span-10-125"><a id="__codelineno-10-125" name="__codelineno-10-125" href="#__codelineno-10-125"></a>NB. SYNTAX: changexylists wdw x y
+</span><span id="__span-10-126"><a id="__codelineno-10-126" name="__codelineno-10-126" href="#__codelineno-10-126"></a>NB.
+</span><span id="__span-10-127"><a id="__codelineno-10-127" name="__codelineno-10-127" href="#__codelineno-10-127"></a>NB. Change txlist and tylist entries for specified window.
+</span><span id="__span-10-128"><a id="__codelineno-10-128" name="__codelineno-10-128" href="#__codelineno-10-128"></a>NB.
+</span><span id="__span-10-129"><a id="__codelineno-10-129" name="__codelineno-10-129" href="#__codelineno-10-129"></a>changexylists =. 3 : 0
+</span><span id="__span-10-130"><a id="__codelineno-10-130" name="__codelineno-10-130" href="#__codelineno-10-130"></a>wdw =. head y.
+</span><span id="__span-10-131"><a id="__codelineno-10-131" name="__codelineno-10-131" href="#__codelineno-10-131"></a>x =. head behead y.
+</span><span id="__span-10-132"><a id="__codelineno-10-132" name="__codelineno-10-132" href="#__codelineno-10-132"></a>y =. tail behead y.
+</span><span id="__span-10-133"><a id="__codelineno-10-133" name="__codelineno-10-133" href="#__codelineno-10-133"></a>txlist =: x (&lt;: wdw) amend txlist
+</span><span id="__span-10-134"><a id="__codelineno-10-134" name="__codelineno-10-134" href="#__codelineno-10-134"></a>tylist =: y (&lt;: wdw) amend tylist
+</span><span id="__span-10-135"><a id="__codelineno-10-135" name="__codelineno-10-135" href="#__codelineno-10-135"></a>)
+</span><span id="__span-10-136"><a id="__codelineno-10-136" name="__codelineno-10-136" href="#__codelineno-10-136"></a>
+</span><span id="__span-10-137"><a id="__codelineno-10-137" name="__codelineno-10-137" href="#__codelineno-10-137"></a>NB.
+</span><span id="__span-10-138"><a id="__codelineno-10-138" name="__codelineno-10-138" href="#__codelineno-10-138"></a>NB. Turtle graphics public interface functions.
+</span><span id="__span-10-139"><a id="__codelineno-10-139" name="__codelineno-10-139" href="#__codelineno-10-139"></a>NB.
+</span><span id="__span-10-140"><a id="__codelineno-10-140" name="__codelineno-10-140" href="#__codelineno-10-140"></a>
+</span><span id="__span-10-141"><a id="__codelineno-10-141" name="__codelineno-10-141" href="#__codelineno-10-141"></a>NB. SYNTAX: openwdw wdw
+</span><span id="__span-10-142"><a id="__codelineno-10-142" name="__codelineno-10-142" href="#__codelineno-10-142"></a>NB.
+</span><span id="__span-10-143"><a id="__codelineno-10-143" name="__codelineno-10-143" href="#__codelineno-10-143"></a>NB. Open TG window (1000 x 1000 pixels) with specified
+</span><span id="__span-10-144"><a id="__codelineno-10-144" name="__codelineno-10-144" href="#__codelineno-10-144"></a>NB. numeric ID in the range 1..MAXWDW. The TG grid x,y range
+</span><span id="__span-10-145"><a id="__codelineno-10-145" name="__codelineno-10-145" href="#__codelineno-10-145"></a>NB. is -500..+500, -500..+500. The window contents are auto-scaling
+</span><span id="__span-10-146"><a id="__codelineno-10-146" name="__codelineno-10-146" href="#__codelineno-10-146"></a>NB. when window size is changed.
+</span><span id="__span-10-147"><a id="__codelineno-10-147" name="__codelineno-10-147" href="#__codelineno-10-147"></a>openwdw =. 3 : 0
+</span><span id="__span-10-148"><a id="__codelineno-10-148" name="__codelineno-10-148" href="#__codelineno-10-148"></a>if. inrange y. do.
+</span><span id="__span-10-149"><a id="__codelineno-10-149" name="__codelineno-10-149" href="#__codelineno-10-149"></a>  if. not windowactive y. do.
+</span><span id="__span-10-150"><a id="__codelineno-10-150" name="__codelineno-10-150" href="#__codelineno-10-150"></a>    wd 'pc TGparent',(":y.),';'
+</span><span id="__span-10-151"><a id="__codelineno-10-151" name="__codelineno-10-151" href="#__codelineno-10-151"></a>    wd 'pn "Turtle Graphics [',(":y.),']";'
+</span><span id="__span-10-152"><a id="__codelineno-10-152" name="__codelineno-10-152" href="#__codelineno-10-152"></a>    wd 'xywh 0 0 180 150;'
+</span><span id="__span-10-153"><a id="__codelineno-10-153" name="__codelineno-10-153" href="#__codelineno-10-153"></a>    wd 'cc TG',(":y.),' isigraph;'
+</span><span id="__span-10-154"><a id="__codelineno-10-154" name="__codelineno-10-154" href="#__codelineno-10-154"></a>    wd 'csel TG',(":y.),';'
+</span><span id="__span-10-155"><a id="__codelineno-10-155" name="__codelineno-10-155" href="#__codelineno-10-155"></a>    wd 'gmove ',(":hx),' ',(":hy),';'
+</span><span id="__span-10-156"><a id="__codelineno-10-156" name="__codelineno-10-156" href="#__codelineno-10-156"></a>    wd 'pas 0 0;'
+</span><span id="__span-10-157"><a id="__codelineno-10-157" name="__codelineno-10-157" href="#__codelineno-10-157"></a>    wd 'pcloseok; pcenter; pscale; ptop; pshow;'
+</span><span id="__span-10-158"><a id="__codelineno-10-158" name="__codelineno-10-158" href="#__codelineno-10-158"></a>    wdwlist =: TAKEN (&lt;: y.) amend wdwlist
+</span><span id="__span-10-159"><a id="__codelineno-10-159" name="__codelineno-10-159" href="#__codelineno-10-159"></a>       novalue
+</span><span id="__span-10-160"><a id="__codelineno-10-160" name="__codelineno-10-160" href="#__codelineno-10-160"></a>  else.
+</span><span id="__span-10-161"><a id="__codelineno-10-161" name="__codelineno-10-161" href="#__codelineno-10-161"></a>    beep 1
+</span><span id="__span-10-162"><a id="__codelineno-10-162" name="__codelineno-10-162" href="#__codelineno-10-162"></a>  end.
+</span><span id="__span-10-163"><a id="__codelineno-10-163" name="__codelineno-10-163" href="#__codelineno-10-163"></a>else.
+</span><span id="__span-10-164"><a id="__codelineno-10-164" name="__codelineno-10-164" href="#__codelineno-10-164"></a>  beep 1
+</span><span id="__span-10-165"><a id="__codelineno-10-165" name="__codelineno-10-165" href="#__codelineno-10-165"></a>end.
+</span><span id="__span-10-166"><a id="__codelineno-10-166" name="__codelineno-10-166" href="#__codelineno-10-166"></a>)
+</span><span id="__span-10-167"><a id="__codelineno-10-167" name="__codelineno-10-167" href="#__codelineno-10-167"></a>
+</span><span id="__span-10-168"><a id="__codelineno-10-168" name="__codelineno-10-168" href="#__codelineno-10-168"></a>NB. SYNTAX: closewdw wdw
+</span><span id="__span-10-169"><a id="__codelineno-10-169" name="__codelineno-10-169" href="#__codelineno-10-169"></a>NB.
+</span><span id="__span-10-170"><a id="__codelineno-10-170" name="__codelineno-10-170" href="#__codelineno-10-170"></a>NB. Closes specified TG window, amending lists.
+</span><span id="__span-10-171"><a id="__codelineno-10-171" name="__codelineno-10-171" href="#__codelineno-10-171"></a>NB.
+</span><span id="__span-10-172"><a id="__codelineno-10-172" name="__codelineno-10-172" href="#__codelineno-10-172"></a>closewdw =. 3 : 0
+</span><span id="__span-10-173"><a id="__codelineno-10-173" name="__codelineno-10-173" href="#__codelineno-10-173"></a>if. inrange y. do.
+</span><span id="__span-10-174"><a id="__codelineno-10-174" name="__codelineno-10-174" href="#__codelineno-10-174"></a>  if. windowactive wdw do.
+</span><span id="__span-10-175"><a id="__codelineno-10-175" name="__codelineno-10-175" href="#__codelineno-10-175"></a>    wd 'psel TGparent',(":y.),';'
+</span><span id="__span-10-176"><a id="__codelineno-10-176" name="__codelineno-10-176" href="#__codelineno-10-176"></a>    wd 'pclose;'
+</span><span id="__span-10-177"><a id="__codelineno-10-177" name="__codelineno-10-177" href="#__codelineno-10-177"></a>        Nth =. &lt;: y.
+</span><span id="__span-10-178"><a id="__codelineno-10-178" name="__codelineno-10-178" href="#__codelineno-10-178"></a>    wdwlist =: FREE Nth amend wdwlist
+</span><span id="__span-10-179"><a id="__codelineno-10-179" name="__codelineno-10-179" href="#__codelineno-10-179"></a>        penlist =: DOWN Nth amend penlist
+</span><span id="__span-10-180"><a id="__codelineno-10-180" name="__codelineno-10-180" href="#__codelineno-10-180"></a>        degslist =: DEGS Nth amend degslist
+</span><span id="__span-10-181"><a id="__codelineno-10-181" name="__codelineno-10-181" href="#__codelineno-10-181"></a>        txlist =: 0 Nth amend txlist
+</span><span id="__span-10-182"><a id="__codelineno-10-182" name="__codelineno-10-182" href="#__codelineno-10-182"></a>        tylist =: 0 Nth amend tylist
+</span><span id="__span-10-183"><a id="__codelineno-10-183" name="__codelineno-10-183" href="#__codelineno-10-183"></a>    novalue
+</span><span id="__span-10-184"><a id="__codelineno-10-184" name="__codelineno-10-184" href="#__codelineno-10-184"></a>  else.
+</span><span id="__span-10-185"><a id="__codelineno-10-185" name="__codelineno-10-185" href="#__codelineno-10-185"></a>    beep 1
+</span><span id="__span-10-186"><a id="__codelineno-10-186" name="__codelineno-10-186" href="#__codelineno-10-186"></a>  end.
+</span><span id="__span-10-187"><a id="__codelineno-10-187" name="__codelineno-10-187" href="#__codelineno-10-187"></a>else.
+</span><span id="__span-10-188"><a id="__codelineno-10-188" name="__codelineno-10-188" href="#__codelineno-10-188"></a>  beep 1
+</span><span id="__span-10-189"><a id="__codelineno-10-189" name="__codelineno-10-189" href="#__codelineno-10-189"></a>end.
+</span><span id="__span-10-190"><a id="__codelineno-10-190" name="__codelineno-10-190" href="#__codelineno-10-190"></a>)
+</span><span id="__span-10-191"><a id="__codelineno-10-191" name="__codelineno-10-191" href="#__codelineno-10-191"></a>
+</span><span id="__span-10-192"><a id="__codelineno-10-192" name="__codelineno-10-192" href="#__codelineno-10-192"></a>NB. SYNTAX: clear wdw
+</span><span id="__span-10-193"><a id="__codelineno-10-193" name="__codelineno-10-193" href="#__codelineno-10-193"></a>NB.
+</span><span id="__span-10-194"><a id="__codelineno-10-194" name="__codelineno-10-194" href="#__codelineno-10-194"></a>NB. Clears window, resetting turtle position
+</span><span id="__span-10-195"><a id="__codelineno-10-195" name="__codelineno-10-195" href="#__codelineno-10-195"></a>NB. and heading to the defaults.
+</span><span id="__span-10-196"><a id="__codelineno-10-196" name="__codelineno-10-196" href="#__codelineno-10-196"></a>NB.
+</span><span id="__span-10-197"><a id="__codelineno-10-197" name="__codelineno-10-197" href="#__codelineno-10-197"></a>clear =. 3 : 0
+</span><span id="__span-10-198"><a id="__codelineno-10-198" name="__codelineno-10-198" href="#__codelineno-10-198"></a>if. inrange y. do.
+</span><span id="__span-10-199"><a id="__codelineno-10-199" name="__codelineno-10-199" href="#__codelineno-10-199"></a>  if. windowactive y. do.
+</span><span id="__span-10-200"><a id="__codelineno-10-200" name="__codelineno-10-200" href="#__codelineno-10-200"></a>    selectwdw y.
+</span><span id="__span-10-201"><a id="__codelineno-10-201" name="__codelineno-10-201" href="#__codelineno-10-201"></a>    wd 'gclear;'
+</span><span id="__span-10-202"><a id="__codelineno-10-202" name="__codelineno-10-202" href="#__codelineno-10-202"></a>        move 0 0
+</span><span id="__span-10-203"><a id="__codelineno-10-203" name="__codelineno-10-203" href="#__codelineno-10-203"></a>        changedegslist y. , DEGS
+</span><span id="__span-10-204"><a id="__codelineno-10-204" name="__codelineno-10-204" href="#__codelineno-10-204"></a>        changexylists y. , 0 , 0
+</span><span id="__span-10-205"><a id="__codelineno-10-205" name="__codelineno-10-205" href="#__codelineno-10-205"></a>    novalue
+</span><span id="__span-10-206"><a id="__codelineno-10-206" name="__codelineno-10-206" href="#__codelineno-10-206"></a>  else.
+</span><span id="__span-10-207"><a id="__codelineno-10-207" name="__codelineno-10-207" href="#__codelineno-10-207"></a>    beep 1
+</span><span id="__span-10-208"><a id="__codelineno-10-208" name="__codelineno-10-208" href="#__codelineno-10-208"></a>  end.
+</span><span id="__span-10-209"><a id="__codelineno-10-209" name="__codelineno-10-209" href="#__codelineno-10-209"></a>else.
+</span><span id="__span-10-210"><a id="__codelineno-10-210" name="__codelineno-10-210" href="#__codelineno-10-210"></a>  beep 1
+</span><span id="__span-10-211"><a id="__codelineno-10-211" name="__codelineno-10-211" href="#__codelineno-10-211"></a>end.
+</span><span id="__span-10-212"><a id="__codelineno-10-212" name="__codelineno-10-212" href="#__codelineno-10-212"></a>)
+</span><span id="__span-10-213"><a id="__codelineno-10-213" name="__codelineno-10-213" href="#__codelineno-10-213"></a>
+</span><span id="__span-10-214"><a id="__codelineno-10-214" name="__codelineno-10-214" href="#__codelineno-10-214"></a>NB. SYNTAX: home wdw
+</span><span id="__span-10-215"><a id="__codelineno-10-215" name="__codelineno-10-215" href="#__codelineno-10-215"></a>NB.
+</span><span id="__span-10-216"><a id="__codelineno-10-216" name="__codelineno-10-216" href="#__codelineno-10-216"></a>NB. Returns turtle to the home position, resetting turtle
+</span><span id="__span-10-217"><a id="__codelineno-10-217" name="__codelineno-10-217" href="#__codelineno-10-217"></a>NB. position and heading to the defaults. If the pen is down
+</span><span id="__span-10-218"><a id="__codelineno-10-218" name="__codelineno-10-218" href="#__codelineno-10-218"></a>NB. a line is drawn from the current to the home position.
+</span><span id="__span-10-219"><a id="__codelineno-10-219" name="__codelineno-10-219" href="#__codelineno-10-219"></a>NB.
+</span><span id="__span-10-220"><a id="__codelineno-10-220" name="__codelineno-10-220" href="#__codelineno-10-220"></a>home =. 3 : 0
+</span><span id="__span-10-221"><a id="__codelineno-10-221" name="__codelineno-10-221" href="#__codelineno-10-221"></a>if. inrange y. do.
+</span><span id="__span-10-222"><a id="__codelineno-10-222" name="__codelineno-10-222" href="#__codelineno-10-222"></a>  if. windowactive y. do.
+</span><span id="__span-10-223"><a id="__codelineno-10-223" name="__codelineno-10-223" href="#__codelineno-10-223"></a>        selectwdw y.
+</span><span id="__span-10-224"><a id="__codelineno-10-224" name="__codelineno-10-224" href="#__codelineno-10-224"></a>        if. penactive y. do.
+</span><span id="__span-10-225"><a id="__codelineno-10-225" name="__codelineno-10-225" href="#__codelineno-10-225"></a>          line 0 0
+</span><span id="__span-10-226"><a id="__codelineno-10-226" name="__codelineno-10-226" href="#__codelineno-10-226"></a>    else.
+</span><span id="__span-10-227"><a id="__codelineno-10-227" name="__codelineno-10-227" href="#__codelineno-10-227"></a>      move 0 0
+</span><span id="__span-10-228"><a id="__codelineno-10-228" name="__codelineno-10-228" href="#__codelineno-10-228"></a>    end.
+</span><span id="__span-10-229"><a id="__codelineno-10-229" name="__codelineno-10-229" href="#__codelineno-10-229"></a>        changedegslist y. , DEGS
+</span><span id="__span-10-230"><a id="__codelineno-10-230" name="__codelineno-10-230" href="#__codelineno-10-230"></a>        changexylists y. , 0 , 0
+</span><span id="__span-10-231"><a id="__codelineno-10-231" name="__codelineno-10-231" href="#__codelineno-10-231"></a>    novalue
+</span><span id="__span-10-232"><a id="__codelineno-10-232" name="__codelineno-10-232" href="#__codelineno-10-232"></a>  else.
+</span><span id="__span-10-233"><a id="__codelineno-10-233" name="__codelineno-10-233" href="#__codelineno-10-233"></a>    beep 1
+</span><span id="__span-10-234"><a id="__codelineno-10-234" name="__codelineno-10-234" href="#__codelineno-10-234"></a>  end.
+</span><span id="__span-10-235"><a id="__codelineno-10-235" name="__codelineno-10-235" href="#__codelineno-10-235"></a>else.
+</span><span id="__span-10-236"><a id="__codelineno-10-236" name="__codelineno-10-236" href="#__codelineno-10-236"></a>  beep 1
+</span><span id="__span-10-237"><a id="__codelineno-10-237" name="__codelineno-10-237" href="#__codelineno-10-237"></a>end.
+</span><span id="__span-10-238"><a id="__codelineno-10-238" name="__codelineno-10-238" href="#__codelineno-10-238"></a>)
+</span><span id="__span-10-239"><a id="__codelineno-10-239" name="__codelineno-10-239" href="#__codelineno-10-239"></a>
+</span><span id="__span-10-240"><a id="__codelineno-10-240" name="__codelineno-10-240" href="#__codelineno-10-240"></a>NB. SYNTAX: setxy wdw x y
+</span><span id="__span-10-241"><a id="__codelineno-10-241" name="__codelineno-10-241" href="#__codelineno-10-241"></a>NB.
+</span><span id="__span-10-242"><a id="__codelineno-10-242" name="__codelineno-10-242" href="#__codelineno-10-242"></a>NB. Sets the x,y position, drawing a line if the pen is down.
+</span><span id="__span-10-243"><a id="__codelineno-10-243" name="__codelineno-10-243" href="#__codelineno-10-243"></a>NB.
+</span><span id="__span-10-244"><a id="__codelineno-10-244" name="__codelineno-10-244" href="#__codelineno-10-244"></a>setxy =. 3 : 0
+</span><span id="__span-10-245"><a id="__codelineno-10-245" name="__codelineno-10-245" href="#__codelineno-10-245"></a>if. inrange head y. do.
+</span><span id="__span-10-246"><a id="__codelineno-10-246" name="__codelineno-10-246" href="#__codelineno-10-246"></a>  if. windowactive head y. do.
+</span><span id="__span-10-247"><a id="__codelineno-10-247" name="__codelineno-10-247" href="#__codelineno-10-247"></a>        selectwdw head y.
+</span><span id="__span-10-248"><a id="__codelineno-10-248" name="__codelineno-10-248" href="#__codelineno-10-248"></a>    if. penactive head y. do.
+</span><span id="__span-10-249"><a id="__codelineno-10-249" name="__codelineno-10-249" href="#__codelineno-10-249"></a>      line behead y.
+</span><span id="__span-10-250"><a id="__codelineno-10-250" name="__codelineno-10-250" href="#__codelineno-10-250"></a>    else.
+</span><span id="__span-10-251"><a id="__codelineno-10-251" name="__codelineno-10-251" href="#__codelineno-10-251"></a>      move behead y.
+</span><span id="__span-10-252"><a id="__codelineno-10-252" name="__codelineno-10-252" href="#__codelineno-10-252"></a>    end.
+</span><span id="__span-10-253"><a id="__codelineno-10-253" name="__codelineno-10-253" href="#__codelineno-10-253"></a>        changexylists y.
+</span><span id="__span-10-254"><a id="__codelineno-10-254" name="__codelineno-10-254" href="#__codelineno-10-254"></a>    novalue
+</span><span id="__span-10-255"><a id="__codelineno-10-255" name="__codelineno-10-255" href="#__codelineno-10-255"></a>  else.
+</span><span id="__span-10-256"><a id="__codelineno-10-256" name="__codelineno-10-256" href="#__codelineno-10-256"></a>    beep 1
+</span><span id="__span-10-257"><a id="__codelineno-10-257" name="__codelineno-10-257" href="#__codelineno-10-257"></a>  end.
+</span><span id="__span-10-258"><a id="__codelineno-10-258" name="__codelineno-10-258" href="#__codelineno-10-258"></a>else.
+</span><span id="__span-10-259"><a id="__codelineno-10-259" name="__codelineno-10-259" href="#__codelineno-10-259"></a>  beep 1
+</span><span id="__span-10-260"><a id="__codelineno-10-260" name="__codelineno-10-260" href="#__codelineno-10-260"></a>end.
+</span><span id="__span-10-261"><a id="__codelineno-10-261" name="__codelineno-10-261" href="#__codelineno-10-261"></a>)
+</span><span id="__span-10-262"><a id="__codelineno-10-262" name="__codelineno-10-262" href="#__codelineno-10-262"></a>
+</span><span id="__span-10-263"><a id="__codelineno-10-263" name="__codelineno-10-263" href="#__codelineno-10-263"></a>NB. SYNTAX: xycor wdw
+</span><span id="__span-10-264"><a id="__codelineno-10-264" name="__codelineno-10-264" href="#__codelineno-10-264"></a>NB.
+</span><span id="__span-10-265"><a id="__codelineno-10-265" name="__codelineno-10-265" href="#__codelineno-10-265"></a>NB. Returns current x,y coordinate of turtle in specified window.
+</span><span id="__span-10-266"><a id="__codelineno-10-266" name="__codelineno-10-266" href="#__codelineno-10-266"></a>NB.
+</span><span id="__span-10-267"><a id="__codelineno-10-267" name="__codelineno-10-267" href="#__codelineno-10-267"></a>xycor =. 3 : 0
+</span><span id="__span-10-268"><a id="__codelineno-10-268" name="__codelineno-10-268" href="#__codelineno-10-268"></a>if. inrange y. do.
+</span><span id="__span-10-269"><a id="__codelineno-10-269" name="__codelineno-10-269" href="#__codelineno-10-269"></a>  if. windowactive y. do.
+</span><span id="__span-10-270"><a id="__codelineno-10-270" name="__codelineno-10-270" href="#__codelineno-10-270"></a>        Nth =. &lt;: y.
+</span><span id="__span-10-271"><a id="__codelineno-10-271" name="__codelineno-10-271" href="#__codelineno-10-271"></a>        x =. Nth from txlist
+</span><span id="__span-10-272"><a id="__codelineno-10-272" name="__codelineno-10-272" href="#__codelineno-10-272"></a>        y =. Nth from tylist
+</span><span id="__span-10-273"><a id="__codelineno-10-273" name="__codelineno-10-273" href="#__codelineno-10-273"></a>        x , y
+</span><span id="__span-10-274"><a id="__codelineno-10-274" name="__codelineno-10-274" href="#__codelineno-10-274"></a>  else.
+</span><span id="__span-10-275"><a id="__codelineno-10-275" name="__codelineno-10-275" href="#__codelineno-10-275"></a>        beep 1
+</span><span id="__span-10-276"><a id="__codelineno-10-276" name="__codelineno-10-276" href="#__codelineno-10-276"></a>  end.
+</span><span id="__span-10-277"><a id="__codelineno-10-277" name="__codelineno-10-277" href="#__codelineno-10-277"></a>else.
+</span><span id="__span-10-278"><a id="__codelineno-10-278" name="__codelineno-10-278" href="#__codelineno-10-278"></a>  beep 1
+</span><span id="__span-10-279"><a id="__codelineno-10-279" name="__codelineno-10-279" href="#__codelineno-10-279"></a>end.
+</span><span id="__span-10-280"><a id="__codelineno-10-280" name="__codelineno-10-280" href="#__codelineno-10-280"></a>)
+</span><span id="__span-10-281"><a id="__codelineno-10-281" name="__codelineno-10-281" href="#__codelineno-10-281"></a>
+</span><span id="__span-10-282"><a id="__codelineno-10-282" name="__codelineno-10-282" href="#__codelineno-10-282"></a>NB. SYNTAX: penup wdw
+</span><span id="__span-10-283"><a id="__codelineno-10-283" name="__codelineno-10-283" href="#__codelineno-10-283"></a>NB.
+</span><span id="__span-10-284"><a id="__codelineno-10-284" name="__codelineno-10-284" href="#__codelineno-10-284"></a>NB. Retracts the pen of the specified window's turtle.
+</span><span id="__span-10-285"><a id="__codelineno-10-285" name="__codelineno-10-285" href="#__codelineno-10-285"></a>NB.
+</span><span id="__span-10-286"><a id="__codelineno-10-286" name="__codelineno-10-286" href="#__codelineno-10-286"></a>penup =. 3 : 0
+</span><span id="__span-10-287"><a id="__codelineno-10-287" name="__codelineno-10-287" href="#__codelineno-10-287"></a>if. inrange y. do.
+</span><span id="__span-10-288"><a id="__codelineno-10-288" name="__codelineno-10-288" href="#__codelineno-10-288"></a>  if. windowactive y. do.
+</span><span id="__span-10-289"><a id="__codelineno-10-289" name="__codelineno-10-289" href="#__codelineno-10-289"></a>    penlist =: UP (&lt;: y.) amend penlist
+</span><span id="__span-10-290"><a id="__codelineno-10-290" name="__codelineno-10-290" href="#__codelineno-10-290"></a>    novalue
+</span><span id="__span-10-291"><a id="__codelineno-10-291" name="__codelineno-10-291" href="#__codelineno-10-291"></a>  else.
+</span><span id="__span-10-292"><a id="__codelineno-10-292" name="__codelineno-10-292" href="#__codelineno-10-292"></a>    beep 1
+</span><span id="__span-10-293"><a id="__codelineno-10-293" name="__codelineno-10-293" href="#__codelineno-10-293"></a>  end.
+</span><span id="__span-10-294"><a id="__codelineno-10-294" name="__codelineno-10-294" href="#__codelineno-10-294"></a>else.
+</span><span id="__span-10-295"><a id="__codelineno-10-295" name="__codelineno-10-295" href="#__codelineno-10-295"></a>  beep 1
+</span><span id="__span-10-296"><a id="__codelineno-10-296" name="__codelineno-10-296" href="#__codelineno-10-296"></a>end.
+</span><span id="__span-10-297"><a id="__codelineno-10-297" name="__codelineno-10-297" href="#__codelineno-10-297"></a>)
+</span><span id="__span-10-298"><a id="__codelineno-10-298" name="__codelineno-10-298" href="#__codelineno-10-298"></a>
+</span><span id="__span-10-299"><a id="__codelineno-10-299" name="__codelineno-10-299" href="#__codelineno-10-299"></a>NB. SYNTAX: pendown wdw
+</span><span id="__span-10-300"><a id="__codelineno-10-300" name="__codelineno-10-300" href="#__codelineno-10-300"></a>NB.
+</span><span id="__span-10-301"><a id="__codelineno-10-301" name="__codelineno-10-301" href="#__codelineno-10-301"></a>NB. Lowers the pen of the specified window's turtle.
+</span><span id="__span-10-302"><a id="__codelineno-10-302" name="__codelineno-10-302" href="#__codelineno-10-302"></a>NB.
+</span><span id="__span-10-303"><a id="__codelineno-10-303" name="__codelineno-10-303" href="#__codelineno-10-303"></a>pendown =. 3 : 0
+</span><span id="__span-10-304"><a id="__codelineno-10-304" name="__codelineno-10-304" href="#__codelineno-10-304"></a>if. inrange y. do.
+</span><span id="__span-10-305"><a id="__codelineno-10-305" name="__codelineno-10-305" href="#__codelineno-10-305"></a>  if. windowactive y. do.
+</span><span id="__span-10-306"><a id="__codelineno-10-306" name="__codelineno-10-306" href="#__codelineno-10-306"></a>    penlist =: DOWN (&lt;: y.) amend penlist
+</span><span id="__span-10-307"><a id="__codelineno-10-307" name="__codelineno-10-307" href="#__codelineno-10-307"></a>    novalue
+</span><span id="__span-10-308"><a id="__codelineno-10-308" name="__codelineno-10-308" href="#__codelineno-10-308"></a>  else.
+</span><span id="__span-10-309"><a id="__codelineno-10-309" name="__codelineno-10-309" href="#__codelineno-10-309"></a>    beep 1
+</span><span id="__span-10-310"><a id="__codelineno-10-310" name="__codelineno-10-310" href="#__codelineno-10-310"></a>  end.
+</span><span id="__span-10-311"><a id="__codelineno-10-311" name="__codelineno-10-311" href="#__codelineno-10-311"></a>else.
+</span><span id="__span-10-312"><a id="__codelineno-10-312" name="__codelineno-10-312" href="#__codelineno-10-312"></a>  beep 1
+</span><span id="__span-10-313"><a id="__codelineno-10-313" name="__codelineno-10-313" href="#__codelineno-10-313"></a>end.
+</span><span id="__span-10-314"><a id="__codelineno-10-314" name="__codelineno-10-314" href="#__codelineno-10-314"></a>)
+</span><span id="__span-10-315"><a id="__codelineno-10-315" name="__codelineno-10-315" href="#__codelineno-10-315"></a>
+</span><span id="__span-10-316"><a id="__codelineno-10-316" name="__codelineno-10-316" href="#__codelineno-10-316"></a>NB. SYNTAX: setheading wdw degrees
+</span><span id="__span-10-317"><a id="__codelineno-10-317" name="__codelineno-10-317" href="#__codelineno-10-317"></a>NB.
+</span><span id="__span-10-318"><a id="__codelineno-10-318" name="__codelineno-10-318" href="#__codelineno-10-318"></a>NB. Changes the heading of the specified window's turtle.
+</span><span id="__span-10-319"><a id="__codelineno-10-319" name="__codelineno-10-319" href="#__codelineno-10-319"></a>NB.
+</span><span id="__span-10-320"><a id="__codelineno-10-320" name="__codelineno-10-320" href="#__codelineno-10-320"></a>setheading =. 3 : 0
+</span><span id="__span-10-321"><a id="__codelineno-10-321" name="__codelineno-10-321" href="#__codelineno-10-321"></a>if. inrange head y. do.
+</span><span id="__span-10-322"><a id="__codelineno-10-322" name="__codelineno-10-322" href="#__codelineno-10-322"></a>  if. windowactive head y. do.
+</span><span id="__span-10-323"><a id="__codelineno-10-323" name="__codelineno-10-323" href="#__codelineno-10-323"></a>        changedegslist y.
+</span><span id="__span-10-324"><a id="__codelineno-10-324" name="__codelineno-10-324" href="#__codelineno-10-324"></a>        novalue
+</span><span id="__span-10-325"><a id="__codelineno-10-325" name="__codelineno-10-325" href="#__codelineno-10-325"></a>  else.
+</span><span id="__span-10-326"><a id="__codelineno-10-326" name="__codelineno-10-326" href="#__codelineno-10-326"></a>        beep 1
+</span><span id="__span-10-327"><a id="__codelineno-10-327" name="__codelineno-10-327" href="#__codelineno-10-327"></a>  end.
+</span><span id="__span-10-328"><a id="__codelineno-10-328" name="__codelineno-10-328" href="#__codelineno-10-328"></a>else.
+</span><span id="__span-10-329"><a id="__codelineno-10-329" name="__codelineno-10-329" href="#__codelineno-10-329"></a>  beep 1
+</span><span id="__span-10-330"><a id="__codelineno-10-330" name="__codelineno-10-330" href="#__codelineno-10-330"></a>end.
+</span><span id="__span-10-331"><a id="__codelineno-10-331" name="__codelineno-10-331" href="#__codelineno-10-331"></a>)
+</span><span id="__span-10-332"><a id="__codelineno-10-332" name="__codelineno-10-332" href="#__codelineno-10-332"></a>
+</span><span id="__span-10-333"><a id="__codelineno-10-333" name="__codelineno-10-333" href="#__codelineno-10-333"></a>NB. SYNTAX: heading wdw
+</span><span id="__span-10-334"><a id="__codelineno-10-334" name="__codelineno-10-334" href="#__codelineno-10-334"></a>NB.
+</span><span id="__span-10-335"><a id="__codelineno-10-335" name="__codelineno-10-335" href="#__codelineno-10-335"></a>NB. Returns current heading of turtle in specified window.
+</span><span id="__span-10-336"><a id="__codelineno-10-336" name="__codelineno-10-336" href="#__codelineno-10-336"></a>NB.
+</span><span id="__span-10-337"><a id="__codelineno-10-337" name="__codelineno-10-337" href="#__codelineno-10-337"></a>heading =. 3 : 0
+</span><span id="__span-10-338"><a id="__codelineno-10-338" name="__codelineno-10-338" href="#__codelineno-10-338"></a>if. inrange y. do.
+</span><span id="__span-10-339"><a id="__codelineno-10-339" name="__codelineno-10-339" href="#__codelineno-10-339"></a>  if. windowactive y. do.
+</span><span id="__span-10-340"><a id="__codelineno-10-340" name="__codelineno-10-340" href="#__codelineno-10-340"></a>        (&lt;: y.) from degslist
+</span><span id="__span-10-341"><a id="__codelineno-10-341" name="__codelineno-10-341" href="#__codelineno-10-341"></a>  else.
+</span><span id="__span-10-342"><a id="__codelineno-10-342" name="__codelineno-10-342" href="#__codelineno-10-342"></a>        beep 1
+</span><span id="__span-10-343"><a id="__codelineno-10-343" name="__codelineno-10-343" href="#__codelineno-10-343"></a>  end.
+</span><span id="__span-10-344"><a id="__codelineno-10-344" name="__codelineno-10-344" href="#__codelineno-10-344"></a>else.
+</span><span id="__span-10-345"><a id="__codelineno-10-345" name="__codelineno-10-345" href="#__codelineno-10-345"></a>  beep 1
+</span><span id="__span-10-346"><a id="__codelineno-10-346" name="__codelineno-10-346" href="#__codelineno-10-346"></a>end.
+</span><span id="__span-10-347"><a id="__codelineno-10-347" name="__codelineno-10-347" href="#__codelineno-10-347"></a>)
+</span><span id="__span-10-348"><a id="__codelineno-10-348" name="__codelineno-10-348" href="#__codelineno-10-348"></a>
+</span><span id="__span-10-349"><a id="__codelineno-10-349" name="__codelineno-10-349" href="#__codelineno-10-349"></a>NB. SYNTAX: turn wdw degrees
+</span><span id="__span-10-350"><a id="__codelineno-10-350" name="__codelineno-10-350" href="#__codelineno-10-350"></a>NB.
+</span><span id="__span-10-351"><a id="__codelineno-10-351" name="__codelineno-10-351" href="#__codelineno-10-351"></a>NB. Rotate turtle by number of degrees specified.
+</span><span id="__span-10-352"><a id="__codelineno-10-352" name="__codelineno-10-352" href="#__codelineno-10-352"></a>NB.
+</span><span id="__span-10-353"><a id="__codelineno-10-353" name="__codelineno-10-353" href="#__codelineno-10-353"></a>turn =. 3 : 0
+</span><span id="__span-10-354"><a id="__codelineno-10-354" name="__codelineno-10-354" href="#__codelineno-10-354"></a>if. inrange head y. do.
+</span><span id="__span-10-355"><a id="__codelineno-10-355" name="__codelineno-10-355" href="#__codelineno-10-355"></a>  if. windowactive head y. do.
+</span><span id="__span-10-356"><a id="__codelineno-10-356" name="__codelineno-10-356" href="#__codelineno-10-356"></a>        currdegs =. (&lt;: head y.) from degslist
+</span><span id="__span-10-357"><a id="__codelineno-10-357" name="__codelineno-10-357" href="#__codelineno-10-357"></a>        changedegslist (head y.) , (currdegs + tail y.)
+</span><span id="__span-10-358"><a id="__codelineno-10-358" name="__codelineno-10-358" href="#__codelineno-10-358"></a>        novalue
+</span><span id="__span-10-359"><a id="__codelineno-10-359" name="__codelineno-10-359" href="#__codelineno-10-359"></a>  else.
+</span><span id="__span-10-360"><a id="__codelineno-10-360" name="__codelineno-10-360" href="#__codelineno-10-360"></a>        beep 1
+</span><span id="__span-10-361"><a id="__codelineno-10-361" name="__codelineno-10-361" href="#__codelineno-10-361"></a>  end.
+</span><span id="__span-10-362"><a id="__codelineno-10-362" name="__codelineno-10-362" href="#__codelineno-10-362"></a>else.
+</span><span id="__span-10-363"><a id="__codelineno-10-363" name="__codelineno-10-363" href="#__codelineno-10-363"></a>  beep 1
+</span><span id="__span-10-364"><a id="__codelineno-10-364" name="__codelineno-10-364" href="#__codelineno-10-364"></a>end.
+</span><span id="__span-10-365"><a id="__codelineno-10-365" name="__codelineno-10-365" href="#__codelineno-10-365"></a>)
+</span><span id="__span-10-366"><a id="__codelineno-10-366" name="__codelineno-10-366" href="#__codelineno-10-366"></a>
+</span><span id="__span-10-367"><a id="__codelineno-10-367" name="__codelineno-10-367" href="#__codelineno-10-367"></a>NB. SYNTAX: left wdw degrees
+</span><span id="__span-10-368"><a id="__codelineno-10-368" name="__codelineno-10-368" href="#__codelineno-10-368"></a>NB.
+</span><span id="__span-10-369"><a id="__codelineno-10-369" name="__codelineno-10-369" href="#__codelineno-10-369"></a>NB. Rotate turtle left by number of degrees specified.
+</span><span id="__span-10-370"><a id="__codelineno-10-370" name="__codelineno-10-370" href="#__codelineno-10-370"></a>NB. Note: a negative value will result in a right turn!
+</span><span id="__span-10-371"><a id="__codelineno-10-371" name="__codelineno-10-371" href="#__codelineno-10-371"></a>NB.
+</span><span id="__span-10-372"><a id="__codelineno-10-372" name="__codelineno-10-372" href="#__codelineno-10-372"></a>lt =. left =. turn
+</span><span id="__span-10-373"><a id="__codelineno-10-373" name="__codelineno-10-373" href="#__codelineno-10-373"></a>
+</span><span id="__span-10-374"><a id="__codelineno-10-374" name="__codelineno-10-374" href="#__codelineno-10-374"></a>NB. SYNTAX: right wdw degrees
+</span><span id="__span-10-375"><a id="__codelineno-10-375" name="__codelineno-10-375" href="#__codelineno-10-375"></a>NB.
+</span><span id="__span-10-376"><a id="__codelineno-10-376" name="__codelineno-10-376" href="#__codelineno-10-376"></a>NB. Rotate turtle right by number of degrees specified.
+</span><span id="__span-10-377"><a id="__codelineno-10-377" name="__codelineno-10-377" href="#__codelineno-10-377"></a>NB. Note: a negative value will result in a left turn!
+</span><span id="__span-10-378"><a id="__codelineno-10-378" name="__codelineno-10-378" href="#__codelineno-10-378"></a>NB.
+</span><span id="__span-10-379"><a id="__codelineno-10-379" name="__codelineno-10-379" href="#__codelineno-10-379"></a>rt =. right =. 3 : 0
+</span><span id="__span-10-380"><a id="__codelineno-10-380" name="__codelineno-10-380" href="#__codelineno-10-380"></a>turn (head y.) , (- tail y.)
+</span><span id="__span-10-381"><a id="__codelineno-10-381" name="__codelineno-10-381" href="#__codelineno-10-381"></a>)
+</span><span id="__span-10-382"><a id="__codelineno-10-382" name="__codelineno-10-382" href="#__codelineno-10-382"></a>
+</span><span id="__span-10-383"><a id="__codelineno-10-383" name="__codelineno-10-383" href="#__codelineno-10-383"></a>NB. SYNTAX: moveturtle wdw radius direction
+</span><span id="__span-10-384"><a id="__codelineno-10-384" name="__codelineno-10-384" href="#__codelineno-10-384"></a>NB.
+</span><span id="__span-10-385"><a id="__codelineno-10-385" name="__codelineno-10-385" href="#__codelineno-10-385"></a>NB. Move current window's turtle by specified amount
+</span><span id="__span-10-386"><a id="__codelineno-10-386" name="__codelineno-10-386" href="#__codelineno-10-386"></a>NB. (radius) forwards or backwards. The turtle starts
+</span><span id="__span-10-387"><a id="__codelineno-10-387" name="__codelineno-10-387" href="#__codelineno-10-387"></a>NB. at the center of a circle and moves to the perimeter.
+</span><span id="__span-10-388"><a id="__codelineno-10-388" name="__codelineno-10-388" href="#__codelineno-10-388"></a>NB.
+</span><span id="__span-10-389"><a id="__codelineno-10-389" name="__codelineno-10-389" href="#__codelineno-10-389"></a>moveturtle =. 3 : 0
+</span><span id="__span-10-390"><a id="__codelineno-10-390" name="__codelineno-10-390" href="#__codelineno-10-390"></a>wdw =. head y.
+</span><span id="__span-10-391"><a id="__codelineno-10-391" name="__codelineno-10-391" href="#__codelineno-10-391"></a>if. inrange wdw do.
+</span><span id="__span-10-392"><a id="__codelineno-10-392" name="__codelineno-10-392" href="#__codelineno-10-392"></a>  if. windowactive wdw do.
+</span><span id="__span-10-393"><a id="__codelineno-10-393" name="__codelineno-10-393" href="#__codelineno-10-393"></a>    radius =. head behead y.
+</span><span id="__span-10-394"><a id="__codelineno-10-394" name="__codelineno-10-394" href="#__codelineno-10-394"></a>    direction =. tail y.
+</span><span id="__span-10-395"><a id="__codelineno-10-395" name="__codelineno-10-395" href="#__codelineno-10-395"></a>    degs =. (&lt;: wdw) from degslist
+</span><span id="__span-10-396"><a id="__codelineno-10-396" name="__codelineno-10-396" href="#__codelineno-10-396"></a>    if. direction = FORWARD do.
+</span><span id="__span-10-397"><a id="__codelineno-10-397" name="__codelineno-10-397" href="#__codelineno-10-397"></a>      theta =. degs % RADCONV
+</span><span id="__span-10-398"><a id="__codelineno-10-398" name="__codelineno-10-398" href="#__codelineno-10-398"></a>    else.
+</span><span id="__span-10-399"><a id="__codelineno-10-399" name="__codelineno-10-399" href="#__codelineno-10-399"></a>      angle =. 360 | (degs+180)
+</span><span id="__span-10-400"><a id="__codelineno-10-400" name="__codelineno-10-400" href="#__codelineno-10-400"></a>      theta =. angle % RADCONV
+</span><span id="__span-10-401"><a id="__codelineno-10-401" name="__codelineno-10-401" href="#__codelineno-10-401"></a>    end.
+</span><span id="__span-10-402"><a id="__codelineno-10-402" name="__codelineno-10-402" href="#__codelineno-10-402"></a>        curr =. xycor wdw
+</span><span id="__span-10-403"><a id="__codelineno-10-403" name="__codelineno-10-403" href="#__codelineno-10-403"></a>        currx =. head curr
+</span><span id="__span-10-404"><a id="__codelineno-10-404" name="__codelineno-10-404" href="#__codelineno-10-404"></a>        curry =. tail curr
+</span><span id="__span-10-405"><a id="__codelineno-10-405" name="__codelineno-10-405" href="#__codelineno-10-405"></a>    x =. currx + (radius * cos theta)
+</span><span id="__span-10-406"><a id="__codelineno-10-406" name="__codelineno-10-406" href="#__codelineno-10-406"></a>    y =. curry + (radius * sin theta)
+</span><span id="__span-10-407"><a id="__codelineno-10-407" name="__codelineno-10-407" href="#__codelineno-10-407"></a>    selectwdw wdw
+</span><span id="__span-10-408"><a id="__codelineno-10-408" name="__codelineno-10-408" href="#__codelineno-10-408"></a>    if. penactive wdw do.
+</span><span id="__span-10-409"><a id="__codelineno-10-409" name="__codelineno-10-409" href="#__codelineno-10-409"></a>        move currx , curry
+</span><span id="__span-10-410"><a id="__codelineno-10-410" name="__codelineno-10-410" href="#__codelineno-10-410"></a>      line x , y
+</span><span id="__span-10-411"><a id="__codelineno-10-411" name="__codelineno-10-411" href="#__codelineno-10-411"></a>    else.
+</span><span id="__span-10-412"><a id="__codelineno-10-412" name="__codelineno-10-412" href="#__codelineno-10-412"></a>      move x , y
+</span><span id="__span-10-413"><a id="__codelineno-10-413" name="__codelineno-10-413" href="#__codelineno-10-413"></a>    end.
+</span><span id="__span-10-414"><a id="__codelineno-10-414" name="__codelineno-10-414" href="#__codelineno-10-414"></a>    changexylists wdw , x , y
+</span><span id="__span-10-415"><a id="__codelineno-10-415" name="__codelineno-10-415" href="#__codelineno-10-415"></a>        novalue
+</span><span id="__span-10-416"><a id="__codelineno-10-416" name="__codelineno-10-416" href="#__codelineno-10-416"></a>  else.
+</span><span id="__span-10-417"><a id="__codelineno-10-417" name="__codelineno-10-417" href="#__codelineno-10-417"></a>    beep 1
+</span><span id="__span-10-418"><a id="__codelineno-10-418" name="__codelineno-10-418" href="#__codelineno-10-418"></a>  end.
+</span><span id="__span-10-419"><a id="__codelineno-10-419" name="__codelineno-10-419" href="#__codelineno-10-419"></a>else.
+</span><span id="__span-10-420"><a id="__codelineno-10-420" name="__codelineno-10-420" href="#__codelineno-10-420"></a>  beep 1
+</span><span id="__span-10-421"><a id="__codelineno-10-421" name="__codelineno-10-421" href="#__codelineno-10-421"></a>end.
+</span><span id="__span-10-422"><a id="__codelineno-10-422" name="__codelineno-10-422" href="#__codelineno-10-422"></a>)
+</span><span id="__span-10-423"><a id="__codelineno-10-423" name="__codelineno-10-423" href="#__codelineno-10-423"></a>
+</span><span id="__span-10-424"><a id="__codelineno-10-424" name="__codelineno-10-424" href="#__codelineno-10-424"></a>NB. SYNTAX: forward wdw distance
+</span><span id="__span-10-425"><a id="__codelineno-10-425" name="__codelineno-10-425" href="#__codelineno-10-425"></a>NB.
+</span><span id="__span-10-426"><a id="__codelineno-10-426" name="__codelineno-10-426" href="#__codelineno-10-426"></a>NB. Move turtle forward by specified number of steps.
+</span><span id="__span-10-427"><a id="__codelineno-10-427" name="__codelineno-10-427" href="#__codelineno-10-427"></a>NB. Note: a negative distance will result in backward
+</span><span id="__span-10-428"><a id="__codelineno-10-428" name="__codelineno-10-428" href="#__codelineno-10-428"></a>NB.       motion!
+</span><span id="__span-10-429"><a id="__codelineno-10-429" name="__codelineno-10-429" href="#__codelineno-10-429"></a>NB.
+</span><span id="__span-10-430"><a id="__codelineno-10-430" name="__codelineno-10-430" href="#__codelineno-10-430"></a>fd =. forward =. 3 : 0
+</span><span id="__span-10-431"><a id="__codelineno-10-431" name="__codelineno-10-431" href="#__codelineno-10-431"></a>moveturtle y. , FORWARD
+</span><span id="__span-10-432"><a id="__codelineno-10-432" name="__codelineno-10-432" href="#__codelineno-10-432"></a>)
+</span><span id="__span-10-433"><a id="__codelineno-10-433" name="__codelineno-10-433" href="#__codelineno-10-433"></a>
+</span><span id="__span-10-434"><a id="__codelineno-10-434" name="__codelineno-10-434" href="#__codelineno-10-434"></a>NB. SYNTAX: back wdw distance
+</span><span id="__span-10-435"><a id="__codelineno-10-435" name="__codelineno-10-435" href="#__codelineno-10-435"></a>NB.
+</span><span id="__span-10-436"><a id="__codelineno-10-436" name="__codelineno-10-436" href="#__codelineno-10-436"></a>NB. Move turtle back by specified number of steps.
+</span><span id="__span-10-437"><a id="__codelineno-10-437" name="__codelineno-10-437" href="#__codelineno-10-437"></a>NB. Note: a negative distance will result in forward
+</span><span id="__span-10-438"><a id="__codelineno-10-438" name="__codelineno-10-438" href="#__codelineno-10-438"></a>NB.       motion!
+</span><span id="__span-10-439"><a id="__codelineno-10-439" name="__codelineno-10-439" href="#__codelineno-10-439"></a>NB.
+</span><span id="__span-10-440"><a id="__codelineno-10-440" name="__codelineno-10-440" href="#__codelineno-10-440"></a>bk =. back =. 3 : 0
+</span><span id="__span-10-441"><a id="__codelineno-10-441" name="__codelineno-10-441" href="#__codelineno-10-441"></a>moveturtle y. , REVERSE
+</span><span id="__span-10-442"><a id="__codelineno-10-442" name="__codelineno-10-442" href="#__codelineno-10-442"></a>)
+</span><span id="__span-10-443"><a id="__codelineno-10-443" name="__codelineno-10-443" href="#__codelineno-10-443"></a>
+</span><span id="__span-10-444"><a id="__codelineno-10-444" name="__codelineno-10-444" href="#__codelineno-10-444"></a>NB. SYNTAX: wait wdw
+</span><span id="__span-10-445"><a id="__codelineno-10-445" name="__codelineno-10-445" href="#__codelineno-10-445"></a>NB. Wait for some kind of message from the current
+</span><span id="__span-10-446"><a id="__codelineno-10-446" name="__codelineno-10-446" href="#__codelineno-10-446"></a>NB. window, typically a close-box click.
+</span><span id="__span-10-447"><a id="__codelineno-10-447" name="__codelineno-10-447" href="#__codelineno-10-447"></a>NB.
+</span><span id="__span-10-448"><a id="__codelineno-10-448" name="__codelineno-10-448" href="#__codelineno-10-448"></a>NB.
+</span><span id="__span-10-449"><a id="__codelineno-10-449" name="__codelineno-10-449" href="#__codelineno-10-449"></a>wait =. 3 : 0
+</span><span id="__span-10-450"><a id="__codelineno-10-450" name="__codelineno-10-450" href="#__codelineno-10-450"></a>if. inrange y. do.
+</span><span id="__span-10-451"><a id="__codelineno-10-451" name="__codelineno-10-451" href="#__codelineno-10-451"></a>  if. windowactive y. do.
+</span><span id="__span-10-452"><a id="__codelineno-10-452" name="__codelineno-10-452" href="#__codelineno-10-452"></a>        selectwdw y.
+</span><span id="__span-10-453"><a id="__codelineno-10-453" name="__codelineno-10-453" href="#__codelineno-10-453"></a>        wd 'wait;'
+</span><span id="__span-10-454"><a id="__codelineno-10-454" name="__codelineno-10-454" href="#__codelineno-10-454"></a>  else.
+</span><span id="__span-10-455"><a id="__codelineno-10-455" name="__codelineno-10-455" href="#__codelineno-10-455"></a>        beep 1
+</span><span id="__span-10-456"><a id="__codelineno-10-456" name="__codelineno-10-456" href="#__codelineno-10-456"></a>  end.
+</span><span id="__span-10-457"><a id="__codelineno-10-457" name="__codelineno-10-457" href="#__codelineno-10-457"></a>else.
+</span><span id="__span-10-458"><a id="__codelineno-10-458" name="__codelineno-10-458" href="#__codelineno-10-458"></a>  beep 1
+</span><span id="__span-10-459"><a id="__codelineno-10-459" name="__codelineno-10-459" href="#__codelineno-10-459"></a>end.
+</span><span id="__span-10-460"><a id="__codelineno-10-460" name="__codelineno-10-460" href="#__codelineno-10-460"></a>)
+</span><span id="__span-10-461"><a id="__codelineno-10-461" name="__codelineno-10-461" href="#__codelineno-10-461"></a>
+</span><span id="__span-10-462"><a id="__codelineno-10-462" name="__codelineno-10-462" href="#__codelineno-10-462"></a>NB. SYNTAX: n repeat commands
+</span><span id="__span-10-463"><a id="__codelineno-10-463" name="__codelineno-10-463" href="#__codelineno-10-463"></a>NB.
+</span><span id="__span-10-464"><a id="__codelineno-10-464" name="__codelineno-10-464" href="#__codelineno-10-464"></a>NB. Repeats the commands N times.
+</span><span id="__span-10-465"><a id="__codelineno-10-465" name="__codelineno-10-465" href="#__codelineno-10-465"></a>NB.
+</span><span id="__span-10-466"><a id="__codelineno-10-466" name="__codelineno-10-466" href="#__codelineno-10-466"></a>NB. The commands are expected to be laminated
+</span><span id="__span-10-467"><a id="__codelineno-10-467" name="__codelineno-10-467" href="#__codelineno-10-467"></a>NB. character strings. For example:
+</span><span id="__span-10-468"><a id="__codelineno-10-468" name="__codelineno-10-468" href="#__codelineno-10-468"></a>NB.
+</span><span id="__span-10-469"><a id="__codelineno-10-469" name="__codelineno-10-469" href="#__codelineno-10-469"></a>NB.          4 repeat 'fd 1 100' then 'right 1 90'
+</span><span id="__span-10-470"><a id="__codelineno-10-470" name="__codelineno-10-470" href="#__codelineno-10-470"></a>NB.
+</span><span id="__span-10-471"><a id="__codelineno-10-471" name="__codelineno-10-471" href="#__codelineno-10-471"></a>repeat =. 3 : 0
+</span><span id="__span-10-472"><a id="__codelineno-10-472" name="__codelineno-10-472" href="#__codelineno-10-472"></a>:
+</span><span id="__span-10-473"><a id="__codelineno-10-473" name="__codelineno-10-473" href="#__codelineno-10-473"></a>i =. 1
+</span><span id="__span-10-474"><a id="__codelineno-10-474" name="__codelineno-10-474" href="#__codelineno-10-474"></a>while. i &lt;: x. do.
+</span><span id="__span-10-475"><a id="__codelineno-10-475" name="__codelineno-10-475" href="#__codelineno-10-475"></a>  cmdlist =. y.
+</span><span id="__span-10-476"><a id="__codelineno-10-476" name="__codelineno-10-476" href="#__codelineno-10-476"></a>  while. (count cmdlist) &gt; 0 do.
+</span><span id="__span-10-477"><a id="__codelineno-10-477" name="__codelineno-10-477" href="#__codelineno-10-477"></a>    execute head cmdlist
+</span><span id="__span-10-478"><a id="__codelineno-10-478" name="__codelineno-10-478" href="#__codelineno-10-478"></a>    cmdlist =. behead cmdlist
+</span><span id="__span-10-479"><a id="__codelineno-10-479" name="__codelineno-10-479" href="#__codelineno-10-479"></a>  end.
+</span><span id="__span-10-480"><a id="__codelineno-10-480" name="__codelineno-10-480" href="#__codelineno-10-480"></a>  i =. &gt;: i
+</span><span id="__span-10-481"><a id="__codelineno-10-481" name="__codelineno-10-481" href="#__codelineno-10-481"></a>end.
+</span><span id="__span-10-482"><a id="__codelineno-10-482" name="__codelineno-10-482" href="#__codelineno-10-482"></a>novalue
+</span><span id="__span-10-483"><a id="__codelineno-10-483" name="__codelineno-10-483" href="#__codelineno-10-483"></a>)
+</span></code></pre></div></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">graphics</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">programming techniques</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">education</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

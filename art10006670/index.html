@@ -1,0 +1,1990 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10006670/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>A Tutorial in J Programming: The Second-Order Josephus Sequence - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#abstract" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              A Tutorial in J Programming: The Second-Order Josephus Sequence
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Abstract
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introduction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-second-order-josephus-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Second-order Josephus Problem
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utility-programs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Utility Programs
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Utility Programs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#natural-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Natural numbers
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sort
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-power" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Two-Power
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Log
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#each-atom" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Each Atom
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#each-box" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Each Box
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#j-program-for-the-josephus-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        J Program for the Josephus Problem
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#programs-for-the-second-order-josephus-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Programs for the Second-order Josephus Problem
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Programs for the Second-order Josephus Problem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-simulation-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1. Simulation Approach
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-sorting-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2. Sorting Approach
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-replication-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3. Replication Approach
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-bits-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4. Bits Approach
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-base-2-encoding-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5. Base-2 Encoding Approach
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-log-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        6. Log Approach
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparisons-of-programs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Comparisons of Programs
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comparisons of Programs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Speed
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#space" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Space
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed-programs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Fixed Programs
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Benchmarks
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concluding-insights-and-programming-challenges" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Concluding Insights and Programming Challenges
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">A Tutorial in J Programming: The Second-Order Josephus Sequence</h1>
+
+  <p class="printed"><a href="../19/#n3-january-2003">Vector 19:3</a>, page 46</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-programming-techniques">programming techniques</a> <a class="md-tag" href="../tags/#tag-education">education</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../19/3/VOL.19-NO.3-JANUARY-2003.pdf#page=48">Read it in the PDF of the issue, page 46</a></em></p>
+<p class="byline"><em>by Howard A. Peelle, University of Massachusetts</em></p>
+<h2 id="abstract">Abstract<a class="headerlink" href="#abstract" title="Permanent link">&para;</a></h2>
+<p>An interesting sequence of non-decreasing positive integers serves as a focus for a tutorial on J programming. Six different approaches and accompanying algorithms are described, each with an overview of its purpose, relevant references, J code, syntactic structure and names of symbols, detailed explanation of the algorithm, examples of execution, and comments. The algorithms are compared for efficiency in speed and space. Concluding insights and programming challenges include a simple strategy for solving the Second-order Josephus problem.</p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>Consider the sequence<br>
+1 2 2 3 4 4 4 5 6 7 8 8 8 8 8 9 10 11 12 13 14 15 16 16 16 16 16 16 16 16 16 … .</p>
+<p>This sequence appears (with another leading 1) in [1] and is interesting because it lists answers to the "Second-order Josephus" problem (see below), recently posed by Boyko Bantchev in [2]. Related programs have been written by him and Eugene McDonnell in [2] and by Howard Peelle in [3].</p>
+<p>The sequence is also instructive as a programming problem which invites different approaches and algorithms. Here we will present and compare several different J programs for producing this sequence – replete with detailed explanations of intermediate programming techniques. (For an introduction to programming in J, see [0] or appropriate books on the Jsoftware website.)</p>
+<h2 id="the-second-order-josephus-problem">The Second-order Josephus Problem<a class="headerlink" href="#the-second-order-josephus-problem" title="Permanent link">&para;</a></h2>
+<p>The "Second-order Josephus" problem is derived from the basic "Josephus" problem ([4],[5],[6]) which is to determine the index of the survivor among N people in a circle where every second person is successively killed. For example, for N=9, numbers 2,4,6,8 (in index origin 1) are killed, then 1,5,9, then 7, leaving number 3 as the survivor.</p>
+<p>The Second-order Josephus problem is to determine the index of the last survivor when those identified as survivors of the Josephus problem are successively killed. For example, for N=9, number 3 is killed, then (for N=8) 1 is killed, then similarly (for decreasing N) 9, 7, 5, 2, 8, 4, leaving number 6 as the last survivor.</p>
+<p>The reader may wish to pause and write a program to solve this problem before reading on.</p>
+<h2 id="utility-programs">Utility Programs<a class="headerlink" href="#utility-programs" title="Permanent link">&para;</a></h2>
+<p>To begin, here are some utility programs which will be needed.</p>
+<h3 id="natural-numbers">Natural numbers<a class="headerlink" href="#natural-numbers" title="Permanent link">&para;</a></h3>
+<p>Purpose: Generate consecutive integers from 1 to input integer.</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nv">Natural</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">}.@</span><span class="nv">i</span><span class="o">.@&gt;:</span>
+</span></code></pre></div>
+<p>Symbols/Syntax: <code>Natural</code> is (Behead Atop Integers) Atop Increment. Note that the Atop conjunction (<code>@</code>) applies the entire verb train on its left after the verb immediately on its right.</p>
+<p><em>Explanation:</em> For input integer y, first add 1. Then generate a list of integers 0 to y. Finally, drop the first item and return the list of integers 1 to y.</p>
+<p>Example: <code>&gt;:9</code> is <code>10</code>. Then <code>i.10</code> is <code>0 1 2 3 4 5 6 7 8 9</code>. Finally, <code>}.0 1 2 3 4 5 6 7 8 9</code> is <code>1 2 3 4 5 6 7 8 9</code>. Using the program:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="w">   </span><span class="nv">Natural</span><span class="w"> </span><span class="mi">9</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">9</span>
+</span></code></pre></div>
+<p>Comment: A shorter definition is <code>Natural=:&gt;:@i.</code> but it is slightly less efficient for large inputs.</p>
+<h3 id="sort">Sort<a class="headerlink" href="#sort" title="Permanent link">&para;</a></h3>
+<p>Purpose: Sort a list of numbers into ascending order.</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">Sort</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">/:~</span>
+</span></code></pre></div>
+<p>Symbols/Syntax: <code>Sort</code> SortUp Reflex. Note that adverb Reflex (syntax <code>u~</code>) applies to a dyadic verb u with input y on both sides, that is, y u y.</p>
+<p><em>Explanation:</em> For an input list y, <code>/:~y</code> is <code>y/:y</code>, which returns the items of y in the order specified by y – that is, the order which would sort y ascendingly.</p>
+<p>Example: <code>/:~ 1 2 3 4 5 6 7 2 4 4 8 8 8 8</code> is <code>1 2 2 3 4 4 4 5 6 7 8 8 8 8</code>. Using the program:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="w">   </span><span class="nv">Sort</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span>
+</span></code></pre></div>
+<p>Comment: An alternative definition is <code>Sort=:]/:]</code> where <code>]</code> is the input.</p>
+<h3 id="two-power">Two-Power<a class="headerlink" href="#two-power" title="Permanent link">&para;</a></h3>
+<p>Purpose: Compute powers of 2.</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nv">Power</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="mi">2</span><span class="o">&amp;^</span>
+</span></code></pre></div>
+<p>Symbols/Syntax: <code>Power</code> is 2 With Power. Note that the With conjunction (n&amp;v) uses a noun n on one side (here 2) and a verb v on the other side (here dyadic primitive Power <code>^</code>) to create a monadic verb.</p>
+<p><em>Explanation:</em> 2 raised to the power of input y.</p>
+<p>Example: <code>2&amp;^ 4</code> is <code>16</code>. Using the program:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="w">   </span><span class="nv">Power</span><span class="w"> </span><span class="mi">4</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="mi">16</span>
+</span></code></pre></div>
+<p>Comments: <code>Power</code> allows a list input: <code>Power 0 1 2 3</code> is <code>1 2 4 8</code>.</p>
+<p>An alternative definition is <code>Power =: 2: ^ ]</code> where <code>2:</code> is the constant verb Two and <code>]</code> is the input.</p>
+<h3 id="log">Log<a class="headerlink" href="#log" title="Permanent link">&para;</a></h3>
+<p>Purpose: Compute base-2 logarithms.</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">Log</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="mi">2</span><span class="o">&amp;^.</span>
+</span></code></pre></div>
+<p>Symbols/Syntax: <code>Log</code> is 2 With Logarithm. Note that the With conjunction (n&amp;v) uses a noun n on one side (here 2) and a verb v on the other side (here dyadic primitive Logarithm <code>^.</code>) to create a monadic verb.</p>
+<p><em>Explanation:</em> Base-2 logarithm of input y.</p>
+<p>Example: <code>2&amp;^. 16</code> is <code>4</code>. Using the program:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="w">   </span><span class="nv">Log</span><span class="w"> </span><span class="mi">16</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="mi">4</span>
+</span></code></pre></div>
+<p>Comment: <code>Log</code> allows a list input: <code>Log 1 2 4 8</code> is <code>0 1 2 3</code>.</p>
+<p>An alternative definition is <code>Log =: 2: ^. ]</code> where <code>2:</code> is the constant verb Two and <code>]</code> is the input.</p>
+<h3 id="each-atom">Each Atom<a class="headerlink" href="#each-atom" title="Permanent link">&para;</a></h3>
+<p>Purpose: Apply a verb (or program) to each atom of input.</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nv">EACH</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">"</span><span class="mi">0</span>
+</span></code></pre></div>
+<p>Symbols/Syntax: <code>EACH</code> is Rank Zero. Note that <code>EACH</code> is an adverb created from the Rank conjunction (u"n) with the noun 0 on its right. Verb u will be input on the left of <code>EACH</code>.</p>
+<p><em>Explanation:</em> For u <code>EACH</code> y, verb u is applied to each atom of y.</p>
+<p>Example: <code>i."0 (1 2 3 4)</code> is list <code>i.1</code>, list <code>i.2</code>, list <code>i.3</code>, list <code>i.4</code> arranged in a table, with 0 fill elements. Using the program:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="w">   </span><span class="nv">i</span><span class="o">.</span><span class="w"> </span><span class="nv">EACH</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">4</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">0</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span>
+</span></code></pre></div>
+<p>Comment: A different definition is needed for boxed nouns. (See next utility program.)</p>
+<h3 id="each-box">Each Box<a class="headerlink" href="#each-box" title="Permanent link">&para;</a></h3>
+<p>Purpose: Apply a verb (or program) to each item of input in boxes.</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nv">each</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">&amp;.&gt;</span>
+</span></code></pre></div>
+<p>Symbols/Syntax: <code>each</code> is Under Open. Note that <code>each</code> is an adverb created from the Under conjunction (u&amp;.v) with the Open verb (<code>&gt;</code>) on its right. Verb u will be input on the left of <code>each</code>.</p>
+<p><em>Explanation:</em> For u <code>each</code> y, verb u is applied to each item of Open y and then each result is Boxed (the inverse of Open).</p>
+<p>Example: <code>i.&amp;.&gt; 1 2 3 4</code> is boxed list <code>i.1</code>, boxed list <code>i.2</code>, boxed list <code>i.3</code>, boxed list <code>i.4</code> arranged in a list of boxes. Using the program:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="w">   </span><span class="nv">i</span><span class="o">.</span><span class="w"> </span><span class="nv">each</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">4</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="o">+-+---+-----+-------+</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="o">|</span><span class="mi">0</span><span class="o">|</span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="o">|</span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="o">|</span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="o">|</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="o">+-+---+-----+-------+</span>
+</span></code></pre></div>
+<p>Comment: In the result above there are four items, each containing a list in a box.</p>
+<h2 id="j-program-for-the-josephus-problem">J Program for the Josephus Problem<a class="headerlink" href="#j-program-for-the-josephus-problem" title="Permanent link">&para;</a></h2>
+<p>Here is a program (verb) in J to compute the survivor number for the Josephus problem using a well-known algorithm ([4],[5]):</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nv">S</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="mi">1</span><span class="o">&amp;|.&amp;.#:</span>
+</span></code></pre></div>
+<p>Symbols/Syntax: <code>S</code> is (1 With Rotate) Under AntiBase. Note that the Under conjunction (u&amp;.v) executes verb v, then verb u, and finally the inverse of v.</p>
+<p><em>Explanation:</em> Represent integer input y in binary digits. Then rotate one bit from the front to the back. Then return its base-2 value.</p>
+<p>Examples: <code>#:9</code> is <code>1 0 0 1</code>. Then <code>1&amp;|. 1 0 0 1</code> is <code>0 0 1 1</code>. Finally, <code>#. 0 0 1 1</code> is <code>3</code>. Using the program, for 9 people in a circle, the survivor is in position 3:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="w">   </span><span class="nv">S</span><span class="w"> </span><span class="mi">9</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="mi">3</span>
+</span></code></pre></div>
+<p>Comments: The reader should be cautioned that the result is in origin 1 while J uses origin 0. And, unfortunately, this neat verb does not generalize to the original Josephus problem (stated in [4]) using an interval of three nor to other intervals.</p>
+<h2 id="programs-for-the-second-order-josephus-problem">Programs for the Second-order Josephus Problem<a class="headerlink" href="#programs-for-the-second-order-josephus-problem" title="Permanent link">&para;</a></h2>
+<p>Now, six different approaches and accompanying algorithms will be described for solving the Second-order Josephus problem.</p>
+<h3 id="1-simulation-approach">1. Simulation Approach<a class="headerlink" href="#1-simulation-approach" title="Permanent link">&para;</a></h3>
+<p>The problem can be solved by simulation – that is, by starting with a list of integer indices and successively eliminating the index of the Josephus survivor (computed by program S above).</p>
+<p>In [2] Bantchev provided a verb <code>E=:((&lt;:@[{.]),}.)~S@#</code> to eliminate the <code>(S #y)</code>-th item from any list y. This verb could be rewritten as:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nv">E</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="p">(</span><span class="o">}:@{.</span><span class="w"> </span><span class="o">,</span><span class="w"> </span><span class="o">}.</span><span class="p">)</span><span class="o">~</span><span class="w"> </span><span class="nv">S</span><span class="o">@#</span>
+</span></code></pre></div>
+<p>Symbols/Syntax: <code>E</code> is (((Curtail Atop Take) Append Drop) Commute) (S Atop Tally). Note that <code>E</code> is a "hook"(g h) which applies monadic verb h to the input and then dyadic verb g to the input and that result; that is y g h y here. The adverb <code>~</code> is used to switch the inputs of g so that <code>S@#</code> becomes the left input and y the right input. Note also that the verb inside the parentheses is a "fork"(f g h) which applies the central verb g to the results of verb f and verb h; that is, (f y) g (h y) here.</p>
+<p>Explanation: Remove the last item of the first <code>S@#</code> items taken from list y. Then append it to the list of <code>S@#</code> items dropped from y.</p>
+<p>Example: For an input list <code>y=:1 2 3 4 5 6 7 8 9</code>, <code>#y</code> is <code>9</code> and <code>S 9</code> is <code>3</code> (as shown above). <code>3{.y</code> is <code>1 2 3</code> and <code>}:1 2 3</code> is <code>1 2</code>. And <code>3}.y</code> is <code>4 5 6 7 8 9</code>. Appending <code>(}:3{.y),(3}.y)</code> gives the result <code>1 2 4 5 6 7 8 9</code>. Using the program:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="w">   </span><span class="nv">E</span><span class="w"> </span><span class="nv">Natural</span><span class="w"> </span><span class="mi">9</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">9</span>
+</span></code></pre></div>
+<p>Comment: Note that this verb uses <code>S</code> which uses origin 1 indexing.</p>
+<p>Peelle [3] previously offered a more succinct verb to eliminate item <code>S #y</code>:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nv">E</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">-.</span><span class="w"> </span><span class="o">&lt;:@</span><span class="nv">S</span><span class="o">@#</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="o">]</span>
+</span></code></pre></div>
+<p>Symbols/Syntax: <code>E</code> is input Less (((Decrement Atop S) Atop Tally) From Input). Note that <code>E</code> is a hook (g h) where h is a fork (f1 g1 h1), so execution is <code>y -. ((&lt;:S#y) { y)</code>.</p>
+<p><em>Explanation:</em> Remove from input list y the item in the (origin 0) position one less than j of the length of y.</p>
+<p>Example: For input list <code>y=:1 2 3 4 5 6 7 8 9</code>, <code>#y</code> is <code>9</code>, then <code>S 9</code> is <code>3</code>, and <code>&lt;:3</code> is <code>2</code>. Then <code>2{y</code> is <code>3</code>. Then <code>1 2 3 4 5 6 7 8 9 -. 3</code> is the result, as shown by using the program:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="w">   </span><span class="nv">E</span><span class="w"> </span><span class="nv">Natural</span><span class="w"> </span><span class="mi">9</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">9</span>
+</span></code></pre></div>
+<p>Comment: Input y should be restricted to unique items (as in the example here).</p>
+<p>Repeating <code>E</code> simulates the Second-order Josephus problem. For example:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="w">   </span><span class="nv">E</span><span class="w"> </span><span class="nv">Natural</span><span class="w"> </span><span class="mi">9</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">9</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">   </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">Natural</span><span class="w"> </span><span class="mi">9</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="mi">2</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">9</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">   </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">Natural</span><span class="w"> </span><span class="mi">9</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="mi">2</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">8</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="w">   </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">Natural</span><span class="w"> </span><span class="mi">9</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="mi">2</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">8</span>
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="w">   </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">Natural</span><span class="w"> </span><span class="mi">9</span>
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="mi">2</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">8</span>
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="w">   </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">Natural</span><span class="w"> </span><span class="mi">9</span>
+</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a><span class="mi">4</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">8</span>
+</span><span id="__span-18-13"><a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a><span class="w">   </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">Natural</span><span class="w"> </span><span class="mi">9</span>
+</span><span id="__span-18-14"><a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a><span class="mi">4</span><span class="w"> </span><span class="mi">6</span>
+</span><span id="__span-18-15"><a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a><span class="w">   </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="nv">Natural</span><span class="w"> </span><span class="mi">9</span>
+</span><span id="__span-18-16"><a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a><span class="mi">6</span>
+</span></code></pre></div>
+<p>This can be accomplished in one expression:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="w">   </span><span class="nv">E</span><span class="o">^:</span><span class="mi">8</span><span class="w"> </span><span class="nv">Natural</span><span class="w"> </span><span class="mi">9</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="mi">6</span>
+</span></code></pre></div>
+<p>Symbols/Syntax: (<code>E</code> Power 8) (Natural 9). Note that the Power conjunction (<code>u^:n</code>) here uses verb E on the left and noun 8 on the right. <code>Natural 9</code> is the input for <code>E^:8</code>. Note that the input could be entered directly, as in <code>E^:8 (1 2 3 4 5 6 7 8 9)</code> or using Right (<code>]</code>) to separate 8 from the input numbers, as in <code>E^:8 ] 1 2 3 4 5 6 7 8 9</code>.</p>
+<p><em>Explanation:</em> <code>E</code> is repeated 8 times on its own result, starting with the natural integers 1 to 9 input. Note that this illustrates how to do iteration in J.</p>
+<p>Example: For input y=9, <code>Natural 9</code> is <code>1 2 3 4 5 6 7 8 9</code>, and <code>E^:8 Natural 9</code> is 6 (as shown above).</p>
+<p>Comment: This could be embodied in a master program.</p>
+<p>Bantchev [2] offered a master verb <code>S2=:E^:(&lt;:@#)@(&gt;:@i.)</code>. An alternative definition, using a gerund, is:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nv">S2a</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="o">^:</span><span class="w"> </span><span class="p">(</span><span class="o">&lt;:</span><span class="w"> </span><span class="o">`</span><span class="w"> </span><span class="nv">Natural</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Symbols/Syntax: <code>S2a</code> is <code>E</code> Power (Decrement Tie Natural). Note that a gerund is a boxed noun containing verbs. Here, the gerund produced by <code>`</code> allows the input for <code>^:</code> to be entered along with the input y for the derived verb <code>E^:&lt;:</code>.</p>
+<p><em>Explanation:</em> Repeat <code>E</code> one less number of times than input y, starting with input integers 1 to y.</p>
+<p>Example: For input 9, <code>&lt;:9</code> is <code>8</code> and <code>Natural 9</code> is <code>1 2 3 4 5 6 7 8 9</code>. <code>E^:8 (1 3 2 3 4 5 6 7 8 9)</code> is 6 (as shown earlier). Using the program for a list of inputs produces the Second-order Josephus sequence:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="w">   </span><span class="o">,</span><span class="nv">S2a</span><span class="w"> </span><span class="nv">EACH</span><span class="w"> </span><span class="nv">Natural</span><span class="w"> </span><span class="mi">31</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span>
+</span></code></pre></div>
+<p>Comments: The utility program <code>EACH</code> is required to apply <code>S2a</code> to each item of the input list separately. Ravel (<code>,</code>) is used to display the resulting array of 1-item lists as one list.</p>
+<h3 id="2-sorting-approach">2. Sorting Approach<a class="headerlink" href="#2-sorting-approach" title="Permanent link">&para;</a></h3>
+<p>The Second-order Josephus sequence can be produced directly – that is, without resorting to simulation – by sorting indices together with copies of powers of 2.</p>
+<p>McDonnell [2] offered a "high-speed" verb <code>hsJ2=:13 : '/:~(&gt;:i.+/2^i.y.),;(#each+:)2^i.y.'</code> which generates the sequence without the last item. Here is a revised explicit definition to produce a full sequence:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nv">J2x</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">'/:~(Natural 2^y.),(# +:)2^i.y.'</span>
+</span></code></pre></div>
+<p>Symbols/Syntax: <code>J2x</code> is verb Define (SortUp Commute) ((Natural (Two Power input)) Append ((Copy Double) (Two Power (Integers input)))). Note that <code>13 :</code> indicates a verb is being defined explicitly (using input <code>y.</code>) for conversion to tacit form, and its monadic definition is given in quotes on the right.</p>
+<p><em>Explanation:</em> The input is the power of 2 needed to produce the sequence. Overall, the program sorts into ascending order the result of appending two lists. One list is the Natural integers from 1 to input y. The other list is c copies of double c, where c is a list of powers of two from 1 to 2 raised to one less than input y.</p>
+<p>Example: For input 4, <code>i.4</code> is <code>0 1 2 3</code>, and <code>2^0 1 2 3</code> is <code>1 2 4 8</code>, and <code>+:1 2 4 8</code> is <code>2 4 8 16</code>, and <code>1 2 4 8 # 2 4 8 16</code> is <code>p=:2 4 4 8 8 8 8 16 16 16 16 16 16 16 16</code>. Then <code>2^4</code> is <code>16</code>, and <code>Natural 16</code> is <code>n=:1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16</code>. Then <code>n,p</code> is <code>r=:1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 2 4 4 8 8 8 8 16 16 16 16 16 16 16 16</code>. Finally <code>/:~r</code> is the result below using the program:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="w">   </span><span class="nv">J2x</span><span class="w"> </span><span class="mi">4</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span>
+</span></code></pre></div>
+<p>Comment: An explicit definition for a verb can be entered without quotes on successive lines (if needed) using <code>3 : 0</code> with a final right parenthesis to close the definition.</p>
+<p>Peelle [3] offered an equivalent program using tacit definition:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nv">J2t</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="nv">Sort</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="p">(</span><span class="nv">Natural</span><span class="o">@</span><span class="nv">Power</span><span class="w"> </span><span class="o">,</span><span class="w"> </span><span class="nv">Copy</span><span class="o">@</span><span class="nv">Power</span><span class="o">@</span><span class="nv">i</span><span class="o">.</span><span class="p">)</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">     </span><span class="nv">Copy</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="o">+:</span>
+</span></code></pre></div>
+<p>Symbols/Syntax: <code>J2t</code> is Sort Atop ((Natural Atop Power) Append ((Copy Atop Power) Atop Integers)). <code>Copy</code> is input Copy Double. (See Utility Programs earlier for definitions of <code>Natural</code>, <code>Power</code> and <code>Sort</code>.)</p>
+<p><em>Explanation:</em> Input y is the power of 2 needed to produce the sequence. One list is natural numbers 1 to 2^y. Another list is powers of 2 (<code>2^i.y</code>) copies of doubled powers of 2. Sort the two lists into ascending order.</p>
+<p>Examples: For an input of 4, <code>i.4</code> is <code>0 1 2 3</code>. Then <code>Power 0 1 2 3</code> is <code>1 2 4 8</code>. Then <code>Copy 1 2 4 8</code> is <code>1 2 4 8 # 2 4 8 16</code> which is <code>c=:2 4 4 8 8 8 8 16 16 16 16 16 16 16 16</code>. Then <code>Power 4</code> is <code>16</code>. <code>Natural 16</code> is <code>n=:1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16</code>. Then <code>n,c</code> is <code>r=:1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 2 4 4 8 8 8 8 16 16 16 16 16 16 16 16</code>. Finally, the result is <code>Sort r</code> as shown in the result below using the program:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="w">   </span><span class="nv">J2t</span><span class="w"> </span><span class="mi">4</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span>
+</span></code></pre></div>
+<p>Comment: Tacit definition requires specifying verbs without their inputs, which are given upon execution. This is often called "(pure) functional programming" (see [0]).</p>
+<h3 id="3-replication-approach">3. Replication Approach<a class="headerlink" href="#3-replication-approach" title="Permanent link">&para;</a></h3>
+<p>Peelle [3] offered a similar program which replicates indices without sorting:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nv">J2r</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">&gt;:@</span><span class="nv">Copies</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="nv">Natural</span><span class="o">@</span><span class="nv">Power</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w">       </span><span class="nv">Copies</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="nv">Power</span><span class="o">@</span><span class="nv">i</span><span class="o">.</span><span class="w"> </span><span class="nv">In</span><span class="o">}</span><span class="w"> </span><span class="nv">Power</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">              </span><span class="nv">In</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">&lt;:@+:@[</span>
+</span></code></pre></div>
+<p>Symbols/Syntax: <code>J2r</code> is (Increment Atop Copies) Copy (Natural Atop Power). <code>Copies</code> is (Power Atop Integers) (In Amend) (Power Copy Zero). <code>In</code> is (Decrement Atop Double) Atop Left input.</p>
+<p><em>Explanation:</em> Find the number of copies (Copies y) needed and copy each natural number (Natural Power y). Copies produces a list of 0s with powers of 2 substituted in positions of twice the powers of 2.</p>
+<p>Example: For input 4, <code>Power 4</code> is <code>16</code> and <code>Natural 16</code> is <code>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16</code>. Then (for <code>Copies 4</code>) <code>Power 4</code> is <code>16</code>, and <code>16 # 0</code> is <code>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</code>. Then <code>i.4</code> is <code>0 1 2 3</code> and <code>Power 0 1 2 3</code> is <code>1 2 4 8</code>. Then <code>1 2 4 8 In 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</code> is <code>1 3 7 15</code>, so <code>1 2 4 8 (1 3 7 15}) 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</code> is <code>0 1 0 2 0 0 0 4 0 0 0 0 0 0 0 8</code>. Finally, use one plus this list to copy items from <code>Natural 16</code>, as results from the program below:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="w">   </span><span class="nv">J2r</span><span class="w"> </span><span class="mi">4</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span>
+</span></code></pre></div>
+<p>Comments: A variation is <code>J2r1=:Copies1 # Natural@Power</code> where <code>Copies1=:&gt;:@Power@i. In1} Power # 1:</code> and <code>In1=:&lt;:@+:@&lt;:@[</code> (which is slightly less efficient until input is very large).</p>
+<h3 id="4-bits-approach">4. Bits Approach<a class="headerlink" href="#4-bits-approach" title="Permanent link">&para;</a></h3>
+<p>Peelle [3] also offered a different program to produce the Second-order Josephus sequence by accumulating sums of ones and zeros:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="nv">J2b</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">+/\</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="nv">Bits</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="w">       </span><span class="nv">Bits</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"> </span><span class="o">,</span><span class="w"> </span><span class="o">;@:</span><span class="p">(</span><span class="nv">Take</span><span class="w"> </span><span class="nv">each</span><span class="p">)</span><span class="o">@</span><span class="nv">Power</span><span class="o">@</span><span class="nv">i</span><span class="o">.</span>
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="w">              </span><span class="nv">Take</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">+:</span><span class="w"> </span><span class="o">{.</span><span class="w"> </span><span class="p">(</span><span class="o">#</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Symbols/Syntax: <code>J2b</code> is ((Plus Insert) Prefix) Atop Bits. <code>Bits</code> is One Append (((Raze At (Take each)) Atop Power) Atop Integers). <code>Take</code> is Double Take (input Copy One). Note that <code>Bits</code> is defined as a fork (f g h) which is executed as (f y) g (h y). <code>Take</code> is a fork (f1 g1 h1) where h1 is a hook (g2 h2), which is executed together as (f1 y) g1 (y g2 (h2 y)).</p>
+<p><em>Explanation:</em> Accumulate 1s from sub-program <code>Bits</code> which produces a 1 appended to a list of 1s and 0s from boxed lists resulting from (over)taking double the power of 2 copies of 1s and the rest 0s for each integer from 0 to input y minus 1.</p>
+<p>Example: For input 4, <code>i.4</code> is <code>0 1 2 3</code>, and <code>Power 0 1 2 3</code> is <code>1 2 4 8</code>. <code>Take each 1 2 4 8</code> is boxed list <code>1 0</code>, boxed list <code>1 1 0 0</code>, boxed list <code>1 1 1 1 0 0 0 0</code>, boxed list <code>1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0</code>. Razing (<code>;</code>) the list of these lists is <code>r=:1 0 1 1 0 0 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0</code>. Then <code>b=:1,r</code> and cumulative sums <code>+/\b</code> is the result below using the program:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="w">   </span><span class="nv">J2b</span><span class="w"> </span><span class="mi">4</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span>
+</span></code></pre></div>
+<p>Comments: A variation is: <code>J2b1=:+/\@Bits1=:1:,;@:(Pairs each)@Power@i.</code> where <code>Pairs=:(# 1:),(# 0:)</code>.</p>
+<p>Another possible variation is: <code>J2b2=:+/\@Bits2=:1:,;@:(Boxes each)@Power@i.</code> where <code>Boxes=:&gt; i.@+:</code> .</p>
+<h3 id="5-base-2-encoding-approach">5. Base-2 Encoding Approach<a class="headerlink" href="#5-base-2-encoding-approach" title="Permanent link">&para;</a></h3>
+<p>Bantchev [2] offered an algorithm using base-2 encoding-decoding (for inputs above 1): <code>S2=:(&gt;:@(1&amp;,@({.+.}.)@}.&amp;.#:))"0</code>. An alternative algorithm which accepts an input of 1 is:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="nv">S2b</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="nv">Shift</span><span class="w"> </span><span class="o">&amp;.</span><span class="w"> </span><span class="o">#:</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="w">       </span><span class="nv">Shift</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">-@</span><span class="nv">Second</span><span class="w"> </span><span class="o">|.</span><span class="w"> </span><span class="nv">One</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">Half</span><span class="w"> </span><span class="nv">Min</span><span class="w"> </span><span class="nv">Second</span>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="w">              </span><span class="nv">Second</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">{.@</span><span class="nv">Rotate1</span><span class="o">=:</span><span class="mi">1</span><span class="o">&amp;|.</span>
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="w">              </span><span class="nv">One</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">-@#</span><span class="w"> </span><span class="o">{.</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span>
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="w">              </span><span class="nv">Half</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="o">{.</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span><span class="w"> </span><span class="o">,</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"> </span><span class="o">,</span><span class="w"> </span><span class="o">}.@}.</span>
+</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a><span class="w">              </span><span class="nv">Min</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">*.</span><span class="w"> </span><span class="o">-.</span>
+</span></code></pre></div>
+<p>Symbols/Syntax: <code>S2b</code> is Shift Under Antibase2. Note that the conjunction <code>&amp;.</code> executes the verb on its right, then the verb on its left, then the inverse of the right verb (here <code>#.</code> Base2). <code>Shift</code> is (Negate Atop Second) Rotate (One + (Half Min Second)). Note that (Half Min Second) is a fork whose result is used within another fork. <code>Second</code> is Head Atop Rotate1 which is 1 With Rotate. Note that defining <code>Rotate1</code> in-line obviates parentheses (<code>1&amp;|.</code>). <code>One</code> is (Negate Atop Tally) Take One – a simple fork. <code>Half</code> is Tally Take (Zero Append (One Append (Behead Atop Behead))) – a fork within a fork within a fork. <code>Min</code> is input And Not – a simple hook.</p>
+<p><em>Explanation:</em> Convert the input to a list of binary digits, apply <code>Shift</code>, and then convert back to base-10 value. If the second binary digit is a 1, <code>Shift</code> returns a 1 followed by all zeros (a power of two). Otherwise, if the second bit is 0, <code>Shift</code> returns 1 (with leading zeros) plus the given bits with a leading 0 and a 1 in the second digit (that is, less ‘half’). This is accomplished effectively in <code>Min</code> by ‘anding’ (<code>*.</code>) the given bits with not (<code>-.</code>) the second bit.</p>
+<p>Example: For an input 9, <code>#:9</code> is <code>1 0 0 1</code>. <code>Shift 1 0 0 1</code> is <code>0 1 0 2</code>. And <code>#.0 1 0 2</code> is <code>6</code>. Details of <code>Shift 1 0 0 1</code> are: <code>Second 1 0 0 1</code> is <code>0</code>. <code>Half 1 0 0 1</code> is <code>0 1 0 1</code>. <code>0 1 0 1 Min 0</code> is <code>0 1 0 1</code>. <code>One 1 0 0 1</code> is <code>0 0 0 1</code>. <code>0 0 0 1 + 0 1 0 1</code> is <code>0 1 0 2</code> (which evaluates correctly in base 2). Using the program for a list of natural numbers produces the sequence:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="w">   </span><span class="nv">S2b</span><span class="w"> </span><span class="nv">EACH</span><span class="w"> </span><span class="nv">Natural</span><span class="w"> </span><span class="mi">31</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span>
+</span></code></pre></div>
+<p>Comments: <code>EACH</code> is required to execute <code>S2b</code> separately for each natural number input.</p>
+<p>An alternative definition which converts bits to base value before finding the minimum is more efficient: <code>S2b1 =: (Min1 Pow1)@#:</code> where <code>Pow1 =: # {. 1:</code> and <code>Min1 =: ] &lt;.&amp;#. Shift1 =: One1 + (-Half1)</code> and <code>One1 =: 1: |. ]</code> and <code>Half1 =: _1: |. ]</code>.</p>
+<h3 id="6-log-approach">6. Log Approach<a class="headerlink" href="#6-log-approach" title="Permanent link">&para;</a></h3>
+<p>Peelle [3] offered an alternative program using base-2 logarithms:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="nv">S2p</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="p">(</span><span class="o">]</span><span class="w"> </span><span class="o">&lt;.</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="w"> </span><span class="o">-:</span><span class="p">))</span><span class="w"> </span><span class="nv">Pow</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="w">       </span><span class="nv">Pow</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">&lt;.&amp;.</span><span class="nv">Log</span>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="w">              </span><span class="nv">Log</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="mi">2</span><span class="o">&amp;^.</span>
+</span></code></pre></div>
+<p>Symbols/Syntax: <code>S2p</code> is (Right input Minimum (One Plus (input Minus Half)) Pow. <code>Pow</code> is Floor Under Log. <code>Log</code> is 2 With Logarithm. Note that <code>S2p</code> is a hook (g h) where g is a train of forks (f1 g1 h1) where h1 is a fork (f2 g2 h2) with h2 a hook (g3 h3) so that execution is <code>(Pow y) &lt;. (1 + (y - -:(Pow y)))</code>.</p>
+<p><em>Explanation:</em> First find the largest power of 2 less than input y. Call it pow. Then calculate 1 plus the difference of y and pow. Call it d. Compare pow and d. Return whichever is smaller.</p>
+<p>Examples: For input 9, <code>Log 9</code> is <code>3.16993</code> and <code>Pow 3.16993</code> is <code>8</code>. <code>9--:8</code> is <code>5</code>, and <code>1+5</code> is <code>6</code>. Finally, <code>8&lt;.6</code> is <code>6</code>. Using the program for a list of inputs produces the Second-order Josephus sequence:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="w">   </span><span class="nv">S2p</span><span class="w"> </span><span class="nv">Natural</span><span class="w"> </span><span class="mi">31</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="mi">14</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="mi">16</span>
+</span></code></pre></div>
+<p>Comments: <code>EACH</code> is not needed because <code>S2p</code> applies to each atom in a list.</p>
+<p>A less efficient but perhaps more readable version is <code>S2p1=:Pow &lt;. 1:+(- -:@Pow)</code>.</p>
+<h2 id="comparisons-of-programs">Comparisons of Programs<a class="headerlink" href="#comparisons-of-programs" title="Permanent link">&para;</a></h2>
+<p>Now the featured programs will be compared for efficiency in speed and space. First, the following utility programs are needed:</p>
+<h3 id="speed">Speed<a class="headerlink" href="#speed" title="Permanent link">&para;</a></h3>
+<p>Purpose: Measure execution time.</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="nv">Time</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="mi">6</span><span class="o">!:</span><span class="mi">2</span>
+</span></code></pre></div>
+<p>Symbols/Syntax: <code>Time</code> is 6 Foreign 2. Note that this verb may be used monadically for one execution of an expression (on the right) or dyadically for a number of repeated executions (on the left).</p>
+<p><em>Explanation:</em> Average number of seconds used in executing an expression.</p>
+<p>Examples:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="w">   </span><span class="nv">Time</span><span class="w"> </span><span class="s">'J2b 12'</span>
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="mf">0.</span><span class="mi">00097528</span>
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="w">   </span><span class="mi">1000</span><span class="w"> </span><span class="nv">Time</span><span class="w"> </span><span class="s">'J2b 12'</span>
+</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a><span class="mf">0.</span><span class="mi">00069833</span>
+</span></code></pre></div>
+<p>Comment: For increased accuracy, increase the left input to <code>Time</code> (which will take longer to return the result).</p>
+<h3 id="space">Space<a class="headerlink" href="#space" title="Permanent link">&para;</a></h3>
+<p>Purpose: Measure execution space.</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="nv">Space</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="mi">7</span><span class="o">!:</span><span class="mi">2</span>
+</span></code></pre></div>
+<p>Symbols/Syntax: <code>Space</code> is 7 Foreign 2.</p>
+<p><em>Explanation:</em> Number of bytes used in executing an expression.</p>
+<p>Example:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="w">   </span><span class="nv">Space</span><span class="w"> </span><span class="s">'J2b 12'</span>
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="mi">197440</span>
+</span></code></pre></div>
+<h3 id="fixed-programs">Fixed Programs<a class="headerlink" href="#fixed-programs" title="Permanent link">&para;</a></h3>
+<p>Purpose: To replace names of sub-programs with their definitions (for better efficiency).</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="nv">Fix</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="nv">f</span><span class="o">.</span>
+</span></code></pre></div>
+<p>Symbols/Syntax: <code>Fix</code> is an adverb which requires a verb input (on its left).</p>
+<p><em>Explanation:</em> u <code>f.</code> substitutes primitives in verb u.</p>
+<p>Example:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="nv">J2b</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="nv">J2b</span><span class="w"> </span><span class="nv">f</span><span class="o">.</span>
+</span></code></pre></div>
+<p>Comment: By choosing the same name here, <code>J2b</code> is reassigned. To compare fixed vs. unfixed versions, use a different name.</p>
+<p>Note that a fixed program should speed up. For example, now <code>1000 Time 'J2b 12'</code> is <code>0.00068846</code>.</p>
+<h3 id="benchmarks">Benchmarks<a class="headerlink" href="#benchmarks" title="Permanent link">&para;</a></h3>
+<p>Benchmarks were obtained for fixed programs here using J5.01a running Windows 95 on a Pentium II PC with 256M RAM. The benchmarks are compiled below into tables – one table of average time and space for the "J2" family of programs requiring an input of the power of 2 needed to produce the sequence, and one table for the "S2" family of programs using a list of inputs needed to produce the same sequence:</p>
+<table>
+<thead>
+<tr>
+<th>Input<br>Program\</th>
+<th style="text-align: right;">Time (seconds)<br>4</th>
+<th style="text-align: right;"><br>12</th>
+<th style="text-align: right;"><br>20</th>
+<th style="text-align: right;">Space (bytes)<br>4</th>
+<th style="text-align: right;"><br>12</th>
+<th style="text-align: right;"><br>20</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>hsJ2</code> *</td>
+<td style="text-align: right;">0.0000557</td>
+<td style="text-align: right;">0.01378</td>
+<td style="text-align: right;">2.058</td>
+<td style="text-align: right;">4096</td>
+<td style="text-align: right;">1181696</td>
+<td style="text-align: right;">168298496</td>
+</tr>
+<tr>
+<td><code>J2x</code></td>
+<td style="text-align: right;">0.0000411</td>
+<td style="text-align: right;">0.01275</td>
+<td style="text-align: right;">2.019</td>
+<td style="text-align: right;">3200</td>
+<td style="text-align: right;">1082624</td>
+<td style="text-align: right;">143131904</td>
+</tr>
+<tr>
+<td><code>J2t</code></td>
+<td style="text-align: right;">0.0000396</td>
+<td style="text-align: right;">0.01252</td>
+<td style="text-align: right;">1.984</td>
+<td style="text-align: right;">2944</td>
+<td style="text-align: right;">1082176</td>
+<td style="text-align: right;">143131456</td>
+</tr>
+<tr>
+<td><code>J2r</code></td>
+<td style="text-align: right;">0.0000501</td>
+<td style="text-align: right;">0.00278</td>
+<td style="text-align: right;">1.017</td>
+<td style="text-align: right;">2048</td>
+<td style="text-align: right;">328512</td>
+<td style="text-align: right;">83886912</td>
+</tr>
+<tr>
+<td><code>J2b</code></td>
+<td style="text-align: right;">0.0000485</td>
+<td style="text-align: right;">0.00069</td>
+<td style="text-align: right;">0.348</td>
+<td style="text-align: right;">2880</td>
+<td style="text-align: right;">197440</td>
+<td style="text-align: right;">50332480</td>
+</tr>
+</tbody>
+</table>
+<p>* Last item omitted in result.</p>
+<table>
+<thead>
+<tr>
+<th>Input<br>Program\</th>
+<th style="text-align: right;">Time (seconds)<br>Natural 31</th>
+<th style="text-align: right;"><br>Natural 4095</th>
+<th style="text-align: right;"><br>Natural 1048575</th>
+<th style="text-align: right;">Space (bytes)<br>Natural 31</th>
+<th style="text-align: right;"><br>Natural 4095</th>
+<th style="text-align: right;"><br>Natural 1048575</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>,S2a EACH</code></td>
+<td style="text-align: right;">0.0102841</td>
+<td style="text-align: right;">860.1</td>
+<td style="text-align: right;">(days)</td>
+<td style="text-align: right;">4352</td>
+<td style="text-align: right;">215552</td>
+<td style="text-align: right;">(huge)</td>
+</tr>
+<tr>
+<td><code>S2b EACH</code></td>
+<td style="text-align: right;">0.0015516</td>
+<td style="text-align: right;">0.2084</td>
+<td style="text-align: right;">55.94</td>
+<td style="text-align: right;">3840</td>
+<td style="text-align: right;">69312</td>
+<td style="text-align: right;">16780992</td>
+</tr>
+<tr>
+<td><code>S2</code> **</td>
+<td style="text-align: right;">0.0003800</td>
+<td style="text-align: right;">0.0485</td>
+<td style="text-align: right;">12.63</td>
+<td style="text-align: right;">3072</td>
+<td style="text-align: right;">100608</td>
+<td style="text-align: right;">25168128</td>
+</tr>
+<tr>
+<td><code>S2p</code></td>
+<td style="text-align: right;">0.0000635</td>
+<td style="text-align: right;">0.0039</td>
+<td style="text-align: right;">1.45</td>
+<td style="text-align: right;">3840</td>
+<td style="text-align: right;">296448</td>
+<td style="text-align: right;">75499008</td>
+</tr>
+</tbody>
+</table>
+<p>** Executed without first item (1) of input.</p>
+<p>Comparing these benchmarks indicates that <code>J2b</code> (bits approach) is the fastest program for large inputs. <code>S2b</code> (Base-2 encoding approach) is the most economical in space for large inputs. Overall, the programs in the J2 family are generally faster but increasingly inflexible (always returning nearly a power of 2 number of items); whereas the programs in the S2 family generally consume less space and are completely flexible (allowing any list of inputs).</p>
+<p>Note that all J2 programs except <code>hsJ2</code> work correctly for an input of 0 and that all S2 programs except <code>S2</code> work correctly for an input of 1 to produce the first item in the Second-order Josephus sequence.</p>
+<p>Note also that <code>S2b</code> is the only program which correctly handles the degenerate case of an input of 0, producing the additional leading 1 in the sequence (as in [1]).</p>
+<h2 id="concluding-insights-and-programming-challenges">Concluding Insights and Programming Challenges<a class="headerlink" href="#concluding-insights-and-programming-challenges" title="Permanent link">&para;</a></h2>
+<p>Defining and comparing programs for the Second-order Josephus problem prompts several insights. First, logarithms (in <code>S2p</code>) appear much faster than encoding-then-decoding (using <code>u&amp;.#:</code> in <code>S2</code>). Secondly, logarithms may be more productive than base-representations in seeking solutions to the General Josephus problem (which involve killing in intervals of k). Indeed, the work here led to an improved definition of a generalized program (from Peelle [7]):</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="nv">J_1</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="nv">K</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="nv">N</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">Mod</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">K</span><span class="w"> </span><span class="nv">PoW</span><span class="w"> </span><span class="nv">N</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="nv">Mod</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="nv">K</span><span class="o">-</span><span class="mi">1</span><span class="o">:.</span>
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="w">       </span><span class="nv">K</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">[</span>
+</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="w">       </span><span class="nv">N</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">]</span>
+</span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="w">       </span><span class="nv">Mod</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">|&amp;&lt;:</span>
+</span><span id="__span-40-6"><a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a><span class="w">       </span><span class="nv">PoW</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="nv">K</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="o">&lt;.@^.</span>
+</span></code></pre></div>
+<p>Further, the reader might consider generalization of Second-order Josephus to interval k, which produces intriguing non-decreasing integer sequences (perhaps difficult to express in closed form). And consider the Third-order Josephus problem. Fourth-order? Nth order? (Not difficult!)</p>
+<p>Finally, the programs here lead to a simple strategy for surviving the Second-order Josephus problem for N people:</p>
+<blockquote>
+<p>Calculate p – the largest whole power of 2 less than or equal to N. Start by standing at half p. Move up one more. Now move one further for each person over p, but only up to number p.</p>
+<p>For example: If N=9 people, p is 8, so start at 4. Add 1 up to 5. 9-8 is 1, so move 1 further. Stand at 6 (which is less than p).</p>
+<p>Another example: If N=30 people, p is 16, so start at 8. Add 1 to get 9. 30-16 is 14, so move from 9 up 14 (but stop at p). Stand at 16.</p>
+</blockquote>
+<p>In closing, challenges for the reader are to program this strategy, to generalize the programs here for any interval, and to seek other approaches to the Second-order Josephus problem.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<p>[0] Peelle, H.A. "Introduction to Functional Programming in J" (in four parts), <em>Vector</em>, Vol. 13, Nos. 1 – 4, 1996–97</p>
+<p>[1] Sloane, N.J.A. Sequence A006165, <em>Online Encylopedia of Integer Sequences</em>, http://www.research.att.com/~njas/sequences</p>
+<p>[2] McDonnell, E.E. "At Play with J", <em>Vector</em>, Vol. 18, No. 4, 1992</p>
+<p>[3] Peelle, H.A. "Technical Correspondence", <em>Vector</em>, Vol. 19, No. 2, 2002</p>
+<p>[4] Graham, Knuth &amp; Patashnik, <em>Concrete Mathematics</em>, Addison-Wesley, Reading, MA 1994</p>
+<p>[5] Hui, R.K.W. "Three Combinatoric Puzzles", <em>Vector</em>, Vol. 9, No. 2, 1992</p>
+<p>[6] Peelle, H. &amp; Lipp, A. "Problem Solving by Programming: The Josephus Problem (Revisited)", <em>Journal of Computer Science Education</em>, Vol. 12, No. 1, Fall 1997</p>
+<p>[7] Peelle, H.A."Josephus Generalized in J", <em>Vector</em>, Vol. 14, No. 2, 1997</p>
+<h2 id="appendix">Appendix<a class="headerlink" href="#appendix" title="Permanent link">&para;</a></h2>
+<p>Collection of J programs for Second-order Josephus sequence:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="c1">NB. Utility programs</span>
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>
+</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="w">    </span><span class="nv">Natural</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">}.@</span><span class="nv">i</span><span class="o">.@&gt;:</span>
+</span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="w">    </span><span class="nv">Sort</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">/:~</span>
+</span><span id="__span-41-5"><a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a><span class="w">    </span><span class="nv">Power</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="mi">2</span><span class="o">&amp;^</span>
+</span><span id="__span-41-6"><a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a><span class="w">    </span><span class="nv">Log</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="mi">2</span><span class="o">&amp;^.</span>
+</span><span id="__span-41-7"><a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a><span class="w">    </span><span class="nv">EACH</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">"</span><span class="mi">0</span>
+</span><span id="__span-41-8"><a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a><span class="w">    </span><span class="nv">each</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">&amp;.&gt;</span>
+</span><span id="__span-41-9"><a id="__codelineno-41-9" name="__codelineno-41-9" href="#__codelineno-41-9"></a>
+</span><span id="__span-41-10"><a id="__codelineno-41-10" name="__codelineno-41-10" href="#__codelineno-41-10"></a><span class="c1">NB. Basic Josephus solution</span>
+</span><span id="__span-41-11"><a id="__codelineno-41-11" name="__codelineno-41-11" href="#__codelineno-41-11"></a>
+</span><span id="__span-41-12"><a id="__codelineno-41-12" name="__codelineno-41-12" href="#__codelineno-41-12"></a><span class="w">    </span><span class="nv">S</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="mi">1</span><span class="o">&amp;|.&amp;.#:</span><span class="w">                    </span><span class="c1">NB. Origin 1</span>
+</span><span id="__span-41-13"><a id="__codelineno-41-13" name="__codelineno-41-13" href="#__codelineno-41-13"></a>
+</span><span id="__span-41-14"><a id="__codelineno-41-14" name="__codelineno-41-14" href="#__codelineno-41-14"></a><span class="c1">NB. Simulation Approach</span>
+</span><span id="__span-41-15"><a id="__codelineno-41-15" name="__codelineno-41-15" href="#__codelineno-41-15"></a>
+</span><span id="__span-41-16"><a id="__codelineno-41-16" name="__codelineno-41-16" href="#__codelineno-41-16"></a><span class="w">    </span><span class="nv">E</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="p">((</span><span class="o">&lt;:@[</span><span class="w"> </span><span class="o">{.</span><span class="w"> </span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">,</span><span class="w"> </span><span class="o">}.</span><span class="p">)</span><span class="o">~</span><span class="w"> </span><span class="nv">S</span><span class="o">@#</span><span class="w">     </span><span class="c1">NB. Bantchev</span>
+</span><span id="__span-41-17"><a id="__codelineno-41-17" name="__codelineno-41-17" href="#__codelineno-41-17"></a><span class="w">    </span><span class="nv">E</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="p">(</span><span class="o">}:@{.</span><span class="w"> </span><span class="o">,</span><span class="w"> </span><span class="o">}.</span><span class="p">)</span><span class="o">~</span><span class="w"> </span><span class="nv">S</span><span class="o">@#</span>
+</span><span id="__span-41-18"><a id="__codelineno-41-18" name="__codelineno-41-18" href="#__codelineno-41-18"></a><span class="w">    </span><span class="nv">E</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">-.</span><span class="w"> </span><span class="o">&lt;:@</span><span class="nv">S</span><span class="o">@#</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="o">]</span>
+</span><span id="__span-41-19"><a id="__codelineno-41-19" name="__codelineno-41-19" href="#__codelineno-41-19"></a><span class="w">    </span><span class="nv">S2</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="o">^:</span><span class="w"> </span><span class="p">(</span><span class="o">&lt;:@#</span><span class="p">)</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="p">(</span><span class="o">&gt;:@</span><span class="nv">i</span><span class="o">.</span><span class="p">)</span><span class="w">      </span><span class="c1">NB. Bantchev</span>
+</span><span id="__span-41-20"><a id="__codelineno-41-20" name="__codelineno-41-20" href="#__codelineno-41-20"></a><span class="w">    </span><span class="nv">S2a</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="nv">E</span><span class="w"> </span><span class="o">^:</span><span class="w"> </span><span class="p">(</span><span class="o">&lt;:</span><span class="w"> </span><span class="o">`</span><span class="w"> </span><span class="nv">Natural</span><span class="p">)</span>
+</span><span id="__span-41-21"><a id="__codelineno-41-21" name="__codelineno-41-21" href="#__codelineno-41-21"></a>
+</span><span id="__span-41-22"><a id="__codelineno-41-22" name="__codelineno-41-22" href="#__codelineno-41-22"></a><span class="c1">NB. Sorting Approach</span>
+</span><span id="__span-41-23"><a id="__codelineno-41-23" name="__codelineno-41-23" href="#__codelineno-41-23"></a><span class="w">                                     </span><span class="c1">NB. McDonnell</span>
+</span><span id="__span-41-24"><a id="__codelineno-41-24" name="__codelineno-41-24" href="#__codelineno-41-24"></a><span class="w">    </span><span class="nv">hsJ2</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">'/:~(&gt;:i.+/2^i.y.),;(#each+:)2^i.y.'</span>
+</span><span id="__span-41-25"><a id="__codelineno-41-25" name="__codelineno-41-25" href="#__codelineno-41-25"></a><span class="w">    </span><span class="nv">J2x</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">'/:~(Natural 2^y.),(# +:)2^i.y.'</span>
+</span><span id="__span-41-26"><a id="__codelineno-41-26" name="__codelineno-41-26" href="#__codelineno-41-26"></a><span class="w">    </span><span class="nv">J2t</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="nv">Sort</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="p">(</span><span class="nv">Natural</span><span class="o">@</span><span class="nv">Power</span><span class="w"> </span><span class="o">,</span><span class="w"> </span><span class="nv">Copy</span><span class="o">@</span><span class="nv">Power</span><span class="o">@</span><span class="nv">i</span><span class="o">.</span><span class="p">)</span>
+</span><span id="__span-41-27"><a id="__codelineno-41-27" name="__codelineno-41-27" href="#__codelineno-41-27"></a><span class="w">           </span><span class="nv">Copy</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="o">+:</span>
+</span><span id="__span-41-28"><a id="__codelineno-41-28" name="__codelineno-41-28" href="#__codelineno-41-28"></a>
+</span><span id="__span-41-29"><a id="__codelineno-41-29" name="__codelineno-41-29" href="#__codelineno-41-29"></a><span class="c1">NB. Replication Approach</span>
+</span><span id="__span-41-30"><a id="__codelineno-41-30" name="__codelineno-41-30" href="#__codelineno-41-30"></a>
+</span><span id="__span-41-31"><a id="__codelineno-41-31" name="__codelineno-41-31" href="#__codelineno-41-31"></a><span class="w">    </span><span class="nv">J2r</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">&gt;:@</span><span class="nv">Copies</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="nv">Natural</span><span class="o">@</span><span class="nv">Power</span>
+</span><span id="__span-41-32"><a id="__codelineno-41-32" name="__codelineno-41-32" href="#__codelineno-41-32"></a><span class="w">           </span><span class="nv">Copies</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="nv">Power</span><span class="o">@</span><span class="nv">i</span><span class="o">.</span><span class="w"> </span><span class="nv">In</span><span class="o">}</span><span class="w"> </span><span class="nv">Power</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span>
+</span><span id="__span-41-33"><a id="__codelineno-41-33" name="__codelineno-41-33" href="#__codelineno-41-33"></a><span class="w">           </span><span class="nv">In</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">&lt;:@+:@[</span>
+</span><span id="__span-41-34"><a id="__codelineno-41-34" name="__codelineno-41-34" href="#__codelineno-41-34"></a><span class="w">    </span><span class="nv">J2r1</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="nv">Copies1</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="nv">Natural</span><span class="o">@</span><span class="nv">Power</span>
+</span><span id="__span-41-35"><a id="__codelineno-41-35" name="__codelineno-41-35" href="#__codelineno-41-35"></a><span class="w">           </span><span class="nv">Copies1</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">&gt;:@</span><span class="nv">Power</span><span class="o">@</span><span class="nv">i</span><span class="o">.</span><span class="w"> </span><span class="nv">In1</span><span class="o">}</span><span class="w"> </span><span class="nv">Power</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span>
+</span><span id="__span-41-36"><a id="__codelineno-41-36" name="__codelineno-41-36" href="#__codelineno-41-36"></a><span class="w">           </span><span class="nv">In1</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">&lt;:@+:@&lt;:@[</span>
+</span><span id="__span-41-37"><a id="__codelineno-41-37" name="__codelineno-41-37" href="#__codelineno-41-37"></a>
+</span><span id="__span-41-38"><a id="__codelineno-41-38" name="__codelineno-41-38" href="#__codelineno-41-38"></a><span class="c1">NB. Bits Approach</span>
+</span><span id="__span-41-39"><a id="__codelineno-41-39" name="__codelineno-41-39" href="#__codelineno-41-39"></a>
+</span><span id="__span-41-40"><a id="__codelineno-41-40" name="__codelineno-41-40" href="#__codelineno-41-40"></a><span class="w">    </span><span class="nv">J2b</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">+/\</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="nv">Bits</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"> </span><span class="o">,</span><span class="w"> </span><span class="o">;@:</span><span class="p">(</span><span class="nv">Take</span><span class="w"> </span><span class="nv">each</span><span class="p">)</span><span class="o">@</span><span class="nv">Power</span><span class="o">@</span><span class="nv">i</span><span class="o">.</span>
+</span><span id="__span-41-41"><a id="__codelineno-41-41" name="__codelineno-41-41" href="#__codelineno-41-41"></a><span class="w">           </span><span class="nv">Take</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">+:</span><span class="w"> </span><span class="o">{.</span><span class="w"> </span><span class="p">(</span><span class="o">#</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="p">)</span>
+</span><span id="__span-41-42"><a id="__codelineno-41-42" name="__codelineno-41-42" href="#__codelineno-41-42"></a><span class="w">    </span><span class="nv">J2b1</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">+/\</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="nv">Bits1</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"> </span><span class="o">,</span><span class="w"> </span><span class="o">;@:</span><span class="p">(</span><span class="nv">Pairs</span><span class="w"> </span><span class="nv">each</span><span class="p">)</span><span class="o">@</span><span class="nv">Power</span><span class="o">@</span><span class="nv">i</span><span class="o">.</span>
+</span><span id="__span-41-43"><a id="__codelineno-41-43" name="__codelineno-41-43" href="#__codelineno-41-43"></a><span class="w">           </span><span class="nv">Pairs</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="p">(</span><span class="o">#</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="p">)</span><span class="o">,</span><span class="p">(</span><span class="o">#</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span><span class="p">)</span>
+</span><span id="__span-41-44"><a id="__codelineno-41-44" name="__codelineno-41-44" href="#__codelineno-41-44"></a><span class="w">    </span><span class="nv">J2b2</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">+/\</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="nv">Bits2</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"> </span><span class="o">,</span><span class="w"> </span><span class="o">;@:</span><span class="p">(</span><span class="nv">Boxes</span><span class="w"> </span><span class="nv">each</span><span class="p">)</span><span class="o">@</span><span class="nv">Power</span><span class="o">@</span><span class="nv">i</span><span class="o">.</span>
+</span><span id="__span-41-45"><a id="__codelineno-41-45" name="__codelineno-41-45" href="#__codelineno-41-45"></a><span class="w">           </span><span class="nv">Boxes</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nv">i</span><span class="o">.@+:</span>
+</span><span id="__span-41-46"><a id="__codelineno-41-46" name="__codelineno-41-46" href="#__codelineno-41-46"></a>
+</span><span id="__span-41-47"><a id="__codelineno-41-47" name="__codelineno-41-47" href="#__codelineno-41-47"></a><span class="c1">NB. Base-2 Encoding Approach</span>
+</span><span id="__span-41-48"><a id="__codelineno-41-48" name="__codelineno-41-48" href="#__codelineno-41-48"></a>
+</span><span id="__span-41-49"><a id="__codelineno-41-49" name="__codelineno-41-49" href="#__codelineno-41-49"></a><span class="w">    </span><span class="nv">S2</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="p">(</span><span class="o">&gt;:@</span><span class="p">(</span><span class="mi">1</span><span class="o">&amp;,@</span><span class="p">(</span><span class="o">{.+.}.</span><span class="p">)</span><span class="o">@}.&amp;.#:</span><span class="p">))</span><span class="o">"</span><span class="mi">0</span><span class="w">      </span><span class="c1">NB. Bantchev</span>
+</span><span id="__span-41-50"><a id="__codelineno-41-50" name="__codelineno-41-50" href="#__codelineno-41-50"></a>
+</span><span id="__span-41-51"><a id="__codelineno-41-51" name="__codelineno-41-51" href="#__codelineno-41-51"></a><span class="w">    </span><span class="nv">S2b</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="nv">Shift</span><span class="w"> </span><span class="o">&amp;.</span><span class="w"> </span><span class="o">#:</span>
+</span><span id="__span-41-52"><a id="__codelineno-41-52" name="__codelineno-41-52" href="#__codelineno-41-52"></a><span class="w">           </span><span class="nv">Shift</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">-@</span><span class="nv">Second</span><span class="w"> </span><span class="o">|.</span><span class="w"> </span><span class="nv">One</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">Half</span><span class="w"> </span><span class="nv">Min</span><span class="w"> </span><span class="nv">Second</span>
+</span><span id="__span-41-53"><a id="__codelineno-41-53" name="__codelineno-41-53" href="#__codelineno-41-53"></a><span class="w">                  </span><span class="nv">Second</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">{.@</span><span class="nv">Rotate1</span><span class="o">=:</span><span class="mi">1</span><span class="o">&amp;|.</span>
+</span><span id="__span-41-54"><a id="__codelineno-41-54" name="__codelineno-41-54" href="#__codelineno-41-54"></a><span class="w">                  </span><span class="nv">One</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">-@#</span><span class="w"> </span><span class="o">{.</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span>
+</span><span id="__span-41-55"><a id="__codelineno-41-55" name="__codelineno-41-55" href="#__codelineno-41-55"></a><span class="w">                  </span><span class="nv">Half</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="o">{.</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span><span class="w"> </span><span class="o">,</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"> </span><span class="o">,</span><span class="w"> </span><span class="o">}.@}.</span>
+</span><span id="__span-41-56"><a id="__codelineno-41-56" name="__codelineno-41-56" href="#__codelineno-41-56"></a><span class="w">                  </span><span class="nv">Min</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">*.</span><span class="w"> </span><span class="o">-.</span>
+</span><span id="__span-41-57"><a id="__codelineno-41-57" name="__codelineno-41-57" href="#__codelineno-41-57"></a>
+</span><span id="__span-41-58"><a id="__codelineno-41-58" name="__codelineno-41-58" href="#__codelineno-41-58"></a><span class="w">    </span><span class="nv">S2b1</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="p">(</span><span class="nv">Min1</span><span class="w"> </span><span class="nv">Pow1</span><span class="p">)</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="o">#:</span>
+</span><span id="__span-41-59"><a id="__codelineno-41-59" name="__codelineno-41-59" href="#__codelineno-41-59"></a><span class="w">           </span><span class="nv">Pow1</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="o">{.</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span>
+</span><span id="__span-41-60"><a id="__codelineno-41-60" name="__codelineno-41-60" href="#__codelineno-41-60"></a><span class="w">           </span><span class="nv">Min1</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&lt;.&amp;#.</span><span class="w"> </span><span class="nv">Shift1</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="nv">One1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="nv">Half1</span><span class="p">)</span>
+</span><span id="__span-41-61"><a id="__codelineno-41-61" name="__codelineno-41-61" href="#__codelineno-41-61"></a><span class="w">                  </span><span class="nv">One1</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"> </span><span class="o">|.</span><span class="w"> </span><span class="o">]</span>
+</span><span id="__span-41-62"><a id="__codelineno-41-62" name="__codelineno-41-62" href="#__codelineno-41-62"></a><span class="w">                  </span><span class="nv">Half1</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="kc">_1:</span><span class="w"> </span><span class="o">|.</span><span class="w"> </span><span class="o">]</span>
+</span><span id="__span-41-63"><a id="__codelineno-41-63" name="__codelineno-41-63" href="#__codelineno-41-63"></a>
+</span><span id="__span-41-64"><a id="__codelineno-41-64" name="__codelineno-41-64" href="#__codelineno-41-64"></a><span class="c1">NB. Log Approach</span>
+</span><span id="__span-41-65"><a id="__codelineno-41-65" name="__codelineno-41-65" href="#__codelineno-41-65"></a>
+</span><span id="__span-41-66"><a id="__codelineno-41-66" name="__codelineno-41-66" href="#__codelineno-41-66"></a><span class="w">    </span><span class="nv">S2p</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="p">(</span><span class="o">]</span><span class="w"> </span><span class="o">&lt;.</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="w"> </span><span class="o">-:</span><span class="p">))</span><span class="w"> </span><span class="nv">Pow</span>
+</span><span id="__span-41-67"><a id="__codelineno-41-67" name="__codelineno-41-67" href="#__codelineno-41-67"></a><span class="w">           </span><span class="nv">Pow</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">&lt;.&amp;.</span><span class="nv">Log</span>
+</span><span id="__span-41-68"><a id="__codelineno-41-68" name="__codelineno-41-68" href="#__codelineno-41-68"></a><span class="w">    </span><span class="nv">S2p1</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="nv">Pow</span><span class="w"> </span><span class="o">&lt;.</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="w"> </span><span class="o">-:@</span><span class="nv">Pow</span><span class="p">)</span>
+</span><span id="__span-41-69"><a id="__codelineno-41-69" name="__codelineno-41-69" href="#__codelineno-41-69"></a>
+</span><span id="__span-41-70"><a id="__codelineno-41-70" name="__codelineno-41-70" href="#__codelineno-41-70"></a><span class="c1">NB. Benchmark Utility Programs</span>
+</span><span id="__span-41-71"><a id="__codelineno-41-71" name="__codelineno-41-71" href="#__codelineno-41-71"></a>
+</span><span id="__span-41-72"><a id="__codelineno-41-72" name="__codelineno-41-72" href="#__codelineno-41-72"></a><span class="w">    </span><span class="nv">Time</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="mi">6</span><span class="o">!:</span><span class="mi">2</span>
+</span><span id="__span-41-73"><a id="__codelineno-41-73" name="__codelineno-41-73" href="#__codelineno-41-73"></a><span class="w">    </span><span class="nv">Space</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="mi">7</span><span class="o">!:</span><span class="mi">2</span>
+</span><span id="__span-41-74"><a id="__codelineno-41-74" name="__codelineno-41-74" href="#__codelineno-41-74"></a><span class="w">    </span><span class="nv">Fix</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="nv">f</span><span class="o">.</span>
+</span></code></pre></div>
+<hr />
+<p>Howard A. Peelle, Professor of Mathematics and Science Education at the University of Massachusetts, has received a Fulbright Scholar Award to join the Institute for Mathematical Research at the University of Putra Malaysia in Kuala Lumpur where he will use J in teaching mathematics teachers during spring 2003.</p></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">programming techniques</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">education</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

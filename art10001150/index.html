@@ -1,0 +1,1714 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10001150/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Error Trapping Tutorial in Dyalog APL - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#background" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Error Trapping Tutorial in Dyalog APL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Background
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction-to-error-trapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introduction to Error Trapping
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-a-simple-trap" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Setting a Simple Trap
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#beware-of-global-traps" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Beware of Global Traps!
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cutting-back-the-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cutting Back the Stack
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-defined-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        User-defined Events
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-the-full-error-code-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix: The Full Error-code Table
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Error Trapping Tutorial in Dyalog APL</h1>
+
+  <p class="printed"><a href="../6/#n1-july-1989">Vector 6:1</a>, page 100</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-programming-techniques">programming techniques</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../6/1/VOL.6-NO.1-JULY-1989.pdf#page=102">Read it in the PDF of the issue, page 100</a></em></p>
+<p class="byline">by Pauline Brand (Dyadic Systems Ltd)</p>
+<h2 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h2>
+<p>We often give courses to people who taught themselves APL and now have several years’ programming experience to their credit, and we have found that a surprising number of them have not discovered some of the “non-language” features available in most APLs, in particular “error trapping” or “event handling”.</p>
+<p>The purpose of this article is to show some of the ways in which the ideas of error trapping can be used to great effect to change the flow of control in a system.</p>
+<h2 id="introduction-to-error-trapping">Introduction to Error Trapping<a class="headerlink" href="#introduction-to-error-trapping" title="Permanent link">&para;</a></h2>
+<p>Most APLs have error trapping facilities in one form or another, but this article discusses the facilities available to a Dyalog APL programmer.</p>
+<p>First, we must have an idea of what is meant by error trapping. We are all used to entering some duff APL code and seeing a (sometimes) rather obscure, esoteric error message echoed back:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w">      </span><span class="m">10</span><span class="o">÷</span><span class="m">0</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">DOMAIN</span><span class="w"> </span><span class="nv">ERROR</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">      </span><span class="m">10</span><span class="o">÷</span><span class="m">0</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">     </span><span class="err">^</span>
+</span></code></pre></div>
+<p>Now, these sorts of error messages are fine for us clever APL programmers, but meaningless to most of our users. We need to find a way to bypass the default action of APL, so that we can take an action of our own.</p>
+<p>Every error message reported by Dyalog APL has a corresponding error number (see the Appendix). Many of these error numbers plus messages are common across all versions of APL. The code for <code>DOMAIN ERROR</code> is 11, whilst <code>LENGTH ERROR</code> has code 5.</p>
+<p>Dyalog APL provides system functions and variables that allow you to find out this information without looking it up in the table:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="w">      </span><span class="m">10</span><span class="o">÷</span><span class="m">0</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nv">DOMAIN</span><span class="w"> </span><span class="nv">ERROR</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">      </span><span class="m">10</span><span class="o">÷</span><span class="m">0</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">     </span><span class="err">^</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">      </span><span class="nf">⎕EN</span><span class="w">                           </span><span class="c1">⍝ ERROR NO FOR LAST ERROR</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="m">11</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">      </span><span class="nf">⎕EM</span><span class="w"> </span><span class="m">11</span><span class="w">                        </span><span class="c1">⍝ ERROR MESSAGE FOR CODE 11</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="nv">DOMAIN</span><span class="w"> </span><span class="nv">ERROR</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">      </span><span class="nf">⎕DM</span><span class="w">                           </span><span class="c1">⍝ DIAGNOSTIC MESSAGE</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="nv">DOMAIN</span><span class="w"> </span><span class="nv">ERROR</span><span class="w">    </span><span class="m">10</span><span class="o">÷</span><span class="m">0</span><span class="w">   </span><span class="err">^</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">                                    </span><span class="c1">⍝ 3-ELEMENT NESTED VECTOR OF</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">                                    </span><span class="c1">⍝ MESSAGE, NUMBER AND CARAT</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">      </span><span class="nv">DISPLAY</span><span class="w"> </span><span class="nf">⎕DM</span><span class="w">                   </span><span class="c1">⍝ DISPLAY TO SHOW STRUCTURE</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="na">.</span><span class="kd">→</span><span class="o">------------------------------</span><span class="na">.</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="o">|</span><span class="na">.</span><span class="kd">→</span><span class="o">-----------</span><span class="na">..</span><span class="kd">→</span><span class="o">--------</span><span class="na">..</span><span class="kd">→</span><span class="o">----</span><span class="na">.</span><span class="o">|</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="o">||</span><span class="nv">DOMAIN</span><span class="w"> </span><span class="nv">ERROR</span><span class="o">||</span><span class="w">      </span><span class="m">10</span><span class="o">÷</span><span class="m">0</span><span class="o">||</span><span class="w">    </span><span class="err">^</span><span class="o">||</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="o">|</span><span class="s1">'------------''---------''-----'</span><span class="o">|</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="s1">'∊-------------------------------'</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">      </span><span class="o">↑</span><span class="nf">⎕DM</span><span class="w">                          </span><span class="c1">⍝ MIX (↑) OF VECTOR GIVES A</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="nv">DOMAIN</span><span class="w"> </span><span class="nv">ERROR</span><span class="w">                        </span><span class="c1">⍝ SIMPLE MATRIX, WHICH IS</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">      </span><span class="m">10</span><span class="o">÷</span><span class="m">0</span><span class="w">                          </span><span class="c1">⍝ THE SAME AS THE ERROR MSG</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">     </span><span class="err">^</span><span class="w">                              </span><span class="c1">⍝ DISPLAYED BY APL</span>
+</span></code></pre></div>
+<p>We also need a facility to tell APL “whenever error 11 occurs, instead of doing what you normally do, take this action instead”. In Dyalog APL, we use the system variable <code>⎕TRAP</code>, which can be assigned a nested vector of trap specifications. Each trap specification is itself a nested vector, of length 3, with each element defined as:</p>
+<ul>
+<li>list of error number(s): the error numbers we are interested in.</li>
+<li>action code: Either ‘E’ (Execute) or ‘C’ (Cut Back). There are others, but they are seldom used.</li>
+<li>action to be taken: APL expression, usually a branch statement or a call to an APL function.</li>
+</ul>
+<h2 id="setting-a-simple-trap">Setting a Simple Trap<a class="headerlink" href="#setting-a-simple-trap" title="Permanent link">&para;</a></h2>
+<p>So a single trap specification may be set up as:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="w">      </span><span class="nf">⎕TRAP</span><span class="kd">←</span><span class="m">5</span><span class="w"> </span><span class="s1">'E'</span><span class="w"> </span><span class="s1">'ACTION1'</span>
+</span></code></pre></div>
+<p>and a multiple trap specification may be set up as:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="w">      </span><span class="nf">⎕TRAP</span><span class="kd">←</span><span class="p">(</span><span class="m">5</span><span class="w"> </span><span class="s1">'E'</span><span class="w"> </span><span class="s1">'ACTION1'</span><span class="p">)((</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w"> </span><span class="s1">'C'</span><span class="w"> </span><span class="s1">'ACTION2'</span><span class="p">)</span>
+</span></code></pre></div>
+<p>The action code E tells APL that you want your action to be taken in the function in which the error occurred, whereas the code C indicates that you want your action to be taken in the function where the <code>⎕TRAP</code> was set; if necessary, APL must first travel back up the SI stack (cut-back) until it reaches that function. These action codes are best illustrated by example.</p>
+<p>Let’s try setting a <code>⎕TRAP</code> on <code>DOMAIN ERROR</code>:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="w">      </span><span class="nf">⎕TRAP</span><span class="kd">←</span><span class="m">11</span><span class="w"> </span><span class="s1">'E'</span><span class="w"> </span><span class="s1">' ''PLEASE GIVE A NON-ZERO RIGHT ARGUMENT'' '</span>
+</span></code></pre></div>
+<p>When we enter:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="w">      </span><span class="m">10</span><span class="o">÷</span><span class="m">0</span>
+</span></code></pre></div>
+<p>APL executes the expression, and notes that it causes an error number 11. Before issuing the standard error, it scans its <code>⎕TRAP</code> table, to see if you were interested enough in that error to set a trap; you were, so APL executes the action specified by you:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="w">      </span><span class="m">10</span><span class="o">÷</span><span class="m">0</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w"> </span><span class="nv">PLEASE</span><span class="w"> </span><span class="nv">GIVE</span><span class="w"> </span><span class="nv">A</span><span class="w"> </span><span class="nv">NON</span><span class="o">-</span><span class="nv">ZERO</span><span class="w"> </span><span class="nv">RIGHT</span><span class="w"> </span><span class="nv">ARGUMENT</span>
+</span></code></pre></div>
+<p>Let’s reset our <code>⎕TRAP</code>:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="w">      </span><span class="nf">⎕TRAP</span><span class="kd">←</span><span class="m">0</span><span class="o">⍴</span><span class="nf">⎕TRAP</span><span class="w">                 </span><span class="c1">⍝ NO TRAPS NOW SET</span>
+</span></code></pre></div>
+<p>and write a function to take the place of the intrinsic ÷ …</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="w">      </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">A</span><span class="w"> </span><span class="nv">DIV</span><span class="w"> </span><span class="nv">B</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">     </span><span class="nv">R</span><span class="kd">←</span><span class="nv">A</span><span class="o">÷</span><span class="nv">B</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>Then run it:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="w">      </span><span class="m">10</span><span class="w"> </span><span class="nv">DIV</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w"> </span><span class="nv">DOMAIN</span><span class="w"> </span><span class="nv">ERROR</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">      </span><span class="nv">DIV</span><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">A</span><span class="o">÷</span><span class="nv">B</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">     </span><span class="err">^</span>
+</span></code></pre></div>
+<p>Let’s edit our function and include a localised <code>⎕TRAP</code>:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="w">      </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">A</span><span class="w"> </span><span class="nv">DIV</span><span class="w"> </span><span class="nv">B</span><span class="sr">;</span><span class="nf">⎕TRAP</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ SET THE TRAP</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">    </span><span class="nf">⎕TRAP</span><span class="kd">←</span><span class="m">11</span><span class="w"> </span><span class="s1">'E'</span><span class="w"> </span><span class="s1">'→ERR1'</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ DO THE WORK; IF IT RESULTS IN ERROR 11, EXECUTE THE TRAP</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">    </span><span class="nv">R</span><span class="kd">←</span><span class="nv">A</span><span class="o">÷</span><span class="nv">B</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ ALL OK IF WE GOT TO HERE, SO EXIT</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="kd">→</span><span class="m">0</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ WILL GET HERE ONLY IF ERROR 11 OCCURRED</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">   </span><span class="nv">ERR1</span><span class="bp">:</span><span class="s1">'PLEASE GIVE A NON-ZERO RIGHT ARGUMENT'</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">      </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>Running the function with good and bad arguments has the desired effect:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="w">      </span><span class="m">10</span><span class="w"> </span><span class="nv">DIV</span><span class="w"> </span><span class="m">2</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="m">5</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">      </span><span class="m">10</span><span class="w"> </span><span class="nv">DIV</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="nv">PLEASE</span><span class="w"> </span><span class="nv">GIVE</span><span class="w"> </span><span class="nv">A</span><span class="w"> </span><span class="nv">NON</span><span class="o">-</span><span class="nv">ZERO</span><span class="w"> </span><span class="nv">RIGHT</span><span class="w"> </span><span class="nv">ARGUMENT</span>
+</span></code></pre></div>
+<p><code>⎕TRAP</code> is a variable like any other, and since it is localised in <code>DIV</code>, it is only effective in <code>DIV</code> and any other functions that may be called by <code>DIV</code>. So ….</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="w">      </span><span class="m">10</span><span class="w"> </span><span class="nv">DIV</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nv">DOMAIN</span><span class="w"> </span><span class="nv">ERROR</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">      </span><span class="m">10</span><span class="o">÷</span><span class="m">0</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">     </span><span class="err">^</span>
+</span></code></pre></div>
+<p>still gives an error, since there is no trap set in the global environment.</p>
+<p>What happens to our function if we run it with other duff arguments:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="nv">DIV</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nv">LENGTH</span><span class="w"> </span><span class="nv">ERROR</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="nv">DIV</span><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">A</span><span class="o">÷</span><span class="nv">B</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">         </span><span class="err">^</span>
+</span></code></pre></div>
+<p>Here is an error that we have taken no account of. Change <code>DIV</code> to take this new error into account:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="w">      </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">A</span><span class="w"> </span><span class="nv">DIV</span><span class="w"> </span><span class="nv">B</span><span class="sr">;</span><span class="nf">⎕TRAP</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ SET THE TRAP</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">    </span><span class="nf">⎕TRAP</span><span class="kd">←</span><span class="p">(</span><span class="m">11</span><span class="w"> </span><span class="s1">'E'</span><span class="w"> </span><span class="s1">'→ERR1'</span><span class="p">)(</span><span class="m">5</span><span class="w"> </span><span class="s1">'E'</span><span class="w"> </span><span class="s1">'→ERR2'</span><span class="p">)</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ DO THE WORK; IF IT RESULTS IN ERROR 11, EXECUTE THE TRAP</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">    </span><span class="nv">R</span><span class="kd">←</span><span class="nv">A</span><span class="o">÷</span><span class="nv">B</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ ALL OK IF WE GOT TO HERE, SO EXIT</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="kd">→</span><span class="m">0</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ WILL GET HERE ONLY IF ERROR 11 OCCURRED</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">   </span><span class="nv">ERR1</span><span class="bp">:</span><span class="s1">'PLEASE GIVE A NON-ZERO RIGHT ARGUMENT'</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="kd">→</span><span class="m">0</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ WILL GET TO HERE ONLY IF ERROR 5 OCCURRED</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">  </span><span class="nv">ERR2</span><span class="bp">:</span><span class="s1">'ARGUMENTS MUST BE SAME LENGTH'</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">      </span><span class="bp">∇</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="w">      </span><span class="p">)</span><span class="nv">RESET</span>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="nv">DIV</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="nv">ARGUMENTS</span><span class="w"> </span><span class="nv">MUST</span><span class="w"> </span><span class="nv">BE</span><span class="w"> </span><span class="nv">THE</span><span class="w"> </span><span class="nv">SAME</span><span class="w"> </span><span class="nv">LENGTH</span>
+</span></code></pre></div>
+<p>But here’s another problem that we didn’t think of:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="w">      </span><span class="p">(</span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="o">⍴⍳</span><span class="m">6</span><span class="p">)</span><span class="w"> </span><span class="nv">DIV</span><span class="w"> </span><span class="p">(</span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="o">⍴⍳</span><span class="m">24</span><span class="p">)</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nv">RANK</span><span class="w"> </span><span class="nv">ERROR</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="nv">DIV</span><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">A</span><span class="o">÷</span><span class="nv">B</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">         </span><span class="err">^</span>
+</span></code></pre></div>
+<p>Often when we’re writing a system, we can’t think of everything that may go wrong ahead of time; so we need a way of catching “everything else that I may not have thought of”. The error number used for “everything else” is zero:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="w">      </span><span class="p">)</span><span class="nv">RESET</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">      </span><span class="nf">⎕TRAP</span><span class="w"> </span><span class="kd">←</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="s1">'E'</span><span class="w"> </span><span class="s1">' ''INVALID ARGUMENTS'' '</span><span class="w">     </span><span class="c1">⍝ SET GLOBAL TRAP</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">      </span><span class="p">(</span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="o">⍴⍳</span><span class="m">6</span><span class="p">)</span><span class="w"> </span><span class="nv">DIV</span><span class="w"> </span><span class="p">(</span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="o">⍴⍳</span><span class="m">24</span><span class="p">)</span><span class="w">             </span><span class="c1">⍝ AND RUN FUNCTION</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="nv">INVALID</span><span class="w"> </span><span class="nv">ARGUMENTS</span>
+</span></code></pre></div>
+<p>In this case, when APL executed line 4 of our function <code>DIV</code>, it encountered an error number 4 (<code>RANK ERROR</code>). It searched the local trap table, found nothing relating to error 4, so searched further up the stack to see if the error was mentioned anywhere else. It found an entry with an associated Execute code, so executed the appropriate action AT THE POINT THAT THE ERROR OCCURRED. Let’s see what’s in the stack:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="w">      </span><span class="p">)</span><span class="nv">SI</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nv">DIV</span><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="o">*</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">      </span><span class="o">↑</span><span class="nf">⎕DM</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="nv">RANK</span><span class="w"> </span><span class="nv">ERROR</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="nv">DIV</span><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">A</span><span class="o">÷</span><span class="nv">B</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="w">       </span><span class="err">^</span>
+</span></code></pre></div>
+<p>So although our action has been taken, execution has stopped where it normally would after a <code>RANK ERROR</code>.</p>
+<h2 id="beware-of-global-traps">Beware of Global Traps!<a class="headerlink" href="#beware-of-global-traps" title="Permanent link">&para;</a></h2>
+<p>We must be careful when we set global traps; let’s call the non-existent function <code>BUG</code> whenever we get an unexpected error:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="w">      </span><span class="p">)</span><span class="nv">RESET</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">      </span><span class="nf">⎕TRAP</span><span class="w"> </span><span class="kd">←</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="s1">'E'</span><span class="w"> </span><span class="s1">'BUG'</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">      </span><span class="p">(</span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="o">⍴⍳</span><span class="m">6</span><span class="p">)</span><span class="w"> </span><span class="nv">DIV</span><span class="w"> </span><span class="p">(</span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="o">⍴⍳</span><span class="m">24</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Nothing happens, since APL traps a <code>RANK ERROR</code> on line 4 of <code>DIV</code>, so executes the trap statement, which causes a <code>VALUE ERROR</code>, which activates the trap action, which causes a <code>VALUE ERROR</code>, which …. etc., etc. If we had also chosen to trap on 1000 (ALL INTERRUPTS), then we’d be in trouble!</p>
+<p>Let’s define a function <code>BUG</code>:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="w">      </span><span class="bp">∇</span><span class="w"> </span><span class="nv">BUG</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ CALLED WHENEVER THERE IS AN UNEXPECTED ERROR</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">    </span><span class="s1">'*** UNEXPECTED ERROR OCCURRED IN FUNCTION'</span><span class="o">,⊃</span><span class="m">1</span><span class="o">↓</span><span class="nf">⎕SI</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">    </span><span class="s1">'*** PLEASE CALL YOUR SYSTEM ADMINISTRATION'</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">    </span><span class="s1">'*** WORKSPACE SAVED AS BUG.'</span><span class="o">,⊃</span><span class="m">1</span><span class="o">↓</span><span class="nf">⎕SI</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ TIDY UP ... RESET ⎕LX, UNTIE FILES ... ETC</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="nf">⎕SAVE</span><span class="w"> </span><span class="s1">'BUG.'</span><span class="o">,⊃</span><span class="m">1</span><span class="o">↓</span><span class="nf">⎕SI</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">    </span><span class="s1">'*** LOGGING YOU OFF THE SYSTEM'</span>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">    </span><span class="nf">⎕OFF</span>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="w">      </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>Now, whenever we run our system and an unexpected error occurs, our <code>BUG</code> function will be called.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="w">      </span><span class="m">10</span><span class="w"> </span><span class="nv">DIV</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="nv">PLEASE</span><span class="w"> </span><span class="nv">GIVE</span><span class="w"> </span><span class="nv">NON</span><span class="o">-</span><span class="nv">ZERO</span><span class="w"> </span><span class="nv">RIGHT</span><span class="w"> </span><span class="nv">ARGUMENT</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">      </span><span class="p">(</span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="o">⍴⍳</span><span class="m">6</span><span class="p">)</span><span class="w"> </span><span class="nv">DIV</span><span class="w"> </span><span class="p">(</span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="o">⍴⍳</span><span class="m">12</span><span class="p">)</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="o">***</span><span class="w"> </span><span class="nv">UNEXPECTED</span><span class="w"> </span><span class="nv">ERROR</span><span class="w"> </span><span class="nv">OCCURRED</span><span class="w"> </span><span class="nv">IN</span><span class="w"> </span><span class="nv">FUNCTION</span><span class="w"> </span><span class="nv">DIV</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="o">***</span><span class="w"> </span><span class="nv">PLEASE</span><span class="w"> </span><span class="nv">CALL</span><span class="w"> </span><span class="nv">YOUR</span><span class="w"> </span><span class="nv">SYSTEM</span><span class="w"> </span><span class="nv">ADMINISTRATOR</span>
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="o">***</span><span class="w"> </span><span class="nv">WORKSPACE</span><span class="w"> </span><span class="nv">SAVED</span><span class="w"> </span><span class="nv">AS</span><span class="w"> </span><span class="nv">BUG</span><span class="na">.</span><span class="nv">DIV</span>
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="o">***</span><span class="w"> </span><span class="nv">LOGGING</span><span class="w"> </span><span class="nv">YOU</span><span class="w"> </span><span class="nv">OFF</span><span class="w"> </span><span class="nv">THE</span><span class="w"> </span><span class="nv">SYSTEM</span>
+</span></code></pre></div>
+<p>The system administrator can then load BUG.DIV, look at the SI stack, discover the problem, and fix it.</p>
+<p>In many cases, you can of course achieve the same effect of a trap by using APL code to detect the problem before it happens. Consider the function <code>TIE∆FILE</code>, which checks to see if a file already exists before it tries to access it:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="w">      </span><span class="bp">∇</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">TIE∆FILE</span><span class="w"> </span><span class="nv">FILE</span><span class="sr">;</span><span class="nv">FILES</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ TIE FILE FILE WITH NEXT AVAILABLE TIE NUMBER</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">    </span><span class="nv">FILES</span><span class="kd">←</span><span class="nf">⎕FLIB</span><span class="w"> </span><span class="s1">'MYDIR'</span><span class="w">                </span><span class="c1">⍝ ALL FILES IN MY DIRECTORY</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">    </span><span class="nv">FILES</span><span class="kd">←</span><span class="nv">DBR</span><span class="na">¨</span><span class="o">↓</span><span class="nv">FILES</span><span class="w">                   </span><span class="c1">⍝ REMOVE TRAILING BLANKS</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">    </span><span class="kd">→</span><span class="nv">ERR</span><span class="o">×⍳~</span><span class="p">(</span><span class="o">⊂</span><span class="nv">FILE</span><span class="p">)</span><span class="o">∊</span><span class="nv">FILES</span><span class="w">               </span><span class="c1">⍝ REQD FILE IN LIST?</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">    </span><span class="nv">FILE</span><span class="w"> </span><span class="nf">⎕FTIE</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="m">1</span><span class="o">+⌈</span><span class="na">/</span><span class="m">0</span><span class="o">,</span><span class="nf">⎕FNUMS</span><span class="w">          </span><span class="c1">⍝ TIE FILE WITH NEXT NUMBER</span>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="kd">→</span><span class="m">0</span><span class="w">                                 </span><span class="c1">⍝ ... AND EXIT</span>
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="nv">ERR</span><span class="bp">:</span><span class="nv">R</span><span class="kd">←</span><span class="s1">'FILE DOES NOT EXIST'</span><span class="w">         </span><span class="c1">⍝ ERROR MESSAGE</span>
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="w">      </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>This function executes the same code whether the file name is right or wrong, and it could take a while to get all the file names in your directory. It would be neater and more efficient to take action ONLY when the file name is wrong:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="w">      </span><span class="bp">∇</span><span class="nv">R</span><span class="kd">←</span><span class="nv">TIE∆FILE</span><span class="w"> </span><span class="nv">FILE</span><span class="sr">;</span><span class="nf">⎕TRAP</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ TIE FILE FILE WITH NEXT AVAILABLE TIE NUMBER</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">    </span><span class="nf">⎕TRAP</span><span class="kd">←</span><span class="m">22</span><span class="w"> </span><span class="s1">'E'</span><span class="w"> </span><span class="s1">'→ERR'</span><span class="w">                </span><span class="c1">⍝ SET TRAP</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">    </span><span class="nv">FILE</span><span class="w"> </span><span class="nf">⎕FTIE</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="m">1</span><span class="o">+⌈</span><span class="na">/</span><span class="m">0</span><span class="o">,</span><span class="nv">FNUMS</span><span class="w">           </span><span class="c1">⍝ TIE FILE WITH NEXT NUMBER</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">    </span><span class="kd">→</span><span class="m">0</span><span class="w">                                 </span><span class="c1">⍝ ... AND EXIT IF OK</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="nv">ERR</span><span class="bp">:</span><span class="nv">R</span><span class="kd">←</span><span class="s1">'FILE DOES NOT EXIST'</span><span class="w">         </span><span class="c1">⍝ ERROR MESSAGE</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">      </span><span class="bp">∇</span>
+</span></code></pre></div>
+<h2 id="cutting-back-the-stack">Cutting Back the Stack<a class="headerlink" href="#cutting-back-the-stack" title="Permanent link">&para;</a></h2>
+<p>Let us consider the effect of using Cut-Back instead of Execute. Consider the system illustrated below, in which the function <code>REPORT</code> gives the user the option of 4 reports to be generated:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>                  REPORT
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>   REP1      REP2      REP3      REP4
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>                ...  DIV  ...
+</span></code></pre></div>
+<p>where <code>REPORT</code> looks something like this:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="w">      </span><span class="bp">∇</span><span class="w"> </span><span class="nv">REPORT</span><span class="sr">;</span><span class="nv">OPTIONS</span><span class="sr">;</span><span class="nv">OPTION</span><span class="sr">;</span><span class="nf">⎕TRAP</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ DRIVER FUNCTIONS FOR REPORT SUB-SYSTEM. IF AN</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ UNEXPECTED ERROR OCCURS, TAKE ACTION IN FUNCTION WHERE</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ ERROR OCCURRED</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">    </span><span class="nf">⎕TRAP</span><span class="kd">←</span><span class="m">0</span><span class="w"> </span><span class="s1">'E'</span><span class="w"> </span><span class="s1">'BUG'</span><span class="w">                      </span><span class="c1">⍝ SET GLOBAL TRAP</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">    </span><span class="nv">OPTIONS</span><span class="kd">←</span><span class="s1">'REP1'</span><span class="w"> </span><span class="s1">'REP2'</span><span class="w"> </span><span class="s1">'REP3'</span><span class="w"> </span><span class="s1">'REP4'</span><span class="w">    </span><span class="c1">⍝ AVAILABLE OPTIONS</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">   </span><span class="nv">LOOP</span><span class="bp">:</span><span class="kd">→</span><span class="nv">END</span><span class="o">×⍳</span><span class="m">0</span><span class="o">=⍴</span><span class="nv">OPTION</span><span class="kd">←</span><span class="nv">MENU</span><span class="w"> </span><span class="nv">OPTIONS</span><span class="w">       </span><span class="c1">⍝ ASK USER TO CHOOSE</span>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">    </span><span class="o">⍎</span><span class="nv">OPTION</span><span class="w">                                </span><span class="c1">⍝ EXECUTE RELEVANT FUNCTION</span>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">    </span><span class="kd">→</span><span class="nv">LOOP</span><span class="w">                                  </span><span class="c1">⍝ REPEAT UNTIL EXIT</span>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">   </span><span class="nv">END</span><span class="bp">:</span><span class="w">                                    </span><span class="c1">⍝ NOW END</span>
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="w">      </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>Suppose the user chooses <code>REP3</code>, and an unexpected error occurs in <code>DIV</code>.</p>
+<p>The good news is that the system administrator gets a snapshot copy of the workspace that he can play with:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="w">      </span><span class="p">)</span><span class="nv">LOAD</span><span class="w"> </span><span class="nv">BUG</span><span class="na">.</span><span class="nv">DIV</span><span class="w">                       </span><span class="c1">⍝ LOAD WORKSPACE</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="nv">SAVED</span><span class="w"> </span><span class="na">......</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="w">      </span><span class="p">)</span><span class="nv">SI</span><span class="w">                                 </span><span class="c1">⍝ WHERE DID ERROR OCCUR?</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="nv">DIV</span><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="o">*</span>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="nv">REP3</span><span class="sr">[</span><span class="m">6</span><span class="sr">]</span>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="o">⍎</span>
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="nv">REPORT</span><span class="sr">[</span><span class="m">7</span><span class="sr">]</span>
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>
+</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="w">      </span><span class="o">↑</span><span class="nf">⎕DM</span><span class="w">                                </span><span class="c1">⍝ WHAT HAPPENED?</span>
+</span><span id="__span-25-11"><a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a><span class="nv">RANK</span><span class="w"> </span><span class="nv">ERROR</span>
+</span><span id="__span-25-12"><a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a><span class="nv">DIV</span><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">A</span><span class="o">÷</span><span class="nv">B</span>
+</span><span id="__span-25-13"><a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a><span class="w">       </span><span class="err">^</span>
+</span><span id="__span-25-14"><a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a>
+</span><span id="__span-25-15"><a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a><span class="w">      </span><span class="bp">∇</span><span class="w">                                   </span><span class="c1">⍝ EDIT FUNCTION ON TOP OF</span>
+</span><span id="__span-25-16"><a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a><span class="nv">STACK</span>
+</span><span id="__span-25-17"><a id="__codelineno-25-17" name="__codelineno-25-17" href="#__codelineno-25-17"></a><span class="sr">[</span><span class="m">0</span><span class="sr">]</span><span class="w"> </span><span class="nv">R</span><span class="kd">←</span><span class="nv">A</span><span class="w"> </span><span class="nv">DIV</span><span class="w"> </span><span class="nv">B</span>
+</span><span id="__span-25-18"><a id="__codelineno-25-18" name="__codelineno-25-18" href="#__codelineno-25-18"></a><span class="na">.........</span>
+</span></code></pre></div>
+<p>The bad news is, our user is locked out of the whole system, even though it may only be REP3 that has a problem. We can get around this by making use of the CUT-BACK action code:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="w">      </span><span class="bp">∇</span><span class="w"> </span><span class="nv">REPORT</span><span class="sr">;</span><span class="nv">OPTIONS</span><span class="sr">;</span><span class="nv">OPTION</span><span class="sr">;</span><span class="nf">⎕TRAP</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ DRIVER FUNCTIONS FOR REPORT SUB-SYSTEM. IF AN</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ UNEXPECTED ERROR OCCURS, CUT THE STACK BACK TO THIS</span>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ FUNCTION, THEN TAKE ACTION</span>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">    </span><span class="nf">⎕TRAP</span><span class="kd">←</span><span class="m">0</span><span class="w"> </span><span class="s1">'C'</span><span class="w"> </span><span class="s1">'→ERR'</span><span class="w">                     </span><span class="c1">⍝ SET GLOBAL TRAP</span>
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">    </span><span class="nv">OPTIONS</span><span class="kd">←</span><span class="s1">'REP1'</span><span class="w"> </span><span class="s1">'REP2'</span><span class="w"> </span><span class="s1">'REP3'</span><span class="w"> </span><span class="s1">'REP4'</span><span class="w">    </span><span class="c1">⍝ AVAILABLE OPTIONS</span>
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">   </span><span class="nv">LOOP</span><span class="bp">:</span><span class="kd">→</span><span class="nv">END</span><span class="o">×⍳</span><span class="m">0</span><span class="o">=⍴</span><span class="nv">OPTION</span><span class="kd">←</span><span class="nv">MENU</span><span class="w"> </span><span class="nv">OPTIONS</span><span class="w">       </span><span class="c1">⍝ ASK USER TO CHOOSE</span>
+</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">    </span><span class="o">⍎</span><span class="nv">OPTION</span><span class="w">                                </span><span class="c1">⍝ EXECUTE RELEVANT FUNCTION</span>
+</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">    </span><span class="kd">→</span><span class="nv">LOOP</span><span class="w">                                  </span><span class="c1">⍝ REPEAT UNTIL EXIT</span>
+</span><span id="__span-26-10"><a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">   </span><span class="nv">ERR</span><span class="bp">:</span><span class="nv">MESSAGE</span><span class="s1">'UNEXPECTED ERROR IN'</span><span class="o">,</span><span class="nv">OPTION</span><span class="w"> </span><span class="c1">⍝ TELL USER</span>
+</span><span id="__span-26-11"><a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">   </span><span class="nv">MESSAGE</span><span class="bp">:</span><span class="s1">'REMOVING FROM LIST'</span><span class="w">           </span><span class="c1">⍝ ... WHAT'S HAPPENING</span>
+</span><span id="__span-26-12"><a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a><span class="sr">[</span><span class="m">11</span><span class="sr">]</span><span class="w">   </span><span class="nv">OPTIONS</span><span class="kd">←</span><span class="w"> </span><span class="nv">OPTIONS</span><span class="w"> </span><span class="o">~⊂</span><span class="nv">OPTION</span><span class="w">              </span><span class="c1">⍝ REMOVE OPTION FROM LIST</span>
+</span><span id="__span-26-13"><a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a><span class="sr">[</span><span class="m">12</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">LOOP</span><span class="w">                                  </span><span class="c1">⍝ ... AND REPEAT</span>
+</span><span id="__span-26-14"><a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a><span class="sr">[</span><span class="m">13</span><span class="sr">]</span><span class="w">  </span><span class="nv">END</span><span class="bp">:</span><span class="w">                                    </span><span class="c1">⍝ END</span>
+</span><span id="__span-26-15"><a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a><span class="w">      </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>Suppose the user runs this version of <code>REPORT</code> and chooses <code>REP3</code>. When the unexpected error occurs in <code>DIV</code>, APL will check its trap specifications, and see that the relevant trap was set in <code>REPORT</code> with a cut-back code. APL therefore <strong>cuts back the stack to the function in which the trap was set, THEN takes the specified action.</strong> Looking at the SI stack above, we can see that APL must jump out of <code>DIV</code>, then <code>REP3</code>, then <code>⍎</code>, to return to line 7 of <code>REPORT</code>; THEN it takes the specified action.</p>
+<h2 id="user-defined-events">User-defined Events<a class="headerlink" href="#user-defined-events" title="Permanent link">&para;</a></h2>
+<p>It would be useful to be able to employ this idea of cutting back the stack and taking an alternative route through the code, when a condition other than an APL error occurs. To achieve this, we must be able to trap on events other than APL errors, and we must be able to define these events to APL. We do the former by using event codes in the range 500 to 999, and the latter by using <code>⎕SIGNAL</code>.</p>
+<p>Consider our system; ideally, when an unexpected error occurs, we want to save a snapshot copy of our workspace (execute <code>BUG</code> in place), then immediately jump back to <code>REPORT</code> (cutback on an event, not an APL error) and reduce our options. We can achieve this by changing our functions a little, and using <code>⎕SIGNAL</code>:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="w">      </span><span class="bp">∇</span><span class="w"> </span><span class="nv">REPORT</span><span class="sr">;</span><span class="nv">OPTIONS</span><span class="sr">;</span><span class="nv">OPTION</span><span class="sr">;</span><span class="nf">⎕TRAP</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ DRIVER FUNCTIONS FOR REPORT SUB-SYSTEM. IF AN</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ UNEXPECTED ERROR OCCURS, MAKE A SNAPSHOT COPY OF THE</span>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ WORKSPACE THEN CUTBACK THE STACK TO THIS FUNCTION</span>
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">    </span><span class="nf">⎕TRAP</span><span class="kd">←</span><span class="p">(</span><span class="m">0</span><span class="w"> </span><span class="s1">'E'</span><span class="w"> </span><span class="s1">'BUG'</span><span class="p">)(</span><span class="m">500</span><span class="w"> </span><span class="s1">'C'</span><span class="w"> </span><span class="s1">'→ERR'</span><span class="p">)</span><span class="w">    </span><span class="c1">⍝ SET GLOBAL TRAP</span>
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">    </span><span class="nv">OPTIONS</span><span class="kd">←</span><span class="s1">'REP1'</span><span class="w"> </span><span class="s1">'REP2'</span><span class="w"> </span><span class="s1">'REP3'</span><span class="w"> </span><span class="s1">'REP4'</span><span class="w">    </span><span class="c1">⍝ AVAILABLE OPTIONS</span>
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">   </span><span class="nv">LOOP</span><span class="bp">:</span><span class="kd">→</span><span class="nv">END</span><span class="o">×⍳</span><span class="m">0</span><span class="o">=⍴</span><span class="nv">OPTION</span><span class="kd">←</span><span class="nv">MENU</span><span class="w"> </span><span class="nv">OPTIONS</span><span class="w">       </span><span class="c1">⍝ ASK USER TO CHOOSE</span>
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">    </span><span class="o">⍎</span><span class="nv">OPTION</span><span class="w">                                </span><span class="c1">⍝ EXECUTE RELEVANT FUNCTION</span>
+</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">    </span><span class="kd">→</span><span class="nv">LOOP</span><span class="w">                                  </span><span class="c1">⍝ REPEAT UNTIL EXIT</span>
+</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">   </span><span class="nv">ERR</span><span class="bp">:</span><span class="nv">MESSAGE</span><span class="s1">'UNEXPECTED ERROR IN'</span><span class="o">,</span><span class="nv">OPTION</span><span class="w"> </span><span class="c1">⍝ TELL USER</span>
+</span><span id="__span-27-11"><a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">   </span><span class="nv">MESSAGE</span><span class="bp">:</span><span class="s1">'REMOVING FROM LIST'</span><span class="w">           </span><span class="c1">⍝ ... WHAT'S HAPPENING</span>
+</span><span id="__span-27-12"><a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a><span class="sr">[</span><span class="m">11</span><span class="sr">]</span><span class="w">   </span><span class="nv">OPTIONS</span><span class="kd">←</span><span class="w"> </span><span class="nv">OPTIONS</span><span class="w"> </span><span class="o">~⊂</span><span class="nv">OPTION</span><span class="w">              </span><span class="c1">⍝ REMOVE OPTION FROM LIST</span>
+</span><span id="__span-27-13"><a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a><span class="sr">[</span><span class="m">12</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">LOOP</span><span class="w">                                  </span><span class="c1">⍝ AND REPEAT</span>
+</span><span id="__span-27-14"><a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a><span class="sr">[</span><span class="m">13</span><span class="sr">]</span><span class="w">  </span><span class="nv">END</span><span class="bp">:</span><span class="w">                                    </span><span class="c1">⍝ END</span>
+</span><span id="__span-27-15"><a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a><span class="w">      </span><span class="bp">∇</span>
+</span><span id="__span-27-16"><a id="__codelineno-27-16" name="__codelineno-27-16" href="#__codelineno-27-16"></a>
+</span><span id="__span-27-17"><a id="__codelineno-27-17" name="__codelineno-27-17" href="#__codelineno-27-17"></a><span class="w">      </span><span class="bp">∇</span><span class="w"> </span><span class="nv">BUG</span>
+</span><span id="__span-27-18"><a id="__codelineno-27-18" name="__codelineno-27-18" href="#__codelineno-27-18"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ CALLED WHENEVER THERE IS AN UNEXPECTED ERROR</span>
+</span><span id="__span-27-19"><a id="__codelineno-27-19" name="__codelineno-27-19" href="#__codelineno-27-19"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">    </span><span class="s1">'*** UNEXPECTED ERROR OCCURRED IN FUNCTION'</span><span class="o">,⊃</span><span class="m">1</span><span class="o">↓</span><span class="nf">⎕SI</span>
+</span><span id="__span-27-20"><a id="__codelineno-27-20" name="__codelineno-27-20" href="#__codelineno-27-20"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">    </span><span class="s1">'*** PLEASE CALL YOUR SYSTEM ADMINISTRATOR'</span>
+</span><span id="__span-27-21"><a id="__codelineno-27-21" name="__codelineno-27-21" href="#__codelineno-27-21"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">    </span><span class="s1">'*** WORKSPACE SAVED AS BUG.'</span><span class="o">,⊃</span><span class="m">1</span><span class="o">↓</span><span class="nf">⎕SI</span>
+</span><span id="__span-27-22"><a id="__codelineno-27-22" name="__codelineno-27-22" href="#__codelineno-27-22"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ TIDY UP .... RESET ⎕LX, UNTIE FILES ... ETC</span>
+</span><span id="__span-27-23"><a id="__codelineno-27-23" name="__codelineno-27-23" href="#__codelineno-27-23"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="nf">⎕SAVE</span><span class="w"> </span><span class="s1">'BUG.'</span><span class="o">,⊃</span><span class="m">1</span><span class="o">↓</span><span class="nf">⎕SI</span>
+</span><span id="__span-27-24"><a id="__codelineno-27-24" name="__codelineno-27-24" href="#__codelineno-27-24"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">    </span><span class="s1">'*** RETURNING YOU TO DRIVER FUNCTION FOR RESELECTION'</span>
+</span><span id="__span-27-25"><a id="__codelineno-27-25" name="__codelineno-27-25" href="#__codelineno-27-25"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">    </span><span class="nf">⎕SIGNAL</span><span class="w"> </span><span class="m">500</span>
+</span><span id="__span-27-26"><a id="__codelineno-27-26" name="__codelineno-27-26" href="#__codelineno-27-26"></a><span class="w">      </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>Now when the unexpected error occurs, the first trap specification catches it, and the <code>BUG</code> function is executed in place. Instead of logging the user off as before, an event 500 is signalled to APL. APL checks its trap specifications, sees that 500 has been set in <code>REPORT</code> as a cut-back, so cuts back to <code>REPORT</code> before branching to <code>ERR</code>.</p>
+<p>Event handling, which employs a combination of all the system functions and variables described, allows us dynamically to alter the flow of control through our system, as well as to handle errors gracefully. It is a very powerful facility, which is simple to use but is often neglected.</p>
+<h2 id="appendix-the-full-error-code-table">Appendix: The Full Error-code Table<a class="headerlink" href="#appendix-the-full-error-code-table" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Code</th>
+<th>Event</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0</td>
+<td>Any event in range 1-999</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td>WS FULL</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>SYNTAX ERROR</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>INDEX ERROR</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td>RANK ERROR</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td>LENGTH ERROR</td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td>VALUE ERROR</td>
+</tr>
+<tr>
+<td style="text-align: right;">7</td>
+<td>FORMAT ERROR</td>
+</tr>
+<tr>
+<td style="text-align: right;">10</td>
+<td>LIMIT ERROR</td>
+</tr>
+<tr>
+<td style="text-align: right;">11</td>
+<td>DOMAIN ERROR</td>
+</tr>
+<tr>
+<td style="text-align: right;">12</td>
+<td>HOLD ERROR</td>
+</tr>
+<tr>
+<td style="text-align: right;">15</td>
+<td>LST FULL</td>
+</tr>
+<tr>
+<td style="text-align: right;">16</td>
+<td>NONCE ERROR</td>
+</tr>
+<tr>
+<td style="text-align: right;">18</td>
+<td>FILE TIE ERROR</td>
+</tr>
+<tr>
+<td style="text-align: right;">19</td>
+<td>FILE ACCESS ERROR</td>
+</tr>
+<tr>
+<td style="text-align: right;">20</td>
+<td>FILE INDEX ERROR</td>
+</tr>
+<tr>
+<td style="text-align: right;">22</td>
+<td>FILE NAME ERROR</td>
+</tr>
+<tr>
+<td style="text-align: right;">23</td>
+<td>FILE DAMAGED</td>
+</tr>
+<tr>
+<td style="text-align: right;">24</td>
+<td>FILE TIED</td>
+</tr>
+<tr>
+<td style="text-align: right;">26</td>
+<td>FILE SYSTEM ERROR</td>
+</tr>
+<tr>
+<td style="text-align: right;">28</td>
+<td>FILE SYSTEM NOT AVAILABLE</td>
+</tr>
+<tr>
+<td style="text-align: right;">30</td>
+<td>FILE SYSTEM TIES USED UP</td>
+</tr>
+<tr>
+<td style="text-align: right;">31</td>
+<td>FILE TIE QUOTA USED UP</td>
+</tr>
+<tr>
+<td style="text-align: right;">32</td>
+<td>FILE NAME QUOTA USED UP</td>
+</tr>
+<tr>
+<td style="text-align: right;">34</td>
+<td>FILE SYSTEM NO SPACE</td>
+</tr>
+<tr>
+<td style="text-align: right;">38</td>
+<td>FILE COMPONENT DAMAGED</td>
+</tr>
+<tr>
+<td style="text-align: right;">72</td>
+<td>NO PIPES</td>
+</tr>
+<tr>
+<td style="text-align: right;">73</td>
+<td>LOST SLAVE</td>
+</tr>
+<tr>
+<td style="text-align: right;">76</td>
+<td>PROCESSOR TABLE FULL</td>
+</tr>
+<tr>
+<td style="text-align: right;">84</td>
+<td>TRAP ERROR</td>
+</tr>
+<tr>
+<td style="text-align: right;">200 - 499</td>
+<td>Reserved for distributed auxiliary processors</td>
+</tr>
+<tr>
+<td style="text-align: right;">500 - 999</td>
+<td>User-defined events</td>
+</tr>
+<tr>
+<td style="text-align: right;">1000</td>
+<td>Any event in range 1001-1006</td>
+</tr>
+<tr>
+<td style="text-align: right;">1001</td>
+<td>Stop vector</td>
+</tr>
+<tr>
+<td style="text-align: right;">1002</td>
+<td>Weak interrupt</td>
+</tr>
+<tr>
+<td style="text-align: right;">1003</td>
+<td>INTERRUPT</td>
+</tr>
+<tr>
+<td style="text-align: right;">1004</td>
+<td>INPUT INTERRUPT</td>
+</tr>
+<tr>
+<td style="text-align: right;">1005</td>
+<td>EOF INTERRUPT</td>
+</tr>
+<tr>
+<td style="text-align: right;">1006</td>
+<td>TIMEOUT</td>
+</tr>
+</tbody>
+</table></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">programming techniques</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1572 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10003460/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>PATTIE: a Practical Expert System(1) - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#outline-of-the-project" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PATTIE: a Practical Expert System(1)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#outline-of-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Outline of the Project
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Outline of the Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Problem
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-proposed-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Proposed Solution
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-pattie-came-about" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        How PATTIE Came About
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How PATTIE Came About">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-choice-of-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Choice of Domain
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Basic Operation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-and-system-choice" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Language and System Choice
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pattie-system-operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        PATTIE System Operation
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PATTIE System Operation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        General
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#knowledge-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Knowledge Base
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inference-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Inference Engine
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#natural-language-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Natural Language Interface
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explanation-facility" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Explanation Facility
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#knowledge-acquisition-facility" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Knowledge Acquisition Facility
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references-and-bibliography" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References and Bibliography
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">PATTIE: a Practical Expert System(1)</h1>
+
+  <p class="printed"><a href="../1/#n3-january-1985">Vector 1:3</a>, page 101</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-expert-systems-and-AI">expert systems and AI</a> <a class="md-tag" href="../tags/#tag-applications">applications</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../1/3/VOL.1-NO.3-JANUARY-1985.pdf#page=103">Read it in the PDF of the issue, page 101</a></em></p>
+<p><em>Case Study: notes by Adrian Smith</em></p>
+<blockquote>
+<p>The paper that follows actually came from the Association meeting on ‘APL and Knowledge-based Systems’ in September. However on reading it I quickly realised that it fell very nicely into the Case Studies category.</p>
+<p>It covers the development of a system called PATTIE, which is all about pipes. Given the need to transport (say) hot chocolate half a mile in freezing weather, what sort of pipe do you need? Should it be buried or lagged? Is it a serious industrial hazard to the surrounding community? Can it indeed be done at all??</p>
+<p>The experiences of the author in writing PATTIE ‘from the ground up’ make fascinating reading, and I hope you will find his paper as interesting and informative as I did.</p>
+<p>In this issue of VECTOR we include the outline and project background of PATTIE.</p>
+<ul>
+<li>VECTOR 4 will include the remainder of the paper, which covers problem areas, and notes on the implementation.</li>
+<li>for convenience, the references will be printed in both issues.</li>
+</ul>
+</blockquote>
+<p class="byline">by Christopher Harvey</p>
+<h2 id="outline-of-the-project">Outline of the Project<a class="headerlink" href="#outline-of-the-project" title="Permanent link">&para;</a></h2>
+<h3 id="the-problem">The Problem<a class="headerlink" href="#the-problem" title="Permanent link">&para;</a></h3>
+<p>The computer press is full of stories of “Intelligent Knowledge-Based Systems” and “Expert Systems”. Industry seems very excited about them but just what are they?</p>
+<p>As part of an Artificial Intelligence section of my Degree I had been introduced to Expert Systems by Mike Winfield, a lecturer who subsequently became my supervisor for the PATTIE (Pipe Analysis Techniques Through Inferential Expertise) project. In common with many people, the more I read, heard and thought about what Expert Systems were and what they could do, the more their potential for use struck me. I had to find out more.</p>
+<h3 id="the-proposed-solution">The Proposed Solution<a class="headerlink" href="#the-proposed-solution" title="Permanent link">&para;</a></h3>
+<p>It was decided that an excellent way to solve the above problem was to actually develop an Expert System. In the same position as myself (excited but ignorant) was a lecturer in the Mechanical Engineering Department called Dr. Steve Douglas.</p>
+<p>The obvious struck us: for my final-year major project I could develop an Expert System for, and in conjunction with, Steve Douglas. The system could be in a mechanical engineering vein and would serve the purpose of an introduction to the field of Expert Systems for the both of us.</p>
+<p>The initial aims of the project were stated to be: to act as a basis for understanding the following areas: Knowledge Engineering, Knowledge Representation, Natural Language Interfaces and Inferencing Mechanisms.</p>
+<h2 id="how-pattie-came-about">How PATTIE Came About<a class="headerlink" href="#how-pattie-came-about" title="Permanent link">&para;</a></h2>
+<h3 id="the-choice-of-domain">The Choice of Domain<a class="headerlink" href="#the-choice-of-domain" title="Permanent link">&para;</a></h3>
+<p>The next problem was to find a domain around which to design and implement a system; that is to say, for which aspect of Mechanical Engineering could we write an Expert System? (We were lucky to be in the position of being able to choose the subject domain around which we could write our system. This would not, of course, normally be the case!).</p>
+<p>After some thought and after considering areas such as Bearing Analysis and Mechanism Theory we came up with Pipe Analysis.</p>
+<p>When first-year undergraduates of Mechanical Engineering start their courses there is an initial ‘barrier’ to be got over as regards just what is involved when considering piping from the points of view of design of pipes, what types of material to be used, what types of fluids, gases (the “transport mediums”) can actually pass through those pipes, how those pipes have to be jointed, how they can be fixed to their surroundings, etc.</p>
+<p>Therefore a system to aid first-year undergraduates to overcome this barrier would be of some use. This seemed a reasonable idea on which to build.</p>
+<p>In choosing the domain that we did we were looking for an area in which the knowledge, or expertise, could be ‘codified’ in the form of rules, relatively simply and straightforwardly, due to the time constraint involved (the system had to be finished inside six months).</p>
+<p>Thus the idea was formally stated as: the domain would be that of Pipe Analysis related to Mechanical Engineering. A first-year undergraduate would enter into the system details of the proposed pipe site, the environment, the transport medium flowing through the pipe, etc. and the system would return aspects such as: what pipe materials could be used, how could/should the pipe be jointed and fixed to its surroundings and what other considerations must be taken into account (e.g. lag the pipe, bury it, etc.).</p>
+<h3 id="basic-operation">Basic Operation<a class="headerlink" href="#basic-operation" title="Permanent link">&para;</a></h3>
+<p>We had identified what seemed like a reasonable domain, therefore work could start on the system design. At this stage we knew effectively nothing about the design and development of Expert Systems, although we did know what they could do. From the point of view of a naive entrant to the field, there was little documented that could help with the question “How do you develop an Expert System?”.</p>
+<p>As mentioned earlier, there was not a great deal of time in which to write the system. Therefore there was, relatively, little time for doing a vast amount of background reading and research. It was decided to use a well-documented system as a guide on which to base our Expert System.</p>
+<p>The system chosen was the medical diagnosis system, MYCIN and its associated knowledge acquisition facility, TEIRSIAS (ref:1).</p>
+<p>MYCIN was based on the concept of production rules. An example of a MYCIN rule is:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>IF the infection is PRIMARY-BACTERENIA
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>AND the site of the culture is one of the STERILE SITES
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>AND the suspected portal of entry of the organism is the gastro-intestinal tract
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>THEN there is evidence that the identity of the organism of BACTERODIES.
+</span></code></pre></div>
+<p>Rules can therefore be seen to be a means of writing down, and storing, knowledge. It will be seen later how these rules are used by the system.</p>
+<p>The next stage was to develop some rules, i.e., codified forms of knowledge, or expertise, involved in our area of Pipe Analysis. Examples of the original rules are:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>RULE 1
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  IF the transport medium is resistant to cold
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  AND if it has an absence of taste
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  THEN polyethylene can be used for the pipe.
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>RULE 2
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  IF the pipe diameter is greater than 1.2 m
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  AND the pipe is made of polyethylene
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  THEN a flange joint is required
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>RULE 3
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>  IF the pipe is on the land
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>  AND it is near a fire hazard
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>  THEN it must be buried
+</span></code></pre></div>
+<p>The format of these rules is interesting because it is a domain expert’s idea, without the aid of a Knowledge Engineer of how he would formulate, or describe, knowledge of his domain. Knowledge Engineering is a very important part of the design process more of which will be mentioned later.</p>
+<p>The next problem was the most difficult and yet the most interesting. How could the knowledge be encoded such that it would be in a format that the Inference Engine could work upon it?</p>
+<p>After some deliberation it was decided as a first stage that the various details that had come through by the rules provided would need to be grouped under certain classifications where things could be logically divided up. For example; around the concept of “pipe site” there were things such as: buried, buried in a trench, above the ground, along a wall, etc. There were various types of pipe material: if the transport medium was an acid then do not use polyethylene, or if the purpose of the transport medium was for food manufacture then do not use, for example, brass pipes.</p>
+<p>Given classifications such as these and the thirty or so rules provided, the following list of classifications evolved: pipe material, pipe environment, pipe property, pipe site, pipe diameter, pipe joints, pipe fixings, transport medium material, transport medium property, transport medium purpose and notes.</p>
+<p>From the rules, examples of classification attributes are:</p>
+<blockquote>
+<p>Pipe environment — near fire hazard, near road, outdoors, unshaded, still water, running water</p>
+<p>Pipe material — polyethylene, cast iron, plastic, aluminium</p>
+<p>Transport medium property — resistant to cold, absence of taste, fluid, hazardous, hot</p>
+<p>Transport medium material — hydrofluorous acid, drain water, sulphur trioxide, chlorine, milk</p>
+</blockquote>
+<p>The original rules could now be rewritten into a format based upon this concept. For example the three rules above became:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>RULE 1
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  IF a transport medium property is resistant to cold
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  AND a transport medium property is absence of taste
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  THEN a use-type is polyethylene
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>RULE 2
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  IF the pipe diameter is greater than 1.2 m
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  AND the pipe material is polyethylene
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  THEN the pipe joints are flange
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>RULE 3
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>  IF the pipe site is on land
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>  AND the pipe environment is near fire hazard
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>  THEN the pipe site is buried
+</span></code></pre></div>
+<p>The basic operation which then followed was:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>User gives:     the transport medium flowing through the pipe
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>System returns: Possible pipe material types
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>                How to joint each type
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>                How to affix each type
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>                'Properties' of each type
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>                Notes associated with rules
+</span></code></pre></div>
+<h3 id="language-and-system-choice">Language and System Choice<a class="headerlink" href="#language-and-system-choice" title="Permanent link">&para;</a></h3>
+<p>PATTIE was implemented on a 68000-based multi-user micro system, it was written in C and ran under UNIX System III. The reasons for using C were:</p>
+<p>i) its portability. If the system was going to be used by the Mechanical Engineering Department, it would be on a different machine. C was the most portable language available.</p>
+<p>ii) many commercial Expert Systems are written in Pascal or C. Doing a similar system would give an insight into why this is and the ease of doing it.</p>
+<p>iii) experience of C and UNIX was, in itself, desirable.</p>
+<p>Prolog would probably have been a more suitable language to use because:</p>
+<p>i) it has its own in-built pattern matcher</p>
+<p>ii) it has its own in-built inferencing mechanism (using depth-first search techniques)</p>
+<p>iii) it would have allowed us to concentrate on developing the Knowledge Base and the Natural Language Interface.</p>
+<p>However, the reasons why C was chosen in preference to Prolog were:</p>
+<p>i) it was considered that more would be learnt by writing our own inferencing mechanism rather than using the mechanism which is in-built within Prolog</p>
+<p>ii) our Prolog interpreter did not work correctly!</p>
+<h2 id="pattie-system-operation">PATTIE System Operation<a class="headerlink" href="#pattie-system-operation" title="Permanent link">&para;</a></h2>
+<h3 id="general">General<a class="headerlink" href="#general" title="Permanent link">&para;</a></h3>
+<p>How does the system actually manipulate the knowledge to produce ‘results’ from the program?</p>
+<p>So as to concentrate efforts, the system works in terms of certain types of pipe material. The Knowledge Base is ‘partitioned’ into these types (for the purposes of this discussion let us say brass, concrete and polyethylene). There is also a partition for ‘general’ rules, i.e., rules relevant to pipes in general and not to any specific pipe material type. Rule 3 is a general rule.</p>
+<p>New rules are entered into one of these partitions, although new partitions can easily be created.</p>
+<p>The system, given the transport medium, tries to infer everything it can from the rules it has, asking questions of the user when it “gets stuck”.</p>
+<p>As mentioned, the Knowledge Base is split into partitions, one for each type of pipe material. Given the transport medium, the system will initially try to rule-in or rule-out any of these pipe types. To do this it uses a further partition of rules called “Use-Type” rules. An example would be Rule 1, above. This example says that (given that the two conditions are <em>both</em> true then) it is possible to use a polythylene pipe. A Use-Type rule can also rule-out a pipe type (i.e. <em>not</em> Use-Type).</p>
+<p>This is a very useful feature because it means that a whole section of the Knowledge Base can be eliminated from any future processing. This saves a considerable amount of time and effort from the point of view of the system file reading and pattern matching.</p>
+<p>In the case where it is not possible to rule-in or rule-out a pipe type, the system will go ahead and assume that to use the pipe material would be reasonable.</p>
+<p>After completion of the above stage in the processing, PATTIE will continue working to try to discover as much about each pipe type that has not been ruled out. When the searching of those relevant partitions of the Knowledge Base has finished, and all possible discoveries have been made, all the items of interest (mentioned earlier) are returned to the user.</p>
+<p>Everything discovered by PATTIE comes from comparing rules in the Knowledge Base with other rules (this is detailed in a later section; the Inference Engine). When PATTIE cannot find a rule that will help to satisfy an inference being performed, as a last resort the user will be asked. All answers to queries are stored by the system in what is termed the Short Term Memory, or STM for short. Even answers where the user said NO are stored. This is on the principle that should it become necessary to ask the same question again, the STM can be checked first rather than bother the user who will not understand why the system appears to be repeating itself!</p>
+<p>Also stored in the STM are ‘intermediate’ results discovered during processing. This saves work should the system re-trace steps already covered.</p>
+<p>An important facility of PATTIE is the DON’T KNOW option. When the system has to ask the user a question there is the possibility that he will not know the answer. Therefore, to avoid the user having to give a potentially misleading piece of information to the system, he can reply DON’T KNOW to a question. The system must take this to mean a reply of NO, in that it proceeds no further with its current line of reasoning (indeed, it <em>cannot</em> proceed further) but, at the end of processing, the user is reminded of all questions which were answered in this manner, so that results can be put into perspective.</p>
+<p>Another important option offered to the user was that of having a hardcopy at the end of the session detailing everything that happened during that session. This is necessary when a VDU was being used.</p>
+<p>It is generally accepted that an Expert System should consist of the five components shown in Diagram 1. Each of these areas will now be gone into in more detail.</p>
+<p><em>Diagram 1</em></p>
+<p><img alt="Block diagram: the domain expert feeds the Knowledge Base; the user talks to the Natural Language Interface; the Inference Engine sits between them; a Knowledge Acquisition Program above and an Explanation Facility below are each linked to the Knowledge Base and the Natural Language Interface, and the Explanation Facility to the Inference Engine" src="diagram-1.png" /></p>
+<h3 id="knowledge-base">Knowledge Base<a class="headerlink" href="#knowledge-base" title="Permanent link">&para;</a></h3>
+<p>The core of the system is the Inference Engine and the Knowledge Base.</p>
+<p>The Knowledge Base contains rules about the subject domain. To infer (discover) anything, the system has to be able to compare rules with other rules. Therefore, there has to be a ‘standard’ to which these rules must conform.</p>
+<p>A rule clause takes the form:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>type — classification — associated text
+</span></code></pre></div>
+<p>Examples:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>IF   transport-medium-property  hazardous
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>AND  pipe-environment  hot
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>THEN pipe-property  lagged
+</span></code></pre></div>
+<p>Firstly, what are ‘classifications’? These could also be called ‘attributes’. Information about the domain is held with respect to these classifications. They are, if you like, a point of reference that PATTIE can use to compare a clause of one rule with another. Any new rule must be defined in terms of these classifications. A list of classifications and examples were given earlier.</p>
+<p>Secondly, what is the “associated text”? Well, the classifications are fixed, rigid entities but the details associated with a classification in a clause of a rule are “free format” (i.e. you can type in whatever you like). It is this part of each clause that will be used during the “pattern matching” comparisons of the Inference Engine.</p>
+<p>The example clauses just shown are not very ‘readable’. Therefore the idea of ‘noise’ words is used. Noise words recognised by the system are THE, A, IS and ARE. These words can be inserted into the above rule to give:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>IF a transport medium property is hazardous
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>AND the pipe environment is hot
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>THEN a pipe property is lagged
+</span></code></pre></div>
+<p>These words are ignored during any processing involving the rule.</p>
+<p>To save storage and access time the rules are stored in a compact form. Each of the ‘types’ (IF, AND, THEN, etc.) and each of the ‘classifications’ (pipe site, pipe property, etc.) are replaced by single values. Only the “associated text” needs to be stored in its full form, although even this is stripped of any unnecessary spaces. Upon retrieval of a rule from the Knowledge Base, should the rule need to be printed out, conversion to a more English-like format takes place (as shown above). Great use is made of these noise words.</p>
+<p>Also available but as yet unmentioned, is the ability to add a purely textual note to the end of a rule. This was found to be a very useful facility. An example would be:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>IF the pipe diameter is large
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>THEN the pipe fixings are concrete ballast
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>NB in this rule a protective material interface such as flux or plastic foil is required. sdd/11-83
+</span></code></pre></div>
+<p>The storage required by this rule is increased dramatically but the advantages are worth it.</p>
+<p>As stated earlier, the Knowledge Base itself is divided up into logical ‘partitions’. The first partition is for Use-Type rules (rules which suggest whether, or not, certain pipe materials can be used for the scenario in question). The second is for ‘general’ rules (rules which are common to all pipe material types). Subsequent partitions hold rules specific to pipe materials e.g., there could be a partition containing rules about polyethylene, one containing rules about concrete, one about brass, etc.</p>
+<p>The ability to group rules logically is very handy; it prevents duplication of effort and allows flexibility as well as the processing savings already stated. Unfortunately, it complicates the user view of the Knowledge Base slightly.</p>
+<h3 id="inference-engine">Inference Engine<a class="headerlink" href="#inference-engine" title="Permanent link">&para;</a></h3>
+<p>The Inference Engine, or program driver, is that part of the system which uses the knowledge held in the Knowledge Base to come up with the results which are output from the system.</p>
+<p>Once the basis of the overall system design had been specified, i.e. the clauses of the rules were defined in terms of each other so that comparisons could be made, an inferencing mechanism was required.</p>
+<p>That chosen was that of a backward-chained and/or tree; a technique used by MYCIN.</p>
+<p>As an example of how the inferencing mechanism works let us assume that we have the following rules:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>RULE A
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  IF the pipe site is not buried
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>  AND the pipe environment is hostile
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>  THEN a pipe property is lagged
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>RULE B
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>  IF a transport medium property is hot
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>  AND the pipe environment is cold
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>  THEN the pipe environment is hostile
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>RULE C
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>  IF a transport medium property is cold
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>  AND the pipe environment is hot
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>  THEN the pipe environment is hostile
+</span></code></pre></div>
+<p>The system looks at Rule A. It can say that a property of the pipe is that it should be lagged <em>if</em> the pipe is not buried <em>and</em> the environment that the pipe is in is hostile. Assuming that it has already proved that the pipe is not buried; how can it show that the environment is hostile? The answer is to look at Rule B. If it can be shown that a property of the transport medium is that it is hot <em>and</em> it can be shown that the pipe environment is cold then it can be said that the environment is hostile. Once that has been done, the system can return to Rule A and deduce that a property of the pipe is that it should be lagged. Note that there may be more than one way to prove any particular point. Rule C may be of use if Rule B is not.</p>
+<p><em>Diagram 2</em></p>
+<p><img alt="A column of ten empty boxes labelled Pipe Material, Pipe Site, Pipe Environment, Pipe Diameter, Pipe Property, Pipe Joints, Pipe Fixings, Transport Medium Material, Transport Medium Property, Transport Medium Purpose" src="diagram-2.png" /></p>
+<p>It was stated earlier that everything PATTIE discovers is stored in the STM. Also stated was the fact that everything is defined in terms of classifications. The STM can be viewed, conceptually, as shown in Diagram 2.</p>
+<p>System operation is easier to understand if viewed in this way. PATTIE is trying to find things to put into the ‘boxes’. Anything discovered is put into the STM. Each time PATTIE tries to prove anything, the STM is looked at to see if the answer is already there. If it is not, each of the other rules in the partition being scanned (and also the ‘general’ partition) is looked at to find a rule that would prove the point in question. If still unsuccessful, the user is asked to provide an answer.</p>
+<p>When all the rules in all (available) partitions have been checked then the details in the STM can be given to the user. This is achieved by scanning through the STM printing out those details.</p>
+<h3 id="natural-language-interface">Natural Language Interface<a class="headerlink" href="#natural-language-interface" title="Permanent link">&para;</a></h3>
+<p>The interface between the user and PATTIE has been made as friendly, non-technical and easy to understand as possible. The system always has the initiative; it is working on something or asking the user a question. The user is never left alone not knowing what to type in next.</p>
+<p>Due to the time constraint involved, it was only possible to implement a Question/Answer interface. All answers to questions are of the YES/NO variety. The, yet to be discussed, Explanation Facility required that the user was able to enter e.g., HOW 13 or WHY 45.3, at any stage in the processing. Therefore, each answer given had to be carefully vetted as to its validity.</p>
+<p>It is our contention that the interface between the human and the computer is the most important part of the system. Apart from the obvious — if the user cannot access the system, it will be of no use — there is the equally important point that the user must see the system as a ‘friend’ and forget that he is talking to a machine. This is of great importance especially in the case of Expert Systems when one considers exactly what they are.</p>
+<p>Apart from the answering of questions there is another input stage to the system. This occurs when the user is entering a new rule. As stated earlier, each rule has to be defined in terms of the classifications, thus there has to be quite strict checking of user input at this stage. The user is permitted to enter free text. However, the text is parsed and compared with the allowable classifications and the user informed exactly where in the text string an error occurred i.e., the system does more than just say ‘error’.</p>
+<p>One of the most striking features of the interface is that it follows the MYCIN example in that the system speaks in terms of YOU and I, e.g. the system says things such as “I have discovered that …..” and “Would you please enter …..”.</p>
+<p>As in the MYCIN example, the system repeats certain statements back to the user where there is potential ambiguity. The system knows what question it is answering but does the user know just what question he asked? It may sound daft but it happens.</p>
+<p>As mentioned earlier, the concept of noise words was introduced to make the input and output of rules and associated questions as English-like as possible.</p>
+<p>Features, such as the ability of the user to answer DON’T KNOW to a question, were considered important to implement even though the system design was complicated by this. Another feature of this type is being able to reply Y,YE,YES for YES i.e. the user can give as much of a reply as to make it unambiguous to the system.</p>
+<p>Should the user not be sure about what a question means then he need only type HELP. Since the user is always at a question help is always available. Several levels of help were provided, where and as appropriate.</p>
+<h3 id="explanation-facility">Explanation Facility<a class="headerlink" href="#explanation-facility" title="Permanent link">&para;</a></h3>
+<p>This component of the system is absolutely vital. The system <em>must</em> be able to explain itself to the user. The user must be able to ask the system questions such as “Why do you want to know that?” or “How did you reach that conclusion?”.</p>
+<p>At any stage during a session with PATTIE (either during processing or after processing has finished and the results have been returned) the user can ask the question as to WHY something was asked or HOW a conclusion was reached. All questions and conclusions output by the system are preceeded by a “statement number”. When querying something, this number is used, e.g., by typing in</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>WHY 18
+</span></code></pre></div>
+<p>the system knows that the user wants to know why question 18 was asked. The system will respond by printing back to the user what it interprets that the user wants to know (so there will be no confusion as to the question that will then be answered), followed by the line of reasoning on the point in question.</p>
+<p>As well as asking WHY the system wanted to know something (past tense), the user can ask WHY the system wants to know something (present tense). Similarly with asking HOW; HOW did you reach a conclusion (past); HOW will you try to reach a conclusion (future).</p>
+<p>It is important to note that the system can, and will, always explain itself to the user.</p>
+<p>Provision of the Explanation Facility introduced one of the most complex parts of the system. This is due to the fact that the system has been provided with the ability to look into the future to answer queries such as “How <em>will</em> you conclude that …..?”.</p>
+<p>A necessary feature of this facility is that it must be possible to obtain a complete line of reasoning, all the way back to the starting point if necessary.</p>
+<h3 id="knowledge-acquisition-facility">Knowledge Acquisition Facility<a class="headerlink" href="#knowledge-acquisition-facility" title="Permanent link">&para;</a></h3>
+<p>PATTIE operates in two modes. The first is what is called “Pipe Analysis” mode. The second is a mode of operation in which it is possible to directly update or interrogate the Knowledge Base — Knowledge Base Maintenance.</p>
+<p>Its major function is the addition of new rules to the Knowledge Base. The input format of rules has been made as ‘natural’ as possible within the constraints necessary to ensure an effective system. There is an editing and correction facility during the input of new rules to ensure that new rules are correctly input to PATTIE.</p>
+<p>To allow for tasting and “discovery through playing”, rules are never actually wiped from the Knowledge Base. When a rule is deleted it is marked as such but it remains in the system. The rule is ignored during any processing but it is available should it be required to restore it.</p>
+<h2 id="references-and-bibliography">References and Bibliography<a class="headerlink" href="#references-and-bibliography" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Knowledge-Based Systems in Artificial Intelligence — R. Davies &amp; D.B. Lenat (McGraw Hill)</li>
+<li>The C Programming Language — B.W. Kerninghan &amp; D.M. Ritchie (Prentice Hall)</li>
+<li>The UNIX System — S.R. Bourne (Addison Wesley)</li>
+<li>“Expert Systems : An Introduction for the Layman” — M.J. Winfield (Computer Bulletin (12-82))</li>
+<li>“Themes and Case Studies of Knowledge Engineering” — E.A. Feigenbaum (Expert Systems in th Microelectronic Age (1979) pp 3-25)</li>
+<li>“Knowledge Engineering for Medical Decision Making : A Review of Computer-Based Clinical Decision Aids” — Shortliffe et al (Proc. IEEE vol. 67 no. 9 (9-79)</li>
+</ol>
+<p><em>Christopher Harvey, Ph.D. Research (Knowledge-Based Systems), The University of Aston in Birmingham, 15 Coleshill Street, Birmingham B4 7PA.</em></p>
+<p>… TO BE CONTINUED IN VECTOR 4</p></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">expert systems and AI</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">applications</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

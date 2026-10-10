@@ -1,0 +1,1464 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="The author pits his wits and J against the famous WWII cipher machine">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10500460/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Simulating the Enigma - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cryptography" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Simulating the Enigma
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cryptography" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cryptography
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-enigma" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Enigma
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-enigma" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Using the Enigma
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#an-enigma-simulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        An Enigma simulator
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-enigma-simulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix. Enigma Simulator
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Simulating the Enigma</h1>
+
+  <p class="printed"><a href="../24/#n4-december-2010">Vector 24:4</a>, page 117</p>
+
+
+<p class="byline">Keith Smillie<br />
+(smillie@cs.ualberta.ca)</p>
+<p class="abstract">The Enigma was the electromechanical cipher machine used by all branches of the German armed forces during the Second World War. Enigma messages which were intercepted by the British and then deciphered at the Government Code and Cypher School at Bletchley Park provided intelligence that has been estimated to have shortened the war by one or two years. The present paper, which begins with some introductory remarks on cryptography, describes the Enigma in general terms and then gives a more detailed discussion of a somewhat simplified version and its implementation in J.</p>
+<h2 id="cryptography">Cryptography<a class="headerlink" href="#cryptography" title="Permanent link">&para;</a></h2>
+<p>Cryptography is the science and art of both concealing the meaning of a message by enciphering it according to some given algorithm and also deciphering an enciphered message to recover its original meaning. The two main ciphering methods are the <em>substitution cipher</em> in which each letter of a message is replaced by another character but retains its position in the message and the <em>transposition cipher</em> in which each letter remains unchanged but changes its position. For example the phrase <code>The University of Alberta</code> may be enciphered either by substitution to <code>UIFVOJWFSTJUZPGBMCFSUB</code> in which each letter is replaced by the letter one place ahead of it in the alphabet or by transposition to <code>NHTEUEISVRTOFYILRABEEAHTT</code> in which each group of five letters is randomly permuted. The original message is referred to as the <em>plaintext</em> and the enciphered message as the <em>ciphertext</em>. In the following we shall consider only substitution ciphers.</p>
+<p>One of the earliest examples of a substitution cipher is attributed to Julius Caesar and is therefore known as the Caesar cipher. In this cipher each letter in a message is replaced by the letter which occurs three places ahead of it in the alphabet. Therefore the cipher may be summarized as:</p>
+<dl>
+<dt>Plain alphabet</dt>
+<dd>a b c d e f g h i j k l m n o p q r s t u v w x y z</dd>
+<dt>Cipher alphabet</dt>
+<dd>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</dd>
+</dl>
+<p>The plaintext phrase <code>The University of Alberta</code> of the previous paragraph when enciphered in this manner becomes <code>WKHXQLYHUVLWBRIDOEHUWD</code>. The shift need not be limited to 3 places, and may be any value between 1 and 26 where a shift of 26 leaves the message unchanged. The example of the substitution cipher in the previous paragraph is a Caesar cipher with a shift of 1.</p>
+<p>Caesar ciphers are relatively easy to break since there are only 26 of them and each may be tried in turn on a portion of the enciphered message until the correct one is found and then applied to the entire message. If there is a sufficiently long message a frequency analysis of the text may assist in the decipherment making use of the relative frequencies of the letters in English text with <code>e</code> being the most common letter, followed by <code>t</code>, then <code>a</code>, and so on. (Also an analysis of the frequency of the 26 × 26 pairs of letters can be very helpful since, for example, certain pairs such as <code>qq</code> and <code>zz</code> never occur and other pairs occur usually in one order but not the other.) A considerably more complicated substitution cipher is obtained by using a random permutation of the cipher alphabet so that, for example, each letter of the plaintext in the first row would be enciphered by the letter below it in the second row in the following table:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>a b c d e f g h i j k l m n o p q r s t u v w x y z
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>I O H C F P T V M G D A Z J Y U W K X R L N Q S B E
+</span></code></pre></div>
+<p>Even though the total number of such ciphers is 26!, which is equal to</p>
+<p>403,291,461,126,605,635,584,000,000</p>
+<p>such ciphers can still be broken by frequency analysis.</p>
+<p>The Caesar ciphers of the previous paragraph are known as <em>monoalphabetic</em> substitution ciphers since only one cipher alphabet is used in a given message. However it is possible to define <em>polyalphabetic</em> substitution ciphers in which more than one cipher alphabet is used in a message according to a rule called the <em>key</em> which indicates which cipher alphabet is applied to each letter. The best known of these polyalphabetic ciphers is the Vigenère cipher named after the 16th-century French diplomat Blaise de Vigenère who further developed and promoted a method of encipherment which had been suggested during the previous century by the Italian architect Leon Alberti. In the Vigenère cipher there are 26 cipher alphabets corresponding to Caesar shift alphabets with shifts of 1, 2, …, 26 letters. These may be conveniently arranged as shown in part in the table labelled “Vigenère Square” below.</p>
+<p>As an example of the use of the Vigenère cipher let us again encipher the phrase <code>The University of Alberta</code> using as a key the word <code>VECTOR</code>. Write the plaintext with the keyword above it and repeated sufficiently often so that each letter of the plaintext has an associated keyword letter:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>V E C T O R V E C T O R V E C T O R V E C T
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>t h e u n i v e r s i t y o f a l b e r t a
+</span></code></pre></div>
+<p>To encipher the first letter <code>t</code> of the plaintext find the letter <code>V</code> of the keyword appearing above it and then select from the column headed <code>t</code> the letter <code>O</code> which appears below it in the row labelled with a <code>V</code> on the left. The second letter <code>h</code> of the plaintext is enciphered with <code>L</code> which appears below it in the row which begins with <code>E</code>. Similarly the third letter <code>e</code> of the plaintext is enciphered with <code>G</code> which appears below it in the row which begins with <code>C</code>. Continuing in this manner – if we had the complete Vigenère square - we may determine that the ciphertext is<br />
+<code>OLGNBZQITLWKTSHTZSZVVT</code>.</p>
+<table class="left">
+        <caption>Vigenère square</caption>
+        <tbody valign="bottom">
+            <tr><td> </td><td class="code">abcdefghijklmnopqrstuvwxyz</td></tr>
+            <tr><td>A</td><td class="code">ABCDEFGHIJKLMNOPQRSTUVWXYZ</td></tr>
+            <tr><td>B</td><td class="code">BCDEFGHIJKLMNOPQRSTUVWXYZA</td></tr>
+            <tr><td>C</td><td class="code">CDEFGHIJKLMNOPQRSTUVWXYZAB</td></tr>
+            <tr><td>D</td><td class="code">DEFGHIJKLMNOPQRSTUVWXYZABC</td></tr>
+            <tr><td>E</td><td class="code">EFGHIJKLMNOPQRSTUVWXYZABCD</td></tr>
+            <tr><td>F</td><td class="code">FGHIJKLMNOPQRSTUVWXYZABCDE</td></tr>
+            <tr><td>G</td><td class="code">GHIJKLMNOPQRSTUVWXYZABCDEF</td></tr>
+            <tr><td>H</td><td class="code">HIJKLMNOPQRSTUVWXYZABCDEFG</td></tr>
+            <tr><td>…</td></tr>
+            <tr><td>T</td><td class="code">TUVWXYZABCDEFGHIJKLMNOPQRS</td></tr>
+            <tr><td>U</td><td class="code">UVWXYZABCDEFGHIJKLMNOPQRST</td></tr>
+            <tr><td>V</td><td class="code">VWXYZABCDEFGHIJKLMNOPQRSTU</td></tr>
+            <tr><td>W</td><td class="code">WXYZABCDEFGHIJKLMNOPQRSTUV</td></tr>
+            <tr><td>X</td><td class="code">XYZABCDEFGHIJKLMNOPQRSTUVW</td></tr>
+            <tr><td>Y</td><td class="code">YZABCDEFGHIJKLMNOPQRSTUVWX</td></tr>
+            <tr><td>Z</td><td class="code">ZABCDEFGHIJKLMNOPQRSTUVWXY</td></tr>
+        </tbody>
+    </table>
+
+<p>The Vigenère cipher is equivalent to enciphering text with a several Caesar ciphers with different shifts applied in an orderly manner by use of a given keyword which may be selected from an almost infinite number of keywords. For many years the Vigenère cipher was considered unbreakable, and indeed was known as <em>le chiffre indéchiffrable</em>. However, a method of breaking it was found in the middle of the 19th century independently by Charles Babbage, honoured in the history of computing as the “father of computing” for his Difference and Analytical Engines, and by Friedrich Wilhelm Kasiski, a retired Prussian army officer. At the end of the First World War an American Army officer proposed a method of making the Vigenère cipher unbreakable by having for each message a random key as long as the message. However these “onetime pad” ciphers, as they were called, never became popular due to the problems of generating and distributing in a secure manner the random keys.</p>
+<p>The first attempts to mechanize enciphering and deciphering were made in the fifteenth century by Leon Alberti who was mentioned above as the originator of the Vigenère cipher. He had two copper disks, one slightly larger than the other and mounted concentrically, each with the alphabet inscribed about its circumference. By rotating the disks so that, for example, <code>A</code> on the outer disc was opposite <code>D</code> on the inner disk, the alignment of the letters would facilitate the enciphering or deciphering of a message with a Caesar shift of 3. These cipher disks remained in use as late as the American Civil War, and indeed well into the 20th century as a children’s toy. The next development in the mechanization of cryptography is the Enigma which we will discuss in the next section.</p>
+<h2 id="the-enigma">The Enigma<a class="headerlink" href="#the-enigma" title="Permanent link">&para;</a></h2>
+<p>The Enigma was designed and built by the German engineer Arthur Scherbius and was intended as a simple method of mechanically enciphering and deciphering messages with a very large number of polyalphabetic substitution ciphers. He took out his first patent in 1918 for a machine about the size and weight of a typewriter which cost approximatelyt $30,000 at today’s prices. Although it was promoted widely – for example, it was shown at the 1923 Congress of the International Postal Union in Bern, Switzerland – it initially attracted little interest because of the cost and the belief that the degree of security it offered was unnecessary. However in the mid-1920s the German military became interested and Scherbius started mass producing Enigmas and eventually supplied over 30,000 machines to the German armed services.</p>
+<p>The Enigma consisted of three parts: a typewriter keyboard for input, a ‘scrambler’ mechanism for applying a continually changing polyalphabetic cipher to each letter of the message, and for output a set of 26 lamps marked with the letters of the alphabet indicating the encipherment of each letter as it was input. The enciphered message was written down on paper and then transmitted either by telegraph or wireless to the intended recipient who would then use his Enigma which would be configured in the same way as was the sender’s Enigma to decipher the message.</p>
+<p>The main part of the scrambler was a set of three rotating discs or <em>rotors</em> about 4 inches in diameter and mounted in the machine on a removable axle, Each rotor had a circle of 26 electrical contacts near the edge of each face with the contacts on one face being connected to those on the other face in a random order. Different random connections were used for each of the rotors. Depressing any key on the input typewriter would send an electrical current first to one of 26 contacts on a fixed input disc to the right of the three rotors. (The keyboard was connected to the fixed disc in simple alphabetical order with A on the keyboard connected to the first position on the disc, B to the second position, and so on.) The current would then pass to a contact on the right face of the right-hand rotor and then to the randomly connected contact on the left face of the rotor, through contacts on the right and left faces of the middle rotor, and then through the right and left faces of the left-hand rotor. From the left-hand face of the left rotor the current would pass through a fixed ‘reflector’ disc with contacts on its right face only which would effect a fixed interchange of pairs of letters. The current would then flow back through the three rotors in a left-to-right order, again through the fixed disc on the right, and finally to one of the 26 lamps which would display the encipherment of the letter which had been input.</p>
+<p>The encipherment of each letter would involve a total of seven distinct polyalphabetic substitutions. However the Enigma was designed to change this encipherment from letter to letter by having the right-hand rotor advance to the next of its 26 possible positions at the input of each letter and before the electrical contact was made to the fixed input disc. When the input of 26 letters of a message had caused the right-hand rotor to make a complete revolution, a carry mechanism would cause the middle rotor to advance one position. After another complete revolution of the right-hand rotor the middle rotor would be advanced another position, and so on until it would have made a complete revolution at which time the left rotor would be advanced by one position. Thus the three rotors may be considered to function as a base-26 odometer. The introduction of the reflector had two important consequences: A letter could never be enciphered into itself, and an enciphered message could be deciphered by entering it into an Enigma with the same initial settings as the machine which enciphered the message.</p>
+<p>Each of the rotors had a ring attached to the outside and labelled around the circumference, usually with the letters A to Z, which could be turned to any one of 26 positions. Furthermore each ring had a small carry notch which would engage the rotor to the left and make it advance one position. Although the ring setting of a rotor did not effect the total number of scramblings, it did effect the letter-by-letter substitutions and the point in the revolution of a rotor when the rotor to its left was advanced.</p>
+<p>In addition to the rotors a further scrambling was introduced by a stationary plugboard which through a set of cables allowed pairs of letters to be imterchanged. Usually there were 10 sets of cables which thus allowed the swapping of 10 pairs of letters. The plugboard was connected both to the keyboard and to the output lamps so that the pairwise swapping of the letters took place both before it entered the fixed input disc and after it had been scrambled by passing through the rotors, the reflector disc and through the rotors a second time.</p>
+<p>The Enigma initially had only three rotors which of course could be inserted in any one of six possible orders. In the late 1930s the Enigma versions used by the German Army and Air Force were issued with five rotors, labelled I, II, III, IV and V, three of which were selected for a given Enigma setting. The Naval version had three additional rotors labelled VI, VII and VIII, and some versions could accommodate four of these eight rotors.</p>
+<p>It is of interest to calculate the total number of possible substitution ciphers made possible by the scrambling mechanism. If we assume that there are five rotors, then the three rotors may be selected and installed in 6 × 5 × 4 or 60 possible ways. For each of these rotor orders the total number of substitutions is 26 × 26 × 26 or 17,576. To calculate the number of substitutions provided by the plugboard we note that the number of ways of choosing m pairs out of n objects is n!/((n-2m)!m!2<sup>m</sup>). If we assume there were 10 cables that could be connected, then m=10 and since n=26, this expression becomes 26!/(6!10!2<sup>10</sup>), which may be calculated in J in extended precision as</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>   x: (!26) % (!6) * (!10) * 2^10
+</span></code></pre></div>
+<p>and has the value 150,738,274,937,250. Therefore the total number of substitutions available with the Enigma is given by</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>   60 * 17576 * x: (!26) % (!6) * (!10) * 2^10
+</span></code></pre></div>
+<p>which is equal to 158,962,555,217,826,360,000.</p>
+<p>or approximately 159 million million million. Obviously some form of frequency analysis together with any knowledge of the possible content of the message or the writing style of the sender is the only possible method of breaking such a cipher.</p>
+<h2 id="using-the-enigma">Using the Enigma<a class="headerlink" href="#using-the-enigma" title="Permanent link">&para;</a></h2>
+<p>When using the Enigma the Germans drew up monthly setting sheets which specified for each 24-hour period all of the Enigma settings except the initial rotor positions, i.e., the selection of three rotors out of the five, their ring settings and order in the machine, and the 10 pairs of plugboard connections. A person sending a message would first set up his machine according to the settings for that day and then proceed as follows:</p>
+<ol>
+<li>Select a three-letter <em>indicator</em> giving the rotor positions to be used to encipher the initial rotor positions or <em>message key</em> to be used when enciphering the message.</li>
+<li>Turn the rotors to the indicator position and type the message key twice writing down the enciphered letters shown on the lamps.</li>
+<li>Turn the rotors to the message key letters and type the message writing down the encipherment of each letter.</li>
+<li>Give the enciphered message together with the indicator and the twice-enciphered message key to the radio operator for transmission.</li>
+</ol>
+<p>The recipient of the message would proceed as follows:</p>
+<ol>
+<li>Set up his Enigma according to the daily settings.</li>
+<li>Turn the rotors to the indicator position which he would have received unenciphered.</li>
+<li>Type in the next six letters of the message which would give the repeated message key.</li>
+<li>Turn the rotors to the message key and type and decipher the message.</li>
+</ol>
+<h2 id="an-enigma-simulator">An Enigma simulator<a class="headerlink" href="#an-enigma-simulator" title="Permanent link">&para;</a></h2>
+<p>In this section we shall give a simulation in J of the simplified Enigma machine given in Simon Singh’s <em>The Code Book</em> with the following properties: The alphabet is limited to the letters A, B, C, D, E and F; the plugboard allows the interchange of only one pair of letters; the rotatable ring with the carry notch determining when the rotor adjacent to it would rotate one position is omitted; and the rotor or rotors advance one position after (not before) a letter has been entered at the keyboard and has been enciphered. However, whereas Singh’s example has the current passing through the rotors first from left to right and then through the reflector and back through the rotors from right to left, our simulation will adhere to the conventional order given in most accounts of the Enigma. The substitutions may be defined as follows:</p>
+<table class="left">
+        <tbody valign="bottom">
+            <tr><td>Rotor   1</td><td class="code">a → B; b → A; c → D; d → F; e → E; f → C</td></tr>
+            <tr><td>Rotor   2</td><td class="code">a → C; b → A; c → D; d → B; e → F; f → E</td></tr>
+            <tr><td>Rotor   3</td><td class="code">a → F; b → C; c → E; d → D; e → B; f → A</td></tr>
+            <tr><td>Reflector</td><td class="code">a → F; b → C; c → B; d → E; e → D; f → A</td></tr>
+            <tr><td>Plugboard</td><td class="code">a → B; b → A; c → C; d → D; e → E; f → F</td></tr>
+        </tbody>
+    </table>
+
+<p>We may note in passing that the number of substitution ciphers for this simplified Enigma is the product of the 3! or 6 permutations of the rotors, the 6 × 6 × 6 or 216 relative positions of the rotors for each of these permutations, and the 15 substitutions for the plugboard, or in total 6 × 216 × 15 or 19,440 substitutions. If we follow and extend Singh’s discussion of the substitutions given by the first rotor as it rotates for each keystroke, we may draw up the following table giving the cipher alphabet for each position of the rotor:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>  0 1 2 3 4 5 6 7 …
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>a B D A C B F B D …
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>b A C E B D C A C …
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>c D B D F C E D B …
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>d F E C E A D F E …
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>e E A F D F B E A …
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>f C F B A E A C F …
+</span></code></pre></div>
+<p>This simplified Enigma may be defined in J by the following variables:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ALPHA=: 'ABCDEF'                              NB. alphabet
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>I=: 'BADFEC'; II=: 'CADBFE';  III=: 'FCEDBA'  NB. rotors
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Reflector=: 'FCBEDA'                          NB. reflector
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>Plugboard=: 'BACDEF'                          NB. plugboard
+</span></code></pre></div>
+<p>If we keep track of the typewriter keystrokes by the variable <code>Counter</code>, then the amount of rotation of each of the rotors is given by</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>  'S2 S1 S0'=: 6 6 6#:Counter
+</span></code></pre></div>
+<p>and, for example, if <code>Counter=: 20</code> then we have that <code>S0</code> is 2, <code>S1</code> is 3 and <code>S2</code> is 0, indicating that the right rotor has moved 2 positions, the middle rotor 3 positions, and the left rotor has remained stationary. The values of <code>S0</code>, <code>S1</code> and <code>S2</code>, which are the digits in the base-6 representation of the decimal value of <code>Counter</code>, may be used to determine the substitutions effected by the various positions of the rotors. For example, the third column in the above table giving the substitutions for rotor I is given by</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>   ((_2|.ALPHA) i. _2|.I) { ALPHA
+</span></code></pre></div>
+<p>which is equal to <code>AEDCFB</code> representing the substitutions</p>
+<p>a → A; b → E; c → D; d → C; e → F; f → B</p>
+<p>All of the above substitutions are those given by the current passing through the rotors in a right-to-left direction before passing through the reflector. The second set of substitutions with the current passing through the rotors from left to right may be found in a similar manner, and using the example for rotor I we have</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>   ((_2|.I) i. _2|.ALPHA) { ALPHA
+</span></code></pre></div>
+<p>which is equal to <code>AFDCBE</code> which represents the substitutions</p>
+<p>a→ A; b → F; c → D; d → C; e → B; f → E</p>
+<p>The Appendix gives a J program in Version 4.06b for a simulation of the simplified Enigma machine based on these considerations. The following is a simple example of its use:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>   InstallRotors 3 2 1
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>   SetRotors 'CFD'
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>   m=:enigma 'ABCDEFABVC'
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>   m
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a> BEAAAABC_F
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>   SetRotors 'CFD'
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>   enigma m
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a> ABCDEFAB_C
+</span></code></pre></div>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Budinsky, Stephen <em>Battle of Wits: The Complete Story of Codebreaking in World War II.</em> The Free Press, New York, 2000</li>
+<li>Hodges, Andrew <em>Alan Turing: The Enigma of Intelligence.</em> Unwin Paperbacks, London, 1985.</li>
+<li>Kahn, David <em>Seizing the Enigma: The Race to Break the German U-Boat Codes 1939–1943.</em> Barnes &amp; Noble, Inc., New York, 2009.</li>
+<li>Sale, Tony <em>The Enigma Cipher Machine.</em> 2009<br />
+<a href="http://www.codesandciphers.org.uk/enigma">http://www.codesandciphers.org.uk/enigma</a></li>
+<li>Singh, Simon <em>The Code Book: The Science of Secrecy from Ancient Egypt to Quantum Crytptography</em> Anchor Books, New York, 2000.</li>
+</ol>
+<h2 id="appendix-enigma-simulator">Appendix. Enigma Simulator<a class="headerlink" href="#appendix-enigma-simulator" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>NB.   Enigma Simulator
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>NB.   Keith Smillie
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>NB.   Department of Computing Science
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>NB.   University of Alberta
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>NB.   Edmonton, Alberta T6G 2E8
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>NB.   January 2010
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>NB.
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>NB. This program gives a simulation of a simplified model of the
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>NB. Enigma cipher machine used by the German armed forces during
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>NB. World War II. The version is very similar to that given in "The
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>NB. Code Book" by Simon Singh (Anchor Books, New York, 2000).
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>NB. The allowable characters are given in the list ALPHA. Blanks
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>NB. may be used and are not enciphered, and all other characters
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>NB. are enciphered as underscores "_".
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>NB.
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>NB. The following dialogue gives a simple example of its use:
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>NB.   NB. Install rotors in specified order
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>NB.      InstallRotors 3 2 1
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>NB.   NB. Set rotors to given key
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>NB.      SetRotors 'BCA'
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>NB.   NB. Encipher message
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>NB.      x=: enigma 'ABCDEFAC'
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>NB.   NB. Display message
+</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>NB.      x
+</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>NB.   BCABBAE_E
+</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a>NB.   NB. Reset rotors
+</span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a>NB.      SetRotors 'BCA'
+</span><span id="__span-10-28"><a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a>NB.   NB. Decipher message
+</span><span id="__span-10-29"><a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>NB.      enigma x
+</span><span id="__span-10-30"><a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a>NB.   ABCDEFA_C
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ALPHA=: 'ABCDEF'
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>I=: 'BADFEC'
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>II=: 'CADBFE'
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>III=: 'FCEDBA'
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>Discs=: I;II;III
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>Reflector=: 'FCBEDA'
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>Plugboard=: 'BACDEF'
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>InstallRotors=: 3 : 0
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>Rotors=: (&lt;:y.) { Discs
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>Counter=: 0
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>empty ''
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>)
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>SetRotors=: 3 : 0
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>empty
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>Counter=: (3$#ALPHA)#.|.ALPHA&amp;i. y.
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>)
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>rotate1=: 3 : 0
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>:
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>((x.|.ALPHA) i. x.|.y.) { ALPHA
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>)
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>rotate2=: 3 : 0
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>:
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>((x.|.y.) i. x.|.ALPHA) { ALPHA
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>)
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>Encipher=: 3 : 0
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>:
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>(ALPHA i. y.) { x.
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>)
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>enigma=: 3 : 0
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>'Left Middle Right'=: Rotors
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>PlainText=: y.
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>CipherText=: i. 0
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>while. 0 &lt; $PlainText do.
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>'S2 S1 S0'=: -(3$#ALPHA)#:Counter
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>c=:
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>{. PlainText
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>if.
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>-. c e. ALPHA,' ' do.
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>c=:
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>'_'
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>elseif.
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>c e. ALPHA do.
+</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>c=: Plugboard Encipher c
+</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>c=: (S0 rotate1 Right) Encipher c
+</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a>c=: (S1 rotate1 Middle) Encipher c
+</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a>c=: (S2 rotate1 Left) Encipher c
+</span><span id="__span-17-19"><a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a>c=: Reflector Encipher c
+</span><span id="__span-17-20"><a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a>c=: (S2 rotate2 Left) Encipher c
+</span><span id="__span-17-21"><a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a>c=: (S1 rotate2 Middle) Encipher c
+</span><span id="__span-17-22"><a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a>c=: (S0 rotate2 Right) Encipher c
+</span><span id="__span-17-23"><a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a>c=: Plugboard Encipher c
+</span><span id="__span-17-24"><a id="__codelineno-17-24" name="__codelineno-17-24" href="#__codelineno-17-24"></a>end.
+</span><span id="__span-17-25"><a id="__codelineno-17-25" name="__codelineno-17-25" href="#__codelineno-17-25"></a>CipherText=: CipherText, c
+</span><span id="__span-17-26"><a id="__codelineno-17-26" name="__codelineno-17-26" href="#__codelineno-17-26"></a>PlainText=: }. PlainText
+</span><span id="__span-17-27"><a id="__codelineno-17-27" name="__codelineno-17-27" href="#__codelineno-17-27"></a>Counter=: &gt;:Counter
+</span><span id="__span-17-28"><a id="__codelineno-17-28" name="__codelineno-17-28" href="#__codelineno-17-28"></a>end.
+</span><span id="__span-17-29"><a id="__codelineno-17-29" name="__codelineno-17-29" href="#__codelineno-17-29"></a>CipherText &lt;
+</span><span id="__span-17-30"><a id="__codelineno-17-30" name="__codelineno-17-30" href="#__codelineno-17-30"></a>)
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

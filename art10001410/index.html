@@ -1,0 +1,1341 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10001410/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Memory Mapped Files in J - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#win32-memory-management" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Memory Mapped Files in J
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#win32-memory-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Win32 Memory Management
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Process Memory
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        File References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#physical-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Physical Memory
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-mapped-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Memory-Mapped Files
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-mapping-in-j" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Memory Mapping in J
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#housekeeping" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Housekeeping
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#j-noun" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        J Noun
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Memory Mapped Files in J</h1>
+
+  <p class="printed"><a href="../15/#n4-april-1999">Vector 15:4</a>, page 87</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-implementations">implementations</a> <a class="md-tag" href="../tags/#tag-data-and-files">data and files</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../15/4/VOL.15-NO.4-APRIL-1999.pdf#page=89">Read it in the PDF of the issue, page 87</a></em></p>
+<p class="byline"><em>by Chris Burke</em></p>
+<p>J 4.02 supports memory-mapped files. A memory-mapped file can be associated with a J noun — referencing the noun is equivalent to reading the file; changing the noun’s value changes the file.</p>
+<p>Some benefits:</p>
+<ul>
+<li>There is no need for explicit file i/o operations.</li>
+<li>Memory-mapped files can be much larger than system RAM, yet they can be accessed without page thrashing.</li>
+<li>Accessing memory-mapped files is very efficient, and faster than a normal file read.</li>
+<li>A file can be memory-mapped by two processes on the same machine, allowing them to share data.</li>
+</ul>
+<p>For example, a demo of memory-mapped files we have given at conferences and presentations uses a CD-ROM that the New York Stock Exchange distributes each month with detailed trade and quote information. J nouns are mapped to 7 files with a combined size of 650MB, and these nouns can be used just like any other J noun. Talk about big arrays!</p>
+<p>Memory-mapped files are an essential part of Windows 95/98 and NT (Win32), where they are used to implement virtual memory management. Thus, the new facility in J just hooks into code that is already part of the operating system.</p>
+<p>This note will give an overview of memory-mapped files, and how they are defined in J. The basic ideas are pretty simple, though undoubtedly the underlying Win32 code is complex.</p>
+<h2 id="win32-memory-management">Win32 Memory Management<a class="headerlink" href="#win32-memory-management" title="Permanent link">&para;</a></h2>
+<p>To understand memory-mapped files, we first need a basic understanding of how memory is organized in Win32. In particular, when a process such as J references a particular memory location, how is that reference translated into a reference to physical memory?</p>
+<p>It turns out that the translation is done in two steps — the memory reference is first translated into a file reference (i.e. a file storage location on the hard disk), and from then into a physical memory reference. Let’s look at the steps in turn.</p>
+<p>Note: in the following discussion, the term "memory reference", while singular, will typically refer to a block of memory. For example, if you read a single byte from a file, Win32 in fact will read in the block containing this byte. Typically, the minimum size block Win32 works with is a page, which is a block of 4KB.</p>
+<h2 id="process-memory">Process Memory<a class="headerlink" href="#process-memory" title="Permanent link">&para;</a></h2>
+<p>When a process such as J is started, it is allocated a private <em>virtual address space</em> (VAS) of 4GB (2^32). All memory references for a process are made within its VAS. The VAS is the working memory for the process, as well as the only way by which the process can communicate with the outside world.</p>
+<p>In theory, a process can use any 4-byte integer as a memory pointer, though in practice, Win32 imposes some restrictions on what may be used. For example, Win NT disallows write access to memory used by system DLLs; Win 95/98 does not, and hence is less stable.</p>
+<p>The VAS is <em>private</em> in that a process may not access another process’s VAS; moreover, if process A references memory location X, and process B also references memory location X, typically the values will be different.</p>
+<p>The VAS is <em>virtual</em> in that the memory locations do not correspond directly with physical storage. A simple consequence is that the process itself knows nothing about where the physical data resides on the machine, and hence has no direct control over physical memory. As a user you may be aware that your machine has so many bytes RAM (and cache), and hard drive — but the process knows only about the VAS it has been allocated.</p>
+<p>Initially, the VAS is empty — if the process tries to access an arbitrary memory address this will likely result in an access violation. A process can only use memory addresses that are in use and therefore valid, and Win32 keeps track of these memory addresses. The process itself can allocate memory in the VAS, and Win32 also allocates some addresses on behalf the process.</p>
+<p>For example, Win32 allocates memory addresses for the executables (J.EXE) and any related files (J.DLL), plus the Windows system DLLs. Note that the VAS needs to have these addresses in order that the process can uses the files.</p>
+<h2 id="file-references">File References<a class="headerlink" href="#file-references" title="Permanent link">&para;</a></h2>
+<p>Now we get to the really interesting part — Win32 associates <em>all</em> valid memory addresses in a VAS with file storage. Vice versa, when a process needs to access a file, then, if not already done so, Win32 first allocates a memory address in the VAS for that file.</p>
+<p>In the case of files such as J.EXE, there is an obvious association — the memory address Win32 allocates for J.EXE is associated with the J.EXE file itself, and the same is true for the Windows system DLLs. But what about when a process itself allocates memory?</p>
+<p>It turns out that Win32 maintains a file on the hard disk called the <em>paging file</em>. When a process allocates memory, a equal amount of space is allocated in the paging file, and the memory-address in the VAS is associated with the address of the corresponding space in the paging file.</p>
+<p>Therefore, we now have the first part of the memory address translation — when a process references a valid memory address, Win32 simply looks up the corresponding file address.</p>
+<h2 id="physical-memory">Physical Memory<a class="headerlink" href="#physical-memory" title="Permanent link">&para;</a></h2>
+<p>Physical memory comes in various flavours: on-chip cache, off-chip cache, and system memory. As far as we are concerned, all this memory is treated the same. Also, just as for a VAS, Win32 associates each page of physical memory in use with a file reference.</p>
+<p>This gives us the second part of the memory address translation — after the file reference is determined, Win32 simply looks to see if there is a corresponding physical memory address. If so, it is used; if not (i.e. the file reference is not currently associated with physical memory), Win32 creates the association. If necessary, Win32 makes RAM available for the new association by deleting existing associations (and first updating the file system if the RAM contents have changed).</p>
+<p>In summary:</p>
+<ul>
+<li>Each process has its own virtual memory address space (VAS).</li>
+<li>All used memory in the VAS is associated with file storage.</li>
+<li>All used physical memory is also associated with file storage.</li>
+<li>When a process references memory in its VAS, Win32 translates this to a file reference, then translates this to a physical memory reference, creating the association if required.</li>
+</ul>
+<h2 id="memory-mapped-files">Memory-Mapped Files<a class="headerlink" href="#memory-mapped-files" title="Permanent link">&para;</a></h2>
+<p>The mapping between VAS memory addresses and file references is known as <em>memory mapping</em>.</p>
+<p>A memory-mapped file is simply a file for which there is an associated memory reference in some process’s VAS. Thus after J is loaded, the files J.EXE and J.DLL, as well as the Windows system DLLs are all memory-mapped files.</p>
+<p>Now suppose you read a file in J, for example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>dat=: fread 'profile.ijs'
+</span></code></pre></div>
+<p>In order for the file to be read, Win32 must first associate the file with a memory address in the VAS. The "file read" then becomes a memory copy, starting from that memory address.</p>
+<p>The result of the read is assigned to a variable <code>dat</code>. This variable in turn must be stored in the VAS, and hence must have a file reference associated with it (in the page file).</p>
+<p>Thus, in this example, two memory-mappings have been used — one for the file <code>profile.ijs</code>, and one for the variable <code>dat</code> in the paging file.</p>
+<p>Note that the contents of <code>profile.ijs</code> were physically copied from the hard disk to RAM. Also, if at some later stage Win32 needs to page out this part of RAM, then the contents will again be copied, this time to the paging file.</p>
+<h2 id="memory-mapping-in-j">Memory Mapping in J<a class="headerlink" href="#memory-mapping-in-j" title="Permanent link">&para;</a></h2>
+<p>Now we come to the crux of the matter.</p>
+<p>We can simplify this process — instead of doing the file read, we can have Win32 simply memory-map the file, i.e. associate the file with a memory address in the VAS, and we can then create a J name <code>dat</code> which points to that memory address. As far as J is concerned, this would have essentially the same affect as before — the variable dat would point to a file location representing the contents of the file. In the first case, the file reference for this data is in the Win32 paging file and the actual data in RAM or in the paging file; in the second case, the file reference is the actual file reference for <code>profile.ijs</code> and the data remains on file.</p>
+<p>This second method explicitly creates a memory-mapped file in J.</p>
+<p>Clearly, the second method is more efficient than the first, since no actual data is copied.</p>
+<h2 id="housekeeping">Housekeeping<a class="headerlink" href="#housekeeping" title="Permanent link">&para;</a></h2>
+<p>Quite a bit of housekeeping is needed to make all this work.</p>
+<p>First, the Win32 API provides functions for explicitly mapping a file to a memory address in the VAS. These are not discussed here — instead see the lab <em>Mapped Files</em>.</p>
+<p>But we also need some way of creating a J noun (here <code>dat</code>), whose data address is the memory address of the file in the VAS. To allow this, changes were made for J402.</p>
+<h2 id="j-noun">J Noun<a class="headerlink" href="#j-noun" title="Permanent link">&para;</a></h2>
+<p>A J noun has the following parts:</p>
+<ul>
+<li>a <em>header</em>, that gives the type, rank, shape, address of the data, and other information</li>
+<li>the <em>data</em> itself</li>
+<li>a <em>locale entry</em> (symbol table entry) to address the header.</li>
+</ul>
+<p>In versions of J prior to J402, the header and data were always stored in contiguous memory, but in J402, the header and data can be stored in separate locations. Also, J402 has utilities that allow you to create a noun’s header and locale entry. This now gives us the ability to associate a name with a memory-mapped file:</p>
+<ul>
+<li>First use the Win32 API facilities to memory-map a file, returning the file’s VAS memory address.</li>
+<li>Then use utilities provided in J402 to create a noun’s header and corresponding locale entry. The address of the data in the header is the VAS address for the memory-mapped file.</li>
+</ul>
+<p>After this is done, the noun appears just like any other noun in J.</p>
+<p>When you create the new noun, you also specify the datatype. A character datatype will work for any file, but you can also specify any other datatype if the file is in the right format, for example, a file of integer data should have 4 bytes per element, with the value for each n being <code>|. (4#256) #: n</code>. Similarly, you can specify the shape of the data.</p>
+<p>The above describes a file which only contains data, but you can also memory-map a file which contains both a header and data. In this case the file is self-describing and you need only specify the filename.</p>
+<p>For detailed information on the J implementation, and an example of a large memory-mapped database , see the labs <em>Mapped Files</em>, and <em>Mapped Files Database</em>.</p></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">implementations</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">data and files</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1233 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10005220/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Arithmetic Boundary Checking - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        <a href="#__skip" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Arithmetic Boundary Checking
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Arithmetic Boundary Checking</h1>
+
+  <p class="printed"><a href="../21/#n2-february-2005">Vector 21:2</a>, page 119</p>
+
+
+<p class="byline">Steve Mansour</p>
+<p>The text of this article is not yet online.</p>
+<p><a href="../21/2/VOL.21-NO.2-SPRING-2005.pdf#page=121">Read it in the PDF of the issue, page 119</a></p>
+<details class="ocr">
+<summary>Unedited OCR text, machine-read from the scan: it contains errors, and its APL is wrong. Shown for searching; read the PDF.</summary>
+<p>VECTOR Vol.21 No.2</p>
+<p>Arithmetic Boundary Checking by Stephen M. Mansour (steve@carlislegroup.com)</p>
+<p>Abstract A point partitionsa line into three disjoint subsets: the set of pointstoits left, the pointitself and theset of points to its right. Relational functions produce two results 0 and 1, effectively partitioning a line into only two subsets. A technique, knownasarithmetic boundary checking,uses arithmetic functions instead of relational and Boolean functions to determine wherea pointlies in a line or a plane.</p>
+<p>Relational Functions Relational functions ask the question: is the statementtrue or false? If the statement a&lt;w is true, we have all the information we need, but ifit is false, we don t know whether aw or a&gt;w. To get a complete picture, we need to perform a secondtest. The dynamic function bp performstwotests to produce a Boolean pair?:</p>
+<p>bp+{&gt;{a&lt;w)(a&gt;u)} a Boolean pair (2-vector) 234% bp 3 A acaert 0 9 a=u+r0 0 9 arwtrO 1 100 oo41</p>
+<p>While this preserves information, there are twoproblems.First, it seems somewhatredundantto do two similar comparisons, and second, we wouldlike a scalar result because it will allow us to work more easily with arrays of data.</p>
+<p>Signum Difference The signum function (x) naturally partitionsa line into three disjoint subsets, by producingthree results (-1, 0, 1). We can apply signum to the difference between a value and the boundary pointto producethe signumdifference, which asks a morespecific question,i.e. whatis the relationship between « and w?</p>
+<p>1 Note: all APL expressions assume D50+0 and DME+3</p>
+<p>119</p>
+<p>VECTOR Vol.21 No.2</p>
+<p>xd+{xa-w} A Signum difference 234 xd 3 A acute 1 © ature) © arweot 1041</p>
+<p>Notice that bp producesthe two-bit binary representation of the ones complement of the result of xd. Alternatively, we could produce the sameresult as that of xd by subtracting theleft bit from the right bit of the ones complementin the function bd listed below:</p>
+<p>bd+{(a&gt;ua)-(a&lt;w)} A Boolean difference 234 bd 3 A asus" d © aewt0 © arwt&gt;t hoa However, a performancetest in Dyalog Version 10 showsthat xd runs significantly faster than bd:</p>
+<p>U+1E74x500000-7100p1E6 V+1E74x500000-7100p1E6 cmpx U xd V' 'U bd V' Uxd V 2.2675 0% QOOOOOOO00000000000ooo U bd Vv 3.6675 +52% OOo</p>
+<p>Intervals An intervalis indicated by two distinct points on the real line. The interval includes the interior and may include one or both of the end-points. An intervalis openif it excludes the end-points; closedif it includes both of them, and half-open if it includes only one of them. A half-openinterval can be open ontheleft or on the right. The four typesof intervals can be described by combiningrelational functionsinto the operator rg:</p>
+<p>rgt{(a[O]ae w)rAalt]ww w} A Range Operator 1 3 &lt;rg&gt; 15 A Open Interval: Onnnnenn---- ° oo100 1 3 srg2 15 A Closed Interval: @----------- ® 01110 1 3 &lt;rg2 15 aA Half-Open Left: Onmnnnneeeee- ® 001210 1 3 &lt;rg&gt; 15 A Half-Open Right: Boa nana nn ° 91100</p>
+<p>This operatorisstill limited in thatit does not differentiate betweenan interior point and a boundary (limit) point.</p>
+<p>? The function bd can be expressed succinctly in J as a fork: bd=: &gt;-&lt;</p>
+<p>120</p>
+<p>VECTOR Vol.21 No.2</p>
+<p>Partitions A pair of distinct points on the real line can define twotypesofpartitions: an intervalpartition and a rangepartition.</p>
+<p>Aninterval partition divides the realline into three disjoint subsets: the interior (between the end-points), the boundary (the two end-points themselves), and the outside (everything else).</p>
+<p>Outside Bound Interior Bound Outside</p>
+<p>The product of the signum differences betweena specified point and eachof the boundary points will indicate whetherthe pointfalls in the interior, the boundary, or outside.If the pointis outside the interval, the differences are both positive, or both negative so their signum productis +1. If the point is on the boundary,oneof the differencesis zero, thus the productis zero. Andif the pointis in the interior, the differences have opposite signs, so the signum productis -1.</p>
+<p>xpr{x/xwo.-a} A Signum product 413 xp is A produces interval partition 1o7101</p>
+<p>A rangepartition divides therealline into five disjoint regions: below, lower bound(L.B.) , interior, upper bound (U.B.) and above:</p>
+<p>Below L.B. Interior U.B. Above foo none ee een e | eee erro cece errr nnn |----------------- &gt; 2 1 0 +t +2</p>
+<p>A+P xd LB B+P xd UB XprAxB xs: A+B</p>
+<p>Below A 1 1 2 Lower bound 0 1 0 -1 Interior 41 1 1 0 Upper bound 1 0 1 Above 1 1 1 2</p>
+<p>Table 1: Signum Product and Signum Sum</p>
+<p>The sum ofthe signum differences will producefive distinct values ranging from -2 to +2 and corresponding to each of the 5 regionsin a rangepartition.</p>
+<p>121</p>
+<p>VECTOR Vol.21 No.2</p>
+<p>xse{+/xwo.-a} A Signum sum 13 xs 15 A produces range partition "2 1012</p>
+<p>Two-Dimensional Region Checking A blog entry (http://www.dapl.blogspot.com/2002_10_01_daplarchive-htm) expresses the frustration of using standard Booleanlogic in two dimensions:</p>
+<p>Friday, October 04, 2002</p>
+<p>ONE AFTERNOON LAST WEEKwhile programming I wrote the following:</p>
+<p>A«(R&gt;02UL)AR&lt;O&gt;BR A+AA(C&gt;12UL)aC&lt;12BR</p>
+<p>It was so bad I hadto break it into two lines.</p>
+<p>Isn't it interesting thatit is immediately apparentthatthis codeis less than optimal, just from thelookofit, even if you have no knowledgeof the application? Asit turns out, I was adding a drag and drop feature between two ListView objects, and I needed to determine whetheror not a point wasin an area. In other words, given a point(R,C), and the upperleft (UL) and lower right (BR) coordinates of the target, was the mouse over the target ListView?</p>
+<p>KnowingI could notlive with this in my workspace, and knowing my own limitations as a programmer, ] asked Brother Steve to cometo the rescue. He immediately produced the following gem:</p>
+<p>A+(R C){OA.&gt;x/&gt;a-shou}pUL BR</p>
+<p>which worksin N-space too! Anda little tweak tells you whether you are "in" the area, on the border,or outside ina particular direction.</p>
+<p>POSTED BY PAUL MANSOUR { 12:37 AM</p>
+<p>The proposedsolution in the blog exploited signum difference with respect to a rectangular region. We now formally extend the conceptof arithmetic boundary</p>
+<p>122</p>
+<p>VECTOR Vol.21 No.2</p>
+<p>checking to two dimensions. You may want to know whethera pointis in the interior of a rectangle, on the boundary or outside the rectangle.</p>
+<p>Interior(-1) Outside (1) Boundary (0) »</p>
+<p>Figure 1: Regions in the plane defined by a rectangle</p>
+<p>In the following example, we havesix points in various positionsrelative to a rectangular region in the plane, The coordinates of the upperleft and lower right corners of the rectangle are (3,2) and (5,6) respectively. The signum products of each coordinate must be calculated separately.</p>
+<p>* (2,3) (3,5) Upper Left (3,2) &gt;</p>
+<p>° (4,4) ight (5,6) Lower Right (5,6)</p>
+<p>(5,2)e</p>
+<p>° (6,8)</p>
+<p>°(7,6) Figure 2: Points in variouspositions relative to a rectangle in the plane.</p>
+<p>If we take the signum productofthe first coordinate with respect to the row coordinates and the signum productof the second coordinate with respectto the column coordinates, we obtain a orderedpair indicating the position in each direction,</p>
+<p>Table 2 on the next page showsthis for the points in Figure 2 above.</p>
+<p>In orderto bein the interior, both coordinatesof the point must bein the interior of their respective intervals in each direction.If either coordinate is outside the range, then the pointis outside. If both coordinates are on their respective boundaries or oneis on the boundary andtheotheris an interior point, then the pointis on the boundary. Otherwise, the pointis outside. In general, the regionis the larger of the row and column signum products.</p>
+<p>123</p>
+<p>VECTOR Vol.21 No.2</p>
+<p>Point Description Row xp Column xp Region ([) {6,8) Outside 1 1 1 (5,2) Corner Q 0 0 (4,4) Interior o1 1 i {7,6) Below 1 0 1 (3,5) Edge A 0 0 (2,3) Above 1 -1 1</p>
+<p>Table 2: Various pointsin the plane with respectto a defined rectangularregion.</p>
+<p>xme{f /&gt;x#xa, .-kw} A Max Signum b+2(3 2)(5 6) A Upper Left and Lower Right Corners b xm&gt;(6 8)(5 2)(4 4)(7 6)(3 5)(2 3) A Various Points 1o71104</p>
+<p>Theleft argument of the dynamic function xm is a 2 x 2 matrix containing the coordinates of the upper-left and lower-right corners of a rectangular region. The right argumentis a 2-elernent vector or 2-column matrix containing the coordinatesof various points in the plane.</p>
+<p>Differentiating Border Regions Sometimesit is necessary to divide the bordersof a dialog box into specific regions. For example whenthe cursor is over an edge,it will resize the window in one direction.If it is over a corner,it will resize the window in twodirections. The particular edge or cornerselected also determines the position ofthe resized window.</p>
+<p>A rectangular region naturally subdivides the x-y plane into 25 regions,5 in the x direction by 5 in the y direction. The following regions are shown in Figure3: 1 interior region, four corners, four edges, and 16 outside regions.*</p>
+<p>3 This is based on the fact that there are 5 disjoint subsets in a rangepartition on therealline.</p>
+<p>4 Itis unimportantto distinguish these from each other</p>
+<p>124</p>
+<p>VECTOR Vol.21 No.2</p>
+<p>Outside (8) Outside (8) Outside (8) Outside (8) Outside (8) ; UpperLeft Upper Edge Upper Right . Outside (8) Comer(-4) (3) Comer (-2) Outside (8}</p>
+<p>Outside (8) Left Edge (-1) Interior (0) Right Edge (1) Outside (8) . Lower Left Bottom Edge Lower Right . Outside (8) Corner(2) @) Comer(4) Outside (8)</p>
+<p>Outside (8) Outside (8) Outside (8) Outside (8) Outside (8)</p>
+<p>Figure 3: 25 Regions defined by a rectangle</p>
+<p>The signum sum applied to each coordinate generates an ordered pair. If we wish to identify all 25 regions uniquely, we can use base value with a rootof 5 to generate the integers -12 to +12 with 0 representing the interior. Morelikely, we only wish to identify the 9 relevant regions, disregarding the 14 outside regions. We can usebasevalue witha rootof 3. This will producethe values -4 to +4 with 0 representing the interior. We will assign the value 8 to the outside regions. We can identify a pointin the outside regionif the ordered pairofits signum sums contains the value 2 or ~2. The function xr generates the appropriate value.</p>
+<p>xre{deke+/xw, Qa Oo ((2v.=]d)/d)+2 o 31d} b xr 2(2 3)(3 5)(4 4)(5 2) (6 8)(7 6) 8730288</p>
+<p>Theoretical Considerations and Conclusion Arithmetic boundary checkingis based upon the topological properties of the real line and the Euclidean 2-space R2[1]. The boundaries ofan intervalor a rectangle correspond to limit points in topology. An openinterval correspondsto the interior set, whereas a closed interval correspondsto the union of the boundary set andtheinterior set. A k-cell is defined as an closed interval on the realline where k=1or a closed rectangle in the plane, where k=2. {2]</p>
+<p>While Booleanfunctions are usefulif binary results are adequate, they do not work as well when more informationis required, Location on the realline or in the plane can be determined arithmetically without the use of Booleans. The ternary nature of signumis exploited to handle boundaryconditions.</p>
+<p>References [1] Jerrold Marsden, Elementary Classical Analysis W.H.Freeman &amp; Co. 1974, Chapter 2, Topology of R",pp 32-44.</p>
+<p>[2] Walter Rudin, Principles ofMathematical Analysis, Third Edition , McGraw-Hill 1976, pp. 31-32.</p>
+<p>125</p>
+</details>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

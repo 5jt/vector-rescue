@@ -1,0 +1,1673 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10007430/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Notes on Virtual Memory and the APL Workspace - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#a-little-history" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Notes on Virtual Memory and the APL Workspace
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-little-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A Little History
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A Little History">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1950s" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1950s
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1960s" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1960s
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1970s" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1970s
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1980s" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1980s
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1990s" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1990s
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2000s" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2000s
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evolution-of-computer-memory-addressing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Evolution of Computer Memory Addressing
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evolution of Computer Memory Addressing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#some-concepts-definitions-and-over-simplifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Some concepts, definitions, and over-simplifications
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simple-direct-addressing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Simple direct addressing
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-protection" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Memory protection
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#based-and-segmented-addressing-schemes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Based and segmented addressing schemes
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-swapping-and-time-sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Memory swapping and time sharing
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paging" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Paging
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-mapping-and-address-translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Memory mapping and address translation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#some-virtual-memory-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Some Virtual Memory Terms
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtual-memory-in-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Virtual Memory in Windows
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Virtual Memory in Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nt-virtual-memory-allocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        NT virtual memory allocation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aplwin-and-virtual-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        APL+Win and Virtual Memory
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="APL+Win and Virtual Memory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apl-and-memory-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        APL and memory management
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Memory Management
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fragmentation-and-compaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Fragmentation and compaction
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-aplwin-interpreter" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The APL+Win Interpreter
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Changes
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-40-and-before" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Release 4.0 and before
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-50" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Release 5.0
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#some-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Some Questions
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Some Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#can-i-make-the-slot-size-larger-than-my-machines-real-memory-and-have-a-really-big-active-ws" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Can I make the slot size larger than my machine’s real memory and have a really big active WS?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-would-i-ever-want-to-make-the-slot-size-smaller" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Why would I ever want to make the slot size smaller?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-i-change-the-slot-size-with-the-clear-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Can I change the slot size with the )CLEAR command?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-specify-the-slot-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        How do I specify the slot size?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Notes on Virtual Memory and the APL Workspace</h1>
+
+  <p class="printed"><a href="../21/#n3-may-2005">Vector 21:3</a>, page 115</p>
+
+
+<p class="byline">by Bill Rutiser (from a talk given at the 2003 APL2000 Conference)</p>
+<h2 id="a-little-history">A Little History<a class="headerlink" href="#a-little-history" title="Permanent link">&para;</a></h2>
+<h3 id="1950s">1950s<a class="headerlink" href="#1950s" title="Permanent link">&para;</a></h3>
+<p>Machines were logically small but physically big. They were very expensive to buy and operate. Programs had full access to the entire machine. Programmers were responsible for all details of a program's operation. Machine time was scheduled and paid for in blocks.</p>
+<h3 id="1960s">1960s<a class="headerlink" href="#1960s" title="Permanent link">&para;</a></h3>
+<p>Simple operating systems mediated I/O operations and transitions from job to job. Turn-around times under batch or job stream operation were measured in hours or days. Experimental time-sharing systems provided more or less immediate response to users.</p>
+<h3 id="1970s">1970s<a class="headerlink" href="#1970s" title="Permanent link">&para;</a></h3>
+<p>Advances in hardware technology reduced the cost and size of computer hardware, which permitted logically larger mainframe systems and physically smaller mini-computers. Operating systems supported multi-programming. Several jobs could run more or less concurrently.</p>
+<p>Emphasis was on increasing utilization of CPU by overlapping one program’s computation with another program’s I/O transfers. Access to and responsibility for I/O and storage management moved from programs to the operating system.</p>
+<p>General and special purpose “time sharing” systems were in use but expensive.</p>
+<h3 id="1980s">1980s<a class="headerlink" href="#1980s" title="Permanent link">&para;</a></h3>
+<p>Microprocessor technology enabled desktop and tower computers capable of supporting several users. Manufacturers of small Unix based systems temporarily proliferated. Hardware became cheap enough that personal computers were economically possible. Concerns about response time replaced concerns about hardware utilization.</p>
+<p>Unix based systems directly supported concurrent operation of multiple programs with OS mediated I/O and resource management. Personal computer operating systems provided little more than support for loading programs and abstracting the lowest levels of hardware differences.</p>
+<p>Local area networks came into use. Business applications distributed over multiple small networked machines became common.</p>
+<h3 id="1990s">1990s<a class="headerlink" href="#1990s" title="Permanent link">&para;</a></h3>
+<p>PC processor speed and memory capacity increased while costs decreased. Graphical user interfaces, multiple concurrent applications, and larger disk storage capacity became increasingly common.</p>
+<p>The Internet and the World Wide Web became widely accessible.</p>
+<p>Business application architecture increasingly involved multiple programs running on multiple computers in multiple tiers tied together by multiple networks.</p>
+<h3 id="2000s">2000s<a class="headerlink" href="#2000s" title="Permanent link">&para;</a></h3>
+<p>Personal computers have become large enough that users may have several large application programs open simultaneously. Workflow causes the user’s attention to shift from application to application.</p>
+<h2 id="evolution-of-computer-memory-addressing">Evolution of Computer Memory Addressing<a class="headerlink" href="#evolution-of-computer-memory-addressing" title="Permanent link">&para;</a></h2>
+<h3 id="some-concepts-definitions-and-over-simplifications">Some concepts, definitions, and over-simplifications<a class="headerlink" href="#some-concepts-definitions-and-over-simplifications" title="Permanent link">&para;</a></h3>
+<p>Computer memory stores bits. Groups of bits can represent numbers, characters, or other things. Modern hardware generally provides direct support for groups of 8, 16, 32, and 64 bits. The hardware also supports certain data representations such as 8 bit characters, 16 or 32 bit integers, and 32 or 64 bit floating point numbers.</p>
+<p>At the hardware level, machine instructions contain numbers that designate particular groups of stored bits. Such a number is a “memory address”. Almost all present day computers use “byte addresses” that designate a group of 8 bits. Depending on context, a byte address may refer to a single byte, or a group of adjacent bytes.</p>
+<h3 id="simple-direct-addressing">Simple direct addressing<a class="headerlink" href="#simple-direct-addressing" title="Permanent link">&para;</a></h3>
+<p>Memory is treated like a simple APL array. An address is simply an index into the array. There is only one such array and it is the entire memory.</p>
+<p>Early programming required a programmer to explicitly associate data and memory addresses. One of the first uses of programming tools was to assign addresses to symbolic names.</p>
+<h3 id="memory-protection">Memory protection<a class="headerlink" href="#memory-protection" title="Permanent link">&para;</a></h3>
+<p>Practical use of multi-programming is much simplified by hardware support to ensure one program does not inadvertently modify another program’s memory. Numerous schemes have been used. All require that the hardware registers controlling the protection are accessible only to the operating system.</p>
+<p>This, together with other considerations, leads to a distinction between system and user modes of processor operation.</p>
+<h3 id="based-and-segmented-addressing-schemes">Based and segmented addressing schemes<a class="headerlink" href="#based-and-segmented-addressing-schemes" title="Permanent link">&para;</a></h3>
+<p>Multi-programming requires a means to assign a distinct range of memory addresses to each program. The simplest scheme is to adjust all the addresses used by a program when it is loaded. This is time consuming and requires the program itself to observe appropriate conventions.</p>
+<p>Simple hardware support adds a special “base register” to the CPU. The content of this register is automatically added to each memory address as it is used. The program can now be written to always use a range of addresses beginning at zero. The operating system sets the base register to the actual memory address of the segment of memory allocated to the currently running program.</p>
+<p>Memory protection can be provided via a “limit register” setting the upper limit of allowed access. Base and limit registers are changed together.</p>
+<h3 id="memory-swapping-and-time-sharing">Memory swapping and time sharing<a class="headerlink" href="#memory-swapping-and-time-sharing" title="Permanent link">&para;</a></h3>
+<p>Observe that the introduction of the base and limit register permits an operating system to dynamically change the actual memory assigned to a running program:</p>
+<ul>
+<li>Suspend the program’s execution;</li>
+<li>Move all of its memory contents to a different base address;</li>
+<li>Change the base and limit registers; resume the program’s execution.</li>
+</ul>
+<p>While a program is suspended, the contents of its memory can be written to auxiliary storage. Another program’s memory contents could be swapped into the vacated memory and run.</p>
+<p>Some time-sharing systems worked this way. Response times were determined by the relative size of the memory and speed of access to the swap storage.</p>
+<h3 id="paging">Paging<a class="headerlink" href="#paging" title="Permanent link">&para;</a></h3>
+<p>Simple swapping schemes read in all of a program’s memory before continuing the program’s execution.</p>
+<p>Most programs exhibit some locality of reference such that the recently used parts of its memory change slowly relative to the progress of execution. This locality arises because: instructions are executed in sequence with only occasional jumps to non-sequential addresses; a similar sequence of instructions is repeated in each traversal of a loop; related data is often stored at related addresses.</p>
+<p>Paged memory systems divide memory into pieces of uniform size, commonly several thousand bytes. Such a piece of actual physical memory, either processor memory or auxiliary memory, is called a page-frame; the data itself is called a page. This distinction between pages and page-frames is often elided.</p>
+<p>Hardware support for paged memory usually provides several special bits for each memory page-frame.</p>
+<ul>
+<li>
+<p>One bit marks the frame’s contents as invalid. Any access to an invalid page raises an exception, called a page-fault, which is trapped by the OS. When a program is to be swapped into memory, the OS assigns a set of page-frames, marks them as invalid, and resumes the program’s execution. When the program accesses a marked page, the OS responds to the page-fault by suspending the program, reading the page into the page-frame, and then continuing the program’s execution.</p>
+</li>
+<li>
+<p>A second bit is set, automatically, by the processor, whenever a page-frame’s content changes. The OS resets this bit each time a page is read in. If the bit is still reset when the page is to be swapped out, the OS knows the page has not changed since last being paged in and, if the copy in the disk swap area has not been changed, the OS can skip writing out the page.</p>
+<p>A third bit is set by each reference to the page-frame. By periodically resetting these “reference” bits, an OS can determine whether a page has recently been used.</p>
+</li>
+</ul>
+<h3 id="memory-mapping-and-address-translation">Memory mapping and address translation<a class="headerlink" href="#memory-mapping-and-address-translation" title="Permanent link">&para;</a></h3>
+<p>Paging as described above could be used to support segmented memory systems. However, modern processors contain yet one more piece of hardware support.</p>
+<p>A special set of tables, maintained by the operating system, is used to map each address used by a program to a particular page-frame. The only relation between the address used by the program and the physical address of the page-frame is the number in the table.</p>
+<p>Conceptually, at least, each address used by a program is broken into two parts. The high-order part is used as an index into an OS maintained table of page-frame addresses. The low-order part is used as an offset from the beginning of that page-frame. The processor hardware automatically performs this address translation for each access.</p>
+<p>The hardware maintains a cache of recently translated page addresses so as to bypass most actual accesses of the page-mapping table. The potentially large tables, one for each process, are themselves stored in paged memory subject to swapping.</p>
+<h2 id="some-virtual-memory-terms">Some Virtual Memory Terms<a class="headerlink" href="#some-virtual-memory-terms" title="Permanent link">&para;</a></h2>
+<p>“Virtual memory” is the apparent simple directly addressed memory used by application programs. An address used to designate locations in virtual memory is a “virtual address”. Some writers confusingly and incorrectly use “Virtual Memory” to refer to swap space or paging file as defined below.</p>
+<p>“Real memory” is physical hardware memory, most of which is used as page-frames for mapping virtual memory. The rest contains OS kernel programs and data.</p>
+<p>“Swap space” is an area of disk storage used as page-frames to contain pages that are paged out. “Paging file” is synonymous. “Paging” is the I/O activity used in transferring pages between swap space and real memory.</p>
+<p>“Virtual address space” has several closely related meanings:</p>
+<ul>
+<li>The potential range of addresses that could be used by a program running in a particular environment;</li>
+<li>The actual virtual addresses and data in use by a program.</li>
+</ul>
+<p>A “process” is an OS defined abstraction, consisting of a “virtual address space” , a current point of program execution, and assorted other resources such as open files, synchronizing locks, permissions, identities, etc.</p>
+<p>“Thrashing” describes a state of sustained high paging with little useful work done between page faults. Thrashing arises when a process or set of processes repeatedly and rapidly touches more pages than can simultaneously be allocated page-frames. Thrashing has been called an “unproductive flutter of pages”. Although an OS can sometimes detect thrashing and suppress it by adjusting the mix of active processes, an OS cannot prevent thrashing entirely caused by a single process actively using more pages than the machine has page-frames.</p>
+<h2 id="virtual-memory-in-windows">Virtual Memory in Windows<a class="headerlink" href="#virtual-memory-in-windows" title="Permanent link">&para;</a></h2>
+<p>The Intel IA32 architecture defines a 32-bit address space. This means that the processor family’s instruction and data formats have room for 32 bit addresses. Most actual computers have considerably less than 4 gigabytes of real memory but such a machine is no longer impossible.</p>
+<p>Workstation versions of Windows NT divide the 32-bit address space into two equal parts. “System memory” is reserved for the use of NT itself and “user memory” is mostly available for the application process. Note that some small areas of user memory are also reserved, mostly for compatibility reasons, and that some process specific data is stored in user memory. In addition, data allocated by NT on behalf of the application is in user memory.</p>
+<p>NT organizes virtual memory into 4k pages. 64K segments are also used for allocation purposes.</p>
+<h3 id="nt-virtual-memory-allocation">NT virtual memory allocation<a class="headerlink" href="#nt-virtual-memory-allocation" title="Permanent link">&para;</a></h3>
+<p>Addresses are allocated separately from memory. Initially all addresses in the user space are free and associated with no data.</p>
+<p>The WIN32 API contains a pair of functions, “VirtualAlloc” and “VirtualFree”. In one mode, these functions reserve and release regions of address space. Such regions are specified by size in multiples of 64K. Reservation of a region does not consume significant physical resources; it is simply an entry in the system’s tables for the process. Releasing a region returns its addresses to free status.</p>
+<p>In a second mode, “VirtualAlloc” and “VirtualFree” commit and de-commit specific pages within reserved address space. Committing a page allocates a page-frame in the paging file and adds an appropriate entry to the address translation tables. The first use of the newly committed page will cause a memory page-frame to be assigned. Subsequently the page will be paged out and in as necessary. De-committing a page discards its data and makes its memory and page-file frames available for other uses.</p>
+<p>A process can have a large contiguous region of its address space reserved but only a few pages committed. A process can have multiple contiguous (but not overlapping) reserved regions of various sizes for various purposes.</p>
+<p>Like other systems, NT can map one page frame into several address spaces, possibly at different page addresses. This permits several processes to share one physical copy of read-only data or executable code. Page-frames are also used to buffer and cache disk files.</p>
+<h2 id="aplwin-and-virtual-memory">APL+Win and Virtual Memory<a class="headerlink" href="#aplwin-and-virtual-memory" title="Permanent link">&para;</a></h2>
+<h3 id="apl-and-memory-management">APL and memory management<a class="headerlink" href="#apl-and-memory-management" title="Permanent link">&para;</a></h3>
+<p>An APL interpreter is essentially an exercise in effective management of dynamically allocated memory. Several aspects of APL as a language contribute.</p>
+<ul>
+<li>Primitive APL functions produce new values. Few APL constructs directly modify existing data objects. Instead newly created arrays replace existing arrays.</li>
+<li>The dimensions and representation of APL data is not readily predictable until the actual execution of an expression.</li>
+<li>The arrays generated by an APL program may range in size over eight or more orders of magnitude.</li>
+<li>Temporary objects half the size of a computers memory easily and usefully arise.</li>
+<li>The lifetimes of arrays and other objects overlap and are unpredictable.</li>
+</ul>
+<p>Memory management for large pools of small objects has been well studied by computer science and is fairly well understood. There is little literature on the management of rapidly changing pools of large objects.</p>
+<p>Historically, APL programmers have been hampered by fixed size workspaces. APL\360 based time-sharing systems swapped active workspaces between fixed size memory and disk slots. Maximum workspace size was determined by a compromise between memory costs and response time.</p>
+<h3 id="memory-management">Memory Management<a class="headerlink" href="#memory-management" title="Permanent link">&para;</a></h3>
+<p>The memory manager in an APL interpreter begins with a large, usually contiguous, area of unused memory.</p>
+<p>The manager maintains an inventory of free pieces of memory.</p>
+<p>Allocation requests are satisfied by selecting an entire piece or by subdividing a larger piece into free and allocated parts.</p>
+<p>Eventually, an initial contiguous piece of free memory will have become subdivided into many smaller pieces, some free and some allocated.</p>
+<h3 id="fragmentation-and-compaction">Fragmentation and compaction<a class="headerlink" href="#fragmentation-and-compaction" title="Permanent link">&para;</a></h3>
+<p>Depending on the statistical distribution of allocation sizes and lifetimes, the distribution of sizes in the free piece inventory may reach a stable state or the inventory may fragment into unusable small pieces. A memory manager’s policies for choosing free blocks for allocation and splitting affect the rate of fragmentation but no policy can always avoid fragmentation.</p>
+<p>Fragmentation is overcome by moving allocated objects so that the free pieces are adjacent and coalesced into larger pieces. Such compaction is potentially costly since it may require moving most of the objects in the workspace. In addition, when objects contain addresses of other objects, these pointers must be adjusted when the target object is relocated. A compacting memory manager may compact preemptively or only as needed.</p>
+<h3 id="the-aplwin-interpreter">The APL+Win Interpreter<a class="headerlink" href="#the-aplwin-interpreter" title="Permanent link">&para;</a></h3>
+<p>The general architecture of the APL+Win interpreter originated in 1982 as an interpreter for a Unix based workstation with 1Mbyte of RAM and a 20Mbyte hard drive. That machine also had serial ports connected to terminals for a team of five developers.</p>
+<p>The UNIX virtual memory model was quite simple.</p>
+<ul>
+<li>Each process had an address space that grew upward from zero and down from a very high address. In NT terms, memory was committed for an upwardly growing bottom part and a stack that grew down from the top of the address space.</li>
+<li>A new process began with its program loaded at the bottom of the address space together with a small amount of per process data. The program extended the bottom part upwardly as needed.</li>
+<li>Most programs used the malloc() routines from the C library to manage smallish allocations.</li>
+</ul>
+<p>Our design allocated a fixed size workspace “slot” just above the program. The workspace size could be increased or decreased by freeing and reallocating at a different size. Generally there was little need to change size. Users were advised to keep workspaces smaller than the machine size reduced by system overhead. The kernels paging machinery gracefully handled switching to another process.</p>
+<p>Over the next two decades, the interpreter was readily ported to many other systems as diverse as DOS, VMS, and Windows.</p>
+<h2 id="changes">Changes<a class="headerlink" href="#changes" title="Permanent link">&para;</a></h2>
+<h3 id="release-40-and-before">Release 4.0 and before<a class="headerlink" href="#release-40-and-before" title="Permanent link">&para;</a></h3>
+<p>The memory manager policies are intended for environments where hardware and operating system keep all of the active workspace in real memory while APL is active. The memory manager’s policies treat all parts of the active workspace uniformly. Its compaction strategy is intended to minimize CPU time by only compacting when necessary. There is also a periodic compaction to mitigate the effect on allocation of large numbers of scraps.</p>
+<p>The implementation and its policies are largely unchanged from those in the early UNIX APL*PLUS products.</p>
+<h3 id="release-50">Release 5.0<a class="headerlink" href="#release-50" title="Permanent link">&para;</a></h3>
+<p>While the memory manager has been entirely rewritten, to take advantage of modern system programming tools, and to prepare it for future changes, most of it is similar in effect to the old memory manager. When the interpreter is started, it asks the NT kernel to reserve a large contiguous region of the process’s address space. As explained above, this reservation does not use significant actual memory. This region is referred to as the slot.</p>
+<p>As the needs of the workspace change, memory is committed and de-committed at each end of the slot. The SI stack is maintained at the bottom of the slot while data and functions are placed in the upper committed area. Workspace compaction moves allocated objects upwards leaving a contiguous area of unused but committed storage.</p>
+<p>The manager is controlled by several policies:</p>
+<ul>
+<li>One decides when compactions are worthwhile.</li>
+<li>Another decides when to increase or reduce the size of the upper committed area and by how much.</li>
+<li>A third controls the expansion and contraction of the lower committed area.</li>
+</ul>
+<p>These policies will be adjusted to balance the use of committed memory against the CPU cost of too frequent compactions. Indeed, they have changed a lot during the last year.</p>
+<p>The intent is that in most situations, a default slot size, proportional to the amount of real memory in the machine, will be appropriate. The chosen default is 75% or the machines apparent real memory.</p>
+<h2 id="some-questions">Some Questions<a class="headerlink" href="#some-questions" title="Permanent link">&para;</a></h2>
+<h3 id="can-i-make-the-slot-size-larger-than-my-machines-real-memory-and-have-a-really-big-active-ws">Can I make the slot size larger than my machine’s real memory and have a really big active WS?<a class="headerlink" href="#can-i-make-the-slot-size-larger-than-my-machines-real-memory-and-have-a-really-big-active-ws" title="Permanent link">&para;</a></h3>
+<p>Perhaps, but it’s very unlikely that you will be at all happy with the result. Paging transfer times are measured in milliseconds. Machine instruction times are measured in nanoseconds. That’s a difference of six orders of magnitude. Your disk drive is likely to wear out before your program completes execution.</p>
+<h3 id="why-would-i-ever-want-to-make-the-slot-size-smaller">Why would I ever want to make the slot size smaller?<a class="headerlink" href="#why-would-i-ever-want-to-make-the-slot-size-smaller" title="Permanent link">&para;</a></h3>
+<p>APL shares the address space with any in-process ActiveX objects it is using. If an object should require a very large part of the address space or needs most of your machines memory to avoid thrashing, then you may need to adjust the slot size to balance the conflicting needs. Note that in this context “very large” means 100’s of megabytes or more.</p>
+<h3 id="can-i-change-the-slot-size-with-the-clear-command">Can I change the slot size with the )CLEAR command?<a class="headerlink" href="#can-i-change-the-slot-size-with-the-clear-command" title="Permanent link">&para;</a></h3>
+<p>No. No need has been demonstrated for such a facility. The eventual release system will be arranged to default to a generally useful slot size without additional parameters.</p>
+<h3 id="how-do-i-specify-the-slot-size">How do I specify the slot size?<a class="headerlink" href="#how-do-i-specify-the-slot-size" title="Permanent link">&para;</a></h3>
+<p>With the initial builds, use a command line parameter or set “[Config]Wssize” in your “.ini” file. In the future, the interpreter will default to a generally useful slot size and will have means to specify the slot size as a percentage of real memory.</p>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

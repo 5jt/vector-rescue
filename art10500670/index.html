@@ -1,0 +1,1343 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Recent service levels of IBM Workstation APL2 V2 for Windows introduced support for Japanese characters in Unicode. Kyosuke Saigusa explains how he has made use of this.">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10500670/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Unicode and related subjects in APL2 - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-apl-we-use" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Unicode and related subjects in APL2
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-apl-we-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The APL we use
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conversion-of-apl-functions-from-ascii-encoding-to-unicode" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conversion of APL functions from ASCII encoding to Unicode
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-we-handle-block-letters-for-display-and-print" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        How we handle block letters for display and print
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-we-handle-business-forms-printout" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        How we handle business forms printout
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-bring-new-programmers-to-apl" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        How to bring new programmers to APL
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dialogue-editor-with-apl-function-generation-capability" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dialogue editor with APL function-generation capability
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        In conclusion
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-articles" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Related articles
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Unicode and related subjects in APL2</h1>
+
+  <p class="printed"><a href="../25/#n1-june-2011">Vector 25:1</a>, page 44</p>
+
+
+<p class="byline">by Kyosuke Saigusa (JCE01163@nifty.com)</p>
+<p class="abstract">Recent service levels of IBM Workstation APL2 V2 for Windows introduced support for Japanese characters in Unicode. APL tools are described for exploiting this capacity and for introducing Japanese programmers to APL.</p>
+<h2 id="the-apl-we-use">The APL we use<a class="headerlink" href="#the-apl-we-use" title="Permanent link">&para;</a></h2>
+<p>Unicode seems to have been included in the design of this product from the beginning, but before its service level 7, released in 2005, we could neither key in nor display Japanese characters in APL functions. Therefore we developed our own system based on SHIFT-JIS (ASCII) with a customised Japanese font called <em>APL2KJ</em> and a special function editor. This font was created by sacrificing some infrequently used characters.</p>
+<p>During 2005-2007, I closely watched IBM’s efforts to implement Japanese language support with Unicode, initially with suspicion, but later with admiration, as they released Service Levels 7, 8, 9, 10 and 11, with vital issues, such as distinction between legal and illegal blanks, getting solved step by step.</p>
+<p>As a result, two items remained unsolved because of complexity of fixing the interpreter code. One was the entry and display of Japanese characters on the APL session manager screen. The other was Japanese texts in the format masks for primitive function “format (<code>⍕</code>)”.</p>
+<p>The first item above may be something that classical APL users, using APL in desk calculator mode mainly, may want, but today’s APL systems offer highly sophisticated editors to write APL programs and the dependency on the session manager is relatively smaller than before. For the data input and display in APL applications, dialogue windows will provide much better human interface.</p>
+<p>The second item is something that programmers can get around easily, by defining a function to achieve it. Therefore we judged that we can do without them.</p>
+<p>Microsoft Windows offers a Unicode font called <em>Arial Unicode MS</em>. This font we found is not suitable to write APL functions with, because of the unfamiliar shapes and unbalanced sizes of its APL characters and pitches. New system font <em>Courier APL2 Unicode</em> on the other hand behaved as if it contained Japanese characters as well under Windows XP and Vista, and we found it a perfect font for our use.</p>
+<h2 id="conversion-of-apl-functions-from-ascii-encoding-to-unicode">Conversion of APL functions from ASCII encoding to Unicode<a class="headerlink" href="#conversion-of-apl-functions-from-ascii-encoding-to-unicode" title="Permanent link">&para;</a></h2>
+<p>When I confirmed that the Unicode approach is the right direction, at least for Japanese programmers, I decided to convert all of my functions to Unicode encoding without exception, though IBM Workstation APL2 allows coexistence of both encodings in the same workspace, mainly for simplicity. Workstation APL2 V2 seems to handle this conversion automatically, but we had to process Japanese texts preceded and followed by SO/SI codes in APL functions in our Japanese text support system.</p>
+<p>The function shown below was used to convert individual functions one by one with care. It produces only Unicode character arrays as cardinal representations, because if conversion fails, we can analyze to see which parts to mend. Fortunately it worked well. In actuality, it was used in the way that all the functions be converted to vector of cardinal representation arrays and they were in turn <code>⎕FX¨</code>ed to produce the vector of fixed names or numeric values indicating the fix failed for the corresponding functions.</p>
+<figure>
+<p><a href="image001.jpg" title="Click for full-size image"><img alt="∆UNIFNS source" src="image001.png" /></a></p>
+<figcaption>Fig.1: ∆UNIFNS source</figcaption>
+</figure>
+<p>Once they are converted to Unicode encoding, APL2 system’s object editor handled the entry and display of Japanese characters in a very natural way. One of the things I found it superior to my old system was that now I didn’t have to pay attention to break Japanese characters (formerly two bytes each) into illegible segments in APL statements.</p>
+<h2 id="how-we-handle-block-letters-for-display-and-print">How we handle block letters for display and print<a class="headerlink" href="#how-we-handle-block-letters-for-display-and-print" title="Permanent link">&para;</a></h2>
+<figure>
+<p><a href="image003.jpg" title="Click for full-size image"><img alt="DISPLAY output" src="image003.png" /></a></p>
+<figcaption>Fig.2: Example of <code>DISPLAY</code> output as shown on the object editor of the Workstation APL2 v2</figcaption>
+</figure>
+<figure>
+<p><a href="image005.jpg" title="Click for full-size image"><img alt="∆DISPLAY output" src="image005.png" /></a></p>
+<figcaption>Fig.3: Example of <code>∆DISPLAY</code> output</figcaption>
+</figure>
+<p>Advantage of <code>∆DISPLAY</code> over <code>DISPLAY</code> is that the output is not affected by the size difference of the characters used. Besides it will choose the most appropriate font sizes automatically, so that it will accommodate almost any size output and any part of it can be cut to be shown in enlarged scale. This is a convenient and powerful alternative to analyze the structures of APL2 objects.</p>
+<p><code>∆DISPLAY</code> is a utility tool function programmed in APL as shown below and is stored in a name space and used from there. It can be modified easily to fit users’ requirements if necessary. Internally it uses the function <code>DISPLAY</code> and converts its output into a graphic representation as shown in the illustration. The same logic can be applied to any similar cases to convert texts to graphics, which is more flexible.</p>
+<figure>
+<p><a href="image007.jpg" title="Click for full-size image"><img alt="∆DISPLAY output" src="image007.png" /></a></p>
+<figcaption>Fig.4: <code>∆DISPLAY</code> output</figcaption>
+</figure>
+<figure>
+<p><a href="image009.jpg" title="Click for full-size image"><img alt="∆DISPLAY source code" src="image009.png" /></a></p>
+<figcaption>Fig.5: <code>∆DISPLAY</code> source code</figcaption>
+</figure>
+<h2 id="how-we-handle-business-forms-printout">How we handle business forms printout<a class="headerlink" href="#how-we-handle-business-forms-printout" title="Permanent link">&para;</a></h2>
+<p>Classical approaches to create business forms output in APL includes a method to draw lines with box characters as <code>│┌┐└┘├┤┬┴┼</code>. The same method as used in the case of <code>∆DISPLAY</code> can be used, but for higher quality printout, positions of these block characters in the intermediate output can be used to draw lines graphically. In this case texts must also be converted into graphic images.</p>
+<p>Before Unicode, when we used double byte-code, it presented no problems because there were only two sizes with Japanese characters identified with <code>X'8x'</code>, <code>X'9x'</code>, <code>X'Ex'</code> and <code>X'Fx'</code> codes in the first byte having twice the width of other ASCII characters.</p>
+<figure>
+<p><a href="image011.jpg" title="Click for full-size image"><img alt="Designing business forms" src="image011.png" /></a></p>
+<figcaption>Fig.6: Designing business forms</figcaption>
+</figure>
+<h2 id="how-to-bring-new-programmers-to-apl">How to bring new programmers to APL<a class="headerlink" href="#how-to-bring-new-programmers-to-apl" title="Permanent link">&para;</a></h2>
+<p>Unicode has brought about an ideal environment for casual as well as professional programmers to try and learn APL2 in native languages. However, in reality, the initial cost of getting a product license is something beyond the budget of most of the prospective users. To invite these people into the world of APL effectively, neither academic initiative nor free trial use is adequate, because real persuasion comes from proper tools to prove the usefulness of APL and access to consistent and high-level consultancy and information.</p>
+<figure>
+<p><a href="image013.jpg" title="Click for full-size image"><img alt="Japanese APL Learning System (1)" src="image013.png" /></a></p>
+<figcaption>Fig.7: Japanese APL Learning System (1)</figcaption>
+</figure>
+<p>Therefore we created an APL2 package called the Japanese APL2 Learning System as shown above, which offers an inexpensive APL programming environment with full interpreter capabilities of the free IBM Workstation APL2 V2 runtime modules. It uses currently most advanced features of the Workstation APL2 V2 such as calling APL2 interpreter under application APL2 to isolate interpreter environment to avoid crashes between user entered names and the names uses in the application system program.</p>
+<p>This package, revised totally in November 2008, supports only the Japanese users with online APL references all in Japanese at this time, and is downloadable free upon registration of e-mail address from our website <a href="http://aplcons.com">aplcons.com</a> without obligation to pay any fee for the entire system, although it is priced to cover development and support cost. It interprets every line user enters in the upper section of the window by way of <code>⎕EC</code> and the result or error message will be displayed in the lower section.</p>
+<p>It is safe from system program crashes resulting from invalid entries, because all the errors are trapped and shown in the lower section of the window. Japanese texts are directly handled in these windows as well. In addition to supporting hardware keyboard, APL-Japanese software keyboard is also provided.</p>
+<figure>
+<p><a href="image015.jpg" title="Click for full-size image"><img alt="Japanese APL Learning System (2)" src="image015.png" /></a></p>
+<figcaption>Fig.8: Japanese APL Learning System (2)</figcaption>
+</figure>
+<p>This package allows defining, editing, executing APL functions including the ones transferred from APL product environments as well. In another word, it is designed to fulfill the requirements of most of the prospective APL users to assess APL2’s total capability.</p>
+<h2 id="dialogue-editor-with-apl-function-generation-capability">Dialogue editor with APL function-generation capability<a class="headerlink" href="#dialogue-editor-with-apl-function-generation-capability" title="Permanent link">&para;</a></h2>
+<p>In order to encourage novice programmers to use designed dialogue windows instead of bare-input and output on the APL session manager, we developed a system to help write APL applications with embedded dialogue windows.</p>
+<p class="caption center">
+        <a href="image017.jpg" title="Click for full-size image">
+            <img src="image017.png" alt="Generating GUI code"></a>
+        <br>
+        <a href="image019.jpg" title="Click for full-size image">
+            <img src="image019.png" alt="Generated GUI code"></a>
+        <br>
+        Fig.9: GUI code generation
+    </p>
+
+<p>The generated APL function prototypes as shown above can be edited to develop real APL applications in a short time. A Japanese online text book explains the rules and syntax of this method (which is somewhat different from what the IBM product offers) accompanies this program.</p>
+<h2 id="in-conclusion">In conclusion<a class="headerlink" href="#in-conclusion" title="Permanent link">&para;</a></h2>
+<p>Adoption of Unicode in APL which supports native languages in any part of the world can provide a good opportunity to spread the use of APL as a major programming language.</p>
+<p>I firmly believe that this language is no longer a replacement of desk calculators. Therefore I wish the vendors of APL would emphasise the runtime with a high degree of error handling and maintenance capabilities in the language system.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ol>
+<li>“Use of APL in Japan”, Kyosuke Saigusa, <em>Proceedings of APL94</em>, Antwerp, ACM-SIGAPL</li>
+<li>“Japanese Language Handling in APL environments”, Kyosuke Saigusa, <em>Proceedings of APL 98</em>, Rome, ACM-SIGAPL</li>
+<li>“Simulated APL Session Manager”, Kyosuke Saigusa, <em>Proceedings of APL2003</em>, San Diego, ACM-SIGAPL</li>
+<li>“A Simple APL-Excel Interface”, Kyosuke Saigusa, <em>APL Quote Quad</em> Vol.34, No.3, Summer 2004</li>
+</ol>
+<h2 id="related-articles">Related articles<a class="headerlink" href="#related-articles" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../art10500090/">“Unicode support for APL”</a>, Morten Kromberg, <a href="../24/#n1-december-2008">24:1</a>, p.52</li>
+<li><a href="../art10009840/">“Review: The Solid Form of Language (Robert Bringhurst)”</a>, Stephen Taylor, <a href="../21/#n2-february-2005">21:2</a>, p.44</li>
+</ul>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

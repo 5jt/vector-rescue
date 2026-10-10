@@ -1,0 +1,1422 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10009940/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Using Operators in APL2 - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#user-defined-operators" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Using Operators in APL2
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#user-defined-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        User-Defined Operators
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extension-of-apl1-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Extension Of APL1 Operators
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consistency-with-existing-concepts-of-reduction-and-inner-product" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Consistency with Existing Concepts of Reduction and Inner Product
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Summary
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Using Operators in APL2</h1>
+
+  <p class="printed"><a href="../2/#n3-january-1986">Vector 2:3</a>, page 118</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-language-design">language design</a> <a class="md-tag" href="../tags/#tag-programming-techniques">programming techniques</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../2/3/VOL.2-NO.3-JANUARY-1986.pdf#page=120">Read it in the PDF of the issue, page 118</a></em></p>
+<p class="byline">by Norman Thomson</p>
+<p>Nested arrays are the feature of APL2 which seems to generate most enthusiasm amongst its devotees, as witness for example the twenty or so pages devoted to that topic in Vector Vol 2 no.1. On the other hand operator extensions seems to receive relatively scant attention in spite of the fact that they provide at least as great an advance in linguistic power. There are two broad aspects of operator extension – first the provision of user-defined operators, and secondly the extension of existing operators. These two features, both separately and together increase by a huge factor the expressiveness of APL in describing programming ideas with succinctness and clarity.</p>
+<p>In general if APL objects are the ‘nouns’ of the language and functions the ‘verbs’, then operators are the ‘adverbs’. They direct <em>how</em> to apply or combine functions in manners which are common across a range of functions. In APL1 the adverbial aspect of functions is achieved by ‘embroidering’ the function symbols with other symbols such as / and . . For example, +/V describes <em>how</em> to add the elements of the vector V, i.e. how to add ‘through’ V, in the sense of inserting the function “+” into all the available spaces (1 less than the number of elements in V) and evaluating the resulting expression. After defining reduction to describe the adverbial concept of ‘through’, it makes sense to talk about ‘multiplying through’, ‘dividing through’, and so on. It is logically perfectly possible to apply reduction to non-scalar dyadic functions, so that one can ‘reshape through’ and ‘join through’ vectors:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="o">⍴</span><span class="na">/</span><span class="m">3</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">4</span><span class="w">  </span><span class="kd">←→</span><span class="w">  </span><span class="m">3</span><span class="o">⍴</span><span class="m">2</span><span class="o">⍴</span><span class="m">4</span><span class="w">  </span><span class="kd">←→</span><span class="w">  </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="o">,</span><span class="na">/</span><span class="s1">'NOT'</span><span class="w"> </span><span class="s1">'WITH'</span><span class="w"> </span><span class="s1">'STANDING'</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">        </span><span class="kd">←→</span><span class="w">  </span><span class="s1">'NOTWITHSTANDING'</span>
+</span></code></pre></div>
+<p>Such extensions provide in total a large amount of extra function in APL2. They are however conceptually straightforward, and I shall concentrate here on some of the subtler aspects of operator extension, which it will transpire are closely interwoven with enclosure and disclosure and thus with nested arrays.</p>
+<h2 id="user-defined-operators">User-Defined Operators<a class="headerlink" href="#user-defined-operators" title="Permanent link">&para;</a></h2>
+<p>It is well known that in the case of non-commutative functions such as subtract and divide the effect of ‘through’ is to produce respectively the alternating sums and products. To many APL learners this result is counter-intuitive in that they feel that -/6 2 3 should mean 6-2-3, i.e. 1 rather than 7. This is indeed a reasonable variant of subtraction – call it subtraction ‘along’ a vector. The following lines describe the process for a general scalar dyadic function F, which could be either primitive or user-defined:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="w"> </span><span class="nv">Z</span><span class="kd">←</span><span class="o">↑</span><span class="nv">R</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nv">L0</span><span class="bp">:</span><span class="kd">→</span><span class="p">(</span><span class="m">0</span><span class="o">=⍴</span><span class="nv">R</span><span class="kd">←</span><span class="m">1</span><span class="o">↓</span><span class="nv">R</span><span class="p">)</span><span class="na">/</span><span class="m">0</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w"> </span><span class="nv">Z</span><span class="kd">←</span><span class="nv">Z</span><span class="w"> </span><span class="nv">F</span><span class="o">↑</span><span class="nv">R</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w"> </span><span class="kd">→</span><span class="nv">L0</span>
+</span></code></pre></div>
+<p>They define a new function called the ‘derived function’ with R as its right argument. We can generalise the process by specifying an axis G, and at the same time giving a name ‘along’ to what we now recognise as a new operator, with F and G as its two <em>operands</em>.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="w">    </span><span class="bp">∇</span><span class="nv">Z</span><span class="kd">←</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">ALONG</span><span class="w"> </span><span class="nv">G</span><span class="p">)</span><span class="nv">R</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">Z</span><span class="kd">←</span><span class="o">↑</span><span class="sr">[</span><span class="nv">G</span><span class="sr">]</span><span class="nv">R</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">  </span><span class="nv">L0</span><span class="bp">:</span><span class="kd">→</span><span class="p">(</span><span class="m">0</span><span class="o">∊⍴</span><span class="nv">R</span><span class="kd">←</span><span class="m">1</span><span class="o">↓</span><span class="sr">[</span><span class="nv">G</span><span class="sr">]</span><span class="nv">R</span><span class="p">)</span><span class="na">/</span><span class="m">0</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="nv">Z</span><span class="kd">←</span><span class="nv">Z</span><span class="w"> </span><span class="nv">F</span><span class="w"> </span><span class="m">1</span><span class="o">↑</span><span class="sr">[</span><span class="nv">G</span><span class="sr">]</span><span class="nv">R</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">L0</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>Some applications are:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="w">      </span><span class="p">(</span><span class="o">+</span><span class="nv">ALONG</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="o">⍳</span><span class="m">4</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="m">10</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">      </span><span class="p">(</span><span class="o">-</span><span class="nv">ALONG</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="o">⍳</span><span class="m">4</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="m">¯8</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">      </span><span class="p">(</span><span class="o">-</span><span class="nv">ALONG</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="o">⍴⍳</span><span class="m">6</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="m">¯4</span><span class="w"> </span><span class="m">¯7</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">      </span><span class="o">÷</span><span class="p">(</span><span class="o">÷</span><span class="nv">ALONG</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="o">⍳</span><span class="m">4</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="m">24</span>
+</span></code></pre></div>
+<p>(note that index-origin will be taken as 1 throughout.)</p>
+<p>Now consider the + outer product of a vector V with itself. We define an operator directing <em>how</em> to add V in this context, i.e. by separately adding <em>each</em> of its elements with <em>all</em> the elements. The ‘each with all’ clause is an embroidery which could equally well be applied to a general scalar dyadic function F, and is defined by</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="w">    </span><span class="bp">∇</span><span class="nv">Z</span><span class="kd">←</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">TABLE</span><span class="p">)</span><span class="nv">R</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">Z</span><span class="kd">←</span><span class="nv">R</span><span class="na">∘.</span><span class="nv">F</span><span class="w"> </span><span class="nv">R</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>Thus</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="o">×</span><span class="nv">TABLE</span><span class="w"> </span><span class="o">⍳</span><span class="m">12</span>
+</span></code></pre></div>
+<p>is the ordinary school multiplication table.</p>
+<p>Commuting function arguments provides another opportunity to embellish a range of functions with a common adverbial embroidery.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="w">    </span><span class="bp">∇</span><span class="nv">Z</span><span class="kd">←</span><span class="nv">L</span><span class="p">(</span><span class="nv">F</span><span class="w"> </span><span class="nv">COM</span><span class="p">)</span><span class="nv">R</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">Z</span><span class="kd">←</span><span class="nv">R</span><span class="w"> </span><span class="nv">F</span><span class="w"> </span><span class="nv">L</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="m">2</span><span class="w"> </span><span class="o">*</span><span class="nv">COM</span><span class="w"> </span><span class="o">⍳</span><span class="m">4</span><span class="w">  </span><span class="kd">←→</span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">16</span>
+</span></code></pre></div>
+<p>What is common to the operators ALONG, TABLE, and COM is that they are applicable across a <em>range</em> of functions – if the function variation is really relevant to only one function, there is no need to traffic with operators – user-defined functions can be used in the usual way.</p>
+<p>Of the operands F and G, either or both may be functions or arrays, but for meaningful uses at least one should be a function. The derived function then takes arguments L and R. If G and R are both arrays as in the case of the function ALONG then brackets are necessary to show where G stops and R begins.</p>
+<p>If the operator is monadic, then the single operand appears to the left, thus reversing the rule for arguments. This is because non-ambiguity of syntax demands that operators follow the reverse rule for functions, that is they are <em>read</em> from right to left and <em>executed</em> from left to right. Thus in the expression</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">(</span><span class="o">-</span><span class="nv">COM</span><span class="w"> </span><span class="nv">ALONG</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="o">⍳</span><span class="m">4</span>
+</span></code></pre></div>
+<p>the operator COM is executed before the operator ALONG. More specifically the derived function (-COM) is constructed and passed as an operand to ALONG to obtain the derived function (-COM) ALONG 1. Applying this derived function to the right argument, the successive execution steps are:</p>
+<p>1(-COM)2 = 1<br />
+1(-COM)3 = 2<br />
+2(-COM)4 = 2</p>
+<p>giving 2 as the final answer.</p>
+<p>Further examples of situations in which user-defined operators suggest themselves naturally are given in three conference papers, my own on <em>‘Cultivating Trees’</em> in APL84, and those on <em>‘Operators for Program Control’</em> and <em>‘Operators for Recursion’ by E. Eusebi</em> in APL85.</p>
+<h2 id="extension-of-apl1-operators">Extension Of APL1 Operators<a class="headerlink" href="#extension-of-apl1-operators" title="Permanent link">&para;</a></h2>
+<p>The standard APL1 operators can be used to demonstrate further that the execution rule for operators is the opposite to that for functions. As in the previous article, I proceed by giving basic exercises, which you may like to work out by covering up the answers before reading them and the expository notes which follow. As before I shall use the function DR:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nv">DR</span><span class="bp">:</span><span class="w"> </span><span class="p">(</span><span class="o">≡</span><span class="nv">R</span><span class="p">)</span><span class="o">,⍴</span><span class="nv">R</span>
+</span></code></pre></div>
+<p>to obtain the depth-followed-by-rho of an APL object.</p>
+<p>What are:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">(</span><span class="nv">A</span><span class="p">)</span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">+</span><span class="na">.</span><span class="o">×</span><span class="na">.</span><span class="o">-</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="p">(</span><span class="nv">B</span><span class="p">)</span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">+</span><span class="na">.</span><span class="p">(</span><span class="o">×</span><span class="na">.</span><span class="o">-</span><span class="p">)</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span></code></pre></div>
+<p>It may be useful to enunciate the APL1 rule for an inner product F.G, viz. first perform G on an element by element basis for the last dimension of the left argument, and the first dimension of the right argument, then carry out F reduction. (Think of +.× and the ‘row-into-column’ rule for algebraic matrix multiplication). If the arguments of an inner product are scalars then the function F plays no part, i.e. F.G is equivalent to G.</p>
+<p>In APL2 this rule has subtly changed – it is now :</p>
+<blockquote>
+<p>For those arguments which are <em>not</em> scalars enclose elements along the last axis of the left argument and the first axis of the right argument, then evaluate the ‘F reduction each’ of the G outer product, enclosing every element.</p>
+</blockquote>
+<p>Just as inner product evaluation begins with enclosure, so outer product begins with <em>disclosure</em> of the elements, followed by enclosure of the separate function evaluations.</p>
+<p>In (A) the leftmost inner product is executed first, and so the final derived function is (+.×).-. The APL1 rules would suggest an answer</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="w">      </span><span class="p">(</span><span class="o">+</span><span class="na">.</span><span class="o">×</span><span class="p">)</span><span class="na">/</span><span class="m">¯2</span><span class="w"> </span><span class="m">¯2</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="m">4</span>
+</span></code></pre></div>
+<p>The APL2 rule for inner product first obtains the outer product</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="w">      </span><span class="p">(</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="na">∘.</span><span class="o">-⊂</span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="m">¯2</span><span class="w"> </span><span class="m">¯2</span><span class="w">                        </span><span class="nv">DR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span>
+</span></code></pre></div>
+<p>Notice that there is no initial enclosure because both elements are scalars. Evaluating the outer product however involves an initial disclosure, and a final enclosure which accounts for the depth of 2. ‘+.× reduction each’ then leads to the answer 4, and so the APL2 rule follows the old rule in this case – the subtle but important difference being that an enclosure and an ‘each’ have become involved, even although neither was present in the original expression.</p>
+<p>In (B), following the APL1 rules, (×.-) should be equivalent to -, leading to a final result 1 2 +.- 3 4, namely -4. The APL2 rules, however, lead to an initial evaluation of the outer product</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="w">      </span><span class="p">(</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="na">∘.</span><span class="p">(</span><span class="o">×</span><span class="na">.</span><span class="o">-</span><span class="p">)</span><span class="o">⊂</span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="m">4</span><span class="w">                            </span><span class="nv">DR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+</span></code></pre></div>
+<p>The ‘+.× reduction each’ is then a null function and the final result is +4, which is <em>not</em> the same as the APL1 rules would have us expect.</p>
+<p>Now introduce nesting. What are:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p">(</span><span class="nv">C</span><span class="p">)</span><span class="w">  </span><span class="p">(</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="o">×</span><span class="w"> </span><span class="o">⊂</span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="p">(</span><span class="nv">D</span><span class="p">)</span><span class="w">  </span><span class="p">(</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="na">.</span><span class="o">×</span><span class="w"> </span><span class="o">⊂</span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="p">(</span><span class="nv">E</span><span class="p">)</span><span class="w">  </span><span class="p">(</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="na">∘.</span><span class="o">×</span><span class="w"> </span><span class="o">⊂</span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="p">(</span><span class="nv">F</span><span class="p">)</span><span class="w">  </span><span class="o">+</span><span class="na">.</span><span class="o">×</span><span class="na">/</span><span class="p">(</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="o">,⊂</span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span></code></pre></div>
+<p>The answers are:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="p">(</span><span class="nv">C</span><span class="p">)</span><span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="m">8</span><span class="w">            </span><span class="nv">DR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="p">(</span><span class="nv">D</span><span class="p">)</span><span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="m">8</span><span class="w">            </span><span class="nv">DR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="p">(</span><span class="nv">E</span><span class="p">)</span><span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="m">8</span><span class="w">            </span><span class="nv">DR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="p">(</span><span class="nv">F</span><span class="p">)</span><span class="w">  </span><span class="m">11</span><span class="w">             </span><span class="nv">DR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+</span></code></pre></div>
+<p>(C) illustrates the pervasiveness of the scalar dyadic functions, i.e. element by element multiplication takes place through the ‘barrier’ of enclosure. We shall assume henceforward that the concept of pervasiveness is well known and understood.</p>
+<p>The answers (D) to (F) may seem surprising at first.</p>
+<p>(i) Why is (D) depth 3 and not 2? APL1 intuition suggests that since both arguments are scalars the + should be inoperative and the result the same as (C). However the APL2 rule for outer product results in a singly enclosed vector as per example (E), while that for the inner product shows that each element of the final result is the <em>enclosure</em> of the + reduction - a consideration necessary to guarantee scalarness of elements in cases where the function is not scalar dyadic.</p>
+<p>(ii) The non-equivalence of (D) and (F) violates the APL1 rule for reduction of a vector, that is obtain the F/ by placing the function F in all the available (possibly zero) spaces, and evaluating the result. This is because ensuring that the reduction operator always <em>reduces</em> rank requires a subtle variation for APL2, namely the ‘<em>F each</em>’ should be inserted between adjacent items, and the final evaluation enclosed. Since ‘each’ has no effect when no nesting is present this rule completely subsumes the APL1 rule.</p>
+<p>Now add the ‘each’ operator explicitly into the mix. What are:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="p">(</span><span class="nv">G</span><span class="p">)</span><span class="w">  </span><span class="p">(</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="o">×</span><span class="na">¨</span><span class="w"> </span><span class="o">⊂</span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="p">(</span><span class="nv">H</span><span class="p">)</span><span class="w">  </span><span class="p">(</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="na">.</span><span class="o">×</span><span class="na">¨</span><span class="w"> </span><span class="o">⊂</span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="p">(</span><span class="nv">I</span><span class="p">)</span><span class="w">  </span><span class="p">(</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="na">∘.</span><span class="o">×</span><span class="na">¨</span><span class="w"> </span><span class="o">⊂</span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="p">(</span><span class="nv">J</span><span class="p">)</span><span class="w">  </span><span class="p">(</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="na">.</span><span class="p">(</span><span class="o">×</span><span class="na">¨</span><span class="p">)</span><span class="w"> </span><span class="o">⊂</span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span></code></pre></div>
+<p>The answers are:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">(</span><span class="nv">G</span><span class="p">)</span><span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="m">8</span><span class="w">            </span><span class="nv">DR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="p">(</span><span class="nv">H</span><span class="p">)</span><span class="w">  </span><span class="m">11</span><span class="w">             </span><span class="nv">DR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="p">(</span><span class="nv">I</span><span class="p">)</span><span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w">            </span><span class="nv">DR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">     </span><span class="m">6</span><span class="w"> </span><span class="m">8</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="p">(</span><span class="nv">J</span><span class="p">)</span><span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="m">8</span><span class="w">            </span><span class="nv">DR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span>
+</span></code></pre></div>
+<p>The ‘each’ in (G) forces disclosure of the two arguments, with a final enclosure after multiplying.</p>
+<p>(G), (H) and (I) demonstrate the ‘shell-penetration’ role of each. Comparison of (G) and (H) demonstrates how the implicit ‘each’ in the definition of inner product achieves an extra level of ‘shell-penetration’. Note the equivalence of (H) and (F).</p>
+<p>Comparison of the results of (E) and (I) is also revealing. (E) is a straightforward multiplication table for the two scalar arguments. At first sight the ‘each’ in (I) ought not to make any difference since both arguments are scalars. This is however a circumstance in which the apparent simplicity of the name ‘each’ can be deceptive. The rule for ‘each’ must be strictly applied, that is, disclose both elements, apply the operand of ‘each’ (in this case outer product multiply), then enclose. Similar considerations apply to the pairs (H) and (D). Now comparing (H) and (J), in (H) the +.× outer product (i.e. the first step of the inner product) is in fact applied to <em>simple</em> objects following the implicit disclosures with ‘each’, whereas in (J) the initial ‘times each’ outer product of the two arguments leads to a nested vector, and the final enclosure implicit in the inner product gives rise to an ultimate depth of 3.</p>
+<h2 id="consistency-with-existing-concepts-of-reduction-and-inner-product">Consistency with Existing Concepts of Reduction and Inner Product<a class="headerlink" href="#consistency-with-existing-concepts-of-reduction-and-inner-product" title="Permanent link">&para;</a></h2>
+<p>The discussion so far might suggest that the amendments to the rules for inner product and reduction impose an intolerable new layer of complexity on the APL2 user. They are however no more than necessary adjustments which ensure that what is intuitively obvious and desirable should happen in the presence of nestedness. This is illustrated by the remaining examples for which we define B as the nested array:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>┌───┐   ┌───┐
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>│0 1│   │2 0│
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>└───┘   └───┘
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>┌───┐   ┌───┐
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>│1 0│   │0 2│
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>└───┘   └───┘
+</span></code></pre></div>
+<p>that is</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nv">B</span><span class="kd">←</span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="o">⍴</span><span class="p">(</span><span class="o">⊂</span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="o">,</span><span class="p">(</span><span class="o">⊂</span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="o">,</span><span class="p">(</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="o">,⊂</span><span class="m">0</span><span class="w"> </span><span class="m">2</span>
+</span></code></pre></div>
+<p>What are:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="p">(</span><span class="nv">K</span><span class="p">)</span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">+</span><span class="na">.</span><span class="o">×</span><span class="w"> </span><span class="nv">B</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="p">(</span><span class="nv">L</span><span class="p">)</span><span class="w">  </span><span class="p">(</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="na">.</span><span class="o">×</span><span class="w"> </span><span class="nv">B</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="p">(</span><span class="nv">M</span><span class="p">)</span><span class="w">  </span><span class="p">(</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="na">.</span><span class="o">×</span><span class="na">¨</span><span class="w"> </span><span class="nv">B</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="p">(</span><span class="nv">N</span><span class="p">)</span><span class="w">  </span><span class="p">(</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="na">.</span><span class="p">(</span><span class="o">×</span><span class="na">¨</span><span class="p">)</span><span class="w"> </span><span class="nv">B</span>
+</span></code></pre></div>
+<p>Answers and notes:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="p">(</span><span class="nv">K</span><span class="p">)</span><span class="w">  </span><span class="p">(</span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="p">)(</span><span class="m">2</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w">       </span><span class="nv">DR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">2</span>
+</span></code></pre></div>
+<p>that is</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="p">((</span><span class="m">1</span><span class="o">×⊂</span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="o">+</span><span class="m">2</span><span class="o">×⊂</span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w">      </span><span class="p">((</span><span class="m">1</span><span class="o">×⊂</span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="o">+</span><span class="m">2</span><span class="o">×⊂</span><span class="m">0</span><span class="w"> </span><span class="m">2</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="p">(</span><span class="nv">L</span><span class="p">)</span><span class="w">  </span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)(</span><span class="m">2</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w">       </span><span class="nv">DR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">2</span>
+</span></code></pre></div>
+<p>scalar left argument forces expansion to vector of length 2. Result is</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="p">(((</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="o">×⊂</span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="o">×⊂</span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="p">)</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">              </span><span class="p">(((</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="o">×⊂</span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="o">×⊂</span><span class="m">0</span><span class="w"> </span><span class="m">2</span><span class="p">)</span>
+</span></code></pre></div>
+<p>If the elements of B are taken to represent displacement vectors in 2D space (or forces, velocities, etc.) then (K) obtains V+2W where V and W are two elements belonging to the same column, and (L) gives V’+W’ where V’ and W’ represent V and W with x- and y- ‘stretch factors’ 1 and 2 respectively applied to each displacement.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="p">(</span><span class="nv">M</span><span class="p">)</span><span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w">              </span><span class="nv">DR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">     </span><span class="m">1</span><span class="w"> </span><span class="m">4</span>
+</span></code></pre></div>
+<p>that is the +.× inner products of 1 2 with each of the 4 elements of B.</p>
+<blockquote>
+<p>(N) – same as (L) on account of pervasiveness of multiplication.</p>
+</blockquote>
+<p>The next two examples extend examples (A) and (B) and demonstrate the working of consecutive inner products.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="p">(</span><span class="nv">O</span><span class="p">)</span><span class="w">  </span><span class="p">(</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="na">.</span><span class="o">+</span><span class="na">.</span><span class="o">×</span><span class="w"> </span><span class="nv">B</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="p">(</span><span class="nv">P</span><span class="p">)</span><span class="w">  </span><span class="p">(</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="na">.</span><span class="p">(</span><span class="o">+</span><span class="na">.</span><span class="o">×</span><span class="p">)</span><span class="w"> </span><span class="nv">B</span><span class="w"> </span><span class="o">?</span>
+</span></code></pre></div>
+<p>Answers and notes:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="p">(</span><span class="nv">O</span><span class="p">)</span><span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="m">6</span><span class="w">              </span><span class="nv">DR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="p">(</span><span class="nv">P</span><span class="p">)</span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w">      </span><span class="m">2</span><span class="w"> </span><span class="m">4</span><span class="w">     </span><span class="nv">DR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">2</span>
+</span></code></pre></div>
+<p>In both cases the scalar left argument forces scalar expansion. In (O) the derived function is (+.+).×, and the elements of the result are</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="p">(</span><span class="o">⊂+</span><span class="na">.</span><span class="o">+</span><span class="na">/</span><span class="p">(</span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="p">)(</span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="p">))</span><span class="w">      </span><span class="p">(</span><span class="o">⊂+</span><span class="na">.</span><span class="o">+</span><span class="na">/</span><span class="p">(</span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="p">)(</span><span class="m">0</span><span class="w"> </span><span class="m">4</span><span class="p">))</span>
+</span></code></pre></div>
+<p>from which application of the reduction rule leads to the result.</p>
+<p>In (P) the corresponding elements are</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="p">(</span><span class="o">⊂+</span><span class="na">/</span><span class="p">((</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="o">+</span><span class="na">.</span><span class="o">×⊂</span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="o">,</span><span class="p">((</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="o">+</span><span class="na">.</span><span class="o">×⊂</span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="p">))</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="w">     </span><span class="p">(</span><span class="o">⊂+</span><span class="na">/</span><span class="p">((</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="o">+</span><span class="na">.</span><span class="o">×⊂</span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="o">,</span><span class="p">((</span><span class="o">⊂</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="o">+</span><span class="na">.</span><span class="o">×⊂</span><span class="m">0</span><span class="w"> </span><span class="m">2</span><span class="p">))</span>
+</span></code></pre></div>
+<p>The highest level enclosures arise from the last step of the inner product rule, and give rise to the depth of 4.</p>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>As with nested arrays the power of operators in APL2 is considerable and make the operator capabilities of APL1 look minute! At first sight the user may be understandably daunted by the sheer amount of variation afforded by the different possible ways of combining APL2 operators, quite apart from the effects of mixing these with operators of his or her own definition. Also the subtle variations in the inner product, outer product and reduction rules demand careful study in the first place, but will ultimately reveal a beautiful consistency with the simpler APL1 ideas. Some of the language extensions of APL2 provide a substantial intellectual challenge and require a systematic and disciplined approach to master them, these articles may hopefully have provided some pointers.</p></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">language design</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">programming techniques</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

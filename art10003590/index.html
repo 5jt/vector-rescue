@@ -1,0 +1,1658 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10003590/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Non-linear Regression Modelling in APL - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#a-logistic-function-for-elisa-data" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Non-linear Regression Modelling in APL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-logistic-function-for-elisa-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A Logistic Function for ELISA Data
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nonlinear-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Nonlinear Estimation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Overshooting
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-1-elisa-of-antibodyantigen-interaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Example 1: ELISA of Antibody/Antigen Interaction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-2-biochemical-oxygen-demand-of-river-water" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Example 2: Biochemical Oxygen Demand of River Water
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#probability-densities-for-least-squares-estimates" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Probability Densities for Least Squares Estimates
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conclusions
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Non-linear Regression Modelling in APL</h1>
+
+  <p class="printed"><a href="../9/#n1-july-1992">Vector 9:1</a>, page 109</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-mathematics-and-statistics">mathematics and statistics</a> <a class="md-tag" href="../tags/#tag-programming-techniques">programming techniques</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../9/1/VOL.9-NO.1-JULY-1992.pdf#page=111">Read it in the PDF of the issue, page 109</a></em></p>
+<p class="byline"><em>by Peter Hingley</em></p>
+<p>This article is a summary of a talk I gave at the ASL meeting in Gregynog in October 1991. It was suggested that a nonlinear regression modelling volume might be written for a future edition of the library, to augment the functions already available in the Regression shelf for analysing generalised linear models (GLIMs). Since then a similar suggestion has been made by Appleton [1].</p>
+<p>In regression a data set is related to an underlying set of independent variables by an appropriate function, and the parameters of the function are to be estimated. One of the simplest examples of regression is of course the straight line model, y = a + bz, solvable on many statistical calculators. In this case the independent variable is z, the dependent variable is y, and the parameters are a and b.</p>
+<p>There is a bewildering variety of types of nonlinear model, including time series models [2] and dynamic models exhibiting chaotic behaviour [3]. I shall consider the restricted situation where observed data are imagined to be generated by a regression model consisting of a function of independent variables, assuming fixed but unknown parameters and independent, identically distributed errors.</p>
+<p>The aim is to find a method for estimating the values of the underlying parameters. In the functions and examples given below I will further restrict attention to models which are differentiable with respect to parameters, and have a single set of independent variables. Hence the APL functions would need to be greatly augmented to provide general purpose nonlinear estimation routines.</p>
+<h2 id="a-logistic-function-for-elisa-data">A Logistic Function for ELISA Data<a class="headerlink" href="#a-logistic-function-for-elisa-data" title="Permanent link">&para;</a></h2>
+<p>As an example of a nonlinear regression model, consider the logistic function. This has often been suggested as being appropriate for biochemical measurement systems where the possibility exists of saturation of the system at high levels of dosage input [e.g. 4]. We suggested [5] that one particular formulation of a logistic might be usefully applied to <em>Enzyme Linked Immunosorbent Assays</em> (ELISAs) for characterisation of antibodies against Foot and Mouth Disease in animal serum.</p>
+<p>In this kind of assay fixed concentrations of serum antibody are reacted with varying concentrations of a standard virus antigen preparation [6]. The extent of reaction between antigen and antibody is given by a coloured indicator, the depth of colour being measured as optical density in a spectrophotometer.</p>
+<p>One way of writing the logistic function is:</p>
+<p><i>y</i> = <i>v</i>.10<sup><i>a</i>(<i>z</i>+γ)</sup> / (1+10<sup><i>a</i>(<i>z</i>+γ)</sup>) + <i>e</i> = <i>f</i>(θ,z) + <i>e</i></p>
+<p><img alt="Sketch of the logistic curve: optical density y against z, rising from 0 towards v, passing 0.5v above −γ" src="fig1.png" /></p>
+<p>Here y is the optical density assay response, z is the applied log dosage of antigen, e is experimental error, v is the optical density at saturation, γ represents the log dosage giving 50% saturation, and a represents antibody heterogeneity.</p>
+<p>It is of course obvious to APL users that a data set comprising <em>n</em> observations can be represented by nx1 vectors y, z, e; and that a set of <em>p</em> parameters like γ, a, v can be represented by a px1 vector θ (here p = 3). To keep things simple we will assume that the constituents of e are all independent and have zero expectation.</p>
+<p>Now it is possible to transform the logistic equation so that it becomes a straight line model.</p>
+<p>log[ <i>f</i>(θ,z) / (<i>v</i> − <i>f</i>(θ,z)) ] = <i>a</i>(<i>z</i>+γ)</p>
+<p>However in doing this the error structure is perturbed. That is, the error structure of the new model becomes itself a function of inputs, outputs and parameters, leading to considerable complications in estimation. It is far better to use an estimation method based on the original model, but taking into account the inherent nonlinearity. In any case many other model formulations can not be so easily linearised as this example.</p>
+<h2 id="nonlinear-estimation">Nonlinear Estimation<a class="headerlink" href="#nonlinear-estimation" title="Permanent link">&para;</a></h2>
+<p>The following method has been found appropriate for the logistic model, and should be applicable to other cases also. In an earlier publication [5] APL functions were provided to solve a logistic model specifically. In what follows I will generalise the approach to deal with any model of a similar type. I will describe APL functions to implement a Gauss-Newton estimation method [7,8]. Other possible approaches that could be used include Newton-Raphson, Grid Search, Random Search or Derivative free methods, and the interested reader is encouraged to consult Seber and Wild [9] for a description of these. Other useful books include references [10, 11, 12 and 13].</p>
+<p>We shall search for parameter estimates, θ = θ̂, which minimise the Residual Sum of Squares (RSS), defined as</p>
+<p>RSS = [y − <i>f</i>(θ,z)]<sup>T</sup><sub>1xn</sub> [y − <i>f</i>(θ,z)]<sub>nx1</sub></p>
+<p>where <sup>T</sup> indicates transposition, and f(θ,z)<sub>nx1</sub> is the nonlinear function giving the expected value of y<sub>nx1</sub> for a given vector z<sub>nx1</sub> of independent variables.</p>
+<p>The method will redefine the problem in terms of an approximate linear model. A linear model is a special case of the nonlinear model in which the function f(θ,z) is written as a product of a design matrix X<sub>nxp</sub> and a parameter vector B<sub>px1</sub>.</p>
+<p>y = X<sub>nxp</sub> . B<sub>px1</sub> + e</p>
+<p>It can easily be proved, as is shown in most statistics textbooks [e.g. 7], that the estimate of B̂ that exactly minimises the RSS is:</p>
+<p>B̂ = [X<sup>T</sup>X]<sup>-1</sup><sub>pxp</sub> . X<sup>T</sup>y</p>
+<p>where []<sup>-1</sup> indicates inversion of a square matrix.</p>
+<p>Returning now to the nonlinear case, it is possible to approximate f(θ,z) by means of the first two terms of a Taylor expansion.</p>
+<p><i>f</i>(θ,z)<sub>nx1</sub> ≈ <i>f</i>(θ<sup>a</sup>,z)<sub>nx1</sub> + <i>f</i>′(θ<sup>a</sup>,z)<sup>T</sup><sub>nxp</sub>(θ − θ<sup>a</sup>)<sub>px1</sub></p>
+<p>where θ<sup>a</sup> is a guess for θ, and f′(θ,z)<sub>pxn</sub> is the derivative of f(θ,z) with respect to θ.</p>
+<p>The nonlinear model for y can now be approximated as</p>
+<p>y = <i>f</i>(θ,z) + e<br>&nbsp;&nbsp;≈ <i>f</i>(θ<sup>a</sup>,z) + <i>f</i>′(θ<sup>a</sup>,z)<sup>T</sup>(θ − θ<sup>a</sup>) + e</p>
+<p>Rearranging, we can get an expression for the approximate residuals r<sup>a</sup>.</p>
+<p>r<sup>a</sup> = y − <i>f</i>(θ<sup>a</sup>,z)<br>&nbsp;&nbsp;≈ <i>f</i>′(θ<sup>a</sup>,z)<sup>T</sup><sub>nxp</sub>(θ − θ<sup>a</sup>)<sub>px1</sub> + e</p>
+<p>This expression is formally equivalent to a linear model, as defined above, with X = f′(θ<sup>a</sup>,z)<sup>T</sup>, and B = (θ − θ<sup>a</sup>). We can therefore write an approximate solution for (θ̂ − θ<sup>a</sup>) as:</p>
+<p>(θ̂ − θ<sup>a</sup>) ≈ [<i>f</i>′(θ<sup>a</sup>,z)<sup>T</sup><i>f</i>′(θ<sup>a</sup>,z)]<sup>-1</sup>. <i>f</i>′(θ<sup>a</sup>,z)<sup>T</sup>r<sup>a</sup> = d<sup>a</sup></p>
+<p>Enough now exists for an estimation algorithm (similar to that described in [1]). Make a first guess for θ<sup>a</sup>. Then calculate d<sup>a</sup>, and update θ<sup>a</sup> to give θ<sup>a+1</sup> as</p>
+<p>θ<sup>a+1</sup> = θ<sup>a</sup> + d<sup>a</sup></p>
+<p>Repeat the process iteratively, and declare convergence, θ̂ = θ<sup>a+1</sup>, when the next iteration modifies RSS by less than a given tolerance <code>MI</code>. That is when</p>
+<p>RSS<sup>a</sup> − MI &lt; RSS<sup>a+1</sup> &lt; RSSa + MI</p>
+<h2 id="overshooting">Overshooting<a class="headerlink" href="#overshooting" title="Permanent link">&para;</a></h2>
+<p>The iterative process defined above suffers from the difficulty that the linearised parameter increment on any particular iteration can accidentally increase RSS, either by overshooting the point of minimum RSS or by some other peculiarity of the RSS surface. A simple modification to the algorithm can easily stop this happening. If RSS rises by more than the tolerance factor <code>MI</code> on any particular iteration, then the parameter increment is successively halved until an acceptable value of θ<sup>a+1</sup> is found.</p>
+<p><img alt="Flow diagram: Set up Model (a=0, h=1); Store RSS[a]; Calculate d[a]; θ[a+1] = θ[a] + hd[a]; Check θmin ≤ θ[a+1] ≤ θmax, if not set to limit; Too many iterations? (Yes: STOP); RSS[a+1] &lt; RSS[a] + MI ? (No: h &lt;- h / 2; Too many halvings? Yes: STOP, No: back to θ[a+1]); Yes: RSS[a]-MI &lt; RSS[a+1] ? (Yes: Stop Successfully; No: RSS[a] &lt;- RSS[a+1] and back to Store RSS[a])" src="flow.png" /></p>
+<p>The flow diagram shown opposite summarises the operation of the algorithm, including limits on the numbers of iterations and halvings, and limits to the range of parameter estimates. It should be noted that the system technically only searches for local optima, and may become confused if the RSS surface has more than one minimum within the allowable range of parameters. The process is not guaranteed to converge successfully, but in regular problems with sensible starting estimates it usually seems to work. The main function <code>ESTIMATE</code> calls two subsidiary functions; <code>MFIZ</code> specifies the model f(θ,z), while <code>MDFIZ</code> specifies the derivatives f′(θ,z). After executing <code>ESTIMATE</code> the parameter estimates are found in the vector <code>PI</code>, the fitted values f(θ̂,z) in <code>FIZ</code>, while RSS is, not surprisingly, given by <code>RSS</code>. All the functions in this article were implemented in TRYAPL2, but should be easily transferable to other interpreters.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">ESTIMATE</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  CARRIES OUT NONLINEAR PARAMETER ESTIMATION</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  CAN BE USED INDEPENDENTLY OR CALLED FROM SIMLATE</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  THE FOLLOWING GLOBAL VARIABLES ARE EXPECTED:-</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  Y,  THE VECTOR OF DEPENDENT VARIABLES</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  P0,  THE P×1 VECTOR OF INITIAL PARAMETER ESTIMATES</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  PU, PL  P×1 VECTORS SHOWING UPPER AND LOWER BOUNDARIES</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  HM  THE MAXIMUM NUMBER OF HALVINGS</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  MI  THE MINIMUM RESIDUAL INCREMENT FOR CONVERGENCE</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  IM  THE MAXIMUM NUMBER OF ITERATIONS ALLOWED FOR EST'N</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">  </span><span class="c1">⍝  CALLS FUNCTIONS MFIZ, MDFIZ</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="sr">[</span><span class="m">11</span><span class="sr">]</span><span class="w">   </span><span class="nv">MFIZ</span><span class="w"> </span><span class="nv">P0</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="sr">[</span><span class="m">12</span><span class="sr">]</span><span class="w">   </span><span class="nv">RSS</span><span class="kd">←</span><span class="o">+</span><span class="na">/</span><span class="p">((</span><span class="nv">Y</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="o">-</span><span class="nv">FIZ</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="p">)</span><span class="o">*</span><span class="m">2</span><span class="p">)</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="sr">[</span><span class="m">13</span><span class="sr">]</span><span class="w">   </span><span class="nv">I</span><span class="kd">←</span><span class="m">0</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="sr">[</span><span class="m">14</span><span class="sr">]</span><span class="w">  </span><span class="nv">HIS</span><span class="bp">:</span><span class="nv">WSS</span><span class="kd">←</span><span class="nv">RSS</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="sr">[</span><span class="m">15</span><span class="sr">]</span><span class="w">   </span><span class="nv">I</span><span class="kd">←</span><span class="nv">I</span><span class="o">+</span><span class="m">1</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="sr">[</span><span class="m">16</span><span class="sr">]</span><span class="w">   </span><span class="nv">XH</span><span class="kd">←</span><span class="m">1</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="sr">[</span><span class="m">17</span><span class="sr">]</span><span class="w">   </span><span class="nv">YOF</span><span class="kd">←</span><span class="nv">Y</span><span class="o">-</span><span class="nv">FIZ</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="sr">[</span><span class="m">18</span><span class="sr">]</span><span class="w">   </span><span class="nv">MDFIZ</span><span class="w"> </span><span class="nv">P0</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="sr">[</span><span class="m">19</span><span class="sr">]</span><span class="w">   </span><span class="nv">PINC</span><span class="kd">←</span><span class="nv">YOF</span><span class="o">⌹</span><span class="p">(</span><span class="o">⍉</span><span class="nv">DFIZ</span><span class="p">)</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="sr">[</span><span class="m">20</span><span class="sr">]</span><span class="w">   </span><span class="nv">J</span><span class="kd">←</span><span class="m">1</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="sr">[</span><span class="m">21</span><span class="sr">]</span><span class="w">  </span><span class="nv">IIS</span><span class="bp">:</span><span class="nv">PI</span><span class="kd">←</span><span class="nv">P0</span><span class="o">+</span><span class="p">(</span><span class="nv">PINC</span><span class="o">×</span><span class="nv">XH</span><span class="p">)</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="sr">[</span><span class="m">22</span><span class="sr">]</span><span class="w">   </span><span class="nv">PI</span><span class="kd">←</span><span class="p">(</span><span class="nv">PI</span><span class="o">×</span><span class="p">(</span><span class="nv">PI</span><span class="o">≤</span><span class="nv">PU</span><span class="p">))</span><span class="o">+</span><span class="p">(</span><span class="nv">PU</span><span class="o">×</span><span class="p">(</span><span class="nv">PI</span><span class="o">&gt;</span><span class="nv">PU</span><span class="p">))</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="sr">[</span><span class="m">23</span><span class="sr">]</span><span class="w">   </span><span class="nv">PI</span><span class="kd">←</span><span class="p">(</span><span class="nv">PI</span><span class="o">×</span><span class="p">(</span><span class="nv">PI</span><span class="o">≥</span><span class="nv">PL</span><span class="p">))</span><span class="o">+</span><span class="p">(</span><span class="nv">PL</span><span class="o">×</span><span class="p">(</span><span class="nv">PI</span><span class="o">&lt;</span><span class="nv">PL</span><span class="p">))</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="sr">[</span><span class="m">24</span><span class="sr">]</span><span class="w">   </span><span class="nv">MFIZ</span><span class="w"> </span><span class="nv">PI</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="sr">[</span><span class="m">25</span><span class="sr">]</span><span class="w">   </span><span class="nv">RSS</span><span class="kd">←</span><span class="o">+</span><span class="na">/</span><span class="p">((</span><span class="nv">Y</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="o">-</span><span class="nv">FIZ</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="p">)</span><span class="o">*</span><span class="m">2</span><span class="p">)</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="sr">[</span><span class="m">26</span><span class="sr">]</span><span class="w">   </span><span class="nv">RD</span><span class="kd">←</span><span class="nv">RSS</span><span class="o">-</span><span class="nv">WSS</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="sr">[</span><span class="m">27</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">JIS</span><span class="o">×⍳</span><span class="p">(</span><span class="nv">I</span><span class="o">=</span><span class="nv">IM</span><span class="o">+</span><span class="m">1</span><span class="p">)</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="sr">[</span><span class="m">28</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">NIS</span><span class="o">×⍳</span><span class="p">(</span><span class="nv">RD</span><span class="o">&lt;</span><span class="nv">MI</span><span class="p">)</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="sr">[</span><span class="m">29</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">OIS</span><span class="o">×⍳</span><span class="p">(</span><span class="nv">J</span><span class="o">=</span><span class="nv">HM</span><span class="p">)</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="sr">[</span><span class="m">30</span><span class="sr">]</span><span class="w">   </span><span class="nv">XH</span><span class="kd">←</span><span class="nv">XH</span><span class="o">÷</span><span class="m">2</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="sr">[</span><span class="m">31</span><span class="sr">]</span><span class="w">   </span><span class="nv">J</span><span class="kd">←</span><span class="nv">J</span><span class="o">+</span><span class="m">1</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="sr">[</span><span class="m">32</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">IIS</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="sr">[</span><span class="m">33</span><span class="sr">]</span><span class="w">  </span><span class="nv">OIS</span><span class="bp">:</span><span class="s1">'TOO MANY HALVINGS'</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="sr">[</span><span class="m">34</span><span class="sr">]</span><span class="w">  </span><span class="nv">NIS</span><span class="bp">:</span><span class="nv">P0</span><span class="kd">←</span><span class="nv">PI</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="sr">[</span><span class="m">35</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">HIS</span><span class="o">×⍳</span><span class="p">((((</span><span class="nv">RD</span><span class="o">*</span><span class="m">2</span><span class="p">)</span><span class="o">*</span><span class="m">0.5</span><span class="p">)</span><span class="o">&gt;</span><span class="nv">MI</span><span class="p">)</span><span class="o">∨</span><span class="p">(</span><span class="nv">XH</span><span class="o">&lt;</span><span class="m">1</span><span class="p">))</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="sr">[</span><span class="m">36</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">KIS</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="sr">[</span><span class="m">37</span><span class="sr">]</span><span class="w">  </span><span class="nv">JIS</span><span class="bp">:</span><span class="s1">'TOO MANY ITERATIONS'</span>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="sr">[</span><span class="m">38</span><span class="sr">]</span><span class="w">  </span><span class="nv">KIS</span><span class="bp">:</span>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">MFIZ</span><span class="w"> </span><span class="nv">P</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  CALCULATES EXPECTED VALUES FOR DEPENDENT VARIABLES OF ESTIMATION MODEL</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  SETS UP A N×1 MATRIX FIZ</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  THE FOLLOWING GLOBAL VARIABLES ARE EXPECTED:-</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  Z,  A VECTOR OF INDEPENDENT VARIABLES</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  Y,  A VECTOR OF DEPENDENT VARIABLES</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="nv">FIZ</span><span class="kd">←</span><span class="p">(</span><span class="o">⍴</span><span class="nv">Y</span><span class="p">)</span><span class="o">⍴</span><span class="nv">FIZ</span><span class="kd">←</span><span class="m">0</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝→B</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  CALCULATIONS FOR LOGISTIC ESTIMATION MODEL</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">    </span><span class="nv">FIZ</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="kd">←</span><span class="m">10</span><span class="o">*</span><span class="p">(</span><span class="nv">P</span><span class="sr">[</span><span class="m">2</span><span class="sr">;]</span><span class="o">×</span><span class="p">(</span><span class="nv">P</span><span class="sr">[</span><span class="m">1</span><span class="sr">;]</span><span class="o">+</span><span class="nv">Z</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="p">))</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">   </span><span class="nv">FIZ</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="kd">←</span><span class="nv">P</span><span class="sr">[</span><span class="m">3</span><span class="sr">;]</span><span class="o">×</span><span class="nv">FIZ</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="o">÷</span><span class="p">(</span><span class="m">1</span><span class="o">+</span><span class="nv">FIZ</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="p">)</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="sr">[</span><span class="m">11</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">C</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="sr">[</span><span class="m">12</span><span class="sr">]</span><span class="w">  </span><span class="c1">⍝  CALCULATIONS FOR EXPONENTIAL DECAY ESTIMATION MODEL</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="sr">[</span><span class="m">13</span><span class="sr">]</span><span class="w">  </span><span class="nv">B</span><span class="bp">:</span><span class="nv">FIZ</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="kd">←</span><span class="nv">P</span><span class="sr">[</span><span class="m">1</span><span class="sr">;]</span><span class="o">×</span><span class="p">(</span><span class="m">1</span><span class="o">-</span><span class="p">(</span><span class="m">10</span><span class="o">*</span><span class="p">(</span><span class="m">¯1</span><span class="o">×</span><span class="nv">P</span><span class="sr">[</span><span class="m">2</span><span class="sr">;]</span><span class="o">×</span><span class="nv">Z</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="p">)))</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="sr">[</span><span class="m">14</span><span class="sr">]</span><span class="w">  </span><span class="nv">C</span><span class="bp">:</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">MDFIZ</span><span class="w"> </span><span class="nv">P</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  CALCULATES DERIVATIVE MATRIX OF EST MODEL WRT PARAMS</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  SETS UP A P×N MATRIX DFIZ</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  THE FOLLOWING GLOBAL VARIABLES ARE EXPECTED:-</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  Z,  A VECTOR OF INDEPENDENT VARIABLES</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  Y,  A VECTOR OF DEPENDENT VARIABLES</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="nv">ZIPY</span><span class="kd">←</span><span class="o">⍴</span><span class="nv">Y</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  CALCULATIONS FOR LOGISTIC ESTIMATION MODEL</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝→B</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">    </span><span class="nv">DFIZ</span><span class="kd">←</span><span class="p">(</span><span class="m">3</span><span class="o">,</span><span class="nv">ZIPY</span><span class="p">)</span><span class="o">⍴</span><span class="nv">DFIZ</span><span class="kd">←</span><span class="m">0</span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">   </span><span class="nv">ZIP</span><span class="kd">←</span><span class="m">10</span><span class="o">*</span><span class="p">(</span><span class="nv">P</span><span class="sr">[</span><span class="m">2</span><span class="sr">;]</span><span class="o">×</span><span class="p">(</span><span class="nv">P</span><span class="sr">[</span><span class="m">1</span><span class="sr">;]</span><span class="o">+</span><span class="nv">Z</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="p">))</span>
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="sr">[</span><span class="m">11</span><span class="sr">]</span><span class="w">   </span><span class="nv">DFIZ</span><span class="sr">[</span><span class="m">1</span><span class="sr">;]</span><span class="kd">←</span><span class="nv">P</span><span class="sr">[</span><span class="m">3</span><span class="sr">;]</span><span class="o">×</span><span class="p">(</span><span class="o">⍟</span><span class="m">10</span><span class="p">)</span><span class="o">×</span><span class="nv">P</span><span class="sr">[</span><span class="m">2</span><span class="sr">;]</span><span class="o">×</span><span class="nv">ZIP</span><span class="o">÷</span><span class="p">((</span><span class="m">1</span><span class="o">+</span><span class="nv">ZIP</span><span class="p">)</span><span class="o">*</span><span class="m">2</span><span class="p">)</span>
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="sr">[</span><span class="m">12</span><span class="sr">]</span><span class="w">   </span><span class="nv">DFIZ</span><span class="sr">[</span><span class="m">2</span><span class="sr">;]</span><span class="kd">←</span><span class="nv">DFIZ</span><span class="sr">[</span><span class="m">1</span><span class="sr">;]</span><span class="o">×</span><span class="p">(</span><span class="nv">P</span><span class="sr">[</span><span class="m">1</span><span class="sr">;]</span><span class="o">+</span><span class="nv">Z</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="p">)</span><span class="o">÷</span><span class="nv">P</span><span class="sr">[</span><span class="m">2</span><span class="sr">;]</span>
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="sr">[</span><span class="m">13</span><span class="sr">]</span><span class="w">   </span><span class="nv">DFIZ</span><span class="sr">[</span><span class="m">3</span><span class="sr">;]</span><span class="kd">←</span><span class="nv">ZIP</span><span class="o">÷</span><span class="p">(</span><span class="m">1</span><span class="o">+</span><span class="nv">ZIP</span><span class="p">)</span>
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="sr">[</span><span class="m">14</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">C</span>
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="sr">[</span><span class="m">15</span><span class="sr">]</span><span class="w">  </span><span class="c1">⍝  CALCULATIONS FOR EXPONENTIAL DECAY ESTIMATION MODEL</span>
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="sr">[</span><span class="m">16</span><span class="sr">]</span><span class="w">  </span><span class="nv">B</span><span class="bp">:</span><span class="nv">DFIZ</span><span class="kd">←</span><span class="p">(</span><span class="m">2</span><span class="o">,</span><span class="nv">ZIPY</span><span class="p">)</span><span class="o">⍴</span><span class="nv">DFIZ</span><span class="kd">←</span><span class="m">0</span>
+</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="sr">[</span><span class="m">17</span><span class="sr">]</span><span class="w">   </span><span class="nv">ZIP</span><span class="kd">←</span><span class="m">10</span><span class="o">*</span><span class="p">(</span><span class="m">¯1</span><span class="o">×</span><span class="nv">P</span><span class="sr">[</span><span class="m">2</span><span class="sr">;]</span><span class="o">×</span><span class="nv">Z</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="p">)</span>
+</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="sr">[</span><span class="m">18</span><span class="sr">]</span><span class="w">   </span><span class="nv">DFIZ</span><span class="sr">[</span><span class="m">1</span><span class="sr">;]</span><span class="kd">←</span><span class="m">1</span><span class="o">-</span><span class="nv">ZIP</span>
+</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="sr">[</span><span class="m">19</span><span class="sr">]</span><span class="w">   </span><span class="nv">DFIZ</span><span class="sr">[</span><span class="m">2</span><span class="sr">;]</span><span class="kd">←</span><span class="p">(</span><span class="o">⍟</span><span class="m">10</span><span class="p">)</span><span class="o">×</span><span class="nv">P</span><span class="sr">[</span><span class="m">1</span><span class="sr">;]</span><span class="o">×</span><span class="nv">Z</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="o">×</span><span class="nv">ZIP</span>
+</span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a><span class="sr">[</span><span class="m">20</span><span class="sr">]</span><span class="w">  </span><span class="nv">C</span><span class="bp">:</span>
+</span><span id="__span-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<h2 id="example-1-elisa-of-antibodyantigen-interaction">Example 1: ELISA of Antibody/Antigen Interaction<a class="headerlink" href="#example-1-elisa-of-antibodyantigen-interaction" title="Permanent link">&para;</a></h2>
+<p>First I will demonstrate the operation of <code>ESTIMATE</code> using the logistic model for ELISA specified above. The data for estimation are explained above, and in more detail in [14]. The following output shows a possible terminal session. The plots were drawn using Anscombe’s <code>SCATTERPLOT</code> function [15], and show visually that the fitted values <code>FIZ</code> agree well with the data.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="w">      </span><span class="o">⍉</span><span class="nv">Z</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="m">1.81</span><span class="w"> </span><span class="m">1.81</span><span class="w"> </span><span class="m">2.11</span><span class="w"> </span><span class="m">2.11</span><span class="w"> </span><span class="m">2.41</span><span class="w"> </span><span class="m">2.41</span><span class="w"> </span><span class="m">2.71</span><span class="w"> </span><span class="m">2.71</span><span class="w"> </span><span class="m">3.01</span><span class="w"> </span><span class="m">3.01</span><span class="w"> </span><span class="m">3.31</span><span class="w"> </span><span class="m">3.31</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">      </span><span class="m">3.61</span><span class="w"> </span><span class="m">3.61</span><span class="w"> </span><span class="m">3.91</span><span class="w"> </span><span class="m">3.91</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">      </span><span class="o">⍉</span><span class="nv">Y</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="m">0.157</span><span class="w"> </span><span class="m">0.144</span><span class="w"> </span><span class="m">0.303</span><span class="w"> </span><span class="m">0.229</span><span class="w"> </span><span class="m">0.538</span><span class="w"> </span><span class="m">0.41</span><span class="w"> </span><span class="m">0.62</span><span class="w"> </span><span class="m">0.599</span><span class="w"> </span><span class="m">0.863</span><span class="w"> </span><span class="m">0.817</span><span class="w"> </span><span class="m">1.049</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">      </span><span class="m">1.039</span><span class="w"> </span><span class="m">1.147</span><span class="w"> </span><span class="m">1.158</span><span class="w"> </span><span class="m">1.184</span><span class="w"> </span><span class="m">1.274</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">      </span><span class="nv">IM</span><span class="kd">←</span><span class="m">500</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">      </span><span class="nv">MI</span><span class="kd">←</span><span class="m">0.0001</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">      </span><span class="nv">HM</span><span class="kd">←</span><span class="m">20</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">      </span><span class="nv">PL</span><span class="kd">←</span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="o">⍴</span><span class="m">¯10</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">       </span><span class="nv">PU</span><span class="kd">←</span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="o">⍴</span><span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">10</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">       </span><span class="nv">P0</span><span class="kd">←</span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="o">⍴</span><span class="m">¯2.5</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">      </span><span class="nv">ESTIMATE</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">      </span><span class="o">⍉</span><span class="nv">PI</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="m">¯2.753996549</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="m">0.9207034535</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="m">1.340651261</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">      </span><span class="o">⍉</span><span class="nv">FIZ</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="m">0.1596307509</span><span class="w"> </span><span class="m">0.1596307509</span><span class="w"> </span><span class="m">0.272668213</span><span class="w"> </span><span class="m">0.272668213</span><span class="w"> </span><span class="m">0.4361869199</span><span class="w"> </span><span class="m">0.4361869199</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="m">0.6390867678</span><span class="w"> </span><span class="m">0.6390867678</span><span class="w"> </span><span class="m">0.8478902192</span><span class="w"> </span><span class="m">0.8478902192</span><span class="w"> </span><span class="m">1.025221088</span><span class="w"> </span><span class="m">1.025221088</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="m">1.152868976</span><span class="w"> </span><span class="m">1.152868976</span><span class="w"> </span><span class="m">1.234222932</span><span class="w"> </span><span class="m">1.234222932</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="w">      </span><span class="nv">W</span><span class="kd">←</span><span class="p">(</span><span class="o">,</span><span class="nv">Z</span><span class="p">)</span><span class="w"> </span><span class="nv">SCATTERP</span><span class="w"> </span><span class="p">(</span><span class="o">,</span><span class="nv">Y</span><span class="p">)</span>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="w">      </span><span class="nv">W</span>
+</span></code></pre></div>
+<p><img alt="Character plot of Y against Z: sixteen points (o) rising in an S-shape, with axes of ×" src="plot1.png" /></p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="w">      </span><span class="nv">W</span><span class="kd">←</span><span class="p">(</span><span class="o">,</span><span class="nv">Z</span><span class="p">)</span><span class="w"> </span><span class="nv">SCATTERP</span><span class="w"> </span><span class="p">(</span><span class="o">,</span><span class="nv">FIZ</span><span class="p">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">      </span><span class="nv">W</span>
+</span></code></pre></div>
+<p><img alt="Character plot of FIZ against Z: eight points (θ, coincident pairs) on a smooth S-shaped curve" src="plot2.png" /></p>
+<h2 id="example-2-biochemical-oxygen-demand-of-river-water">Example 2: Biochemical Oxygen Demand of River Water<a class="headerlink" href="#example-2-biochemical-oxygen-demand-of-river-water" title="Permanent link">&para;</a></h2>
+<p>Consider a simple data set discussed by Bates and Watts [10], and originally given by Marske [16]. These describe an assay for biochemical oxygen demand of samples of stream water where dissolved oxygen concentration (y, in mg/l) is regressed against time (z, in days). A decay model can be specified as:</p>
+<p><i>f</i>(θ,z) = θ<sub>1</sub>(1 − 10<sup>−θ<sub>2</sub>z</sup>)</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="w">      </span><span class="o">⍉</span><span class="nv">Z</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">      </span><span class="o">⍉</span><span class="nv">Y</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="m">8.3</span><span class="w"> </span><span class="m">10.3</span><span class="w"> </span><span class="m">19</span><span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">15.6</span><span class="w"> </span><span class="m">19.8</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">      </span><span class="nv">IM</span><span class="kd">←</span><span class="m">500</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">      </span><span class="nv">MI</span><span class="kd">←</span><span class="m">0.0001</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">      </span><span class="nv">HM</span><span class="kd">←</span><span class="m">20</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">      </span><span class="nv">PL</span><span class="kd">←</span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="o">⍴</span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">      </span><span class="nv">PU</span><span class="kd">←</span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="o">⍴</span><span class="m">100</span><span class="w"> </span><span class="m">10</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">      </span><span class="nv">P0</span><span class="kd">←</span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="o">⍴</span><span class="m">25</span><span class="w"> </span><span class="m">0.5</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">      </span><span class="nv">ESTIMATE</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">      </span><span class="o">⍉</span><span class="nv">PI</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="m">19.21898833</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="m">0.2306874119</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">      </span><span class="o">⍉</span><span class="nv">FIZ</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="m">7.91990761</span><span class="w"> </span><span class="m">12.57611916</span><span class="w"> </span><span class="m">15.31356346</span><span class="w"> </span><span class="m">16.92294079</span><span class="w"> </span><span class="m">17.86911361</span><span class="w"> </span><span class="m">18.4253803</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">      </span><span class="nv">SIG</span><span class="kd">←</span><span class="p">((</span><span class="nv">RSS</span><span class="o">÷</span><span class="m">4</span><span class="p">)</span><span class="o">*</span><span class="m">0.5</span><span class="p">)</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">      </span><span class="nv">SIG</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="m">2.588690721</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">      </span><span class="nv">W</span><span class="kd">←</span><span class="p">(</span><span class="o">,</span><span class="nv">Z</span><span class="p">)</span><span class="w"> </span><span class="nv">SCATTERP</span><span class="w"> </span><span class="p">(</span><span class="o">,</span><span class="nv">Y</span><span class="p">)</span>
+</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>
+</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">      </span><span class="nv">W</span>
+</span></code></pre></div>
+<p><img alt="Character plot of Y against Z for the six oxygen-demand observations" src="plot3.png" /></p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="w">      </span><span class="nv">W</span><span class="kd">←</span><span class="p">(</span><span class="o">,</span><span class="nv">Z</span><span class="p">)</span><span class="w"> </span><span class="nv">SCATTERP</span><span class="w"> </span><span class="p">(</span><span class="o">,</span><span class="nv">FIZ</span><span class="p">)</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">      </span><span class="nv">W</span>
+</span></code></pre></div>
+<p><img alt="Character plot of FIZ against Z: six points on a rising, flattening curve" src="plot4.png" /></p>
+<p>Apart from giving a confirmation that <code>ESTIMATE</code> works well in another situation, this example is of interest because Bates and Watts report that the expectation surface in parameter space is moderately curved, and the linearised Gauss-Newton steps do not match well to the surface. This might well lead to difficulties in obtaining precise estimates, but actually the results shown above seem adequate. Incidentally the estimates given here have an RSS of 6.701, slightly lower than the RSS of 6.707 obtainable from Bates and Watts’ estimates, though they quote a value of 6.498 which is clearly incorrect. Some degree of indeterminacy in final estimates is always to be expected in nonlinear estimation because convergence is declared at a certain level of acceptable tolerance. It is necessary for the user to ensure that the tolerance value <code>MI</code> in any particular case is not too large to lead to inaccurate estimates, but not so small that an excessive number of iterations are required.</p>
+<h2 id="probability-densities-for-least-squares-estimates">Probability Densities for Least Squares Estimates<a class="headerlink" href="#probability-densities-for-least-squares-estimates" title="Permanent link">&para;</a></h2>
+<p>There are a variety of statistical diagnostics that can be calculated after fitting a model. For the most part these are analogous to quantities used with linear models, and APL functions could easily be developed for them. However some extra restrictions are usually required on the error terms, typically that the vector e follows a multivariate normal distribution.</p>
+<p>In order to demonstrate the advantage of using APL for extensions, I will show how functions can easily be established to simulate many sets of data, estimate parameters from each set, and then display the results in the form of a multi-dimensional frequency table. This kind of table gives a good impression of the shape of the multivariate probability distribution for the estimates, provided that a sufficiently large number of simulated data sets have been used to iron out sampling effects.</p>
+<p>Consider the problem of simulating sets of data from the ELISA test logistic curve that has been described above. Assume that each data point from a simulated experiment has a normally distributed error, and that the errors for each point are independent and have constant standard deviation. The following global variables should first be specified: <code>SIG</code>, the standard deviation of error assumed; <code>NSIM</code>, the number of simulated experimental data sets; <code>PIN</code>, the true values of the parameters for generating the curves; and <code>PST</code>, the initial guess values for the estimation of parameters for each curve. (In practice we would probably set <code>PST</code> = <code>PIN</code>, except in the case of estimation when using a different model to that generating the data.)</p>
+<p>The function <code>SETUP</code> allows the midpoints of the multi-dimensional frequency table to be defined, and then calls <code>SIMLATE</code>. Then for each of the simulated data sets, the true data generating model is specified by <code>MFOZ</code>, the random normal errors are added by <code>RNORMAL</code> (taken from [15]), while the parameter estimation is carried out using <code>ESTIMATE</code> and its associated functions as described earlier.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">SETUP</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  THIS SETS UP A MATRIX BIN IN WHICH TO STORE SIMULATION COUNTS,</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  AND A MATRIX BINL TO STORE CLASS BOUNDARIES.</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  THE FOLLOWING GLOBAL VARIABLES ARE EXPECTED:-</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  PIN,  A P×1 MATRIX CONTAINING TRUE PARAMETER VALUES</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  CALLS FUNCTION SIMLATE</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">    </span><span class="nv">BIN</span><span class="kd">←</span><span class="m">1</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">    </span><span class="nv">DIN</span><span class="kd">←</span><span class="nv">DIN2</span><span class="kd">←</span><span class="m">1</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">    </span><span class="nv">BINL</span><span class="kd">←</span><span class="p">(</span><span class="m">1</span><span class="o">,</span><span class="p">(</span><span class="o">⍴</span><span class="nv">PIN</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="p">))</span><span class="o">⍴</span><span class="nv">BINL</span><span class="kd">←</span><span class="m">0</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">   </span><span class="nv">CPIN</span><span class="kd">←</span><span class="m">0</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="sr">[</span><span class="m">11</span><span class="sr">]</span><span class="w">   </span><span class="nv">IK</span><span class="kd">←</span><span class="m">1</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="sr">[</span><span class="m">12</span><span class="sr">]</span><span class="w">  </span><span class="nv">CLA</span><span class="bp">:</span><span class="nv">CPIN</span><span class="kd">←</span><span class="nv">CPIN</span><span class="o">+</span><span class="m">1</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="sr">[</span><span class="m">13</span><span class="sr">]</span><span class="w">   </span><span class="s1">'ENTER CLASS DATA FOR PARAMETER '</span><span class="o">,</span><span class="nv">CPIN</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="sr">[</span><span class="m">14</span><span class="sr">]</span><span class="w">   </span><span class="nv">WDIN2</span><span class="kd">←</span><span class="nv">DIN2</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="sr">[</span><span class="m">15</span><span class="sr">]</span><span class="w">   </span><span class="nv">WDIN</span><span class="kd">←</span><span class="nv">DIN</span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="sr">[</span><span class="m">16</span><span class="sr">]</span><span class="w">   </span><span class="nv">DIN2</span><span class="kd">←</span><span class="vg">⎕</span>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="sr">[</span><span class="m">17</span><span class="sr">]</span><span class="w">   </span><span class="nv">DIN</span><span class="kd">←</span><span class="p">((</span><span class="o">⍴</span><span class="nv">DIN2</span><span class="p">)</span><span class="o">+</span><span class="m">1</span><span class="p">)</span><span class="o">⍴</span><span class="nv">DIN</span><span class="kd">←</span><span class="m">0</span>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="sr">[</span><span class="m">18</span><span class="sr">]</span><span class="w">   </span><span class="nv">DIN</span><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="kd">←</span><span class="p">(((</span><span class="m">3</span><span class="o">×</span><span class="nv">DIN2</span><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="p">)</span><span class="o">-</span><span class="nv">DIN2</span><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="p">)</span><span class="o">÷</span><span class="m">2</span><span class="p">)</span>
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="sr">[</span><span class="m">19</span><span class="sr">]</span><span class="w">   </span><span class="nv">K</span><span class="kd">←</span><span class="m">2</span>
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="sr">[</span><span class="m">20</span><span class="sr">]</span><span class="w">  </span><span class="nv">ILA</span><span class="bp">:</span><span class="kd">→</span><span class="nv">ILB</span><span class="o">×⍳</span><span class="p">(</span><span class="nv">K</span><span class="o">=</span><span class="p">((</span><span class="o">⍴</span><span class="nv">DIN2</span><span class="p">)</span><span class="o">+</span><span class="m">1</span><span class="p">))</span>
+</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="sr">[</span><span class="m">21</span><span class="sr">]</span><span class="w">   </span><span class="nv">DIN</span><span class="sr">[</span><span class="nv">K</span><span class="sr">]</span><span class="kd">←</span><span class="p">(</span><span class="nv">DIN2</span><span class="sr">[</span><span class="nv">K</span><span class="o">-</span><span class="m">1</span><span class="sr">]</span><span class="o">+</span><span class="nv">DIN2</span><span class="sr">[</span><span class="nv">K</span><span class="sr">]</span><span class="p">)</span><span class="o">÷</span><span class="m">2</span>
+</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="sr">[</span><span class="m">22</span><span class="sr">]</span><span class="w">   </span><span class="nv">K</span><span class="kd">←</span><span class="nv">K</span><span class="o">+</span><span class="m">1</span>
+</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a><span class="sr">[</span><span class="m">23</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">ILA</span>
+</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a><span class="sr">[</span><span class="m">24</span><span class="sr">]</span><span class="w">  </span><span class="nv">ILB</span><span class="bp">:</span><span class="nv">DIN</span><span class="sr">[</span><span class="p">(</span><span class="o">⍴</span><span class="nv">DIN2</span><span class="p">)</span><span class="o">+</span><span class="m">1</span><span class="sr">]</span><span class="kd">←</span><span class="p">(((</span><span class="m">3</span><span class="o">×</span><span class="nv">DIN2</span><span class="sr">[</span><span class="o">⍴</span><span class="nv">DIN2</span><span class="sr">]</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="nv">DIN2</span><span class="sr">[</span><span class="p">(</span><span class="o">⍴</span><span class="nv">DIN2</span><span class="p">)</span><span class="o">-</span><span class="m">1</span><span class="sr">]</span><span class="p">))</span><span class="o">÷</span><span class="m">2</span><span class="p">)</span>
+</span><span id="__span-6-26"><a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a><span class="sr">[</span><span class="m">25</span><span class="sr">]</span><span class="w">   </span><span class="nv">BIN</span><span class="kd">←</span><span class="p">(((</span><span class="o">⍴</span><span class="nv">DIN</span><span class="p">)</span><span class="o">+</span><span class="m">1</span><span class="p">)</span><span class="o">,</span><span class="p">(</span><span class="o">⍴</span><span class="nv">BIN</span><span class="p">))</span><span class="o">⍴</span><span class="m">0</span>
+</span><span id="__span-6-27"><a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a><span class="sr">[</span><span class="m">26</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">DLB</span><span class="o">×⍳</span><span class="p">((</span><span class="o">⍴</span><span class="nv">DIN</span><span class="p">)</span><span class="o">≤</span><span class="p">(</span><span class="o">⍴</span><span class="nv">BINL</span><span class="p">)</span><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="p">)</span>
+</span><span id="__span-6-28"><a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a><span class="sr">[</span><span class="m">27</span><span class="sr">]</span><span class="w">   </span><span class="nv">WBINL</span><span class="kd">←</span><span class="nv">BINL</span>
+</span><span id="__span-6-29"><a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a><span class="sr">[</span><span class="m">28</span><span class="sr">]</span><span class="w">   </span><span class="nv">BINL</span><span class="kd">←</span><span class="p">((</span><span class="o">⍴</span><span class="nv">DIN</span><span class="p">)</span><span class="o">,</span><span class="p">(</span><span class="o">⍴</span><span class="nv">PIN</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="p">))</span><span class="o">⍴</span><span class="m">0</span>
+</span><span id="__span-6-30"><a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a><span class="sr">[</span><span class="m">29</span><span class="sr">]</span><span class="w">   </span><span class="nv">ZE</span><span class="kd">←</span><span class="p">(((</span><span class="o">⍴</span><span class="nv">BINL</span><span class="p">)</span><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="p">)</span><span class="o">-</span><span class="p">((</span><span class="o">⍴</span><span class="nv">WBINL</span><span class="p">)</span><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="p">))</span><span class="o">⍴</span><span class="nv">ZE</span><span class="kd">←</span><span class="m">0</span>
+</span><span id="__span-6-31"><a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a><span class="sr">[</span><span class="m">30</span><span class="sr">]</span><span class="w">   </span><span class="nv">I</span><span class="kd">←</span><span class="m">1</span>
+</span><span id="__span-6-32"><a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a><span class="sr">[</span><span class="m">31</span><span class="sr">]</span><span class="w">  </span><span class="nv">CLB</span><span class="bp">:</span><span class="nv">BINL</span><span class="sr">[;</span><span class="nv">I</span><span class="sr">]</span><span class="kd">←</span><span class="p">(</span><span class="o">,</span><span class="nv">WBINL</span><span class="sr">[;</span><span class="nv">I</span><span class="sr">]</span><span class="p">)</span><span class="o">,</span><span class="p">(</span><span class="o">,</span><span class="nv">ZE</span><span class="p">)</span>
+</span><span id="__span-6-33"><a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a><span class="sr">[</span><span class="m">32</span><span class="sr">]</span><span class="w">   </span><span class="nv">I</span><span class="kd">←</span><span class="nv">I</span><span class="o">+</span><span class="m">1</span>
+</span><span id="__span-6-34"><a id="__codelineno-6-34" name="__codelineno-6-34" href="#__codelineno-6-34"></a><span class="sr">[</span><span class="m">33</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">CLB</span><span class="o">×⍳</span><span class="p">(</span><span class="nv">I</span><span class="o">&lt;</span><span class="nv">CPIN</span><span class="p">)</span>
+</span><span id="__span-6-35"><a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a><span class="sr">[</span><span class="m">34</span><span class="sr">]</span><span class="w">   </span><span class="nv">BINL</span><span class="sr">[;</span><span class="nv">CPIN</span><span class="sr">]</span><span class="kd">←</span><span class="nv">DIN</span>
+</span><span id="__span-6-36"><a id="__codelineno-6-36" name="__codelineno-6-36" href="#__codelineno-6-36"></a><span class="sr">[</span><span class="m">35</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">ELB</span>
+</span><span id="__span-6-37"><a id="__codelineno-6-37" name="__codelineno-6-37" href="#__codelineno-6-37"></a><span class="sr">[</span><span class="m">36</span><span class="sr">]</span><span class="w">  </span><span class="nv">DLB</span><span class="bp">:</span><span class="nv">ZE</span><span class="kd">←</span><span class="p">(((</span><span class="o">⍴</span><span class="nv">BINL</span><span class="p">)</span><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="o">⍴</span><span class="nv">DIN</span><span class="p">))</span><span class="o">⍴</span><span class="nv">ZE</span><span class="kd">←</span><span class="m">0</span>
+</span><span id="__span-6-38"><a id="__codelineno-6-38" name="__codelineno-6-38" href="#__codelineno-6-38"></a><span class="sr">[</span><span class="m">37</span><span class="sr">]</span><span class="w">   </span><span class="nv">BINL</span><span class="sr">[;</span><span class="nv">CPIN</span><span class="sr">]</span><span class="kd">←</span><span class="p">(</span><span class="o">,</span><span class="nv">DIN</span><span class="p">)</span><span class="o">,</span><span class="p">(</span><span class="o">,</span><span class="nv">ZE</span><span class="p">)</span>
+</span><span id="__span-6-39"><a id="__codelineno-6-39" name="__codelineno-6-39" href="#__codelineno-6-39"></a><span class="sr">[</span><span class="m">38</span><span class="sr">]</span><span class="w">  </span><span class="nv">ELB</span><span class="bp">:</span><span class="nv">IK</span><span class="kd">←</span><span class="nv">IK</span><span class="o">+</span><span class="m">1</span>
+</span><span id="__span-6-40"><a id="__codelineno-6-40" name="__codelineno-6-40" href="#__codelineno-6-40"></a><span class="sr">[</span><span class="m">39</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">CLA</span><span class="o">×⍳</span><span class="p">(</span><span class="nv">CPIN</span><span class="o">&lt;</span><span class="p">(</span><span class="o">⍴</span><span class="nv">PIN</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="p">))</span>
+</span><span id="__span-6-41"><a id="__codelineno-6-41" name="__codelineno-6-41" href="#__codelineno-6-41"></a><span class="sr">[</span><span class="m">40</span><span class="sr">]</span><span class="w">   </span><span class="nv">SIMLATE</span>
+</span><span id="__span-6-42"><a id="__codelineno-6-42" name="__codelineno-6-42" href="#__codelineno-6-42"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">SIMLATE</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  THIS CARRIES OUT NSIM SIMULATIONS OF DATA SETS.  ESTIMATES ARE</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  GENERATED AND STORED AS COUNTS IN BIN.  A MATRIX BIND IS SET UP IN</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  WHICH SIMULATED APPROXIMATION OF P.D.F. OF ESTIMATES IS STORED.</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  THE FOLLOWING GLOBAL VARIABLES ARE EXPECTED:-</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  INFORMATION GENERATED BY SETUP</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  SIG,  S.D. OF EXPERIMENTAL ERROR</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  PU,PL,  P×1 MATRICES CONTAINING UPPER AND LOWER PARAMETER BOUNDARIES</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  NSIM,  NUMBER OF SIMULATIONS</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  PST,  P×1 MATRIX CONTAINING PARAMETER STARTING VALUES</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">  </span><span class="c1">⍝  PIN,  P×1 MATRIX CONTAINING TRUE PARAMETER VALUES</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="sr">[</span><span class="m">11</span><span class="sr">]</span><span class="w">  </span><span class="c1">⍝  CALLS FUNCTIONS MFOZ, RNORMAL AND ESTIMATE</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="sr">[</span><span class="m">12</span><span class="sr">]</span><span class="w">   </span><span class="nv">MFOZ</span><span class="w"> </span><span class="nv">PIN</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="sr">[</span><span class="m">13</span><span class="sr">]</span><span class="w">   </span><span class="nv">SJ</span><span class="kd">←</span><span class="m">1</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="sr">[</span><span class="m">14</span><span class="sr">]</span><span class="w">   </span><span class="nv">TBIN</span><span class="kd">←</span><span class="o">,</span><span class="nv">BIN</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="sr">[</span><span class="m">15</span><span class="sr">]</span><span class="w">   </span><span class="nv">BINM</span><span class="kd">←</span><span class="o">⍴</span><span class="nv">BIN</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="sr">[</span><span class="m">16</span><span class="sr">]</span><span class="w">   </span><span class="nv">BIND</span><span class="kd">←</span><span class="nv">TBIN</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="sr">[</span><span class="m">17</span><span class="sr">]</span><span class="w">   </span><span class="nv">N</span><span class="kd">←</span><span class="p">((</span><span class="o">⍴</span><span class="nv">FOZ</span><span class="p">)</span><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="p">)</span>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="sr">[</span><span class="m">18</span><span class="sr">]</span><span class="w">  </span><span class="nv">SIMO</span><span class="bp">:</span><span class="nv">Y</span><span class="kd">←</span><span class="nv">RNORMAL</span><span class="w"> </span><span class="nv">N</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="sr">[</span><span class="m">19</span><span class="sr">]</span><span class="w">   </span><span class="nv">DIVI</span><span class="kd">←</span><span class="m">1</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="sr">[</span><span class="m">20</span><span class="sr">]</span><span class="w">   </span><span class="nv">Y</span><span class="kd">←</span><span class="nv">N</span><span class="w"> </span><span class="m">1</span><span class="o">⍴</span><span class="nv">Y</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="sr">[</span><span class="m">21</span><span class="sr">]</span><span class="w">   </span><span class="nv">Y</span><span class="kd">←</span><span class="p">(</span><span class="nv">SIG</span><span class="o">×</span><span class="nv">Y</span><span class="p">)</span><span class="o">+</span><span class="nv">FOZ</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="sr">[</span><span class="m">22</span><span class="sr">]</span><span class="w">   </span><span class="nv">P0</span><span class="kd">←</span><span class="nv">PST</span>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a><span class="sr">[</span><span class="m">23</span><span class="sr">]</span><span class="w">   </span><span class="nv">ESTIMATE</span>
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="sr">[</span><span class="m">24</span><span class="sr">]</span><span class="w">   </span><span class="nv">I</span><span class="kd">←</span><span class="m">1</span>
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a><span class="sr">[</span><span class="m">25</span><span class="sr">]</span><span class="w">   </span><span class="nv">J</span><span class="kd">←</span><span class="m">1</span>
+</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a><span class="sr">[</span><span class="m">26</span><span class="sr">]</span><span class="w">  </span><span class="nv">LA</span><span class="bp">:</span><span class="kd">→</span><span class="nv">LB</span><span class="o">×⍳</span><span class="p">(</span><span class="nv">J</span><span class="o">=</span><span class="p">(</span><span class="o">⍴⍴</span><span class="nv">BIN</span><span class="p">)</span><span class="o">+</span><span class="m">1</span><span class="p">)</span>
+</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a><span class="sr">[</span><span class="m">27</span><span class="sr">]</span><span class="w">   </span><span class="nv">K</span><span class="kd">←</span><span class="m">0</span>
+</span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a><span class="sr">[</span><span class="m">28</span><span class="sr">]</span><span class="w">  </span><span class="nv">LC</span><span class="bp">:</span><span class="nv">K</span><span class="kd">←</span><span class="nv">K</span><span class="o">+</span><span class="m">1</span>
+</span><span id="__span-7-30"><a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a><span class="sr">[</span><span class="m">29</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">LD</span><span class="o">×⍳</span><span class="p">(</span><span class="nv">K</span><span class="o">=</span><span class="p">((</span><span class="o">⍴</span><span class="nv">BIN</span><span class="p">)</span><span class="sr">[</span><span class="nv">J</span><span class="sr">]</span><span class="p">))</span>
+</span><span id="__span-7-31"><a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a><span class="sr">[</span><span class="m">30</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">LC</span><span class="o">×⍳</span><span class="p">(</span><span class="nv">PI</span><span class="sr">[</span><span class="nv">J</span><span class="sr">;]</span><span class="o">&gt;</span><span class="nv">BINL</span><span class="sr">[</span><span class="nv">K</span><span class="sr">;</span><span class="nv">J</span><span class="sr">]</span><span class="p">)</span>
+</span><span id="__span-7-32"><a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a><span class="sr">[</span><span class="m">31</span><span class="sr">]</span><span class="w">  </span><span class="nv">LD</span><span class="bp">:</span><span class="nv">IT</span><span class="kd">←</span><span class="nv">K</span><span class="o">-</span><span class="m">1</span>
+</span><span id="__span-7-33"><a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a><span class="sr">[</span><span class="m">32</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">LD2</span><span class="o">×⍳</span><span class="p">(</span><span class="nv">K</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
+</span><span id="__span-7-34"><a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a><span class="sr">[</span><span class="m">33</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">LD3</span><span class="o">×⍳</span><span class="p">(</span><span class="nv">K</span><span class="o">=</span><span class="p">((</span><span class="o">⍴</span><span class="nv">BIN</span><span class="p">)</span><span class="sr">[</span><span class="nv">J</span><span class="sr">]</span><span class="p">))</span>
+</span><span id="__span-7-35"><a id="__codelineno-7-35" name="__codelineno-7-35" href="#__codelineno-7-35"></a><span class="sr">[</span><span class="m">34</span><span class="sr">]</span><span class="w">   </span><span class="nv">DIVI</span><span class="kd">←</span><span class="nv">DIVI</span><span class="o">×</span><span class="p">(</span><span class="nv">BINL</span><span class="sr">[</span><span class="nv">K</span><span class="sr">;</span><span class="nv">J</span><span class="sr">]</span><span class="o">-</span><span class="nv">BINL</span><span class="sr">[</span><span class="p">(</span><span class="nv">K</span><span class="o">-</span><span class="m">1</span><span class="p">)</span><span class="sr">;</span><span class="nv">J</span><span class="sr">]</span><span class="p">)</span>
+</span><span id="__span-7-36"><a id="__codelineno-7-36" name="__codelineno-7-36" href="#__codelineno-7-36"></a><span class="sr">[</span><span class="m">35</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">LD4</span>
+</span><span id="__span-7-37"><a id="__codelineno-7-37" name="__codelineno-7-37" href="#__codelineno-7-37"></a><span class="sr">[</span><span class="m">36</span><span class="sr">]</span><span class="w">  </span><span class="nv">LD2</span><span class="bp">:</span><span class="nv">DIVI</span><span class="kd">←</span><span class="nv">DIVI</span><span class="o">×</span><span class="p">(</span><span class="nv">BINL</span><span class="sr">[</span><span class="m">1</span><span class="sr">;</span><span class="nv">J</span><span class="sr">]</span><span class="o">-</span><span class="nv">PL</span><span class="sr">[</span><span class="nv">J</span><span class="sr">;]</span><span class="p">)</span>
+</span><span id="__span-7-38"><a id="__codelineno-7-38" name="__codelineno-7-38" href="#__codelineno-7-38"></a><span class="sr">[</span><span class="m">37</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">LD4</span>
+</span><span id="__span-7-39"><a id="__codelineno-7-39" name="__codelineno-7-39" href="#__codelineno-7-39"></a><span class="sr">[</span><span class="m">38</span><span class="sr">]</span><span class="w">  </span><span class="nv">LD3</span><span class="bp">:</span><span class="nv">DIVI</span><span class="kd">←</span><span class="nv">DIVI</span><span class="o">×</span><span class="p">(</span><span class="nv">PU</span><span class="sr">[</span><span class="nv">J</span><span class="sr">;]</span><span class="o">-</span><span class="nv">BINL</span><span class="sr">[</span><span class="p">(</span><span class="nv">K</span><span class="o">-</span><span class="m">1</span><span class="p">)</span><span class="sr">;</span><span class="nv">J</span><span class="sr">]</span><span class="p">)</span>
+</span><span id="__span-7-40"><a id="__codelineno-7-40" name="__codelineno-7-40" href="#__codelineno-7-40"></a><span class="sr">[</span><span class="m">39</span><span class="sr">]</span><span class="w">  </span><span class="nv">LD4</span><span class="bp">:</span><span class="nv">ITI</span><span class="kd">←</span><span class="nv">J</span>
+</span><span id="__span-7-41"><a id="__codelineno-7-41" name="__codelineno-7-41" href="#__codelineno-7-41"></a><span class="sr">[</span><span class="m">40</span><span class="sr">]</span><span class="w">  </span><span class="nv">LG</span><span class="bp">:</span><span class="kd">→</span><span class="nv">LF</span><span class="o">×⍳</span><span class="p">(</span><span class="nv">ITI</span><span class="o">=⍴</span><span class="nv">PIN</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="o">+</span><span class="m">1</span><span class="p">)</span>
+</span><span id="__span-7-42"><a id="__codelineno-7-42" name="__codelineno-7-42" href="#__codelineno-7-42"></a><span class="sr">[</span><span class="m">41</span><span class="sr">]</span><span class="w">   </span><span class="nv">IT</span><span class="kd">←</span><span class="nv">IT</span><span class="o">×</span><span class="p">((</span><span class="o">⍴</span><span class="nv">BIN</span><span class="p">)</span><span class="sr">[</span><span class="nv">ITI</span><span class="sr">]</span><span class="p">)</span>
+</span><span id="__span-7-43"><a id="__codelineno-7-43" name="__codelineno-7-43" href="#__codelineno-7-43"></a><span class="sr">[</span><span class="m">42</span><span class="sr">]</span><span class="w">   </span><span class="nv">ITI</span><span class="kd">←</span><span class="nv">ITI</span><span class="o">+</span><span class="m">1</span>
+</span><span id="__span-7-44"><a id="__codelineno-7-44" name="__codelineno-7-44" href="#__codelineno-7-44"></a><span class="sr">[</span><span class="m">43</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">LG</span>
+</span><span id="__span-7-45"><a id="__codelineno-7-45" name="__codelineno-7-45" href="#__codelineno-7-45"></a><span class="sr">[</span><span class="m">44</span><span class="sr">]</span><span class="w">  </span><span class="nv">LF</span><span class="bp">:</span><span class="nv">I</span><span class="kd">←</span><span class="nv">I</span><span class="o">+</span><span class="nv">IT</span>
+</span><span id="__span-7-46"><a id="__codelineno-7-46" name="__codelineno-7-46" href="#__codelineno-7-46"></a><span class="sr">[</span><span class="m">45</span><span class="sr">]</span><span class="w">   </span><span class="nv">J</span><span class="kd">←</span><span class="nv">J</span><span class="o">+</span><span class="m">1</span>
+</span><span id="__span-7-47"><a id="__codelineno-7-47" name="__codelineno-7-47" href="#__codelineno-7-47"></a><span class="sr">[</span><span class="m">46</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">LA</span>
+</span><span id="__span-7-48"><a id="__codelineno-7-48" name="__codelineno-7-48" href="#__codelineno-7-48"></a><span class="sr">[</span><span class="m">47</span><span class="sr">]</span><span class="w">  </span><span class="nv">LB</span><span class="bp">:</span><span class="nv">TBIN</span><span class="sr">[</span><span class="nv">I</span><span class="sr">]</span><span class="kd">←</span><span class="nv">TBIN</span><span class="sr">[</span><span class="nv">I</span><span class="sr">]</span><span class="o">+</span><span class="m">1</span>
+</span><span id="__span-7-49"><a id="__codelineno-7-49" name="__codelineno-7-49" href="#__codelineno-7-49"></a><span class="sr">[</span><span class="m">48</span><span class="sr">]</span><span class="w">   </span><span class="nv">BIND</span><span class="sr">[</span><span class="nv">I</span><span class="sr">]</span><span class="kd">←</span><span class="nv">BIND</span><span class="sr">[</span><span class="nv">I</span><span class="sr">]</span><span class="o">+</span><span class="p">(</span><span class="m">1</span><span class="o">÷</span><span class="p">(</span><span class="nv">NSIM</span><span class="o">×</span><span class="nv">DIVI</span><span class="p">))</span>
+</span><span id="__span-7-50"><a id="__codelineno-7-50" name="__codelineno-7-50" href="#__codelineno-7-50"></a><span class="sr">[</span><span class="m">49</span><span class="sr">]</span><span class="w">   </span><span class="nv">SJ</span><span class="kd">←</span><span class="nv">SJ</span><span class="o">+</span><span class="m">1</span>
+</span><span id="__span-7-51"><a id="__codelineno-7-51" name="__codelineno-7-51" href="#__codelineno-7-51"></a><span class="sr">[</span><span class="m">50</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">SEND</span><span class="o">×⍳</span><span class="p">(</span><span class="nv">SJ</span><span class="o">=</span><span class="nv">NSIM</span><span class="o">+</span><span class="m">1</span><span class="p">)</span>
+</span><span id="__span-7-52"><a id="__codelineno-7-52" name="__codelineno-7-52" href="#__codelineno-7-52"></a><span class="sr">[</span><span class="m">51</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="nv">SIMO</span>
+</span><span id="__span-7-53"><a id="__codelineno-7-53" name="__codelineno-7-53" href="#__codelineno-7-53"></a><span class="sr">[</span><span class="m">52</span><span class="sr">]</span><span class="w">  </span><span class="nv">SEND</span><span class="bp">:</span><span class="nv">BIN</span><span class="kd">←</span><span class="nv">BINM</span><span class="o">⍴</span><span class="nv">TBIN</span>
+</span><span id="__span-7-54"><a id="__codelineno-7-54" name="__codelineno-7-54" href="#__codelineno-7-54"></a><span class="sr">[</span><span class="m">53</span><span class="sr">]</span><span class="w">   </span><span class="nv">BIND</span><span class="kd">←</span><span class="nv">BINM</span><span class="o">⍴</span><span class="nv">BIND</span>
+</span><span id="__span-7-55"><a id="__codelineno-7-55" name="__codelineno-7-55" href="#__codelineno-7-55"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-7-56"><a id="__codelineno-7-56" name="__codelineno-7-56" href="#__codelineno-7-56"></a>
+</span><span id="__span-7-57"><a id="__codelineno-7-57" name="__codelineno-7-57" href="#__codelineno-7-57"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">MFOZ</span><span class="w"> </span><span class="nv">P</span>
+</span><span id="__span-7-58"><a id="__codelineno-7-58" name="__codelineno-7-58" href="#__codelineno-7-58"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  CALCULATES DEPENDENT VARIABLES FOR TRUE MODEL, IN N×1 MATRIX FOZ</span>
+</span><span id="__span-7-59"><a id="__codelineno-7-59" name="__codelineno-7-59" href="#__codelineno-7-59"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  THE FOLLOWING GLOBAL VARIABLES ARE EXPECTED:-</span>
+</span><span id="__span-7-60"><a id="__codelineno-7-60" name="__codelineno-7-60" href="#__codelineno-7-60"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  Z,  N×1 MATRIX OF INDEPENDENT VARIABLES</span>
+</span><span id="__span-7-61"><a id="__codelineno-7-61" name="__codelineno-7-61" href="#__codelineno-7-61"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  Y,  N×1 MATRIX OF DEPENDENT VARIABLES</span>
+</span><span id="__span-7-62"><a id="__codelineno-7-62" name="__codelineno-7-62" href="#__codelineno-7-62"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝  CURRENTLY SET UP FOR A LOGISTIC MODEL</span>
+</span><span id="__span-7-63"><a id="__codelineno-7-63" name="__codelineno-7-63" href="#__codelineno-7-63"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="nv">FOZ</span><span class="kd">←</span><span class="p">(</span><span class="o">⍴</span><span class="nv">Y</span><span class="p">)</span><span class="o">⍴</span><span class="nv">FOZ</span><span class="kd">←</span><span class="m">0</span>
+</span><span id="__span-7-64"><a id="__codelineno-7-64" name="__codelineno-7-64" href="#__codelineno-7-64"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">    </span><span class="nv">FOZ</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="kd">←</span><span class="m">10</span><span class="o">*</span><span class="p">(</span><span class="nv">P</span><span class="sr">[</span><span class="m">2</span><span class="sr">;]</span><span class="o">×</span><span class="p">(</span><span class="nv">P</span><span class="sr">[</span><span class="m">1</span><span class="sr">;]</span><span class="o">+</span><span class="nv">Z</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="p">))</span>
+</span><span id="__span-7-65"><a id="__codelineno-7-65" name="__codelineno-7-65" href="#__codelineno-7-65"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">    </span><span class="nv">FOZ</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="kd">←</span><span class="nv">P</span><span class="sr">[</span><span class="m">3</span><span class="sr">;]</span><span class="o">×</span><span class="nv">FOZ</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="o">÷</span><span class="p">(</span><span class="m">1</span><span class="o">+</span><span class="nv">FOZ</span><span class="sr">[;</span><span class="m">1</span><span class="sr">]</span><span class="p">)</span>
+</span><span id="__span-7-66"><a id="__codelineno-7-66" name="__codelineno-7-66" href="#__codelineno-7-66"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">Z</span><span class="kd">←</span><span class="nv">RNORMAL</span><span class="w"> </span><span class="nv">N</span><span class="sr">;</span><span class="nv">V</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">    </span><span class="kd">→</span><span class="m">2</span><span class="o">+∨</span><span class="na">/</span><span class="o">,</span><span class="p">(</span><span class="nv">N</span><span class="o">≥</span><span class="m">1</span><span class="p">)</span><span class="o">∧</span><span class="p">(</span><span class="nv">N</span><span class="o">=⌊</span><span class="nv">N</span><span class="p">)</span><span class="o">∧</span><span class="m">0</span><span class="o">=⍴⍴</span><span class="nv">N</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">    </span><span class="kd">→</span><span class="m">0</span><span class="o">,⍴</span><span class="vg">⎕</span><span class="kd">←</span><span class="s1">'NO GO.'</span><span class="o">,</span><span class="nv">Z</span><span class="kd">←</span><span class="s1">' '</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">    </span><span class="nv">Z</span><span class="kd">←</span><span class="p">(</span><span class="o">÷</span><span class="m">2147483647</span><span class="p">)</span><span class="o">×?</span><span class="p">(</span><span class="m">2</span><span class="o">,⌈</span><span class="nv">N</span><span class="o">÷</span><span class="m">2</span><span class="p">)</span><span class="o">⍴</span><span class="m">2147483647</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">    </span><span class="nv">Z</span><span class="kd">←</span><span class="nv">N</span><span class="o">↑</span><span class="p">(</span><span class="o">,</span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="na">∘.</span><span class="o">○</span><span class="nv">Z</span><span class="sr">[</span><span class="m">2</span><span class="sr">;]</span><span class="o">×○</span><span class="m">2</span><span class="p">)</span><span class="o">×</span><span class="nv">V</span><span class="o">,</span><span class="nv">V</span><span class="kd">←</span><span class="p">(</span><span class="m">¯2</span><span class="o">×⍟</span><span class="nv">Z</span><span class="sr">[</span><span class="m">1</span><span class="sr">;]</span><span class="p">)</span><span class="o">*</span><span class="m">0.5</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>The following printout shows part of a run involving 500 simulated data sets. The analysis represents a continuation directly from the session on ELISA data given above in Example 1. Set <code>PST</code> and <code>PIN</code> to be the same as the estimates <code>PI</code> generated by the real data analysis, and the fixed standard deviation to be equivalent to the estimate obtained from the raw data. After running the simulations the frequency table is given by matrix variable <code>BIN</code>, while the class boundaries are shown by the matrix variable <code>BINL</code>. Inspection of <code>BIN</code> shows the strong interdependent relationship between the three estimates γ, a and v; behaviour that is usually only represented indirectly by the covariance matrix for estimates when using other nonlinear estimation packages.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="w">      </span><span class="nv">PST</span><span class="kd">←</span><span class="nv">PIN</span><span class="kd">←</span><span class="nv">PI</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">      </span><span class="nv">SIG</span><span class="kd">←</span><span class="p">((</span><span class="nv">RSS</span><span class="o">÷</span><span class="m">13</span><span class="p">)</span><span class="o">*</span><span class="m">0.5</span><span class="p">)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">      </span><span class="nv">SIG</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="m">0.04132816099</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">      </span><span class="nv">NSIM</span><span class="kd">←</span><span class="m">500</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">      </span><span class="nf">⎕RL</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="m">1805305474</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">      </span><span class="nv">SETUP</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">       </span><span class="nv">ENTER</span><span class="w"> </span><span class="nv">CLASS</span><span class="w"> </span><span class="nv">DATA</span><span class="w"> </span><span class="nv">FOR</span><span class="w"> </span><span class="nv">PARAMETER</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="vg">⎕</span><span class="bp">:</span><span class="w">     </span><span class="m">¯2.85</span><span class="w"> </span><span class="m">¯2.8</span><span class="w"> </span><span class="m">¯2.75</span><span class="w"> </span><span class="m">¯2.7</span><span class="w"> </span><span class="m">¯2.65</span><span class="w"> </span><span class="m">¯2.6</span><span class="w"> </span><span class="m">¯2.55</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">       </span><span class="nv">ENTER</span><span class="w"> </span><span class="nv">CLASS</span><span class="w"> </span><span class="nv">DATA</span><span class="w"> </span><span class="nv">FOR</span><span class="w"> </span><span class="nv">PARAMETER</span><span class="w"> </span><span class="m">2</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="vg">⎕</span><span class="bp">:</span><span class="w">     </span><span class="m">75</span><span class="w"> </span><span class="m">.8</span><span class="w"> </span><span class="m">.85</span><span class="w"> </span><span class="m">.9</span><span class="w"> </span><span class="m">.95</span><span class="w"> </span><span class="m">1.0</span><span class="w"> </span><span class="m">1.05</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">       </span><span class="nv">ENTER</span><span class="w"> </span><span class="nv">CLASS</span><span class="w"> </span><span class="nv">DATA</span><span class="w"> </span><span class="nv">FOR</span><span class="w"> </span><span class="nv">PARAMETER</span><span class="w"> </span><span class="m">3</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="vg">⎕</span><span class="bp">:</span><span class="w">     </span><span class="m">1.2</span><span class="w"> </span><span class="m">1.25</span><span class="w"> </span><span class="m">1.3</span><span class="w"> </span><span class="m">1.35</span><span class="w"> </span><span class="m">1.4</span><span class="w"> </span><span class="m">1.45</span><span class="w"> </span><span class="m">1.5</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="w">         </span><span class="nv">BINL</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="m">¯2.875</span><span class="w"> </span><span class="m">0.725</span><span class="w"> </span><span class="m">1.175</span>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="m">¯2.825</span><span class="w"> </span><span class="m">0.775</span><span class="w"> </span><span class="m">1.225</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="m">¯2.775</span><span class="w"> </span><span class="m">0.825</span><span class="w"> </span><span class="m">1.275</span>
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="m">¯2.725</span><span class="w"> </span><span class="m">0.875</span><span class="w"> </span><span class="m">1.325</span>
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="m">¯2.675</span><span class="w"> </span><span class="m">0.925</span><span class="w"> </span><span class="m">1.375</span>
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a><span class="m">¯2.625</span><span class="w"> </span><span class="m">0.975</span><span class="w"> </span><span class="m">1.425</span>
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a><span class="m">¯2.575</span><span class="w"> </span><span class="m">1.025</span><span class="w"> </span><span class="m">1.475</span>
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a><span class="m">¯2.525</span><span class="w"> </span><span class="m">1.075</span><span class="w"> </span><span class="m">1.525</span>
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a><span class="w">         </span><span class="nv">BIN</span>
+</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">2</span><span class="w">    </span><span class="na">...</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">0</span><span class="w">        </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-9-30"><a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w">        </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-9-31"><a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">        </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">12</span><span class="w">  </span><span class="m">7</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-9-32"><a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">        </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">1</span><span class="w">  </span><span class="m">1</span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-9-33"><a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">        </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-9-34"><a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">        </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-9-35"><a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">        </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-9-36"><a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="na">...</span><span class="w">    </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">       </span><span class="na">...</span><span class="w"> </span><span class="nv">and</span><span class="w"> </span><span class="nv">so</span><span class="w"> </span><span class="nv">on</span>
+</span></code></pre></div>
+<p>A matrix variable (<code>BIND</code>, not shown) is also produced to formally represent the simulated probability distribution of estimates. Actually when an estimation model is linear the estimate distribution will be multivariate normal, but in a nonlinear case like this the situation is more intricate. Such simulations can be used to check the adequacy of analytic approximations, such as those given by asymptotic maximum likelihood theory or saddlepoint approximations [17]. Further, the system can be easily used to investigate the behaviour of estimates when the regression model used for estimation differs from the model that is actually generating the data. It could then be used to augment studies of discrimination between models [18].</p>
+<h2 id="conclusions">Conclusions<a class="headerlink" href="#conclusions" title="Permanent link">&para;</a></h2>
+<p>The function <code>ESTIMATE</code> can be used for application of the Gauss-Newton method to nonlinear estimation, where an independent constant standard deviation error model is appropriate for a set of data. Fairly obvious extensions could be made to deal with non-normal or non-independent errors, or to other techniques of estimation. It might be sensible to include <code>ESTIMATE</code>, or some function related to it, in any potential nonlinear regression volume for the ASL system. A different approach for ASL might be to attempt to re-write generalised linear models as generalised nonlinear models [19], by removing the distinction between the linear predictor and the link function.</p>
+<p>I have not made any attempt so far to adapt the functions to ASL standards [20]. Also I have not attempted to make the defined functions maximally efficient in APL terms, and they could probably be written with fewer lines of code. However it is an open question whether general purpose APL functions run more or less efficiently if they are maximally compacted to take into account the elegance of the language.</p>
+<p>The extension to probability distributions for estimates is a more specialised area which may not be of universal interest, but is important and demonstrates the kind of investigation which can easily be pursued in the APL milieu.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<p>[1] D.R. Appleton, <em>Curve-fitting in APL</em>, Vector, Vol.8, No.3 (1992), pp.23-28.</p>
+<p>[2] T. Amemiya, <em>Advanced econometrics</em>, Basil Blackwell, Oxford (1985) 521pp.</p>
+<p>[3] J.M.T. Thompson, and H.B. Stewart, <em>Nonlinear dynamics and chaos</em>, John Wiley, Chichester (1986) 376pp.</p>
+<p>[4] D. Rodbard, <em>Statistical quality control and routine data processing for radioimmunoassays and immunoradiometric assays</em>, Clinical Chemistry, Vol.20 (1974), pp.1255-1270.</p>
+<p>[5] P.J. Hingley, and E.J. Ouldridge, <em>The use of a logistic model for the quantitative interpretation of indirect sandwich enzyme labelled immunosorbent assays (ELISA) for antibodies and antigens in foot and mouth disease</em>, Computers in biology and medicine, Vol.15, No.3 (1985), pp.137-152.</p>
+<p>[6] E.M.E. Abu Elzein, and J.R. Crowther, <em>Enzyme labelled immunological assay techniques in foot and mouth disease virus research</em>, Journal of Hygiene, Vol.80 (1978), pp.391-399.</p>
+<p>[7] N.R. Draper, and H. Smith, <em>Applied regression analysis</em>, John Wiley, New York, Second edition (1981) 709pp.</p>
+<p>[8] R.I. Jennrich, and P.F. Sampson, <em>Application of stepwise regression to non-linear estimation</em>, Technometrics, Vol.10 (1968), pp.63-72.</p>
+<p>[9] G.A.F. Seber, and C.J. Wild, <em>Nonlinear regression</em>, John Wiley, New York (1989), 768pp.</p>
+<p>[10] D.M. Bates, and D.G. Watts, <em>Nonlinear regression analysis and its applications</em>, John Wiley, New York (1988), 365pp.</p>
+<p>[11] A.R. Gallant, <em>Nonlinear statistical models</em>, John Wiley, New York (1987), 610pp.</p>
+<p>[12] D.A. Ratkowsky, <em>Nonlinear regression modelling</em>, Marcel Dekker, New York (1983), 276pp.</p>
+<p>[13] G.J.S. Ross, <em>Nonlinear estimation</em>, Springer-Verlag, New York (1990), 189pp.</p>
+<p>[14] P.J Hingley, <em>Antibody affinity distribution-based models for vaccine potency assessment</em>, in <em>Theoretical Immunology</em>, A.S. Perelson (ed.), Reading, Massachusetts (1988), Part one, pp.311-325.</p>
+<p>[15] F.J. Anscombe, <em>Computing in statistical science through APL</em>, Springer-Verlag, New York (1981), 426pp.</p>
+<p>[16] D. Marske, <em>Biochemical oxygen demand data interpretation using sum of squares surface</em>, unpub. M.Sc. thesis, University of Wisconsin-Madison (1967).</p>
+<p>[17] O.E. Barndorff-Nielsen, <em>Parametric statistical models and likelihood</em>, Lecture notes in statistics, Vol.50, Springer-Verlag, New York (1988).</p>
+<p>[18] D.S. Borowiak, <em>Model discrimination for nonlinear regression models</em>, Marcel Dekker, New York (1989), 177pp.</p>
+<p>[19] P. McCullagh, and J.A. Nelder, <em>Generalized linear models</em>, Chapman and Hall, Second edition, London (1989), 511pp.</p>
+<p>[20] D.S. Eastwood, <em>ASL Standards</em>, Vector, Vol.8, No.3 (1992), pp.46-51.</p></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">mathematics and statistics</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">programming techniques</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

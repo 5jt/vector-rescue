@@ -1,0 +1,1281 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10006950/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Working with Existing Ascii Files Using J Memory Mapping - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#j-and-files-problems-encountered" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Working with Existing Ascii Files Using J Memory Mapping
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#j-and-files-problems-encountered" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        J and Files: Problems Encountered
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#playing-with-memory-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Playing with Memory Mapping
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-memory-mapped-files-are-structured" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        How Memory-Mapped Files are Structured
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-mapping-existing-data-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Memory Mapping Existing Data Files
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-mapping-in-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Memory Mapping in Action
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conclusion
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Working with Existing Ascii Files Using J Memory Mapping</h1>
+
+  <p class="printed"><a href="../17/#n3-january-2001">Vector 17:3</a>, page 103</p>
+
+
+<p class="byline"><em>by Donald B. Pittenger (<a href="mailto:dbpitt@demlab.com">dbpitt@demlab.com</a>)</em></p>
+<p>This article deals with memory-mapped files using J from the perspective of a pretty average J programmer who is a bit baffled by the terse J documentation and more that a little frustrated by the lack of information about ‘what this memory mapping is really like’. This is my attempt to close the information gap, albeit from the limited perspective of my own attempts to modify an existing system to incorporate memory mapping technology.</p>
+<p>Documentation on J memory mapping is mostly in the form of two tutorial labs included with J (the Help index in J4.04c brings up nothing on memory mapping if you search on ‘memory’ or ‘mapping’ or ‘files’). Otherwise, Chris Burke has an introductory article in <em>Vector</em> 15.4 that offers useful background information. I urge you to read Burke’s article and to print and read the lab <em>Mapped Files</em>, as most of the important information there is not covered here.</p>
+<p>The sources just cited mostly deal with files that are created within J; little is said about pre-existing files other than that they too can be mapped. Since I tend to work with files created by spreadsheets or that were packaged on CDs by government agencies such as the U.S. Census Bureau, I was keenly interested in how memory mapping might make life easier for me. I got some tips via the J forum at jsoftware.com, but ultimately had to experiment for myself. This article reports what I have discovered so far.</p>
+<h2 id="j-and-files-problems-encountered">J and Files: Problems Encountered<a class="headerlink" href="#j-and-files-problems-encountered" title="Permanent link">&para;</a></h2>
+<p>Even though modern APLs are quite capable of dealing with ‘native’ files, J somehow feels more comfortable doing so. For that subjective reason and because scripts can be easily modified using Notepad or a similar simple editor, I’ve followed the common path of writing more and more of my systems in J.</p>
+<p>Aside from large-scale data extraction from CDs, I tend to work with data created by spreadsheets and saved as <code>*.txt</code> files (tab delimited, with end-of-line characters). Data from such files can be converted to boxed matrices using the J utility <code>clipunfmt</code>. When my systems create new data, these are usually text-formatted using the utility <code>clipfmt</code> and written to disc as text files. The advantage of text files is that they can include row and column labels (or even more elaborate self-documentation) and therefore are understood by humans. Further, if imported by a spreadsheet program, data are easily modified and the results re-saved as a text file. Also, spreadsheets can be used for data entry and <code>*.txt</code> versions can be saved for later use by J. If there are more convenient means of data keeping for small or moderate sized data sets, I don’t know what they are.</p>
+<p>However, spreadsheet-based files become impractical once they grow beyond a megabyte or so in size. (I’ve dealt with one such beast of about 20MB, but the resulting text file nearly brought J to its knees, a subject that will be discussed below.) Here is an example of the sort of file I often deal with. The United States contains around 3,150 counties or county-equivalents plus 50 states and the District of Columbia. The sum of those areas, plus the nation itself, comes to about 3,200. I am a demographer and need data for populations by sex and age group. Typically, ages can be in five-year ranges starting with ages 0-4 and continuing 5-9, 10-14, etc. up usually to range 85+. This means three data dimensions—area, sex, and age—that need to be flattened into a two-dimensional table. I happen to work with age as the columns and stack sex into two rows for each area. Adding a column of sex totals plus a few columns needed to contain area names and geographical codes, I wind up with a table of 22 columns and around 6,400 rows. An Excel file with summation coding, to allow data entry validation, runs about 1,500KB and the text file version 655KB.</p>
+<p>Let’s say I have a system written in J that fetches and uses the text file just described. The character string is read into J and <code>clipunfmt</code> transforms the string into an array of boxed strings. Let’s further say that I want to extract all the counties and place them into a rank-three area-sex-age array before getting on with whatever the system really does with the data. Normally, I’ll have the system strip off the area information columns and remove the duplications (remember, there are two rows per area—one per sex) so that I can set aside a boxed index table for use in extracting particular counties from the data array that is being built. I might also strip off some leading rows containing header information for further use. What’s left is a matrix containing only boxed character-based numbers.</p>
+<p>Here trouble begins. The characters in those boxes need to become unboxed numbers. If the matrix was small, you might write <code>vec=. ;".each mat</code> to get a numerical vector which then could be shaped as desired. Unfortunately, if the matrix is large, J will churn, your hard drive light will assume a steady green state, and it will take a bit of frantic work to forestall a system lockup. The problem is, boxed arrays seem to chew up RAM. One computer I work with is a 300Mhz Compaq with 64MB RAM running under Windows 98 with a LAN in the background. Converting a boxed array of 60,000 cells will crash J in that environment. That’s maybe 500K of data with more than 100 times that amount of (potential) memory, and it crashes! (One problem with J is that its quirks are not as well documented as APL’s. Perhaps Roger Hui or some other knowledgeable Jster would write something for <em>Vector</em> paralleling the APL optimization pieces that have appeared over the years.)</p>
+<p>My solution is a utility that converts the matrix into a vector and then executes and un-boxes in 10K or 20K box chunks. There are other ways of skinning this cat, no doubt, but all this is merely an annoyance. The <em>real problem</em> is when you have finished the conversion to numerical arrays. It happens that the system I’m discussing reads in data from seven censuses (1930 through 1990). The pre-1970 data are not complete; many counties have empty boxes and the conversion creates zeroes where no data exist. The conversion process (in which matrix chunks are erased the instant they are no longer needed) yields arrays which do not seem to take up more than three or four megabytes of RAM. Yet the result is that the computer paints Windows objects slowly and the hard drive is usually madly paging memory. Once J has been terminated, these symptoms persist, though in weakened form. On the computer I describe, the clock will begin to lose three or four minutes a day. The only cure is a reboot.</p>
+<p>The other computer I use has 128MB RAM and runs under Windows NT with no network, and it doesn’t get as woozy as the 64MB machine. Still, no matter how much memory is on-board, a comparatively modest amount of boxing and un-boxing seems likely to create problems. Is there a solution? Why not try memory mapping?</p>
+<h2 id="playing-with-memory-mapping">Playing with Memory Mapping<a class="headerlink" href="#playing-with-memory-mapping" title="Permanent link">&para;</a></h2>
+<p>As was mentioned above, I didn’t find enough documentation to confidently plunge into experimentation: I had to make the plunge with trepidation. Happily, it seems that it is a simple matter and, so far, I’ve broken nothing.</p>
+<p>The main thing with pre-existing files (as opposed to the sort of J-created files demonstrated in the labs) is that you apparently have to do the header file work on your own; the lab is sketchy on this point. Basically, you need to know the file structure and then create a descriptor table, program to the structure, or both. I hope to clarify this below.</p>
+<p>First, here are some simple experiments you can try which let you see what happens when an existing file is mapped.</p>
+<p>Start by fetching the mapped files script:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>load 'jmf'
+</span></code></pre></div>
+<p>You also should have created a small Ascii file to use as the experimentation target. It is a good idea to create a table of four or five rows and half a dozen columns in a spreadsheet and save it as a tab-delimited or space-delimited or perhaps comma-delimited file. Say it is called <code>test.txt</code> and its path is <code>c:\directory.</code></p>
+<p>To map the file, simply type</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>JCHAR map_jmf_ 'dat';'c:\directory\test.txt'
+</span></code></pre></div>
+<p>where <code>dat</code> is a J variable (or ‘noun’ for those of you who insist on using J-speak) that represents the content of the mapped file. <code>JCHAR</code> is a byte-count cover supplied by J; others are <code>JB01</code>, <code>JINT</code>, <code>JFL</code> and <code>JCMPX</code>. Their meanings should be apparent, but you might find it interesting to replace <code>JCHAR</code> with one or another of them when mapping and then inspect the first few items using, say <code>3{.dat</code>. <code>JCHAR</code> should produce recognizable parts of the table you created; the others should yield various numbers whose form is related to the number of bytes specified by the cover variable used.</p>
+<p>To clear the mapping, type</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>unmapall_jmf_ ''
+</span></code></pre></div>
+<p>and you are ready to map or re-map a file—J will protest if you try to map a currently-mapped file.</p>
+<p>Lab <em>Mapped Files</em> indicates that you can give the rank and shape by changing the left argument of the mapping function. For instance,</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>(JCHAR;5) map_jmf_ 'dat';'c:\directory\test.txt'
+</span></code></pre></div>
+<p>will put <code>dat</code> into five columns, according to the lab. If you try this with your test data, you will probably find that each column is one character wide. I haven’t experimented with this much, so probably this feature is more useful than it seems.</p>
+<p>The important thing is that, so long as you know the underlying structure of the file, you can almost instantaneously access any part of it using a simple command such as</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>a=. ((linecnt*80)+i.80){dat
+</span></code></pre></div>
+<p>where <code>linecnt</code> is the sequence number of a line you want to access, lines happen to be 80 characters each, and you want to assign the characters in that line to variable <code>a</code>. Selecting characters within the line will take a little more elaborate offset-specification, of course, but the principle is the same.</p>
+<p>You can bog the system down or perhaps even crash it if you try to pass through the entire file at once. For example, I did <code>+/dat=TAB</code> on a 600K file, causing all of it to be handled in RAM or virtual-RAM. As a result, interactive work suffered from slow painting of characters to the session screen (remember the joys of Sharp APL/PC on the original 8088 IBM PC?: that’s how slow J looked). Moral: extract fairly small chunks of a file at one time. (‘Fairly small’ can be a hundred kilobytes or more. It depends on how much RAM you have that J can use without paging. Still, smaller is generally better.)</p>
+<p>This might look about the same as simply opening a file and reading byte segments. One difference is that <code>jmf</code> uses calls to the operating system which is able to do file access in some sort of optimal fashion by bypassing normal data loading operations. But this goes far beyond my competence: read the references mentioned in the lab to understand what’s happening behind the memory mapping curtain. From a program-length standpoint, little is gained because byte segments have to be specified in both instances. (Remember we are dealing with character string files here; mapped files created from J can be integer, floating point, etc., so access can be in terms of, say, the first ten numbers which would be simpler than extracting characters and then converting.)</p>
+<h2 id="how-memory-mapped-files-are-structured">How Memory-Mapped Files are Structured<a class="headerlink" href="#how-memory-mapped-files-are-structured" title="Permanent link">&para;</a></h2>
+<p>It is interesting to write a small test memory-mapped file in J, following the instructions in the lab, and then examine the file once it has been unmapped. My early experimentation was with APL+Win, which lets me read files and file segments as integer, character, floating point, and so forth. (In J, you have to read the file as character data, then use an appropriate conversion routine for integer, float, or whatever. Score for APL.)</p>
+<p>A J memory-mapped file has two parts: a header and the balance of the file. This was mentioned above. What the documentation does not tell you is that the header—presently 284 bytes long—is <em>integer</em> data. The balance of the file is whatever type it is. Mixed up in this is whatever junk the file has overwritten; when inspecting either the header area or the balance area you are likely to see scraps of HTML code or other stuff that might confuse you at first. The header tells you how large it is itself, how large the file balance is (this can be greater than the number of bytes populated with data), the number of bytes per item, the total number of items, the rank of the data and the shape of the data. There are a couple of other numbers whose meaning I’m not sure of, but they don’t matter so long as you already know the data type for the file body.</p>
+<p>This means it is theoretically possible to (1) add a J-style header to an existing file or (2) construct a J-style memory-mapped file in APL or some other language. If correctly done (and I’ve tried the second option, but using J instead of APL), you can map the constructed file and manipulate it just as if it were a memory-mapped file created using the J tools.</p>
+<p>A word of warning: The folks at Jsoftware, Inc. do not guarantee that the present (September, 2000) structure of J memory-mapped files will remain unchanged. This means ‘rolling your own’ file headers or other tricks might not work in the future. Of course, little in computing is really permanent. Not many years ago, the J Windows interface was drastically changed, and most programs dealing with event handlers had to be revised.</p>
+<h2 id="memory-mapping-existing-data-files">Memory Mapping Existing Data Files<a class="headerlink" href="#memory-mapping-existing-data-files" title="Permanent link">&para;</a></h2>
+<p>Text files pose a memory-mapping problem because delimited strings are not the same length. That is because the whole point of delimited files is to cut file size by eliminating unneeded blank characters. The only solution is to create some sort of mapping index table that specifies the sequential file position of each end-of-line character and each tab (or comma, for CSV files) within each line. I wrote a program that did this for the census data tables mentioned above, and found that the index was roughly a tenth the size of the target file. This explicit indexing with its requisite custom examination of each file—a task that would have to be repeated each time the target file was altered in any substantive way—persuaded me that text files and memory-mapping go together only if alternatives are even more costly or impractical. But it would be practical if I had to deal with a text file on a CD-ROM, which by definition is unalterable. Then I could pass the file through an indexing program and save the resulting index table with the knowledge that no further upkeep would be needed.</p>
+<p>Fixed-field character-based files seem to be a better fit with memory mapping. Each line—or record—is the same length, so all you need to read the desired bytes is an index or data dictionary of the field width and perhaps the column subject plus maybe a rows index. This would be far smaller than the text table index mentioned above. Furthermore, so long as field widths are unchanged, there is no need for re-indexing the file after making changes.</p>
+<p>So what I did was write a program converting the text files into fixed-column files. I had one row per area, but strung the sex data into a vector of males by age group followed by females by age group. Each row also started with a short column containing the area’s geographical identification code. The resulting files were around 1040KB, up from about 655KB.</p>
+<p>A defect of fixed-format files is that I can’t simply read the data into a spreadsheet for easy modification. I might be able to modify data from a spreadsheet or word-processing program, but I would have to be very careful not to end up with too few or too many characters per line. Operationally, the best strategy is to maintain the text file and rebuild the fixed-column file each time the text file is changed. But this is nearly the same as the re-indexing of text files noted above except that the index file would be tiny and extraction index specification might run a little faster. (Of course you can use memory mapping to change characters in-place. This should work fine in a data processing environment. But small numbers of <em>ad hoc</em> changes are probably more suited to the spreadsheet option described above.) The reader should now see that selecting an optimal solution for his needs might require some head scratching or maybe even coin flipping.</p>
+<h2 id="memory-mapping-in-action">Memory Mapping in Action<a class="headerlink" href="#memory-mapping-in-action" title="Permanent link">&para;</a></h2>
+<p>Considerations of optimization of disc storage and operational hassle aside, how well does memory-mapping work in practice?</p>
+<p>To find out, I rewrote a J script that reads in the census data and calculates estimates of intercensal net migration, displaying age-sex-specific net migration rates on a Windows form, one graph per census interval. The original programs created arrays containing data for all states and counties and caused noticeable slowing of screen painting and other signs of memory paging. There was really no alternative if I used the text files in my database.</p>
+<p>The revised system uses fixed-field files, reading in county data for only one state at a time (a convenient way to organize the data in any case). This drastically reduced the size of data arrays while eliminating the need to create boxed tables and then unpack them in the process of creating arrays. The result was a system that did not have an extended ‘hourglass’ period for initial data assembly and there were no memory paging after-effects. There were pauses after a different state was selected, while data were fetched and migration rates calculated, but the wait was only a few seconds on the relatively slow 300MHz machine. I expect this process would be nearly imperceptible on a 1GHz computer, except perhaps when dealing with states with more than 100 counties.</p>
+<p>The verdict? In this test case, the result was much better performance paid for by the relatively small cost of creating alternative files 60 percent larger than the original text files.</p>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>Memory mapping existing character-based files takes some support work, but with a little planning it can eliminate some nasty J side effects related to working with large files.</p>
+<hr />
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

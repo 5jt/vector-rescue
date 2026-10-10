@@ -1,0 +1,1677 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Phil Last develops some demonstrative operators to solve some common programming problems in Dyalog APL.">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10500740/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Co-operators - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#preamble" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Co-operators
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#preamble" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Preamble
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#co-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Co-operators
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#function-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Function selection
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#function-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Function sequence
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#function-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Function arrays
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conditionals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conditionals
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-conditionals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        More conditionals
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forks" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Forks
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#afterword" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Afterword
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Co-operators</h1>
+
+  <p class="printed"><a href="../25/#n23-march-2012">Vector 25:3</a>, page 51</p>
+
+
+<p class="byline">by Phil Last (phil.last@ntlworld.com)</p>
+<p class="abstract">Based on a presentation given at Dyalog’11 in Boston on 5 Oct 2011, Phil Last develops some demonstrative operators to solve some common programming problems.</p>
+<h2 id="preamble">Preamble<a class="headerlink" href="#preamble" title="Permanent link">&para;</a></h2>
+<p>I’ve been developing user-defined operators since a time when it was only possible to simulate them by executing prepared expressions that include a function name passed as left argument to another function. The following allowed first-generation APLs to use reduction with any dyad. (See the Appendix for definitions of the functions <code>f</code>, etc. used to explicate the parsing.)</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>    ∇ R←F RED W
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>[1] ⍝ R←F⌿W
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>[2]  R←''⍴⍴W
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>[3]  R←⍎(⍴,F)↓,((R,⍴,F)⍴F),' ','W','[',(⍕(⍳R)∘.+,0),((R,-1-⍴⍴W)⍴';'),']'
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    ∇
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>      'f' RED ⍳6
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>( 0 f( 1 f( 2 f( 3 f( 4 f 5 )))))
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>      '∊' RED 2 5⍴'aeiou','vowel'
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>0 1 0 1 0
+</span></code></pre></div>
+<p>So when IBM announced a mechanism for users to define their own operators in about 1983 I had a queue of them awaiting proper implementation.</p>
+<p>When Dyalog announced D-fns with lexical scope in 1997 I unashamedly switched to using that as my standard notation for all new functions and operators and embedding D-fns for most amendments to old ones. So without apology I’ll warn you that almost everything you’ll see here is in D-notation. Also that some coding techniques might be new to you.</p>
+<p>In the original paper to the Boston presentation I included a short note about those techniques. This time I refer you to a companion article that appears in the same edition of <em>Vector</em> as this: “A way to write functions”. If you see anything here that is confusing or appears to make no sense at all you’ll probably find it explained there.</p>
+<p>Application-specific operators tend to be rare, often restricted to two or three in a large application while I currently have a collection of over forty more-or-less general purpose ones. It’s always mystified me that so few APLers seem to write or even use them at all.</p>
+<p>A simple piece of code that maps or operates on one or two input arrays of known domain and structure can be extracted and encapsulated into a function that can be called upon whenever needed and this perhaps should almost always be done. An extension of that where different but syntactically congruent operations were to be applied would encourage us to write an operator and pass the operation in as a parameter along with the arrays.</p>
+<p>I should mention here that, strictly speaking, when we write an operator what we are writing is the definition of the derived function of that operator. When we say an operator returns a function, the operator actually does nothing of the sort. The parser merely binds it with its one or two operands. All the work specific to that operator is still to be done by the derived function and that after it has one or two arguments to operate on. In what follows I’ll almost certainly forget this distinction between the derived function and the operator and refer to the operator’s doing things which are actually the province of the derivation. I doubt that this will confuse.</p>
+<h2 id="co-operators">Co-operators<a class="headerlink" href="#co-operators" title="Permanent link">&para;</a></h2>
+<p>A class of operator that I’ve become interested in comprises those that are designed to be called multiple times within the same expression:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>      [a] f op g op h op j op k op l w
+</span></code></pre></div>
+<p>where <code>a</code> and <code>w</code> are arrays; <code>f, g, h, j, k</code> and <code>l</code> are functions (see Appendix); and <code>op</code> is the operator in question. The first and most obvious thing to notice about this is that the operator is dyadic – it takes two operands – making the number of operands in the expression one more than the number of calls to the operator. I’ll mention here that I’ll use Iverson’s names for monadic and dyadic operators – <em>adverb</em> and <em>conjunction</em> – if I need to distinguish them. Although without an awful lot of messy code an operator can’t examine its operands – it just runs them on trust – in this context we need to know something about them. I’m calling these <em>co-operators</em> because in order to be useful they must take account of the likelihood that they are not operating alone.</p>
+<p>An examination of the calling sequence of the above expression will help. Redundant parentheses show how it’s parsed:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>      [a]     f op g op h op j op k op l w
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>      [a](((((f op g)op h)op j)op k)op l)w
+</span></code></pre></div>
+<p>In first-generation APL this was explained as operators’ having ‘long left scope’ as opposed to functions’ having ‘long right scope’. Along with strand-notation and the generalisation of operators came the idea of ‘binding strength’. The above parsing is now explained on the basis of right-operand binding’s being stronger than left – so an operand between two conjunctions is bound by the one whose right operand it is; that to its left.</p>
+<p>In the case above <code>g</code> is bound by <code>op</code> to its left, <code>h</code> by that to its left and so on to the rightmost <code>op</code> that has the whole function expression to its left <code>f...k</code> as its left operand – ‘long left scope’. A corollary to this is that all but the leftmost call to <code>op</code> have left operands derived from <code>op</code> itself, that exception being the greatest complication in all that follows; we need to identify what is that ‘leftmost call’ because we’ll have to treat it differently. We also can be sure that the right operand of every instance of <code>op</code> is one of the original operands of the unparenthesised expression. The arguments to the expression become the arguments to the first call, the rightmost.</p>
+<h2 id="function-selection">Function selection<a class="headerlink" href="#function-selection" title="Permanent link">&para;</a></h2>
+<p>Here’s a simple operator to start us off. I never got into writing case statements like:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>      :Select whatever
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>      :Case this ⋄ ...
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>      :Case that ⋄ ...
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>      ...
+</span></code></pre></div>
+<p>because I’d already started using operators to control program flow before control structures were implemented in APL and D-fns don’t permit them even if I wanted them. Instead consider an operator – call it <code>or</code> – to be used as:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>      0 0 1 0 f or g or h or j w ←→ 0 0 1 0(((f or g)or h)or j)w
+</span></code></pre></div>
+<p>I hope you can guess what this is intended to do. In the specific case above I want the result to be the result of <code>h w</code>, the boolean vector being used as a mask to select from the four operand functions which to apply to argument <code>w</code>.</p>
+<p>We could imagine this as being implemented something like:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>      (0 0 1 0 / (f g h j))w
+</span></code></pre></div>
+<p>where a boolean compression is applied to an isolated list of functions but such a list is not recognised by APL as something it can deal with in any way let alone being able to apply compression to it. More about this later.</p>
+<p>I’ll allow only the first, leftmost, 1 to select the function, effectively treating the boolean as if it’s its own less-than scan <code>&lt;\</code>. If the mask is all zeros we shouldn’t actually want to run any function at all; we should merely return the argument. So here are the first two lines:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>      or←{
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>            ~∨/⍺:⍵
+</span></code></pre></div>
+<p>Looking at the parenthesised version above we can see that the rightmost <code>or</code> has:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>      ⍺⍺ ←→ f or g or h
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>      ⍵⍵ ←→ j
+</span></code></pre></div>
+<p>So if only the final element of <code>⍺</code> is a 1 we can run <code>j</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>          &lt;/⍺:⍵⍵ ⍵
+</span></code></pre></div>
+<p>If this isn’t the case then we need to do something with <code>⍺⍺</code>. We need to call it without the final element of <code>⍺</code> that applied to <code>j</code>. So:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>      or←{
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>            ~∨/⍺:⍵
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>            &lt;/⍺:⍵⍵ ⍵
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>            (¯1↓⍺)⍺⍺ ⍵
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>      }
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>      0 0 0 0 f or g or h or j 23
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>23
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>      0 0 0 1 f or g or h or j 23
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>(j 23 )
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>      0 0 1 1 f or g or h or j 23
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>(h 23 )
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>      0 1 0 0 f or g or h or j 23
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>(g 23 )
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>      1 0 0 1 f or g or h or j 23
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>( 1 f 23 )
+</span></code></pre></div>
+<p>These all look right except for <code>f</code>. I mentioned the complication of the leftmost call in the eponymous section above. In this we’ve called <code>f</code> as dyad <code>⍺⍺</code> in the final line of <code>or</code>. Another statement is needed to call <code>⍺⍺</code> when it’s the leftmost of the supplied operands. We know that by then our expression is <code>f or g</code> so <code>⍺</code> must have a length of 2. If it were 0 0 we should have returned <code>⍵</code> unchanged on line:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>      [1] ~∨/⍺:⍵
+</span></code></pre></div>
+<p>If it were 0 1 we should have run <code>g</code> on line:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>      [2] &lt;/⍺:⍵⍵ ⍵
+</span></code></pre></div>
+<p>So it must be 1 0 or 1 1 and in either case we should run <code>f</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>      [2.1] 2=⍴⍺:⍺⍺ ⍵
+</span></code></pre></div>
+<p>So:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>      or←{
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>            ~∨/⍺:⍵
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>            &lt;/⍺:⍵⍵ ⍵
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>            2=⍴⍺:⍺⍺ ⍵
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>            (¯1↓⍺)⍺⍺ ⍵
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>      }
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>      1 0 0 0 f or g or h or j 23
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>(f 23 )
+</span></code></pre></div>
+<p>We can make an alternative version of this that, rather than selecting the function indicated by only the first 1, will select all corresponding functions:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>      0 1 0 1 f or g or h or j 23
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>(g(j 23 ))
+</span></code></pre></div>
+<p>We need to look at the last item of <code>⍺</code> whether it’s the only one or not and use the power operator to run <code>⍺⍺</code> and <code>⍵⍵</code> conditionally:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>      or←{
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>            ~∨/⍺:⍵
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>            g←⍵⍵⍣(⊢/⍺)
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>            2=⍴⍺:⍺⍺⍣(⊣/⍺)g ⍵
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>            (¯1↓⍺)⍺⍺ g ⍵
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>      }
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>      1 0 1 0 1 1 f or g or h or j or k or l 45
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>(f(h(k(l 45 ))))
+</span></code></pre></div>
+<h2 id="function-sequence">Function sequence<a class="headerlink" href="#function-sequence" title="Permanent link">&para;</a></h2>
+<p>If we look at the reduction operator we see:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>      f/12 23 34 45
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a> ( 12 f( 23 f( 34 f 45 )))
+</span></code></pre></div>
+<p>the function is inserted between the items of the argument. If the function could be a list then perhaps we could do:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>      (f g h j)/12 34 56 78 90
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a> ( 12 f( 34 g( 56 h( 78 j 90 ))))
+</span></code></pre></div>
+<p>Again we can’t do this because <code>f g h j</code> is illegal in APL. J implements this concept with the <code>tie</code> conjunction <code>`</code> to bind the functions in a list of ‘gerunds’ that it applies with <code>/</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>   +`-`*`% / 1 2 3 4 5
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>0.6
+</span></code></pre></div>
+<p>But we can interpose a defined operator both to bind the functions and insert them:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>      f seq g seq h seq j 12 34 56 78 90
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>            ←→ ((f seq g)seq h)seq j 12 34 56 78 90
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>            ←→ 12 f 34 g 56 h 78 j 90
+</span></code></pre></div>
+<p>Notice we have one more item in the argument than there are operands in the expression and one more of them than there are calls to the operator. Also that the operands are dyads while the derived function is a monad. The first (rightmost) call will have:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>      ⍺⍺  ←→  f seq g seq h
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>      ⍵⍵  ←→  j
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>      ⍵   ←→  entire right argument
+</span></code></pre></div>
+<p>so we can run <code>j</code> between the last two items using reduction and catenate its result to the rest running <code>⍺⍺</code> on that result:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>      seq←{
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>            ⍺⍺(¯2↓⍵),⍵⍵/¯2↑⍵
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>      }
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>      f seq g seq h seq j 12 34 56 78 90
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>(f 12  ( 34 g( 56 h( 78 j 90 ))) )
+</span></code></pre></div>
+<p>Visually scanning from the right looks good until we get to <code>f</code>. Again it’s the leftmost function that adds the complication. When <code>f</code> is the left operand, <code>f seq g</code> must be the sub-expression, there must be three items in <code>⍵</code> so we do almost the same but we apply <code>⍺⍺</code> between rather than to the remaining pair after doing the same with <code>⍵⍵</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>      seq←{
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>            3=⍴⍵:⍺⍺/(¯2↓⍵),⍵⍵/¯2↑⍵
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>                 ⍺⍺ (¯2↓⍵),⍵⍵/¯2↑⍵
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>      }
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>      f seq g seq h seq j 12 34 56 78 90
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a> ( 12 f( 34 g( 56 h( 78 j 90 ))))
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>      + seq - seq × seq ÷ 1 2 3 4 5
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>0.6
+</span></code></pre></div>
+<p>and get our expected result.</p>
+<h2 id="function-arrays">Function arrays<a class="headerlink" href="#function-arrays" title="Permanent link">&para;</a></h2>
+<p>Another meaning that could be attributed to an isolated list of functions was in fact my first accidental encounter with them after about three months of APL. I had to solve the simple problem of the dimensions of a matrix formed from three others; one above the juxtaposition of the other two:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>.----------------------------.
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>|              A             |
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>|-------------.---------------------.
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>|             |         C           |
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>|      B      |                     |
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>|             |---------------------'
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>'-------------'
+</span></code></pre></div>
+<p>APL seemed so good at doing whatever I hoped it would that what I wrote was:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>      (⍴A)(+⌈)(⍴B)(⌈+)(⍴C)
+</span></code></pre></div>
+<p>expecting the pairs of functions to be distributed between the pairs of dimensions of the three matrices:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>           .----.-------.----.-------.
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>           |    |       |    |       |
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>      (⍴A)[0 1](+⌈)(⍴B)[0 1](⌈+)(⍴C)[0 1]
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>             |   |        |   |        |
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>             '---'--------'---'--------'
+</span></code></pre></div>
+<p>Of course it didn’t work, for the same reason that the other constructs above didn’t work. Although in this case there are only two functions in each list we can extrapolate this to a list of functions corresponding to a vector of any length. If we define conjunction <code>fv</code> (function vector) we’ll want:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>      a b c d (f fv g fv h fv j) w x y z       ⍝ [0]
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>      a b c d (f fv g fv h fv j) ⊂w            ⍝ [1]
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>      (⊂a)    (f fv g fv h fv j) w x y x       ⍝ [2]
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>              (f fv g fv h fv j) w x y z       ⍝ [3]
+</span></code></pre></div>
+<p>Our perennial problem of identifying the leftmost operand will depend on the length of the argument(s) as they must conform to the number of functions. We can check for a monad and for the two-item final call. But in cases [1] and [2] above <code>⍺</code> or <code>⍵</code> is a scalar so before the length check we’ll resolve scalar extension with laminate and split creating <code>A</code> as 0 if <code>⍺</code> isn’t supplied. If that’s the case we won’t use it anyway but it’s easier to do it redundantly than to skip it:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>      fv←{
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>            ⍺←⊢
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>            m←1≡⍺ 1
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>            (A W)←↓(⍺⊣0),[-0.1]⍵
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>            t←2=⍴W
+</span></code></pre></div>
+<p>For the two-item monad we want the two functions <code>⍺⍺</code> and <code>⍵⍵</code> applied to the two items of <code>W</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>            t∧m:(⍺⍺ 0⊃W)(⍵⍵ 1⊃W)
+</span></code></pre></div>
+<p>If it’s a monad and this doesn’t run it must have more than two items. We apply <code>⍵⍵</code> to the last item of <code>W</code> and <code>⍺⍺</code> to the rest:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>            m:(⍺⍺ ¯1↓W),⍵⍵¨⊢/W
+</span></code></pre></div>
+<p>If it’s still two items it must be a dyad so we do similar to the <code>t∧m:</code> case but using <code>A</code> also:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>            t:((0⊃A)⍺⍺ 0⊃W)((1⊃A)⍵⍵ 1⊃W)
+</span></code></pre></div>
+<p>We must be left with the dyad with more than two items so we do similar to the <code>m:</code> case but with <code>A</code> also:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>            ((¯1↓A)⍺⍺ ¯1↓W),(⊢/A)⍵⍵¨⊢/W
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>      }
+</span></code></pre></div>
+<p>Putting this all together:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>      fv←{
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>            ⍺←⊢
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>            m←1≡⍺ 1
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>            (A W)←↓(⍺⊣0),[-0.1]⍵
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>            t←2=⍴W
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>            t∧m:(⍺⍺ 0⊃W)(⍵⍵ 1⊃W)
+</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a>            m:(⍺⍺ ¯1↓W),⍵⍵¨⊢/W
+</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a>            t:((0⊃A)⍺⍺ 0⊃W)((1⊃A)⍵⍵ 1⊃W)
+</span><span id="__span-32-9"><a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a>            ((¯1↓A)⍺⍺ ¯1↓W),(⊢/A)⍵⍵¨⊢/W
+</span><span id="__span-32-10"><a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a>      }
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>      1 2 3 4 f fv g fv h fv j 5 6 7 8
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a> ( 1 f 5 )  ( 2 g 6 )  ( 3 h 7 )  ( 4 j 8 )
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>      1 2 3 4 f fv g fv h fv j 5
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a> ( 1 f 5 )  ( 2 g 5 )  ( 3 h 5 )  ( 4 j 5 )
+</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>      1       f fv g fv h fv j 5 6 7 8
+</span><span id="__span-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a> ( 1 f 5 )  ( 1 g 6 )  ( 1 h 7 )  ( 1 j 8 )
+</span><span id="__span-33-7"><a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a>              f fv g fv h fv j 5 6 7 8
+</span><span id="__span-33-8"><a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a> (f 5 )  (g 6 )  (h 7 )  (j 8 )
+</span><span id="__span-33-9"><a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a>      1 2 3 4 + fv - fv × fv ÷ 5 6 7 8
+</span><span id="__span-33-10"><a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a>6 ¯4 21 0.5
+</span></code></pre></div>
+<h2 id="conditionals">Conditionals<a class="headerlink" href="#conditionals" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>      :If f w
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>      :AndIf g w
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>          r←h w
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>      :Else
+</span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>          r←j w
+</span><span id="__span-34-6"><a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a>      :End
+</span></code></pre></div>
+<p>As I mentioned above I really can’t do with having to do stuff like that. It was always easy to write operators that did:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>      f then g w              ⍝ if f w then r←g w else r←w
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>      t g else h w            ⍝ if t then r←g w else r←h w
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>                              ⍝ see *else* below
+</span></code></pre></div>
+<p>But putting them together to form something like:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>      f then g else h w       ⍝ if f w then r←g w else r←h w
+</span></code></pre></div>
+<p>was never going to be so easy. The two conjunctions <code>then</code> and <code>else</code> need to co-operate, <code>f then g</code> being an operand of <code>else</code>, and introducing interdependencies should be avoided whenever possible. So how about a single co-operator that fulfils both tasks? The biggest problem is what to call it. I believe at least one language uses <code>?</code> for this – not a bad choice:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>      antecedent ? consequent ? alternative arg
+</span></code></pre></div>
+<p>I’ll use cond which I also believe is used elsewhere so that in:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>      f cond g cond h w  ←→  ((f cond g)cond h) w
+</span></code></pre></div>
+<p>we apply <code>f w</code> first then <code>g w</code> if <code>f w</code> proves true or <code>h w</code> otherwise. The length of the argument isn’t going to help as it could be anything at all. One thing we do know is that there’s no left argument. It wouldn’t make any sense if there was. The right call has:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>      ⍺⍺  ←→  (f cond g)
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>      ⍵⍵  ←→  h
+</span></code></pre></div>
+<p>We can’t do anything with <code>h</code> yet as that’s the alternative we want to run if <code>f</code> returns false so we need to run <code>⍺⍺</code> and we need to do it in such a way that it runs one or other of <code>f</code> and <code>g</code>. We can use that missing left argument as an internal flag to tell the left call what to do. Arbitrarily we’ll give it a 1 to tell it to run <code>f</code> and a 0 for <code>g</code> if <code>f</code> returns true:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>      cond←{
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>            ⍺←⊢
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>            1 ⍺⍺ ⍵:0 ⍺⍺ ⍵
+</span></code></pre></div>
+<p>but this is no good because as soon as we call it it’ll just call itself again unconditionally. We actually need to test <code>⍺</code> for being a 1 or 0 before we use it! Please see the companion article if lines [2] and [3] below confuse:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>      cond←{
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>            ⍺←⊢
+</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>            1=⍺⊣0:⍺⍺ ⍵     ⍝ if ⍺ is 1 run f ⍵
+</span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>            0=⍺⊣1:⍺⍺ ⍵     ⍝ if ⍺ is 0 run g ⍵
+</span></code></pre></div>
+<p>If <code>⍺</code> is ever going to be 1 or 0 we need to make it so, so now we run the line higher up with the two calls to <code>⍺⍺</code>. If <code>1 ⍺⍺ ⍵</code> which calls <code>f ⍵</code> is true we run <code>0 ⍺⍺ ⍵</code> that calls <code>g ⍵</code></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>        1 ⍺⍺ ⍵:0 ⍺⍺ ⍵
+</span></code></pre></div>
+<p>but if <code>f w</code> isn’t true we run <code>h ⍵</code> instead.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>            ⍵⍵ ⍵
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>      }
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>
+</span><span id="__span-43-4"><a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a>      cond←{
+</span><span id="__span-43-5"><a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a>            ⍺←⊢
+</span><span id="__span-43-6"><a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a>            1=⍺⊣0:⍺⍺ ⍵     ⍝ if ⍺ is 1 run f ⍵
+</span><span id="__span-43-7"><a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a>            0=⍺⊣1:⍵⍵ ⍵     ⍝ if ⍺ is 0 run g ⍵
+</span><span id="__span-43-8"><a id="__codelineno-43-8" name="__codelineno-43-8" href="#__codelineno-43-8"></a>            1 ⍺⍺ ⍵:0 ⍺⍺ ⍵  ⍝ if f ⍵ then g ⍵
+</span><span id="__span-43-9"><a id="__codelineno-43-9" name="__codelineno-43-9" href="#__codelineno-43-9"></a>            ⍵⍵ ⍵           ⍝ else h ⍵
+</span><span id="__span-43-10"><a id="__codelineno-43-10" name="__codelineno-43-10" href="#__codelineno-43-10"></a>      }
+</span><span id="__span-43-11"><a id="__codelineno-43-11" name="__codelineno-43-11" href="#__codelineno-43-11"></a>
+</span><span id="__span-43-12"><a id="__codelineno-43-12" name="__codelineno-43-12" href="#__codelineno-43-12"></a>      &gt;∘0 cond j cond k 23
+</span><span id="__span-43-13"><a id="__codelineno-43-13" name="__codelineno-43-13" href="#__codelineno-43-13"></a>(j 23 )
+</span><span id="__span-43-14"><a id="__codelineno-43-14" name="__codelineno-43-14" href="#__codelineno-43-14"></a>      &gt;∘0 cond j cond k ¯45
+</span><span id="__span-43-15"><a id="__codelineno-43-15" name="__codelineno-43-15" href="#__codelineno-43-15"></a>(k ¯45 )
+</span></code></pre></div>
+<p><em>else</em>: now if we look at the <code>else</code> expression that we saw a couple of pages back; I’ve copied it here for convenience:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>      t g else h w            ⍝ if t then r←g w else r←h w
+</span></code></pre></div>
+<p>and just out of interest we try it with <code>cond</code> we find:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>      1 g cond h 67
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>(g 67 )
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>      0 g cond h 67
+</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>(h 67 )
+</span></code></pre></div>
+<p>that cond is indeed a working else and we can see why on those lines [2] and [3] above. This isn’t the way we should have written <code>else</code> because lines [4] and [5] won’t run in either case but it’s quite nice that the co-operator also works as a stand-alone:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>      f cond g cond h w       ⍝ if f w then r←g w else r←h w
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>           t g cond h w       ⍝ if t then r←g w else r←h w
+</span></code></pre></div>
+<p>It turns out that that arbitrary 1 and 0 were not so arbitrary after all.</p>
+<p>And if we want the usual semantics we can define:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>      then←{⍺←⊢ ⋄ ⍺ ⍺⍺ cond ⍵⍵ ⍵}
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>      else←{⍺←⊢ ⋄ ⍺ ⍺⍺ cond ⍵⍵ ⍵}
+</span></code></pre></div>
+<h2 id="more-conditionals">More conditionals<a class="headerlink" href="#more-conditionals" title="Permanent link">&para;</a></h2>
+<p>I started the previous section with an <code>:If</code> construct that included <code>:AndIf</code>. It turns out that conjunctions <code>and</code> and <code>or</code> are very easy to write. They aren’t co-operators. They just happen to work together:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>      and←{⍺⍺ ⍵:⍵⍵ ⍵ ⋄ 0}     ⍝ if ⍺⍺ ⍵ then r←⍵⍵ ⍵ else r←0
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>      or←{⍺⍺ ⍵:1 ⋄ ⍵⍵ ⍵}      ⍝ if ⍺⍺ ⍵ then r←1 else r←⍵⍵ ⍵
+</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>      f and g or h ←→ (f and g)or h
+</span></code></pre></div>
+<p>This is <em>not</em> the same as <code>(f ⍵)∧(g ⍵)∨(h ⍵)</code> that would run all functions, <code>f, g</code> and <code>h</code> and determine the result in the usual APL right to left mode. Operands here are run in left to right order and then only if they are capable of changing the result exactly as a series of <code>:AndIf</code> or <code>:OrIf</code> clauses in an <code>:If</code> clause.</p>
+<p>We can now construct the statement at the very top of the “Conditionals” section:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>      f and g then h else j w ←→
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>            (((f and g)then h)else j)w
+</span><span id="__span-49-3"><a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>            ⍝ if f w and g w then r←h w else r←j w
+</span></code></pre></div>
+<p>but unlike the exclusivity of <code>:AndIf</code> and <code>:OrIf</code> control clauses and remembering that those operands that run will do so in a strictly left to right order we can write:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>      f or g and h and j then k else l w ←→
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>            (((((f or g)and h)and j)then k)else l)w
+</span></code></pre></div>
+<h2 id="forks">Forks<a class="headerlink" href="#forks" title="Permanent link">&para;</a></h2>
+<p>J refers to lists of functions as <em>trains</em> and parses them in a very particular way:</p>
+<p>A train of 2 functions (2-train) is called a <em>hook</em>, which counts as a function in its own right; an APL equivalent would be:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>      (f g)       ←→ f∘g⍨⍨
+</span></code></pre></div>
+<p>so that:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>      a(f g)w     ←→ a f(g w)
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>      (f g)w      ←→ w f(g w)
+</span></code></pre></div>
+<p>A 3-train constitutes a <em>fork</em> (another function) where:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>      a(f g h)w   ←→ (a f w)g(a h w)
+</span><span id="__span-53-2"><a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>       (f g h)w   ←→ (  f w)g(  h w)
+</span></code></pre></div>
+<p>Beyond the 3-train a fork peels off from the right and becomes the right tine of the next construct, hook or fork, recursively:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>      (g f h j)         ←→ (g(f h j))
+</span><span id="__span-54-2"><a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>      (g f h j k)       ←→ (g f(h j k))
+</span><span id="__span-54-3"><a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a>      (g f h j k l)     ←→ (f(g h(j k l)))
+</span></code></pre></div>
+<p>Even-trains above 2 that simulate a hook whose right tine is a fork aren’t possible with a single defined operator but we can simulate an odd-train with a fork operator <code>fk</code>. The only difference will be that due to operand binding as mentioned above forks will be bound from the left:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>      f fk g fk h fk j fk k   ←→ (f fk g fk h)fk j fk k
+</span></code></pre></div>
+<p>We’ll only consider a ‘simple’ fork of three functions here:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>      a(f fk g fk h)w   (a f w)g(a h w)
+</span><span id="__span-56-2"><a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>       (f fk g fk h)w   (  f w)g(  h w)
+</span></code></pre></div>
+<p>Again at the first call we have:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>      ⍺⍺ ←→ f fk g
+</span><span id="__span-57-2"><a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a>      ⍵⍵ ←→ h
+</span></code></pre></div>
+<p>so can do something with <code>h</code>, but we need to pass its result along with the original argument(s) to the next call where <code>f</code> and <code>g</code> will be available:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>      fk←{
+</span><span id="__span-58-2"><a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a>            ⍺⍺(⍺ ⍵)(⍺ ⍵⍵ ⍵)
+</span><span id="__span-58-3"><a id="__codelineno-58-3" name="__codelineno-58-3" href="#__codelineno-58-3"></a>      }
+</span></code></pre></div>
+<p>But at that next call we don’t want to do the same thing at all.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>      ⍺⍺ ←→ f
+</span><span id="__span-59-2"><a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a>      ⍵⍵ ←→ g
+</span></code></pre></div>
+<p>We want to apply <code>g</code> between the results of <code>f</code> and <code>h</code>. This is the same problem as ever –  identifying the subsequent call – but this time we can’t rely on the length of the argument(s) to tell us when we are there. We need to pass in a flag to the second call to tell it – as with <code>cond</code> above – and we might as well have two; one for the monad and one for the dyad. In the first monadic call we present the flag as left argument to the next call. We have to hope no-one ever calls our fork with these flags as supplied arguments:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>      fk←{
+</span><span id="__span-60-2"><a id="__codelineno-60-2" name="__codelineno-60-2" href="#__codelineno-60-2"></a>            ⍺←⊢
+</span><span id="__span-60-3"><a id="__codelineno-60-3" name="__codelineno-60-3" href="#__codelineno-60-3"></a>            (m d)←'left monadic fork' 'left dyadic fork'
+</span></code></pre></div>
+<p>if it’s a monad, <code>⍺</code> will be assigned <code>⊢</code> and for all <code>x</code></p>
+<pre>
+      <code>x ≡ ⍺ x</code>
+</pre>
+
+<p>so we pass <code>m, ⍵</code> and the result of <code>h</code> to the left call:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>            ⍵≡⍺ ⍵:m ⍺⍺(⍵)(⍵⍵ ⍵)
+</span></code></pre></div>
+<p>If we get past here we know <code>⍺</code> exists so if it’s our monadic flag we run <code>g</code> between results of <code>f</code> applied to the origin <code>⍵</code> and that of <code>h</code> which we computed above as <code>(⍵⍵ ⍵)</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>      fk←{
+</span><span id="__span-62-2"><a id="__codelineno-62-2" name="__codelineno-62-2" href="#__codelineno-62-2"></a>            ⍺←⊢
+</span><span id="__span-62-3"><a id="__codelineno-62-3" name="__codelineno-62-3" href="#__codelineno-62-3"></a>            (m d)←'left monadic fork' 'left dyadic fork'
+</span><span id="__span-62-4"><a id="__codelineno-62-4" name="__codelineno-62-4" href="#__codelineno-62-4"></a>            ⍵≡⍺ ⍵:m ⍺⍺(⍵)(⍵⍵ ⍵)
+</span><span id="__span-62-5"><a id="__codelineno-62-5" name="__codelineno-62-5" href="#__codelineno-62-5"></a>            ⍺≡m:(⍺⍺ 0⊃⍵)⍵⍵ 1⊃⍵
+</span><span id="__span-62-6"><a id="__codelineno-62-6" name="__codelineno-62-6" href="#__codelineno-62-6"></a>      }
+</span><span id="__span-62-7"><a id="__codelineno-62-7" name="__codelineno-62-7" href="#__codelineno-62-7"></a>      f fk g fk h 23
+</span><span id="__span-62-8"><a id="__codelineno-62-8" name="__codelineno-62-8" href="#__codelineno-62-8"></a>((f 23 )g(h 23 ))
+</span></code></pre></div>
+<p>So far so good. The dyad should be very similar. If <code>⍺</code> is <code>d</code> – the dyadic flag – we run <code>f</code> between our original arguments and <code>g</code> between that result and <code>h</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-63-1"><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>            ⍺≡d:(⊃⍺⍺/0⊃⍵)⍵⍵ 1⊃⍵
+</span></code></pre></div>
+<p>If not we’d better make it so passing <code>d</code>, <code>⍺ ⍵</code>, and <code>⍺ h ⍵</code> in the right dyad:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-64-1"><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>            d ⍺⍺(⍺ ⍵)(⍺ ⍵⍵ ⍵)
+</span><span id="__span-64-2"><a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a>      }
+</span><span id="__span-64-3"><a id="__codelineno-64-3" name="__codelineno-64-3" href="#__codelineno-64-3"></a>
+</span><span id="__span-64-4"><a id="__codelineno-64-4" name="__codelineno-64-4" href="#__codelineno-64-4"></a>      fk←{
+</span><span id="__span-64-5"><a id="__codelineno-64-5" name="__codelineno-64-5" href="#__codelineno-64-5"></a>            ⍺←⊢
+</span><span id="__span-64-6"><a id="__codelineno-64-6" name="__codelineno-64-6" href="#__codelineno-64-6"></a>            (m d)←'left monadic fork' 'left dyadic fork'
+</span><span id="__span-64-7"><a id="__codelineno-64-7" name="__codelineno-64-7" href="#__codelineno-64-7"></a>            ⍵≡⍺ ⍵:m ⍺⍺(⍵)(⍵⍵ ⍵)
+</span><span id="__span-64-8"><a id="__codelineno-64-8" name="__codelineno-64-8" href="#__codelineno-64-8"></a>            ⍺≡m:( ⍺⍺ 0⊃⍵)⍵⍵ 1⊃⍵
+</span><span id="__span-64-9"><a id="__codelineno-64-9" name="__codelineno-64-9" href="#__codelineno-64-9"></a>            ⍺≡d:(⊃⍺⍺/0⊃⍵)⍵⍵ 1⊃⍵
+</span><span id="__span-64-10"><a id="__codelineno-64-10" name="__codelineno-64-10" href="#__codelineno-64-10"></a>            d ⍺⍺(⍺ ⍵)(⍺ ⍵⍵ ⍵)
+</span><span id="__span-64-11"><a id="__codelineno-64-11" name="__codelineno-64-11" href="#__codelineno-64-11"></a>      }
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-65-1"><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>      f fk g fk h 23
+</span><span id="__span-65-2"><a id="__codelineno-65-2" name="__codelineno-65-2" href="#__codelineno-65-2"></a>((f 23 )g(h 23 ))
+</span><span id="__span-65-3"><a id="__codelineno-65-3" name="__codelineno-65-3" href="#__codelineno-65-3"></a>      +/fk÷fk⍴ 12 23 34 45 56 67 78
+</span><span id="__span-65-4"><a id="__codelineno-65-4" name="__codelineno-65-4" href="#__codelineno-65-4"></a>45
+</span><span id="__span-65-5"><a id="__codelineno-65-5" name="__codelineno-65-5" href="#__codelineno-65-5"></a>      12 f fk g fk h 23
+</span><span id="__span-65-6"><a id="__codelineno-65-6" name="__codelineno-65-6" href="#__codelineno-65-6"></a>(( 12 f 23 )g( 12 h 23 ))
+</span><span id="__span-65-7"><a id="__codelineno-65-7" name="__codelineno-65-7" href="#__codelineno-65-7"></a>      12 34 56 78 90 &gt;fk∨fk= 98 76 54 32 10
+</span><span id="__span-65-8"><a id="__codelineno-65-8" name="__codelineno-65-8" href="#__codelineno-65-8"></a>0 0 1 1 1
+</span></code></pre></div>
+<h2 id="afterword">Afterword<a class="headerlink" href="#afterword" title="Permanent link">&para;</a></h2>
+<p>If it were decided to allow APL to acknowledge an isolated list of functions as a valid syntactic construct it would remain to be decided how it should be applied and how the individual members should interact.</p>
+<p>The designers of J decided to go for hook and fork.</p>
+<p>There is currently discussion that Dyalog might make the same decision.</p>
+<p>It isn’t necessary to go for a single solution except as a default. The selection of hook and fork as default behaviour wouldn’t need to preclude the introduction of operators that apply the list in some other way. The co-operators described here hint at some of those other ways. Instead of building up a derived function by alternating with their operands, they could take the list as a single operand and apply its members appropriately.</p>
+<h2 id="appendix">Appendix<a class="headerlink" href="#appendix" title="Permanent link">&para;</a></h2>
+<p>Functions used to demonstrate calling sequences:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-66-1"><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>      f←{⍺←⊢ ⋄ '(',⍺,'f',⍵,')'}
+</span><span id="__span-66-2"><a id="__codelineno-66-2" name="__codelineno-66-2" href="#__codelineno-66-2"></a>      g←{⍺←⊢ ⋄ '(',⍺,'g',⍵,')'}
+</span><span id="__span-66-3"><a id="__codelineno-66-3" name="__codelineno-66-3" href="#__codelineno-66-3"></a>      h←{⍺←⊢ ⋄ '(',⍺,'h',⍵,')'}
+</span><span id="__span-66-4"><a id="__codelineno-66-4" name="__codelineno-66-4" href="#__codelineno-66-4"></a>      j←{⍺←⊢ ⋄ '(',⍺,'j',⍵,')'}
+</span><span id="__span-66-5"><a id="__codelineno-66-5" name="__codelineno-66-5" href="#__codelineno-66-5"></a>      k←{⍺←⊢ ⋄ '(',⍺,'k',⍵,')'}
+</span><span id="__span-66-6"><a id="__codelineno-66-6" name="__codelineno-66-6" href="#__codelineno-66-6"></a>      l←{⍺←⊢ ⋄ '(',⍺,'l',⍵,')'}
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

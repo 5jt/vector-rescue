@@ -1,0 +1,1683 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10005820/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Using J with External Data - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Using J with External Data
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introduction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-first-problem-stated" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The First Problem Stated
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-from-ascii-to-j" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Input from ASCII to J
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#replacement-of-the-character-x-to-characters-_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Replacement of the Character X to Characters _1
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conversion-from-character-string-to-numeric-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conversion from Character String to Numeric Table
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#replace-negative-values-by-row-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Replace Negative Values by Row Means
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#catenate-month-and-year-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Catenate Month and Year Means
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-box-for-further-formatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Using <em>Box</em> (&lt;) for further Formatting
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-second-problem-stated" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Second Problem Stated
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgements" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Acknowledgements
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Using J with External Data</h1>
+
+  <p class="printed"><a href="../8/#n4-april-1992">Vector 8:4</a>, page 97</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-data-and-files">data and files</a> <a class="md-tag" href="../tags/#tag-programming-techniques">programming techniques</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../8/4/VOL.8-NO.4-APRIL-1992.pdf#page=99">Read it in the PDF of the issue, page 97</a></em></p>
+<p class="byline"><em>by Donald B. McIntyre</em></p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>J is a powerful dialect of APL created by Kenneth Iverson and Roger Hui [1]. At the APL91 Conference at Stanford, California, I gave an account of my experience with the language [2]. Some of the difficulties I met when first trying to use J were due to features that have been modified or dropped from the language; for example, the manner in which one function inherited the rank of another. Although there was ample theoretical justification for the original way rank was inherited (and I gave an example of this in [2]), my experience helped to persuade the designers to change the rules. Because J is developing fast, it is essential to specify the version used. The files <code>Status.Doc</code> and <code>Xenos.Doc</code>, provided with the system, document changes from earlier versions and should be examined closely. The examples given here were executed with Version 4.1x2</p>
+<p>The special issue of the <em>IBM Systems Journal</em>, commemorating 25 years of implemented APL, contains several examples of the same function, or <em>verb</em>, written in conventional APL, Direct Definition, and J [3]. These may be helpful to those already familiar with APL. In an earlier paper in <em>Vector</em> I have provided an introduction to J with examples from elementary arithmetic [4]. The standard references written by Iverson are, of course, essential reading [5-9]. References to some of the more technical papers will be found in reference [4].</p>
+<p>Dictionaries like <em>The Oxford English Dictionary</em> and Lewis and Short’s <em>Latin Dictionary</em> not only define words but include phrases illustrating their use by standard authors. It would be impractical to attempt to learn a language from such sources alone. It is necessary to read literature written in the language at an appropriate level, and preferably dealing with a topic already understood by the reader. This paper is intended as a further contribution to the literature for beginning users of J.</p>
+<p>I always find that, like my students, I benefit most from examples in a context to which I can relate. In the context of two practical examples, I give here examples of features of J, including hooks and forks, rank, cut, raze, ravel items, format, do (execute), copy (compress), box, open, under (dual), amend, and the reading and writing of ASCII files. I hope that others will find these helpful as they learn J.</p>
+<p>In every definition only <em>necessary</em> parentheses are used. It is helpful to experiment by starting with fully parenthesised expressions and gradually reducing the number of parentheses included. The successive definitions should be checked to see whether they give the same result as before, and when they do not they should be displayed in boxed and tree form to see how they have been interpreted by the J system [4].</p>
+<h2 id="the-first-problem-stated">The First Problem Stated<a class="headerlink" href="#the-first-problem-stated" title="Permanent link">&para;</a></h2>
+<p>A friend, who was starting to investigate J, had monthly total rainfall measurements for a period of eight years. He had used a word processor to put the values into an ASCII file and he wondered how he could use J to compute various statistics. Missing observations were indicated by a letter. This is how typical data appear in a file named <code>data.in</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>3.02    0.88    6.69    1.78    3.48    3.37    3.81    1.57
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>4.33    1.59    2.72    1.74    0.86    0.65    X       0.87
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>0.22    2.77    2.66    2.08    1.65    2.48    X       3.41
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>1.74    5.33    2.44    1.89    2.91    1.93    0.48    3.72
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>0.25    0.09    2.33    1.67    1.40    1.54    2.37    4.18
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>2.28    2.23    0.77    4.01    1.48    2.88    1.47    0.13
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>0.94    X       2.72    5.11    X       2.46    1.54    0.56
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>2.03    0.99    3.27    2.35    3.29    3.55    0.98    0.78
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>1.26    2.07    4.02    1.09    1.84    0.37    2.30    1.32
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>3.82    2.06    2.33    7.00    3.10    0.66    4.28    2.14
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>3.08    1.54    0.88    2.60    4.20    2.52    3.82    1.22
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>2.28    4.09    1.19    0.76    2.39    4.94    2.23    3.06
+</span></code></pre></div>
+<h2 id="input-from-ascii-to-j">Input from ASCII to J<a class="headerlink" href="#input-from-ascii-to-j" title="Permanent link">&para;</a></h2>
+<p>J has been criticised for having too few system functions, but this is a misunderstanding. APL’s system functions are not really part of the language; in J they are implemented with the "foreign" conjunction (<code>!:</code>). As the name suggests, conjunctions are dyadic; they <em>join together</em> two arguments producing verbs (functions) or adverbs (monadic operators). Thus <code>1!:1</code> is <em>file read</em>, and the argument of the resulting verb is the boxed specification of the file. Similarly <code>1!:2</code> is <em>file write</em>, a dyadic verb, whose left argument is the character string to be written, and right argument the boxed file specification. It is convenient to name these as follows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>read=. 1!:1 @ &lt;       NB. x=. read 'input.fil'
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>write=. [ 1!:2 &lt;@]    NB. 'string' write 'output.fil'
+</span></code></pre></div>
+<p>In my experience it is rather easy, even for a beginner, to think in terms of a fork, and the verb <em>write</em> is defined here as a fork. When I began to work with J I thought that both forks and hooks were abstruse concepts unlikely to be useful to someone at my level. Very quickly, however, I found forks everywhere. For a long time I thought that hooks were much rarer. The reason is that every hook can be written as a fork, and it easier for the novice to use the fork form; as indeed I have done here.</p>
+<p>When a fork consists of the composition of a dyadic verb, a monadic verb, and either a <em>left</em> (<code>[</code>) or a <em>right</em> (<code>]</code>) verb, then we can use the hook form. In the dyadic case (as in the verb <em>write</em>):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>x (g h) y   is the same as   x g (h y)
+</span></code></pre></div>
+<p>which implies that <code>g</code> is dyadic and <code>h</code> is monadic. Thus:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>write=. 1!:2 &lt;          NB. Write to a file. Hook
+</span></code></pre></div>
+<p>I shall draw attention to similar examples as they occur.</p>
+<p>Execution of the following sentence causes the data to be read as a character string named <code>y</code>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>y=. read 'data.in'
+</span></code></pre></div>
+<p><code>y</code> is the name of a character string containing line-feed, new-line, and end-of-file codes which are as follows (where <code>a.</code> is the Atomic Vector, or list of the 256 ASCII codes, and <code>{</code> is the verb <em>from</em> used by J instead of <code>a[13]</code> for indexing):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>nl=. 13 { a. [ lf=. 10 { a. [ eof=. 26 { a.
+</span></code></pre></div>
+<h2 id="replacement-of-the-character-x-to-characters-_1">Replacement of the Character X to Characters _1<a class="headerlink" href="#replacement-of-the-character-x-to-characters-_1" title="Permanent link">&para;</a></h2>
+<p>The indexes of the character <code>X</code> in the string are given by:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>   ]i=. u # i. # u=. y = 'X'
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>130 202 450 474
+</span></code></pre></div>
+<p>Note that where <code>#</code> is preceded by <code>i.</code> it is the monadic <em>tally</em>; where it is preceded by <code>u</code> it is the dyadic <em>copy</em> (equivalent to <em>compress</em> or <em>replicate</em> in older APL).</p>
+<p>Because rainfall is never negative, we can replace the letter <code>X</code> with the pair of characters <code>_1</code> as a step in converting the character string into numbers amenable to arithmetic. The indexes of all positions to be changed are found by using the <em>table</em> adverb (<code>/</code>) to produce the outer product.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>   ,i +/0 1
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>130 131 202 203 450 451 474 475
+</span></code></pre></div>
+<p>The information to be entered at these positions is:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>   (+:#i)$'_1'
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>_1_1_1_1
+</span></code></pre></div>
+<p>Substitution is then made by <em>amend</em>. For further examples see [2, p.270], but note that <em>amend</em> was changed in Version 4 [10].</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>z=. ((+:#i)$'_1') (,i +/0 1)}y
+</span></code></pre></div>
+<p>Defining verbs to accomplish this, we can proceed as follows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>   h=. 'X'&amp;=@] # i.@#        NB. Fork
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>   h y
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>130 202 450 474
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>   g=. ,@(+/&amp;0 1)@h
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>   g y
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>130 131 202 203 450 451 474 475
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>   f=. $&amp;'_1' @ (+:@#@h)
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>   f y
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>_1_1_1_1
+</span></code></pre></div>
+<p>Then:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>z=. (f y) (g y)} y
+</span></code></pre></div>
+<p>The explicit form is straightforward:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>   amend=. '(f y.) (g y.)} y.' : ''
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>   z-: amend y
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>1
+</span></code></pre></div>
+<p>It was simple to amend a matrix with earlier versions of J using desk calculator mode [2, p.270]. The syntax was <code>x i} m</code>, where <code>i</code> gave boxed indexes. But a definition in tacit form cannot be written easily. Four hours after discussing this case with Ken Iverson and Roger Hui, they telephoned back to say that they had extended J (Version 4) to permit definition of the following fork:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>  amend=. f g@]} ]
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>   z-: amend y
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>1
+</span></code></pre></div>
+<p>This is dramatic testimony to the superior design of the language, the flexibility of the implementation, and the response and skill of both designer and implementer!</p>
+<h2 id="conversion-from-character-string-to-numeric-table">Conversion from Character String to Numeric Table<a class="headerlink" href="#conversion-from-character-string-to-numeric-table" title="Permanent link">&para;</a></h2>
+<p><code>z</code> is a string of numbers, represented in character form and containing printer-control characters. Reshape it into a 12 by 8 table after converting from character representation to numeric, and after printer-control characters have been removed:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>d=. 12 8 $ ". z #~ -. z e. lf,nl,eof
+</span></code></pre></div>
+<p>We can, however, make this table without explicitly specifying its shape. Take a simple example to illustrate the procedure:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>s=. '1 2 3',lf,'4 5 6',lf,'7 8 9',lf
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>cut=. &lt;;._2
+</span></code></pre></div>
+<p>The conjunction <em>cut</em> will box items delimited by the last item (<code>2</code>) — in this case <code>lf</code> — and exclude (<code>_2</code>) the delimiters from the intervals:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>   cut s
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>┌─────┬─────┬─────┐
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>│1 2 3│4 5 6│7 8 9│
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>└─────┴─────┴─────┘
+</span></code></pre></div>
+<p><em>Raze</em> the result:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>   ; cut s
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>1 2 34 5 67 8 9
+</span></code></pre></div>
+<p><em>Ravel Items</em>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>   ,. cut s
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>┌─────┐
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>│1 2 3│
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>├─────┤
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>│4 5 6│
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>├─────┤
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>│7 8 9│
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>└─────┘
+</span></code></pre></div>
+<p><em>Open</em>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>   &gt; cut s
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>1 2 3
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>4 5 6
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>7 8 9
+</span></code></pre></div>
+<p><em>Do</em>, or execute (<code>".</code>) <em>under</em> (<code>&amp;.</code>) <em>open</em> (<code>&gt;</code>); i.e., open each box, convert to numeric, and then close each box again:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>   $ ".&amp;.&gt; cut s
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>3
+</span></code></pre></div>
+<p>Open the result of this operation and show that we have produced the required numeric table:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>   execute=. &gt; @ (".&amp;.&gt; @ &lt;;._2)
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>   1 + execute s
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>2 3  4
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>5 6  7
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>8 9 10
+</span></code></pre></div>
+<p>To apply <em>execute</em> to our data, begin by eliminating the new-line and end-of-file characters while leaving the line-feeds as delimiters:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>   d -: data=. execute z#~ -. z e. nl,eof
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>1
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>   data
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>3.02 0.88 6.69 1.78 3.48 3.37 3.81 1.57
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>4.33 1.59 2.72 1.74 0.86 0.65   _1 0.87
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>0.22 2.77 2.66 2.08 1.65 2.48   _1 3.41
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>1.74 5.33 2.44 1.89 2.91 1.93 0.48 3.72
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>0.25 0.09 2.33 1.67  1.4 1.54 2.37 4.18
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>2.28 2.23 0.77 4.01 1.48 2.88 1.47 0.13
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>0.94   _1 2.72 5.11   _1 2.46 1.54 0.56
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>2.03 0.99 3.27 2.35 3.29 3.55 0.98 0.78
+</span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>1.26 2.07 4.02 1.09 1.84 0.37  2.3 1.32
+</span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a>3.82 2.06 2.33    7  3.1 0.66 4.28 2.14
+</span><span id="__span-22-15"><a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a>3.08 1.54 0.88  2.6  4.2 2.52 3.82 1.22
+</span><span id="__span-22-16"><a id="__codelineno-22-16" name="__codelineno-22-16" href="#__codelineno-22-16"></a>2.28 4.09 1.19 0.76 2.39 4.94 2.23 3.06
+</span></code></pre></div>
+<h2 id="replace-negative-values-by-row-means">Replace Negative Values by Row Means<a class="headerlink" href="#replace-negative-values-by-row-means" title="Permanent link">&para;</a></h2>
+<p>Substituting the most reasonable values for missing data is a matter that requires knowledge of the subject matter. In this case the columns are years (8) and the rows, or items, are months (12). We can replace missing values by the means for the row (month) over all years for which we have data.</p>
+<p>We need the indexes of missing values (represented by <code>_1</code>). First write a directly executable expression and then define a verb to give the same result:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>   (,u)#i.#,u=. 0&gt;data
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>14 22 49 52
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>   h=. 0&amp;&gt;@,
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>   g=. (] # i.@#)@h      NB. A fork that can be written as a hook
+</span></code></pre></div>
+<p>Because <code>g</code> consists of a dyadic verb (<code>#</code>), a monadic verb (<code>i.</code>), and the verb <em>right</em> (<code>]</code>), it can be written as a hook.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>g=. (# i.@#)@ h      NB. Hook
+</span></code></pre></div>
+<p>Fix <code>g</code> as <code>ir</code> (Indexes in Ravel) so that the names <code>g</code> and <code>h</code> can be reused.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>   ir=. g f.
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>   ir data    NB. Index in Ravel of matrix
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>14 22 49 52
+</span></code></pre></div>
+<p>The row indexes are:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>   &lt;.8%~ir data
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>1 2 6 6
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>   (&lt;.@(%&amp;8)) ir data
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>1 2 6 6
+</span></code></pre></div>
+<p>The column indexes are:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>   8|ir data
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>6 6 1 4
+</span></code></pre></div>
+<p>To find the indexes we made explicit use of the number of columns (8), but this number is given by:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>   {:$ data
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>8
+</span></code></pre></div>
+<p>Define verbs <code>row</code> and <code>column</code> depending solely on the data:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>   row=. &lt;. @ (ir % {:@$)        NB. Fork
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>   row data
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>1 2 6 6
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>   column=. {:@$ | ir            NB. Fork
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>   column data
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>6 6 1 4
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>   f=. row ,. column             NB. Fork
+</span><span id="__span-29-9"><a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a>   f data
+</span><span id="__span-29-10"><a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a>1 6
+</span><span id="__span-29-11"><a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a>2 6
+</span><span id="__span-29-12"><a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a>6 1
+</span><span id="__span-29-13"><a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a>6 4
+</span></code></pre></div>
+<p>Note that <code>row</code>, <code>column</code>, and <code>f</code> are forks. Now box the items (rows):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>   ix=. &lt;"1 @(row ,. column)
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>   ]i=. ix data
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>┌───┬───┬───┬───┐
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>│1 6│2 6│6 1│6 4│
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>└───┴───┴───┴───┘
+</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>   ]z=. i{data
+</span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>_1 _1 _1 _1
+</span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>   z-: ({~ ix) data      NB. Hook
+</span><span id="__span-30-9"><a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>1
+</span><span id="__span-30-10"><a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>   z-: (ir data){,data
+</span><span id="__span-30-11"><a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a>1
+</span><span id="__span-30-12"><a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a>   z-: (ir { ,) data     NB. Fork
+</span><span id="__span-30-13"><a id="__codelineno-30-13" name="__codelineno-30-13" href="#__codelineno-30-13"></a>1
+</span></code></pre></div>
+<p>Compute the means of the rows with negative values.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>   mean=. +/%#                                NB. Fork
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>   ]m=. mean"1 (row data){data
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>1.47 1.78375 1.41625 1.41625
+</span></code></pre></div>
+<p>Note that <code>(row data){ data</code> is a candidate for a monadic hook:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>   m-: mean"1 ({~ row) data
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>1
+</span></code></pre></div>
+<p>But these means were computed over the eight values in the rows, and these include the <code>_1</code>, which is only a flag indicating a missing observation. We need a special mean that will be based only on positive or zero values:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>   mean n=. 1 _9 2 3 _1 4 0 5
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>0.625
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>   (&gt;:&amp;0 # ]) n           NB. Fork
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>1 2 3 4 0 5
+</span></code></pre></div>
+<p>Every hook can be written as a fork, and the fork is often easier to grasp than the hook that could replace it. Remember that in the hook <code>(g h)</code>, <code>h</code> is always monadic and <code>g</code> is dyadic [4]. Arrange the two verbs in the order, from left to right, <em>Dyadic, Monadic</em>. If the dyadic function is not commutative, it may be necessary, as in this case, to use the <em>cross</em> adverb (<code>~</code>).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>   h=. &gt;:&amp;0              NB. Monadic
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>   h n
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>1 0 1 1 0 1 1 1
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>   g=. #~                NB. Dyadic
+</span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>   n g (h n)
+</span><span id="__span-34-6"><a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a>1 2 3 4 0 5
+</span><span id="__span-34-7"><a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a>   (g h) n               NB. Hook
+</span><span id="__span-34-8"><a id="__codelineno-34-8" name="__codelineno-34-8" href="#__codelineno-34-8"></a>1 2 3 4 0 5
+</span><span id="__span-34-9"><a id="__codelineno-34-9" name="__codelineno-34-9" href="#__codelineno-34-9"></a>   (#~ &gt;:&amp;0) n           NB. Hook
+</span><span id="__span-34-10"><a id="__codelineno-34-10" name="__codelineno-34-10" href="#__codelineno-34-10"></a>1 2 3 4 0 5
+</span></code></pre></div>
+<p>Mean over positive and zero values:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>   pzmean=. mean @ (#~ &gt;:&amp;0)      NB. Hook
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>   pzmean n
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>2.5
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a>
+</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>   ]m=. pzmean"1 ({~ row) data
+</span><span id="__span-35-6"><a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a>1.82286 2.18143 2.22167 2.22167
+</span></code></pre></div>
+<p>Amend the data by inserting these values. Note that the indexes (<code>i</code>) are with respect to the ravel of the matrix (<code>data</code>).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>   ]x=. m i}data
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>3.02    0.88 6.69 1.78    3.48 3.37    3.81 1.57
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>4.33    1.59 2.72 1.74    0.86 0.65 1.82286 0.87
+</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>0.22    2.77 2.66 2.08    1.65 2.48 2.18143 3.41
+</span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>1.74    5.33 2.44 1.89    2.91 1.93    0.48 3.72
+</span><span id="__span-36-6"><a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a>0.25    0.09 2.33 1.67     1.4 1.54    2.37 4.18
+</span><span id="__span-36-7"><a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a>2.28    2.23 0.77 4.01    1.48 2.88    1.47 0.13
+</span><span id="__span-36-8"><a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a>0.94 2.22167 2.72 5.11 2.22167 2.46    1.54 0.56
+</span><span id="__span-36-9"><a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a>2.03    0.99 3.27 2.35    3.29 3.55    0.98 0.78
+</span><span id="__span-36-10"><a id="__codelineno-36-10" name="__codelineno-36-10" href="#__codelineno-36-10"></a>1.26    2.07 4.02 1.09    1.84 0.37     2.3 1.32
+</span><span id="__span-36-11"><a id="__codelineno-36-11" name="__codelineno-36-11" href="#__codelineno-36-11"></a>3.82    2.06 2.33    7     3.1 0.66    4.28 2.14
+</span><span id="__span-36-12"><a id="__codelineno-36-12" name="__codelineno-36-12" href="#__codelineno-36-12"></a>3.08    1.54 0.88  2.6     4.2 2.52    3.82 1.22
+</span><span id="__span-36-13"><a id="__codelineno-36-13" name="__codelineno-36-13" href="#__codelineno-36-13"></a>2.28    4.09 1.19 0.76    2.39 4.94    2.23 3.06
+</span><span id="__span-36-14"><a id="__codelineno-36-14" name="__codelineno-36-14" href="#__codelineno-36-14"></a>   amend=. ir@]}
+</span><span id="__span-36-15"><a id="__codelineno-36-15" name="__codelineno-36-15" href="#__codelineno-36-15"></a>   x-: m amend data
+</span><span id="__span-36-16"><a id="__codelineno-36-16" name="__codelineno-36-16" href="#__codelineno-36-16"></a>1
+</span></code></pre></div>
+<h2 id="catenate-month-and-year-means">Catenate Month and Year Means<a class="headerlink" href="#catenate-month-and-year-means" title="Permanent link">&para;</a></h2>
+<p>The verb <code>ymean</code> is a hook that catenates yearly means to the foot of the columns:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>ymean=. ,"2 1 mean
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>ymean x
+</span></code></pre></div>
+<p>Catenate the means of rows (months), the means of columns (years), and the grand mean (at bottom right corner):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>   ]s=. 6.2":((,"2 1 mean) x),"1 0 (mean"1 x),mean ,x
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>3.02  0.88  6.69  1.78  3.48  3.37  3.81  1.57  3.07
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>4.33  1.59  2.72  1.74  0.86  0.65  1.82  0.87  1.82
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>0.22  2.77  2.66  2.08  1.65  2.48  2.18  3.41  2.18
+</span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>1.74  5.33  2.44  1.89  2.91  1.93  0.48  3.72  2.55
+</span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a>0.25  0.09  2.33  1.67  1.40  1.54  2.37  4.18  1.73
+</span><span id="__span-38-7"><a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a>2.28  2.23  0.77  4.01  1.48  2.88  1.47  0.13  1.91
+</span><span id="__span-38-8"><a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a>0.94  2.22  2.72  5.11  2.22  2.46  1.54  0.56  2.22
+</span><span id="__span-38-9"><a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a>2.03  0.99  3.27  2.35  3.29  3.55  0.98  0.78  2.15
+</span><span id="__span-38-10"><a id="__codelineno-38-10" name="__codelineno-38-10" href="#__codelineno-38-10"></a>1.26  2.07  4.02  1.09  1.84  0.37  2.30  1.32  1.78
+</span><span id="__span-38-11"><a id="__codelineno-38-11" name="__codelineno-38-11" href="#__codelineno-38-11"></a>3.82  2.06  2.33  7.00  3.10  0.66  4.28  2.14  3.17
+</span><span id="__span-38-12"><a id="__codelineno-38-12" name="__codelineno-38-12" href="#__codelineno-38-12"></a>3.08  1.54  0.88  2.60  4.20  2.52  3.82  1.22  2.48
+</span><span id="__span-38-13"><a id="__codelineno-38-13" name="__codelineno-38-13" href="#__codelineno-38-13"></a>2.28  4.09  1.19  0.76  2.39  4.94  2.23  3.06  2.62
+</span><span id="__span-38-14"><a id="__codelineno-38-14" name="__codelineno-38-14" href="#__codelineno-38-14"></a>2.10  2.16  2.67  2.67  2.40  2.28  2.27  1.91  2.31
+</span></code></pre></div>
+<p>This illustrates the verb <em>format</em> (<code>":</code>), the conjunction <em>rank</em> (<code>"</code>) applied to <em>catenation</em> (<code>,</code>), and the <em>hook</em> (<code>,"2 1 mean</code>)</p>
+<p>We now have a character array. Catenate to it the new-line and line-feed codes, and ravel to produce an ASCII string that can be sent to DOS:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>(,s,"1 nl,lf) write 'data.out'
+</span></code></pre></div>
+<p>The file <code>Data.Out</code> is the required ASCII file.</p>
+<h2 id="using-box-for-further-formatting">Using <em>Box</em> (&lt;) for further Formatting<a class="headerlink" href="#using-box-for-further-formatting" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>f=. &lt;@(6.2&amp;":)
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>g=. f&amp;:(,:@ mean"1) ,: f@ mean @ ,      NB. Fork
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>h=. f , f@ mean                         NB. Fork
+</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a>table =. h ,"0 1 g                      NB. Fork
+</span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a>
+</span><span id="__span-40-6"><a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a>]t=. table x
+</span></code></pre></div>
+<p><img alt="The boxed table: the 12 by 8 data with row means in a box on the right, column means in a box below, and the grand mean 2.31 in the corner" src="table.png" /></p>
+<p><code>t</code> is a table with 2 rows and 2 columns:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>   $t
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>2 2
+</span></code></pre></div>
+<h2 id="the-second-problem-stated">The Second Problem Stated<a class="headerlink" href="#the-second-problem-stated" title="Permanent link">&para;</a></h2>
+<p>Early versions of J were supplied with tutorial files that could be displayed while in J. In Version 4 of the Dictionary the tutorials are provided in an appendix [5]. In the files of one preliminary version each new-line code stood alone instead of being followed by a line-feed. Consequently, when these files were read lines of text were superposed. If the last line was the longest in the file, then that line was the only one displayed.</p>
+<p>To create such a file for yourself, first use your word processor to prepare a text file (let us call it <code>junk</code>) with half a dozen short lines <em>without</em> wordwrap; i.e. press the <strong>Enter</strong> key at the end of each line. Next use a hex-editor, such as provided by PCTOOLS or NORTON, to see the sequence 0D 0A marking new-line and line-feed commands. Now change all occurrences of 0A to 20 in order to replace line-feeds by blanks. The problem then is how to use J to reverse the process by <em>inserting</em> a line-feed after every occurrence of new-line. Try reading this file from J by</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>]x=. read 'junk'
+</span></code></pre></div>
+<p>Observe that each line is overlaid on the previous lines. Count the number of new-lines and line-feeds, verifying that the line-feeds have been eliminated:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>+/ x =/ 13 10 {a.
+</span></code></pre></div>
+<p>The verb <code>h</code> <em>cuts</em> the string using the new-line codes as terminating delimiters. We can compose it from 3 verbs as a fork; a monadic verb, a dyadic verb, and the verb <em>right</em> (<code>]</code>). Or we can compose it from 2 verbs as a hook.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>h=. =&amp;nl &lt;;.2 ]        NB. Fork
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>h=. &lt;;.2~ =&amp;nl         NB. Hook
+</span></code></pre></div>
+<p>As in all hooks, the right-hand verb is monadic and the left-hand verb is dyadic. A hook combines one noun with the result of a verb that has been applied to a noun, either the same noun as the first (in the monadic case) or a different one (in the dyadic case). Use a hook whenever this situation occurs.</p>
+<p>The boolean string produced by <em>equals</em> (<code>=</code>) points to the positions of new-line codes. This is the left argument for <em>cut</em> (<code>&lt;;.2</code>). The 2 indicates that the delimiters mark the <em>ends</em> of the intervals and are to be included in the result [5, p.10-11].</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>each=. &amp;.&gt;
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>g=. ,&amp;lf each
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>edit=. ; @ (g @ h)
+</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>input=. edit @ read
+</span></code></pre></div>
+<p>The definition should be <em>fixed</em> so that <em>input</em> will not be changed if the names <code>g</code> and <code>h</code> are reused.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>input=. input f.
+</span></code></pre></div>
+<p>The adverb <em>each</em> opens the boxes produced by <code>h</code>, applies the verb (which is here <em>catenate lf to the tail</em>), and then closes the boxes again. After reading the file, <em>input</em> edits it by putting in the required line-feed codes. The file can now be displayed without superposed lines:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>]x=. input 'junk'
+</span></code></pre></div>
+<p>To create a new file with the corrections:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>x 1!:2 &lt;'junk.out'
+</span></code></pre></div>
+<p>The character string <code>x</code> is written to the new file (which must be designated by a <em>boxed</em> string). This file can now be read correctly (remember that our <code>read</code> verb boxes the name before using it):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>read 'junk.out'
+</span></code></pre></div>
+<p>Leave J and use your hex-editor to see that line-feeds (0A) have been inserted between the new-line (0D) and space (20) codes.</p>
+<p>We have modified a single file, but I had several files to edit. Let <code>infiles</code> and <code>outfiles</code> be the lists of boxed names of files for input and output:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>infiles=. 'tut10.in';'tut11.in';'tut12.in';'tut13.in'
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>outfiles=. 'tut10.out';'tut11.out';'tut12.out';'tut13.out'
+</span></code></pre></div>
+<p>With the power of J we can create all the new files in one step. Switching arguments to avoid parentheses, my first successful solution was this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a> output=. &gt;@[ 1!:2 ]          NB. Fork
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>outfiles output~"0 input each infiles
+</span></code></pre></div>
+<p>The logic is as follows. The file names are already boxed. Use <em>each</em> to apply <code>input</code> (<code>edit</code> after <code>read</code>) and give the boxed strings ready for the output files. Let the boxed names of the output files be the right argument, and let the left argument be the boxed strings that are to go into these files. Then the <em>rank</em> conjunction (<code>"0</code>) can make <code>output</code> handle each file in turn. The syntax would be like this:</p>
+<p>For one file:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>'string'  1!:2  (boxed file name)
+</span></code></pre></div>
+<p>Note the asymmetry: the right argument must be boxed, but the left argument must <em>not</em> be boxed.</p>
+<p>For several files one might try:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>(boxed edited strings) 1!:2"0 (boxed output file names)
+</span></code></pre></div>
+<p>The rank conjunction takes 1 box on the left along with one box on the right. However after the box on the left has been taken it must be opened before output begins. If we open the left argument too soon then we defeat the purpose of the rank conjunction! Consequently <em>open</em> (<code>&gt;</code>) must be part of <code>output</code>. The other part is, of course, <code>1!:2</code></p>
+<p>A fork is then obvious: open the left argument and don’t open the right argument of <code>1!:2</code></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>output=. &gt;@[ 1!:2 ]          NB. Fork
+</span></code></pre></div>
+<p>Because this fork (like many others I have written!) consists of a monadic verb (<em>open</em>), a dyadic verb (<code>1!:2</code>), and the verb <em>right</em>, it can be recast as a hook. Because there are two distinct arguments, the hook is dyadic:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>x (g h) y      is the same as      x g (h y)
+</span></code></pre></div>
+<p><code>h</code> is the monadic function, therefore we must switch arguments; it is the boxed string that is to be opened — not the boxed file name. The right argument must be the result produced by <em>input each infiles</em> — which is boxed; the rank conjunction sees to it that only one box is taken at a time, and the phrase denoted (<code>h y</code>) opens that box. Along with the rank conjunction, this provides the right argument for (<code>1!:2</code>), and the left argument is a single boxed file-name.</p>
+<p>In using the hook (instead of the fork) we have no choice about which argument is to be on the left and which on the right. Because this conflicts with the positions of the arguments required for (<code>1!:2</code>), we <strong>must</strong> <em>cross</em> them (<code>~</code>). The result is therefore:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>(boxed output file names) (g~ h) (boxed edited strings)
+</span></code></pre></div>
+<p>That is, we need the following hook:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>output=. 1!:2~ &gt;                NB. Hook
+</span><span id="__span-57-2"><a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a>outfiles output"0 input each infiles
+</span></code></pre></div>
+<p>After this line is executed, all files named in <code>outfiles</code> can be read correctly.</p>
+<h2 id="acknowledgements">Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permanent link">&para;</a></h2>
+<p>Kenneth Iverson and Roger Hui (Iverson Software Inc.) created the system a small facet of which I have described here. They have given unfailing assistance, coaching me by long-distance telephone and patiently answering my more naive questions. In response to my reported experience, in a few cases they modified the language. They are, of course, in no way responsible for infelicities in my use and exposition of their language. I claim only that the expressions given here work in the current version of the system (J4.1x2, 13 Jan 1992).</p>
+<p>By asking for a solution to the first problem, Dr. Richard Fulford directed me into the realm of external communication. Graham Woyka and Anthony Camacho were always encouraging when the going was rough.</p>
+<p>Luachmhor, Church Road<br>
+Kinfauns, Perth PH2 7LD<br>
+Scotland - U.K.<br>
+Telephone: 0738-86-726</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<p>[1] J is available from Iverson Software Inc., 33 Major Street, Toronto, Ontario, Canada M5S 2K9. Phone (416) 925-6096; Fax (416) 488-7559. UK agent I-APL Ltd (see Product Guide)</p>
+<p>[2] Donald B. McIntyre, <em>Mastering J</em>, APL91 Conference Proceedings, Stanford, California, August 1991. APL Quote Quad Vol. 21 Number 4 (August 1991), p.264-273.</p>
+<p>[3] Donald B. McIntyre«MDNM», <em>Language as an Intellectual Tool: From hieroglyphics to APL</em>, IBM Systems Journal, Vol. 30, Number 4 (1991) p.554-581.</p>
+<p>[4] Donald B. McIntyre, <em>Hooks and Forks and the Teaching of Elementary Arithmetic</em>, Vector, Vol. 8 Number 3 (January 1992) 101-123.</p>
+<p>[5] Kenneth E. Iverson, <em>The ISI Dictionary of J</em>, Version 4 with Tutorials, Iverson Software Inc., Toronto (1991) 29pp.</p>
+<p>[6] Kenneth E. Iverson, <em>Programming in J</em>, Iverson Software Inc., Toronto (1991) 72pp.</p>
+<p>[7] Kenneth E. Iverson, <em>Tangible Math</em>, Iverson Software Inc., Toronto (1991) 33pp.</p>
+<p>[8] Kenneth E. Iverson, <em>Arithmetic</em>, Iverson Software Inc., Toronto (1991) 119pp.</p>
+<p>[9] Kenneth E. Iverson, <em>An Introduction to J</em>, Iverson Software, (1992) 46pp.</p>
+<p>[10] Donald B. McIntyre, <em>Using J’s Boxed Arrays</em>, Vector, Vol. 9 (1992) In Press</p></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">data and files</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">programming techniques</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

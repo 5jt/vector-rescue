@@ -1,0 +1,1393 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="The authors introduce ELI: An interactive array-oriented programming language system based on APL.">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10501180/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>ELI: a simple system for array programming - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ELI: a simple system for array programming
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1. Introduction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-array-language-eli" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2. The Array Language ELI
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-scripting-files-and-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3. Scripting Files and Testing
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4. Conclusion
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Conclusion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">ELI: a simple system for array programming</h1>
+
+  <p class="printed"><a href="../26/#n1-september-2013">Vector 26:1</a>, page 94</p>
+
+
+<p class="byline">Hanfeng Chen (wukefe@gmail.com)<br />
+Wai-Mee Ching (waimee_ching@yahoo.com)</p>
+<p class="abstract">Abstract: ELI is an interactive array-oriented programming language system based on APL. In addition to flat array operations of ISO APL, ELI features basic list for non-homogeneous data, temporal data, symbol type and control structures. By replacing each APL character with one or two ASCII characters, ELI retains APL’s succinct and expressive way of doing array programming in a dataflow style. A scripting file facility helps a user to easily organize programs in a fashion similar to C with convenient input/output.</p>
+<h2 id="1-introduction">1. Introduction<a class="headerlink" href="#1-introduction" title="Permanent link">&para;</a></h2>
+<p>Ken Iverson first developed the APL notation for teaching applied mathematics at Harvard; later APL became machine executable through the work of L. Breed and colleagues at IBM T.J. Watson Research Center. Iverson intends APL to be a tool of thought for communicating algorithmic ideas precisely (see his Turing Award Lecture <a href="#ref7">[7]</a>). This leads to two unique features of APL: i) arrays are first class citizens, ii) a comprehensive set of array operations as language primitives and a special character set enforcing an one character one symbol rule with uniform syntax. That results in succinct expressions and a dataflow style of programming, i.e. organizing tasks as chains of monadic or dyadic functions and operators acting on arrays. As a consequence, APL is remarkably productive and versatile; it has been used profitably in areas ranging from finance, actuarial, computer-aided design, logistics, manufacturing to that of research in physics, econometrics and biometrics (<a href="#ref8">[8]</a> has a recent example). In contrast, the array language MATLAB follows the FORTRAN style and its main application areas center on scientific computation and engineering.</p>
+<p>We see three factors contributing to APL’s decline despite its power to rapidly implement and deliver commercial applications: i) introduction of two nested array systems post-ISO APL fragmented APL community without an increase of markets; ii) its special character set and iii) no free version of APL is (J is both free and uses ASCII characters but it is more terse and difficult to learn than APL). The aim of ELI is to re-introduce APL-style programming to a wider audience by a free and simple array programming system which is easy to learn and convenient to use. The project<a href="#ref3">[3]</a> started a decade ago, and reactivated recently. We hope ELI will attract new comers to APL family of languages who may later move on to commercial APL products.</p>
+<p>ELI has all flat arrays operations specified in the ISO APL standard <a href="#ref1">[1]</a>; it does not have nested array feature of IBM APL2 and other APL vendors. However, ELI has lists and list operations to deal with irregular/non-homogeneous data. In addition, ELI has temporal data, symbol type and C-like control structures. In ELI, each APL character is replaced by one or two ASCII characters in a way that is intuitive and retains the succinctness of original symbolic representation of APL code. Finally, ELI has scripting file facility to conveniently transfer data and code as well as to organize programs in a way similar to the use of #include in C, which is further helped by a short function definition form.</p>
+<p>While MATLAB is popular in scientific/engineering applications, a simple array language of APL lineage offers unique advantage in programming complex systems such as database systems. ELI is easy to learn, has useful features beyond original APL and retains its original programming style. Being free, ELI can let more people appreciate the fact that simplicity of rules and notation in a programming language leads to greater programming productivity.</p>
+<p>In section 2, we describe the basic features of ELI system and the symbol representation, in section 3, we explain the scripting file facility; details can be found in the Primer <a href="#ref4">[4]</a> on our web-site. We discuss future development plan for ELI before conclusion. ELI is written in C++ using Microsoft MFC, hence is first available on Windows, but it soon will be ported to Mac OS X and Linux. ELI is interpreted, but we already have a compiler written in ELI with some restrictions (exclusion of the execute function and the general use of lists). The compiler, translates ELI code into ANSI C code (with this in mind, ELI prohibits variable names to be reused for function names, nor a function name to be renamed as a variable). Once the compiler has compiled itself, it will be offered for general use. ELI can also be used as a tool for generating parallelized code for multi-core desktop as well as for other parallel machines similar to what have been done using APL <a href="#ref6">[6]</a>; the route to parallelism is not a parallel implementation of the interpreter but to automatically parallelize the translated C code by the compiler. We also intend to implement a simple column-based database system in ELI.</p>
+<h2 id="2-the-array-language-eli">2. The Array Language ELI<a class="headerlink" href="#2-the-array-language-eli" title="Permanent link">&para;</a></h2>
+<p>ELI is based on APL1 as described in the ISO APL standard <a href="#ref1">[1]</a>; it replaces each APL character symbol by one or two ASCII characters. A sample is listed in the table below (for a complete list of ELI symbols see <a href="#ref4">[4]</a>, which comes with the system) where the original APL symbol is in parentheses.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>#   (⍴)  shape/reshape              #. (⍠)  matrix inverse/divide
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>?   (∊)  where/member               ?. (?)  roll/deal
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>!   (⍳)  interval/index of          !. (!") execute/drop
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>^   (^)  count/and                  ^. (&amp;)  first/take
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>&amp;   (∨)  or                         &amp;. (*)  transpose
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>_.  (⌊)  floor/min                  &lt;. (.)  enclose/encode
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>~.  (⌈)  ceiling/max                &gt;. (3)  grouping/decode
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>*   (×)  signum/multiply            *. (*)  exponential/power
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>%   (÷)  inverse/divide             %. (9)  natural log/log
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>|   (|)  abs value/modulo           |. (!)  factorial/binomial
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>\.  (⍀)  scan,expand along 1st axis +. (&gt;)  format
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>$   (⌽)  reverse/rotate             $. (*)  reverse/rotate on 1st axis
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>&gt;   (⍒&gt;) grade down/greater         @  (C)  circle function
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>&lt;   (⍋&lt;) grade up/less              -&gt; (F)  branch
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>&lt;-  (←)  assign                     &lt;= (H)  less or equal
+</span></code></pre></div>
+<p>An APL symbol usually represents either a monadic or a dyadic primitive function depending on whether it has one or two operands, and it is the same in ELI, the name(s) next to each symbol in the table above is the name of the monadic (and the dyadic) primitive function it represents. While ELI symbols lost the exquisite beauty of APL font, it retains the essential spirit of one character one symbol of APL notation. We see that the ELI symbols, all consist of special characters, are simple and suggestive, hence easy to remember and do not require a blank between symbols and names/data as in original APL. This is in contrast to the more elaborate multi-character symbol scheme of J and the introduction of word symbols in Q <a href="#ref2">[2]</a>. The current ELI symbol representation differs partly from that in <a href="#ref3">[3]</a>, though it is conceived with the same pragmatic considerations: i) give frequently used primitives single character representation while less frequent ones with a second character ‘<code>.</code>’, ii) for two-character symbols not ending in ‘<code>.</code>’ the character pair should be self-suggestive.</p>
+<p>The arithmetic, logical and relational primitives in APL/ELI are called scalar functions since they act on arrays by an extension of their action on each (pair of) scalar element(s) in that array(s). To take cube roots of a group of numbers, or take different roots of a single number ( <code>%3</code> is <code>1%3</code>), we enter</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>    1 2 8 1000 81 125 *.%3
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>1 1.259921 2 10 4.3267487 5
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    1024*.%1 2 3 5 10
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>1024 32 10.079368 4 2
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    _1*.0.5
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>0j1
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    *.0j1*@1
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>_1
+</span></code></pre></div>
+<p>For a dyadic scalar function <code>f</code>, the outer product of <code>f</code> is written as <code>.:f</code>. For example, to see how 1000 dollars will grow under 3%, 5% and 8% of annual interests rates in 10 years, we do</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>    1000 *1.03 1.05 1.08 .:*. !10
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>1030 1060.9 1092.727 1125.5088 1159.2741 1194.0523 1229.8739 1266.7701
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    1304.7732 1343.9164
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>1050 1102.5 1157.625 1215.5063 1276.2816 1340.0956 1407.1004 1477.4554
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    1551.3282 1628.8946
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>1080 1166.4 1259.712 1360.489 1469.3281 1586.8743 1713.8243 1850.9302
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    1999.0046 2158.925
+</span></code></pre></div>
+<p>Please note that a line of code in ELI, as in APL, executes from right to left, one primitive or derived function at a time with equal precedence but respects parentheses. For two dyadic scalar function <code>f</code> and <code>g</code>, <code>f:g</code> is the inner product of <code>f</code> and <code>g</code>. <code>+:*</code> (<code>+.×</code> in APL) is the well known matrix multiplication, but there are other equally useful inner products such as <code>^:=</code>. For a dyadic scalar function <code>f</code> the reduce operator produces a derived function <code>f/</code> and the scan operator produces <code>f\</code>. To illustrate, <code>+/V</code> is the sum of <code>V</code> while <code>+\V</code> is the partial sums of <code>V</code>, and the or scan <code>&amp;\B</code> is a vector derived from boolean vector <code>B</code> by turning all 1s once it encounters a 1. Now, suppose <code>emp_Div</code> is a 3000 by 2 character matrix indicating which division an employee belongs to where each row is one of the rows from the variable representing divisions</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>    Div&lt;-4 2#’HQMKSLIT’
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    Div
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>HQ
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>MK
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>SL
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>IT
+</span></code></pre></div>
+<p>To count employees in each division, we simply do</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>    +/.emp_Div ^:=&amp;.Div
+</span></code></pre></div>
+<p>where <code>&amp;.Div</code> is the transpose of <code>Div</code> and the result of inner product is a 3000 by 4 boolean matrix indicating the division an employee belongs; finally, <code>+/.</code> sums along the first axis gives a 4 elements vector showing the number of employees in each division.</p>
+<p>A data of symbol type is entered with a back-tick <code>`</code> followed by a character string (possibly empty); a character string which can form a symbol obeys the same rule as that governing a name for variables.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>    #s3&lt;-`abc `ddl `comp
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>3
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    2 2#s3
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>`abc `ddl
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>`comp `abc
+</span></code></pre></div>
+<p>There are 6 temporal data types. For date and second, we have the following examples:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>    2012.10.15+!7
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>2012.10.16 2012.10.17 2012.10.18 2012.10.19 2012.10.20 2012.10.21 2012.10.22
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    23:10:50+30
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>23:11:20
+</span></code></pre></div>
+<p>Eli provides lists to organize non-homogeneous data: a <em>list</em> is a group of <em>items</em>, each of which can be a scalar or an array, separated by ‘<code>;</code>’ and a list <code>L</code> can be assigned to a group of variables where the number of variables is equal to <code>#L</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>    #L&lt;-(`abc `ddl `comp;1 2 3)
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>2
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    L
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>&lt;`abc `ddl `comp
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>&lt;1 2 3
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    L[1]
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>`abc `ddl `comp
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    L[2]
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>1 2 3
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    (s;n)&lt;-L
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    s
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>`abc `ddl `comp
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>    n
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>1 2 3
+</span></code></pre></div>
+<p>To enter a list of one item, we employ the monadic primitive function enclose <code>&lt;</code>.:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>    #L&lt;-&lt;.2 4#!12
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>1
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    L
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>&lt;1 2 3 4
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>5 6 7 8
+</span></code></pre></div>
+<p>The ELI programming environment, follows that of APL, is called a workspace. After you installed ELI and click on the ELI icon, a window pops up with a line</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>    CLEAR WS
+</span></code></pre></div>
+<p>indicating a clear workspace, i.e. there is no user variable or defined function yet (on right most of the top bar there is a Help button, click on it to access the Primer <a href="#ref4">[4]</a> for a basic description of ELI); but it has default system variables such as <code>[]IO</code>, the index origin, which is set to 1 and can be changed to 0:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>    !10
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>1 2 3 4 5 6 7 8 9 10
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    []IO&lt;-0
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    !10
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>0 1 2 3 4 5 6 7 8 9
+</span></code></pre></div>
+<p>One is either in execution mode, i.e. executing an ELI expression, including assignments to variables as we have seen in previous examples; or in definition mode to define a user function. To switch to the definition mode, you type <code>@.</code> followed by the intended function head. A user defined function can have one or two arguments, or no argument, it can return a result or no result and all these are specified by the function head (sect. 3.1 in <a href="#ref4">[4]</a>). One can use a list to effectively input more than two arguments:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>    `sales bk_load (sa;cu;it;am;py;dt;sp)
+</span></code></pre></div>
+<p>Once you finish writing your function, type a matching <code>@.</code> to get out of the editor and back to the execution mode of the interpreter. The function you just edited is available for testing, but it is not yet saved. To save, the workspace should already have a name, if not, then do</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>    )wsid ABC
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    )save
+</span></code></pre></div>
+<p>Of course, variables will also be saved. A saved workspace can be loaded later by</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>    )load ABC
+</span></code></pre></div>
+<p>ELI does not support the <code>)copy</code> command to copy in a workspace on top of an existing workspace. Instead, if a workspace has no suspension, it can be <code>)out</code> ..(see section below), and then bring in back by the command <code>)in</code> .. which differs from <code>)load</code> in that existing variables and functions previously existed would remain, but in case of conflict, those in conflict will be replaced by newer ones.</p>
+<p>ELI has control structures quite similar to those in C (control structures are not prescribed in <a href="#ref1">[1]</a>, and not implemented in current IBM APL2 but present in the products of other APL vendors). There are five reserved words in ELI for control structures <code>if</code>, <code>else</code>, <code>case</code>, <code>for</code> and <code>while</code> and simple statements can be grouped together by a pair of curly brackets. We illustrate their use with a recursive function <code>rprime</code> for finding primes up to n:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>p&lt;-rprime n;i
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>p&lt;-2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>if (n&lt;=100) p&lt;-(n&gt;=p)/p
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>else {pl&lt;-#p&lt;-rprime _.n*.0.5
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    b&lt;-n#0
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>for (i:1;pl) b&lt;-b&amp;n#(-p[i])^.1
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>    p&lt;-p,1!.(~b)/!n
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>}
+</span></code></pre></div>
+<p>This shows how control structures improve program readability when there are alternate choices and irregular iteration while ELI boolean vector operations still entice a succinct dataflow style coding.</p>
+<p>J<a href="#ref10">[10]</a> pushes APL to be more abstract in the direction of functional programming, but aims of ELI are fairly pragmatic: to make classical APL more accessible to general public and easier to mix with other application environments, and easy communication such as pasting code in e-mails. ELI also avoids the complexity of nested arrays in APL2 by providing lists for non-homogeneous data.</p>
+<h2 id="3-scripting-files-and-testing">3. Scripting Files and Testing<a class="headerlink" href="#3-scripting-files-and-testing" title="Permanent link">&para;</a></h2>
+<p>While workspace is great for program development, as you can save not only clean code but partially debugged code as well, it takes quite lot of space (in fact, the old APL idea of workspace is what we call IDE for other conventional languages today). When your workspace contains no unresolved error, i.e. the system indicator <code>)SI</code> is empty, ELI (follows IBM APL2) let you output the content of your clean workspace to a transfer file by the system command )out fnam; and later the content of that file can be brought back by <code>)in fnam</code>. However, a transfer file must first come from some workspace. It is rather inconvenient to input a large amount of data or functions into an APL workspace. Hence, we introduced the scripting file facility in ELI to directly bring data and functions, written in ordinary text files, into ELI system. We note that scripting file facility exists in another APL dialect, A+, developed at Morgan Stanley<a href="#ref9">[9]</a>, but there is no workspace facility in A+.</p>
+<p>A scripting file can contain not only function definitions, as you would write them in the ELI editor in the definition mode of the ELI interpreter, but also values for variables. To do that you put</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>&amp;ABC I 2 50 80
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>…
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>&amp;
+</span></code></pre></div>
+<p>The first line is the variable name followed by its type (<code>B</code>:boolean; <code>I</code>:integer; <code>E</code>:floating point; <code>J</code>: complex number; <code>C</code>:character; <code>S</code>:symbol; <code>D</code>:datetime) and the rank and shape of that variable, then followed by the value of the variable in ravel order. To load in a scripting file S, type</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>    )fload S
+</span></code></pre></div>
+<p>There is a companion command <code>)fcopy S</code> for copying in a script file which behaves similar to )copy of a workspace. You can even put in executable statements such as ‘<code>RPRIME 120</code>’(where <code>RPRIME</code> must be defined earlier) in a script file; that statement would then be executed at the time of loading/copying. Hence, we can say that scripting files provide a batch mode execution for ELI. A scripting file can also include other system commands such as <code>)fload …</code>, <code>)fcopy …</code> to bring in other scripting files. For scripting files, ELI also has a short-form function definition facility for simple functions which do not access global variables as follows</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>    {fnam: …}
+</span></code></pre></div>
+<p>where <code>fnam</code> is the name of a function; z is the result, or the last expression is the result, of the function, x is the right argument, and y is the left argument if present, and all other variables are local; comment lines must be outside of the function body <code>{..}</code>. There is a standard library <code>standard.esf</code> which includes the following functions:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>{avg: (+/x)%_1^.#x}         //row-wise average of a numeric array
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>{gmean: (*/x)*.%#x}         //geometric mean of a numeric vector
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>{intersect: (y?x)/y}        //y intersects x, those in y which are from x
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>{less: (~y?x)/y}            //elements in vector y which are not in x
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>{xor: 2|y+x}                //exclusive or of boolean vectors y and x
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>{last: x[#x]}               //last element of a vector
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>{triml: (&amp;\x~=’ ’)/x}       //trim leading blanks off a character vector
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>{trimr: $(&amp;\r~=’ ’)/r&lt;-$x}  //trim trailing blanks off a character vector
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>{stddev: ((+/(x-avg x)*.2)%#,x)*.05}
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>                            //standard deviation of vector x
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>{median: ((0.5*w[m]+w[m+1]),w[m&lt;-_1+[]IO+~.0.5*#x])[[]IO+2|#w&lt;-x[&lt;x]]}
+</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>                            //median
+</span></code></pre></div>
+<p>Following examples in this script file, one can easily extend the ELI language to have many built-in functions which may or may not present in other array languages such as MATLAB or R. Since a scripting file can contain <code>)fcopy</code> command lines in the beginning, the short function form can be utilized by users in an specific application area to group commonly used functions in a scripting file similar to the use of <code>#include</code> to bring in domain specific libraries in C. In addition to using scripting file for input/output, we also have provided a link between ELI and Excel.</p>
+<p>For APL users who have legacy APL programs which do not use nested arrays, we offer an APL program to translate APL source codes into ELI scripting files. This, indeed, is our main tool for testing the ELI interpreter. The backbone of our testing procedure follows the two-pronged strategy of <a href="#ref5">[5]</a>, i.e. unit test and a large suite of application programs translated from APL. In both cases, we utilized scripting files to automate the process of generating input suites as well as comparing output files for correctness. Yet testing an interpreter is more complicated than testing a compiler as it has to account for erratic ways a user types in codes, and that can only be tested by the usage of many users.</p>
+<h2 id="4-conclusion">4. Conclusion<a class="headerlink" href="#4-conclusion" title="Permanent link">&para;</a></h2>
+<p>We have described an array-oriented programming system called ELI, which is derived from APL but uses ASCII characters. It remains to be simple, succinct with expressive power and encourages a dataflow style of programming as in APL. The addition of control structures aids to better present complex code; and the new scripting file facility provides convenient means of input/output and let a user organize programs similar to the use of <code>#include</code> in C.</p>
+<p>We hope the easy availability of such an array programming system will let more people appreciate the fact that simplicity of rules and notation in a programming language leads to greater programming productivity. ELI can be used both as a tool for speedy implementation of highly complex applications as well as for rapid experimentation in building prototypes in search for an ideal design.</p>
+<h3 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h3>
+<ol>
+<li><a id="ref1"></a> International Organization for Standardization, ISO Draft Standard APL, ACM SIGAPL Quote Quad, vol.4, no.2, December, 1983.</li>
+<li><a id="ref2"></a> Jeffery Borror, q for Mortals, a tutorial in Q programming, Continuux LLC, New York, 2008.</li>
+<li><a id="ref3"></a> W.-M. Ching, The Design and Implementation of an APL dialect, ELI, APL Berlin 2000 Proc., Berlin, 2000, p69-76. (<a href="http://fastarray.appspot.com/%20">http://fastarray.appspot.com/</a> for documents and executable)</li>
+<li><a id="ref4"></a> W.-M. Ching, A Primer for ELI, a system for programming with arrays, preliminary version, 2011.</li>
+<li><a id="ref5"></a> W.-M. Ching and Alex Katz, The Testing of an APL Compiler, ACM SIGAPL Quote Quad, vol.20, no.1, 1993, p55-62.</li>
+<li><a id="ref6"></a> W.-M. Ching and Da Zheng, Automatic Parallelization of Array-oriented Programs for a Multi-core Machine, Int’l Jour. of Parallel Programming, vol. 40, no.5, 514-531, 2012.</li>
+<li><a id="ref7"></a> Ken. Iverson, Notation as a Tool of Thought, Comm. ACM, vol.23, no.8, 444-465, 1980.</li>
+<li><a id="ref8"></a> Lars Wentzel, CPAM, Array Structured Product Data at Volvo Cars, Conf. Proc., International Conf. on APL, Berlin, Germany, 2010, p199-208.</li>
+<li><a id="ref9"></a> A+ developed at Morgan Stanley <a href="http://www.aplusdev.org">http://www.aplusdev.org</a></li>
+<li><a id="ref10"></a> J <a href="http://www.jsoftware.com">http://www.jsoftware.com</a></li>
+</ol>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

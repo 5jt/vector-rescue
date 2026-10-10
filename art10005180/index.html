@@ -1,0 +1,1314 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10005180/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Setting up a www-server with Dyalog APL, IIS, ISAP and NT - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction-the-basics-of-an-apl-web-server" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Setting up a www-server with Dyalog APL, IIS, ISAP and NT
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction-the-basics-of-an-apl-web-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introduction: The Basics of an APL Web Server
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-case-of-foreign-trade-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Case of Foreign Trade Statistics
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-basics-of-dynamic-html" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Basics of Dynamic HTML
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamic-iis-isap-apl-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dynamic IIS-ISAP-APL Server
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#an-example-of-server-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        An Example of Server Services
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-work-in-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Practical Work in Practice
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-the-hard-way-hints-and-tips-for-the-developer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Learning the Hard Way, Hints and Tips for the Developer
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#happy-developer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Happy Developer
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Setting up a www-server with Dyalog APL, IIS, ISAP and NT</h1>
+
+  <p class="printed"><a href="../16/#n3-january-2000">Vector 16:3</a>, page 131</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-system-interfaces">system interfaces</a> <a class="md-tag" href="../tags/#tag-applications">applications</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../16/3/VOL.16-NO.3-JANUARY-2000.pdf#page=133">Read it in the PDF of the issue, page 131</a></em></p>
+<p class="byline"><em>by Janne Mäenpää</em></p>
+<h2 id="introduction-the-basics-of-an-apl-web-server">Introduction: The Basics of an APL Web Server<a class="headerlink" href="#introduction-the-basics-of-an-apl-web-server" title="Permanent link">&para;</a></h2>
+<p>This article concentrates on building a dynamic www server on Microsoft’s Internet Information Server and Dyalog APL. The latter takes care of all dynamic elements, and a third party program ISAP by Lingo Allegro handles the communication between the two.</p>
+<p>A dynamic APL web server can be created with only APL, or in combination with third party programs. A solution using IIS is, in my opinion, more flexible and ready-for-use than the web server included with the Dyadic interpreter. User privileges, user logs, encryption and integration with the operating system are taken care of. IIS also allows several sites on one machine, even several IP numbers. One great thing about a less exotic server is that it can be maintained by everyday webmasters. No APL needed!</p>
+<p>In an IIS+ISAP+APL solution Dyalog APL receives data about all user’s HTML operations linked to ISAP.DLL (post, get, button, URL) via a shared variable. APL pushes user-ready HTML pages back to ISAP→IIS→user via the same variable. HTML pages coming from APL can either be static or dynamic. Server can also contain static pages and elements that do not need APL interaction. Usually these are help pages, pictures etc.</p>
+<h2 id="the-case-of-foreign-trade-statistics">The Case of Foreign Trade Statistics<a class="headerlink" href="#the-case-of-foreign-trade-statistics" title="Permanent link">&para;</a></h2>
+<p>The Finnish foreign trade statistical database Ultika has been around since the beginning of the decade. The programs are provided by TietoEnator, data is produced by Finnish Customs. The database contains more than 2.5 billion numbers, and thus is one of the biggest public statistical databases in Europe. Before the introduction of a web interface Ultika was accessed using 3270 terminals. The database is still on a VM/CMS mainframe under IBM APL2 and ADI. The web interface is on an NT machine, interacting with VM using TCP/IP inside TietoEnator networks. Www-Ultika was launched on December 1998; static (Finnish) pages can be experienced at http://Ultika.Tieto.net/.</p>
+<h2 id="the-basics-of-dynamic-html">The Basics of Dynamic HTML<a class="headerlink" href="#the-basics-of-dynamic-html" title="Permanent link">&para;</a></h2>
+<p>HTML utilises a few basic tools from the graphical user interface: text fields, checkboxes, radio buttons, pull-down menus and buttons. In Ultika buttons have been replaced with picture maps that are used like buttons. The basic GUI tools turn into variables on an HTML page, and get values according to user interaction. An HTML page is defined to be a form with an appropriate tag that also includes data about what is to be done when exiting the form. Exit from the form can happen in three ways:</p>
+<ul>
+<li>by clicking a link (links do not need forms to work)</li>
+<li>by clicking a picture map (like Ultika buttons) or</li>
+<li>by pressing a button</li>
+</ul>
+<p>Upon exiting, the browser sends the server, among other things, the form variables along with their values. The server replies with headers and the resulting HTML page.</p>
+<h2 id="dynamic-iis-isap-apl-server">Dynamic IIS-ISAP-APL Server<a class="headerlink" href="#dynamic-iis-isap-apl-server" title="Permanent link">&para;</a></h2>
+<p>A www server receives headers and data about user actions from the browser. In this case IIS delivers the data to Dyalog APL via Lingo’s ISAP. The APL server action is based on namespaces. An HTML form tag or link contains the name of the server namespace as the value of a variable called WS, to be used when exiting the page. These server namespaces contain an APL vector <code>_COM</code>, including the namespace functions to be executed.</p>
+<p>An example of a link from an HTML page (not form) to APL:</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"ISAP.DLL?WS=EXECUTE&amp;OPERATION=IOTA10"</span><span class="p">&gt;</span> 1 to 10 <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>The text "1 to 10" is a link on the HTML page, and by clicking it the data on href are transferred to IIS server by the browser. IIS transfers the data to ISAP.DLL, and ISAP pushes it to the shared variable <code>_IN</code> in the EXECUTE namespace. <code>_IN</code> is a two-dimensional nested matrix. The first column contains the names of the variables (WS and OPERATION in this case) and the second corresponding values (EXECUTE and 10), all as text. A form may contain several variables with the same name.</p>
+<p>In the EXECUTE namespace the answer is formulated to an HTML text vector and sent to the browser. The developer does not need to worry about user control or take care of simultaneous users, ISAP does that. ISAP creates a copy of the namespace used, and after the transaction deletes the copy. In this #.CLI0 (#.CLI1 etc.) namespace the user is treated as the only person ever to have used the service, so it is very difficult for the developer to get confused with user channels.</p>
+<h2 id="an-example-of-server-services">An Example of Server Services<a class="headerlink" href="#an-example-of-server-services" title="Permanent link">&para;</a></h2>
+<p>All data transferred from IIS to APL are in the picture. ISAP creates several global variables to the namespace used. These variables can be used when creating an HTML-answer to the user.</p>
+<p><img alt="Dyalog editor windows showing ISAP’s variables in namespace CLI0: (1) _ALL_HTTP, the HTTP headers (HTTP_ACCEPT, HTTP_ACCEPT_LANGUAGE en, HTTP_CONNECTION Keep-Alive, HTTP_HOST, HTTP_REFERER, HTTP_USER_AGENT, HTTP_CONTENT_LENGTH 214, HTTP_CONTENT_TYPE, HTTP_ACCEPT_ENCODING gzip, HTTP_ACCEPT_CHARSET); (2) _IN, a 16-row table of form variables and values (WS POIMINTA, LOMAKE P1802, TIKETTI, years 1995–1998, months and so on); (3) _COM, with _REMOTE_IP, _SECURE 0, _PORT 80 and _PATH_TR C:\Inetpub\wwwroot" src="variables.jpg" /></p>
+<p>Number one contains http headers sent by www browser. APL variable contains information about file formats understood by the browser, language, connection type etc. Number two is the <code>_IN</code> containing all HTML variables with values, three is <code>_COM</code> variable on top, the name of the first function to be started. Under <code>_COM</code> are various variables: user IP, info about encryption, server gate number, server virtual directory and server actual directory.</p>
+<h2 id="practical-work-in-practice">Practical Work in Practice<a class="headerlink" href="#practical-work-in-practice" title="Permanent link">&para;</a></h2>
+<p>Setting up an Ultika-type web server is cheap, easy and fun. IIS is free and the ISAP demo version equals the price. When installed, ISAP sets up its demo site (the workspace, run time engine, HTML pages, ISAP programs) under IIS as one of its web sites. The developer can rather easily build his site on this basis. It is very advisable to use the tools in the root of the ISERV demo workspace. The workspace is a replica of Lingo’s web site.</p>
+<p>Our equipment is:</p>
+<ul>
+<li>NT 4 server (workstation for 10 or less simultaneous users) (www.microsoft.com)</li>
+<li>Dyalog APL (run time is enough for web site) + workspace (www.dyadic.com)</li>
+<li>Microsoft Internet Information Server 3 or newer (preferably IIS4) (www.microsoft.com → NT server option pack, can also be installed on an NT workstation)</li>
+<li>Lingo Allegro ISAP 3 or newer (preferably ISAP 4 or 5) (www.lingo.com)</li>
+</ul>
+<p>A good help designing the pages is Microsoft FrontPage, a WYSIWYG HTML-editor integrated to IIS.</p>
+<h2 id="learning-the-hard-way-hints-and-tips-for-the-developer">Learning the Hard Way, Hints and Tips for the Developer<a class="headerlink" href="#learning-the-hard-way-hints-and-tips-for-the-developer" title="Permanent link">&para;</a></h2>
+<p>Here are a few tips learned the hard way. Learning them has made my life easier, so I am sharing them with the APL community… Solutions described here are rather obvious, but realising them might take time and effort. At least for me they did.</p>
+<ul>
+<li><strong>Dynamical bases.</strong> The dynamic elements of all HTML-pages should be marked in the base-HTML clearly. In Ultika all dynamic parts are marked with a modified HTML comment tag: <code>&lt;!--**--&gt;</code>, one in the beginning of the dynamic part and one in the end. Between the two is the default value of the dynamic element. In the worst case scenario the tags go through APL unmodified, but that does not hurt the browser and the user gets some values. In the web server project the HTML pages can be separated to a sub-project and taken care of by a web designer. When basic HTML pages are read to the APL server workspace, the non-dynamic elements can be separated to specific variables, like in the elements of nested APL arrays.</li>
+<li><strong>Modularity.</strong> Ultika has dozens of similar pages with only a little variation. To avoid maintaining all these individual pages, a modular system was introduced. Modular elements or modules are put to a few HTML bases according to user needs. These modules are selections of years, months, countries, product codes etc. Actually each Ultika module corresponds to a mainframe 3270-selection of the old Ultika interface.</li>
+<li><strong>User recognition.</strong> There are two ways of creating a www-session with state that is able to recognise the user every time she/he interacts with the server: using a cookie or a ticket hidden in the HTML page. Because some users can or will not accept cookies, Ultika uses a ticket. A Ticket is a simple, unique string of numbers created with the user id and the seconds passed since I was born. This ticket is put to every HTML page in a hidden variable ticket, for example: <code>&lt;input type=hidden name="TICKET" value="67678867"&gt;</code><br>
+  In the Ultika server workspace every user who is logged on has his own namespace containing user information. This info is about the statistic data the user is browsing etc. Every ticket is also in a nested matrix containing the ticket, the name of the corresponding namespace and the absolute seconds the ticket was last used. Whenever a ticket gets to be older than 30 minutes, the user ticket and namespace are deleted. If IIS passes an HTML-page to APL with a TICKET-variable not on the list, the user receives a notification about the session being not valid any more. Compared to a cookie, a ticket does nothing in user’s machine, so the paranoid people can relax about Internet safety.</li>
+</ul>
+<h2 id="happy-developer">Happy Developer<a class="headerlink" href="#happy-developer" title="Permanent link">&para;</a></h2>
+<p>In my opinion the IIS-ISAP-APL solution is very effective. Getting started is easier using a pure-APL solution, with IIS and ISAP the developer has to study the logic of two extra programs. When the basics are clearly in mind, the actual web server programming is fast and effective. IIS-ISAP co-operation is considerably fast and stable, and when IIS crashes it normally does not crash the NT server. ISAP includes lots of programs that a pure-APLer would need to write anyway, not to mention the service level of IIS. Both ways have their pros and cons, and like in all life, there is more than just one way of doing things right.</p></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">system interfaces</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">applications</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

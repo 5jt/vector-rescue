@@ -1,0 +1,1546 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10007930/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Using OpenGL Graphics in Dyalog APL - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Using OpenGL Graphics in Dyalog APL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introduction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started-or-stones-to-build-a-house" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Getting Started or Stones to Build a House
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#raw-gl-programming-for-aplers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Raw GL-programming for APLers
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learn-gl-basics-with-the-help-of-apl" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Learn GL-basics With the Help of APL
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opengl-function-designer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        OpenGL Function Designer
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenGL Function Designer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-use-gl-designer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Why use GL Designer?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-gl-designer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What is GL Designer?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#an-example-of-using-gl-designer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        An example of using GL Designer
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-apl-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Generating APL functions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion-and-future-directions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conclusion and Future Directions
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgements" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Acknowledgements
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Using OpenGL Graphics in Dyalog APL</h1>
+
+  <p class="printed"><a href="../14/#n4-april-1998">Vector 14:4</a>, page 128</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-graphics">graphics</a> <a class="md-tag" href="../tags/#tag-system-interfaces">system interfaces</a> <a class="md-tag" href="../tags/#tag-implementations">implementations</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../14/4/VOL.14-NO.4-APRIL-1998.pdf#page=130">Read it in the PDF of the issue, page 128</a></em></p>
+<p class="byline"><em>by Alexander Skomorokhov and Alexei Zalivine</em></p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>Many APL people know about OpenGL from the delightful presentation made by Chris Burke at the APL97 conference in Toronto. At least the authors focussed on OpenGL after this event. There are many good things about the Open Graphics Library:</p>
+<ul>
+<li>It is open, cross-platform and free</li>
+<li>It is the <em>de facto</em> standard</li>
+<li>Many manufacturere are adding hardware support of OpenGL</li>
+<li>It is a powerful and flexible way to produce complex 3D graphics</li>
+</ul>
+<p>You may refer to Vector publications [1-2] and the book [3] for more details on OpenGL in general. Many impressive applications of OpenGL are mentioned there, including Hollywood movies. The authors are far away from an interest in the animation of dinosaurs. Our interest in graphics is limited to scientific and financial data visualization, as a part of complex data analysis. Why did we touch such a monster as OpenGL? It was a kind of bet. One friend of Alexander Skomorokhov, a Dyalog APL user, told him after the conference in Toronto that he was going to learn J. Why? Because of OpenGL support in J. The answer was "it must be easy to do in Dyalog APL" and it was the start of a "project".</p>
+<p>We won the bet. But looking back we think it is better to allow people to learn J.</p>
+<p>What is bad about OpenGL from the APL programmer’s point of view?</p>
+<ul>
+<li>You should deal with many (about 150) OpenGL calls stored as functions in Dynamic Link Libraries</li>
+<li>You should pass proper APL arrays as OpenGL function arguments, described as C language data types</li>
+<li>You should provide a low-level connection between OpenGL and your Windows application written in APL</li>
+</ul>
+<p>After Dyadic Systems put our DEMOGL workspace on their web site we received many responses from APL users. That shows the interest in powerful graphics tools in the APL world and makes some sense of our work with OpenGL. The main purpose of this paper is to show how to use OpenGL from Dyalog APL and to simplify this for APL programmers.</p>
+<h2 id="getting-started-or-stones-to-build-a-house">Getting Started or Stones to Build a House<a class="headerlink" href="#getting-started-or-stones-to-build-a-house" title="Permanent link">&para;</a></h2>
+<p>OpenGL includes two Dynamic Links Libraries: <em>opengl32.dll</em> and <em>glu32.dll</em>. The direct access to the OpenGL functions from APL uses the system function name association. We implemented an interface to OpenGL DLL functions by writing a cover function for each of them. The following general conventions were used:</p>
+<p>The name of the APL cover function exactly matches the name of the OpenGL function it calls</p>
+<ul>
+<li>The name of the associated OpenGL function is a composition of its original name plus the suffix <em>_DLL</em></li>
+<li>Name association is conditional and is performed only when the cover function is called for the first time</li>
+</ul>
+<p>These conventions make the OpenGL part of the APL code very similar to the C code used in most books and papers on OpenGL. Well, it is relative pleasure to see C code. But you can just copy it from a book to the APL session and that is helpful.</p>
+<p>Some of the OpenGL functions require a pointer to data as an argument. In this case the corresponding APL parameter is given as an enclosed array of rank 0. Many arguments of OpenGL functions are passed as predefined constants with fixed names. Using these constants makes the look of the APL cover functions even closer to the C syntax. We prepared a whole bunch of such constants to be used from APL.</p>
+<p>All OpenGL functions and constants are stored in the namespace <em>gl</em>.</p>
+<h2 id="raw-gl-programming-for-aplers">Raw GL-programming for APLers<a class="headerlink" href="#raw-gl-programming-for-aplers" title="Permanent link">&para;</a></h2>
+<p>Preparing cover functions and name association of OpenGL commands and all constants is a large piece of work. But all this stuff can not be used directly. OpenGL is a so-called "rendering" system. This means that a programmer should provide "a place" for drawing, and a connection between OpenGL and this place. After you "explain" to OpenGL where to put graphics output, you may start the painting itself. This explanation depends on the platform (if you use a Silicon Graphics workstation or Windows on a PC) and on the language you use. These connections were made so as to provide portability, but they add headache if you want work just under Windows, for instance. In this section we will try to hide the difficulties and to allow as easy a use of the OpenGL calls as possible.</p>
+<p>Let us start from the OpenGL minimum:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w">      </span><span class="p">)</span><span class="nv">OPS</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">OpenGL</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">      </span><span class="p">)</span><span class="nv">FNS</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nv">Cylinder</span><span class="w">      </span><span class="nv">GL_Close</span><span class="w">      </span><span class="nv">GL_Configure</span><span class="w">  </span><span class="nv">GL_Expose</span><span class="w">  </span><span class="nv">GL2GUI</span><span class="w">  </span><span class="nv">Sphere</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">      </span><span class="p">)</span><span class="nv">VARS</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">      </span><span class="p">)</span><span class="nv">OBS</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nv">gl</span>
+</span></code></pre></div>
+<p>All building blocks, such as APL cover functions to associate OpenGL functions stored in the DLLs and all the predefined OpenGL constants, are stored in namespace <em>gl</em>. The main thing in the root is the user-defined operator <em>OpenGL</em>:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="w">      </span><span class="bp">∇</span><span class="nv">OpenGL</span><span class="sr">[</span><span class="vg">⎕</span><span class="sr">]</span><span class="bp">∇</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="sr">[</span><span class="m">0</span><span class="sr">]</span><span class="w">   </span><span class="nv">obj</span><span class="p">(</span><span class="nv">GL_Paint</span><span class="w"> </span><span class="nv">OpenGL</span><span class="p">)</span><span class="nv">par</span><span class="sr">;</span><span class="nv">wgl</span><span class="sr">;</span><span class="nv">conf</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">wgl</span><span class="kd">←</span><span class="nv">GL2GUI</span><span class="w"> </span><span class="nv">obj</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="nv">obj</span><span class="w"> </span><span class="nf">⎕WS</span><span class="s1">'Event'</span><span class="w"> </span><span class="s1">'Close'</span><span class="w"> </span><span class="s1">'GL_Close'</span><span class="nv">wgl</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="nv">obj</span><span class="w"> </span><span class="nf">⎕WS</span><span class="s1">'Event'</span><span class="w"> </span><span class="s1">'Configure'</span><span class="w"> </span><span class="s1">'GL_Configure'</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="nv">obj</span><span class="w"> </span><span class="nf">⎕WS</span><span class="s1">'Event'</span><span class="w"> </span><span class="s1">'Expose'</span><span class="w"> </span><span class="s1">'GL_Expose'</span><span class="p">(</span><span class="m">1</span><span class="o">⊃</span><span class="nv">wgl</span><span class="p">)</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="nv">GL_Paint</span><span class="w"> </span><span class="nv">par</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">   </span><span class="nv">conf</span><span class="kd">←</span><span class="o">∊</span><span class="m">2</span><span class="o">↑</span><span class="na">¨</span><span class="nv">obj</span><span class="w"> </span><span class="nf">⎕WG</span><span class="s1">'Posn'</span><span class="w"> </span><span class="s1">'Size'</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="nf">⎕NQ</span><span class="p">(</span><span class="nv">obj</span><span class="s1">'Configure'</span><span class="p">)</span><span class="o">,</span><span class="nv">conf</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">   </span><span class="p">(</span><span class="m">1</span><span class="o">⊃</span><span class="nv">wgl</span><span class="p">)</span><span class="nv">GL_Expose</span><span class="w"> </span><span class="m">0</span>
+</span></code></pre></div>
+<p>The purpose of this operator is to provide communication between an APL GUI object, given as a left argument <em>obj</em>, and OpenGL functions. The operand <em>GL_Paint</em> is an APL function, which contains the "pure" OpenGL code you would like to execute to produce an image on a given APL GUI object. Such a communication needs an identification of the GUI object, such as a window handle and descriptor. These low-level calls to the Windows and OpenGL DLLs are hidden in the function <em>GL2GUI</em>:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="w">      </span><span class="bp">∇</span><span class="nv">GL2GUI</span><span class="sr">[</span><span class="vg">⎕</span><span class="sr">]</span><span class="bp">∇</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="sr">[</span><span class="m">0</span><span class="sr">]</span><span class="w">   </span><span class="nv">z</span><span class="kd">←</span><span class="nv">GL2GUI</span><span class="w"> </span><span class="nv">obj</span><span class="sr">;</span><span class="nv">handle</span><span class="sr">;</span><span class="nv">DC</span><span class="sr">;</span><span class="nv">hrc</span><span class="sr">;</span><span class="nv">PFD</span><span class="sr">;</span><span class="nv">IPX</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">handle</span><span class="kd">←</span><span class="nv">obj</span><span class="w"> </span><span class="nf">⎕WG</span><span class="s1">'Handle'</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="nf">⎕CS</span><span class="s1">'gl'</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="s1">'wglCreateContext_DLL'</span><span class="nf">⎕NA</span><span class="s1">'U4 OpenGL32.DLL.C32|wglCreateContext U4'</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="nv">PFD</span><span class="kd">←</span><span class="m">40</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">37</span><span class="w"> </span><span class="m">3</span><span class="o">,</span><span class="m">24</span><span class="o">,</span><span class="p">(</span><span class="m">13</span><span class="o">⍴</span><span class="m">0</span><span class="p">)</span><span class="o">,</span><span class="m">32</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="nv">DC</span><span class="kd">←</span><span class="nv">GetDC</span><span class="w"> </span><span class="nv">handle</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">   </span><span class="nv">IPX</span><span class="kd">←</span><span class="nv">ChoosePixelFormat</span><span class="w"> </span><span class="nv">DC</span><span class="w"> </span><span class="nv">PFD</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="nv">SetPixelFormat</span><span class="w"> </span><span class="nv">DC</span><span class="w"> </span><span class="nv">IPX</span><span class="w"> </span><span class="nv">PFD</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">   </span><span class="nv">hrc</span><span class="kd">←</span><span class="nv">wglCreateContext</span><span class="w"> </span><span class="nv">DC</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">   </span><span class="nv">wglMakeCurrent</span><span class="w"> </span><span class="nv">DC</span><span class="w"> </span><span class="nv">hrc</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">  </span><span class="nv">z</span><span class="kd">←</span><span class="nv">handle</span><span class="w"> </span><span class="nv">DC</span><span class="w"> </span><span class="nv">hrc</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="sr">[</span><span class="m">11</span><span class="sr">]</span><span class="w">  </span><span class="nf">⎕CS</span><span class="s1">'#'</span>
+</span></code></pre></div>
+<p>It is necessary to define OpenGL behaviour on three main (from the OpenGL view) events: <em>Expose, Configure</em> and <em>Close</em>. Callbacks to these events are assigned in lines [2-4] of the operator <em>OpenGL</em> and are listed below.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="w">      </span><span class="bp">∇</span><span class="nv">GL_Close</span><span class="sr">[</span><span class="vg">⎕</span><span class="sr">]</span><span class="bp">∇</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="sr">[</span><span class="m">0</span><span class="sr">]</span><span class="w">   </span><span class="nv">arg</span><span class="w"> </span><span class="nv">GL_Close</span><span class="w"> </span><span class="nv">msg</span><span class="sr">;</span><span class="nv">handle</span><span class="sr">;</span><span class="nv">hrc</span><span class="sr">;</span><span class="nv">DC</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">handle</span><span class="w"> </span><span class="nv">hrc</span><span class="w"> </span><span class="nv">DC</span><span class="kd">←</span><span class="nv">arg</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="nf">⎕CS</span><span class="s1">'gl'</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="nv">wglMakeCurrent</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="nv">wglDeleteContext</span><span class="w"> </span><span class="nv">hrc</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="nv">ReleaseDC</span><span class="w"> </span><span class="nv">handle</span><span class="w"> </span><span class="nv">DC</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">   </span><span class="nf">⎕CS</span><span class="s1">'#'</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">      </span><span class="bp">∇</span><span class="nv">GL_Configure</span><span class="sr">[</span><span class="vg">⎕</span><span class="sr">]</span><span class="bp">∇</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="sr">[</span><span class="m">0</span><span class="sr">]</span><span class="w">   </span><span class="nv">GL_Configure</span><span class="w"> </span><span class="nv">msg</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nf">⎕CS</span><span class="s1">'gl'</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="nv">glMatrixMode</span><span class="w"> </span><span class="nv">GL_PROJECTION</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="nv">glLoadIdentity</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="nv">glViewport</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="o">,</span><span class="nv">msg</span><span class="sr">[</span><span class="m">5</span><span class="w"> </span><span class="m">4</span><span class="sr">]</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="nf">⎕CS</span><span class="s1">'#'</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">      </span><span class="bp">∇</span><span class="nv">GL_Expose</span><span class="sr">[</span><span class="vg">⎕</span><span class="sr">]</span><span class="bp">∇</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="sr">[</span><span class="m">0</span><span class="sr">]</span><span class="w">   </span><span class="nv">DC</span><span class="w"> </span><span class="nv">GL_Expose</span><span class="w"> </span><span class="nv">msg</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nf">⎕CS</span><span class="s1">'gl'</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="nv">glClearColor</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="nv">glClear</span><span class="w"> </span><span class="nv">GL_COLOR_BUFFER_BIT</span><span class="o">+</span><span class="nv">GL_DEPTH_BUFFER_BIT</span>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="nv">glMatrixMode</span><span class="w"> </span><span class="nv">GL_MODELVIEW</span>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="nv">glLoadIdentity</span>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">   </span><span class="nv">glCallList</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="nv">SwapBuffers</span><span class="w"> </span><span class="nv">DC</span>
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">   </span><span class="nf">⎕CS</span><span class="s1">'#'</span>
+</span></code></pre></div>
+<p>Callback <em>GL_Close</em>, for instance, cleans up and releases the resources used to provide OpenGL-to-GUI object connection on window close. If you do not process this event you waste Windows memory.</p>
+<p>The main operator <em>OpenGL</em>, the three callbacks listed above and the function <em>GL2GUI</em> do not depend on:</p>
+<ul>
+<li>the APL GUI object you would like to paint on and</li>
+<li>the OpenGL commands you would like to execute</li>
+</ul>
+<p>All together they encapsulate the system requirements of using OpenGL from APL and allow "pure" OpenGL programming in an APL session.</p>
+<p>We are ready to start. Let us create a container form to do some OpenGL painting:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="s1">'F'</span><span class="nf">⎕WC</span><span class="s1">'Form'</span><span class="w"> </span><span class="s1">'Try OpenGL'</span><span class="p">(</span><span class="s1">'Size'</span><span class="w"> </span><span class="m">230</span><span class="w"> </span><span class="m">280</span><span class="p">)(</span><span class="s1">'Coord'</span><span class="w"> </span><span class="s1">'Pixel'</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Now we have a form, not very impressive, but clean enough to paint on:</p>
+<p><img alt="An empty window titled Try OpenGL" src="blank.jpg" /></p>
+<p>We have an executable system (operator <em>OpenGL</em>), we have a place to draw on (Form <em>F</em>), but we have not yet decided what to draw. It may be a sphere. An APL (or OpenGL?) function to create the image of a sphere is shown below:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="sr">[</span><span class="m">0</span><span class="sr">]</span><span class="w">   </span><span class="nv">Sphere</span><span class="w"> </span><span class="nv">par</span><span class="sr">;</span><span class="nv">sphere</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nf">⎕CS</span><span class="s1">'#.gl'</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="nv">glNewList</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="nv">GL_COMPILE</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="nv">glColor3f</span><span class="w"> </span><span class="m">0.8</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="nv">glRotatef</span><span class="w"> </span><span class="m">45</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="nv">sphere</span><span class="kd">←</span><span class="nv">gluNewQuadric</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">   </span><span class="nv">gluQuadricDrawStyle</span><span class="w"> </span><span class="nv">sphere</span><span class="w"> </span><span class="nv">GLU_LINE</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="nv">gluSphere</span><span class="w"> </span><span class="nv">sphere</span><span class="o">,</span><span class="nv">par</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">   </span><span class="nv">gluDeleteQuadric</span><span class="w"> </span><span class="nv">sphere</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">   </span><span class="nv">glEndList</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">  </span><span class="nf">⎕CS</span><span class="s1">'#'</span>
+</span></code></pre></div>
+<p>In line [1] we change space to <em>gl</em> to access the OpenGL functions (and return in line [10] after the job is done). Lines [2] and [9] are service lines and should be used in all other functions. They open and close a list of OpenGL commands to be executed to create an image. Lines [3-8] are the main content to draw a sphere. Remember that OpenGL is a procedural, rather than a descriptive graphics language. We describe what should be drawn and how an image should look step by step. Lines [3-4], for instance, describe RGB colour (Red, Green, Blue intensity, ranged from 0 to 1) and rotation around a vector (1,1,1) with angle of rotation equal to 45°. Other parameters of the image are taken from the right argument of the function. It is a numeric vector of: radius of the sphere, slices (number of lines of longitude on the sphere) and stacks (number of lines of latitude on the sphere).</p>
+<p>Well, enough on OpenGL. Let us draw on Form ‘F’ a Sphere using OpenGL calls with parameters 0.7, 20 and 20. This English is directly translated to APL as:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="s1">'F'</span><span class="w"> </span><span class="nv">Sphere</span><span class="w"> </span><span class="nv">OpenGL</span><span class="w"> </span><span class="m">0.7</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">20</span>
+</span></code></pre></div>
+<p>And our form view is now changed to:</p>
+<p><img alt="The Try OpenGL window showing a wire-frame sphere" src="sphere.jpg" /></p>
+<p>If you would like to draw a "cylinder" you should prepare in the Dyalog APL function-editor an OpenGL script like:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="sr">[</span><span class="m">0</span><span class="sr">]</span><span class="w">   </span><span class="nv">Cylinder</span><span class="w"> </span><span class="nv">par</span><span class="sr">;</span><span class="nv">obj</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nf">⎕CS</span><span class="s1">'#.gl'</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="nv">glNewList</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="nv">GL_COMPILE</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="nv">glColor3f</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="nv">glRotatef</span><span class="w"> </span><span class="m">45</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="nv">obj</span><span class="kd">←</span><span class="nv">gluNewQuadric</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">   </span><span class="nv">gluQuadricDrawStyle</span><span class="w"> </span><span class="nv">obj</span><span class="w"> </span><span class="nv">GLU_LINE</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="nv">gluCylinder</span><span class="w"> </span><span class="nv">obj</span><span class="o">,</span><span class="nv">par</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">   </span><span class="nv">gluDeleteQuadric</span><span class="w"> </span><span class="nv">obj</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">   </span><span class="nv">glEndList</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">  </span><span class="nf">⎕CS</span><span class="s1">'#'</span>
+</span></code></pre></div>
+<p>And ask APL to draw it on Form ‘F’ as:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="s1">'F'</span><span class="w"> </span><span class="nv">Cylinder</span><span class="w"> </span><span class="nv">OpenGL</span><span class="w"> </span><span class="m">0.7</span><span class="w"> </span><span class="m">.5</span><span class="w"> </span><span class="m">.7</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">20</span>
+</span></code></pre></div>
+<p>The right argument above defines base radius, top radius, height, slices and stacks. You will get the image:</p>
+<p><img alt="The Try OpenGL window showing a wire-frame truncated cone seen obliquely" src="cylinder.jpg" /></p>
+<p>You may even create in APL several GUI objects, like forms or subforms of the same form, and draw OpenGL on each object separately, as illustrated below:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="s1">'F'</span><span class="nf">⎕WC</span><span class="s1">'Form'</span><span class="w"> </span><span class="s1">'Try OpenGL'</span><span class="p">(</span><span class="s1">'Size'</span><span class="w"> </span><span class="m">35</span><span class="w"> </span><span class="m">60</span><span class="p">)</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="s1">'F.S1'</span><span class="nf">⎕WC</span><span class="s1">'SubForm'</span><span class="w"> </span><span class="s1">''</span><span class="p">(</span><span class="s1">'Posn'</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="p">)(</span><span class="s1">'Size'</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">33</span><span class="p">)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="s1">'F.S2'</span><span class="nf">⎕WC</span><span class="s1">'SubForm'</span><span class="w"> </span><span class="s1">''</span><span class="p">(</span><span class="s1">'Posn'</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">34</span><span class="p">)(</span><span class="s1">'Size'</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">33</span><span class="p">)</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="s1">'F.S3'</span><span class="nf">⎕WC</span><span class="s1">'SubForm'</span><span class="w"> </span><span class="s1">''</span><span class="p">(</span><span class="s1">'Posn'</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">68</span><span class="p">)(</span><span class="s1">'Size'</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">32</span><span class="p">)</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="s1">'F'</span><span class="nf">⎕WS</span><span class="s1">'Coord'</span><span class="w"> </span><span class="s1">'Pixel'</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="s1">'F.S1'</span><span class="w"> </span><span class="nv">Cylinder</span><span class="w"> </span><span class="nv">OpenGL</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="m">0.5</span><span class="w"> </span><span class="m">0.7</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="s1">'F.S2'</span><span class="w"> </span><span class="nv">Cylinder</span><span class="w"> </span><span class="nv">OpenGL</span><span class="w"> </span><span class="m">0.7</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="m">0.7</span><span class="w"> </span><span class="m">33</span><span class="w"> </span><span class="m">3</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="s1">'F.S3'</span><span class="w"> </span><span class="nv">Cylinder</span><span class="w"> </span><span class="nv">OpenGL</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="m">0.3</span><span class="w"> </span><span class="m">0.9</span><span class="w"> </span><span class="m">33</span><span class="w"> </span><span class="m">3</span>
+</span></code></pre></div>
+<p><img alt="The Try OpenGL window with three subforms: a three-sided prism, a wire-frame cone and a narrow cylinder" src="subforms.jpg" /></p>
+<p>This way allows you to create a multi-window graphical application. It also helps you to see and compare the influence on an image, of different OpenGL settings and parameter values. We will tell more on this in the next section.</p>
+<h2 id="learn-gl-basics-with-the-help-of-apl">Learn GL-basics With the Help of APL<a class="headerlink" href="#learn-gl-basics-with-the-help-of-apl" title="Permanent link">&para;</a></h2>
+<p>To assist APL programmers to learn OpenGL comfortably we have implemented a GUI application called <em>GL Tutor</em>. On startup you get the two forms:</p>
+<p><img alt="An empty window titled OpenGL+APL" src="tutor1.jpg" /></p>
+<p><img alt="The window OpenGL Tutor for DyalogAPL/W with File, Action and Help menus, an empty edit area, and Clear and Show buttons" src="tutor2.jpg" /></p>
+<p>The small one is a container for OpenGL images. The larger one is the work place of an OpenGL student. The main white area is a multiline edit field, where you may enter and edit your "pure" OpenGL code, like the code to draw a cylinder from the previous section. The application takes care of the OpenGL-to-APL interface. In some sense it is a GUI implementation of the operator <em>OpenGL</em> from the previous section.</p>
+<p>The <em>File</em> menu contains a list of prepared examples from the popular book <em>"OpenGL Superbible"</em> [3]. Original examples are listed for using by C programmers. We have adapted them for Dyalog APL, but you can see that the texts are very close and the difference is mostly about setting function arguments (representation of C data types in APL). You may select an example using the <em>File</em> menu, or enter your own.</p>
+<p>The <em>Action</em> menu provides the possibility of generating events, like Create, Expose, Configure, Keys, Paint and Close. The <em>Show</em> button performs the execution of OpenGL code and creates an image in the OpenGL container form. The <em>Clear</em> button does the same, but it clears the previous content of the graphics window before execution. You may also rotate the image in the graphics window using the cursor keys, or move the image around using <em>Shift</em>+cursor keys.</p>
+<p>Let us select <em>Example2</em> from the <em>File</em> menu and press the <em>Show</em> button:</p>
+<p><img alt="The Tutor window containing glColor3f 0.8 0 0, glRotatef ¯45 1 0 0, glRotatef 45 0 1 0, glRotatef 0 0 0 1, obj←gluNewQuadric, gluQuadricDrawStyle obj GLU_LINE, gluCylinder obj 1 0.5 0.7 12 12" src="example2.jpg" /></p>
+<p><img alt="The OpenGL+APL window showing a short wire-frame cone" src="example2b.jpg" /></p>
+<p>Now edit line <code>gluCylinder obj 1 .5 2 12 12</code> to change the height of the cylinder from 0.7 to 2.</p>
+<p><img alt="The OpenGL+APL window showing a longer wire-frame cone" src="height.jpg" /></p>
+<p>Now change the number of filling polygon lines from 12 12 to 10 40 and see how it affects the image:</p>
+<p><img alt="The Tutor window with gluCylinder obj 1 0.5 2 10 40, and the OpenGL+APL window showing the cone more densely meshed" src="lines.jpg" /></p>
+<p>We like the fact that APL is an interactive language (well, not always). Now we have an interactive OpenGL as well.</p>
+<h2 id="opengl-function-designer">OpenGL Function Designer<a class="headerlink" href="#opengl-function-designer" title="Permanent link">&para;</a></h2>
+<h3 id="why-use-gl-designer">Why use GL Designer?<a class="headerlink" href="#why-use-gl-designer" title="Permanent link">&para;</a></h3>
+<p>Raw OpenGL programming with the use of a bunch of cover functions to call appropriate DLL functions allows you to use all the power and flexibility of OpenGL. But it costs too much effort to learn OpenGL and it leads to low productivity of programming.</p>
+<p>To avoid these difficulties you can develop utility functions. That allows you to hide most of the OpenGL context and to use high-level calls. It is possible at the expense of flexibility. Many parameters and object properties should take some default values in this case. The rest of the parameters and properties are still a valuable set. The user should understand the meaning and influence of each argument, or spend much time experimenting with different function calls.</p>
+<p>The main idea of OpenGL function design under GUI control is to combine the advantages of both approaches. The purposes of GL Designer are:</p>
+<ol>
+<li>Make it easy to try and select parameters and properties of a GL image</li>
+<li>Automatically create auxiliary functions for further independent usage</li>
+</ol>
+<h3 id="what-is-gl-designer">What is GL Designer?<a class="headerlink" href="#what-is-gl-designer" title="Permanent link">&para;</a></h3>
+<p>GL Designer is an APL function (and probably a number of subfunctions), separate for each class of OpenGL tasks, like drawing a surface. The <em>Designer</em> function uses a minimum number of arguments, first of all the data to be drawn. When you call the Designer function you get two main forms, one a container for an OpenGL image and the other a form to define and select parameters. After any change of parameters you may see their influence by selecting the <em>Apply</em> button. When you finish the definition of parameters you select the <em>OK</em> button and the resulting APL code is generated automatically.</p>
+<h3 id="an-example-of-using-gl-designer">An example of using GL Designer<a class="headerlink" href="#an-example-of-using-gl-designer" title="Permanent link">&para;</a></h3>
+<p>Here we describe using GL Designer oriented to build GL-objects, like NURBS-type surfaces (Non Uniform Rational B-Spline). This task is widespread in scientific data visualisation. The call of the Designer function is as follows:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nv">Designer</span><span class="w"> </span><span class="nv">arg1</span><span class="w"> </span><span class="nv">arg2</span><span class="w"> </span><span class="nv">arg3</span>
+</span></code></pre></div>
+<p>Where the arguments are: array of control points, array of texture and array of colours. The rest of the parameters take their default values. The user gets two main forms shown below:</p>
+<p><img alt="The OpenGL NURBS window showing a mesh surface like a dome, and the Options dialog on its Property tab: Sampling tolerance 50, Parametric tolerance 0.5, U-Step 100, V-Step 100, Display mode Polygon, Sampling method Path length, Culling and Auto load matrix checked" src="nurbs1.jpg" /></p>
+<p>The small form is the OpenGL image container. It shows a surface using a mesh of points data which you passed as an argument, and default values of the other parameters.</p>
+<p>The larger form stands for the designer itself. You can see six tabs, which group the different sets of surface parameters and properties as follows:</p>
+<ol>
+<li>Lighting (intensity, angle of scatter of the source of light, point of view and location of watcher, diffused, dispersed or reflected light etc.)</li>
+<li>Colour, and a possibility of governing the colour of an object and a graphic</li>
+<li>Material (characteristics such as surface, degree of reflection, etc.)</li>
+<li>Properties (style of nets and outlines, distances between net nodes, etc.)</li>
+<li>Texture (level of details of a texture, style of texture imposition, etc.)</li>
+<li>Effect of Mist (or even fog, type of diffusing a colour, density and other effects).</li>
+</ol>
+<p>The next figures illustrate some effects of playing with the property and lighting parameters. The default surface is built in accordance with given data. The display mode is "Polygon" and the sampling method is "Path length" (net with shown numeric parameters).</p>
+<p>Now let us change the polygon filling parameters (U-Step and V-step):</p>
+<p><img alt="The NURBS surface drawn with a coarser mesh, and the Options dialog with U-Step 8, V-Step 8 and Sampling method Domain distance" src="nurbs2.jpg" /></p>
+<p>To finish this demonstration set Display mode to "Fill", and allow lighting (CheckButton "Enable" is on):</p>
+<p><img alt="The NURBS surface filled and lit, light on the central peak shading to black, and the Options dialog on its Lighting tab with Enable checked" src="nurbs3.jpg" /></p>
+<h3 id="generating-apl-functions">Generating APL functions<a class="headerlink" href="#generating-apl-functions" title="Permanent link">&para;</a></h3>
+<p>After a developer has got a surface, satisfying the requirements, all necessary functions are generated automatically on leaving the Designer. "Compilation" also checks for used OpenGL commands and minimizes namespace <em>gl</em>. Designer stuff is removed also. You may now save the resulting workspace of minimum size, and use it as stand-alone piece of OpenGL graphics in the future.</p>
+<h2 id="conclusion-and-future-directions">Conclusion and Future Directions<a class="headerlink" href="#conclusion-and-future-directions" title="Permanent link">&para;</a></h2>
+<p>The paper illustrates that with the use of the predefined namespace <em>gl</em> and the interface operator <em>OpenGL</em> it is easy to create OpenGL graphics from Dyalog APL. The GUI application referred to as <em>OpenGL Tutor</em> may help in learning the OpenGL language for APL programmers.</p>
+<p>An approach based on the <em>OpenGL Designer</em> allows implementation of complex OpenGL functions under GUI control and with minimum knowledge requirements of OpenGL.</p>
+<p>The other way to increase the productivity of OpenGL programming in APL is in writing auxiliary functions to be used as macros to create complex images. We do not describe this topic here. It will be covered at the <em>OpenGL and Dyalog APL Tutorial</em> planned for the APL98 conference.</p>
+<p>Another interesting issue is the incorporation of an APL-to-OpenGL interface into the CPro development system from Causeway Ltd. Adrian Smith created an experimental CPro class on OpenGL to allow use of OpenGL as part of a GUI application designed under CPro. The results are quite impressive. We are planning to pay special attention to this topic at the APL98 Tutorial.</p>
+<p>Last, but not least, is what we call application-oriented functions. It is a stand-alone small GUI application using OpenGL. An example is shown below:</p>
+<p><img alt="The Spectres window: a 3D waterfall of noise spectra drawn as a stack of line graphs, with Rotate and Translate sliders along X, Y and Z, a Mode check box and Pixel Size and Width spinners" src="spectres.jpg" /></p>
+<p>It was created for the visualization and analysis of noise spectra in Nuclear Reactor Diagnostics. Why is OpenGL very helpful here? It makes it easy to implement an image rotation and allows one to see the data from different viewpoints. Altogether it is a simple program, but adds a new dimension to visual data analysis.</p>
+<h2 id="acknowledgements">Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permanent link">&para;</a></h2>
+<p>The authors thank everybody who was interested in this work from an early stage and that way pushed the authors to the finish. We would like specially thank Adrian Smith for discussion and testing the use of OpenGL from Causeway Pro, and Alexander Kornilovsky who participated in OpenGL namespace and DEMOGL workspace development.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Chris Burke, <em>OpenGL Graphics and J</em>, Vector, Vol.14 No.1, p.58.</li>
+<li>Adrian Smith, <em>Mostly on OpenGL</em>, Vector, Vol.14 No.2, p.50.</li>
+<li>Richard Wright and Michael Sweet, <em>OpenGL Superbible</em>, Waite Group Press, 1996.</li>
+</ol></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">graphics</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">system interfaces</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">implementations</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

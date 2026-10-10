@@ -1,0 +1,1869 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Dyalog’s parser - a new parser in town">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10501210/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Dyalog’s parser - a new parser in town - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Dyalog’s parser - a new parser in town
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introduction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-few-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A few definitions
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A few definitions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generalities" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Generalities
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Implementation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unnamed-sections" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Unnamed sections
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sections-with-spaces-in-them" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sections with spaces in them
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-dyalog-parser" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Dyalog parser
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Dyalog parser">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Terms
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Features
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#minimum-character-needed-to-specify-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Minimum character needed to specify names
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case-insensitive" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Case insensitive
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimum-maximum-number-of-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Minimum-maximum number of arguments
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#there-is-no-limit-on-the-number-of-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        There is no limit on the number of arguments
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ambivalent-modifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ambivalent modifiers
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Validation
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-member" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        List member
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-member" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Set member
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Default values
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Other features
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Other features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prefixing-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Prefixing names
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not-requiring-space-before-modifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Not requiring space before modifiers
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changing-the-error-number-when-things-go-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Changing the error number when things go wrong
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#propagating-the-modifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Propagating the modifiers
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epilogue" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Epilogue
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Dyalog’s parser - a new parser in town</h1>
+
+  <p class="printed"><a href="../26/#n1-september-2013">Vector 26:1</a>, page 79</p>
+
+
+<p class="byline">Dan Baronet (danb@dyalog.com)</p>
+<p class="abstract">In the following text I use terms specific to our trade. You won’t find them in the dictionary but I assume the reader is familiar with words such as ‘monad’, ‘global’ (as a noun) and ‘default’ (verb). I also use quotes and angle brackets to help determine the type of the object I am referring to. ‘Quotes’ denote a variable or workspace and &lt;angle brackets&gt; refer to a function/operator or file. Often, the context is sufficient to remove ambiguities. <em>Emphasized</em> words have a special meaning. <em>Definitions</em> are especially marked up, too.</p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>A line (string) parser is a handy tool to carry around.</p>
+<p>Such a tool should be able to accept a string as argument (its input) and be able to attribute meaning to its constituent parts by following a number of simple rules.</p>
+<p>For example, in C, a function’s list of arguments is given by “a left parenthesis, 0 or more non-blank strings separated by commas and a right parenthesis”. The statement <code>ABC(2+3,x,y/z);</code> is a perfectly valid C statement, calling function <code>ABC</code> with 3 arguments.</p>
+<p>Another example, in DOS (or Windows’ command mode), a command (a keyword) takes 0 or more words as arguments, followed by 0 or more switches, a word being a series of non-blank characters and a switch being a special character (here /) followed by a letter, possibly followed by a colon (:) and a string.</p>
+<p>The TREE command in DOS, for example, accepts 0 or 1 argument, possibly followed by the switches /F and/or /A.</p>
+<p>Unix is similar, using dash (-) instead of / as switch delimiter.</p>
+<p>There are many times when a similar situation arises and we must supply a known number of arguments and switches to a program.</p>
+<p>Closer to home, there are cases where such a parser could come in handy. Imagine a program, <code>REPORT</code>, which accepts <code>DATA</code> as right argument and some Options as left argument. The options could be e.g. "Title", “page width”, “use page numbers”. The program’s header and first line would typically look like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>        ∇ Options REPORT Data;Title;PW;P0;...
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>[1]     (Title PW P0)←Options,(⍴,Options)↓''  70  0
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>[2]     ...
+</span></code></pre></div>
+<p>The onus is on the user to remember the order of <code>Options</code> but with only 3 options it isn’t so bad. Imagine now that there are a large number of options. It might be simpler to specify something like:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>    'Sales Report +usepagenos +pagewidth=80 +margin=10 10' REPORT data
+</span></code></pre></div>
+<p>The syntax is cleaner and the user doesn’t have to remember all the options and their order. If a change occurs and new options are added they can be inserted easily. The problem of course is to make sense of that left argument.</p>
+<p>This kind of problem arose in the 90s when STSC introduced user commands in the APL/PC product.</p>
+<p>User commands are commands that the developer writes in APL and are called by the system using a right bracket (]) syntax, similar to the )SYSTEM commands. A programmer writes command <code>XYZ</code> which is called in the session by writing <code>]XYZ</code>. If the command takes arguments and/or switches they are added after the command name. The programmer is responsible to parse the line and figure out the meaning. Simple commands with few arguments and switches take only a few lines to parse but many acceptable switches become quickly overwhelming and the lack of standard makes it confusing for the user. And the code to parse the line quickly shadows the important code.</p>
+<p>When user commands came out with APL/PC there was no parser and I wrote one for them and used it for many years. I even wrote an article in <cite>Vector</cite><a href="#ref1">[1]</a> about it. The problem was that there were no enclosed arrays at the time and the parser had to do all kinds of tricks to do its job like setting globals, using delimited strings and so on.</p>
+<p>Today with arrays of enclosures and, in Dyalog APL’s case, namespaces, it is easier to pack all the information into a tight object.</p>
+<p>That’s the purpose of this text. I will use user commands as example. This is in fact the parser used at Dyalog for their user command processor.</p>
+<h2 id="a-few-definitions">A few definitions<a class="headerlink" href="#a-few-definitions" title="Permanent link">&para;</a></h2>
+<h3 id="generalities">Generalities<a class="headerlink" href="#generalities" title="Permanent link">&para;</a></h3>
+<p>A <em>sentence</em> is made of characters and divided into 0 or more <em>sections</em>.</p>
+<p>Sections are separated from each other by one or more of a special character, the <em>separator</em>.</p>
+<p>Each section contains a single <em>field</em> and a <em>value</em>. A value is 1 or a string.</p>
+<p>A field has an <em>ID</em>. Some fields may have a <em>name</em> in which case their ID is their name. An unnamed field’s ID is a unique number in the range 1 to N where N is the number of allowed unnamed fields.</p>
+<p>Named fields are always optional. Unnamed fields can be compulsory. In a sentence, sections may contain named fields which may be repeated.</p>
+<p>A named field is introduced with a special symbol followed by the name. If a section with a named field in it will have a value it will appear after the ‘=’ sign after the name.</p>
+<p>Example: here is a sentence with named and unnamed <em>sections</em>, the comma is the <em>section</em> separator:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>    una,unb,,$city=mtl,,,$cnt=can,$nice
+</span></code></pre></div>
+<p>This <em>sentence</em> has 5 <em>sections</em>, 2 with unnamed <em>fields</em> and 3 with named <em>fields</em>. The <em>ID</em> of each one is <code>1</code>, <code>2</code>, <code>city</code>, <code>cnt</code> and <code>nice</code>. All <em>sections</em> but <code>nice</code> have a <em>value</em> specified. The first two <em>sections</em> have unnamed <em>fields</em> with <em>values</em> <code>una</code> and <code>unb</code>. The last three <em>sections</em> have named <em>fields</em> and the last one has no <em>value</em> specified, its <em>value</em> is 1.</p>
+<h3 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h3>
+<p>A parser should be able to determine if a <em>sentence</em> follows specific rules.</p>
+<p>The class <code>Parser</code> produces a parser capable of recognizing if a sentence follows specific rules. Those rules are supplied at instantiation time.</p>
+<p>The rules specify</p>
+<ul>
+<li>the number of unnamed sections.</li>
+<li>how many are compulsory.</li>
+<li>the list of named sections.</li>
+<li>whether they accept a value.</li>
+</ul>
+<p>Example: the expression</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>    CP←⎕NEW   Parser   ('$city=  $cnt=  $nice'      'nargs=2')
+</span></code></pre></div>
+<p>produces a parser (CP) only capable of determining if a sentence, like the one above, follows the rules by applying its <code>Parse</code> method to a sentence, e.g.:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>    Data←CP.Parse  ‘una  unb  $city=mtl $cnt=can $nice‘
+</span></code></pre></div>
+<p>If the sentence does <strong>not</strong> follow the rules the parser will signal an error. For example if a non-existent named field is specified or if a named field accepting a value is not given one (or vice versa) then it will signal an appropriate error. The validation is very strict.</p>
+<p>If the <em>sentence</em> is valid, <code>Data</code> will be a regular namespace containing all the possible <em>sections</em> with their name and value. If a <em>section</em> is absent its value will be 0. If it is present without a value (e.g. <code>$nice</code>) it will be 1 (not ‘1’). If a section is repeated only the last value is retained. To see all of them you can do <code>Data.SwD</code>. In the example above you would get</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a> city  mtl
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a> cnt   can
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a> nice    1
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a> _1    una
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a> _2    unb
+</span></code></pre></div>
+<p>You can access the value of a <em>section</em> directly, e.g.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>    Data.city
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>mtl
+</span></code></pre></div>
+<p>The unnamed <em>sections</em> are given the <em>ID</em> <code>_1</code> and <code>_2</code>. This way you can access their value directly:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>    Data._1
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>una
+</span></code></pre></div>
+<p>The parser can be applied again to another <em>sentence</em>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>    Datb←CP.Parse    'I  love  $city=Paris  '
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    Datb.city
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Paris
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    Datb.SwD
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a> city  Paris
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a> cnt       0
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a> nice      0
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a> _1        I
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a> _2     love
+</span></code></pre></div>
+<p>Since <code>cnt</code> was not specified in the <em>sentence</em> its value is 0. Same for <code>nice</code>.</p>
+<h3 id="unnamed-sections">Unnamed sections<a class="headerlink" href="#unnamed-sections" title="Permanent link">&para;</a></h3>
+<p>Optional unnamed sections can be done using <code>'S'</code> with the number of arguments. <code>'S'</code> stands for ‘Short’ to allow a shorter number of arguments. This makes them all optional as 0 is an acceptable number of arguments too. If <code>CP</code> above is defined as (note the <code>'S'</code> after the 2)</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>    CP←⎕NEW   Parser   ('$city=   $cnt=  $nice'      'nargs=2S')
+</span></code></pre></div>
+<p>Then</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>    Datc←CP.Parse    ‘great    $nice   $cnt=Canada  ‘
+</span></code></pre></div>
+<p>would produce (note the 2nd argument is 0 because it is not in the <em>sentence</em>)</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>    Datc.SwD
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a> city      0
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a> cnt  Canada
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a> nice      1
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a> _1    great
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a> _2        0
+</span></code></pre></div>
+<h3 id="sections-with-spaces-in-them">Sections with spaces in them<a class="headerlink" href="#sections-with-spaces-in-them" title="Permanent link">&para;</a></h3>
+<p>If a <em>section</em> contains a <em>section delimiter</em> (a space here) in it there must be a way to tell the parser. The preferred way is to use yet another character to escape the space or to surround the section with a pair of enclosing special characters. An obvious character to use in this case is “. For example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>        Datd←CP.Parse    '  ”Добрый    день”      $cnt=Russia  '
+</span></code></pre></div>
+<p>produces</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>    Datd.SwD
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a> city           0
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a> cnt    Russia
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a> nice           0
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a> _1    Добрый    день
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a> _2             0
+</span></code></pre></div>
+<p><code>Parse</code> will accept both ‘ and “ as string delimiter as long as they are paired properly, i.e. <code>'a … z'</code> and <code>"a … z"</code> are ok but <code>‘a … z"</code> is not.</p>
+<p>If a quote is part of the string the other quote can be used or you can double the quote inside the quotes string, e.g. <code>"I'm OK"</code> or <code>'I''m OK'</code>.</p>
+<p>Quotes should also be used if the text includes a character used to introduce a named field (e.g. <code>$</code> above). Example: <code>'amount is $20'</code>.</p>
+<h2 id="the-dyalog-parser">The Dyalog parser<a class="headerlink" href="#the-dyalog-parser" title="Permanent link">&para;</a></h2>
+<p>The Dyalog parser is located in <code>⎕SE</code>.</p>
+<p>In this parser the space is used as section delimiter. It cannot be changed.</p>
+<h3 id="terms">Terms<a class="headerlink" href="#terms" title="Permanent link">&para;</a></h3>
+<p>Because of the context in which the parser is used an unnamed field is called an <em>argument</em> and a named field is called a <em>switch</em> or <em>modifier</em>.</p>
+<p>In theory the <em>arguments</em> could appear anywhere in the sentence but Dyalog’s parser does not allow it; all <em>arguments</em> must appear at the beginning of the sentence. This means that since only sections containing <em>modifiers</em> can appear at the end there is no need to quote the values if they contain spaces, i.e. in</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>        Datf←CP.Parse    'huge     $cnt=US of A '
+</span></code></pre></div>
+<p><code>US</code> of <code>A</code> does not need to be quoted to include the spaces. Note that the trailing spaces are ignored.</p>
+<p>On the other hand, since arguments have an ID you can specify them elsewhere in the sentence by simply using their ID followed by = and the value. The example above then becomes</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>        Datf←CP.Parse    '   $cnt=US of A   $_1=huge  '
+</span></code></pre></div>
+<h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h3>
+<p>This parser has many features.</p>
+<p>No need to specify the number of arguments if it is possibly unlimited. The class’ argument is then a single string:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>    CP←⎕NEW   ⎕SE.Parser   ‘$city=   $cnt=  $nice’
+</span></code></pre></div>
+<p>If you do not specify the number of arguments no <code>_n</code> variable will be stored in the resulting namespace. However, the list of arguments is <strong>always</strong> stored in variable <em>Arguments</em>. Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>    Datf←CP.Parse 'there are 7 arguments here, no modifier' ⍝no nargs=string
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    Datf.SwD
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>city   0
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>cnt    0
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>dsa    0
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>        ]disp Datf.Arguments
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>┌→────┬───┬─┬─────────┬─────┬──┬────────┐
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>│there│are│7│arguments│here,│no│modifier│
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>└────→┴──→┴→┴────────→┴────→┴─→┴───────→┘
+</span></code></pre></div>
+<p>The character introducing the names must be specified.</p>
+<p>It is the 1st char in the list (here #) and separates the names:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>    CP←⎕NEW   ⎕SE.Parser   ‘#city=   #cnt=  #nice’
+</span></code></pre></div>
+<h4 id="minimum-character-needed-to-specify-names">Minimum character needed to specify names<a class="headerlink" href="#minimum-character-needed-to-specify-names" title="Permanent link">&para;</a></h4>
+<p>There is no need to enter the entire name, only the minimum suffices:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>    CP←⎕NEW   ⎕SE.Parser   '+color = +country='
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    Datf←CP.Parse    '   +col=blue   +cou=UK '
+</span></code></pre></div>
+<p>Here <code>+col</code> is sufficient to determine that it is color. Same with <code>+cou</code> for country.</p>
+<p>If only <code>+c</code> or <code>+co</code> is used the parser won’t be able to tell which one is meant and an error will be signalled.</p>
+<p>On the other hand you may want to force the entry of a name to a minimum. You use parentheses for that:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>    CP←⎕NEW   ⎕SE.Parser   '-color=  -country(ofresidence)='
+</span></code></pre></div>
+<p>Here <code>-color</code> can be abbreviated to <code>-col</code> but <code>-countryofresidence</code> can only be entered with a minimum of <code>-country</code>. This is useful when forcing the user to enter the whole name because of a security problem, e.g.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>    CP←⎕NEW   ⎕SE.Parser   '/file=  /delete()'
+</span></code></pre></div>
+<p>Here <code>/file</code> can be entered as a single <code>/f</code> but we don’t want the user to enter <code>/d</code> alone by mistake and a full <code>/delete</code> is required.</p>
+<p>Only the ‘(‘ is important and the last ‘)’ is ignored but it is tolerated.</p>
+<h4 id="case-insensitive">Case insensitive<a class="headerlink" href="#case-insensitive" title="Permanent link">&para;</a></h4>
+<p>Normally modifiers’ names are used “as is” but you may want to enter them in lower or uppercase. If you do</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>        CP←⎕NEW ⎕SE.Parser ('$City= $Cnt= $nice'  'nargs=2   upper')
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>        Datg←CP.Parse    'I  love  $cITy=Paris '
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>        Datg.SwD
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>CITY  Paris
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>CNT       0
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>NICE      0
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>_1        I
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>_2     love
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>    Datg.CITY
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>Paris
+</span></code></pre></div>
+<p>all names are uppercased. There is no way to get them in lowercase form.</p>
+<h4 id="minimum-maximum-number-of-arguments">Minimum-maximum number of arguments<a class="headerlink" href="#minimum-maximum-number-of-arguments" title="Permanent link">&para;</a></h4>
+<p>It is possible to add an <code>'S'</code> to the number of arguments to specify that they are all optional, i.e. that 0 to n can be entered (here 5):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>    CP←⎕NEW   ⎕SE.Parser   ('/file=  /delete'      'nargs=5S')
+</span></code></pre></div>
+<p>It is also possible to use n1-n2 to specify a minimum (here 2 to 5):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>    CP←⎕NEW   ⎕SE.Parser   ('/file=  /delete'      'nargs=2-5')
+</span></code></pre></div>
+<p>If the number of arguments is not from 2 to 5 the parser will issue an error, either ‘too few arguments’ or ‘too many arguments’. Using <code>'S'</code> is the same as 0-n.</p>
+<p>It is possible to merge extra arguments together.</p>
+<p>For example if the last section contains spaces it must be used like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>    CP←⎕NEW ⎕SE.Parser (''  'nargs=3')  ⍝ note no modifiers accepted
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>    Dath←CP.Parse    '   Joe Blough   "42  Penny Lane  E." '
+</span></code></pre></div>
+<p>If there is nothing following the 3rd section we can tell the parser that it is “Long” and quotes are not needed (but still accepted). Note the L after the 3:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>    CP←⎕NEW  ⎕SE.Parser (''  'nargs=3L')
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>    Dath←CP.Parse ' Joe Blough 42 Penny Lane E. ' ⍝ no quotes needed at the end
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>    ]disp       Dath.SwD        ⍝ note the spaces are preserved
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>┌→─┬──────────────────┐
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>↓_1│Joe               │
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>├─→┼─────────────────→┤
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>│_2│Blough            │
+</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>├─→┼─────────────────→┤
+</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>│_3│42  Penny Lane  E.│
+</span><span id="__span-26-10"><a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>└─→┴─────────────────→┘
+</span></code></pre></div>
+<p>This feature is useful when expecting a single long argument:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>    Log←⎕NEW   ⎕SE.Parser   ('-file='      'nargs=1L')0
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>    Dath←Log.Parse    '   Joe Blough   42 Penny Lane E.  –file=\tmp\log.txt'
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>    ]disp       Dath.SwD
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>┌→───┬─────────────────────────────┐
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>↓file│\tmp\log.txt                 │
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>├───→┼────────────────────────────→┤
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>│_1  │Joe Blough   42 Penny Lane E.│
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>└───→┴────────────────────────────→┘
+</span></code></pre></div>
+<p>The number of arguments can be both, "Long" and "Short". There is no restriction in that respect. The rules may specify less than, say, 3 (Short), but merge any argument above 3 with the 3rd one (Long). This would be specified as</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>    CP1←⎕NEW   ⎕SE.Parser   (‘’      ‘nargs=3SL’)
+</span></code></pre></div>
+<h4 id="there-is-no-limit-on-the-number-of-arguments">There is no limit on the number of arguments<a class="headerlink" href="#there-is-no-limit-on-the-number-of-arguments" title="Permanent link">&para;</a></h4>
+<p>As noted before it is possible to specify that there is no limit on the number of arguments simply by not specifying the <code>'nargs='</code> field in the 2nd string (or eliding the 2nd string completely).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>    CP2←⎕NEW   ⎕SE.Parser   '/file=/del'
+</span></code></pre></div>
+<p>It is also possible to enter <code>'nargs=99999'</code> to signify ‘a large number of arguments’.</p>
+<p>The difference is in the resulting namespace which will only contain the <code>_1</code>, <code>_2</code>, … variables if <code>nargs=n</code> has been specified.</p>
+<p>Although there is no limit, in order to limit the number of variables defined in the resulting namespace (like <code>Dath</code>, above), the number of variables produced is limited to 15, i.e. <code>_1</code>, <code>_2</code>, …, <code>_15</code> will be there but <code>_16</code> and up won’t be. The list of all arguments is always kept in <code>Arguments</code> inside the namespace so they are always available. For example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>    CP←⎕NEW   ⎕SE.Parser   '+s1'         ⍝ no nargs=
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>    Dati←CP.Parse 'Joe Blo  42 Penny Lane E. tel 0 44 12345 890, and more '
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>    ⍴Dati.Arguments
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>16
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>    ]disp Dati.Arguments
+</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>┌→──┬───┬──┬─────┬────┬──┬───┬─┬──┬─────┬───┬───┬────┐
+</span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>│Joe│Blo│42│Penny│Lane│E.│tel│0│44│12345│890│and│more│
+</span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>└──→┴──→┴─→┴────→┴───→┴─→┴──→┴→┴─→┴────→┴──→┴──→┴───→┘
+</span><span id="__span-30-9"><a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>    ]disp Dati.SwD
+</span><span id="__span-30-10"><a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>┌→─┬─┐
+</span><span id="__span-30-11"><a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a>↓s1│0│
+</span><span id="__span-30-12"><a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a>└─→┴─┘
+</span><span id="__span-30-13"><a id="__codelineno-30-13" name="__codelineno-30-13" href="#__codelineno-30-13"></a>    CP←⎕NEW   ⎕SE.Parser   ('+s1'  ' nargs=999S')
+</span><span id="__span-30-14"><a id="__codelineno-30-14" name="__codelineno-30-14" href="#__codelineno-30-14"></a>    Dati←CP.Parse 'Joe Blo  42 Penny Lane E. tel 0 44 12345 890, and more  +s'
+</span><span id="__span-30-15"><a id="__codelineno-30-15" name="__codelineno-30-15" href="#__codelineno-30-15"></a>    ]disp Dati.Arguments
+</span><span id="__span-30-16"><a id="__codelineno-30-16" name="__codelineno-30-16" href="#__codelineno-30-16"></a>┌→──┬───┬──┬─────┬────┬──┬───┬─┬──┬─────┬───┬───┬────┐
+</span><span id="__span-30-17"><a id="__codelineno-30-17" name="__codelineno-30-17" href="#__codelineno-30-17"></a>│Joe│Blo│42│Penny│Lane│E.│tel│0│44│12345│890│and│more│
+</span><span id="__span-30-18"><a id="__codelineno-30-18" name="__codelineno-30-18" href="#__codelineno-30-18"></a>└──→┴──→┴─→┴────→┴───→┴─→┴──→┴→┴─→┴────→┴──→┴──→┴───→┘
+</span><span id="__span-30-19"><a id="__codelineno-30-19" name="__codelineno-30-19" href="#__codelineno-30-19"></a>    ]disp Dati.SwD
+</span><span id="__span-30-20"><a id="__codelineno-30-20" name="__codelineno-30-20" href="#__codelineno-30-20"></a>┌→──┬─────┐
+</span><span id="__span-30-21"><a id="__codelineno-30-21" name="__codelineno-30-21" href="#__codelineno-30-21"></a>↓s1 │1    │
+</span><span id="__span-30-22"><a id="__codelineno-30-22" name="__codelineno-30-22" href="#__codelineno-30-22"></a>├──→┼~────┤
+</span><span id="__span-30-23"><a id="__codelineno-30-23" name="__codelineno-30-23" href="#__codelineno-30-23"></a>│_1 │Joe  │
+</span><span id="__span-30-24"><a id="__codelineno-30-24" name="__codelineno-30-24" href="#__codelineno-30-24"></a>├──→┼────→┤
+</span><span id="__span-30-25"><a id="__codelineno-30-25" name="__codelineno-30-25" href="#__codelineno-30-25"></a> …
+</span><span id="__span-30-26"><a id="__codelineno-30-26" name="__codelineno-30-26" href="#__codelineno-30-26"></a>├──→┼────→┤
+</span><span id="__span-30-27"><a id="__codelineno-30-27" name="__codelineno-30-27" href="#__codelineno-30-27"></a>│_15│is   │
+</span><span id="__span-30-28"><a id="__codelineno-30-28" name="__codelineno-30-28" href="#__codelineno-30-28"></a>└──→┴────→┘
+</span></code></pre></div>
+<h4 id="ambivalent-modifiers">Ambivalent modifiers<a class="headerlink" href="#ambivalent-modifiers" title="Permanent link">&para;</a></h4>
+<p>Sometimes modifiers accept a value, sometimes they don’t. If their nature is ambivalent you can specify it at parser creation time, using square brackets around <code>=</code> to mean “maybe”, like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>    CP←⎕NEW   ⎕SE.Parser   '+s1[=]'
+</span></code></pre></div>
+<p>Here, <code>s1</code> is a modifier that may be specified with or without a value:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>    Datj←CP.Parse '+s'
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>    Datj.SwD                    ⍝ s1 is on the line without a value
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>s1  1
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>    Datj←CP.Parse '+s=abc'
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>    Datj.SwD
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>s1  abc
+</span></code></pre></div>
+<h3 id="validation">Validation<a class="headerlink" href="#validation" title="Permanent link">&para;</a></h3>
+<h4 id="list-member">List member<a class="headerlink" href="#list-member" title="Permanent link">&para;</a></h4>
+<p>The parser is able to perform minimalistic validation on the values entered with modifiers. For example, if modifier <code>s1</code> above accepts any of the values in <code>'ab' 'cde' 'fgjk'</code> then we can create a parser to validate it like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>    CP←⎕NEW   ⎕SE.Parser   '+s1=ab  cde  fgjk'
+</span></code></pre></div>
+<p>and using it is as before:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>    Datj←CP.Parse '+s=ab'
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>    Datj.SwD
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>s1   ab
+</span></code></pre></div>
+<p>except that if we enter a value not in the list we get:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>    Datj←CP.Parse '+s=abc'
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>invalid value for switch &lt;s1&gt; (must be ONE of "ab  cde  fgjk")
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>    Datj←CP.Parse'+s=abc'
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a>    ∧
+</span></code></pre></div>
+<h4 id="set-member">Set member<a class="headerlink" href="#set-member" title="Permanent link">&para;</a></h4>
+<p>The values can also be checked against a list of characters and ensure they all belong to the list. We use <code>∊</code> instead of <code>=</code> for this. For example, if modifier vowel below accepts any character in the set <code>'aeiou'</code> then we can create a parser to validate it like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>    CP←⎕NEW   ⎕SE.Parser   '+vowel ∊aeiou'
+</span></code></pre></div>
+<p>And using it is as before:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>    Datk←CP.Parse '+v=aooaee’
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>    Datk.SwD
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a> vowel   aooaee
+</span></code></pre></div>
+<p>except that if we enter a character not in the list we get:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>    Datk←CP.Parse '+s=aey'
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>invalid value for switch &lt;s1&gt; (must be ALL in "aeiou")
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>    Datk←CP.Parse'+s=aey'
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>     ∧
+</span></code></pre></div>
+<h4 id="default-values">Default values<a class="headerlink" href="#default-values" title="Permanent link">&para;</a></h4>
+<p>By default all fields have the value 0 to mean “not specified on the line”. When a modifier (or even an argument) is not specified we may wish to give it a value by default. For example, you may wish to use the value <code>'abc'</code> for modifier <code>s1</code> if it not on the line. In APL the code to do this would look like</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>    :if 0≡v←Datj.s1   ⋄   v←'abc'   ⋄   :endif
+</span></code></pre></div>
+<p>There are 2 ways to get a default value with the parser. The first one involves telling the parser at creation time:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>    CP←⎕NEW   ⎕SE.Parser   ‘+city:London’
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>    Datl←CP.Parse '+c=Kbh'
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>    Datl.city
+</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a>Kbh
+</span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a>        Datl←CP.Parse 'blah’    ⍝ no +city specified
+</span><span id="__span-40-6"><a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a>Datl.city
+</span><span id="__span-40-7"><a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a>London
+</span></code></pre></div>
+<p>The second method involves using a function (called <code>Switch</code>) in the resulting namespace.</p>
+<p>That function takes the name of a modifier and returns its value when called monadically.</p>
+<p>When called dyadically it returns its left argument if the modifier’s value is 0 (e.g. not in the statement).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>    CP←⎕NEW   ⎕SE.Parser   '+city='
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>    Datl←CP.Parse '+c=Toronto'
+</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>    Datl.Switch ‘city’          ⍝ city has the value "Toronto" as specified
+</span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>Toronto
+</span><span id="__span-41-5"><a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a>    ‘NY’  Datl.Switch  ‘city’   ⍝ city was specified, it is returned
+</span><span id="__span-41-6"><a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>Toronto
+</span><span id="__span-41-7"><a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a>    Datl←CP.Parse  'blah'       ⍝ no +city specified
+</span><span id="__span-41-8"><a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a>    Datl.Switch 'city'                  ⍝ no city means 0
+</span><span id="__span-41-9"><a id="__codelineno-41-9" name="__codelineno-41-9" href="#__codelineno-41-9"></a>0
+</span><span id="__span-41-10"><a id="__codelineno-41-10" name="__codelineno-41-10" href="#__codelineno-41-10"></a>    ‘NY’ Datl.Switch 'city'     ⍝ no city can mean NY when not specified
+</span><span id="__span-41-11"><a id="__codelineno-41-11" name="__codelineno-41-11" href="#__codelineno-41-11"></a>NY
+</span></code></pre></div>
+<p><code>Switch</code> has the advantage over the :default syntax in that it can turn strings representing numbers into numbers.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>    CP←⎕NEW   ⎕SE.Parser   '+age:18'
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>    Datl←CP.Parse        '+a=70'
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>    70=⎕←Datl.age       ⍝ ‘age’ is '70'
+</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a>70
+</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a>0  0
+</span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a>    Datl←CP.Parse 'blah'        ⍝ no +age specified, its value is '18'
+</span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a>    18=⎕←Datl.age                   ⍝ this is a string, not a number
+</span><span id="__span-42-8"><a id="__codelineno-42-8" name="__codelineno-42-8" href="#__codelineno-42-8"></a>18
+</span><span id="__span-42-9"><a id="__codelineno-42-9" name="__codelineno-42-9" href="#__codelineno-42-9"></a>0  0
+</span></code></pre></div>
+<p>The parser cannot tell whether ‘18’ is meant to be a string or a number. <code>Switch</code>, on the other hand, is smart about it:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>    CP←⎕NEW   ⎕SE.Parser   '+age=' ⍝ we don’t specify a default value here
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>    Datl←CP.Parse '+a=70'
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>    70=⎕←Datl.Switch 'age'      ⍝ this is character
+</span><span id="__span-43-4"><a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a>70
+</span><span id="__span-43-5"><a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a>0  0
+</span><span id="__span-43-6"><a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a>    70=⎕←18  Datl.Switch  'age'         ⍝  this is numeric, thanks to Switch
+</span><span id="__span-43-7"><a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a>70
+</span><span id="__span-43-8"><a id="__codelineno-43-8" name="__codelineno-43-8" href="#__codelineno-43-8"></a>1
+</span><span id="__span-43-9"><a id="__codelineno-43-9" name="__codelineno-43-9" href="#__codelineno-43-9"></a>    Datl←CP.Parse  'blah'   ⍝ no +age specified
+</span><span id="__span-43-10"><a id="__codelineno-43-10" name="__codelineno-43-10" href="#__codelineno-43-10"></a>18=⎕←18  Datl.Switch  'age'     ⍝  this is numeric, thanks to Switch
+</span><span id="__span-43-11"><a id="__codelineno-43-11" name="__codelineno-43-11" href="#__codelineno-43-11"></a>18
+</span><span id="__span-43-12"><a id="__codelineno-43-12" name="__codelineno-43-12" href="#__codelineno-43-12"></a>1
+</span></code></pre></div>
+<p>Note that the result is a numeric vector, not a scalar.</p>
+<p>If you try to turn a non-numeric modifier into a number <code>Switch</code> will also complain:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>    Datl←CP.Parse '+a=seventy'
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>    666  Datl.Switch 'age'
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>value must be numeric for age
+</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>    666  Datl.Switch 'age'
+</span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>    ∧
+</span></code></pre></div>
+<h3 id="other-features">Other features<a class="headerlink" href="#other-features" title="Permanent link">&para;</a></h3>
+<p>There are a few more features left:</p>
+<h4 id="prefixing-names">Prefixing names<a class="headerlink" href="#prefixing-names" title="Permanent link">&para;</a></h4>
+<p>Modifier names cannot start with a number but if you use a prefix for them it can be made to work:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>    CP←⎕NEW   ⎕SE.Parser  ( '+007[=]')
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>switches must be valid identifiers
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>    CP←⎕NEW ⎕SE.Parser('+007[=]')
+</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>    ∧
+</span><span id="__span-45-5"><a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a>    CP←⎕NEW ⎕SE.Parser  ('+007[=]'    'prefix=∆')
+</span><span id="__span-45-6"><a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a>    Datm←CP.Parse  'whatever   +007=JB'
+</span><span id="__span-45-7"><a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a>    Datm.SwD
+</span><span id="__span-45-8"><a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a>007  JB
+</span><span id="__span-45-9"><a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a>    Datm.⎕nl-2
+</span><span id="__span-45-10"><a id="__codelineno-45-10" name="__codelineno-45-10" href="#__codelineno-45-10"></a>Arguments  SwD  ∆007
+</span><span id="__span-45-11"><a id="__codelineno-45-11" name="__codelineno-45-11" href="#__codelineno-45-11"></a>    Datm.∆007
+</span><span id="__span-45-12"><a id="__codelineno-45-12" name="__codelineno-45-12" href="#__codelineno-45-12"></a>JB
+</span><span id="__span-45-13"><a id="__codelineno-45-13" name="__codelineno-45-13" href="#__codelineno-45-13"></a>    Datm.Switch '007'
+</span><span id="__span-45-14"><a id="__codelineno-45-14" name="__codelineno-45-14" href="#__codelineno-45-14"></a>JB
+</span></code></pre></div>
+<h4 id="not-requiring-space-before-modifiers">Not requiring space before modifiers<a class="headerlink" href="#not-requiring-space-before-modifiers" title="Permanent link">&para;</a></h4>
+<p>Since names start with a special character there is no real need to force a space to delimit them. An example is DOS commands which may be abutted as in DIR /T/A; here /A follows /T without any space in between.</p>
+<p>If this can be allowed it can be specified as in</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>    CP←⎕NEW   ⎕SE.Parser  ('/sw1  /sw2'   'allownospace')
+</span></code></pre></div>
+<h4 id="changing-the-error-number-when-things-go-wrong">Changing the error number when things go wrong<a class="headerlink" href="#changing-the-error-number-when-things-go-wrong" title="Permanent link">&para;</a></h4>
+<p>When the parser refuses to accept a set of rules it signals an error in the 700-710 range. If this can interfere with the calling program it can be changed using <code>error=</code> to specify the lower range value:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>    CP←⎕NEW   ⎕SE.Parser   ('/sw1'   'error=800')
+</span></code></pre></div>
+<h4 id="propagating-the-modifiers">Propagating the modifiers<a class="headerlink" href="#propagating-the-modifiers" title="Permanent link">&para;</a></h4>
+<p>Sometimes it is necessary to pass the modifiers received to another program which uses similar modifiers.</p>
+<p>For example, in SALT, the program <code>Snap</code> uses many modifiers, some of which are passed along to the program <code>Save</code>. Both use some same modifiers. The modifier <code>–noprompt</code> is one of them. When <code>Snap</code> calls <code>Save</code> it has to pass along that modifier in the command string. Assuming all the modifiers and arguments are in namespace <code>A</code>, one thing it could do is</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>        Save  cmdstring, A.nopromt / ' –noprompt'
+</span></code></pre></div>
+<p>Because there are many modifiers to pass along this statement would be in fact much more complicated, especially when modifiers have values.</p>
+<p>The arguments namespace contains a function, <code>Propagate</code>, which will generate a string defining the switches as they were submitted.</p>
+<p>For example, if <code>–noprompt</code> was specified on the <code>Snap</code> command line, doing <code>A.Propagate 'noprompt'</code> would return <code>'-noprompt'</code>. If <code>–noprompt</code> was not specified then it would return <code>''</code>. If a modifier to be propagated has a value the function will reproduce it verbatim, e.g. if <code>–nop –file=\ab\c</code> is used then doing <code>A.Propagate 'noprompt file'</code> would return <code>'-noprompt -file=\a\b\c'</code>.</p>
+<p>Example: going back to the REPORT example we can see that writing:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>        ∇ Options   REPORT   Data;all;Parse;...
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>[1]     Parse←{ (⎕new ⎕se.Parser  ⍺).Parse  ⍵}
+</span><span id="__span-49-3"><a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>[2]     all← ‘+margin= +usepagenos +pagewidth=’   Parse   Options
+</span><span id="__span-49-4"><a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a>[3]     :if  all.usepagenos    ...
+</span></code></pre></div>
+<p>is easier to read and modify. We can now call this program like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>'Sales Report  +usepagenos  +pagewidth=80  +margin=10  10'  REPORT  data
+</span></code></pre></div>
+<p>Another example, coding the DIR command in DOS (we use a prefix because of /4):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>    pDIR←⎕new  ⎕se.Parser  ('/a=/b/c/d/n/o=/p/q/r/s/t=/w/x/4' 'allow prefix=S')
+</span></code></pre></div>
+<h2 id="epilogue">Epilogue<a class="headerlink" href="#epilogue" title="Permanent link">&para;</a></h2>
+<p>This tool is a bit elaborate but covers many aspects of line parsing. Many years of programming convinced me of its usefulness. I have programmed variants of this code in several languages but none as advanced as in Dyalog APL. If you write your own user commands this will prove to be very helpful.</p>
+<p>If your version of Dyalog APL does not have all these features try to use the user command <code>]uupdate</code> to update your version of SALT and User Commands. This should work with all versions of Dyalog APL starting at V13.1.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a id="ref1"></a> See "Tools, Part 1. Basics" in <em>Vector</em> 19.4 (April 2003) for details</li>
+</ol>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

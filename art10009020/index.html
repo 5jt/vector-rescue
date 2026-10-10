@@ -1,0 +1,1568 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10009020/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Experiences with the Dyalog .NET Compiler - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#authors-note" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Experiences with the Dyalog .NET Compiler
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#authors-note" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Author’s Note
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background-to-the-net-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Background to the .NET Architecture
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ok-so-how-do-i-kick-the-ball" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        OK, so how do I Kick the Ball?
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OK, so how do I Kick the Ball?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overloading" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Overloading
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-and-getting-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Setting and Getting Properties
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wrapping-a-legacy-workspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Wrapping a Legacy Workspace
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Wrapping a Legacy Workspace">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-small-enhancement-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A small enhancement request!
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anyway-better-test-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Anyway, better test it!
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Summary
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Experiences with the Dyalog .NET Compiler</h1>
+
+  <p class="printed"><a href="../19/#n4-april-2003">Vector 19:4</a>, page 65</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-system-interfaces">system interfaces</a> <a class="md-tag" href="../tags/#tag-implementations">implementations</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../19/4/VOL.19-NO.4-APRIL-2003.pdf#page=67">Read it in the PDF of the issue, page 65</a></em></p>
+<p class="byline"><em>a talk to Forests in Finland VII by Adrian Smith</em></p>
+<h2 id="authors-note">Author’s Note<a class="headerlink" href="#authors-note" title="Permanent link">&para;</a></h2>
+<p>The proposed talk was a fairly code-intensive walk-through of the potential for using Dyalog’s <em>APLScript</em> as a primary source for your .net applications, regardless of the current flavour of APL you were using. An initial show of hands showed that almost no-one in the audience really knew anything at all about .net (and APL’s relationship with it) so the talk rapidly grew a 20-minute introduction to the whole .net architecture, and the way Dyalog APL fits into it. This is (very approximately) reproduced as the first part of this report, and is followed by the stuff I was expecting to talk about.</p>
+<h2 id="background-to-the-net-architecture">Background to the .NET Architecture<a class="headerlink" href="#background-to-the-net-architecture" title="Permanent link">&para;</a></h2>
+<p>I suppose the first thing to say is that Microsoft got the name badly wrong – this has very little to do with the ‘net’ and everything to do with the Windows API. In fact they have sensibly renamed the next version of Windows NT as ‘Windows 2003 Server’, probably as the first stage of a rethink on the name.</p>
+<p>I think it will quite quickly become the programmer’s tool of choice, not because of Microsoft’s marketing, but simply because it is a much better way to develop and deploy applications. Java established the principle of a <em>Virtual Machine</em> (the JVM) which permits the same compiled code to run on multiple platforms. Well actually, APL did it in 1979 with APL for the IBM System-7, and Paul Chapman did it again with DEGO for I-APL, but that’s another story. The snag is that the Java machine was specifically designed to run compiled <em>Java</em>, just as the APL IL runs interpreted <em>APL</em>. What Microsoft have done is define a virtual machine called the <em>Common Language Runtime</em> (CLR from now on) which is designed to be dead easy to write a compiler (or interpreter) for. In fact it is shipped with a demonstration Lisp interpreter, just to show you how to build one.</p>
+<p>They then named 7 target languages, carefully chosen to span the known space of current language thinking. This was called <em>Project-7</em>, and (as I hope we all know) Dyalog APL was chosen as the APL guest at the party. The work Dyalog have done (which is the reason John Daintree got the BAA Outstanding Achievement Award last year) puts APL on exactly the same footing as all the other .net languages.</p>
+<p>This is quite a new situation for us – just contrast it with the current position in some of the APL engines we have today:</p>
+<ul>
+<li>in APL2 I can call out with <code>⎕NA</code> (with a lot of technical expertise) and I can be run in batch mode via JCL. As of last week, I can call COBOL subroutines.</li>
+<li>in APL+Win I can call out with <code>⎕WCALL</code> (assuming they set the ADF file up correctly) and I can run the interpreter as a COM server. However there is no way a C++ programmer can be shown the details of the functions he/she has access to, or offered any ‘properties’.</li>
+<li>in Dyalog APL/W I can call out with <code>⎕NA</code> (with a lot of technical expertise) and (with a considerable amount of work) I can expose my application as a proper COM object with genuine Methods and properties.</li>
+</ul>
+<p>With .net, all this ugly technical stuff goes straight out of the window. If I want to use a C# subroutine from Dyalog APL, I just (well duh) use it. If I want to use an APL function from C#, I just use it. Deployment is as simple as copying the files I need into my installation folder – gone is all that stuff with type libraries and OCX registration and all the things that could so easily fall apart when the user re-installed Windows and trashed the Registry.</p>
+<p>Why is it all so easy? Basically because everything is compiled down to CLR, so to the .net engine, it all looks the same. If you open up a DLL that you made from APLScript in IL DASM (the Microsoft Disassembler, free with the .net framework) it is indistinguishable from a DLL that you compiled from C# using the (also free) command-line compiler. We are all playing with the same ball on the same playing field, for the first time that I can remember.</p>
+<h2 id="ok-so-how-do-i-kick-the-ball">OK, so how do I Kick the Ball?<a class="headerlink" href="#ok-so-how-do-i-kick-the-ball" title="Permanent link">&para;</a></h2>
+<p>What I want to do here is just to give a flavour of what is possible, so we will make a simple APLScript, compile it and call it from an equally simple C# application. As a slightly tougher exercise, I will show you how to wrap a typical ‘legacy’ application (the ASL Regression Library ASLGREG) as a .net component that can easily be called as a subroutine. The only tools you will need are your current flavour of APL, Notepad and the .net framework.</p>
+<p>Why use <em>APLScript</em> rather than the Gui approach that Dyalog showed in their Madrid workshops? I will try to pick up the advantages as I go along, but basically it is because I have a hate-hate relationship with dialogue boxes like this:</p>
+<p><img alt="The .Net Properties page of the Properties dialog for #.Demo.iota" src="dialog.jpg" /></p>
+<p>… lifted from John Daintree’s article in Vector 19.1. This is fine for demos, but in <em>RainPro</em> I have about 60 Methods and 170 properties to work through. I would die of RSI before I got halfway down the list, and I would be sure to make some mistakes along the way. How would you set about globally changing "Int32" to "Float" across 60 functions when each one required about four mouse-clicks to open up the right dropdown? This was definitely not for me, so I cut the workshops and chatted to Dave Liebtag and Eke about control structures instead. Much more fun.</p>
+<p>Then I read John’s next article in Vector 19.2, and the light dawned. With APLScript, a typical function looks like this:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w"> </span><span class="bp">∇</span><span class="w"> </span><span class="nv">tv</span><span class="kd">←</span><span class="nv">Rotate</span><span class="w"> </span><span class="nv">tv</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">⍝ This should be pretty simple!</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="bp">:</span><span class="nv">Access</span><span class="w"> </span><span class="nv">Public</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="bp">:</span><span class="nv">ParameterList</span><span class="w"> </span><span class="nv">String</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="bp">:</span><span class="nv">Returns</span><span class="w"> </span><span class="nv">String</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w"> </span><span class="nv">tv</span><span class="kd">←</span><span class="o">⌽</span><span class="nv">tv</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w"> </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>What do you immediately notice about this function? Yes, that’s right – everything it needs to know about being a .net function is defined in <em>one place</em>, as easily accessible text. That means I can search for it in an editor, globally replace my systematic errors, and write some tools to help me out. Remember "there’s <em>always</em> time to sharpen your axe", and if you start with it sharp, so much the better.</p>
+<p>The next reason I have for liking this is that I hate changing interpreters. My two main environments are Dyalog 8.2 and APL+Win 3.5, which do everything I need. I have the session how I want it, I like the way the editor behaves, I have Alt+EF hardwired into my brain for ‘Edit, ReFormat’, and so on. Clearly, I am unlikely to write much APL in Notepad, but I already have lots of APL in my favourite interpreters. Maybe I could just take the existing code, add a few simple comments, and create the script automatically? For example:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="w">     </span><span class="bp">∇</span><span class="w"> </span><span class="nv">tv</span><span class="kd">←</span><span class="nv">Rotate</span><span class="w"> </span><span class="nv">tv</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ This should be pretty simple!</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝:Public</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝:Params  String</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝:Returns String</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">    </span><span class="nv">tv</span><span class="kd">←</span><span class="o">⌽</span><span class="nv">tv</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">     </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>Spot the difference! Well, firstly the lines in the script that define the .net interface must be generated from comments in the original source function. It would be very sensible for Dyalog to permit <code>:ParameterList</code> as a valid control structure in normal code, but for the moment we must hide it from the interpreter. But hang on a moment – how many sharp-eyed APLers are there who noticed that it just says <code>⍝:Params</code> here? For that matter it just says <code>⍝:Public</code> instead of <code>⍝:Access Public</code> on line[2]. Yes, you guessed it – Adrian is a lazy typist and would rather write the bare minimum in the function comments. It all gets expanded nicely whan the script is written out.</p>
+<p>Here is the fragment of C# which tests it:</p>
+<div class="language-csharp highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">Sample</span><span class="w"> </span><span class="n">sam</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Sample</span><span class="p">();</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"*** String *** "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sam</span><span class="p">.</span><span class="n">Rotate</span><span class="p">(</span><span class="s">"Hello,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">world</span><span class="o">!</span><span class="s">"));</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="kt">int</span><span class="p">[]</span><span class="w"> </span><span class="n">myints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">myints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sam</span><span class="p">.</span><span class="n">Rotate</span><span class="p">(</span><span class="n">myints</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Which brings us very nicely to the next big bonus point for scripts …</p>
+<h3 id="overloading">Overloading<a class="headerlink" href="#overloading" title="Permanent link">&para;</a></h3>
+<p>Suppose I wanted to be able to rotate numeric vectors in addition to strings? The way you do this in C# (and hence in the CLR) is to define a sibling function which offers the alternative argument type and is associated with the base function using the <em>Implements</em> keyword. APLScript follows along the same lines:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="w"> </span><span class="bp">∇</span><span class="w"> </span><span class="nv">tv</span><span class="kd">←</span><span class="nv">Rotate_ovl1</span><span class="w"> </span><span class="nv">tv</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="bp">:</span><span class="nv">Access</span><span class="w"> </span><span class="nv">Public</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="bp">:</span><span class="nv">Returns</span><span class="w"> </span><span class="nv">Int32</span><span class="sr">[]</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="bp">:</span><span class="nv">ParameterList</span><span class="w"> </span><span class="nv">Int32</span><span class="sr">[]</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="bp">:</span><span class="nv">Implements</span><span class="w"> </span><span class="nv">Method</span><span class="w"> </span><span class="nv">Rotate</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="nv">tv</span><span class="kd">←</span><span class="nv">Rotate</span><span class="w"> </span><span class="nv">tv</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w"> </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>OK, a bad example, as this kind of structural function would probably just take and return <em>array</em>, which is the most general type there is. My problem is that functions like <code>ch.Bar</code> should be specific about their argument types, and they get rapidly out of hand – in the extreme case a barchart could take an integer scalar; typically it takes an array of either integers or floats, but it can happily accept matrices or vectors of numeric vectors (any flavour). You can clock up a dozen sibling functions here with no real effort, and you do not want these cluttering your workspace, let alone having to be defined with the afore-mentioned dialogue-box one by one! I hope you can see where this is leading:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="w">     </span><span class="bp">∇</span><span class="w"> </span><span class="nv">tv</span><span class="kd">←</span><span class="nv">Rotate</span><span class="w"> </span><span class="nv">tv</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ This should be pretty simple!</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ Note the paired argument and result types</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝:Public</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝:Params  String</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝:Returns String</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝:Params  Int[]</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝:Returns Int[]</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">    </span><span class="nv">tv</span><span class="kd">←</span><span class="o">⌽</span><span class="nv">tv</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">     </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>Let’s just add another pair of comment lines, and have APL generate the siblings when it writes out the script. All the rats stay firmly in one trap, and it is easy to add more definitions as we need them. I am beginning to like this!</p>
+<p>As you can see in the following expansion, if there are multiple sets of parameters and results, they will be paired up. Multiple parameters may also be used with a single result, but the C# compiler chooses the correct overload by matching up the parameter lists, so you cannot have a single parameter set, and multiple result types. At the moment, I can’t think of an example where I would ever want to do this, so I don’t think it is a major oversight.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="w"> </span><span class="bp">∇</span><span class="w"> </span><span class="nv">tv</span><span class="kd">←</span><span class="nv">Rotate</span><span class="w"> </span><span class="nv">tv</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1">⍝ This should be pretty simple!</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1">⍝ Note the paired argument and result types</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="bp">:</span><span class="nv">Access</span><span class="w"> </span><span class="nv">Public</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="bp">:</span><span class="nv">ParameterList</span><span class="w"> </span><span class="nv">String</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="bp">:</span><span class="nv">Returns</span><span class="w"> </span><span class="nv">String</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w"> </span><span class="bp">:</span><span class="nv">Trap</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="nv">tv</span><span class="kd">←</span><span class="o">⌽</span><span class="nv">tv</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w"> </span><span class="bp">:</span><span class="nv">Else</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">   </span><span class="p">(</span><span class="nv">Exception</span><span class="na">.</span><span class="nv">New</span><span class="w"> </span><span class="o">∊</span><span class="nf">⎕AV</span><span class="sr">[</span><span class="m">2</span><span class="o">+</span><span class="nf">⎕IO</span><span class="sr">]</span><span class="o">,</span><span class="na">¨</span><span class="m">2</span><span class="o">↑</span><span class="nf">⎕DM</span><span class="p">)</span><span class="w"> </span><span class="nf">⎕SIGNAL</span><span class="w"> </span><span class="m">90</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w"> </span><span class="bp">:</span><span class="nv">EndTrap</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w"> </span><span class="bp">∇</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w"> </span><span class="bp">∇</span><span class="w"> </span><span class="nv">tv</span><span class="kd">←</span><span class="nv">Rotate_ovl1</span><span class="w"> </span><span class="nv">tv</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="bp">:</span><span class="nv">Access</span><span class="w"> </span><span class="nv">Public</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="bp">:</span><span class="nv">ParameterList</span><span class="w"> </span><span class="nv">Int32</span><span class="sr">[]</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="bp">:</span><span class="nv">Returns</span><span class="w"> </span><span class="nv">Int32</span><span class="sr">[]</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="bp">:</span><span class="nv">Implements</span><span class="w"> </span><span class="nv">Method</span><span class="w"> </span><span class="nv">Rotate</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">  </span><span class="nv">tv</span><span class="kd">←</span><span class="nv">Rotate</span><span class="w"> </span><span class="nv">tv</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w"> </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>You may also notice that I have wrapped a standard <code>:Trap</code> block around the body of the main function. At the moment, this is rather redundant, as it simply reproduces the normal Dyalog APL behaviour, however I felt that I might want more control here in future, so let’s put the code in now in case we need it later.</p>
+<h2 id="setting-and-getting-properties">Setting and Getting Properties<a class="headerlink" href="#setting-and-getting-properties" title="Permanent link">&para;</a></h2>
+<p>Again, it is all very simple. To be able to write C# code like this …</p>
+<div class="language-csharp highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">grapl</span><span class="p">.</span><span class="n">Heading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Share Price with Moving Averages"</span><span class="p">;</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">grapl</span><span class="p">.</span><span class="n">Subhead</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Buy when Red crosses Cyan!"</span><span class="p">;</span>
+</span></code></pre></div>
+<p>… I need to define some properties in my script, in this case called <em>Heading</em> and <em>Subhead</em>, both of type String. In C# (and hence in APLScript) you implicitly define a property by including <em>Get</em> and <em>Set</em> functions for it. Readonly properties only have the <em>Get</em> half of the pair. Easy stuff, but RainPro has (as of today) 171 properties, nearly all read-write. Ug – that means over 300 one-line functions if I do it using the workspace approach. In this case, they all look remarkably similar:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="bp">:</span><span class="nv">Property</span><span class="w"> </span><span class="nv">String</span><span class="bp">:</span><span class="nv">CaptionFont</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w"> </span><span class="bp">∇</span><span class="w"> </span><span class="nv">r</span><span class="kd">←</span><span class="nv">get</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nv">r</span><span class="kd">←</span><span class="c1">##.ch.Query'CF'</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w"> </span><span class="bp">∇</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w"> </span><span class="bp">∇</span><span class="w"> </span><span class="nv">set</span><span class="w"> </span><span class="nv">value</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">  </span><span class="nv">r</span><span class="kd">←</span><span class="c1">##.ch.Fix 'CF' value</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w"> </span><span class="bp">∇</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="bp">:</span><span class="nv">EndProperty</span>
+</span></code></pre></div>
+<p>RainPro puts everything through the same pipe so it can keep tabs on what you are doing to it – so I can automatically generate the whole script block from <code>ch.∆chdefaults</code> without ever seeing any of these ‘getters’ and ‘setters’ in my workspace. In the more general case, you would probably make a simple character array to define the property names, types, and the get/set functions to be called. When I need this (for example for NewLeaf which does it this way) I will add in the code to parse it and output the appropriate calls in the script.</p>
+<h2 id="wrapping-a-legacy-workspace">Wrapping a Legacy Workspace<a class="headerlink" href="#wrapping-a-legacy-workspace" title="Permanent link">&para;</a></h2>
+<p>I thought a good example would be the Regression Shelf from the BAA Statistics Library project. This is quite old code, written mostly in APL*PLUS/PC, so we really don’t want to tamper with it if at all possible. The idea would be to create some simple wrapper functions and then bury the entire legacy edifice in a namespace where the C# programmer need never see it. Here is what I needed to build to make this idea possible:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="w">      </span><span class="o">↑</span><span class="nv">∆asl</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="sr">;</span><span class="nv">APLScript</span><span class="w"> </span><span class="nv">definition</span><span class="w"> </span><span class="nv">for</span><span class="w"> </span><span class="nv">ASLGreg</span><span class="na">.</span><span class="nv">NET</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="bp">:</span><span class="nv">Namespace</span><span class="w"> </span><span class="nv">asl</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="c1">⍝ ======== Classes ========</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="bp">:</span><span class="nv">Class</span><span class="w"> </span><span class="nv">greg</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w"> </span><span class="nf">⎕IO</span><span class="kd">←</span><span class="m">1</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nf">⎕ML</span><span class="kd">←</span><span class="m">1</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w"> </span><span class="nv">InitASL</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w"> </span><span class="o">!</span><span class="nv">regfns</span><span class="na">.</span><span class="nv">∆public</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="bp">:</span><span class="nv">EndClass</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="c1">⍝ ======= Internal NS =======</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w"> </span><span class="o">*</span><span class="nv">regfns</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="bp">:</span><span class="nv">EndNamespace</span>
+</span></code></pre></div>
+<p>This is an easy-to-edit text variable which is like the C-programmer’s ‘make’ file. It has a bit of basic control information, some comments and a few APL lines to be run by the Dyalog compiler at compile time. However ("heads up" as they say in cricket when an unexpected ball is coming your way) there is a small divergence between Dyalog’s use of the term <em>Namespace</em>, and the CLR meaning of the same term. The compiler hides the issue quite well, but it really can confuse you if you don’t follow the rules.</p>
+<ul>
+<li>in .net parlance, a Namespace is very like a DOS path setting. It is a convenient way of omitting the fully qualified part of a name from a function call.</li>
+<li>in Dyalog APL, a Namespace is much more like a C# Class, being an encapsulated collection of functions and data.</li>
+</ul>
+<p>What the APLScript compiler does is to take the outer :Namespace blocks in the script and make them into CLR-style namespaces mirrored by APL namespaces – that is what <code>:Namespace ASL</code> does for you in the example. Any deeper-level <code>:Class xxx</code> blocks also become standard APL namespaces, but you cannot put a CLR namespace <em>inside</em> a class which is where the analogy breaks down. Now you can refer back 2 pages and see why I needed <code>##.ch.blaaah</code> in my Get/Set functions for RainPro. These are in a class called GraPL, so Dyalog has implicitly created an APL-style <code>GraPL</code> namespace for them. To see the stuff in the ‘real’ namespace <code>ch</code> I need to back up one level and look down again. Note that this uses <code>##.xx</code> rather than <code>#.xx</code> as I have absolutely no idea where I am in the namespace tree that they have built for me, but I am quite sure I am not a child of root. <em>Be careful</em> – you have been warned!</p>
+<p>So here we are in our ASL namespace and we want to make a collection of functions which the C# programmer will see as a Class with Methods. These lines do the trick:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="bp">:</span><span class="nv">Class</span><span class="w"> </span><span class="nv">greg</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nf">⎕IO</span><span class="kd">←</span><span class="m">1</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nf">⎕ML</span><span class="kd">←</span><span class="m">1</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nv">InitASL</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="o">!</span><span class="nv">regfns</span><span class="na">.</span><span class="nv">∆public</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="bp">:</span><span class="nv">EndClass</span>
+</span></code></pre></div>
+<p>Anything in the ‘make’ variable that starts with a colon or comment, or contains an assignment, just passes straight through into the script. Anything that names a function gets the function thrown into the script, but carefully tidied up as described above. So in this case, I have an initialisation function which I want run at startup (when an instance of the class is created by the C# program) which looks like:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="w">     </span><span class="bp">∇</span><span class="w"> </span><span class="nv">InitASL</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝:Access Constructor</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">    </span><span class="c1">##.regfns.START</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">     </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>Because I buried all the real code in the APL namespace <code>regfns</code>, I need to walk back one level here. It is quite convenient that Dyalog tolerates this syntax in the ordinary development environment – here <code>InitASL</code> is actually in the root namespace but I can still run it quite successfully to test the code before I build it into a script as ## has nowhere to go but itself!</p>
+<p>The next line in the make variable begins with <code>!</code> which has no logical meaning whatsoever, except that I am working slowly along the top row of the keyboard as I add in more possibilities here. What <code>!</code> does is to take a variable which defines the public functions, and builds the script entries for me. In this case it looks like:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Public name:Function:Description:Parameters;Overloads:Returns
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>Diagnostics:Diagnostics:Useful tables:String cols:vtv
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>Display:Display:Results of analysis:String cols:vtv
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>Fit:Fit:Model to be fitted:String modeldefn:vtv
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>Set:Set:Set named data to value:String name, int[] value;
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>                                String name, num[] value:txt
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>Yvar:Yvar:Set Dependent variable:String YVarname:txt
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>Version:VERSION:What it says::vtv
+</span></code></pre></div>
+<p>Taking the last line as the simplest example, this will create a script entry:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="w"> </span><span class="bp">∇</span><span class="w"> </span><span class="nv">res</span><span class="kd">←</span><span class="nv">Version</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1">⍝ What it says</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="bp">:</span><span class="nv">Access</span><span class="w"> </span><span class="nv">Public</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="bp">:</span><span class="nv">Returns</span><span class="w"> </span><span class="nv">String</span><span class="sr">[]</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w"> </span><span class="bp">:</span><span class="nv">Trap</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">   </span><span class="nv">res</span><span class="kd">←</span><span class="c1">##.regfns.VERSION</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w"> </span><span class="bp">:</span><span class="nv">Else</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">   </span><span class="p">(</span><span class="nv">Exception</span><span class="na">.</span><span class="nv">New</span><span class="w"> </span><span class="o">∊</span><span class="nf">⎕AV</span><span class="sr">[</span><span class="m">2</span><span class="o">+</span><span class="nf">⎕IO</span><span class="sr">]</span><span class="o">,</span><span class="na">¨</span><span class="m">2</span><span class="o">↑</span><span class="nf">⎕DM</span><span class="p">)</span><span class="w"> </span><span class="nf">⎕SIGNAL</span><span class="w"> </span><span class="m">90</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="bp">:</span><span class="nv">EndTrap</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w"> </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>Where overloads are required, I can list multiple parameter sets separated by ‘;’ to have the matching set of generated functions written into the script. The return-type of ‘vtv’ is Causeway-speak for ‘vector of text vectors’ and translates to ‘array of strings’ in the generated script; return-type ‘txt’ is just a short form of ‘String’.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="w"> </span><span class="bp">∇</span><span class="w"> </span><span class="nv">res</span><span class="kd">←</span><span class="nv">Set</span><span class="w"> </span><span class="nv">arg</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="c1">⍝ Set named data to value</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="bp">:</span><span class="nv">Access</span><span class="w"> </span><span class="nv">Public</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="bp">:</span><span class="nv">ParameterList</span><span class="w"> </span><span class="nv">String</span><span class="w"> </span><span class="nv">name</span><span class="o">,</span><span class="nv">Int32</span><span class="sr">[]</span><span class="w"> </span><span class="nv">value</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="bp">:</span><span class="nv">Returns</span><span class="w"> </span><span class="nv">String</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w"> </span><span class="bp">:</span><span class="nv">Trap</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">   </span><span class="nv">res</span><span class="kd">←</span><span class="c1">##.regfns.Set arg</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w"> </span><span class="bp">:</span><span class="nv">Else</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">   </span><span class="p">(</span><span class="nv">Exception</span><span class="na">.</span><span class="nv">New</span><span class="w"> </span><span class="o">∊</span><span class="nf">⎕AV</span><span class="sr">[</span><span class="m">2</span><span class="o">+</span><span class="nf">⎕IO</span><span class="sr">]</span><span class="o">,</span><span class="na">¨</span><span class="m">2</span><span class="o">↑</span><span class="nf">⎕DM</span><span class="p">)</span><span class="w"> </span><span class="nf">⎕SIGNAL</span><span class="w"> </span><span class="m">90</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w"> </span><span class="bp">:</span><span class="nv">EndTrap</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w"> </span><span class="bp">∇</span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w"> </span><span class="bp">∇</span><span class="w"> </span><span class="nv">res</span><span class="kd">←</span><span class="nv">Set_ovl1</span><span class="w"> </span><span class="nv">arg</span>
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="bp">:</span><span class="nv">Access</span><span class="w"> </span><span class="nv">Public</span>
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="bp">:</span><span class="nv">ParameterList</span><span class="w"> </span><span class="nv">String</span><span class="w"> </span><span class="nv">name</span><span class="o">,</span><span class="nv">Double</span><span class="sr">[]</span><span class="w"> </span><span class="nv">value</span>
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="bp">:</span><span class="nv">Returns</span><span class="w"> </span><span class="nv">String</span>
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="bp">:</span><span class="nv">Implements</span><span class="w"> </span><span class="nv">Method</span><span class="w"> </span><span class="nv">Set</span>
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="w">  </span><span class="nv">res</span><span class="kd">←</span><span class="nv">Set</span><span class="w"> </span><span class="nv">arg</span>
+</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="w"> </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>It is really a matter of taste whether you put this variable in root and have the second column qualify the names, or whether you put it in the namespace where the legacy code lives. Either way, you can conveniently use column-2 in the editor to drill-down to the real, underlying code from the public names.</p>
+<p>Finally, we must include the legacy code itself!</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1">⍝ ======= Internal NS =======</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w"> </span><span class="o">*</span><span class="nv">regfns</span>
+</span></code></pre></div>
+<p>As you probably guessed, I used <code>*</code> as a marker to say ‘here comes an APL namespace’ so this just loops through and emits everything needed to rebuild the namespace (including any subnamespaces unto the nth generation). It is NOT within the :Class block so the C# programmer never sees any of it.</p>
+<h3 id="a-small-enhancement-request">A small enhancement request!<a class="headerlink" href="#a-small-enhancement-request" title="Permanent link">&para;</a></h3>
+<p>One annoying snag with this is that you can only put variables into the script by carefully creating the expression that (when executed) regenerates the variable. For a deeply nested array, this takes significant time, and for nested arrays with empty bits it is hard to reproduce exactly the array you started from. It would be really nice if (say) <code>qq←1 ⎕OR'Abstract'</code> returned the internal representation as a simple byte vector and <code>2 ⎕OR qq</code> reversed the situation. Then we could create a script from a namespace much more economically. It could be quite handy for interprocess communication via SOAP, which might encourage them to attempt something similar! I think Morten Kromberg has an interpreter-neutral format?</p>
+<h2 id="anyway-better-test-it">Anyway, better test it!<a class="headerlink" href="#anyway-better-test-it" title="Permanent link">&para;</a></h2>
+<p>We run the ‘make’ variable to write out the file in APLScript format:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="s1">'d:\tools\aplc\asl'</span><span class="w"> </span><span class="nv">UPut</span><span class="w"> </span><span class="s1">'DLL'</span><span class="w"> </span><span class="nv">Make</span><span class="w"> </span><span class="nv">∆asl</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="m">34738</span><span class="w"> </span><span class="nv">bytes</span><span class="w"> </span><span class="nv">written</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">d</span><span class="bp">:</span><span class="na">\</span><span class="nv">tools</span><span class="na">\</span><span class="nv">aplc</span><span class="na">\</span><span class="nv">asl</span><span class="na">.</span><span class="nv">apl</span>
+</span></code></pre></div>
+<p>… and we compile it to a DLL with the Dyalog compiler:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>D:\Tools\aplc&gt;aplc asl.apl /t:library /runtime /v
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>Dyalog APLScript compiler. Version 10.0
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>Copyright Dyadic Systems Ltd 2002
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>Got Startup Parameters
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>Reading asl.apl
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>Processing asl.apl
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>Processed asl.apl
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>Emitted File asl.dll
+</span></code></pre></div>
+<p>… and we hack together some C# code to test it:</p>
+<div class="language-csharp highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">using</span><span class="w"> </span><span class="nn">System</span><span class="p">;</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="k">namespace</span><span class="w"> </span><span class="nn">asl</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="p">{</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">asltest</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="w">  </span><span class="n">greg</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">greg</span><span class="p">();</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="w"> </span><span class="c1">// greg.VERSION Returns String[]</span>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="w">  </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">ss</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">test</span><span class="p">.</span><span class="n">Version</span><span class="p">())</span><span class="w"> </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">ss</span><span class="p">);</span>
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="w"> </span><span class="c1">// greg.Set covers data import returning String "xxx defined"</span>
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="w"> </span><span class="c1">// Accepts int[] and double[] here</span>
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="w">  </span><span class="kt">int</span><span class="p">[]</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">};</span>
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="w">  </span><span class="kt">double</span><span class="p">[]</span><span class="w"> </span><span class="n">wt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">1.4</span><span class="p">,</span><span class="w"> </span><span class="mf">2.2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mf">5.7</span><span class="p">,</span><span class="w"> </span><span class="mf">7.1</span><span class="p">,</span><span class="w"> </span><span class="mf">8.9</span><span class="p">,</span><span class="w"> </span><span class="mf">10.2</span><span class="p">};</span>
+</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a><span class="w">  </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">test</span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="s">"Age"</span><span class="p">,</span><span class="n">age</span><span class="p">));</span>
+</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a><span class="w">  </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">test</span><span class="p">.</span><span class="n">Set</span><span class="p">(</span><span class="s">"Wt"</span><span class="p">,</span><span class="n">wt</span><span class="p">));</span>
+</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a><span class="w"> </span><span class="c1">// greg.Yvar names the variable to model</span>
+</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a><span class="w">   </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">test</span><span class="p">.</span><span class="n">Yvar</span><span class="p">(</span><span class="s">"Wt"</span><span class="p">));</span>
+</span><span id="__span-17-19"><a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a><span class="w"> </span><span class="c1">// greg.Fit fits a model and returns some info about it</span>
+</span><span id="__span-17-20"><a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a><span class="w">     </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">ss</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">test</span><span class="p">.</span><span class="n">Fit</span><span class="p">(</span><span class="s">"GM+Age"</span><span class="p">))</span><span class="w"> </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">ss</span><span class="p">);</span>
+</span><span id="__span-17-21"><a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a><span class="w"> </span><span class="c1">// greg.Display tells us more about what went on</span>
+</span><span id="__span-17-22"><a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a><span class="w">     </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">ss</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">test</span><span class="p">.</span><span class="n">Display</span><span class="p">(</span><span class="s">"EST"</span><span class="p">))</span><span class="w"> </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">ss</span><span class="p">);</span>
+</span><span id="__span-17-23"><a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a><span class="w"> </span><span class="c1">// greg.Diagnostics lists the data and fitted values</span>
+</span><span id="__span-17-24"><a id="__codelineno-17-24" name="__codelineno-17-24" href="#__codelineno-17-24"></a><span class="w">     </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">ss</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">test</span><span class="p">.</span><span class="n">Diagnostics</span><span class="p">(</span><span class="s">"FRCL"</span><span class="p">))</span><span class="w"> </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">ss</span><span class="p">);</span>
+</span><span id="__span-17-25"><a id="__codelineno-17-25" name="__codelineno-17-25" href="#__codelineno-17-25"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-17-26"><a id="__codelineno-17-26" name="__codelineno-17-26" href="#__codelineno-17-26"></a><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-17-27"><a id="__codelineno-17-27" name="__codelineno-17-27" href="#__codelineno-17-27"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>We compile it (the C# compiler is free, just like all the other tools you need here):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>D:\Tools\aplc&gt;csc /r:asl.dll tryasl.cs
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>Microsoft (R) Visual C# .NET Compiler version 7.00.9466
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>for Microsoft (R) .NET Framework version 1.0.3705
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>Copyright (C) Microsoft Corporation 2001. All rights reserved.
+</span></code></pre></div>
+<p>… and we can run it.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>D:\Tools\aplc&gt;tryasl
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>Regression Volume 1 Version 1.1
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>A.M.Sykes, December 1991
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>Copyright(C) British APL Association 1991
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>Age defined
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>Wt defined
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>Y variable is Wt
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>Units set to 7
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>Source              ss          df      ms
+</span><span id="__span-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>------              --          --      --
+</span><span id="__span-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a>Due to model        69.52       1       69.52
+</span><span id="__span-19-15"><a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a>Residual             0.6784     5        0.1357
+</span><span id="__span-19-16"><a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a>------------------------------------------------
+</span><span id="__span-19-17"><a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a>Total Corrected     70.2        6       11.7
+</span><span id="__span-19-18"><a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a>
+</span><span id="__span-19-19"><a id="__codelineno-19-19" name="__codelineno-19-19" href="#__codelineno-19-19"></a>Percentage Variation Accounted for =  99.03
+</span><span id="__span-19-20"><a id="__codelineno-19-20" name="__codelineno-19-20" href="#__codelineno-19-20"></a>F-statistic =                        512.36
+</span><span id="__span-19-21"><a id="__codelineno-19-21" name="__codelineno-19-21" href="#__codelineno-19-21"></a>p-value =                              0.00
+</span></code></pre></div>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>"In the land of the blind, the one-eyed man is king". I can’t claim to be an expert on this stuff, but I think I have fallen into most of the Heffalump traps and have understood just enough to make it work. We have GraPL.net customers yelling for it, so I have every reason to make it work as soon as I possibly can.</p>
+<p>Will it take over the world? Well it sure beats programming with COM, registering OCXs and all that garbage. I think it will hit the server world quite quickly, which is why I want to be out there with it. As for the desktop – Microsoft missed the boat by not including the runtime support with XP, so give it 5 years and have another look around to see if enough people have upgraded their copy of Office to make it safe to ship. That gives us lots of learning time – don’t waste it, because if this does go mainstream it is a real opportunity for APL to rejoin the party as ‘just another language’. Anyway, Dyalog deserve our support, don’t you think?</p></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">system interfaces</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">implementations</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

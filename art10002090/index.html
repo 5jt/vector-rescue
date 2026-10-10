@@ -1,0 +1,1934 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10002090/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Functional Implementation of Moments Based Region Descriptors in J - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#abstract" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Functional Implementation of Moments Based Region Descriptors in J
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Abstract
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introduction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-the-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reading the image
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reading the image">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Description
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Functions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Results
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Other functions
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Other functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Description
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Functions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Results
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calculating-the-moments" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Calculating the moments
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Calculating the moments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Description
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Functions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Results
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#area" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Area
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Area">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Description
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Functions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Results
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#centre-of-mass" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Centre of Mass
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Centre of Mass">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Description
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Functions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Results
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#central-moments" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Central moments
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Central moments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Description
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Functions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Results
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#orientation-axis" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Orientation Axis
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Orientation Axis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Description
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Functions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Results
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-ellipse" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Image ellipse
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image ellipse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Description
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Functions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Results
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conclusion
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-a-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix A - Images
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendix A - Images">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#image-test1txt" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Image "test1.txt"
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image-test2txt" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Image "test2.txt"
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Functional Implementation of Moments Based Region Descriptors in J</h1>
+
+  <p class="printed"><a href="../16/#n3-january-2000">Vector 16:3</a>, page 99</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-mathematics-and-statistics">mathematics and statistics</a> <a class="md-tag" href="../tags/#tag-applications">applications</a> <a class="md-tag" href="../tags/#tag-programming-techniques">programming techniques</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../16/3/VOL.16-NO.3-JANUARY-2000.pdf#page=101">Read it in the PDF of the issue, page 99</a></em></p>
+<p class="byline"><em>by C. Anne Chamley</em></p>
+<h2 id="abstract">Abstract<a class="headerlink" href="#abstract" title="Permanent link">&para;</a></h2>
+<p>For many years, the field of computer vision has been concerned with accurate ways of describing shapes. One manner of describing shapes is to use statistical region based descriptors. Moments invariants are often used for this purpose, and are a well respected method of description. The following article describes the use of functional programming, using the J language, to implement six moment based descriptors for the description of icebergs in blob coloured images.</p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>The theory of computer vision relies upon the ability to accurately describe objects or phenomena. These descriptions can then be used for pattern matching, or object recognition, for example. Both of these tasks rely on accurately describing the concepts in an image, since any further processing uses these descriptions.</p>
+<p>In this article, we will be examining the implementation of a set of region based descriptors, which are derived from moments theory. A moment is a statistical measure of the properties of an object, and different properties can be derived from the moments of an object. This paper will illustrate the implementation of six moments based descriptors, which use the zeroth, first and second order moments.</p>
+<p>A discussion of the theoretical basis of moments theory is beyond the scope of this paper, and will not be discussed here. For more information, refer to Prokop and Reeves (1992).</p>
+<p>Moments techniques are particularly suited to image analysis because they can be adapted to use an array based approach. Since many data analysis packages have optimised array operations (e.g. IDL), it is convenient and efficient to have techniques that can exploit these array optimisations.</p>
+<h2 id="reading-the-image">Reading the image<a class="headerlink" href="#reading-the-image" title="Permanent link">&para;</a></h2>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>The first step is to read in the image. The image is input as a text file, where each row is separated by a carriage return and line feed. These files are of variable length, both in the number of rows and the length of each row. Each image is a blob coloured image, produced by the SARTRACKER system (Williams <em>et al</em>, 1998). Images are included in the appendix for further information.</p>
+<h3 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h3>
+<p>The unprocessed file can be read in using the following monadic functions, taking the file name as the argument:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nv">filename</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="o">,~&amp;</span><span class="w"> </span><span class="s">'c:\windows\desktop\'</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">read</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="mi">1</span><span class="o">!:</span><span class="mi">1</span><span class="o">@&lt;@</span><span class="nv">filename</span>
+</span></code></pre></div>
+<p>The input file is a text file, where each row is separated by a carriage return and line feed (ASCII codes 13 and 10, respectively). To perform the moments calculations on the image, it must first be converted to a numerical array, which can be easily achieved using the <code>".</code> or ‘do’ function. However, this function does not produce the desired result unless the text file is first stripped of the carriage return and line feeds.</p>
+<p>Two basic functions were developed to accomplish the task; <code>getl</code> and <code>takel</code>. The <code>getl</code> function takes a copy of the file until the next carriage return character. The <code>takel</code> function then removes the next line from the array, including the carriage return and line feed. The result of this two step process is that we have the first row of the array, free of line feeds and able to be changed from text to numeric data.</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">getl</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="o">{.~</span><span class="w"> </span><span class="nv">i</span><span class="o">.&amp;</span><span class="p">(</span><span class="nv">a</span><span class="o">.</span><span class="w"> </span><span class="o">{~</span><span class="w"> </span><span class="mi">13</span><span class="p">)</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nv">takel</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="o">}.~</span><span class="w"> </span><span class="p">(</span><span class="o">+~&amp;</span><span class="mi">2</span><span class="o">@</span><span class="w"> </span><span class="nv">i</span><span class="o">.&amp;</span><span class="p">(</span><span class="nv">a</span><span class="o">.</span><span class="w"> </span><span class="o">{~</span><span class="w"> </span><span class="mi">13</span><span class="p">))</span>
+</span></code></pre></div>
+<p>The next step is to use these functions repeatedly, in order to strip the end lines from every row of the image. Since we do not know how long each row will be, or how many rows there are, we need to use an approach that will continue reading data until there is no data remaining. When used with the right argument of infinity, the power operator can perform this function. The plan then, is to produce a fork to box the unprocessed text file, and to catenate an empty box to the front of this.</p>
+<p>This is implemented as the boxed read (<code>br</code>) function:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">br</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="o">;~&amp;</span><span class="s">''</span><span class="o">@</span><span class="p">(</span><span class="o">&lt;@</span><span class="nv">read</span><span class="p">)</span>
+</span></code></pre></div>
+<p>In order to move rows from one side of the box to the other, a simple head and tail function were implemented:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nv">tl</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="o">,@</span><span class="p">(</span><span class="o">&gt;&amp;}.</span><span class="p">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nv">hd</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="o">,@</span><span class="p">(</span><span class="o">&gt;&amp;{.</span><span class="p">)</span>
+</span></code></pre></div>
+<p>These can then be used in a fork which retrieves one line of the text file:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nv">gol</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="p">(</span><span class="nv">hd</span><span class="o">,</span><span class="nv">getl</span><span class="o">@</span><span class="nv">tl</span><span class="p">)</span><span class="w"> </span><span class="o">;</span><span class="w"> </span><span class="p">(</span><span class="nv">takel</span><span class="o">@</span><span class="nv">tl</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Which can then be used with the <code>^: _</code>, as described above, to read in the entire text file.</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nv">readfile</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="o">".&amp;</span><span class="nv">hd</span><span class="o">@</span><span class="p">(</span><span class="nv">gol</span><span class="o">^:</span><span class="m">_</span><span class="o">@</span><span class="nv">br</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="results">Results<a class="headerlink" href="#results" title="Permanent link">&para;</a></h3>
+<p>The functions to read the file produce large arrays of data. For readability, the images used in the functions have been included in the Appendix. As a consequence, the results of these functions will not be shown here, as they are the basis of the other functions in this paper.</p>
+<h2 id="other-functions">Other functions<a class="headerlink" href="#other-functions" title="Permanent link">&para;</a></h2>
+<h3 id="description_1">Description<a class="headerlink" href="#description_1" title="Permanent link">&para;</a></h3>
+<p>At this stage, it is convenient to describe a few simple utility functions, which are later used to compose more sophisticated functions.</p>
+<h3 id="functions_1">Functions<a class="headerlink" href="#functions_1" title="Permanent link">&para;</a></h3>
+<p>The first of these gives the number of elements in an array:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">nele</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="o">#</span><span class="w"> </span><span class="nv">readfile</span>
+</span></code></pre></div>
+<p>The next two functions, as the names suggest, give the number of rows and columns, respectively, in an image.</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nv">rows</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="o">+/&amp;</span><span class="p">(</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="mi">13</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="p">(</span><span class="nv">a</span><span class="o">.&amp;</span><span class="nv">i</span><span class="o">.</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="nv">read</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nv">cols</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="nv">nele</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="nv">rows</span>
+</span></code></pre></div>
+<p>Finally, the <code>numberg</code> function gives the number of icebergs in an image:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nv">numberg</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="o">#@~.@</span><span class="nv">readfile</span>
+</span></code></pre></div>
+<h3 id="results_1">Results<a class="headerlink" href="#results_1" title="Permanent link">&para;</a></h3>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nv">rows</span><span class="w"> </span><span class="s">'test1.txt'</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="mi">22</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nv">rows</span><span class="w"> </span><span class="s">'test2.txt'</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="mi">23</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="nv">cols</span><span class="w"> </span><span class="s">'test1.txt'</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="mi">16</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="nv">cols</span><span class="w"> </span><span class="s">'test2.txt'</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="mi">31</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="nv">nele</span><span class="w"> </span><span class="s">'test1.txt'</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="mi">352</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="nv">nele</span><span class="w"> </span><span class="s">'test2.txt'</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="mi">713</span>
+</span></code></pre></div>
+<h2 id="calculating-the-moments">Calculating the moments<a class="headerlink" href="#calculating-the-moments" title="Permanent link">&para;</a></h2>
+<h3 id="description_2">Description<a class="headerlink" href="#description_2" title="Permanent link">&para;</a></h3>
+<p>Moments are a well established statistical measure, used traditionally to show the amount of variance in a statistical sample (Prokop and Reeves, 1992). However, Hu showed that moments theory can equally be applied to images, in order to gain information about the spatial properties of regions within the image (Hu, 1962). The moments for an unoccluded object in a discrete image can he given by:</p>
+<blockquote>
+<p><em>m</em><sub><em>pq</em></sub> = Σ<sub><em>y</em>=0</sub><sup><em>M</em>−1</sup> Σ<sub><em>x</em>=0</sub><sup><em>N</em>−1</sup> <em>x</em><sup><em>p</em></sup><em>y</em><sup><em>q</em></sup><em>g</em>(<em>x</em>,<em>y</em>)    (Sonka <em>et al</em>, 1993)</p>
+</blockquote>
+<p>Where:</p>
+<blockquote>
+<p><em>M</em> is the number of columns<br>
+<em>N</em> is the number of rows<br>
+<em>g</em> is the binary image of an object.</p>
+</blockquote>
+<h3 id="functions_2">Functions<a class="headerlink" href="#functions_2" title="Permanent link">&para;</a></h3>
+<p>To consistently use the array based approach, we first construct an array containing the x and y co-ordinates of the image. This is done by using the <code>i.</code> operator to make an array that contains every integer between 0 and n-1, where n is the number of items in each row. This is determined by dividing the number of elements by the number of rows. Similarly, the y array is calculated by using the <code>i.</code> to make an array from 0 to n-1, where n is the number of rows.</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nv">xarr</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="nv">cols</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nv">i</span><span class="o">.&amp;</span><span class="nv">nele</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nv">yarr</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="nv">cols</span><span class="w"> </span><span class="o">&lt;.@%~</span><span class="w"> </span><span class="nv">i</span><span class="o">.&amp;</span><span class="nv">nele</span>
+</span></code></pre></div>
+<p>At this point, the image is a one-dimensional array. We can easily translate this into a two-dimensional array by reshaping the array by the number of columns, but it is more convenient for the moment to leave the image as a one-dimensional array. However, to perform the moments calculations, we need to produce a binary image of each iceberg. The way that this has been achieved is to use a fork which produces a binary image for each ID number indicated by taking the nub of the image.</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nv">lab</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="nv">readfile</span><span class="w"> </span><span class="o">="</span><span class="m">_</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">~.@</span><span class="nv">readfile</span>
+</span></code></pre></div>
+<p>The moments is calculated by producing a fork, where the left component is the x array to the power of p, and the right component is a fork that multiplies y to the power of q by the value of the image at each pixel. The right argument of the top level fork is the name of the image file, and the left argument is a vector containing the order of the vector to be calculated. For example, <code>0 0 moment 'image.txt'</code> will give the zeroth order moment of the image in the file "image.txt".</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nv">moment</span><span class="w"> </span><span class="o">=:</span><span class="w"> </span><span class="o">+/</span><span class="mi">1</span><span class="o">@</span><span class="p">(((</span><span class="nv">xarr</span><span class="o">@]</span><span class="p">)</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="o">{.@[</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">((</span><span class="nv">yarr</span><span class="o">@]</span><span class="p">)</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="o">{.@}.@[</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="m">_</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nv">lab</span><span class="o">@]</span><span class="p">)</span>
+</span></code></pre></div>
+<p>The result of this function is a vector, where each element is the moment of an region in the image. The identifier of the region can be obtained by the nub or the image, using the <code>~.</code> operator. For example, <code>~.@readfile 'test1.txt'</code> gives the vector <code>1 2 3 4 5</code>, meaning that any region based statistics will refer to the regions in this order. Similarly, <code>~.@readfile 'test2.txt'</code> produces <code>1 4 2 3</code>. All other region descriptors discussed in this paper produce vectors which should be interpreted in a similar manner.</p>
+<h3 id="results_2">Results<a class="headerlink" href="#results_2" title="Permanent link">&para;</a></h3>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nv">moment</span><span class="w"> </span><span class="s">'test1.txt'</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="mi">72</span><span class="w"> </span><span class="mi">183</span><span class="w"> </span><span class="mi">44</span><span class="w"> </span><span class="mi">17</span><span class="w"> </span><span class="mi">36</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nv">moment</span><span class="w"> </span><span class="s">'test2.txt'</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="mi">104</span><span class="w"> </span><span class="mi">490</span><span class="w"> </span><span class="mi">44</span><span class="w"> </span><span class="mi">75</span>
+</span></code></pre></div>
+<h2 id="area">Area<a class="headerlink" href="#area" title="Permanent link">&para;</a></h2>
+<h3 id="description_3">Description<a class="headerlink" href="#description_3" title="Permanent link">&para;</a></h3>
+<p>The first region based descriptor to be calculated from the moments is also the simplest. The zeroth order moment gives the area of a region. Therefore, the area can be obtained by:</p>
+<blockquote>
+<p><em>m</em><sub>00</sub> = Σ<sub><em>y</em>=0</sub><sup><em>M</em>−1</sup> Σ<sub><em>x</em>=0</sub><sup><em>N</em>−1</sup> <em>x</em><sup>0</sup><em>y</em><sup>0</sup><em>g</em>(<em>x</em>,<em>y</em>)    (Prokop <em>et al</em>, 1992)</p>
+</blockquote>
+<h3 id="functions_3">Functions<a class="headerlink" href="#functions_3" title="Permanent link">&para;</a></h3>
+<p>An examination of this formula shows that this gives a simple count of all pixels in the region. This is implemented by a fork, which binds the vector 0 0 to the moment function, forcing it to take 0 0 as the left argument.</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nv">area</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="o">&amp;</span><span class="nv">moment</span>
+</span></code></pre></div>
+<h3 id="results_3">Results<a class="headerlink" href="#results_3" title="Permanent link">&para;</a></h3>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nv">area</span><span class="w"> </span><span class="s">'test1.txt'</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="mi">72</span><span class="w"> </span><span class="mi">183</span><span class="w"> </span><span class="mi">44</span><span class="w"> </span><span class="mi">17</span><span class="w"> </span><span class="mi">36</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="nv">area</span><span class="w"> </span><span class="s">'test2.txt'</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="mi">104</span><span class="w"> </span><span class="mi">490</span><span class="w"> </span><span class="mi">44</span><span class="w"> </span><span class="mi">75</span>
+</span></code></pre></div>
+<h2 id="centre-of-mass">Centre of Mass<a class="headerlink" href="#centre-of-mass" title="Permanent link">&para;</a></h2>
+<h3 id="description_4">Description<a class="headerlink" href="#description_4" title="Permanent link">&para;</a></h3>
+<p>The centre of mass (COM) can be described as the point about which all mass is evenly distributed – the centre of th object. The centre of mass (denoted by <em>x̄</em> and <em>ȳ</em>) is obtained through the first order moments, using the following equations:</p>
+<blockquote>
+<p><em>x̄</em> = <em>m</em><sub>10</sub> / <em>m</em><sub>00</sub>    <em>ȳ</em> = <em>m</em><sub>01</sub> / <em>m</em><sub>00</sub>    (Prokop <em>et al</em>, 1992)</p>
+</blockquote>
+<h3 id="functions_4">Functions<a class="headerlink" href="#functions_4" title="Permanent link">&para;</a></h3>
+<p>This can be achieved by formulating a visually complex, yet quite simple fork:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nv">com</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="p">(</span><span class="mi">2</span><span class="o">&amp;,@</span><span class="w"> </span><span class="nv">numberg</span><span class="p">)</span><span class="o">$</span><span class="p">((</span><span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="o">&amp;</span><span class="nv">moment</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="o">&amp;</span><span class="nv">moment</span><span class="p">)</span><span class="o">,</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="p">(</span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="o">&amp;</span><span class="nv">moment</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="o">&amp;</span><span class="nv">moment</span><span class="p">))</span>
+</span></code></pre></div>
+<p>The result of this function is a two-dimensional array, where the first row of the array gives the x location of the COM for each shape, and the second row is the y co-ordinates of the COM for each shape. Thus, each column gives the complete COM for each shape. These can be indexed in the same way as the moments data - via the nub of the image.</p>
+<h3 id="results_4">Results<a class="headerlink" href="#results_4" title="Permanent link">&para;</a></h3>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nv">com</span><span class="w"> </span><span class="s">'test1.txt'</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="mf">7.</span><span class="mi">5</span><span class="w">      </span><span class="mf">8.</span><span class="mi">2459</span><span class="w">    </span><span class="mf">5.</span><span class="mi">77273</span><span class="w">    </span><span class="mf">9.</span><span class="mi">29412</span><span class="w">    </span><span class="mf">4.</span><span class="mi">97222</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="mf">10.</span><span class="mi">5</span><span class="w">      </span><span class="mf">9.</span><span class="mi">43716</span><span class="w">    </span><span class="mf">8.</span><span class="mi">02273</span><span class="w">   </span><span class="mf">15.</span><span class="mi">0588</span><span class="w">    </span><span class="mf">16.</span><span class="mi">7778</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="nv">com</span><span class="w"> </span><span class="s">'test2.txt'</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="mi">15</span><span class="w">       </span><span class="mf">14.</span><span class="mi">4735</span><span class="w">    </span><span class="mf">10.</span><span class="mi">0455</span><span class="w">    </span><span class="mf">21.</span><span class="mi">3467</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="mi">11</span><span class="w">       </span><span class="mf">10.</span><span class="mi">7939</span><span class="w">    </span><span class="mf">10.</span><span class="mi">6364</span><span class="w">    </span><span class="mf">12.</span><span class="mi">56</span>
+</span></code></pre></div>
+<h2 id="central-moments">Central moments<a class="headerlink" href="#central-moments" title="Permanent link">&para;</a></h2>
+<h3 id="description_5">Description<a class="headerlink" href="#description_5" title="Permanent link">&para;</a></h3>
+<p>The central moments of an image can be used to calculate more advanced descriptors, and are denoted as <em>μ</em><sub><em>pq</em></sub>. The central moments are formed by calculating the centre of mass, then translating the objects such that the centre of mass is coincident with the origin of the image. The moments calculated on this normalised image (using the equation for moments as given above) are known as the central moments (Prokop <em>et al</em>, 1992).</p>
+<h3 id="functions_5">Functions<a class="headerlink" href="#functions_5" title="Permanent link">&para;</a></h3>
+<p>As discussed above, the COM can be used to reposition the object so that the COM is coincident with the origin of the image. In keeping with our array based approach, we can simulate this by altering the x and y arrays, according to the value of the COM.</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nv">cxarr</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="p">(</span><span class="nv">xarr</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">"</span><span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">{.@</span><span class="nv">com</span><span class="p">)</span><span class="o">@]</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="o">{.@[</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="nv">cyarr</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="p">(</span><span class="nv">yarr</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">"</span><span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">(</span><span class="o">,@}.@</span><span class="nv">com</span><span class="p">))</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="o">{.@}.@[</span>
+</span></code></pre></div>
+<p>These altered x and y coordinates can be used to calculate the central moments of an object, by substituting the altered x array for the original x array, and likewise with the y array. Thus:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nv">mu</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="o">+/"</span><span class="mi">1</span><span class="o">@</span><span class="p">(</span><span class="nv">cxarr</span><span class="o">*</span><span class="nv">cyarr</span><span class="o">*</span><span class="nv">lab</span><span class="o">@]</span><span class="p">)</span>
+</span></code></pre></div>
+<p>The central moments are denoted by <em>μ</em><sub><em>pq</em></sub>.</p>
+<h3 id="results_5">Results<a class="headerlink" href="#results_5" title="Permanent link">&para;</a></h3>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nv">mu</span><span class="w"> </span><span class="s">'test1.txt'</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="mi">0</span><span class="w"> </span><span class="m">1.65201e_13</span><span class="w"> </span><span class="m">1.06581e_14</span><span class="w"> </span><span class="m">_1.24345e_14</span><span class="w"> </span><span class="m">2.04281e_14</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nv">mu</span><span class="w"> </span><span class="s">'test2.txt'</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="mi">0</span><span class="w"> </span><span class="m">_1.7053e_13</span><span class="w"> </span><span class="m">_1.95399e_14</span><span class="w"> </span><span class="m">_7.10543e_14</span>
+</span></code></pre></div>
+<h2 id="orientation-axis">Orientation Axis<a class="headerlink" href="#orientation-axis" title="Permanent link">&para;</a></h2>
+<h3 id="description_6">Description<a class="headerlink" href="#description_6" title="Permanent link">&para;</a></h3>
+<p>The orientation axis gives some sense of direction to the object. The formula below describes φ, which is the angle between the x axis, and the principal axis, major or minor, which is closest to the x axis.</p>
+<blockquote>
+<p>φ = ½ tan<sup>−1</sup>( 2<em>μ</em><sub>11</sub> / (<em>μ</em><sub>20</sub> − <em>μ</em><sub>02</sub>) )    (Prokop <em>et al</em>, 1992)</p>
+</blockquote>
+<h3 id="functions_6">Functions<a class="headerlink" href="#functions_6" title="Permanent link">&para;</a></h3>
+<p>Implementing φ in J requires only slight complexity, using a fork of the form:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nv">fi</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="o">+:@</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="mi">1</span><span class="o">&amp;</span><span class="nv">mu</span><span class="p">)</span><span class="w"> </span><span class="o">-:@</span><span class="p">(</span><span class="mi">_3</span><span class="o">&amp;</span><span class="nv">o</span><span class="o">.@%</span><span class="p">)</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">0</span><span class="o">&amp;</span><span class="nv">mu</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">2</span><span class="o">&amp;</span><span class="nv">mu</span>
+</span></code></pre></div>
+<h3 id="results_6">Results<a class="headerlink" href="#results_6" title="Permanent link">&para;</a></h3>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nv">fi</span><span class="w"> </span><span class="s">'test1.txt'</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="mi">0</span><span class="w">    </span><span class="mf">_0.</span><span class="mi">118375</span><span class="w">    </span><span class="mf">0.</span><span class="mi">0137031</span><span class="w">    </span><span class="mf">_0.</span><span class="mi">0341932</span><span class="w">    </span><span class="mf">0.</span><span class="mi">531458</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="nv">fi</span><span class="w"> </span><span class="s">'test2.txt'</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="mi">0</span><span class="w">    </span><span class="mf">_0.</span><span class="mi">0495822</span><span class="w">   </span><span class="mf">0.</span><span class="mi">310555</span><span class="w">   </span><span class="mf">_0.</span><span class="mi">378673</span>
+</span></code></pre></div>
+<h2 id="image-ellipse">Image ellipse<a class="headerlink" href="#image-ellipse" title="Permanent link">&para;</a></h2>
+<h3 id="description_7">Description<a class="headerlink" href="#description_7" title="Permanent link">&para;</a></h3>
+<p>The image ellipse describes the ellipse which most closely fits a shape - that is, an ellipse about which all the first order moments are the same as the actual object. The image ellipse is defined in terms of a major and minor axis, which can be calculated using the following formulae:</p>
+<blockquote>
+<p>α = ( 2[ <em>μ</em><sub>20</sub> + <em>μ</em><sub>02</sub> + √((<em>μ</em><sub>20</sub> − <em>μ</em><sub>02</sub>)<sup>2</sup> + 4<em>μ</em><sub>11</sub><sup>2</sup>) ] / <em>μ</em><sub>00</sub> )<sup>½</sup>    (Prokop <em>et al</em>, 1992)</p>
+<p>β = ( 2[ <em>μ</em><sub>20</sub> + <em>μ</em><sub>02</sub> − √((<em>μ</em><sub>20</sub> − <em>μ</em><sub>02</sub>)<sup>2</sup> + 4<em>μ</em><sub>11</sub><sup>2</sup>) ] / <em>μ</em><sub>00</sub> )<sup>½</sup>    (Prokop <em>et al</em>, 1992)</p>
+</blockquote>
+<p>Where α is the major radius and β is the minor radius of the ellipse. Obviously, the approximate length and width of the region will be twice the value of the major and minor radii (respectively).</p>
+<p>The intensity of the image ellipse is a measure of how well the ellipse fits the object. This is a very simple calculation, and is specified by:</p>
+<blockquote>
+<p><em>I</em> = <em>μ</em><sub>00</sub> / <em>παβ</em></p>
+</blockquote>
+<h3 id="functions_7">Functions<a class="headerlink" href="#functions_7" title="Permanent link">&para;</a></h3>
+<p>The calculation of the principal axes was implemented using two rather complex forks:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nv">top</span><span class="w"> </span><span class="o">=:</span><span class="p">(</span><span class="o">+:@+:@*:@</span><span class="nv">mu</span><span class="o">~&amp;</span><span class="mi">1</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">%:@+</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">0</span><span class="o">&amp;</span><span class="nv">mu</span><span class="w"> </span><span class="o">*:@-</span><span class="mi">0</span><span class="w"> </span><span class="mi">2</span><span class="o">&amp;</span><span class="nv">mu</span><span class="p">)</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="nv">major</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="o">&amp;</span><span class="nv">mu</span><span class="w"> </span><span class="o">%:@%~</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">0</span><span class="o">&amp;</span><span class="nv">mu</span><span class="w"> </span><span class="o">+:@+</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">2</span><span class="o">&amp;</span><span class="nv">mu</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">top</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="nv">minor</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="o">&amp;</span><span class="nv">mu</span><span class="w"> </span><span class="o">%:@%~</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">0</span><span class="o">&amp;</span><span class="nv">mu</span><span class="w"> </span><span class="o">+:@+</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">2</span><span class="o">&amp;</span><span class="nv">mu</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">top</span>
+</span></code></pre></div>
+<p>The intensity also makes a simple fork, using the major and minor functions:</p>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nv">I</span><span class="w"> </span><span class="o">=:</span><span class="w">  </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="o">&amp;</span><span class="nv">mu</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="nv">major</span><span class="w"> </span><span class="nv">o</span><span class="o">.@*</span><span class="w"> </span><span class="nv">minor</span>
+</span></code></pre></div>
+<h3 id="results_7">Results<a class="headerlink" href="#results_7" title="Permanent link">&para;</a></h3>
+<div class="language-j highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="nv">major</span><span class="w"> </span><span class="s">'test1.txt'</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="mf">16.</span><span class="mi">4283</span><span class="w">      </span><span class="mf">12.</span><span class="mi">045</span><span class="w">      </span><span class="mf">5.</span><span class="mi">64905</span><span class="w">     </span><span class="mf">2.</span><span class="mi">63637</span><span class="w">     </span><span class="mf">4.</span><span class="mi">4969</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="nv">major</span><span class="w"> </span><span class="s">'test2.txt'</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="mf">23.</span><span class="mi">5421</span><span class="w">      </span><span class="mf">17.</span><span class="mi">4863</span><span class="w">     </span><span class="mf">5.</span><span class="mi">19964</span><span class="w">     </span><span class="mf">6.</span><span class="mi">35354</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="nv">minor</span><span class="w"> </span><span class="s">'test1.txt'</span>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="mf">12.</span><span class="mi">7584</span><span class="w">      </span><span class="mf">9.</span><span class="mi">036</span><span class="w">       </span><span class="mf">2.</span><span class="mi">6229</span><span class="w">      </span><span class="mf">2.</span><span class="mi">21923</span><span class="w">     </span><span class="mf">2.</span><span class="mi">60758</span>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="nv">minor</span><span class="w"> </span><span class="s">'test2.txt'</span>
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="mf">18.</span><span class="mi">6486</span><span class="w">      </span><span class="mf">13.</span><span class="mi">2773</span><span class="w">     </span><span class="mf">2.</span><span class="mi">83953</span><span class="w">     </span><span class="mf">4.</span><span class="mi">12198</span>
+</span></code></pre></div>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>A functional approach to moments based descriptors provides a clear illustration of the simplicity of both the descriptors and the J language. The functions implemented in this paper illustrate how moments theory can be put to practical use in image processing, using blob coloured images. Further work in this area could include functions which would implement pattern matching over a number of images, using the region based descriptors implemented in this paper.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Holmes, W.N. "Functional Calculation" (series of articles to be offered for publication) 1996.</li>
+<li>Hu, M.K. "Visual pattern recognition by moments invariants" <em>IRE Transactions on Information Theory</em> IT-8, 179-187, 1962.</li>
+<li>Sonka, M, Hlavac, V., and Boyle, R. <em>Image Processing, Analysis and Machine Vision</em>. London: Chapman &amp; Hall, 1993.</li>
+<li>Williams, R.N., and Crowther, P. "Application of a Technique, based on Local Image Homogeneity, to delineate Spatial Objects in Satellite Images" In Publication, IJRS 1998.</li>
+<li>Prokop, R.J., and Reeves, A.P. "A survey of Moment-Based Techniques for Unoccluded Object Representation and Recognition" <em>CVGIP: Graphical Models and Image Processing</em> vol. 54, no. 5, September 1992.</li>
+</ol>
+<h2 id="appendix-a-images">Appendix A - Images<a class="headerlink" href="#appendix-a-images" title="Permanent link">&para;</a></h2>
+<p>Two images were used to test the functions described in this paper. The preprocessing of the images was completed by the SARTRACKER program (Williams, Rees and Young - see Williams <em>et al</em> 1998). The images depict icebergs in the Southern Oceans surrounding Antarctica, and the original images were synthetic aperture radar images from ERS-1. The images shown here are segmented, and each shade of grey represents a numerical value, depicting a region to which the pixel belongs. There are two regions in these images that do not depict icebergs. These are the border, and the background. Although these are treated in the same manner as icebergs, a cursory examination of the images reveals that they are not icebergs.</p>
+<h3 id="image-test1txt">Image "test1.txt"<a class="headerlink" href="#image-test1txt" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>1 2 2 2 2 2 3 3 2 2 2 2 2 2 2 1
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>1 2 2 2 2 3 3 3 2 2 2 2 2 2 2 1
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>1 2 2 2 3 3 3 3 2 2 2 2 2 2 2 1
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>1 2 2 2 3 3 3 3 3 2 2 2 2 2 2 1
+</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>1 2 2 3 3 3 3 3 3 2 2 2 2 2 2 1
+</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>1 2 2 3 3 3 3 3 3 2 2 2 2 2 2 1
+</span><span id="__span-26-10"><a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>1 2 2 2 3 3 3 3 3 2 2 2 2 2 2 1
+</span><span id="__span-26-11"><a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>1 2 2 2 3 3 3 3 2 2 2 2 2 2 2 1
+</span><span id="__span-26-12"><a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>1 2 2 2 2 3 3 3 2 2 2 2 2 2 2 1
+</span><span id="__span-26-13"><a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a>1 2 2 2 2 3 3 2 2 2 2 2 2 2 2 1
+</span><span id="__span-26-14"><a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a>1 2 2 2 2 3 3 3 2 2 2 4 2 2 2 1
+</span><span id="__span-26-15"><a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a>1 2 5 5 5 5 3 4 4 4 4 4 2 2 2 1
+</span><span id="__span-26-16"><a id="__codelineno-26-16" name="__codelineno-26-16" href="#__codelineno-26-16"></a>1 2 5 5 5 5 5 4 4 4 4 4 2 2 2 1
+</span><span id="__span-26-17"><a id="__codelineno-26-17" name="__codelineno-26-17" href="#__codelineno-26-17"></a>1 2 5 5 5 5 5 5 4 4 4 4 2 2 2 1
+</span><span id="__span-26-18"><a id="__codelineno-26-18" name="__codelineno-26-18" href="#__codelineno-26-18"></a>1 2 5 5 5 5 5 5 5 4 4 2 2 2 2 1
+</span><span id="__span-26-19"><a id="__codelineno-26-19" name="__codelineno-26-19" href="#__codelineno-26-19"></a>1 2 5 5 5 5 5 5 5 5 2 2 2 2 2 1
+</span><span id="__span-26-20"><a id="__codelineno-26-20" name="__codelineno-26-20" href="#__codelineno-26-20"></a>1 2 2 2 5 5 5 5 5 5 2 2 2 2 2 1
+</span><span id="__span-26-21"><a id="__codelineno-26-21" name="__codelineno-26-21" href="#__codelineno-26-21"></a>1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1
+</span><span id="__span-26-22"><a id="__codelineno-26-22" name="__codelineno-26-22" href="#__codelineno-26-22"></a>1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+</span></code></pre></div>
+<h3 id="image-test2txt">Image "test2.txt"<a class="headerlink" href="#image-test2txt" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 1
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 1
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 1
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 1
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 1
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 1
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 1
+</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>1 4 4 4 4 4 4 2 2 2 2 2 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 1
+</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>1 4 4 4 4 4 2 2 2 2 2 2 2 4 4 4 4 4 4 4 4 4 3 3 3 3 3 4 4 4 1
+</span><span id="__span-27-11"><a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>1 4 4 4 4 4 2 2 2 2 2 2 2 2 4 4 4 3 3 3 3 3 3 3 3 3 3 3 4 4 1
+</span><span id="__span-27-12"><a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a>1 4 4 4 4 4 2 2 2 2 2 2 2 2 2 4 4 3 3 3 3 3 3 3 3 3 3 3 3 4 1
+</span><span id="__span-27-13"><a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a>1 4 4 4 4 4 4 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 4 4 1
+</span><span id="__span-27-14"><a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a>1 4 4 4 4 4 4 4 2 2 2 4 4 2 2 2 3 3 3 3 3 3 3 3 3 4 3 4 4 4 1
+</span><span id="__span-27-15"><a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a>1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 3 3 3 4 4 4 4 4 4 1
+</span><span id="__span-27-16"><a id="__codelineno-27-16" name="__codelineno-27-16" href="#__codelineno-27-16"></a>1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 3 3 4 4 4 4 4 4 1
+</span><span id="__span-27-17"><a id="__codelineno-27-17" name="__codelineno-27-17" href="#__codelineno-27-17"></a>1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 3 4 4 4 4 4 4 1
+</span><span id="__span-27-18"><a id="__codelineno-27-18" name="__codelineno-27-18" href="#__codelineno-27-18"></a>1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 4 4 4 4 4 4 1
+</span><span id="__span-27-19"><a id="__codelineno-27-19" name="__codelineno-27-19" href="#__codelineno-27-19"></a>1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 1
+</span><span id="__span-27-20"><a id="__codelineno-27-20" name="__codelineno-27-20" href="#__codelineno-27-20"></a>1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 1
+</span><span id="__span-27-21"><a id="__codelineno-27-21" name="__codelineno-27-21" href="#__codelineno-27-21"></a>1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 1
+</span><span id="__span-27-22"><a id="__codelineno-27-22" name="__codelineno-27-22" href="#__codelineno-27-22"></a>1 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 1
+</span><span id="__span-27-23"><a id="__codelineno-27-23" name="__codelineno-27-23" href="#__codelineno-27-23"></a>1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+</span></code></pre></div>
+<blockquote>
+<p>C. Anne Chamley, BappComp</p>
+</blockquote></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">mathematics and statistics</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">applications</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">programming techniques</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

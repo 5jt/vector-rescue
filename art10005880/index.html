@@ -1,0 +1,1633 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10005880/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Perils of Subtraction: a New Language for an Old Algorithm - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#apl-and-the-classical-method-for-computing-pi" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Perils of Subtraction: a New Language for an Old Algorithm
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#apl-and-the-classical-method-for-computing-pi" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        APL and the Classical Method for Computing Pi
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-apl-to-j" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        From APL to J
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-verb-under-another" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        One Verb Under Another
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-power-conjunction-with-a-gerund-a-new-way-for-iteration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Power Conjunction with a Gerund: a New Way for Iteration
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#but-now-for-the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        But Now for the Problem!
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-numbers-are-stored-in-an-ibm-system360-and-its-descendants" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        How Numbers are Stored in an IBM System/360 and its Descendants
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-numbers-are-stored-in-a-pc" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        How Numbers are Stored in a PC
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-numbers-are-subtracted-inside-a-pc" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        How Numbers are Subtracted Inside a PC
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stsc-aplplus-pc-system-50" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        STSC APL*PLUS PC System 5.0
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vs-apl-on-an-ibm-4341-computer-360-architecture-includes-a-guard-digit" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        VS APL on an IBM 4341 Computer (360 Architecture — includes a guard digit):
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgements" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Acknowledgements
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Perils of Subtraction: a New Language for an Old Algorithm</h1>
+
+  <p class="printed"><a href="../11/#n4-april-1995">Vector 11:4</a>, page 93</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-mathematics-and-statistics">mathematics and statistics</a> <a class="md-tag" href="../tags/#tag-language-design">language design</a> <a class="md-tag" href="../tags/#tag-implementations">implementations</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../11/4/VOL.11-NO.4-APRIL-1995.pdf#page=95">Read it in the PDF of the issue, page 93</a></em></p>
+<p class="byline"><em>by Donald B. McIntyre</em></p>
+<h2 id="apl-and-the-classical-method-for-computing-pi">APL and the Classical Method for Computing Pi<a class="headerlink" href="#apl-and-the-classical-method-for-computing-pi" title="Permanent link">&para;</a></h2>
+<p>The symbol <em>pi</em>, π, was chosen in 1706 [12; 3] to represent the length of the <em>perimeter</em> of a circle with unit diameter. The classical way of obtaining its value was given by Archimedes about 240BC, making this one of the oldest known algorithms [1; 2; 13; 16; 17; 18]. An inscribed hexagon has six sides, each of length one half; consequently pi is greater than 3, which is the perimeter of the hexagon. A circumscribed hexagon provides an upper bound.</p>
+<p>Doubling the number of sides of the polygon gives a closer approximation, and successive doublings, with a larger and larger number of smaller and smaller sides, converges on the true value for the perimeter of the circle. The length of a new side, after doubling the number, is found by two applications of Pythagoras’ theorem, which was well-known to Archimedes. If the length of the old chord is s, then the length of the new chord is given by:</p>
+<p>√{1/2 (1 − √(1 − s<sup>2</sup>))}</p>
+<p>The side of the 12-sided figure resulting from doubling is given in APL as follows:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w">      </span><span class="nv">y</span><span class="kd">←</span><span class="w"> </span><span class="m">0.5</span><span class="w">                     </span><span class="nv">Side</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">inscribed</span><span class="w"> </span><span class="nv">hexagon</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">      </span><span class="p">(</span><span class="m">0.5</span><span class="w"> </span><span class="o">×</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">Y</span><span class="o">*</span><span class="m">2</span><span class="p">)</span><span class="o">*</span><span class="m">0.5</span><span class="p">)</span><span class="o">*</span><span class="m">0.5</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="m">0.25889</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">      </span><span class="bp">∇</span><span class="w"> </span><span class="nv">Z</span><span class="kd">←</span><span class="w"> </span><span class="nv">CH</span><span class="w"> </span><span class="nv">Y</span><span class="w">                  </span><span class="nv">Function</span><span class="w"> </span><span class="nv">defining</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">new</span><span class="w"> </span><span class="nv">chord</span><span class="w"> </span><span class="nv">length</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="nv">Z</span><span class="kd">←</span><span class="p">(</span><span class="m">0.5</span><span class="o">×</span><span class="m">1</span><span class="o">-</span><span class="p">(</span><span class="m">1</span><span class="o">-</span><span class="nv">Y</span><span class="o">*</span><span class="m">2</span><span class="p">)</span><span class="o">*</span><span class="m">0.5</span><span class="p">)</span><span class="o">*</span><span class="m">0.5</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">      </span><span class="bp">∇</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">      </span><span class="nv">CH</span><span class="w"> </span><span class="nv">CH</span><span class="w"> </span><span class="m">0.5</span><span class="w">                  </span><span class="nv">Length</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">new</span><span class="w"> </span><span class="nv">side</span><span class="w"> </span><span class="nv">after</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="nv">doublings</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="m">0.130526</span>
+</span></code></pre></div>
+<p>With 8 doublings the approximation to pi is:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="w">      </span><span class="m">6</span><span class="w"> </span><span class="o">×</span><span class="p">(</span><span class="m">2</span><span class="o">×</span><span class="m">2</span><span class="o">×</span><span class="m">2</span><span class="o">×</span><span class="m">2</span><span class="o">×</span><span class="m">2</span><span class="o">×</span><span class="m">2</span><span class="o">×</span><span class="m">2</span><span class="o">×</span><span class="m">2</span><span class="p">)</span><span class="o">×</span><span class="w"> </span><span class="nv">CH</span><span class="w"> </span><span class="nv">CH</span><span class="w"> </span><span class="nv">CH</span><span class="w"> </span><span class="nv">CH</span><span class="w"> </span><span class="nv">CH</span><span class="w"> </span><span class="nv">CH</span><span class="w"> </span><span class="nv">CH</span><span class="w"> </span><span class="nv">CH</span><span class="w"> </span><span class="m">0.5</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="m">3.14159</span>
+</span></code></pre></div>
+<p>Using APL notation for exponentiation:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="w">      </span><span class="m">6</span><span class="w"> </span><span class="o">×</span><span class="p">(</span><span class="m">2</span><span class="o">*</span><span class="m">8</span><span class="p">)</span><span class="w"> </span><span class="o">×</span><span class="w"> </span><span class="nv">CH</span><span class="w"> </span><span class="nv">CH</span><span class="w"> </span><span class="nv">CH</span><span class="w"> </span><span class="nv">CH</span><span class="w"> </span><span class="nv">CH</span><span class="w"> </span><span class="nv">CH</span><span class="w"> </span><span class="nv">CH</span><span class="w"> </span><span class="nv">CH</span><span class="w"> </span><span class="m">0.5</span>
+</span></code></pre></div>
+<p>We need an equivalent operation for repeated application of <em>CH</em>. Direct Definition (introduced to APL in 1976 [9; 14]) is concise, and leads naturally to Iverson’s recent extension called J [10; 11; 15]. <em>CH</em> is written as follows. A colon separates the name of the function from the body, and reference to arguments is by the symbols ⍺ and ⍵:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="w">      </span><span class="nv">CH</span><span class="bp">:</span><span class="p">(</span><span class="m">0.5</span><span class="o">×</span><span class="m">1</span><span class="o">-</span><span class="p">(</span><span class="m">1</span><span class="o">-</span><span class="bp">⍵</span><span class="o">*</span><span class="m">2</span><span class="p">)</span><span class="o">*</span><span class="m">0.5</span><span class="p">)</span><span class="o">*</span><span class="m">0.5</span>
+</span></code></pre></div>
+<p>The recursive function <em>C</em> applies <em>CH</em> to the right argument the number of times given by the left argument. The body, divided into three parts by two colons, should be read <em>execute the left-hand expression unless the proposition given in the middle expression is true, in which case execute the right-hand expression</em>:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="w">      </span><span class="nv">C</span><span class="bp">:</span><span class="p">(</span><span class="bp">⍺</span><span class="o">-</span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="nv">C</span><span class="w"> </span><span class="nv">CH</span><span class="w"> </span><span class="bp">⍵</span><span class="w"> </span><span class="bp">:</span><span class="w"> </span><span class="bp">⍺</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="bp">:</span><span class="w"> </span><span class="bp">⍵</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">      </span><span class="m">2</span><span class="w"> </span><span class="nv">C</span><span class="w"> </span><span class="m">.5</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="m">0.130526</span>
+</span></code></pre></div>
+<p>After eight doublings the estimate of pi is:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="w">      </span><span class="nv">PI</span><span class="bp">:</span><span class="m">6</span><span class="w"> </span><span class="o">×</span><span class="w"> </span><span class="p">(</span><span class="m">2</span><span class="o">*</span><span class="bp">⍵</span><span class="p">)</span><span class="w"> </span><span class="o">×</span><span class="w"> </span><span class="bp">⍵</span><span class="w"> </span><span class="nv">C</span><span class="w"> </span><span class="m">.5</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">      </span><span class="nv">PI</span><span class="w"> </span><span class="m">8</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="m">3.14159</span>
+</span></code></pre></div>
+<h2 id="from-apl-to-j">From APL to J<a class="headerlink" href="#from-apl-to-j" title="Permanent link">&para;</a></h2>
+<p>To convert from APL to J, replace three APL symbols by ASCII equivalents:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Y← 0.5                                 In APL
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>(0.5×1-(1-Y*2)*0.5)*0.5
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>y=. 0.5                                In J
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>(0.5*1-(1-y^2)^0.5)^0.5
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>%: 0.5*1- %: 1-y^2                     Rewrite without parentheses:
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>                                       %: is square root
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>%:-: 1- %: 1- *:y                      -: is half and -. is 1-
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>%:-:-.%:-.*:y
+</span></code></pre></div>
+<p>Now define a verb (function) to compute the length of a new chord:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>      ch=. 3 : '%:-:-.%:-.*: y.'
+</span></code></pre></div>
+<p>This is an <em>explicit</em> definition, because <code>y.</code> represents the (right) argument. <code>ch</code> is a verb because <code>3</code> is the sum of possible valences (<code>0</code> for a noun, <code>1</code> for an adverb, and <code>2</code> for a conjunction).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>      ch 0.5
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>0.258819
+</span></code></pre></div>
+<p>With a left argument of <code>13</code> this automatically translates to <em>tacit</em> definition:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>      13 : '%:-:-.%:-.*: y.'
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>[: %: [: -: [: -. [: %: [: -. *:
+</span></code></pre></div>
+<p>The result is a <em>train</em> of 11 verbs, parsed from right to left as a sequence of <em>forks</em>. In this case a tacit definition can also be written using the <em>atop</em> conjunction (<code>@</code>):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>      ch=. %:@-:@-.@%:@-.@*:
+</span></code></pre></div>
+<h2 id="one-verb-under-another">One Verb Under Another<a class="headerlink" href="#one-verb-under-another" title="Permanent link">&para;</a></h2>
+<p>Before taking the next step, consider a simpler example. First of all straight execution:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>      %: +/ *: 3 4     The square root of the sum of squares (Pythagoras).
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>5
+</span></code></pre></div>
+<p>Using names helps us generalize. The conjunction <code>[.</code> returns its left argument (a verb).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>      f=. %: [. g=. +/ [. h=. *:
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>      f@g@h 3 4                Conjunctions compose a new verb
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>5
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>      (] -: f@h) y=. i.4       These match; i.e. f is the inverse of h.
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>1
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>      g&amp;.h 3 4                 g under h; i.e. apply f to the result of g@h
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>5
+</span></code></pre></div>
+<p>Another example. Find the shape of each boxed item (<code>&gt;</code> opens a box and <code>&lt;</code> closes it):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>   (&lt;@$@&gt; -: $&amp;.&gt;) 1 2 3; i.2 4        Match. Shape under open.
+</span></code></pre></div>
+<p><code>%:</code> is the inverse of <code>*:</code>, so we rewrite <code>ch</code> as follows — the parentheses are not needed</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>      ch=. %: @(-:@-.@%:@-.)@ *:
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>      ch=. (-:@-.@%:@-.)&amp;.*:
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>      ch=. -:@(-.@%:@-.)&amp;.*:
+</span></code></pre></div>
+<p>As <code>-:</code> is its own inverse, write:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>      ch=. -:@(%:&amp;.-.)&amp;.*:         Parentheses are now required.
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>      ch 0.5
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>0.258819
+</span></code></pre></div>
+<h2 id="the-power-conjunction-with-a-gerund-a-new-way-for-iteration">The Power Conjunction with a Gerund: a New Way for Iteration<a class="headerlink" href="#the-power-conjunction-with-a-gerund-a-new-way-for-iteration" title="Permanent link">&para;</a></h2>
+<p>An elegant feature of J is that, just as we write (<code>2^y</code>), so we can write (<code>ch^:y</code>); thus:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>      pi=. 3 : '6*(2^y.)*(ch^:y.) 0.5'
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>      pi 8
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>3.14159
+</span></code></pre></div>
+<p>The tacit form is more subtle: one verb (<code>v1</code>) gives the number of times <code>ch</code> is to be applied, while another (<code>v2</code>) gives the value of <code>ch</code>’s initial argument. The two are tied together to form a <em>gerund</em>. In this case <code>v2</code> always returns <code>0.5</code>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>   ch^:(v1`v2) y   ←→  ch^:(v1 y) (v2 y)    The definition
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    g=. ]`(0.5"_)  The rank conjunction converts a noun into a verb of given rank
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    pi=. 6: * 2&amp;^ * ch^:g
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>    pi"0 i.9       The rank conjunction applies pi to the rank-0 cells of i.9
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>3 3.10583 3.13263 3.13935 3.14103 3.14145 3.14156 3.14158 3.14159
+</span></code></pre></div>
+<h2 id="but-now-for-the-problem">But Now for the Problem!<a class="headerlink" href="#but-now-for-the-problem" title="Permanent link">&para;</a></h2>
+<p>Unfortunately the results of further doublings now become worse and worse [15, pp.563-564]. After 28 doublings — the number of sides is 1,610,612,736 — the computed value of pi is zero!</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>      pi"0 [ 24 25 26 27 28
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>3.18198 3.3541 4.24264 6 0
+</span></code></pre></div>
+<p>To understand what goes so wrong, we must know how numbers are stored and manipulated.</p>
+<h2 id="how-numbers-are-stored-in-an-ibm-system360-and-its-descendants">How Numbers are Stored in an IBM System/360 and its Descendants<a class="headerlink" href="#how-numbers-are-stored-in-an-ibm-system360-and-its-descendants" title="Permanent link">&para;</a></h2>
+<p>Floating-point numbers have three parts: a normalized fraction; an exponent (characteristic); and a sign. In the IBM System/360 and its descendants the leftmost byte contains the sign (counting from the left, this is bit 0) and the exponent (bits 1-7).</p>
+<p>The fraction (3 bytes in short form and 7 in long) is expressed in <em>hexadecimal digits</em>, each a group of 4 bits (a <em>nibble</em>). The radix point is to the left of the fraction, which is normalized by shifting it until the first significant hexadecimal digit occupies bits 8-11. Because normalization is by <em>hexadecimal</em> digits, bits 8-10 may all be zero.</p>
+<p>In a decimal fraction, the value assigned to a digit is determined by the place-value of the digit’s position. Immediately to the right of a decimal point we have tenths; so in a hexadecimal fraction that is where we have sixteenths. The value corresponding to a digit represented by bits 8-11 is illustrated by the following examples:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>bit   8    9    10    11
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>      ----------------
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>      0    0    0     1          1/16
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>      0    0    1     0          2/16        1/8
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>      0    1    0     0          4/16        1/4
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>      1    0    0     0          8/16        1/2
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>      1    1    1     1         15/16
+</span></code></pre></div>
+<p>Each time the fraction is shifted one hexadecimal digit right or left during normalization, the exponent changes to record the shift. The exponent is a 7-bit binary number. It is the power, n, to which the base (16) must be raised so that the product of the fraction and 16<sup>n</sup> equals the absolute value of the number represented. If the exponent is 0, the values of the fraction are multiplied by 16<sup>0</sup> = 1 and are unchanged. If the exponent is 1, the values of the fraction are multiplied by 16<sup>1</sup> = 16 and become 1 2 4 8 and 15. If the exponent is 2, the values of the fraction are multiplied by 16<sup>2</sup> = 256 and become 16 32 64 128 and 240.</p>
+<p>In order to provide for negative exponents, 64 (binary 100 0000) is added to all exponents. This is called <em>excess-64</em> representation.</p>
+<p><code>411c</code> ←→ <code>0100 0001 0001 1100</code> ←→ 16<sup>1</sup> (1/16<sup>1</sup> + 12/16<sup>2</sup>) ←→ 1.75</p>
+<p><code>c21d5a</code> ←→ <code>1100 0010 0001 1101 0101 1010</code><br>
+<code>c21d5a</code> ←→ − (16<sup>2</sup>) (1/16<sup>1</sup> + 13/16<sup>2</sup> + 5/16<sup>3</sup> + 10/16<sup>4</sup>) ←→ −29.3516</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>   -(16^2)*(1 13 5 10 +/ .% 16^1 2 3 4)     Executing in J
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>_29.3516
+</span></code></pre></div>
+<p>Translate from hexadecimal floating-point representation to decimal:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>      dfh=. '0123456789abcdef'&amp;i.             Decimal from hexadecimal
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>      bfh=. [: , 2 2 2 2"_ #: dfh             Binary from hexadecimal
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>      fs360=. _1: ^ {.@bfh                    Floating-point 360 sign
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>        g=. #.@}.@bfh@(2&amp;{.)
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>      fe360=. 16"_ ^ g - 64"_                 Floating-point 360 exponent
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>        f=. 16"_ ^ &gt;:@i.@#
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>      ff360=. (+/ .% f)@dfh@(2&amp;}.) f.  Floating-point 360 fraction (Hook)
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>      fp360=. fs360 * fe360 * ff360
+</span></code></pre></div>
+<p>It is convenient to convert trailing blanks to zeros. <code>zfb</code> uses <em>item amend</em> to convert any blanks to zeros. First laminate a row of 0s to make a table of two rows. Select from row 1 unless there is a blank, in which case select from row 0. Parentheses are not needed; they merely draw the reader’s attention to the verb to which the adverb <em>amend</em> (<code>}</code>) applies.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>      zfb=. [: (~:&amp;' '@{:)} '0'&amp;,:            Zeros from blanks
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>      dfh360=. [: fp360 [: zfb 16&amp;{.          Decimal from 360 hexadecimal
+</span></code></pre></div>
+<p>Because the blanks are trailing, the <em>fit</em> conjunction (<code>!.</code>) can control the padding:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>      pad=. 16&amp;({.!.'0')        !. modifies {. by specifying the fill element
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>      dfh360=. fp360@pad
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>      dfh360 'c21d5a'
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>_29.3516
+</span></code></pre></div>
+<p>To deal with a list of hexadecimal strings, append a blank character to define the <em>fret</em> and use the <em>cut</em> conjunction (<code>;.</code>); for example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>      &lt;;._2 '428 424 c21d5a '
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>┌───┬───┬──────┐
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>│428│424│c21d5a│
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>└───┴───┴──────┘
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>      ];._2 '428 424 c21d5a '
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>428
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>424
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>c21d5a
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>      pad;._2@(,&amp;' ')'428 424 c21d5a'
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>4280000000000000
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>4240000000000000
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>c21d5a0000000000
+</span></code></pre></div>
+<p>Incorporate this in the verb <code>dfh360</code> (parentheses are required):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>      dfh360=. ,@(fp360"1@table@pad;._2@(,&amp;' '))
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>      dfh360=. [: , [: fp360"1 pad;._2@(,&amp;' ')
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>      dfh360 '41c 414 411 c11 411c c21d5a'
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>12 4 1 _1 1.75 _29.3516
+</span></code></pre></div>
+<h2 id="how-numbers-are-stored-in-a-pc">How Numbers are Stored in a PC<a class="headerlink" href="#how-numbers-are-stored-in-a-pc" title="Permanent link">&para;</a></h2>
+<p>On the PC, J uses the <em>double extended</em> form of 64 bits: the sign is bit 0, the exponent bits 1-11, and the fraction bits 12-63 [7]. Unlike 360 architecture, both exponent and fraction are binary. Because normalized binary numbers always begin with a 1, there is no need to store it. As usual, the exponent keeps a record of shifts made by the fraction, but in this case the count is binary. 1023 is added to allow for negative exponents.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>      &lt;:2^10                       #:1023
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>1023                           1 1 1 1 1 1 1 1 1 1
+</span></code></pre></div>
+<p>Evaluation of the 64-bit binary string is therefore:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>      (_1^sign)*(2^(2#.exp)-1023)*1+(2#. fr) % 2^# fr
+</span></code></pre></div>
+<p><code>s</code>, <code>e</code>, and <code>f</code> extract sign, exponent, and fraction respectively from the binary representation.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>   s=. _1: ^ {.   [.   e=. [: }. 12&amp;{.   [.   f=. 12"_ }. ]
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>      exp=. [: 2&amp;^ #. - 1023"_         Note that the dyad #. is 2&amp;#.
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>      fr=. [: &gt;: #. % 2&amp;^@#
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>      dfbj=. (s * exp@e * fr@f) f.     Decimal from binary: J on PC
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>      dfhj=. dfbj@bfh                  Decimal from hexadecimal representation
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>      dfhj '400921f9'                  Compare ir o.1 below
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>3.14159
+</span></code></pre></div>
+<p>Internal representation is obtained by the <em>foreign conjunction</em> <code>!:</code>. When used as <code>3!:3</code>, the result is given in hexadecimal notation. Because J, like APL, stores information about the <em>personality</em> of data along with the values, we drop the prefix (length is 4 + rank):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>        ir=. 3!:3 }.~ 4: + #@$     Internal representation
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>        ir 0.25                          ]y=. ir %1 2 4
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>00000000                   00000000
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>0000d03f                   0000f03f
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>                           00000000
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>        ir o.1             0000e03f
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>182d4454                   00000000
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>fb210940                   0000d03f
+</span></code></pre></div>
+<p>Each atom is now represented by a pair of rows. Isolate these with the <em>infix</em> adverb (<code>\</code>) and then ravel them. Here are examples of how <em>infix</em> works:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>     _2 &lt;\ y                                     _2 ,\ y
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>┌────────┬────────┬────────┐                 000000000000f03f
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>│00000000│00000000│00000000│                 000000000000e03f
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>│0000f03f│0000e03f│0000d03f│                 000000000000d03f
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>└────────┴────────┴────────┘
+</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>        hx=. (_2: ,\ ])@ir
+</span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>        bi=. &lt;"_1          Box items
+</span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>        bi 8 2$ , hx 0.25
+</span><span id="__span-30-9"><a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>┌──┬──┬──┬──┬──┬──┬──┬──┐
+</span><span id="__span-30-10"><a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>│00│00│00│00│00│00│d0│3f│
+</span><span id="__span-30-11"><a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a>└──┴──┴──┴──┴──┴──┴──┴──┘
+</span></code></pre></div>
+<p>Although this is how bytes are stored, it is convenient to reverse the order:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>        |. bi 8 2$ , hx 0.25
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>┌──┬──┬──┬──┬──┬──┬──┬──┐
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>│3f│d0│00│00│00│00│00│00│
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>└──┴──┴──┴──┴──┴──┴──┴──┘
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>      reverse=. ;@|.@bi@(8 2&amp;$)@,"1
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>      hex=. reverse@hx
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>      hex % 1 2 4
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>3ff0000000000000       ←→       1.0
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>3fe0000000000000       ←→       0.5
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>3fd0000000000000       ←→       0.25
+</span></code></pre></div>
+<h2 id="how-numbers-are-subtracted-inside-a-pc">How Numbers are Subtracted Inside a PC<a class="headerlink" href="#how-numbers-are-subtracted-inside-a-pc" title="Permanent link">&para;</a></h2>
+<p>Floating-point representation has the advantage that a great range of magnitudes can be represented with the same number of significant figures. When floating-point numbers are multiplied or divided, the fractions and the exponents are separately combined. When they are added or subtracted, however, the fractional part of the smaller number is shifted to the right until its increased exponent matches that of the larger number. Because this happens in a register of fixed size, the smaller number loses its rightmost digits as they "drop off the end". If the shift is great enough, <em>all</em> precision is lost!</p>
+<p>The critical part of the algorithm is therefore the operation (1 - s<sup>2</sup>). As the square of the new chord becomes smaller and smaller, it is shifted further and further to the right to match the constant 1 (hex representation <code>3ff0</code>). This is shown dramatically by displaying the square of the next chord, in both hexadecimal and decimal notation, at each iteration:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>   fmt=. [: 1&amp;": [: (37#10)&amp;(#:!.0) 1e37&amp;*
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>   n=. ": ,. i.29 [ h=. hex *: c [ c=. ch^:(i.29) 0.5
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>   ch2=. fmt *: c [ pi=. ": ,. p [ p=. 6*(2^i.29)*c
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>     n ,.' ',. h ,.' ',. ch2,.' ',. pi
+</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>
+</span><span id="__span-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a> 0 3fd0000000000000 2500000000000000000000000000000000000 3
+</span><span id="__span-33-7"><a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a> 1 3fb126145e9ecd57 0669872981077806900000000000000000000 3.10583
+</span><span id="__span-33-8"><a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a> 2 3f91722b8b740eb0 0170370868554658400000000000000000000 3.13263
+</span><span id="__span-33-9"><a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a> 3 3f71855b44e5d93f 0042775693130948080000000000000000000 3.13935
+</span><span id="__span-33-10"><a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a> 4 3f518a29d563ba00 0010705383806982602000000000000000000 3.14103
+</span><span id="__span-33-11"><a id="__codelineno-33-11" name="__codelineno-33-11" href="#__codelineno-33-11"></a> 5 3f318b5da3b24800 0002677062618171577000000000000000000 3.14145
+</span><span id="__span-33-12"><a id="__codelineno-33-12" name="__codelineno-33-12" href="#__codelineno-33-12"></a> 6 3f118baa99e90fff 0000669310452190985100000000000000000 3.14156
+</span><span id="__span-33-13"><a id="__codelineno-33-13" name="__codelineno-33-13" href="#__codelineno-33-13"></a> 7 3ef18bbdd7a0ffff 0000167330412994548420000000000000000 3.14158
+</span><span id="__span-33-14"><a id="__codelineno-33-14" name="__codelineno-33-14" href="#__codelineno-33-14"></a> 8 3ed18bc2a711ffff 0000041832778246986258000000000000000 3.14159
+</span><span id="__span-33-15"><a id="__codelineno-33-15" name="__codelineno-33-15" href="#__codelineno-33-15"></a> 9 3eb18bc3daf00000 0000010458205499386252000000000000000 3.14159
+</span><span id="__span-33-16"><a id="__codelineno-33-16" name="__codelineno-33-16" href="#__codelineno-33-16"></a>10 3e918bc427e00000 0000002614552058188835000000000000000 3.14159
+</span><span id="__span-33-17"><a id="__codelineno-33-17" name="__codelineno-33-17" href="#__codelineno-33-17"></a>11 3e718bc43b000001 0000000653638057013239500000000000000 3.14159
+</span><span id="__span-33-18"><a id="__codelineno-33-18" name="__codelineno-33-18" href="#__codelineno-33-18"></a>12 3e518bc440000001 0000000163409517028867400000000000000 3.14159
+</span><span id="__span-33-19"><a id="__codelineno-33-19" name="__codelineno-33-19" href="#__codelineno-33-19"></a>13 3e318bc440000001 0000000040852379257216850000000000000 3.14159
+</span><span id="__span-33-20"><a id="__codelineno-33-20" name="__codelineno-33-20" href="#__codelineno-33-20"></a>14 3e118bc440000001 0000000010213094814304212000000000000 3.14159
+</span><span id="__span-33-21"><a id="__codelineno-33-21" name="__codelineno-33-21" href="#__codelineno-33-21"></a>15 3df18bc440000001 0000000002553273703576053000000000000 3.14159
+</span><span id="__span-33-22"><a id="__codelineno-33-22" name="__codelineno-33-22" href="#__codelineno-33-22"></a>16 3dd18bc500000000 0000000000638318842227647500000000000 3.14159
+</span><span id="__span-33-23"><a id="__codelineno-33-23" name="__codelineno-33-23" href="#__codelineno-33-23"></a>17 3db18bc400000001 0000000000159579571779033820000000000 3.14159
+</span><span id="__span-33-24"><a id="__codelineno-33-24" name="__codelineno-33-24" href="#__codelineno-33-24"></a>18 3d918bd000000000 0000000000039895309278392680000000000 3.14161
+</span><span id="__span-33-25"><a id="__codelineno-33-25" name="__codelineno-33-25" href="#__codelineno-33-25"></a>19 3d718bc000000000 0000000000009973688541720092000000000 3.14159
+</span><span id="__span-33-26"><a id="__codelineno-33-26" name="__codelineno-33-26" href="#__codelineno-33-26"></a>20 3d518bffffffffff 0000000000002493560913308100000000000 3.14167
+</span><span id="__span-33-27"><a id="__codelineno-33-27" name="__codelineno-33-27" href="#__codelineno-33-27"></a>21 3d318bffffffffff 0000000000000623390228327025000000000 3.14167
+</span><span id="__span-33-28"><a id="__codelineno-33-28" name="__codelineno-33-28" href="#__codelineno-33-28"></a>22 3d11900000000001 0000000000000155986334959834520000000 3.14307
+</span><span id="__span-33-29"><a id="__codelineno-33-29" name="__codelineno-33-29" href="#__codelineno-33-29"></a>23 3cf1c00000000000 0000000000000039412917374193050000000 3.15981
+</span><span id="__span-33-30"><a id="__codelineno-33-30" name="__codelineno-33-30" href="#__codelineno-33-30"></a>24 3cd1ffffffffffff 0000000000000009992007221626406000000 3.18198
+</span><span id="__span-33-31"><a id="__codelineno-33-31" name="__codelineno-33-31" href="#__codelineno-33-31"></a>25 3cb4000000000001 0000000000000002775557561562891000000 3.3541
+</span><span id="__span-33-32"><a id="__codelineno-33-32" name="__codelineno-33-32" href="#__codelineno-33-32"></a>26 3ca0000000000001 0000000000000001110223024625156400000 4.24264
+</span><span id="__span-33-33"><a id="__codelineno-33-33" name="__codelineno-33-33" href="#__codelineno-33-33"></a>27 3c90000000000000 0000000000000000555111512312578200000 6
+</span><span id="__span-33-34"><a id="__codelineno-33-34" name="__codelineno-33-34" href="#__codelineno-33-34"></a>28 0000000000000000 0000000000000000000000000000000000000 0
+</span></code></pre></div>
+<p>The apparent precision of numbers like <code>5.551115123125782e_1</code> is very misleading.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>      5.551115123125782e_17 ←→ dfhj '3c9'
+</span></code></pre></div>
+<p>The fraction has lost ALL significant figures, and the result comes from the exponent alone. With 360 architecture the result would be zero, but the PC adds an implied <code>1</code> to the fraction before multiplying by the decoded exponent. At the next iteration, however, the exponent too is zero.</p>
+<h2 id="stsc-aplplus-pc-system-50">STSC APL*PLUS PC System 5.0<a class="headerlink" href="#stsc-aplplus-pc-system-50" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a> n        *: next chord           Pi
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a> 23    3.8857805861880482e_15    3.13748
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a> 24    9.9920072216264070e_16    3.18198
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a> 25    2.2204460492503132e_16    3.00000
+</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a> 26    5.5511151231257832e_17    3.00000
+</span><span id="__span-35-6"><a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a> 27    0                         0
+</span><span id="__span-35-7"><a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a>
+</span><span id="__span-35-8"><a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a>3.8857805861880482e_15 ←→ (16^_11)*1 1 8 +/ .% 16^1 2 3
+</span><span id="__span-35-9"><a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a>9.9920072216264070e_16 ←→ (16^_12)* 4 8 +/ .% 16 ^1 2
+</span><span id="__span-35-10"><a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a>2.2204460492503132e_16 ←→ (16^_12)* 1* 16^_1
+</span><span id="__span-35-11"><a id="__codelineno-35-11" name="__codelineno-35-11" href="#__codelineno-35-11"></a>5.5511151231257832e_17 ←→ (16^_13)* 4*16^_1
+</span></code></pre></div>
+<h2 id="vs-apl-on-an-ibm-4341-computer-360-architecture-includes-a-guard-digit">VS APL on an IBM 4341 Computer (360 Architecture — includes a guard digit):<a class="headerlink" href="#vs-apl-on-an-ibm-4341-computer-360-architecture-includes-a-guard-digit" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>  n         *: next chord          Hex   Digits    Pi
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>  23     3.8927194800919541e_15  351188    4      3.1403
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>  24     9.7144514654701180e_16  344600    2      3.1375
+</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>  25     2.3592239273284575e_16  341100    2      3.0923
+</span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>  26     5.5511151231257810e_17  334000    1      3.0000
+</span><span id="__span-36-6"><a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a>  27     1.3877787807814456e_17  331000    1      3.0000
+</span><span id="__span-36-7"><a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a>  28     0                       000000    0      0
+</span><span id="__span-36-8"><a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a>
+</span><span id="__span-36-9"><a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a>3.8927194800919541e_15 ←→ (16^_11)*1 1 8 8+/ .%16^&gt;:i.4
+</span><span id="__span-36-10"><a id="__codelineno-36-10" name="__codelineno-36-10" href="#__codelineno-36-10"></a>9.7144514654701180e_16 ←→ (16^_12)*4 6 +/ .% 16^1 2
+</span><span id="__span-36-11"><a id="__codelineno-36-11" name="__codelineno-36-11" href="#__codelineno-36-11"></a>2.3592239273284575e_16 ←→ (16^_12)*1 1 +/ .% 16^1 2
+</span><span id="__span-36-12"><a id="__codelineno-36-12" name="__codelineno-36-12" href="#__codelineno-36-12"></a>5.5511151231257810e_17 ←→ (16^_13)* 4%16^1
+</span><span id="__span-36-13"><a id="__codelineno-36-13" name="__codelineno-36-13" href="#__codelineno-36-13"></a>1.3877787807814456e_17 ←→ (16^_13)* 1%16^1
+</span></code></pre></div>
+<h2 id="acknowledgements">Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permanent link">&para;</a></h2>
+<p>I dedicate this study to Professor Winifred Asprey, Emeritus Professor of Mathematics, Vassar College, in whose honour the Computer Centre at Vassar is named. In 1967, when Vassar received the first IBM Model 30 installed at a customer site, Dr Asprey told me that this algorithm had been run (in Fortran) as a demonstration for the Trustees of the College. To everyone’s embarrassment, the computer reported the value of pi to be 3. I suggested running the program in double precision. This was duly done, only to find that the value was still 3 — to a greater number of decimal places.</p>
+<p>I included some of this material in a paper at the 1982 I.P. Sharp Users Conference; in my Banquet Address at APL83; and elsewhere as an ACM Distinguished Lecturer. Because in 1991 several features used in the present paper had not yet been implemented in J, I omitted analysis of the algorithm’s failure from my paper in the special issue of the <em>IBM Systems Journal</em> commemorating the 25th Anniversary of APL [15, pp.563-564].</p>
+<p>Roger Hui and Ken Iverson have most generously given help and advice on countless occasions. I started this study in 1964 by reading Iverson’s <em>A Programming Language</em> [8] and Falkoff, Iverson, and Sussenguth’s <em>A Formal Description of System/360</em> [4]. I am particularly grateful to all these and to the late Dr J.W. Bergquist of IBM.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<p>[1] Beckmann, Petr. <em>A History of π (pi)</em>. The Golem Press (1977) 4th Ed. pp.184-189.</p>
+<p>[2] Dorn, W.S. and D.D. McCracken. <em>Numerical Methods with Fortran IV Case Studies</em>. John Wiley &amp; Sons, New York (1972) pp.106-120.</p>
+<p>[3] Eves, Howard. <em>An Introduction to the History of Mathematics, with cultural connections by Jamie H. Eves</em>. Saunders College Publishing, Philadelphia (1990) 6th Edition. pp.117-118.</p>
+<p>[4] Falkoff, A.D., K.E. Iverson, and E.H. Sussenguth. <em>A Formal Description of System/360</em>. IBM Systems Journal, Vol. 3, Number 3 (1964) pp.198-263.</p>
+<p>[5] Forsythe, George. <em>Pitfalls in Computation</em>. American Mathematical Monthly, Vol.77, Number 9 (1970) pp.931-956.</p>
+<p>[6] Greenblatt, M.H. <em>The "Legal" Value of π, and Some Related Mathematical Anomalies</em>. American Scientist, Vol. 53 (December 1965) pp.427A-434A.</p>
+<p>[7] Hennessy, J.L. and D.A. Patterson. <em>The IEEE 754-1985 floating-point standard</em>. In: <em>Computer Architecture: A Quantitative Approach</em>, Morgan Kaufmann Publishers, Inc. (1990) Appendix A</p>
+<p>[8] Iverson, Kenneth E. <em>A Programming Language</em>. John Wiley and Sons, New York (1962) 286pp.</p>
+<p>[9] Iverson, Kenneth E. <em>Elementary Analysis</em>. APL Press, Swarthmore, Pennsylvania (1976) 219pp. ISBN 0-917326-01-6. Preliminary edition <em>Elementary Functions</em>. IBM Corporation (1974).</p>
+<p>[10] Iverson, Kenneth E. <em>A Personal View of APL</em>. IBM Systems Journal, Vol. 30, Number 4 (1991) pp.582-593.</p>
+<p>[11] Iverson, Kenneth E. <em>J: Introduction and Dictionary</em>. Iverson Software, Inc., Toronto (1994) ISBN 1-895721-08-3.</p>
+<p>[12] Jones, William. <em>Synopsis Palmariorum Matheseos, or a New Introduction to the Mathematics</em>. London (1706) pp. 263.</p>
+<p>[13] Maddox, John. <em>False Calculation of Pi by Experiment</em>. Nature, Vol.370, No.6488 (4 Aug 1994) pp.323</p>
+<p>[14] McIntyre, Donald B. <em>Experience with Direct Definition One-Liners in Writing APL Applications</em>. An APL Users Meeting, Proceedings. I.P. Sharp Associates Ltd., Toronto (1978), pp.281-297.</p>
+<p>[15] McIntyre, Donald B. <em>Language as an Intellectual Tool: From Hieroglyphics to APL</em>. IBM Systems Journal, Vol. 30, Number 4 (1991) pp.554-581.</p>
+<p>[16] Schepler, H.C. <em>The Chronology of Pi</em>. Mathematics Magazine (1950), pp.165-170, 216-228, 279-283.</p>
+<p>[17] Smith, David. <em>An Historical Piece of Pi</em>. In: <em>Interface: Calculus and the Computer</em>. Saunders College Publishing, Philadelphia (1984) 2nd Edition. pp.63-75 and <em>Instructor’s Manual</em> pp.23-25.</p>
+<p>[18] Wrench, J.W. <em>The Evolution of Extended Decimal Approximations to Pi</em>. The Mathematics Teacher, Vol. 53 (1960) pp. 644-650.</p></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">mathematics and statistics</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">language design</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">implementations</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1555 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10008080/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Calendar Calculations in J - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Calendar Calculations in J
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introduction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#date-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Date number
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#month-quarter-and-year-calendars" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Month, quarter and year calendars
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#julian-date-and-its-inverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Julian Date and its Inverse
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miscellaneous-calculations" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Miscellaneous Calculations
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-day-for-any-date" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        "A day for any date"
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-1-calendar-for-1997" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix 1. Calendar for 1997
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-2-script-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Appendix 2. Script file
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Calendar Calculations in J</h1>
+
+  <p class="printed"><a href="../13/#n2-october-1996">Vector 13:2</a>, page 117</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-programming-techniques">programming techniques</a> <a class="md-tag" href="../tags/#tag-mathematics-and-statistics">mathematics and statistics</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../13/2/VOL.13-NO.2-OCTOBER-1996.pdf#page=119">Read it in the PDF of the issue, page 117</a></em></p>
+<p class="byline"><em>by Keith Smillie</em></p>
+<p>Various calculations for the Gregorian calendar are expressed in J, including those for the construction of calendars for a specified month, quarter or year, ordinal and Julian dates, and the number of days between any two dates. Additional date and time verbs may be found in Burke, Hui <em>et al</em> (1996) and in the utility file <code>c:\j3\main\dates.js</code>.</p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>In the Gregorian calendar, which was introduced in 1582, leap years are defined as those years which are divisible by 4 except for centennial years which must be divisible also by 400. For example, 1996 and 2000 are leap years, but 1993 and 1900 are not. Therefore, a simple test for leap year is given by</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>LY=. ~:/ @ (mod&amp;4 100 400 = 0:)
+</span></code></pre></div>
+<p>where</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>mod=. |~
+</span></code></pre></div>
+<p>which has the value 1 if the argument is a leap year, i.e., if the number of the divisors 4, 100 and 400 of its argument is odd, and 0 otherwise.</p>
+<p>If we define the constant</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>LENGTHS=. 31 28 31 30 31 30 31 31 30 31 30 31
+</span></code></pre></div>
+<p>then the verb</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>L=. LENGTHS&amp;+@((LENGTHS=28)&amp;*.)@LY
+</span></code></pre></div>
+<p>gives a twelve-item list of the lengths of the months with the second item equal to 29 if the argument is a leap year and 28 otherwise. Also we shall define the list</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>DAYS=. ' Su Mo Tu We Th Fr Sa'
+</span></code></pre></div>
+<p>of day names, and the twelve-item list</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>MONTHS=._3&lt;\'JanFebMarAprMayJunJulAugSepOctNovDec'
+</span></code></pre></div>
+<p>of month names.</p>
+<p>We shall also define the verbs</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>div=. &lt;.@%
+</span></code></pre></div>
+<p>for the integer quotient, and</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>pos=. &gt;: @ i.
+</span></code></pre></div>
+<p>for non-negative integers, where <code>18 div 7</code> is <code>2</code>, and <code>pos 4</code> is <code>1 2 3 4</code>.</p>
+<h2 id="date-number">Date number<a class="headerlink" href="#date-number" title="Permanent link">&para;</a></h2>
+<p>In order to simplify the calculations we shall consider only dates in the Gregorian calendar beginning with the first day of the seventeenth century, i.e., January 1, 1601, and number the days sequentially with January 1, 1601 as 1, January 2, 1601 as 2, ..., January 1, 1602 as 366, and so on. The sequence number for any date, which we shall call the "date number", may be computed as the sum of the date number of December 31 of the previous year and the ordinal date, i.e., the day number, of the day and month in the given year. For example, the date number for August 1, 1996 is 144484 which is the sum of the date number 144270 for the last day of 1995 and 214, the ordinal date of the given date.</p>
+<p>The date number for December 31 of any year is the number of days from January 1, 1601 to December 31 of that year, and is equal to 365 times the number of years plus the number of leap years in the interval. This latter number is the integer quotient of the number of years in the interval divided by 4, minus the integer quotient of this same number divided by 100 to adjust for all centennial years, plus the integer quotient of the number when divided by 400 to account for those centennial years which are leap years. Thus the number of leap years is the alternating sum of the appropriate quotients. Therefore, we may define the verb</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>YearEnd=. (365&amp;* + -/ @ (div&amp;4 100 400)) @ (] @ -&amp;1601)
+</span></code></pre></div>
+<p>which gives the total number of days from January 1, 1601 up to and including December 31 of the year before the given year, and, for example, <code>YearEnd 1996</code> is <code>144270</code>. The ordinal date for any day of the year is the sum of the lengths of the preceding months in the year plus the day of the month and is given by</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>OD=. ({.@])++/@(pos@(&lt;:@(1&amp;{@])) MonthLength"(0 _) {:@])
+</span></code></pre></div>
+<p>where</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>MonthLength=. (&lt;:@[) { L@]
+</span></code></pre></div>
+<p>gives the number of days in any given month and year. For example, <code>1 MonthLength 1996</code> is <code>31</code> and <code>2 MonthLength 1996</code> is <code>29</code>, and so on, and <code>OD 1 8 1996</code> is <code>214</code>. (The complement of the ordinal date, i.e., the number of days remaining in the year, is given by</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ODcomp=. LY@({:@]) + 365&amp;-@OD
+</span></code></pre></div>
+<p>and, for example, <code>ODcomp 1 8 1996</code> is <code>152</code>.) The date number is then</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>D=. (YearEnd@({:)@]) + OD
+</span></code></pre></div>
+<p>and <code>D 1 8 1996</code> is <code>144484</code>.</p>
+<h2 id="month-quarter-and-year-calendars">Month, quarter and year calendars<a class="headerlink" href="#month-quarter-and-year-calendars" title="Permanent link">&para;</a></h2>
+<p>Let us number the days of the week from 0 to 6, inclusive, starting with Sunday as 0. Since we are numbering the days from January 1, 1601 which was a Monday, the day number for any date is the 7-residue of the date number, and we may define</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>mb=. mod&amp;7 @ (D @ (1:,[,]))
+</span></code></pre></div>
+<p>to give the day number of the first day of any month, and, for example, <code>8 mb 1996</code> is <code>4</code> which corresponds to Thursday.</p>
+<p>The numerical part of a month calendar consists of the consecutive positive integers to an upper limit determined by the month length arranged in a table of six rows since any month except February may extend over six consecutive weeks, and seven columns since there are seven days in the week, and beginning in the first row in a column determined by the first day of the month. This array may be constructed by first generating the appropriate list of positive integers as determined by the month length, converting to a one-column table, formatting to a three-column character table, extending this table to forty-two rows, rotating the rows by an amount given by the day number of the first day of the month, and finally reshaping into the appropriate table. These operations are performed by the verb</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>mctable=. ,"_1@(6 7&amp;$)@((-@mb) |. (42&amp;{.)@(3&amp;":)@,.@pos@MonthLength
+</span></code></pre></div>
+<p>where the left and right arguments give the month and year numbers. To obtain the desired year calendar the twelve month calendars must be constructed each with column headings for the names of the days of the week and headed overall with the month name, and finally displayed in one of several possible rectangular arrangements. The verb</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>mc=. (_12&amp;{.@&gt;@({&amp;MONTHS)@&lt;:@[),(DAYS&amp;,@mctable)
+</span></code></pre></div>
+<p>gives a labelled month calendar. The dyadic verb</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>cal=. &lt;"2 @ mc"(0 _)
+</span></code></pre></div>
+<p>will give month calendars as determined by the left argument for the year given by the right argument. For example, <code>(pos 3 4) cal 1997</code> gives a 1997 calendar arranged in three rows and four columns as the 2-cells of a table of shape <code>3 4 8 21</code>.</p>
+<p>The verb</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>Quarter=. ((pos 3)&amp;+@((3: * &lt;:)@[))cal]
+</span></code></pre></div>
+<p>will give the month calendars for any quarter of any year, and, for example, <code>4 Quarter 1996</code> gives the October, November and December calendars for 1996. The verb</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>calendar=. (pos 4 3)&amp;cal
+</span></code></pre></div>
+<p>gives a four-by-three calendar for the year specified by the right argument, and has been used to construct the 1997 calendar given in Appendix 1.</p>
+<h2 id="julian-date-and-its-inverse">Julian Date and its Inverse<a class="headerlink" href="#julian-date-and-its-inverse" title="Permanent link">&para;</a></h2>
+<p>The Julian date is a system of reckoning used in astronomical calculations for harmonizing the various chronologies used in astronomy. It was proposed in 1582 by the philologist and historian Joseph Scaliger and is defined as the number of days after January 1, 4713 B.C. As an example, the Julian date for August 1, 1996 is 2450297. We shall give verbs to calculate the Julian date corresponding to any calendar date on or after January 1, 1601 — a very simple calculation — and conversely to calculate the calendar date corresponding to any given Julian date — a calculation which appears to be anything but simple.</p>
+<p>Since the Julian date for December 31, 1600 is 2305813, the verb</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>JD=. 2305813&amp;+@D
+</span></code></pre></div>
+<p>may be used to give the Julian date for a given calendar date, and <code>JD 1 8 1996</code> is <code>2450297</code>. The calculation of the inverse Julian date, i.e., the calendar date corresponding to a given Julian date, will be done by finding first the year from the integral number of years from January 1, 1601 represented by the date number corresponding to the Julian date and then the month and day corresponding to the remaining number of days which represent the ordinal date in that year.</p>
+<p>We shall first introduce the verb</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>DIV=. (}.@[)`((div {.),(mod {.) DIV }.@])@.(*@#@])
+</span></code></pre></div>
+<p>which may be considered a generalization of the verb <code>div</code> for integer division and which will be used to factor the integer left argument according to the divisors given by the right argument. For example, <code>75 DIV 20 8 1</code> is <code>3 2 4</code>, and <code>75</code> is equal to <code>3 2 4 +/ . * 20 8 1</code>. Now consider the expression</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>144484 DIV 146097 36524 1461 365 1
+</span></code></pre></div>
+<p>which has the value <code>0 3 23 3 214</code>, where the left argument is <code>D 1 8 1996</code>, the date number for August 1, 1996, and the first four divisors are, respectively, the number of days in four hundred years, the number of days in one hundred years in which the included centennial year is not a leap year, the number of days in four years, and the number of days in one year which is not a leap year. Therefore, the expression</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>1601 + 400 100 4 1 +/ . * 0 3 23 3
+</span></code></pre></div>
+<p>will give the year <code>1996</code> corresponding to the date number, while the last item <code>214</code> of the factorization is the ordinal date in that year.</p>
+<p>The day and month corresponding to an ordinal date may be found by the verb</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>ODinv=. |.@&gt;:@( 12 31&amp;#:)@(,@(&gt;@ODcal@]) i. [)
+</span></code></pre></div>
+<p>where</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>ODcal=. (+/\@(0:,}:) (([+pos@])"(0 0) &amp;. &gt;) ])@L
+</span></code></pre></div>
+<p>gives the ordinal calendar for a given year in the form of a 12- item list whose first item gives the ordinal dates for January, i.e., 1, 2, ..., 31, whose second item gives the ordinal dates for February, i.e., 32, 33, ..., 59 or 60, etc. For example, <code>OD 1 8 1996</code> is <code>214</code>, and <code>214 ODinv 1996</code> is <code>1 8</code>.</p>
+<p>The calculations given in the last two paragraphs may be used to find the calendar date for any date number except for those date numbers corresponding to December 30 or 31 of a leap year when the date is given as ordinal date 0 of the following year.</p>
+<p>For example,</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>(D 30 12 1996) DIV 146097 36524 1461 365 1
+</span></code></pre></div>
+<p>has the value <code>0 3 23 4 0</code>, and <code>1601 + 400 100 4 1 +/ . * 0 3 23 4</code> is <code>1997</code>. The distinguishing feature of these exceptional cases is the number of trailing 0s in factorization of the date number, from one trailing zero in the above example to four for December 31 in a centennial leap year as in</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>(D 30 12 1996) DIV 146097 36524 1461 365 1
+</span></code></pre></div>
+<p>which has the value <code>1 0 0 0 0</code>. We can resolve this problem using the number of trailing 0s to indicate that an adjustment of the ordinal date and year is necessary. Therefore, we define the verb</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>DayAndYear=. (((0:&lt;|.)i.1:),{:,Year@}:)@(DIV&amp;146097 36524 1461 365 1)
+</span></code></pre></div>
+<p>where</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>Year=. 1601&amp;+@(400 100 4 1&amp;(+/ . *))
+</span></code></pre></div>
+<p>and, for example,</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>DayAndYear D 1 8 1996
+</span></code></pre></div>
+<p>is <code>0 214 1996</code>,</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>DayAndYear D 30 12 1996
+</span></code></pre></div>
+<p>is <code>1 0 1997</code>, and</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>DayAndYear D 31 12 2000
+</span></code></pre></div>
+<p><code>4 0 2001</code>. We may then define the verb</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>DayAndYearAdj=. (}.)`((366&amp;-@(2&amp;|@{.),&lt;:@{:))@.(0:~:{.)@DayAndYear
+</span></code></pre></div>
+<p>to adjust the year and ordinal date, and, for example, <code>DayAndYearAdj 30 12 1996</code> is <code>365 1996</code>. Then the calendar date for <em>any</em> date number is given by</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>Dinv=. (({.ODinv(1&amp;{)) , }.)@DayAndYearAdj
+</span></code></pre></div>
+<p>and, finally, the inverse Julian date by</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>JDinv=. Dinv@(-&amp;2305813)
+</span></code></pre></div>
+<p>For example, <code>JDinv 2450297</code> is <code>1 8 1996</code>.</p>
+<h2 id="miscellaneous-calculations">Miscellaneous Calculations<a class="headerlink" href="#miscellaneous-calculations" title="Permanent link">&para;</a></h2>
+<p>In this section we shall give a number of very simple and useful calculations which follow immediately from the calculation of either the date number or the Julian date or the inverse of either of these quantities.</p>
+<p>It was noted above that the day number corresponding to any date is simply the 7-residue of the date number. Therefore, the day of the week is given by</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>DayOfWeek=.;@((_3&lt;\DAYS)&amp;({~)@(mod&amp;7 @ D))
+</span></code></pre></div>
+<p>and, for example, <code>DayOfWeek 1 8 1996</code> is <code>Th</code>.</p>
+<p>The number of days between two dates is the difference in their date numbers so that we may define the verb</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>DaysBetween=. D@[ -~ D@]
+</span></code></pre></div>
+<p>and, for example, <code>1 8 1996 DaysBetween 25 12 1996</code> is equal to <code>146</code>. The date a given number of days from any date is given by</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>DaysFrom=. Dinv@([+D@])
+</span></code></pre></div>
+<p>and <code>21 DaysFrom 29 8 1996</code> is <code>19 9 1996</code>.</p>
+<p>One application of some of these verbs could be to find the approximate date of birth of a litter of kittens given the date that the mother cat conceived. Since the gestation period is approximately 64 days, a verb that will give an estimate of the date of birth is</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>Kittens=. 64&amp;DaysFrom
+</span></code></pre></div>
+<p>and, for example, <code>Kittens 1 9 1996</code> is <code>4 11 1996</code>.</p>
+<h2 id="a-day-for-any-date">"A day for any date"<a class="headerlink" href="#a-day-for-any-date" title="Permanent link">&para;</a></h2>
+<p>There are methods of finding the day of the week for any date which, unlike the method developed in this paper, do not depend upon the calculation of a sequence number such as the Julian date or the date number. One such method is due to Lewis Carroll who published it in the March 31, 1887 issue of <em>Nature</em>. In this section we shall give Carroll’s step-by-step procedure supplemented by the corresponding J expressions which will be gathered together in an explicit verb for performing the calculations. In these expressions the J variables <code>Day</code>, <code>Month</code> and <code>Year</code> will give the values of the day, month and year of the given date. Carroll’s algorithm, as described in Fisher (1975), is as follows with additional commentary added in square brackets:</p>
+<blockquote>
+<p>Take the given date in 4 portions, viz., the number of centuries, the number of years over, the month, the day of the month.</p>
+<p>Compute the following 4 items, adding each, when found, to the total of the previous items. When an item or total exceeds 7, divide by 7, and keep the remainder only. [In the J calculations the 7-residue will be found only in the last step.]</p>
+<p><em>The Century-Item:</em> For Old Style (which ended September 2, 1752) subtract from 18. For New Style (which began September 14) divide by 4, take overplus from 3, multiply remainder by 2. [When the Gregorian calendar was introduced in England in 1752, the days between September 2 and September 14 were dropped. In the J expressions calculations for the Julian calendar are not considered.]</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>c=. +: 3 - mod&amp;4 div&amp;100 Year
+</span></code></pre></div>
+<p><em>The Year-Item:</em> Add together the number of dozens, the overplus, and the number of 4s in the overplus.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>y=. ((div&amp;4 + ])@ mod&amp;12 + div&amp;12) mod&amp;100 Year
+</span></code></pre></div>
+<p><em>The Month-Item:</em> If it begins or ends with a vowel, subtract the number, denoting its place in the year, from 10. This, plus its number of days, gives the item for the following month. The item for January is ‘0’; for February or March (the 3rd month), ‘3’; for December (the 12th month), ‘12’. [Fisher suggests that "it would be surprising if he [Carroll] did not eventually come round to formulating a relevant chart as follows to be committed to memory through a specific mnemonic": 0 3 3 6 8 4 6 2 5 0 3 5. The items represent the 7-residues of the total number of days from January 1 to the beginning of each month.]</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>m=. (&lt;:Month){ 0 3 3 6 8 4 6 2 5 0 3 5
+</span></code></pre></div>
+<p>The twelve-item list in the above expression may be calculated by</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>7|+/\0,}:LENGTHS
+</span></code></pre></div>
+<p><em>The Day-Item</em> is the day of the month.</p>
+<p>The total, thus reached, must be corrected, by deducting ‘1’ (first adding 7, if the total be ‘0’), if the date be January or February in a Leap Year; remembering that every year, divisible by 4, is a Leap Year, excepting only the century-years, in New Style, when the number of centuries is not so divisible (e.g., 1800).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>7|c + y + m + Day - (Month &lt;: 2) *. (LY Year)
+</span></code></pre></div>
+<p>The final result gives the day of the week, ‘0’ meaning Sunday, ‘1’ Monday, and so on.</p>
+</blockquote>
+<p>As an example Carroll uses the date September 18, 1783. Then in the J calculations <code>Day</code> is <code>18</code>, <code>Month</code> is <code>9</code> and <code>Year</code> is <code>1783</code> so that <code>c</code> is <code>2</code>, <code>y</code> is <code>19</code>, <code>m</code> is <code>5</code> and the value of the last expression is <code>4</code>. Therefore, the given date falls on a Thursday.</p>
+<p>We may use the J expressions given above in the definition of the following explicit verb <code>DayNumber</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>DayNumber=. 3 : 0
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>('Day';'Month';'Year')=. y.
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>c=. +: 3 - mod&amp;4 div&amp;100 Year
+</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>y=. ((div&amp;4 + ])@ mod&amp;12 + div&amp;12) mod&amp;100 Year
+</span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>m=. (&lt;:Month){ 0 3 3 6 8 4 6 2 5 0 3 5
+</span><span id="__span-44-6"><a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>7|c + y + m + Day - LY Year
+</span><span id="__span-44-7"><a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a>)
+</span></code></pre></div>
+<p>For example, <code>DayNumber 18 9 1783</code> is <code>4</code>.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<p>Burke, C., R. K. W. Hui, <em>et al</em>, 1996. <em>J Phrases</em>. Iverson Software Inc., Toronto.</p>
+<p>Fisher, J. (ed.), 1975. <em>The Magic of Lewis Carroll</em>. Penguin Books Ltd., Harmondsworth, Middlesex.</p>
+<p>McDonnell, E. E., 1991. <em>ISI &amp; J</em>. Iverson Software Inc., Toronto.</p>
+<p>Smillie, Keith, 1992. <em>"Making a calendar in J."</em> Vector, vol. 9, no. 1, pp. 87 - 90.</p>
+<p>Smillie, Keith, 1994. <em>"A note on the Easter algorithm in J."</em> Vector, vol. 10, no. 3, pp. 78 - 79.</p>
+<h2 id="appendix-1-calendar-for-1997">Appendix 1. Calendar for 1997<a class="headerlink" href="#appendix-1-calendar-for-1997" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>+---------------------+---------------------+---------------------+
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>|         Jan         |         Feb         |         Mar         |
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>| Su Mo Tu We Th Fr Sa| Su Mo Tu We Th Fr Sa| Su Mo Tu We Th Fr Sa|
+</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>|           1  2  3  4|                    1|                    1|
+</span><span id="__span-45-5"><a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a>|  5  6  7  8  9 10 11|  2  3  4  5  6  7  8|  2  3  4  5  6  7  8|
+</span><span id="__span-45-6"><a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a>| 12 13 14 15 16 17 18|  9 10 11 12 13 14 15|  9 10 11 12 13 14 15|
+</span><span id="__span-45-7"><a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a>| 19 20 21 22 23 24 25| 16 17 18 19 20 21 22| 16 17 18 19 20 21 22|
+</span><span id="__span-45-8"><a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a>| 26 27 28 29 30 31   | 23 24 25 26 27 28   | 23 24 25 26 27 28 29|
+</span><span id="__span-45-9"><a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a>|                     |                     | 30 31               |
+</span><span id="__span-45-10"><a id="__codelineno-45-10" name="__codelineno-45-10" href="#__codelineno-45-10"></a>+---------------------+---------------------+---------------------+
+</span><span id="__span-45-11"><a id="__codelineno-45-11" name="__codelineno-45-11" href="#__codelineno-45-11"></a>|         Apr         |         May         |         Jun         |
+</span><span id="__span-45-12"><a id="__codelineno-45-12" name="__codelineno-45-12" href="#__codelineno-45-12"></a>| Su Mo Tu We Th Fr Sa| Su Mo Tu We Th Fr Sa| Su Mo Tu We Th Fr Sa|
+</span><span id="__span-45-13"><a id="__codelineno-45-13" name="__codelineno-45-13" href="#__codelineno-45-13"></a>|        1  2  3  4  5|              1  2  3|  1  2  3  4  5  6  7|
+</span><span id="__span-45-14"><a id="__codelineno-45-14" name="__codelineno-45-14" href="#__codelineno-45-14"></a>|  6  7  8  9 10 11 12|  4  5  6  7  8  9 10|  8  9 10 11 12 13 14|
+</span><span id="__span-45-15"><a id="__codelineno-45-15" name="__codelineno-45-15" href="#__codelineno-45-15"></a>| 13 14 15 16 17 18 19| 11 12 13 14 15 16 17| 15 16 17 18 19 20 21|
+</span><span id="__span-45-16"><a id="__codelineno-45-16" name="__codelineno-45-16" href="#__codelineno-45-16"></a>| 20 21 22 23 24 25 26| 18 19 20 21 22 23 24| 22 23 24 25 26 27 28|
+</span><span id="__span-45-17"><a id="__codelineno-45-17" name="__codelineno-45-17" href="#__codelineno-45-17"></a>| 27 28 29 30         | 25 26 27 28 29 30 31| 29 30               |
+</span><span id="__span-45-18"><a id="__codelineno-45-18" name="__codelineno-45-18" href="#__codelineno-45-18"></a>|                     |                     |                     |
+</span><span id="__span-45-19"><a id="__codelineno-45-19" name="__codelineno-45-19" href="#__codelineno-45-19"></a>+---------------------+---------------------+---------------------+
+</span><span id="__span-45-20"><a id="__codelineno-45-20" name="__codelineno-45-20" href="#__codelineno-45-20"></a>|         Jul         |         Aug         |         Sep         |
+</span><span id="__span-45-21"><a id="__codelineno-45-21" name="__codelineno-45-21" href="#__codelineno-45-21"></a>| Su Mo Tu We Th Fr Sa| Su Mo Tu We Th Fr Sa| Su Mo Tu We Th Fr Sa|
+</span><span id="__span-45-22"><a id="__codelineno-45-22" name="__codelineno-45-22" href="#__codelineno-45-22"></a>|        1  2  3  4  5|                 1  2|     1  2  3  4  5  6|
+</span><span id="__span-45-23"><a id="__codelineno-45-23" name="__codelineno-45-23" href="#__codelineno-45-23"></a>|  6  7  8  9 10 11 12|  3  4  5  6  7  8  9|  7  8  9 10 11 12 13|
+</span><span id="__span-45-24"><a id="__codelineno-45-24" name="__codelineno-45-24" href="#__codelineno-45-24"></a>| 13 14 15 16 17 18 19| 10 11 12 13 14 15 16| 14 15 16 17 18 19 20|
+</span><span id="__span-45-25"><a id="__codelineno-45-25" name="__codelineno-45-25" href="#__codelineno-45-25"></a>| 20 21 22 23 24 25 26| 17 18 19 20 21 22 23| 21 22 23 24 25 26 27|
+</span><span id="__span-45-26"><a id="__codelineno-45-26" name="__codelineno-45-26" href="#__codelineno-45-26"></a>| 27 28 29 30 31      | 24 25 26 27 28 29 30| 28 29 30            |
+</span><span id="__span-45-27"><a id="__codelineno-45-27" name="__codelineno-45-27" href="#__codelineno-45-27"></a>|                     | 31                  |                     |
+</span><span id="__span-45-28"><a id="__codelineno-45-28" name="__codelineno-45-28" href="#__codelineno-45-28"></a>+---------------------+---------------------+---------------------+
+</span><span id="__span-45-29"><a id="__codelineno-45-29" name="__codelineno-45-29" href="#__codelineno-45-29"></a>|         Oct         |         Nov         |         Dec         |
+</span><span id="__span-45-30"><a id="__codelineno-45-30" name="__codelineno-45-30" href="#__codelineno-45-30"></a>| Su Mo Tu We Th Fr Sa| Su Mo Tu We Th Fr Sa| Su Mo Tu We Th Fr Sa|
+</span><span id="__span-45-31"><a id="__codelineno-45-31" name="__codelineno-45-31" href="#__codelineno-45-31"></a>|           1  2  3  4|                    1|     1  2  3  4  5  6|
+</span><span id="__span-45-32"><a id="__codelineno-45-32" name="__codelineno-45-32" href="#__codelineno-45-32"></a>|  5  6  7  8  9 10 11|  2  3  4  5  6  7  8|  7  8  9 10 11 12 13|
+</span><span id="__span-45-33"><a id="__codelineno-45-33" name="__codelineno-45-33" href="#__codelineno-45-33"></a>| 12 13 14 15 16 17 18|  9 10 11 12 13 14 15| 14 15 16 17 18 19 20|
+</span><span id="__span-45-34"><a id="__codelineno-45-34" name="__codelineno-45-34" href="#__codelineno-45-34"></a>| 19 20 21 22 23 24 25| 16 17 18 19 20 21 22| 21 22 23 24 25 26 27|
+</span><span id="__span-45-35"><a id="__codelineno-45-35" name="__codelineno-45-35" href="#__codelineno-45-35"></a>| 26 27 28 29 30 31   | 23 24 25 26 27 28 29| 28 29 30 31         |
+</span><span id="__span-45-36"><a id="__codelineno-45-36" name="__codelineno-45-36" href="#__codelineno-45-36"></a>|                     | 30                  |                     |
+</span><span id="__span-45-37"><a id="__codelineno-45-37" name="__codelineno-45-37" href="#__codelineno-45-37"></a>+---------------------+---------------------+---------------------+
+</span></code></pre></div>
+<h2 id="appendix-2-script-file">Appendix 2. Script file<a class="headerlink" href="#appendix-2-script-file" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>NB. Introduction
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>LY=. ~:/ @ (mod&amp;4 100 400 = 0:)
+</span><span id="__span-46-3"><a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a>mod=. |~
+</span><span id="__span-46-4"><a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a>LENGTHS=. 31 28 31 30 31 30 31 31 30 31 30 31
+</span><span id="__span-46-5"><a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a>L=. LENGTHS&amp;+@((LENGTHS=28)&amp;*.)@LY
+</span><span id="__span-46-6"><a id="__codelineno-46-6" name="__codelineno-46-6" href="#__codelineno-46-6"></a>DAYS=. ' Su Mo Tu We Th Fr Sa'
+</span><span id="__span-46-7"><a id="__codelineno-46-7" name="__codelineno-46-7" href="#__codelineno-46-7"></a>MONTHS=._3&lt;\'JanFebMarAprMayJunJulAugSepOctNovDec'
+</span><span id="__span-46-8"><a id="__codelineno-46-8" name="__codelineno-46-8" href="#__codelineno-46-8"></a>div=.&lt;.@%
+</span><span id="__span-46-9"><a id="__codelineno-46-9" name="__codelineno-46-9" href="#__codelineno-46-9"></a>pos=. &gt;: @ i.
+</span><span id="__span-46-10"><a id="__codelineno-46-10" name="__codelineno-46-10" href="#__codelineno-46-10"></a>
+</span><span id="__span-46-11"><a id="__codelineno-46-11" name="__codelineno-46-11" href="#__codelineno-46-11"></a>NB. Date number
+</span><span id="__span-46-12"><a id="__codelineno-46-12" name="__codelineno-46-12" href="#__codelineno-46-12"></a>YearEnd=. (365&amp;* + -/ @ (div&amp;4 100 400)) @ (] @ -&amp;1601)
+</span><span id="__span-46-13"><a id="__codelineno-46-13" name="__codelineno-46-13" href="#__codelineno-46-13"></a>MonthLength=. (&lt;:@[) { L@]
+</span><span id="__span-46-14"><a id="__codelineno-46-14" name="__codelineno-46-14" href="#__codelineno-46-14"></a>OD=. ({.@])++/ @ (pos @ (&lt;: @ (1&amp;{@])) MonthLength"(0 _) {:@])
+</span><span id="__span-46-15"><a id="__codelineno-46-15" name="__codelineno-46-15" href="#__codelineno-46-15"></a>ODcomp=. LY@({:@]) + 365&amp;-@OD
+</span><span id="__span-46-16"><a id="__codelineno-46-16" name="__codelineno-46-16" href="#__codelineno-46-16"></a>D=. (YearEnd@({:)@]) + OD
+</span><span id="__span-46-17"><a id="__codelineno-46-17" name="__codelineno-46-17" href="#__codelineno-46-17"></a>
+</span><span id="__span-46-18"><a id="__codelineno-46-18" name="__codelineno-46-18" href="#__codelineno-46-18"></a>NB. Month, quarter and year calendars
+</span><span id="__span-46-19"><a id="__codelineno-46-19" name="__codelineno-46-19" href="#__codelineno-46-19"></a>mb=. mod&amp;7 @ (D @ (1:,[,]))
+</span><span id="__span-46-20"><a id="__codelineno-46-20" name="__codelineno-46-20" href="#__codelineno-46-20"></a>mctable=. ,"_1@(6 7&amp;$)@((-@mb) |.
+</span><span id="__span-46-21"><a id="__codelineno-46-21" name="__codelineno-46-21" href="#__codelineno-46-21"></a>(42&amp;{.)@(3&amp;":)@,.@pos@MonthLength)
+</span><span id="__span-46-22"><a id="__codelineno-46-22" name="__codelineno-46-22" href="#__codelineno-46-22"></a>mc=. (_12&amp;{.@&gt;@({&amp;MONTHS)@&lt;:@[),(DAYS&amp;,@mctable)
+</span><span id="__span-46-23"><a id="__codelineno-46-23" name="__codelineno-46-23" href="#__codelineno-46-23"></a>cal=. &lt;"2 @ mc"(0 _)
+</span><span id="__span-46-24"><a id="__codelineno-46-24" name="__codelineno-46-24" href="#__codelineno-46-24"></a>Quarter=. ((pos 3)&amp;+@((3: * &lt;:)@[))cal]
+</span><span id="__span-46-25"><a id="__codelineno-46-25" name="__codelineno-46-25" href="#__codelineno-46-25"></a>calendar=. (pos 4 3)&amp;cal
+</span><span id="__span-46-26"><a id="__codelineno-46-26" name="__codelineno-46-26" href="#__codelineno-46-26"></a>
+</span><span id="__span-46-27"><a id="__codelineno-46-27" name="__codelineno-46-27" href="#__codelineno-46-27"></a>NB. Julian date and its inverse
+</span><span id="__span-46-28"><a id="__codelineno-46-28" name="__codelineno-46-28" href="#__codelineno-46-28"></a>JD=. 2305813&amp;+@D
+</span><span id="__span-46-29"><a id="__codelineno-46-29" name="__codelineno-46-29" href="#__codelineno-46-29"></a>ODcal=. (+/\@(0:,}:) (([+pos@])"(0 0) &amp;. &gt;) ])@L
+</span><span id="__span-46-30"><a id="__codelineno-46-30" name="__codelineno-46-30" href="#__codelineno-46-30"></a>ODinv=. |.@&gt;:@( 12 31&amp;#:)@(,@(&gt;@ODcal@]) i. [)
+</span><span id="__span-46-31"><a id="__codelineno-46-31" name="__codelineno-46-31" href="#__codelineno-46-31"></a>DIV=. (}.@[)`((div {.),(mod {.) DIV }.@])@.(*@#@])
+</span><span id="__span-46-32"><a id="__codelineno-46-32" name="__codelineno-46-32" href="#__codelineno-46-32"></a>Year=. 1601&amp;+@(400 100 4 1&amp;(+/ . *))
+</span><span id="__span-46-33"><a id="__codelineno-46-33" name="__codelineno-46-33" href="#__codelineno-46-33"></a>DayAndYear=. (((0:&lt;|.)i.1:),{:,Year@}:)@(DIV&amp;146097 36524 1461
+</span><span id="__span-46-34"><a id="__codelineno-46-34" name="__codelineno-46-34" href="#__codelineno-46-34"></a>365 1)
+</span><span id="__span-46-35"><a id="__codelineno-46-35" name="__codelineno-46-35" href="#__codelineno-46-35"></a>DayAndYearAdj=. (}.)`((366&amp;-@(2&amp;|@{.) ,
+</span><span id="__span-46-36"><a id="__codelineno-46-36" name="__codelineno-46-36" href="#__codelineno-46-36"></a>&lt;:@{:))@.(0:~:{.)@DayAndYear
+</span><span id="__span-46-37"><a id="__codelineno-46-37" name="__codelineno-46-37" href="#__codelineno-46-37"></a>Dinv=. (({.ODinv(1&amp;{)) , }.)@DayAndYearAdj
+</span><span id="__span-46-38"><a id="__codelineno-46-38" name="__codelineno-46-38" href="#__codelineno-46-38"></a>JDinv=. Dinv@(-&amp;2305813)
+</span><span id="__span-46-39"><a id="__codelineno-46-39" name="__codelineno-46-39" href="#__codelineno-46-39"></a>
+</span><span id="__span-46-40"><a id="__codelineno-46-40" name="__codelineno-46-40" href="#__codelineno-46-40"></a>NB. Miscellaneous calculations
+</span><span id="__span-46-41"><a id="__codelineno-46-41" name="__codelineno-46-41" href="#__codelineno-46-41"></a>DayOfWeek=.;@((_3&lt;\DAYS)&amp;({~)@(mod&amp;7 @D))
+</span><span id="__span-46-42"><a id="__codelineno-46-42" name="__codelineno-46-42" href="#__codelineno-46-42"></a>DaysBetween=. D@[ -~ D@]
+</span><span id="__span-46-43"><a id="__codelineno-46-43" name="__codelineno-46-43" href="#__codelineno-46-43"></a>DaysFrom=. Dinv@([+D@])
+</span><span id="__span-46-44"><a id="__codelineno-46-44" name="__codelineno-46-44" href="#__codelineno-46-44"></a>Kittens=. 64&amp;DaysFrom
+</span><span id="__span-46-45"><a id="__codelineno-46-45" name="__codelineno-46-45" href="#__codelineno-46-45"></a>
+</span><span id="__span-46-46"><a id="__codelineno-46-46" name="__codelineno-46-46" href="#__codelineno-46-46"></a>NB. "A day for any date"
+</span><span id="__span-46-47"><a id="__codelineno-46-47" name="__codelineno-46-47" href="#__codelineno-46-47"></a>DayNumber=. 3 : 0
+</span><span id="__span-46-48"><a id="__codelineno-46-48" name="__codelineno-46-48" href="#__codelineno-46-48"></a>('Day';'Month';'Year')=. y.
+</span><span id="__span-46-49"><a id="__codelineno-46-49" name="__codelineno-46-49" href="#__codelineno-46-49"></a>c=. +: 3 - mod&amp;4 div&amp;100 Year
+</span><span id="__span-46-50"><a id="__codelineno-46-50" name="__codelineno-46-50" href="#__codelineno-46-50"></a>y=. ((div&amp;4 + ])@ mod&amp;12 + div&amp;12) mod&amp;100 Year
+</span><span id="__span-46-51"><a id="__codelineno-46-51" name="__codelineno-46-51" href="#__codelineno-46-51"></a>m=. (&lt;:Month){ 0 3 3 6 8 4 6 2 5 0 3 5
+</span><span id="__span-46-52"><a id="__codelineno-46-52" name="__codelineno-46-52" href="#__codelineno-46-52"></a>7|c + y + m + Day - LY Year
+</span><span id="__span-46-53"><a id="__codelineno-46-53" name="__codelineno-46-53" href="#__codelineno-46-53"></a>)
+</span></code></pre></div></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">programming techniques</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">mathematics and statistics</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

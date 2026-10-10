@@ -1,0 +1,1295 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10009380/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Using the GEM file selector in APL.68000 - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#an-interface-program-for-apl68000-on-the-atari-st" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Using the GEM file selector in APL.68000
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#an-interface-program-for-apl68000-on-the-atari-st" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        An Interface Program for APL.68000 on the Atari ST
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-use-the-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        How to use the function
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Notes
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reference
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apl-listings" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        APL Listings
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assembler-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Assembler Code
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Using the GEM file selector in APL.68000</h1>
+
+  <p class="printed"><a href="../6/#n3-january-1990">Vector 6:3</a>, page 113</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-system-interfaces">system interfaces</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../6/3/VOL.6-NO.3-JANUARY-1990.pdf#page=115">Read it in the PDF of the issue, page 113</a></em></p>
+<p class="byline"><em>by John Sullivan</em></p>
+<h2 id="an-interface-program-for-apl68000-on-the-atari-st">An Interface Program for APL.68000 on the Atari ST<a class="headerlink" href="#an-interface-program-for-apl68000-on-the-atari-st" title="Permanent link">&para;</a></h2>
+<p>The GEM file selector is a program built into GEM which allows application programs to present the user with a dialogue resulting in the selection of a file, the path and name of which are returned to the application program for further processing. Anybody who has used any serious Atari software (for instance the word-processing program that usually comes bundled with the machine) will know how useful the file selector is (and also how terrible the Atari one can be!). It would be most useful if this facility were available from APL, but APL.68000 does not have a built-in interface for it.</p>
+<p>There is a way around this apparent omission: write your own interface. This is not difficult if you are an assembler programmer, because MicroAPL have thoroughly provided a way of doing just that, by means of an auxiliary processor [1]. However, not everybody is an assembler programmer, hence this article. (You may say, after reading my assembler code, that I’m not an assembler programmer either. It’s a fair cop - I admit it!)</p>
+<h2 id="how-to-use-the-function">How to use the function<a class="headerlink" href="#how-to-use-the-function" title="Permanent link">&para;</a></h2>
+<p>The cover function is called &lt;FSEL&gt;. It takes character left and right arguments and returns an explicit result. This result is the full name of the selected file including the path, unless ‘cancel’ was specified, or if an error occurred in the AES call, in which case the null vector is returned. If an APL error occurs (such as WS FULL or NONCE ERROR) the function will stop in the usual manner: this can be trapped and dealt with by the function that calls &lt;FSEL&gt;. The only ‘subroutine’ function is &lt;TRANSLATE&gt; from the TOOLS workspace (supplied with APL.68000) which is used to convert the character strings from ASCII to the internal format used by APL.68000 and vice versa.</p>
+<p>When using the file selector the idea is that the options that were selected last time are used as the starting point for next time. These options can, of course, be over-ridden by appropriate use of the left and right arguments to the cover function &lt;FSEL&gt;. However, in order to save preferences from one call to the next, the assembler code is held in a global variable &lt;FSELmc&gt;, rather than being initialised by the cover function every time it is called, which is the normal way of dealing with auxiliary processors. Of course, you can re-initialise the code whenever you like by calling the setup function: an ideal time to do this is on entry to the workspace, in the latent function. It is incumbent on the application programmer to ensure that the global variable does not become corrupted in any way.</p>
+<p>The left argument to the function is the initial path name to be used. If this is omitted or null, the program uses the path that was returned last time the file selector was used, or ‘A:\*.*’ if it hasn’t been used since initialisation. This path can be up to 63 characters long, which is the maximum path length in DOS (but be careful, because there are a few peculiarities with path lengths on the Atari).</p>
+<p>The right argument to the function is the initial filename to be used. If this is null, the program uses the filename that was returned last time the file selector was used, or it displays a blank filename if it hasn’t been used since initialisation. The maximum filename length is 12 characters with an optional embedded period which, if required or used, must be in the right place or results may not be what you expect.</p>
+<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
+<p>I used HiSoft’s Devpac2 Assembler (also known as GenST Macro Assembler) to assemble the machine code for this auxiliary processor. HiSoft also supply a replacement file selector which is much better than the Atari offering. Further details from HiSoft at The Old School, Greenfield, Bedford MK45 5DE.</p>
+<p>The assembler code must be relocatable, and it can be got into the workspace by reading the assembled file by the usual Native File-handling techniques, and dropping the first 28 bytes (the program header, which isn’t required in APL). The auxiliary processor mechanism will accept the assembled code in any APL data format: I converted it to integer for use in &lt;SETUP-FSELmc&gt;, but for this program it is best sent to the AP in character, because you can manipulate characters more easily in the cover function.</p>
+<p>If anybody wants to use these functions and doesn’t want to run the gauntlet of keying all those numbers (and making all those mistakes!) I will be pleased to supply them with a suitable workspace if a diskette and the appropriate return postage is forwarded to me. For what it’s worth, the assembler source code is also available.</p>
+<h2 id="reference">Reference<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h2>
+<p>[1] A description of the Auxiliary Processor Mechanism appears in a paper by Philip van Cleave in the APL83 Conference Proceedings. This paper is summarised at the end of Chapter 4 of MicroAPL’s APL Language Manual.</p>
+<h2 id="apl-listings">APL Listings<a class="headerlink" href="#apl-listings" title="Permanent link">&para;</a></h2>
+<p>Function FSEL</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w">      </span><span class="bp">∇</span><span class="nv">Z</span><span class="kd">←</span><span class="nv">PATH</span><span class="w"> </span><span class="nv">FSEL</span><span class="w"> </span><span class="nv">FNAME</span><span class="sr">;</span><span class="nv">AP</span><span class="sr">;</span><span class="nv">C</span><span class="sr">;</span><span class="nf">⎕IO</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ Call up the GEM AES File selector. Written 14 Mar 1989 by JS.</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ Allows the user to enter any garbage he/she likes.</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ If PATH or FNAME are null then use preferences from last time</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ (that's why the machine code for AP is kept in &lt;FSELmc&gt;)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">   </span><span class="o">⍎</span><span class="p">(</span><span class="m">2</span><span class="o">≠</span><span class="nf">⎕NC</span><span class="s1">'FSELmc'</span><span class="p">)</span><span class="na">/</span><span class="s1">'''VALUE ERROR: Variable &lt;FSELmc&gt; required''⎕ERS 11'</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="nf">⎕IO</span><span class="kd">←</span><span class="m">0</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="kd">→</span><span class="p">(</span><span class="m">0</span><span class="o">=⍴</span><span class="nv">FNAME</span><span class="p">)</span><span class="na">/</span><span class="nv">∆1</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">    </span><span class="nv">FSELmc</span><span class="sr">[</span><span class="m">148</span><span class="o">+⍳</span><span class="m">13</span><span class="sr">]</span><span class="kd">←</span><span class="m">13</span><span class="o">↑</span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="nv">TRANSLATE</span><span class="w"> </span><span class="nv">FNAME</span><span class="p">)</span><span class="o">,</span><span class="m">13</span><span class="o">⍴</span><span class="nf">⎕AV</span><span class="sr">[</span><span class="m">0</span><span class="sr">]</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">   </span><span class="nv">∆1</span><span class="bp">:</span><span class="kd">→</span><span class="p">(</span><span class="m">2</span><span class="o">≠</span><span class="nf">⎕NC</span><span class="s1">'PATH'</span><span class="p">)</span><span class="na">/</span><span class="nv">∆2</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="kd">→</span><span class="p">(</span><span class="m">0</span><span class="o">=⍴</span><span class="nv">PATH</span><span class="p">)</span><span class="na">/</span><span class="nv">∆2</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">    </span><span class="nv">FSELmc</span><span class="sr">[</span><span class="m">84</span><span class="o">+⍳</span><span class="m">63</span><span class="sr">]</span><span class="kd">←</span><span class="m">63</span><span class="o">↑</span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="nv">TRANSLATE</span><span class="w"> </span><span class="nv">PATH</span><span class="p">)</span><span class="o">,</span><span class="m">63</span><span class="o">⍴</span><span class="nf">⎕AV</span><span class="sr">[</span><span class="m">0</span><span class="sr">]</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">  </span><span class="nv">∆2</span><span class="bp">:</span><span class="nv">C</span><span class="kd">←</span><span class="m">1</span><span class="w"> </span><span class="nf">⎕SVO</span><span class="s1">'AP DAT*'</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nv">FSELmc</span><span class="sr">[</span><span class="m">147</span><span class="w"> </span><span class="m">161</span><span class="sr">]</span><span class="kd">←</span><span class="nf">⎕AV</span><span class="sr">[</span><span class="m">0</span><span class="sr">]</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="sr">[</span><span class="m">11</span><span class="sr">]</span><span class="w">   </span><span class="nv">AP</span><span class="kd">←</span><span class="nv">FSELmc</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nv">C</span><span class="kd">←</span><span class="nv">AP</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nv">Z</span><span class="kd">←</span><span class="s1">''</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="sr">[</span><span class="m">12</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="p">(</span><span class="nv">C</span><span class="o">≤</span><span class="m">1</span><span class="p">)</span><span class="na">/</span><span class="m">0</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="kd">→</span><span class="p">(</span><span class="o">~</span><span class="m">2</span><span class="o">|</span><span class="nv">C</span><span class="p">)</span><span class="na">/</span><span class="m">0</span><span class="w"> </span><span class="c1">⍝         Null vector if error or cancel</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="sr">[</span><span class="m">13</span><span class="sr">]</span><span class="w">  </span><span class="c1">⍝ If no filename then exit</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="sr">[</span><span class="m">14</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="p">(</span><span class="m">0</span><span class="o">=⍴</span><span class="nv">Z</span><span class="kd">←</span><span class="p">(</span><span class="nv">Z</span><span class="o">⍳</span><span class="nf">⎕AV</span><span class="sr">[</span><span class="m">0</span><span class="sr">]</span><span class="p">)</span><span class="o">↑</span><span class="nv">Z</span><span class="kd">←</span><span class="m">0</span><span class="w"> </span><span class="nv">TRANSLATE</span><span class="w"> </span><span class="nv">FSELmc</span><span class="sr">[</span><span class="m">148</span><span class="o">+⍳</span><span class="m">13</span><span class="sr">]</span><span class="p">)</span><span class="na">/</span><span class="m">0</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="sr">[</span><span class="m">15</span><span class="sr">]</span><span class="w">  </span><span class="c1">⍝ Try to decipher path</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="sr">[</span><span class="m">16</span><span class="sr">]</span><span class="w">   </span><span class="nv">C</span><span class="kd">←</span><span class="p">(</span><span class="nv">C</span><span class="o">⍳</span><span class="nf">⎕AV</span><span class="sr">[</span><span class="m">0</span><span class="sr">]</span><span class="p">)</span><span class="o">↑</span><span class="nv">C</span><span class="kd">←</span><span class="p">(</span><span class="m">0</span><span class="w"> </span><span class="nv">TRANSLATE</span><span class="w"> </span><span class="nv">FSELmc</span><span class="sr">[</span><span class="m">84</span><span class="o">+⍳</span><span class="m">63</span><span class="sr">]</span><span class="p">)</span><span class="o">,</span><span class="nf">⎕AV</span><span class="sr">[</span><span class="m">0</span><span class="sr">]</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="sr">[</span><span class="m">17</span><span class="sr">]</span><span class="w">  </span><span class="o">⍎</span><span class="p">(</span><span class="m">0</span><span class="o">≠+</span><span class="na">/</span><span class="s1">'\'</span><span class="o">=</span><span class="nv">C</span><span class="p">)</span><span class="na">/</span><span class="s1">'Z←((-(⌽C)⍳''\'')↓C),Z ⋄ →0'</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="sr">[</span><span class="m">18</span><span class="sr">]</span><span class="w">  </span><span class="c1">⍝ If we have no backslash we must have 'x:', so</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="sr">[</span><span class="m">19</span><span class="sr">]</span><span class="w">  </span><span class="o">⍎</span><span class="p">(</span><span class="s1">':'</span><span class="o">≠</span><span class="p">(</span><span class="m">2</span><span class="o">↑</span><span class="nv">C</span><span class="p">)</span><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="p">)</span><span class="na">/</span><span class="s1">'Z←'''' ⋄ →0'</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="sr">[</span><span class="m">20</span><span class="sr">]</span><span class="w">   </span><span class="nv">Z</span><span class="kd">←</span><span class="nv">C</span><span class="sr">[</span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="sr">]</span><span class="o">,</span><span class="nv">Z</span><span class="w"> </span><span class="c1">⍝                   Drive-id, colon, filename ONLY</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">      </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>Function SETUP∆FSELmc</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="w">      </span><span class="bp">∇</span><span class="nv">SETUP∆FSELmc</span><span class="sr">;</span><span class="nv">A</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ This code initializes the machine code for the AP that calls the</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝ GEM file-selector. Various strings are set to their defaults.</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">    </span><span class="nv">A</span><span class="kd">←</span><span class="m">1610612896</span><span class="w"> </span><span class="m">1914195573</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">5898240</span><span class="w"> </span><span class="m">131074</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">    </span><span class="nv">A</span><span class="kd">←</span><span class="nv">A</span><span class="o">,</span><span class="m">1094343722</span><span class="w"> </span><span class="m">774504448</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">46268</span><span class="w"> </span><span class="m">16</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">    </span><span class="nv">A</span><span class="kd">←</span><span class="nv">A</span><span class="o">,</span><span class="m">1811939334</span><span class="w"> </span><span class="m">1912884853</span><span class="w"> </span><span class="m">1117332220</span><span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">586942208</span><span class="w"> </span><span class="m">18408</span><span class="w"> </span><span class="m">533003</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="nv">A</span><span class="kd">←</span><span class="nv">A</span><span class="o">,</span><span class="m">1172832288</span><span class="w"> </span><span class="m">650790376</span><span class="w"> </span><span class="m">2762442</span><span class="w"> </span><span class="m">1172832328</span><span class="w"> </span><span class="m">650790376</span><span class="w"> </span><span class="m">4728522</span><span class="w"> </span><span class="m">1172832332</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">    </span><span class="nv">A</span><span class="kd">←</span><span class="nv">A</span><span class="o">,</span><span class="m">650791400</span><span class="w"> </span><span class="m">5514444</span><span class="w"> </span><span class="m">1239941268</span><span class="w"> </span><span class="m">613172712</span><span class="w"> </span><span class="m">5514890</span><span class="w"> </span><span class="m">809238728</span><span class="w"> </span><span class="m">1312957096</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">    </span><span class="nv">A</span><span class="kd">←</span><span class="nv">A</span><span class="o">,</span><span class="m">4735617</span><span class="w"> </span><span class="m">1316290560</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">   </span><span class="c1">⍝</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">   </span><span class="nv">FSELmc</span><span class="kd">←</span><span class="m">4</span><span class="w"> </span><span class="nf">⎕DR</span><span class="w"> </span><span class="nv">A</span><span class="w"> </span><span class="c1">⍝               Do it in character</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">      </span><span class="bp">∇</span>
+</span></code></pre></div>
+<h2 id="assembler-code">Assembler Code<a class="headerlink" href="#assembler-code" title="Permanent link">&para;</a></h2>
+<p><img alt="The assembler listing of FSELPRG.S, “AES File Selector interface from APL.68000”, from the HiSoft GenST 680x0 Macro Assembler v2.07, 14/06/89: line numbers, addresses and object code beside the source, which defines the AES parameter block, a path of 'A:*.*', and code that checks for workspace, prepares an integer scalar result, initialises the AES details, calls the AES (move.w #200,d0; trap #2) and saves the return code" src="assembler.png" /></p></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">system interfaces</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1461 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10009420/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Multiprecision Arithmetic Part IV - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#applications-of-multiprecision-arithmetic" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Multiprecision Arithmetic Part IV
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#applications-of-multiprecision-arithmetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Applications of Multiprecision Arithmetic
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#some-number-theory" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Some number theory
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The algorithm
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-multiplicative-inverse-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The multiplicative inverse function
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-the-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Testing the Method
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Practical Matters
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exercises
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finally" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Finally
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Multiprecision Arithmetic Part IV</h1>
+
+  <p class="printed"><a href="../12/#n4-april-1996">Vector 12:4</a>, page 73</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-mathematics-and-statistics">mathematics and statistics</a> <a class="md-tag" href="../tags/#tag-programming-techniques">programming techniques</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../12/4/VOL.12-NO.4-APRIL-1996.pdf#page=75">Read it in the PDF of the issue, page 73</a></em></p>
+<p class="byline"><em>by John Sullivan</em></p>
+<h2 id="applications-of-multiprecision-arithmetic">Applications of Multiprecision Arithmetic<a class="headerlink" href="#applications-of-multiprecision-arithmetic" title="Permanent link">&para;</a></h2>
+<p>In parts 1 &amp; 2 of this series, I introduced the basic functions for performing multiprecision arithmetic. But why do we need to perform arithmetic to such precision? The day-to-day operations of your bank account, or even of the world’s money markets, require no more precision than that supplied by APL for its ordinary arithmetic operations. Scientific measurements no matter how small or large are usually accompanied by some (small or large) error, so accuracy to more than 4 significant figures is usually unnecessary.</p>
+<p>In an article in Scientific American[1], Fred Gruenberger points out that in using arithmetic with only a small number of significant digits, repeated squaring of a number only slightly greater than 1 will soon result in inaccurate results. He then gives the result of squaring 1.0000001 seven times (equivalent to raising it to the power of 128), which results in 1.0000128000812803413… (896 decimal places). Try it with the multiprecision functions. Even on my 486/33 the calculation is quick. Set <code>⎕PP</code> to 15 and enter <code>1.0000001*128</code>, and you will see the problem. The result, 1.00001280008129, is wrong in the last displayed place. And as the power gets larger the results become less accurate. Don’t think that this is a silly exercise: some problems involve iterated multiplication like this; can you <em>really</em> trust the results your computer gives you?</p>
+<p>Next, Gruenberger discusses the continuing search for larger prime numbers. Before the development of computers, the largest known prime was 2<sup>127</sup> − 1, which has only 39 digits. This activity requires the multiprecision arithmetic of parts 1 and 2 of this series, and the primality testing and factoring of large numbers from part 3. But, having discovered a few 100-digit primes, and found the factors of a few 100-digit non-primes, you may be wondering what sort of practical application there is for these numbers.</p>
+<p>Gruenberger mentions some other problems which require high precision arithmetic, such as the solution of simultaneous equations where the determinant of the associated matrix is close to zero, and a couple of mathematical recreations which lead to very large numbers. However, he makes no mention of what is considered by many to be the only commercial application of number theory in the modern world: data encryption and decryption.</p>
+<p>This algorithm for public-key cryptography was described in the late 1970s by Rivest, Shamir and Adleman[2], and it is called the RSA system after them. Although all of the number theory behind it has been known for the last couple of centuries, it is the advent of the digital computer that has made the calculations practical. Two numbers, the encryption key <em>e</em> and the modulus <em>n</em> are published, and anybody can use them to encode a message, which they then send to you. The idea is that <em>n</em> cannot be factored without a lot of effort, so the code-breaker cannot easily calculate the encryption key <em>d</em> to decipher the coded message. There are many books and articles on the RSA algorithm: I obtained my inspiration from chapter 6 of Riesel[3], although I have not used his examples.</p>
+<h2 id="some-number-theory">Some number theory<a class="headerlink" href="#some-number-theory" title="Permanent link">&para;</a></h2>
+<p>Before we can go merrily encrypting and decrypting our secret text, we need some number theory. I am not going to prove any of the following statements: look in any good textbook on number theory, such as those mentioned at the end of part 3. These statements are the key to what follows. All of the numbers concerned are, of course, integers.</p>
+<p>If GCD(<em>a</em>,<em>n</em>)=1 then there exists a number <em>b</em> with 1 ≤ <em>b</em> &lt; <em>n</em> such that <em>ab</em> ≡ 1 mod <em>n</em>. For example 2 × 4 ≡ 1 mod 7. We call <em>b</em> the multiplicative inverse of <em>a</em> modulo <em>n</em>.</p>
+<p>For any integer <em>a</em> with GCD(<em>a</em>,<em>n</em>)=1, <em>a</em><sup>φ(<em>n</em>)</sup> ≡ 1 mod <em>n</em>, where φ(<em>n</em>) is the number of positive integers not exceeding <em>n</em> that are relatively prime to <em>n</em> (φ(<em>n</em>) is known as Euler’s totient function). Not only that, but if <em>n</em> is squarefree <em>a</em><sup><em>k</em>φ(<em>n</em>)+1</sup> ≡ <em>a</em> mod <em>n</em> for all integers <em>a</em> and <em>k</em>. If <em>n</em> is prime then φ(<em>n</em>) = <em>n</em> − 1. If GCD(<em>b</em>,<em>c</em>)=1 then φ(<em>bc</em>) = φ(<em>b</em>)φ(<em>c</em>). However, thanks to a theorem due to Carmichael we can do better than this. There is a function, called Carmichael’s function, denoted by λ(<em>n</em>), such that λ(<em>n</em>) divides φ(<em>n</em>), and <em>a</em><sup>λ(<em>n</em>)</sup> ≡ 1 mod <em>n</em>, with GCD(<em>a</em>,<em>n</em>)=1 and <em>a</em><sup><em>k</em>λ(<em>n</em>)+1</sup> ≡ <em>a</em> mod <em>n</em> for all integers <em>a</em> and <em>k</em> and squarefree <em>n</em>. In general, to calculate Carmichael’s function for a composite number one requires all the prime factors of its argument, which is a beyond the scope of this article; all we need here is that if <em>p</em> and <em>q</em> are primes then λ(<em>pq</em>) = LCM(<em>p</em> − 1, <em>q</em> − 1).</p>
+<h2 id="the-algorithm">The algorithm<a class="headerlink" href="#the-algorithm" title="Permanent link">&para;</a></h2>
+<p>The algorithm for what we are about to do is simple. As mentioned above, we need three numbers: the encrypting key, the decrypting key, and the modulus. We represent our plain text as a number by some means, raise it to the power of the encrypting key modulo the modulus, and send the result to the recipient of our secret message. The recipient then raises this number to the power of the decrypting key modulo the modulus, and the result of this is the original message. To make this work, we choose two primes <em>p</em> and <em>q</em>, and multiply them together to get the modulus <em>n</em>. Choose an encrypting key <em>e</em> such that it is relatively prime to λ(<em>n</em>). Then the decrypting key <em>d</em> is just the multiplicative inverse of <em>e</em> modulo λ(<em>n</em>). (Some books suggest using φ(<em>n</em>) here, instead of λ(<em>n</em>), but this just means raising to a larger power and doing more work for the same result.) Effectively, since <em>de</em> ≡ 1 mod λ(<em>n</em>), then <em>de</em> = <em>k</em>λ(<em>n</em>), for some <em>k</em>, and we are raising our original number to the power of <em>k</em>λ(<em>n</em>) + 1 mod <em>n</em>, which, as mentioned above, restores the original number.</p>
+<h2 id="the-multiplicative-inverse-function">The multiplicative inverse function<a class="headerlink" href="#the-multiplicative-inverse-function" title="Permanent link">&para;</a></h2>
+<p>This is put in namespace <em>mp</em> along with the other multiprecision building blocks. It is based on the Euclidean Algorithm: if GCD(<em>a</em>,<em>b</em>)=1 then there exist <em>m</em>,<em>n</em> such that <em>am</em> + <em>bn</em> = 1. This can be rearranged as <em>am</em> = 1 − <em>bn</em>, which immediately gives <em>am</em> ≡ 1 mod <em>n</em>, thus <em>m</em> is the multiplicative inverse of <em>a</em> modulo <em>n</em>. If the GCD is not 1 then this function returns 0, which is an impossible value for the inverse.</p>
+<p>As with the GCD function (see part 3) this function is divided into two paths, depending on whether we are processing scalars or multiprecision numbers. The first thing we do is find the GCD of the input (I use <em>x</em> here to represent <em>a</em>, and <em>n</em> is the modulus). The Euclidean algorithm says that when we start with <em>a</em> and <em>b</em>, we obtain the following system of equations:</p>
+<blockquote>
+<p><em>a</em> = <em>q</em><sub>1</sub><em>b</em> + <em>r</em><sub>1</sub>, 0 &lt; <em>r</em><sub>1</sub> &lt; <em>b</em><br>
+<em>b</em> = <em>q</em><sub>2</sub><em>r</em><sub>1</sub> + <em>r</em><sub>2</sub>, 0 &lt; <em>r</em><sub>2</sub> &lt; <em>r</em><sub>1</sub><br>
+<em>r</em><sub>1</sub> = <em>q</em><sub>3</sub><em>r</em><sub>2</sub> + <em>r</em><sub>3</sub>, 0 &lt; <em>r</em><sub>3</sub> &lt; <em>r</em><sub>2</sub><br>
+…<br>
+<em>r</em><sub>n−2</sub> = <em>q</em><sub>n</sub><em>r</em><sub>n−1</sub> + <em>r</em><sub>n</sub>, 0 &lt; <em>r</em><sub>n</sub> &lt; <em>r</em><sub>n−1</sub><br>
+<em>r</em><sub>n−1</sub> = <em>q</em><sub>n+1</sub><em>r</em><sub>n</sub> + 0</p>
+</blockquote>
+<p>We start off by generating all of these quotients and remainders, storing the quotients in vector <em>a</em>:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">z</span><span class="kd">←</span><span class="nv">x</span><span class="w"> </span><span class="nv">Inv_mod</span><span class="w"> </span><span class="nv">n</span><span class="sr">;</span><span class="nv">a</span><span class="sr">;</span><span class="nv">b</span><span class="sr">;</span><span class="nv">N</span><span class="sr">;</span><span class="nv">rn</span><span class="sr">;</span><span class="nv">r0</span><span class="sr">;</span><span class="nv">r1</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">    </span><span class="nv">a</span><span class="kd">←</span><span class="no">⍬</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nv">N</span><span class="kd">←</span><span class="nv">n</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">    </span><span class="kd">→</span><span class="p">(</span><span class="m">1</span><span class="o">∨</span><span class="na">.</span><span class="o">≠</span><span class="p">(</span><span class="o">⍴</span><span class="nv">x</span><span class="p">)</span><span class="o">,⍴</span><span class="nv">n</span><span class="p">)</span><span class="na">/</span><span class="nv">∆10</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">    </span><span class="nv">z</span><span class="kd">←</span><span class="m">0</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nv">x</span><span class="kd">←</span><span class="nv">N</span><span class="o">|</span><span class="nv">x</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="nv">∆1</span><span class="bp">:</span><span class="nv">a</span><span class="kd">←</span><span class="nv">a</span><span class="o">,⊃</span><span class="nv">b</span><span class="kd">←</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="nv">x</span><span class="p">)</span><span class="o">⊤</span><span class="nv">n</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">    </span><span class="nv">n</span><span class="kd">←</span><span class="nv">x</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="kd">→</span><span class="p">(</span><span class="m">0</span><span class="o">≠</span><span class="nv">x</span><span class="kd">←</span><span class="m">1</span><span class="o">⊃</span><span class="nv">b</span><span class="p">)</span><span class="na">/</span><span class="nv">∆1</span>
+</span></code></pre></div>
+<p>At this point <em>n</em> holds the GCD of the original <em>n</em> and <em>x</em>. If this is not 1 then there is no multiplicative inverse</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="kd">→</span><span class="p">(</span><span class="m">1</span><span class="o">≠</span><span class="nv">n</span><span class="p">)</span><span class="na">/</span><span class="m">0</span>
+</span></code></pre></div>
+<p>Now we have to go back recursively. We calculate <em>r</em><sub>n</sub> in terms of <em>r</em><sub>0</sub> (= <em>b</em>) and <em>r</em><sub>1</sub>. The recurrence relation we calculate is</p>
+<blockquote>
+<p><em>r</em><sub>i</sub> = <em>r</em><sub>i−2</sub> − <em>q</em><sub>i</sub><em>r</em><sub>i−1</sub></p>
+</blockquote>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">    </span><span class="nv">r0</span><span class="kd">←</span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nv">r1</span><span class="kd">←</span><span class="m">0</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">   </span><span class="nv">∆3</span><span class="bp">:</span><span class="nv">rn</span><span class="kd">←</span><span class="nv">r0</span><span class="o">-</span><span class="nv">r1</span><span class="o">×⊃</span><span class="nv">a</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">    </span><span class="nv">r0</span><span class="kd">←</span><span class="nv">r1</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nv">r1</span><span class="kd">←</span><span class="nv">rn</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nv">a</span><span class="kd">←</span><span class="m">1</span><span class="o">↓</span><span class="nv">a</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="p">(</span><span class="m">1</span><span class="o">&lt;⍴</span><span class="nv">a</span><span class="p">)</span><span class="na">/</span><span class="nv">∆3</span>
+</span></code></pre></div>
+<p>And our result is the coefficient of <em>r</em><sub>1</sub> modulo <em>n</em>.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="sr">[</span><span class="m">11</span><span class="sr">]</span><span class="w">   </span><span class="nv">z</span><span class="kd">←</span><span class="nv">N</span><span class="o">|</span><span class="m">1</span><span class="o">⊃</span><span class="nv">rn</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="kd">→</span><span class="m">0</span>
+</span></code></pre></div>
+<p>And now for the multiprecision version. This part of the function is the same as the scalar version, with minor differences to allow for the way the multiprecision functions have been coded.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="sr">[</span><span class="m">12</span><span class="sr">]</span><span class="w">  </span><span class="nv">∆10</span><span class="bp">:</span><span class="nv">z</span><span class="kd">←</span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nv">x</span><span class="kd">←</span><span class="nv">x</span><span class="w"> </span><span class="nv">Imod</span><span class="w"> </span><span class="nv">N</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="sr">[</span><span class="m">13</span><span class="sr">]</span><span class="w">  </span><span class="nv">∆11</span><span class="bp">:</span><span class="nv">a</span><span class="kd">←</span><span class="nv">a</span><span class="o">,</span><span class="p">(</span><span class="nv">b</span><span class="kd">←</span><span class="nv">n</span><span class="w"> </span><span class="nv">Idiv</span><span class="w"> </span><span class="nv">x</span><span class="p">)</span><span class="sr">[</span><span class="m">0</span><span class="sr">]</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="sr">[</span><span class="m">14</span><span class="sr">]</span><span class="w">   </span><span class="nv">n</span><span class="kd">←</span><span class="nv">x</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="kd">→</span><span class="p">(</span><span class="o">~</span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="nv">Fequal</span><span class="w"> </span><span class="nv">x</span><span class="kd">←</span><span class="m">1</span><span class="o">⊃</span><span class="nv">b</span><span class="p">)</span><span class="na">/</span><span class="nv">∆11</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="sr">[</span><span class="m">15</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="p">(</span><span class="o">~</span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="nv">Fequal</span><span class="w"> </span><span class="nv">n</span><span class="p">)</span><span class="na">/</span><span class="m">0</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="sr">[</span><span class="m">16</span><span class="sr">]</span><span class="w">   </span><span class="nv">r0</span><span class="kd">←</span><span class="p">(</span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="p">)(</span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nv">r1</span><span class="kd">←</span><span class="p">(</span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="p">)(</span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="sr">[</span><span class="m">17</span><span class="sr">]</span><span class="w">  </span><span class="nv">∆13</span><span class="bp">:</span><span class="nv">rn</span><span class="kd">←</span><span class="nv">r0</span><span class="w"> </span><span class="nv">Fsub</span><span class="na">¨</span><span class="nv">r1</span><span class="w"> </span><span class="nv">Fmul</span><span class="na">¨</span><span class="nv">a</span><span class="sr">[</span><span class="m">0</span><span class="sr">]</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="sr">[</span><span class="m">18</span><span class="sr">]</span><span class="w">   </span><span class="nv">r0</span><span class="kd">←</span><span class="nv">r1</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nv">r1</span><span class="kd">←</span><span class="nv">rn</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nv">a</span><span class="kd">←</span><span class="m">1</span><span class="o">↓</span><span class="nv">a</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="sr">[</span><span class="m">19</span><span class="sr">]</span><span class="w">   </span><span class="kd">→</span><span class="p">(</span><span class="m">1</span><span class="o">&lt;⍴</span><span class="nv">a</span><span class="p">)</span><span class="na">/</span><span class="nv">∆13</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="sr">[</span><span class="m">20</span><span class="sr">]</span><span class="w">   </span><span class="nv">z</span><span class="kd">←</span><span class="p">(</span><span class="m">1</span><span class="o">⊃</span><span class="nv">rn</span><span class="p">)</span><span class="nv">Imod</span><span class="w"> </span><span class="nv">N</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<h2 id="testing-the-method">Testing the Method<a class="headerlink" href="#testing-the-method" title="Permanent link">&para;</a></h2>
+<p>For demonstration purposes it is not necessary to search out abstruse prime numbers. At the back of Riesel[3] there are tables of large prime numbers of various types, and I have chosen some of those. You will notice that when using the factoring function I showed in part 3, the factors of <em>n</em> fall out in no time at all. This is O.K. for demonstrations, but is not supposed to happen in reality!</p>
+<blockquote>
+<p><em>p</em> = 9 × 2<sup>63</sup> − 1 = 83010348331692982271<br>
+<em>q</em> = 9 × 2<sup>63</sup> + 1 = 83010348331692982273<br>
+<em>e</em> = 27 × 2<sup>70</sup> − 1 = 31875973759370105192447</p>
+</blockquote>
+<p>Since <em>p</em> and <em>q</em> are primes, λ(<em>pq</em>) is just LCM(<em>p</em> − 1, <em>q</em> − 1). From this we can calculate the decrypting key:</p>
+<blockquote>
+<p><em>d</em> = 2591880212318106415703971813838725054463</p>
+</blockquote>
+<p>I created another namespace to hide these away, called <em>rsa</em>. It seemed a good idea to use a setup function to generate these numbers:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">setup</span><span class="sr">;</span><span class="nv">d</span><span class="sr">;</span><span class="nv">e</span><span class="sr">;</span><span class="nv">n</span><span class="sr">;</span><span class="nv">p</span><span class="sr">;</span><span class="nv">q</span><span class="sr">;</span><span class="nv">s</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">    </span><span class="nv">s</span><span class="kd">←</span><span class="nf">⎕CS</span><span class="s1">'#.mp'</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">    </span><span class="nv">p</span><span class="kd">←</span><span class="m">0</span><span class="w"> </span><span class="m">¯1</span><span class="w"> </span><span class="nv">Fadd</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="nv">Fmul</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="nv">Fspow</span><span class="w"> </span><span class="m">63</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">    </span><span class="nv">q</span><span class="kd">←</span><span class="nv">p</span><span class="w"> </span><span class="nv">Fadd</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">2</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">    </span><span class="nv">n</span><span class="kd">←</span><span class="nv">p</span><span class="w"> </span><span class="nv">Fmul</span><span class="w"> </span><span class="nv">q</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">    </span><span class="nv">e</span><span class="kd">←</span><span class="m">0</span><span class="w"> </span><span class="m">¯1</span><span class="w"> </span><span class="nv">Fadd</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">27</span><span class="w"> </span><span class="nv">Fmul</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="nv">Fspow</span><span class="w"> </span><span class="m">70</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="nv">d</span><span class="kd">←</span><span class="nv">e</span><span class="w"> </span><span class="nv">Inv_mod</span><span class="p">(</span><span class="m">0</span><span class="w"> </span><span class="m">¯1</span><span class="w"> </span><span class="nv">Fadd</span><span class="w"> </span><span class="nv">p</span><span class="p">)</span><span class="nv">Lcm</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">¯1</span><span class="w"> </span><span class="nv">Fadd</span><span class="w"> </span><span class="nv">q</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">    </span><span class="nf">⎕CS</span><span class="w"> </span><span class="nv">s</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">    </span><span class="nv">D</span><span class="kd">←</span><span class="nv">d</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nv">E</span><span class="kd">←</span><span class="nv">e</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nv">N</span><span class="kd">←</span><span class="nv">n</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nv">P</span><span class="kd">←</span><span class="nv">p</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nv">Q</span><span class="kd">←</span><span class="nv">q</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>The LCM function (in namespace <em>mp</em>) is very simple. As with other functions it has two paths, one for scalars and one for multiprecision numbers.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">z</span><span class="kd">←</span><span class="nv">a</span><span class="w"> </span><span class="nv">Lcm</span><span class="w"> </span><span class="nv">b</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">    </span><span class="kd">→</span><span class="p">(</span><span class="m">1</span><span class="o">∧</span><span class="na">.</span><span class="o">=</span><span class="p">(</span><span class="o">⍴</span><span class="nv">a</span><span class="p">)</span><span class="o">,⍴</span><span class="nv">b</span><span class="p">)</span><span class="na">/</span><span class="nv">∆1</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">    </span><span class="nv">z</span><span class="kd">←</span><span class="o">⊃</span><span class="p">(</span><span class="nv">a</span><span class="w"> </span><span class="nv">Fmul</span><span class="w"> </span><span class="nv">b</span><span class="p">)</span><span class="nv">Idiv</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">Gcd</span><span class="w"> </span><span class="nv">b</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">    </span><span class="kd">→</span><span class="m">0</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">   </span><span class="nv">∆1</span><span class="bp">:</span><span class="nv">z</span><span class="kd">←</span><span class="p">(</span><span class="nv">a</span><span class="o">×</span><span class="nv">b</span><span class="p">)</span><span class="o">÷</span><span class="nv">a</span><span class="w"> </span><span class="nv">Gcd</span><span class="w"> </span><span class="nv">b</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>In order to test the method, I made a function called <em>test</em>. It is sufficient to use a single number, smaller than <em>n</em>, to generate an encrypted version, and to decrypt it again. If the decrypted version equals the original version then the process works.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">test</span><span class="sr">;</span><span class="nv">M</span><span class="sr">;</span><span class="nv">C</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">    </span><span class="nv">M</span><span class="kd">←</span><span class="c1">#.mp.Fexec'1234567890123456789012345678901234567890'</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">    </span><span class="s1">'Original  Message is '</span><span class="o">,</span><span class="m">0</span><span class="w"> </span><span class="c1">#.mp.Ffmt M</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">    </span><span class="s1">'Encrypted Message is '</span><span class="o">,</span><span class="m">0</span><span class="w"> </span><span class="c1">#.mp.Ffmt C←M #.mp.Impow E N</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">    </span><span class="s1">'Decrypted Message is '</span><span class="o">,</span><span class="m">0</span><span class="w"> </span><span class="c1">#.mp.Ffmt C #.mp.Impow D N</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>And the following output should surprise nobody.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="w">      </span><span class="nv">test</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nv">Original</span><span class="w">  </span><span class="nv">Message</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="m">1234567890123456789012345678901234567890</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nv">Encrypted</span><span class="w"> </span><span class="nv">Message</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="m">6318195541048362681928930668568439899876</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nv">Decrypted</span><span class="w"> </span><span class="nv">Message</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="m">1234567890123456789012345678901234567890</span>
+</span></code></pre></div>
+<h2 id="practical-matters">Practical Matters<a class="headerlink" href="#practical-matters" title="Permanent link">&para;</a></h2>
+<p>How you implement this algorithm is very much up to you and your correspondents. Here is one method that I devised for testing purposes. Again, this is different from the examples in Riesel.</p>
+<p>First of all we determine what characters we are going to allow in our messages. I added this line to the end of the <em>setup</em> function, above.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nv">Alf</span><span class="kd">←</span><span class="s1">' '</span><span class="o">,</span><span class="nf">⎕D</span><span class="o">,</span><span class="nf">⎕A</span><span class="o">,</span><span class="s1">'.,:;!?()'</span>
+</span></code></pre></div>
+<p>Now you need your normal capitalization function, something like this</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">x</span><span class="kd">←</span><span class="nv">Caps</span><span class="w"> </span><span class="nv">x</span><span class="sr">;</span><span class="nv">a</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">    </span><span class="nv">a</span><span class="kd">←</span><span class="nf">⎕AV</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="nv">a</span><span class="sr">[</span><span class="nf">⎕AV</span><span class="o">⍳</span><span class="s1">'abcdefghijklmnopqrstuvwxyz'</span><span class="sr">]</span><span class="kd">←</span><span class="nf">⎕A</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">    </span><span class="nv">x</span><span class="kd">←</span><span class="nv">a</span><span class="sr">[</span><span class="nf">⎕AV</span><span class="o">⍳</span><span class="nv">x</span><span class="sr">]</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>Convert your plaintext to caps, and replace characters not in the "alphabet" with blanks. Generate a set of origin-zero indexes into this alphabet, and treat them as a radix-<code>⍴Alf</code> multiprecision number by catenating a zero at the start (this is a beneficial side-effect of the variable-radix design of the multiprecision suite). Since the first character in our alphabet is a blank this has the effect of stripping leading blanks from the message, which is probably a good idea. Convert this number to a multiprecision number in our default radix, then use encode (<code>⊤</code>) on it to ensure that we break it into parts that are not greater than the modulus <em>n</em> of our encryption algorithm. Each of the resulting numbers is then encrypted, and the reverse process is carried out on the result, although this time we just use an alphabet of the usual capital letters. Then we split the output into the 5-character blocks, so beloved of espionage systems in the 30’s to early 50’s.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">z</span><span class="kd">←</span><span class="nv">Encrypt</span><span class="w"> </span><span class="nv">x</span><span class="sr">;</span><span class="nv">a</span><span class="sr">;</span><span class="nv">b</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">    </span><span class="nv">x</span><span class="kd">←</span><span class="o">,</span><span class="nv">Caps</span><span class="w"> </span><span class="nv">x</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">    </span><span class="nv">x</span><span class="sr">[</span><span class="p">(</span><span class="o">~</span><span class="nv">x</span><span class="o">∊</span><span class="nv">Alf</span><span class="p">)</span><span class="na">/</span><span class="o">⍳⍴</span><span class="nv">x</span><span class="sr">]</span><span class="kd">←</span><span class="s1">' '</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">    </span><span class="nv">z</span><span class="kd">←</span><span class="p">(</span><span class="c1">#.mp.base,⍴Alf)#.mp.chbase 0,Alf⍳x</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">    </span><span class="nv">z</span><span class="kd">←</span><span class="nv">N</span><span class="w"> </span><span class="c1">#.mp.enc z</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">    </span><span class="nv">z</span><span class="kd">←</span><span class="nv">z</span><span class="w"> </span><span class="c1">#.mp.Impow¨⊂E N</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="nv">z</span><span class="kd">←</span><span class="nv">N</span><span class="w"> </span><span class="c1">#.mp.dec z</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">    </span><span class="nv">z</span><span class="kd">←</span><span class="m">1</span><span class="o">↓</span><span class="p">(</span><span class="m">26</span><span class="o">,</span><span class="c1">#.mp.base)#.mp.chbase z</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">    </span><span class="nv">z</span><span class="kd">←</span><span class="nf">⎕A</span><span class="sr">[</span><span class="nv">z</span><span class="sr">]</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="sr">[</span><span class="m">9</span><span class="sr">]</span><span class="w">    </span><span class="nv">z</span><span class="kd">←</span><span class="p">(</span><span class="m">5</span><span class="o">×</span><span class="nv">b</span><span class="kd">←</span><span class="o">⌈</span><span class="m">0.2</span><span class="o">×⍴</span><span class="nv">z</span><span class="p">)</span><span class="o">↑</span><span class="nv">z</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="sr">[</span><span class="m">10</span><span class="sr">]</span><span class="w">   </span><span class="nv">z</span><span class="kd">←</span><span class="p">((</span><span class="m">6</span><span class="o">×</span><span class="nv">b</span><span class="p">)</span><span class="o">⍴</span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="na">\</span><span class="nv">z</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>The decryption process is just the reverse of this. First we eliminate all non-alphabetical characters from the ciphertext, then we compare it with the ciphertext without the blanks. Obviously, if these are not the same we are working on the wrong text, so we signal an error. Then the process continues as for <em>Encrypt</em>, except that we do not format in 5-character blocks at the end.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">z</span><span class="kd">←</span><span class="nv">Decrypt</span><span class="w"> </span><span class="nv">x</span><span class="sr">;</span><span class="nv">a</span><span class="sr">;</span><span class="nv">b</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">    </span><span class="nv">z</span><span class="kd">←</span><span class="nv">x</span><span class="o">∩</span><span class="nf">⎕A</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">    </span><span class="nf">⎕SIGNAL</span><span class="p">(</span><span class="nv">z</span><span class="o">≢</span><span class="nv">x</span><span class="o">~</span><span class="s1">' '</span><span class="p">)</span><span class="na">/</span><span class="m">11</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">    </span><span class="nv">z</span><span class="kd">←</span><span class="p">(</span><span class="c1">#.mp.base,26)#.mp.chbase 0,⎕A⍳z</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">    </span><span class="nv">z</span><span class="kd">←</span><span class="nv">N</span><span class="w"> </span><span class="c1">#.mp.enc z</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">    </span><span class="nv">z</span><span class="kd">←</span><span class="nv">z</span><span class="w"> </span><span class="c1">#.mp.Impow¨⊂D N</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="nv">z</span><span class="kd">←</span><span class="nv">N</span><span class="w"> </span><span class="c1">#.mp.dec z</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">    </span><span class="nv">z</span><span class="kd">←</span><span class="m">1</span><span class="o">↓</span><span class="p">((</span><span class="o">⍴</span><span class="nv">Alf</span><span class="p">)</span><span class="o">,</span><span class="c1">#.mp.base)#.mp.chbase z</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="sr">[</span><span class="m">8</span><span class="sr">]</span><span class="w">    </span><span class="nv">z</span><span class="kd">←</span><span class="nv">Alf</span><span class="sr">[</span><span class="nv">z</span><span class="sr">]</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<p>And finally, here are the functions <em>dec</em> and <em>enc</em> from namespace <em>mp</em>. <em>dec</em> is similar to the primitive function Decode (<code>⊥</code>) except that the left argument is a single multiprecision number, and the right argument is a vector of multiprecision numbers (so it must be enclosed if there is only one). <em>enc</em> is similar to the primitive function Encode (<code>⊤</code>) except that it only works on one multiprecision number at a time, the left argument is a single multiprecision number which is assumed to repeat as often as required.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">z</span><span class="kd">←</span><span class="nv">b</span><span class="w"> </span><span class="nv">dec</span><span class="w"> </span><span class="nv">x</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">    </span><span class="nv">z</span><span class="kd">←</span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="nv">∆1</span><span class="bp">:</span><span class="nv">z</span><span class="kd">←</span><span class="p">(</span><span class="o">⊃</span><span class="nv">x</span><span class="p">)</span><span class="nv">Fadd</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="nv">Fmul</span><span class="w"> </span><span class="nv">z</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">    </span><span class="kd">→</span><span class="p">(</span><span class="m">0</span><span class="o">≠⍴</span><span class="nv">x</span><span class="kd">←</span><span class="m">1</span><span class="o">↓</span><span class="nv">x</span><span class="p">)</span><span class="na">/</span><span class="nv">∆1</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="bp">∇</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="bp">∇</span><span class="w"> </span><span class="nv">z</span><span class="kd">←</span><span class="nv">b</span><span class="w"> </span><span class="nv">enc</span><span class="w"> </span><span class="nv">x</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="w">    </span><span class="nv">z</span><span class="kd">←</span><span class="no">⍬</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="w">   </span><span class="nv">∆1</span><span class="bp">:</span><span class="kd">→</span><span class="p">(</span><span class="nv">b</span><span class="w"> </span><span class="nv">Fgt</span><span class="w"> </span><span class="nv">x</span><span class="p">)</span><span class="na">/</span><span class="nv">∆2</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="sr">[</span><span class="m">3</span><span class="sr">]</span><span class="w">    </span><span class="nv">x</span><span class="kd">←</span><span class="nv">x</span><span class="w"> </span><span class="nv">Idiv</span><span class="w"> </span><span class="nv">b</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="sr">[</span><span class="m">4</span><span class="sr">]</span><span class="w">    </span><span class="nv">z</span><span class="kd">←</span><span class="nv">x</span><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="o">,</span><span class="nv">z</span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="sr">[</span><span class="m">5</span><span class="sr">]</span><span class="w">    </span><span class="nv">x</span><span class="kd">←</span><span class="o">⊃</span><span class="nv">x</span>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="sr">[</span><span class="m">6</span><span class="sr">]</span><span class="w">    </span><span class="kd">→</span><span class="nv">∆1</span>
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="sr">[</span><span class="m">7</span><span class="sr">]</span><span class="w">   </span><span class="nv">∆2</span><span class="bp">:</span><span class="nv">z</span><span class="kd">←</span><span class="p">(</span><span class="o">⊂</span><span class="nv">x</span><span class="p">)</span><span class="o">,</span><span class="nv">z</span>
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="w">    </span><span class="bp">∇</span>
+</span></code></pre></div>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<p>You haven’t got off scot-free: now it’s your turn to do some work. Using the values of the parameters and the encryption and decryption functions above, decipher the following message.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>LFWBQ CXLSF EBSPQ JNROT MPAKI VWHOG URVYB DHGFY LOQBH JXCOR
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>YVFHL ZGWRT XYPRB GCKUT BOPHN ILFHQ MZSOM OHMJO ILEXK XYVSN
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>QZXLC JGKED ZKWTR SCHXU GNPHV MYGGE VUXCP EAGTB M
+</span></code></pre></div>
+<h2 id="finally">Finally<a class="headerlink" href="#finally" title="Permanent link">&para;</a></h2>
+<p>I have enjoyed writing this series of articles, and I hope you have enjoyed reading them. I am always interested in hearing about multiprecision arithmetic and its applications, and if you wish to correspond you can get hold of me through the editor.</p>
+<p>The workspace that I used for the examples in this series is available by one of the following methods:</p>
+<blockquote>
+<p>If you are on the Internet you can get a vendor-independent version in Jim Weigang’s APLASCII format by anonymous ftp from archive.uwaterloo.ca, called /languages/apl/workspaces/mult.prec/sullivan/MP</p>
+<p>Otherwise send me a blank diskette (you can get hold of me via the Editor). You can either have MP as above, or a Dyalog APL/W 7.1.2 workspace which contains my originals and a lot more.</p>
+</blockquote>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<p>[1] Fred Gruenberger, <em>How to handle numbers with thousands of digits, and why one might want to.</em> "Computer Recreations", Scientific American, April 1984.</p>
+<p>[2] R L Rivest, A Shamir &amp; L Adleman, <em>A method of obtaining digital signatures and public-key cryptosystems.</em> Communications of the ACM, Vol. 21 No. 2, 1978</p>
+<p>[3] Hans Riesel, <em>Prime numbers and computer methods for factorization</em> (Birkhäuser, 1985).</p>
+<p>Not specifically referred to in the text, I have quoted from and made use of some of the items in Peter Merritt’s articles in Vector, Vol. 11 No. 1 p.108, and Vol. 11 No. 3 p.119.</p>
+<p>In addition to Riesel, there are some other books that contain detailed descriptions of the RSA algorithm, amongst which are the following:</p>
+<blockquote>
+<p>C Bondi (editor), <em>New Applications of Mathematics</em>, Penguin Books, 1991</p>
+<p>H Beker &amp; F Piper, <em>Cipher Systems, the Protection of Communications</em>, Northwood Books, London, 1982.</p>
+<p>D E Knuth, <em>The Art of Computer Programming</em>, Vol. 2, <em>Seminumerical Algorithms</em>, Addison-Wesley, 2nd edition, 1981</p>
+</blockquote></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">mathematics and statistics</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">programming techniques</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

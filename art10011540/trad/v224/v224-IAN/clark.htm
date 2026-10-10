@@ -1,0 +1,495 @@
+<html><head>
+
+<link href="../../arch.css" type=text/css rel=stylesheet>
+
+<title>Review of Mathematica 5.2</title>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+
+</head>
+<body>
+
+<!-- breadcrumbs -->
+<table width=100%>
+  <tr>
+    <td><font size=-1>
+	<a href="http://www.vector.org.uk"><img src="../../../icons/iconred.gif" align="middle" alt="VECTOR icon" border=0 title="VECTOR home" width="32" height="32" /></a> 
+	<a href="../../../?area=vect&amp;page=content/archive">back issues</a> &gt; 
+	<a href="../index.htm">contents of Vector 22.4</a></font></td>
+    <td align=right><font size=-1>For best results, install <a href="../../../resource/apl385.zip">APL385 Unicode</a> and use Firefox <a href="http://www.mozilla.org/products/firefox/"><img src="../../firefox.gif" align="middle" border=0></a></font></td>
+  </tr>
+</table>
+
+<div class=Section1> <!-- Start of Galley -->
+
+
+<h1>Review of Mathematica 5.2</h1>
+<p class=author>by Ian Clark
+ <span class=affil></span>
+ <span class=email></span>
+</p>
+
+<!------------------------------------------------------------------------->
+
+<h3>Introduction</h3>
+
+  <p>
+When I sent away for the free Mathematica trial disk, version 5.2 hadn&#146;t yet been released. When it came out I upgraded my system. As a rank beginner addressing other rank beginners where Mathematica is concerned, this is hardly a review of 5.2 so much as a review of Mathematica itself. But Mathematica needs no promotion from me &#150; its user base is huge and extensive, far beyond the provenance of Mathematics, pure and applied, as a typical university department understands it. This article therefore is aimed at jobbing APLers like myself whose exposure to Mathematica may be slight.
+</p>
+
+  <p>
+I first came across Mathematica at an educational exhibition nearly 15 years ago. I remember thinking then that insofar as it was like APL &#150; it was good, insofar as it wasn&#146;t &#150;  it was bad. And I was averse to typing: Plot[Sin[Exp[x]], {x, 0, 4}]... as any APLer might be who had been forced to use C/C++.
+</p>
+
+  <p>
+How blinkered I was! Nobody criticises Dreamweaver because HTML is so ugly to type. For the six months I&#146;ve had Mathematica to play with, I&#146;ve scarcely typed a line of Mathematica language like the above. For nowadays the Mathematica engine has a top end!
+</p>
+
+  <p>
+I ought to have known better, of course. In 1973 at the Peterlee scientific centre I came across Salah Mandil and his symbolic differentiator. This was built on top of a macro-processor, not unlike the C preprocessor. I was awed by the power of the technique. As a mathematician I should have been suspicious of the Babbage school of computing which saw a mathematical formula as the (unwieldy) specification for a series of instructions to be performed in sequence on a numeric accumulator. The symbolic differentiator never handled a mathematical variable as a binary quantity at all &#150; it certainly never performed finite difference, in circumstances fraught with rounding errors, and pretended it was doing calculus. But I had been retreaded as a computer programmer and I&#146;d somehow got it into my head that this was how it had to be done. 
+</p>
+
+  <p>
+I quickly got the idea and tried writing a symbolic Fourier analyser. Artificial Intelligence was then all the rage, at least among those of us short on the natural variety, and the idea appealed to me of applying a communications engineering technique of looking for a signal-in-noise in a system which actually had symbols for what it was looking for &#150; in other words one that had &#147;thoughts&#148;. It never got very far, but I saw no barriers that couldn&#146;t have been overcome if I&#146;d had the time to spend on it that Salah had done on his differentiator. Glancing at the publications produced by the Mathematica team, judging by the titles alone it seems they&#146;ve had the same idea, and I look forward to getting hold of Mathematica for keeps in order to wallow in their investigations. 
+</p>
+
+<h3>Everything is an Expression</h3>
+
+  <h1 align="center"><img alt=Figure_X src="ma-help-browser.jpg"></h1>
+<p class="caption" align="center"><b>Figure 1:</b>
+The Help Browser, showing "Everything is an expression".
+<br />
+Note the tabs, which list the chief sources of information to learn about Mathematica.
+</p>
+
+  <p>
+In Mathematica everything, but everything, is an &#147;expression&#148;. And an expression is a string of ASCII characters to be filtered (you can see the C/Unix world view coming through strongly here). An expression breaks down into function calls, like Sin[...] and Exp[...], and if at the end of the day you want the system to do something more than simply spit out a string of characters you have what used to be called &#147;semantic&#148;functions (although I haven&#146;t seen the term used in the vendors literature) &#150; functions like Plot[...] and Play[...], plus all the GUI furniture you&#146;ll ever want. If you want the system to give you numbers, then at some stage a semantic function like N[...] must cut-in and start converting symbolic numerals to binary. Although one of the chief features of release 5.2 is full support for 64 bit computing, I imagine the binary stage is put off as late as possible. Indeed if you compute 1023<sup>1023</sup> or 1000!, what comes out is an extremely long integer, suggesting to me that it&#146;s all done symbolically.
+</p>
+
+  <p>
+This contrasts strongly with the APL view of the world, where the whole time you&#146;re conscious of handling vectors of binary &#147;num&#148;elements. 
+</p>
+
+  <p>
+It&#146;s refreshing to meet a product again with such a brutally logical backbone of design &#150; something that was much sought-after in the Sixties and exemplified by systems like LISP and Prolog. Who nowadays would think to build a GUI on top of a string processing engine and aim to represent every meaningful GUI event as a semantic function processed by the engine? Certainly none of the Mac/Windows-bemused design teams I&#146;ve worked with over the last 20 years, who thought it clever to chop your application up and stuff it into event handlers. But if you go the Mathematica route to software architecture you're no longer held hostage by your platform. 
+</p>
+
+  <p>
+I recall many an experimental project which tried to encapsulate some classic APL interpreter being brought to its knees because the APL was built on the assumption that the user had a &#147;break&#148; key to press at any given moment. Or that the user was freely able to compose overstruck characters by multiple use of the forward and backspace key in any order which brought the golfball back over the same spot. This is what I mean by giving hostages to your platform. Having seen countless man-hours wasted in porting heritage systems across five generations of end-user interface, exemplified in APL by <span class="aplu"> &#x2395;, &#x2395;SM, &#x2395;SVO, &#x2395;WC/&#x2395;WI </span> and <span class="aplu">&#x2395;NC 9</span>, forgive me for being edgy about the ill-patrolled border between application and user-interface. 
+</p>
+
+  <p>
+Mathematica seems to have sidestepped all that. It shows. I got the chance to put its much vaunted portability to the test, shuttling work-in-progress between Windows and Mac. It was unbreakable. Microsoft please copy with Office. Although, like getting to Tipperary, if they really wanted to do that, they wouldn&#146;t start from where they are now. 
+</p>
+
+<h3>The Notebook (.NB)</h3>
+
+  <p>
+The fundamental file format of Mathematica is the Notebook (.NB). It is common to the whole range of Wolfram products: a notebook created with one product can be used with another. There is no space here to do more than briefly touch on a few. For the whole range see the Wolfram Research website [<a href="#ref3">3</a>].
+</p>
+
+  <p>
+<b>Publicon</b> [<a href="#ref6">6</a>],
+aimed at the problems of typesetting mathematical documents. More elaborate pallettes like Figure 3, a library of templates for research papers, handouts and any form of document you can think of, import/export into a range of other formats. But Publicon does not evaluate expressions.
+</p>
+
+  <p>
+<b>webMathematica</b> [<a href="#ref7">7</a>],
+billed as a &#147;one-stop solution for putting interesting science on-line&#146;. In passing let me note the existence of MathML, a proprietary HTML-extension standard to embed formulae into a web-page, which Wolfram products support.
+</p>
+
+  <p>
+If you drop a notebook onto MS Notepad you&#146;ll see that it is nothing but a text file in Mathematica language (and in printable ASCII only). On the principle that everything is an expression, a notebook consists basically of the expression: &#147;Notebook[..]&#148;, plus a lot of comments. Some of those comments are cached data. Some are helpful instructions on how to edit the file by hand, including how to disable the cache (simply remove the comment: &#147;(*CacheID: nnn*)&#148;) and let Mathematica regenerate it. Mathematica users are treated like grown-ups. 
+</p>
+
+<p>
+When you import an item of miscellaneous data into Mathematica, such as a JPEG or a WAV, it is cached inside the notebook and is available even with MathReader, without the original JPEG or WAV needing to be accessible. You can even append the notebook to an email (it is after all printable ASCII only) and send it to a colleague. The notebook itself shows the necessary instructions to strip it off the email and use it effectively.
+</p>
+
+  <p>
+Without the magic password, which is essentially what Wolfram Research sells to you over the Web, Mathematica operates in a crippled mode called MathReader. You can also download MathReader for free [<a href="#ref1">1</a>]. I recommend everybody to do so. With it you can view any notebook as it is meant to appear &#150; this includes viewing the plots and playing the sounds. You thus have access to the whole knowledge-base [<a href="#ref2">2</a>], which for me was like a ticket to a first-class technical library. I was tempted to send myself back to university and learn the subject properly this time.
+</p>
+
+<p>
+More importantly, for an APLer with time to tinker, if you write an APL workspace to construct a notebook, you get a free viewer with many of the features of a web browser, able to portray mathematical notation. Plus hypertext and a range of pretty notebook formats. Figure 2 shows my favourite notebook format (a pleasant pinky-brown), but this is a matter of taste. It is not however the one used in examples below (the default) which is black/white only.
+</p>
+
+<p>
+MathReader allows you to change format according to a meagre repertoire, but the notebook formats provided with Mathematica proper are much more varied.
+</p>
+
+  <h1 align="center"><img alt=Figure_2 src="sampler.gif"></h1>
+<p class="caption" align="center"><b>Figure 2:</b>
+The various built-in paragraph styles, displayed for one of the many notebook formats.
+<br />
+The template of a notebook can be changed with a key-click, even whilst composition is underway.
+<br />
+The &#147;Alt n&#148;suffix shows which key-chord to hit to get the style in question.
+</p>
+
+
+  <p>
+The vendors seem to recognise that it is possible, indeed easy, to write your own notebook-processor and don&#146;t put blocks in your way. They reckon of course that they have already written tools to do whatever you may fancy doing. Suffice to say that I&#146;ve abandoned my own little APL project to produce a mathematical display for pupils to tweak in order to do things like cross multiply, cancel out and collect terms. 
+</p>
+
+  <p>
+All the instructional material, whether manuals or online help, comes in the form of notebooks. Nothing better demonstrates the vendors&#146; confidence in their own product, its flexibility and suitability as a vehicle for expository material. Which APL vendor would have the chutzpah to ship all the online help, sample output and instruction manuals as workspaces (or session-log dumps)?
+An extensive collection of notebooks come with the free CD or the downloadable product installer. See also [<a href="#ref4">4</a>].
+</p>
+
+<h3>Composing and executing expressions</h3>
+
+  <p>You can write all your expressions in InputForm (as in Figure 10), which I suppose was the original way Mathematica was used. You can run the Mathematica engine, the &#147;kernel&#148;, on its own and interact with it like APL. But the top-end gives you better tools, notably a collection of palettes, the chief one being Figure 3.</p>
+
+  <h1 align="center"><img alt=Figure_3 src="ma-pallette.jpg"></h1>
+
+  <p class="caption" align="center"><b>Figure 3:</b>
+One of the palettes to help you compose classic mathematical expressions easily.
+</p>
+
+  <p>
+When you run Mathematica, the above palette appears, as does a windoid across the top of the screen consisting of nothing but a menu (Figure 4). When using the palette, the little squares (&#147;holes&#148; I suppose you could call them) in the symbolic construct you&#146;ve just pasted-in become accessible using the tab-key. You can then employ the whole of the palette to insert a nested formula. Thus, for an expression with a complicated numerator and denominator you&#146;d click the symbol on the top-right, then tab to each hole in turn and compose a separate expression in each.
+</p>
+
+  <p>
+You&#146;ll notice a matrix of four holes on the 6th row of symbols. You&#146;re not limited to 2&times;2 of course &#150; further holes and rows can be added by pressing various key-combinations.
+</p>
+
+  <p>
+When the windoid of Figure 4 is showing, you can click through onto the desktop to open any notebook. Or you can do it the boring old way and open the File menu. Mathematica provides an indexing service to locate all the notebooks on your machine, assuming that you&#146;ll want to keep your lifetime&#146;s work in extensive libraries, but I didn&#146;t examine this. (But it seems something that APL vendors might usefully copy.)
+</p>
+
+  <h1 align="center"><img alt=Figure_4 src="ma-topbar.jpg"></h1>
+<p class="caption" align="center"><b>Figure 4:</b>
+The Mathematica topbar.
+</p>
+
+  <p>
+When I launched Mathematica for the very first time, I said to myself: &#147;It&#146;s an APL...&#148;, so I promptly typed 1+1 and pressed Enter. Nothing happened! Good start, I thought... but I was being crass. That works with the kernel, but the user metaphor for a notebook is a word-processor. You just get a new line.
+</p>
+
+  <p>
+What I should have done was press Shift+Enter! But by now I decided I didn&#146;t really know what I was doing, so instead of thrashing around I took the Ten Minute Tutorial &#150; which Mathematica invites you to do in a hard-to-miss banner when it launches. I think the  does its job splendidly. It&#146;s so effortless and simple-stupid I suspect they spent a lot of time and effort getting it right.
+</p>
+
+  <h1 align="center"><img alt=Figure_5 src="ma-tutorial.jpg"></h1>
+
+  
+  <p class="caption" align="center"><b>Figure 5:</b>
+The super-efficient &#147;Ten-Minute Tutorial&#148;: the best introduction to Mathematica for a rank beginner.
+</p>
+
+  <p>
+Note that this Tutorial is nothing special in the way of notebooks, but of a sort you can easily write yourself. From Figure 5 you&#146;ll see (rather better than with the all-blank default notebook format which you get on startup) that a notebook consists of a series of cells. Each cell can be a paragraph (or some other construct like a link or a bullet item), but the cell to focus on is a nested pair of input/output cells. By default you start creating an input cell. When you press Shift+Enter, it completes the input cell and calls the engine to create an output cell just below it to hold your answer: a number, an expression, or a plotted figure. You can range up and down the notebook inserting, deleting and cloning cells in any order, and you can re-execute existing cells &#150; whereupon the output cell recomputes. It seems a lot more orderly and flexible than a typical APL session, where you need a lot of experience to mix active and passive text confidently, but it&#146;s no more cumbersome in use. Apart from remembering to hit Shift+Enter, you can build up a notebook as if it&#146;s APL.
+</p>
+
+  <h1 align="center"><img alt=Figure_6 src="everything-notebook.gif"></h1>
+
+  
+  <p class="caption" align="center"><b>Figure 6:</b>
+From the Help Browser: &#147;Tour&#148;.
+</p>
+
+
+  <h3>Let&#146;s play...</h3>
+
+  <p>
+Mathematica is an APL in the modern sense of the word: an &#147;array-processing language&#148;. It happily applies its mathematical operations to data items like: z whether or not z is a single number, a list of numbers or a matrix. Below we assign z as a list:
+</p>
+
+  <h1 align="center"><img alt=Figure_7 src="list-z.gif"></h1>
+<p class="caption" align="center"><b>Figure 7:</b>
+Inputting a list of numbers by hand.
+</p>
+
+<p>
+This is a little bit artificial: a practical applications will typically get its numbers from some data source like a database, a TXT, an XLS, a WAV, a BMP or a range of other formats.
+</p>
+
+<p>
+Note the gubbins in the right hand side of the window. This delineates the scope of the input and output cells, and the cell which contains them both. Input and output cells often appears in different formats. The main formats used with a notebook (there are many others) are:</p>
+<ol type="1">
+    <li>TraditionalForm: the one you see in Mathematics textbooks. It happens to be ambiguous (I didn&#146;t know that!) &#150; so Mathematica offers you:</li>
+    <li>StandardForm: a two-dimensional notation resembling TraditionalForm, but robust, unambiguous and a bit clunky-looking. You can compose it directly using the palette, or with modified keystrokes (Ctrl+, Alt+, etc.) if you prefer not to mouse around. Mathematica uses it by default for output cells.</li>
+    <li>InputForm: what you can type-in as visible keystrokes, if you&#146;re so inclined.</li>
+</ol>
+<p>There are quick ways of taking an output (or an input) cell and re-entering it as a consecutive input cell: a thing you&#146;re always wanting do in a mathematical investigation,
+and you can switch a cell between forms by a simple keyclick. It&#146;s instructive to do so: it shows you how Mathematica handles a conventional-looking expression internally.
+</p>
+
+  <p>
+To begin with I wondered if Mathematica kept all expressions in StandardForm and simply let the top-end reformat the cell appropriately. However the following examples show this is not so: the displayable data is kept in a form appropriate to how it is displayed, the kernel being relied upon to do any required string conversion when you change a cell&#146;s format.
+
+Here is the text of a notebook I managed to whittle down to one (input) cell, expelling everything inessential:
+
+<pre>
+Notebook[{
+Cell[BoxData[
+        FormBox[
+          SuperscriptBox[
+            RowBox[{"(", 
+              RowBox[{SubscriptBox[StyleBox["x", "TI"], "2"], "-", 
+                OverscriptBox[StyleBox["x", "TI"], "_"]}], ")"}], "2"], 
+StandardForm]], "Input"]
+}]
+</pre>
+
+and here is how Mathematica/MathReader displays it:
+
+  <h1 align="center"><img alt=Figure_8 src="StandardForm-onecell.gif"></h1>
+<p class="caption" align="center"><b>Figure 8:</b>
+How Mathematica displays the one-cell hand-edited sample notebook: <i>StandardForm-onecell.nb</i>
+</p>
+
+If you edit StandardForm-onecell.nb to change the word StandardForm to TraditionalForm, this is what you get: a more graceful font worthy of the Enlightenment from which modern Mathematics sprang:
+
+  <h1 align="center"><img alt=Figure_9 src="TraditionalForm-onecell.gif"></h1>
+<p class="caption" align="center"><b>Figure 9:</b>
+How Mathematica displays the one-cell hand-edited sample notebook: <i>TraditionalForm-onecell.nb</i>
+</p>
+
+<p>
+Here is an example of InputForm, a linearised notation which shows up in bold in the notebook format we have selected:
+
+  <h1 align="center"><img alt=Figure_10 src="abc.gif"></h1>
+<p class="caption" align="center"><b>Figure 10:</b>
+An example of InputForm, as Mathematica displays it.
+<br />
+(The connector: &#147;/.&#148;is to be read as: &#147;such that&#148;.
+<br />
+You type-in the right-arrow as &#147;hash/greater-than&#148;)
+</p>
+
+  <p>
+Note the way in which values are temporarily substituted for the &#147;mathematician&#146;s&#148; variables: a, b and c, viz. not by &#147;assignment&#148; (=) as was done for z above.
+The variables only take these values for the scope of the expression whilst it is being executed.
+Mathematica is more hard-line in its InputForm syntax than APL, demanding commas between numbers, plus curly brackets round the lot to denote a list (but it&#146;s amazing what can be listed). Its strong C/C++ accent betrays its background: &#147;=&#148; meaning assignment and &#147;==&#148;meaning &#147;equals&#148;, the one concession to a programmer&#146;s view of notation rather than an algebraist&#146;s. 
+</p>
+
+  <p>
+The difference is an important one. Variable a, b, c, here are &#147;mathematician&#146;s&#148; variables whereas z is like an APL global var &#150; a &#147;programmer&#146;s&#148; variable. The former are placeholders which take the same value throughout an expression &#150; whatever you, the mathematician, decide they should take. The latter isn&#146;t &#150; it can take part in mathematically-absurd expressions like: z=z+1. It&#146;s really just a label for a storage location.
+</p>
+
+  <p>
+Mathematician&#146;s variables behave themselves when you save the notebook and reload it later. A programmer&#146;s variable like z doesn&#146;t &#150; its value is not remembered between saves! Apart from this one silly little pitfall, you can reload a notebook and everything works &#150; the plots re-plot, the sounds replay, the imported data is still there &#150; it restores to the exact state in which you saved it. Better still: I moved my notebook from a Windows machine to a Mac &#150; and not only did it look the same but everything worked the same &#150; including the sounds! I was most impressed.
+</p>
+
+  <p>
+But not the &#147;assigned&#148;variables! They had to be re-evaluated by re-executing the last line which assigned them. This isn&#146;t just sloppiness, or an uncharacteristic oversight: it&#146;s an example of the rigorous logical thinking that informs the design of Mathematica throughout. You&#146;ve got to imagine some nazi archangel up there saying: &#147;You want a programmer&#146;s variable? &#150; you get a programmer&#146;s variable! &#150; and if you don&#146;t like it, try learning some Mathematics!&#148;</p>
+
+  <p>
+Incidentally, I like the way Mathematica structures its error messages. A series of Alert boxes would be just plain maddening, so mostly you just hear a beep. At your leisure you pull down the Help menu and select &#147;Why the beep?... Shift+Ctrl+H&#148;.
+</p>
+
+  <p>
+I must confess that as soon as I saw that menu item I selected it, hoping to get some idea how Mathematica structured its error information. I got the bald message: &#147;Mathematica hasn&#146;t beeped yet!&#148; I could feel that nazi archangel frowning down on me, shaking its head in disappointment. (...So why not grey-out the menu item?)
+</p>
+
+  <p>
+Now that we&#146;ve assigned a value (a list of numbers) to z, let&#146;s do something with it:
+</p>
+
+  <h1 align="center"><img alt=Figure_11 src="z-plus-2pi.gif"></h1>
+<p class="caption" align="center"><b>Figure 11:</b>
+Adding a quantity to a list of quantities.
+</p>
+
+  <p>This illustrates nicely the fact that Mathematica processes an expression symbolically until you force it to substitute figures and evaluate an instance of the expression. That&#146;s quite different from a programming language in the Fortran line-of-descent, which translates a formula into a sequence of operations on storage locations containing numerals. It&#146;s a powerful approach, which neatly sidesteps rounding errors in intermediate calculations. If you want decimal numerals, you apply the N[...] operator to the expression.
+</p>
+
+  <p>
+Note the use of &#147;%&#148; which stands for the expression you&#146;ve last been working on. Or you can lift the whole expression for a new cell &#150; let Mathematica do it, because OutputForm isn&#146;t necessarily appropriate to just copy/paste into an input cell. But Mathematica will make the adjustments.
+</p>
+
+  <p>Next I thought I&#146;d play about with the roots of a quadratic:</p>
+
+  <h1 align="center"><img alt=Figure_12 src="roots.gif"></h1>
+<p class="caption" align="center"><b>Figure 12:</b>
+Investigating the roots of a quadratic equation.
+</p>
+
+<p>
+Notice the powerful functions: Expand[...], Simplify[...] and Factor[...] (the last two giving the same answer here).
+Other powerful functions are Solve[...] and Reduce[...]:
+</p>
+
+  <h1 align="center"><img alt=Figure_13 src="solve-quadratic.gif"></h1>
+<p class="caption" align="center"><b>Figure 13:</b>
+Playing with quadratic and quintic equations
+</p>
+
+  <p>
+I tentatively tried to get Mathematica to solve Fermat&#146;s Last Theorem, but I couldn&#146;t pin it down with all the assumptions it expected me to clarify. (I rather think it was flannelling...! :-)
+ )</p>
+
+  <h1 align="center"><img alt=Figure_14 src="diophantine.gif"></h1>
+<p class="caption" align="center"><b>Figure 14:</b>
+Playing with Diophantines
+</p>
+
+
+
+  <p>
+Growing bolder, I thought I&#146;d use the palette (Figure 3) instead of the boring old keyboard. Unlike APL, Mathematica has a robust notion of infinity &#150; several in fact. It happily sums series to infinity and integrates over an infinite range. As it ought to, of course. (Amazing what you can do with symbolic processing...)</p>
+
+  <h1 align="center"><img alt=Figure_15 src="infinity.gif"></h1>
+<p class="caption" align="center"><b>Figure 15:</b>
+To Infinity - and beyond!
+</p>
+
+<p>...Yes, that is infinity times infinity (which is infinity of course). You can multiply variables, numbers or expressions by putting a space between them.
+And the second input cell is indeed infinity to the infinite power.</p>
+
+<p>Now for a bit of lightweight statistics, I said to myself:</p>
+
+  <h1 align="center"><img alt=Figure_16 src="getting-bold.gif"></h1>
+<p class="caption" align="center"><b>Figure 16:</b>
+Trying to talk statistics to Mathematica (without loading the requisite pack).
+</p>
+
+  <p>It wasn&#146;t clever to sum to n without saying what n was. So the kernel groused at me. Notice that its grouses have clickable &#147;More...&#148; to explain its reasoning. But it still went on and did the best it could.</p>
+
+  <p>
+However one thing soon became apparent. I had defined x as a simple series, but that didn&#146;t mean that Mathematica automatically knew what x-overbar and x<sub>i</sub> were. I had to tell it, which you do like this (Figure 17). The construct &#147;:=&#148; is a special case of a more general pattern-matching facility, enabling you to extend notation &#150; or even design your own. Mathematica comes with a collection of add-ons called &#147;packs&#148;. These, like notebooks, are written as text files having the file extension: &#147;.M&#148;instead of &#147;.NB&#148;, but like notebooks they consist entirely of Mathematica expressions. They are mostly &#147;:=&#148;lines, plus flag assignments.</p>
+
+<p>
+Note that the first two lines of Figure 17 are not both needed. They simply show equivalent ways of specifying what x-overbar is to mean.
+</p>
+
+  <h1 align="center"><img alt=Figure_17 src="define-mean.gif"></h1>
+<p class="caption" align="center"><b>Figure 17:</b>
+Extending the syntax which Mathematica recognises in a notebook.
+</p>
+
+<p>
+Of course all these standard notational definitions are done for you if you load the statistics package.
+</p>
+
+  <p>
+Integration and differentiation are there, and very powerful they are too. I used the palette to input each expressions in StandardForm, then converted to InputForm to show how Mathematica handles them as standard operations.
+</p>
+
+  <h1 align="center"><img alt=Figure_18 src="integrate-1-over-x.gif"></h1>
+<p class="caption" align="center"><b>Figure 18:</b>
+Elementary integration and differentiation.
+</p>
+
+
+  <p>
+By now I was eager to see some functions plotted. Why start with something too easy? So I gave it the Topologist&#146;s Sine Wave &#150; guaranteed to break most people&#146;s naive postulates about functions, and indeed about continua, limits, and so on, with its bizarre behaviour in the neighbourhood of zero. What would Plot[...] make of it? &#150; I wondered.
+</p>
+
+  <h1 align="center"><img alt=Figure_19 src="topo-sinewave.gif"></h1>
+
+  
+  <p class="caption" align="center"><b>Figure 19:</b>
+The Topologist&#146;s Sine Wave &#150; blows the mind of a non-topologist.
+</p>
+
+  <p>
+...well, I had to say I was impressed. The pixels perished first &#150; and it looks like Mathematica approached to the very brink of the black-hole at zero and didn&#146;t fall in.
+</p>
+
+<p>
+Now for something three-dimensional. How about an egg-box?
+</p>
+
+  <h1 align="center"><img alt=Figure_20 src="plot-eggbox.gif"></h1>
+<p class="caption" align="center"><b>Figure 20:</b>
+Plotting an egg-box.
+</p>
+
+  <p>One of Mathematica&#146;s party tricks is to treat a sound file as a continuous function. Or alternatively to treat a function (like the Riemann Zeta Function) as a sound to play (it sounds way-out, man!). Here is the author&#146;s voice, supplying an error signal for a well-known product (which exhibited a touching faith in its customers&#146; intelligence):
+</p>
+
+  <h1 align="center"><img alt=Figure_21 src="plot-fool.gif"></h1>
+
+  
+  <p class="caption" align="center"><b>Figure 21:</b>
+Signal analysis of the author uttering: &#147;Only a fool would do that!&#148;</p>
+
+<p>
+If you click the output cell (or select menu: Cell/Play sound), it plays the sound. 
+(This works in MathReader too).
+Next I Fourier-analysed it. All this took a few brief moments to compute.
+</p>
+
+  <h3>What I didn&#146;t like</h3>
+
+  <p>
+My one big grouse &#150; and it&#146;s maybe something they can&#146;t do a thing about &#150; is that MathReader does not allow the contents of cells to be altered or re-executed in any way &#150; except to redraw plots and replay sounds. You need the fully-functioning Mathematica to alter cells.
+Fair enough, you might think &#150; but this simple fact prevents you placing a working calculator in the public domain &#150; one containing a formula to which anybody can set their own numbers. I know this might be impossible to achieve with Mathematica as it is constructed: because the boundary between notebook composition and formula evaluation is such a hazy one. Even to contemplate such a possibility betrays my Babbage way of thinking &#150; I&#146;m assuming that there is some sub-engine inside the Mathematica kernel which can be disabled on its own, which substitutes values into variables and then mills the formula through a 64 bit arithmetic accumulator. One single accumulator? &#150; then what about lists, what about vectors and matrices? 
+</p>
+
+  <p>
+I still can&#146;t escape the feeling however that were Wolfram Research to crack this problem and still not give away the Crown Jewels, they could corner the market in public domain calculators. They already have CalcCenter [<a href="#ref5">5</a>] &#150; a step along the way, and the webMathematica product [<a href="#ref7">7</a>] can be seen as directed towards this issue. But to make it possible for anyone owning a Mathematica licence to publish a free working calculator would in my opinion have a tectonic effect on world education and the use of higher mathematics in all walks of life. It could make Excel as obsolete as the Abacus, which gives me, for one, a wicked sense of glee. 
+</p>
+
+  <p>
+APLers are familiar with the problem as it concerns the Execute function. Can we give the passengers plastic knives and forks to cut up their rubber chickens, but not to slit the pilot&#146;s throat? Or would it turn out to be easier to fund Wolfram Research as a UN agency and give its products away free to the world? 
+</p>
+
+<h3>Where does this leave APL?</h3>
+
+  <p>
+As a committed APLer (still) &#150; I want to know why I shouldn&#146;t abandon APL in favour of Mathematica for all purposes. I think it&#146;s unworthy of an intelligent person to bury my head in the sand over this, or dismiss the problem by saying &#147;each to his own&#148;. There are applications I could write easily in APL which I wouldn&#146;t contemplate in Mathematica. Is this just because an old dog can&#146;t be taught new tricks? Mathematica has more in common with J than a &#147;classic&#148; APL, insofar as the programmer&#146;s work is embodied in a text file, a direct descendant of the humble session log of a 1960s interactive interpreter, rather than a black-hole workspace, so what I&#146;m about to say applies even more to J.
+</p>
+
+  <p>
+Is Mathematica really the way to go to express our creative thoughts &#150; viz back to a 17th century notation designed for parchment instead of forward to a twentieth-century one designed for computers? Or to slant it differently: a widely understood and internationally accepted notation, rather than a &#147;starved palette&#148; of terminally overloaded nouns, verbs and adverbs which will only ever really be understood by a few narrow specialists? For individuals and groups the issue may boil down not to quality and fitness for purpose, but to culture, training, background, job-protection, and ultimately elitism and even name-calling. This of course applies to the language of Mathematics itself every bit as much as to APL or J.
+</p>
+
+  <p>
+This is something I&#146;d like to explore &#150; and I invite others to explore &#150; in a future article. What is it about APL that gives me an edge over somebody armed with Mathematica (or any of its rivals, like MAPLE) when it comes to programming a sophisticated application?
+</p>
+
+<h3>Conclusion</h3>
+
+  
+  <p>
+Well &#150; it&#146;s a Weapon of Maths Instruction! Send in the inspectors!
+</p>
+
+<h3>References</h3>
+
+  <ol type="1">
+    <li><a name="ref1"></a><a href="http://www.wolfram.com/products/mathreader/">
+MathReader, free download: http://www.wolfram.com/products/mathreader/
+</a></li>
+    <li><a name="ref2"></a><a href="http://library.wolfram.com/infocenter">
+Mathematica Information Center: http://library.wolfram.com/infocenter
+</a></li>
+    <li><a name="ref3"></a><a href="http://www.wolfram.com">
+Wolfram Research: http://www.wolfram.com
+</a></li>
+    <li><a name="ref4"></a><a href="http://documents.wolfram.co">
+Full documentation for Mathematica: http://documents.wolfram.com
+</a></li>
+    <li><a name="ref5"></a><a href="http://documents.wolfram.com/calccenter/">
+CalcCenter, calculators repository: http://documents.wolfram.com/calccenter/
+</a></li>
+    <li><a name="ref6"></a><a href="http://www.wolfram.com/products/publicon/">
+Publicon: http://www.wolfram.com/products/publicon/
+</a></li>
+    <li><a name="ref7"></a><a href="http://www.wolfram.com/products/webmathematica/">
+webMathematica: http://www.wolfram.com/products/webmathematica/
+</a></li>
+  </ol>
+
+<!-- http://mathworld.wolfram.com/ -->
+
+<!------------------------------------------------------------------------->
+
+</div> <!-- End of galley -->
+
+<hr noshade>
+
+<p class="crumb"><font size=-1>
+<a href="http://www.vector.org.uk">
+<img src="../../../icons/iconred.gif" align="middle" 
+alt="VECTOR icon" home border=0" title="VECTOR home" width="32" height="32" /></a>
+<a href="../../../?area=vect&amp;page=content/archive">back issues</a>
+ &gt;
+<a href="../index.htm">contents of Vector 22.4</a></font></p>
+
+
+</body></html>

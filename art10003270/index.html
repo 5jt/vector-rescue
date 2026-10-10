@@ -1,0 +1,1235 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10003270/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Writing Assembly Language Functions for quad-NA - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        <a href="#__skip" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Writing Assembly Language Functions for quad-NA
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Writing Assembly Language Functions for quad-NA</h1>
+
+  <p class="printed"><a href="../7/#n4-april-1991">Vector 7:4</a>, page 100</p>
+
+
+<p class="byline">Allan Gay</p>
+<p>The text of this article is not yet online. No complete scan of this issue has been found. The only copy found, on vector.org.uk, is damaged: its page images are lost, but the text machine-read from them survives, shown below (<a href="https://github.com/5jt/vector-rescue/issues/62">help find a scan</a>).</p>
+<details class="ocr">
+<summary>Unedited OCR text, machine-read from a scan now lost: it contains errors, and its APL is wrong. Shown for searching.</summary>
+<p>VECTOR Vol.7 No.4</p>
+<p>Writing Assembly Language</p>
+<p>Functions for DNA</p>
+<p>by Allan Gay</p>
+<p>Look. I know the Reverend. I’ve read his sermons on GNA in Vector and trembled. 1 mean, don’t get me wrong - I'm a religious man myself - but I prefer to do my crusading in carpet slippers and with a good book in hand. Well - not that Good Book exactly. Not APL2 Programming: System Services Reference for heaven's sake!</p>
+<p>Sigh.</p>
+<p>Tm not making much sense, am I? I suppose I’d better start at the beginning.</p>
+<p>an ancient Programmer and he stoppeth one ... Evening was drawing in and I was sprawled chair with my heels up on the mantelpiece, toasting the old buns, when the  p h o n e rang. With one convulsive leap, I switched off the budgie, catapulted myself to the desk and snatched up the handset before the second ring.  H i  , I said, as nonchalantly as I could manage.</p>
+<p> M y son,” said a voice,  h o w dost thou fancy writing some [NA Assembler functions for APL2?” It was the Reverend.</p>
+<p>Well, it sounded like work and you know me and work (I could watch it for hours, etc.) But annual fitness rating was imminent and I knew the Reverend was big in the Synod, so I gave his challenging (read gruesome) proposal the big hello.  Y o u r Grace,” I said,  y o u know me and work”,</p>
+<p>I thought he sniffed, but it may have been line noise.  T h y mission - shouldst thou choose to accept it - is to produce three partitioned functions, namely Or Reduce, Or Scan and LessThan Scan. They will be dyadic, handle only Boolean vectors and will produce Boolean vector results. And,” he said,  o n e assumes thou wilt also supply a FirstGroup routine if time permits.”</p>
+<p>Next morning, I tried some deep thinking but it was no good. Id already taken compassionate leave to bury every elderly aunt which IT possessed - some of them three times - and there had been barbed comments in the office of late</p>
+<p>100</p>
+<p>VECTOR Vol.7 No.4</p>
+<p>about the ongoing reduction in the population of northern England. It had to be faced: I was cornered.</p>
+<p>So I dug out a pile of old hymnals, fired up the Shareware 370/ Assembler simulator on the old PS/2 and did some heavy coding. The Reverend seemed to be looking for some pretty startling reductions in CPU time and I for one wasn’t going to disappoint him.</p>
+<p>Piece of cake ... Well, you know, after reading an old sermon or two, dashed if things seemed all that bad. I'd a fair idea of what the inputs and outputs would have to look like in CDR format, the interface details between APL2 and me seemed a pretty straightforward piece of groined cross-vaulting apart from the odd ECV or so, the actual logic to do the bit manipulations would all be done in the cathedral organ’s registers for reasons of speed and tone quality and - most important - [had faith.</p>
+<p>So, when I presented myself at the tradesman’s couple of days later I was feeling pretty holy. I had the relevant tracts with me, the Assembler prayers were on diskette and all in all I thought it was going to be a piece of cake.</p>
+<p>While [ used a magnetic card at the holy water vending machine in the south transept, an acolyte asperged and fumigated my diskette and checked it for impure thoughts. Then the prayers were copied into the bowels of the cathedral organ and battle commenced.</p>
+<p>Now I don’t know if you've ever groped blindly down a drain in an attempt to pick up a lead weight with a piece of limp string and a sweaty sock. Take it from me, the TSO TEST facility isn’t like that at all. Heavens no! When you are running APL2 under TEST, it’s more like using a B-52 to strangle a chicken. What I mean is there’s a strong chance that you'll overshoot the target area and have to go round again. And that’s no joke after a 7,000 mile flight from the initial! LOAD command, believe me.</p>
+<p>I had some initial troubles. 1 admit that. But I knew that once Id decoded the cryptic words of my guide, the aforementioned System Servi es Reference, I'd crack the interface and it would be all plain sailing. After all, the algorithms were implemented entirely within the registers. I mean, what could possibly go wrong with that?</p>
+<p>The troubles mounted until, after two days, I came to doubt that my guide was - how shall put it? - strictly au fait with all the nuances. I based this suspicion on</p>
+<p>101</p>
+<p>VECTOR Vol.7 No.4</p>
+<p>the fact that whenever I followed its advice my prayers, instead of winging heavenwards, tumbled on the mat with their paws in the air. Consequently, it came as something of a relief to learn from the Reverend that my guide had been excommunicated in 1987. Yes, the true faith was being expounded nowadays by APL2 Programming: Processor Interface Reference and, with its help, I got my prayers to implement FUNCTION linkage (the fanciest, detailedest and most sanctified type) to the point where they were returning explicit APL results at last.</p>
+<p>The real stuff... Now at this point, some of you fellow pilgrims out there will want to know the magic formula. Frankly, it seems pretty unfair that you chaps should be purified by my suffering but, heck, I’m going to tell you. services, and I don’t mean Matins. The services I’m talking about are the interpreter’s VP, VQ, XC and XG services. Look, will someone at the back push the kids and those crazy BASIC fans out of the room? This is grownups’ talk. Thanks.</p>
+<p>Okay, here’s the real stuff. First off, every time the APLer runs the name- associated function, we get called with normal MVS parmlist hanging off register 1. Dangling off the parmlist, there are pointers to the System Services routine, the ECV, and a gash, zero-filled, persistent doubleword which can be used to remember things between successive runs of our function.</p>
+<p>It’s good style to be re-entrant so that we can serve multiple communicants from the one chalice. Of course, cutting down on the crockery means we've got to watch the hygiene aspect. We aren’‘t allowed to modify ourselves, so we can’t &lt; in our routine but must instead acquire storage for them dynamically. We use ... *’P service for this and APL2 makes it easy for us by bolting a VP parameterlist into the initial parameterlist. Just pop in the byteage required, call System Services and bingo! After VP has delivered the goods by giving us a slice of the area reserved by APL2's FREESIZE parameter, we store the slice’s address into the gash doubleword. Every time we're called, we check the current instance of that doubleword. If it’s zero, we do a VP; if it’s not, we use it to reach the area we acquired in a previous life. We may not be able to take it with us, but we certainly can get it back afterwards; our camel slinks around the eye of the needle.</p>
+<p>Whenever we get called, there’s a request code in the ECV to tell us what's going on. If it’s a delete-linkage request and we an area from VP, we use the VQ service it and then we grab a couple of hotel towels, use our credit cards and check out. The holiday is over. This is either because the APLer has</p>
+<p>102</p>
+<p>VECTOR Vol.7 No.4</p>
+<p>just )OFFed because he has severed our name association. Otherwise, it’s a function-linkage request, meaning the APLer is on the blower and there’s work to be done.</p>
+<p>Although I’ve just given you the goods on getting and managing work area, I wouldn’t like you to think I knew it all along. Golly, no! I’d read and misunderstood a remark to the effect that storage acquired via VP is automatically reclaimed when the process terminates. Believing, erroneously as it turned out, that my prayers were processes within the meaning of the act and that termination meant returning control to APL2, initially refrained from any use VQ service, I use the gash doubleword to remember where my area was. Instead, assuming that each previous execution’s storage had been released, I blithely requested storage afresh at each invocation of my prayers. The eventual effect was to consume all the freespace and wreck the application.</p>
+<p>You at the back ... Right, I'll pause here and take a few questions. You, sir. Whassa what? Whassa ECV? Thassa big control block which contains all sorts of information about the function arguments, together with a parameterlist for the XG service and various items of session info. Using its contents in conjunction with the XC and XG services, we can input arguments, get room workspace for the result and, when we've constructed it, return it to APL by connecting it to this ECV.</p>
+<p>Whassa CDR, did I hear you say? That stands for Common Data Representation and it’s just the descriptive information for an APL variable. You know, its rho, rank, type, and so forth. By examining CDR, we can find our way to its data and also know how to interpret that data when we get there. It can get ptetty complex but there are ways of forcing input variables into a straitjacket so that we don’t have to program every conceivable possibility. My prayers handled Boolean vectors exclusively. We also have to construct a CDR for our result variable.</p>
+<p>Yes, madam? How do you find out about the ECV’s format? There are diagrams in the Processor Interface Reference and there’s an AP2ECV macro which maps it and gives mountains of documentation. Speaking of macros, you should all note that there’s an AP2CDR macro, too. You'll probably find those macros in an APL2.AP2MACS library on one of the DLIBs; check with the and if I suddenly start to speak in tongues, the first three letters of each word will be CDR or ECV and you'll know I’m talking about fields defined by the macros.</p>
+<p>103</p>
+<p>VECTOR Vol.7 No.4</p>
+<p>It’s good to see you writing all this down, because there’s going to be a short catechism afterwards.</p>
+<p>The moving target ... That covers the working storage aspect, so let's now take a look at creating variables. There are various ways of playing it but I’m just going to tell you the way I did it. You see, there are lots of choices because the APL2 environment isn’t static. As APL objects are created, modified and deleted, things get moved around by the interpreter to reclaim released areas and generally defrag the workspace. This means you can start creating a variable, go back later to wrap it up, and find it has moved elsewhere. Obviously, while your [WA routine is actually running, this doesn’t happen. But, when you make certain calls to the interpreter, any workspace addresses you are currently working with will probably be invalidated. ECVXRLOC contains a relocation count which will have changed if a garbage-collect has occurred.</p>
+<p>This mutability aspect is a pest but APL2 gets round it by using tokens. Now when APLers talk of tokens they are usually discussing APL statement parsing, but that’s not what we mean idea that every separately addressable object in the workspace has a unique badge. That means each variable’s descriptor (CDR) and each related data has a unique token which is unaffected by workspace defrag activities. APL2’s XC service exists to supply the current virtual storage address for any valid token we care to supply. APL2’s XG service, which allocates space in the workspace (as opposed to VP, which allocates it in the freespace) returns not only the address of the allocated space but also its token. APL2 can distinguish between addresses and tokens, so you can pass either to APL2 interchangeably. What APL2 will pass to you varies according to circumstances and I preferred to inspect such pointers and find out for myself.</p>
+<p>The rule for pointers is: if the high-order bit is on, we have a virtual storage address which we can use as it stands. If the bit we have a token and we need to use XC to equivalent virtual storage address. This finds application when we process the input variables. Their respective CDRs’ tokens reside in ECVXCDRL (left-argument) and ECVXCDRR (right-argument). Within each of those CDRs is a pointer to the argument data.</p>
+<p>If you are just creating a simple result, the strategy is straightforward. First, you inspect the input arguments, determine the maximum possible size your result could be, use XG to get a suitably-sized piece of the workspace in which to build the result data, and note its token. Second, you manufacture the data in that area,</p>
+<p>104</p>
+<p>VECTOR Vol.7 No.4</p>
+<p>using the virtual storage address from XG to access it. Third, you use XG again to get more workspace in which to manufacture the result’s CDR. Fourth, you build the CDR and you put the retained token of the data area into CDRPTR, in effect hooking the data to the descriptor. Finally, you put the CDR area’s token into ECVXCDRZ to make the result available to APL2 when you cede control.</p>
+<p>Now if you look at that carefully, you'll see that we always complete using one area before we call XG to get another. That means the virtual storage addresses supplied by XG are never invalidated until we've finished using them. And because we retain the tokens supplied by XG, we're able to connect everything together without needing to use XC at all. In fact we don’t even need to look at ECVXRLOC to see whether things have moved, either.</p>
+<p>Getting it wrong ... A while back, I observed algorithms were all implemented in the cathedral organ’s registers and I - rather unwisely as it turned out - used the expression  p i e c e of cake”. I also asked, rhetorically,  w h a t could possibly go wrong with that?” Read on, brothers and sisters! Read on!</p>
+<p>When [ at last got the prayers to produce explicit results, [ thought my troubles were over. So when I heard from the Reverend that those results were occasionally wrong I was not at all gruntled. If they had been wrong all the time, I could have handled that, but subtle intermittent errors are bad news. I tried putting the prayers in the fridge for a few hours in case the problems were temperature-related but it was the Reverend who spotted the cause: early bunkout.</p>
+<p>Okay, I have a letter here from a listener who asks  W h a t the heck is early bunkout for goodness sake?” I won't read the rest of the letter because the style deteriorates and he gets abusive, (cheese it, pal!) but I'd better explain. so, I need to describe the way in which the algorithms were implemented and I also need to explain where we get our performance improvements. Bear with me a moment.</p>
+<p>Why and how ... The whole idea of writing these routines was to get things to go faster. If you look at the Reverend’s partitioned functions they are extremely terse but, inevitably, they use several APL2 primitive functions. Those primitive functions don’t know that the Reverend intends to deal only with simple Boolean vectors, so they have to be prepared to field anything that comes along, which means</p>
+<p>105</p>
+<p>VECTOR Vol.7 No.4</p>
+<p>they are overqualified for the job. Also, they produce intermediate results along the way which have to be allocated and deallocated, with the potential workspace defrag at any APL2 is not aware that they are being used to do, say, a Partitioned OR Scan.</p>
+<p>Conversely, our Assembler prayers are highly-specific to the expected data, are atomic, and have inside knowledge about the task. Consequently, they are smaller, they have less overhead and they can cheat. (Early bunkout is a form of cheating.) Even better, we can do almost everything in registers and avoid much of the overhead of accessing virtual storage.</p>
+<p>The organists among you will know that the top-end IBM cathedral organs have sixteen 32-bit general purpose registers which, unlike those in the 80x86 series harmonium, lack almost all flavour and colour. By this, ] mean that you any of them for almost anything, so there’s a freedom that you just don’t find on smaller instruments. In some of the prayers, I even preloaded constant comparands into spare use within loops. As you can imagine, by eliminating repeated storage fetches of comparands, this expedited comparisons no end.</p>
+<p>The basic processing technique, once the input arguments and the output result area had been connected up, was to lope along the inputs 32-bits (a fullword) at a time. Each pass of the loop entailed loading a fullword of left-argument data into one register, a fullword of right-argument data into another, and using register in which to generate result data. Apart from the Partitioned OR Reduce prayer, which could generally be expected to produce a result which contained fewer bits than the input, all prayers produced results of exactly the same length as their inputs. Consequently, at the end of each pass of the loop, another fullword of result bits would be stored in the output variable’s data area.</p>
+<p>My big mistake ... Let's take a look at one of the algorithms - Partitioned LessThan Scan - in detail. A LessThan Scan produces a result which is a copy of the input argument in which all onbits except the first have been turned off. Partitioned LessThan Scan does this for each partition in the right-argument input data; the partitions are defined by onbits in the left-argument mask data. For instance:</p>
+<p>106010606 041 0 PARTITIONEDLETSCANOi100141411411 o1L10 0010120</p>
+<p>106</p>
+<p>VECTOR Vol.7 No.4</p>
+<p>In this example, the left-argument mask data specifies three partitions of lengths 3, 4 and 2 bits respectively. In real life, however, we're talking about thousands of partitions each of which could be anything from one to thousands of bits long. Because the cathedral organ’s registers go like greased lightning, we can happily loop along, shifting register contents to isolate each bit in turn, inspecting it and deciding what to do with it. We have no alternative. Or do we? The cathedral organ’s repertoire includes many facilities which act on a whole fullword at once.</p>
+<p>Imagine what would happen if, having already output the first onbit in the current partition, we loaded the next fullword of left-argument mask data and found it to be all zeroes. It would mean that the current partition continued for at least another 32 bits and, since we'd already output the single onbit permitted for it, we'd have to output 32 offbits. The nature of the corresponding fullword of right-argument data would be completely immaterial. Instead of looping through the 32 bits one at we could zeroed fullword with instruction. This trick of segment-skipping can pay performance dividends when long partitions occur frequently in the input.</p>
+<p>What's more, at any time during the processing of a nonzero maskword on a bit- by-bit basis, if a test reveals that all remaining bits are off, we can ignore the remaining dataword bits and store offbits for them in the result. This trick of loop-truncation can pay performance dividends when data onbits are infrequent.</p>
+<p>This sort of trickery is the early bunkout to which I previously alluded.</p>
+<p>There’s another loop-truncation trick we can play, and this one is where I tripped myself up. Let’s suppose that we've looked at the maskword and we find that there are some onbits in it. This means we've got a new partition starting within the next 32 bits so we can’t do a segment skip. But suppose all the databits were off? We can’t produce onbits in the result if the corresponding databits are off, so couldn’t we store zeroes and bunk out early in that case?</p>
+<p>The answer is that we could, but with one important proviso: first we must reset the partition metabit, that status flag which records whether we have yet found an onbit in the current partition’s data. If we were to go into the next partition with the flag still on, we'd produce an all-zero output partition even if the input partition data contained some onbits. Guess who forgot to reset the partition metabit.</p>
+<p>107</p>
+<p>VECTOR Vol.7 No.4</p>
+<p>Connecting things up ... Okay, we're on the homewards stretch now. All that remains is to recount how to make the prayers available to the APLer in his pew and to put some numbers on the resulting CPU-time savings.</p>
+<p>The first thing we have to do is to package our prayers as one or more loadmodules. How many we put in a loadmodule is immaterial because the packaging process entails coding and assembling a frontend table which lists all the entrypoints in the individual routines. With this table in place, the usual limit (imposed by the Linkage Editor) of 16 entrypoints within a single loadmodule is eliminated. Instead, the loadmodule ends up with entrypoint via which APL2 enters to look at the table when it wants to name-associate a given function. The number of routines which may be declared in the table is potentially huge.</p>
+<p>under discussion, there were only four routines and the application used all four, so they were packaged as a single loadmodule.</p>
+<p>To announce each routine to APL2, we create a member in a partitioned dataset termed the Names file. Each member names its corresponding routine and gives a DDname and membername to enable the package loadmodule to be found. Each member also uses a simple shorthand to declare the format of the input arguments and the result. Argument data supplied by the APLer to our functions will be coerced to suit if at all possible; otherwise, a DOMAIN ERROR occurs and we aren't called. This saves us from the chore of writing complex input- validations.</p>
+<p>Before starting the application, we preallocate the Names file and the loadmodule library (the latter using the predetermined DDname coded in the Names file members). Then we hook each routine up as an APL function by entering,</p>
+<p>'(NamesfileDDname)' 11 ONA  f u n c t i o n </p>
+<p>After this, the function runs exactly as if it were written in APL. But a lot faster.</p>
+<p>The score ... So how did they do? Partitioned OR Reduce was the worst. Overall, it averaged a CPU-time saving of 44%. This means that, on average, for every 100 CPU</p>
+<p>108</p>
+<p>VECTOR Vol.7 No.4</p>
+<p>seconds taken by the all-APL function, the Assembler version took 56 CPU seconds on the same data.</p>
+<p>The other three functions did much better. They each saved 92%. Altogether, replacing these four much-loved utility routines knocked nearly 10% off the overall CPU-time cost for the entire application. Since it was a very large and heavily used application, this represented a very substantial reduction in machine costs.</p>
+<p>All four functions were pretty much the same size. The average was 870 bytes and the total size of the package loadmodule was 3,592 bytes. The source code per function came to about 320 lines, excluding comments and macro expansions.</p>
+<p>Development time averaged about 35 man hours per function. This reflects the learning curve and initial blind man’s buffery. The last function (Partitioned FirstGroup) was taken from inception to completion in only four hours by taking a copy of the Partitioned LessThan Scan function and writing a new logic core, the argument handling and environmental processing being the same. If it’s got Boolean vectors, I’m your man.</p>
+<p>The aftermath ... Hosannas ringing in my ears, I totter across close. Back home, curtains drawn, I slump in the gloom with an icepack on my head. The  p h o n e rings. Wincing, I lift the handset.  H i  , I croak feebly.</p>
+<p> M y son,” says a brightly enthusiastic voice,  h o w dost thou fancy doing a Partitioned Plus Reduce?” 109</p>
+</details>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1342 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Programming techniques for handling high-rank arrays">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10500720/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Eight-way street: handling high-rank arrays - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#factor-arrays" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Eight-way street: handling high-rank arrays
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#factor-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Factor arrays
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#switching-axes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Switching axes
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summing-and-selecting" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Summing and selecting
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conclusion
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Eight-way street: handling high-rank arrays</h1>
+
+  <p class="printed"><a href="../25/#n23-march-2012">Vector 25:3</a>, page 43</p>
+
+
+<p class="subtitle">Handling high-ranking arrays</p>
+<p class="byline">Stephen Taylor (sjt@5jt.com)</p>
+<p class="abstract">Describes techniques for handling ‘noble’ arrays – of rank much higher than three; also introduces a mnemonic for the left argument of dyadic transpose.</p>
+<p>When you sup with the devil, use a long spoon. (Proverb)</p>
+<p>One of the features of APL attractive to the learner is how functions work on conformable arrays without loops and indexes. When <code>A×B</code> can refer to arrays of arbitrary rank it is clear one has stepped into a world of new abstraction and generality.</p>
+<p>Later it can be surprising to find how little use one has made of higher-rank arrays. Interpreter writers track their usage to learn where optimisation would be valuable. Only a tiny fraction of arrays have ranks higher than 3. (Let us call such arrays ‘noble’.)</p>
+<p>Somehow this seems disappointing. When I started to write APL, I foresaw working in higher realms of abstraction and generality, free from the mental clutter of loops and indexes. The loops are mostly gone, but noble arrays remain tantalisingly rare. I conducted an informal survey of career APL programmers I know. The highest-rank array reported used in commercial software was 5.</p>
+<p>The dreams of youth are notoriously prone to disappointment. But is useful to understand the sources of disappointment.</p>
+<p>In contrast to youthful dreams, much of life is quotidian, spent brushing one’s teeth and washing dishes. So with programming. Even with much looping swept away there is much to be done that resists abstraction. Life and programming both are less tractable than our dreams.</p>
+<p>Another source I can own to is a combination of my own laziness and others’ pressure for results. It takes time and effort to master techniques of higher abstraction and generality. Suppose one is faced, say, with multiplying a table through a rank-4 array. One has perhaps a hazy idea of a short expression that would do it. But writing two loops solves it faster than working out the unfamiliar expression. Repetition of the problem might prompt one to stop and study. Peer pressure from more experienced colleagues might also do it. Otherwise one is pressed always toward the road more travelled.</p>
+<p>Visual Basic is famously easy to start writing in. It is also notoriously quick to mire a writer’s ambition in repetitive code. We might call this the ‘VB effect’. But APL writers are also vulnerable to it, and for similar reasons. Both languages favour the self-taught, enabling domain experts, untrained in the orthodoxies of software development, to produce usable code. Without support from writers more experienced in abstractions, autodidacts are liable to miss available coding abstractions.</p>
+<p>Sometimes this has profound consequences. I was recently asked to rewrite a core section of an application developed and maintained in just this way over twenty years. The chief developer, a domain expert, was soon to retire. Faced with changes required by regulatory changes he advised that he could not patch in further changes with any confidence. The algorithms should be rewritten as they would have been had the eventual requirements been known twenty years earlier. After years of ‘cut and paste’ patching, the code base had, as some developers put it, “gone sour”. It could no longer be amended with confidence.</p>
+<p>Going sour is terminal. Code goes sour when its developers can no longer navigate its exceptions, tricks and redundant parts. Sour code has to be rewritten.</p>
+<p>“Software is a constant battle against complexity.”<a href="#ref1">[1]</a> Developers aim to defer as long as possible the souring of code. Abstraction is a weapon in this battle. When short, abstract code has to be revised, it encourages ‘clean’ reformulation that preserves the rigour of the original. It is less susceptible to the accumulation of ‘cut-&amp;-paste’ patching that sours code.</p>
+<p>Reading the soured application code I was able to see the traces of cut–&amp;-paste work. Pages of code that looked something like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>NRRUBBLE ← RATER × NRUBBLE
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>NSRUBBLE ← RATES × NRUBBLE
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>NTRUBBLE ← RATET × NRUBBLE
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>NURUBBLE ← RATEU × NRUBBLE
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>MRRUBBLE ← RATER × MRUBBLE
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>MSRUBBLE ← RATES × MRUBBLE
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>MTRUBBLE ← RATET × MRUBBLE
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>MURUBBLE ← RATEU × NRUBBLE
+</span></code></pre></div>
+<p>Tracing execution revealed the <code>RUBBLE</code> arrays to be vectors. One could see within the verbose solution a terse, higher-rank solution struggling to emerge.</p>
+<h2 id="factor-arrays">Factor arrays<a class="headerlink" href="#factor-arrays" title="Permanent link">&para;</a></h2>
+<p>Analysis revealed the bulk of this code allocated a sum of money. The vectors were time series, created by applying interest rates, inflation rates and other time-related factors. The money was split other ways as well. In some cases the money was allocated to one of a choice of categories. In others, it was apportioned between categories.</p>
+<p>All of these allocations could be represented by multiplication. To apply an interest rate R across valuation years Y:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>      fTime ← (1+R)*⍳⍴Y
+</span></code></pre></div>
+<p>To allocate to one of a list of categories <code>CATS</code> according to category <code>C</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>      fCat ← CATS=C
+</span></code></pre></div>
+<p>To apportion across periods according to dates <code>D1 D2 D3</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>      fPeriod ← apportionPeriod(D1 D2 D3)
+</span></code></pre></div>
+<p>Since these ‘business rules’ are defined orthogonally, we can use Cartesian (outer) products to construct a rank-3 array that allocates, apportions and revalues:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>      VAL ← AMT × fTime ∘.× fCat ∘.× fPeriod
+</span></code></pre></div>
+<p>Or, to remove the repetition:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>      VAL ← AMT × ⊃ ∘.×/fTime fCat fPeriod
+</span></code></pre></div>
+<p>The result <code>VAL</code> has 3 axes: valuation years, category and period.</p>
+<p>Sadly, the problem does not admit of so satisfyingly simple a solution. The outer-product reduction works only because the factors are mutually independent. But some business rules work across multiple axes.</p>
+<p>For example, a set of rates apply across time, but differ between categories. The rate table <code>RT</code> has <code>⍴Y</code> rows, and columns corresponding to the categories of <code>CATS</code>. That is to say, <code>RT</code> has the time and category axes. We can conveniently insert it into our combination of factors:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>      VAL ← AMT × (RT × fTime ∘.× fCat) ∘.× fPeriod
+</span></code></pre></div>
+<p>Where the old code had a plethora of similar names, the new has everything stacked in a rank-3 array, from which we can select what we need by indexing. There turns out to be a good deal of this ahead. It is inconvenient for the reader to remember that, for example, the first index on the period axis denotes pre-1988 and the second post-1988. We shall do better with enumerators:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>      (iM iN iO iP) ← ,¨⍳4 ⍝ enumerate category axis
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>      (iPr8 iPo8)   ← ,¨⍳2 ⍝ enumerate period axis
+</span></code></pre></div>
+<p>Thus we can select the pre-1988 value in 2013 for category N as <code>VAL[Y⍳2013;iN;iPr8]</code> or tabulate the post-1988 values for categories O and P as <code>VAL[;iO,iP;iPo8]</code>. Note that the index enumerators are vectors, so indexing in this way preserves rank: the result too has rank 3. This is not very valuable for a rank-3 array, but will turn out to be helpful as we add axes to <code>VAL</code>.</p>
+<p><code>VAL</code> still has three axes. We suspect it will need more before we’re done.</p>
+<p>It turns out we need <code>VAL</code> calculated both with and without the rates in <code>RT</code>. We can accommodate this with another axis. First we extend the rate table to apply and not apply:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>      fRates ← RT ∘.* 1 0
+</span></code></pre></div>
+<p><code>fRates</code> has 3 axes: valuation years, categories and a new axis: with and without rates. We want some more enumerators:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>      (iWth iWto)   ← ,¨⍳2 ⍝ enumerate: with &amp; without rates
+</span></code></pre></div>
+<p>Folding <code>fRates</code> into the expression for <code>VAL</code> requires a little care now. We could jam the extra axis onto the <code>fTime fCat</code> outer product:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>      VAL ← AMT × (fRates × (fTime ∘.× fCat) ∘.× 1 1) ∘.× fPeriod
+</span></code></pre></div>
+<p>Or we could enclose rank-3 <code>RT</code> into a table of 2-element vectors. This can then be multiplied by the <code>fTime fCat</code> outer product: scalar extension multiplies each element of <code>fTime∘.×fCat</code> by a 2-element vector:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>      VAL ← AMT × (⊃ (fTime ∘.× fCat) × ⊂[3]fRates) ∘.× fPeriod
+</span></code></pre></div>
+<p>We can think of the enclose on the third axis as ‘hiding’ it, leaving only the time and category axes exposed. Disclosing the result of the multiplication ‘restores’ enclosed axes at the end of the shape – in this case exactly where the enclosed axis had been before.</p>
+<p><code>VAL</code> now has four axes: valuation year, category, with/without rates, and period. Still we think there will be more axes before we’re done.</p>
+<h2 id="switching-axes">Switching axes<a class="headerlink" href="#switching-axes" title="Permanent link">&para;</a></h2>
+<p>APL developers often write to explore the problem domain. In working with a noble array one might find oneself adding and removing axes as one’s view of the domain improves. Having index enumerators and axis enumerators (see below) are a great help in revising the code as the shape of <code>VAL</code> changes.</p>
+<p>There is a particular problem with the approach used above to generate the factor arrays. While exploring the domain, their shapes change. (In the example above, we saw the rate table shifted from two axes to three.) Some of the axes of the factor arrays match some others, some will not.</p>
+<p>Combine factor arrays into a single array of factors by successively enclosing along selected axes, multiplying and disclosing – as above. Each time a factor array changes shape, this sequence has to be revised. (Sadly, axis enumerators are no help here, as they refer only to the axes of <code>VAL</code>.)</p>
+<p>Worse, as the combination of factor arrays gets revised, so the shape of the result alters. Every axis will be there, but not necessarily in the order you want. Each revision of the combination is liable to change the sequence of axes. We know dyadic transpose will re-order the axes of an array. Now is the time to get a grip on its left argument.</p>
+<p>Suppose that <code>VAL</code> is to be a rank-8 axis. Let’s define eight enumerators for its axes.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>      (aTIM aCAT aPRD aSEX aRAT aBNS aYRS aPLS)←⍳⍴⍴VAL ⍝ enumerate axes
+</span></code></pre></div>
+<p>We have combined the various factor arrays we defined from the business rules. The resulting factor array has all eight axes, but not in the order above. How do we get them into the right order? Start by identifying the axes in the combined factor array. Suppose they have emerged from the combination in this order:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>      aYRS aRAT aTIM aPRD aSEX aBNS aCAT aPLS
+</span></code></pre></div>
+<p>Very good. Then we use this array as the left argument of our dyadic transpose:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>      aYRS aRAT aTIM aPRD aSEX aBNS aCAT aPLS⍉
+</span></code></pre></div>
+<p>puts the axes in the order they are to be in <code>VAL</code>.</p>
+<p>From using axis enumerators in this way we see that the left argument of dyadic transpose functions as an address list – where the corresponding axes of the right argument are to end up.</p>
+<h2 id="summing-and-selecting">Summing and selecting<a class="headerlink" href="#summing-and-selecting" title="Permanent link">&para;</a></h2>
+<p>In reading values from <code>VAL</code> the business logic sometimes needs categories and periods distinct, sometimes summed.</p>
+<p>Tabulating with-rate values for all years and categories, summed across period:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>      +/VAL[;;↑iWth;]
+</span></code></pre></div>
+<p>The <code>↑</code> is required to collapse the third (with/without rates) axis, as the enumerators are all length-1 vectors. (We shall see shortly why this is so.) The sum defaults to the last axis and removes it. The result is a table of valuation years by category.</p>
+<p>Tabulating with-rate values for all years and periods:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>      +/[2]VAL[;;↑iWth;]
+</span></code></pre></div>
+<p>Here the axis operator applies the summing to the category axis. Reading the expression requires us to remember that the second axis is for categories. Again, we will do better with enumerators:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>      (aTIM aCAT aRAT aPRD)←⍳4 ⍝ enumerate axes
+</span></code></pre></div>
+<p>This enables us to write the previous tabulations as</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>      +/[aPRD] VAL[;;iWth;]
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>      +/[aCAT] VAL[;;iWth;]
+</span></code></pre></div>
+<p>with some gain in legibility. Now we see the value of using vector index enumerators so that indexing does not reduce rank. It allows us to use the axis enumerators for reduction. (A drawback above is that the rates axis remains, with length 1.)</p>
+<p>Nor is this is an approach that scales well to nobler arrays. Suppose our array has grown to 8 axes. We wish to index some of them and sum others. The reader’s primary interest is to see what has been selected and what axes are in the result.</p>
+<p>We can use successive summations providing we sum axes in descending order. For example, for axes</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>      (aTIM aCAT aPRD aSEX aRAT aBNS aYRS aPLS)←⍳⍴⍴VAL ⍝ enumerate axes
+</span></code></pre></div>
+<p>we could get a table with rows and columns corresponding respectively to <code>aSEX</code> and <code>aCAT</code> something like:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>      sel ← VAL[iThis;;;;;iThat;;iTher]
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>      ⍉+/[aTIM]+/[aPRD]+/[aRAT]+/[aBNS]+/[aYRS]+/[aPLS] sel
+</span></code></pre></div>
+<p>The indexing makes the selection clear enough, but it still takes some work to see that the axes not summed are <code>aCAT</code> and <code>aSEX</code> and thus the result is a table with rows and columns corresponding to those axes, then transposed. For maintenance one would worry that changes in the order of axes will change the result of the successive summations without necessarily breaking execution.</p>
+<p>Better if we could write something like:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>      aSEX aCAT SUMSOF VAL[iThis;;;;;iThat;;iTher]
+</span></code></pre></div>
+<p>This it turns out we can do quite neatly:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>    ∇ Z←resultaxes SUMSOF array
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>[1]  ⍝ array summed across all axes except resultaxes
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>[2]  ⍝ result has axes in order of resultaxes
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>[3]  Z←(⍋,resultaxes)⍉+/¨,¨⊂[(⍳⍴⍴array)~resultaxes] array
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>    ∇
+</span></code></pre></div>
+<p>The expression in line 3 encloses all the axes that are to be ‘hidden’, producing an array whose shape contains the axes in <code>resultaxes</code>, but in ascending order. Each cell of this is then ravelled and summed. The dyadic transpose then shuffles the axes into the desired order.</p>
+<p>While any change to the shape of <code>VAL</code> would still require a change to the indexing, provided the <code>aSEX</code> and <code>aCAT</code> axes persist, they may remain as the left argument of <code>SUMSOF</code>.</p>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>Using index enumerators considerably improves readability when selecting from noble arrays. Using axis enumerators makes it easier to put axes of intermediate arrays into a desired order. The left argument of dyadic transpose may be thought of as an ‘address list’ of where you want the corresponding axes of the right argument to be ‘sent’.</p>
+<p>The dyadic function <code>SUMSOF</code> improves the readability and robustness of what would otherwise be a sequence of sum functions vulnerable to shape changes in <code>VAL</code>.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a id="ref1"></a> Eric Evans, <em>Domain-Driven Design</em>, Addison Wesley, 2003</li>
+</ol>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

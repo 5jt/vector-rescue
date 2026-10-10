@@ -1,0 +1,1862 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10011150/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Smalltalk, APL and J: an Exercise in Comparative Programming - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=2a9cb2c1">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Smalltalk, APL and J: an Exercise in Comparative Programming
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introduction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-smalltalk-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The Smalltalk Program
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-apl-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The APL Program
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-j-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The J Program
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparing-the-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Comparing the Solutions
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comparing the Solutions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#development" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Development
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execution-speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Execution Speed
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-re-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Code Re-use
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Smalltalk, APL and J: an Exercise in Comparative Programming</h1>
+
+  <p class="printed"><a href="../9/#n2-october-1992">Vector 9:2</a>, page 96</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-language-design">language design</a> <a class="md-tag" href="../tags/#tag-APL-in-perspective">APL in perspective</a> <a class="md-tag" href="../tags/#tag-programming-techniques">programming techniques</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../9/2/VOL.9-NO.2-OCTOBER-1992.pdf#page=98">Read it in the PDF of the issue, page 96</a></em></p>
+<p class="byline"><em>by Dave Ziemann</em></p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>This idea was conceived when I started to learn Smalltalk/V Windows, the object-oriented programming language and environment. I wanted to find a small programming problem that I could use as a learning exercise. It had to be something well-defined, and preferably without any complicated inputs or outputs (I didn’t want to get embroiled in user-interfaces quite this early), just something pure and algorithmic. I was also looking for a problem that would suggest the use of a distinctive feature of the language.</p>
+<p>For some reason, I think someone was talking about them in the office, Hilbert Matrices sprung to my mind. I’m no mathematician, but I remembered that they were something to do with fractions, and that there are people who think that they are very useful. A Hilbert Matrix is a symmetrical matrix of fractions, each with a unit numerator. An order three Hilbert Matrix looks like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>1/1  1/2  1/3
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>1/2  1/3  1/4
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>1/3  1/4  1/5
+</span></code></pre></div>
+<p>My problem would be to write a Smalltalk program to find the determinant of a Hilbert Matrix.</p>
+<p>After solving this problem, which did help me to start learning Smalltalk, I wondered how easy it would be to do the same thing in APL. After I’d coded the problem in APL*PLUS II, my favourite symbolic dialect of that particular language, a further thought arose. Surely this problem could also be expressed very naturally in J, Ken Iverson’s ASCII based rationalisation and extension of APL.</p>
+<p>This article documents a solution of the Hilbert Matrix problem in those three languages, and makes some comparative observations. In each case the code is written in a manner appropriate to the particular language and environment being used.</p>
+<p>The text of this article is written in a tutorial style for the benefit of those who are not familiar with Smalltalk or J.</p>
+<h2 id="the-smalltalk-program">The Smalltalk Program<a class="headerlink" href="#the-smalltalk-program" title="Permanent link">&para;</a></h2>
+<p>It would have been possible to program a quick-and-dirty solution, just to get the job done, but I wanted a solution that would do reasonable justice to the object-oriented paradigm in general, and the Smalltalk/V Windows class hierarchy in particular. Furthermore, I resolved to find out about inheritance, polymorphism and encapsulation.</p>
+<p>Let us look at a few examples of Smalltalk syntax:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>42 sign
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>2 + 3
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>2 raisedToInteger: 3
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>chars at: 3 put: 'a'
+</span></code></pre></div>
+<p>In the first example we say that the "message" "sign" is sent to the number 42, the "receiver" of the message. The result will be 1 because 42 is positive. In the second example we would say that the message "+" is sent to the number 2, with an argument of 3. The result, or as they say in Smalltalk, the "answer", is 5. The third example shows a "keyword" message, which always contains a colon. Again the argument is 3 and the "receiver" of the message is 2. In the last example a keyword message is sent to a named object. This time the message is the <code>at:put:</code> message, which takes two arguments, one per colon. Any number of arguments can be passed into an appropriately named keyword message.</p>
+<p>The three possible message types are known as unary, binary and keyword messages. Smalltalk expressions are executed left to right, but with unary messages taking precedence over binary, which in turn take precedence over keyword messages.</p>
+<p>Smalltalk code is partitioned into "classes" which are distributed within a hierarchical structure, a small part of which follows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Object
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a> Magnitude
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  Character
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  Date
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  Number
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>   Float
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>   Fraction
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>   Integer
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    LargeNegativeInteger
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    LargePositiveInteger
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    SmallInteger
+</span></code></pre></div>
+<p>Smalltalk provides a Fraction class, which directly supports operations on fractions, such as 3/4, which are represented as pairs of integers.</p>
+<p>A class is a template for creating objects, and each object is an instance of a class. The class "Object" sits at the top of the Smalltalk class hierarchy — all other classes being subordinate to it. As an example, we can say that the number 42 is an "instance" of the class SmallInteger, which is a subclass of Integer, which in turn is a subclass of Number, and so on.</p>
+<p>A class whose name appears indented is a subclass of a less indented class higher up in the list. Each class in the hierarchy has a private collection of functions, or "methods" as they are called in Smalltalk. When a message is sent to an object the code that is executed depends upon the class of the object.</p>
+<p>So when we sent the message "+" to the object 2, which is a SmallInteger, the system looked for a method called + in the SmallInteger class. In fact there is no such method in this class, so Smalltalk searches up the class hierarchy until it finds one. If it doesn’t find one, then an error occurs. In our example a + method is found in the Integer class, and it is this code which is executed when the statement 2+3 is evaluated.</p>
+<p>In effect, the subclass inherits all of the methods in its superclass. This is an example of what is meant by inheritance. It is also possible to shadow a superclass method by redefining the method in a subclass. An example of this can be seen in the Fraction class, a subclass of Number, which has its own definition of the + method. This is a very powerful idea. It means that objects of different class can respond to the same message in different ways. This behaviour is known as polymorphism.</p>
+<p>In Smalltalk, integer arithmetic is performed to arbitrary precision, so for example, a one-hundred digit number formed by successive multiplications is represented exactly. This precision is automatically extended to fractions, because the methods used in the class Fraction are themselves defined using integer arithmetic.</p>
+<p>The Fraction class supports exact fractional arithmetic using a similar set of messages to that used by the Number class. Consider the following two statements:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>        2 + 3
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>5
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>        1/3 + (1/6)
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>1/2
+</span></code></pre></div>
+<p>In the first case the + message is sent to the SmallInteger 2 so the + method in class Integer is executed, performing a simple integer addition. In the second example the + message is sent to 1/3, an instance of class Fraction. The Fraction class has its own definition of the + method, which knows how to add fractions. In a similar way the other common numerical operations have been subclassed in Fraction.</p>
+<p>Smalltalk’s direct support for the Fraction class will prove useful for the Hilbert Matrix problem. All we need to do is to create a matrix of Fractions. Well almost, except that Smalltalk doesn’t know what a matrix is. So we need to tell it.</p>
+<p>Let’s look at another part of the class hierarchy:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Object
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a> Collection
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  Bag
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  IndexedCollection
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>   FixedSizeCollection
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    Array
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    String
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>   OrderedCollection
+</span></code></pre></div>
+<p>An Array is a kind of FixedSizeCollection which is a kind of Collection, which in turn is a kind of Object, as everything eventually is in Smalltalk. Instances of the Array class therefore inherit the properties and methods of its superclasses. Thus a Smalltalk array is a fixed length, one-dimensional structure that can contain other Smalltalk objects.</p>
+<p>Many of the methods in the superclasses of Array will be useful to us, but the Array class as it stands is not convenient for our purpose. Rather than attempt to modify the Array methods to meet our needs, we will add a new subclass to Array. In fact we will add three new classes to Smalltalk, as indicated by the bold class names in the following:</p>
+<pre><code>Object
+ Collection
+  Bag
+  IndexedCollection
+   FixedSizeCollection
+    Array
+     <b>Matrix</b>
+      <b>SquareMatrix</b>
+       <b>HilbertMatrix</b>
+    String
+   OrderedCollection
+</code></pre>
+
+<p>The new classes can be defined in Smalltalk/V Windows either by writing program code to do it, or more easily, by using the mouse. If the mouse is used, all you have to type is the new class name.</p>
+<p>The new structure recognises the fact that a Hilbert matrix is indeed a kind of square matrix, which in turn is a kind of matrix. Each class can be defined to include a number of "instance variables", variables which will be associated with all instances of that class. We will define Matrix to have two instance variables, called ‘rows’ and ‘columns’, to represent the number of rows and columns in the matrix. The SquareMatrix class will have an instance variable called ‘order’, which will represent both the number of rows and columns, the order of the square matrix. Finally, class HilbertMatrix will have no additional instance variables, but will support methods for initialising and displaying Hilbert matrices.</p>
+<p>The use of three distinct new classes allows us to distribute code to those classes where it most naturally resides. For example, a method to index elements of a Hilbert matrix can be written for the class Matrix instead of the class HilbertMatrix, so that all types of matrix can use it. The code for calculating the determinant of a matrix can be placed into the SquareMatrix class, so that all square matrices, not just Hilbert matrices can understand the "determinant" message. (Actually one could define determinant for any shape matrix, but this is an additional generalisation that has not been made here.)</p>
+<p>Let’s look at the code for the class Matrix.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>new: row by: column
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>        "Answer a new instance of Matrix with size row by column"
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    ^(super new: row*column) rows: row; columns: column
+</span></code></pre></div>
+<p>This is called a "class" method because the <code>new:by:</code> message is sent not to an instance of the class Matrix, but to the class itself, in order to create and initialise a new Matrix. The semicolon is a shorthand for sending another message to the same receiver object. We use this method to create a new 3 by 3 Matrix as follows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>M33:=Matrix new: 3 by: 3
+</span></code></pre></div>
+<p>The <code>new:by:</code> method in turn uses a superclass <code>new:</code> method, which is used to create an Array of appropriate length. A Smalltalk Array is a linear structure analogous to the APL vector. The circumflex indicates the result to be answered. We also define the methods <code>rows:</code> and <code>columns:</code> in the Matrix class in order to specify the number of matrix rows and columns:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>rows: anInteger
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>        "Set the number of rows in the receiver Matrix"
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    rows:=anInteger.
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>columns: anInteger
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        "Set the number of columns in the receiver Matrix"
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    columns:=anInteger.
+</span></code></pre></div>
+<p>In this way the instance variables <code>rows</code> and <code>columns</code> are defined for an instance of the class Matrix. There is no problem using method names that are the same as instance variable names. The next step is to provide access methods for these two instance variables, which are simply:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>rows
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>        "Answer the number of rows in receiver matrix"
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    ^rows
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>columns
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>        "Answer the number of columns in the receiver matrix"
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    ^columns
+</span></code></pre></div>
+<p>Matrix elements can be indexed by the <code>at:at:</code> method, which takes the row number and column number as arguments:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>at: i at: j
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>        "Answer receiver Matrix element i,j"
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  | index |
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  (i&lt;1 or: [i&gt;self rows] ) ifTrue: [^self error:'INDEX ERROR'].
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>  (j&lt;1 or: [j&gt;self columns]) ifTrue: [^self error:'INDEX ERROR'].
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>  index:=self loc: i with: j.
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>  ^self at: index
+</span></code></pre></div>
+<p>To make us feel at home, the method reports an APL-like error message when an index is out of range. The word <code>self</code> refers to the receiver of the message, in this case the instance of the class Matrix being indexed. The square brackets <code>[]</code> group blocks of Smalltalk code which are used here as arguments to messages such as <code>or:</code> and <code>ifTrue:</code>.</p>
+<p>The <code>loc:with:</code> method converts the row number and column number pair into a single index value which is used to index the linear Array which represents the matrix. The method uses the existing <code>at:</code> method inherited all the way from the class Object.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>loc: i with: j
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>        "Locate the Array index of receiver Matrix element i,j"
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    ^(i - 1)*self columns+j
+</span></code></pre></div>
+<p>The specification of matrix elements is achieved with the <code>at:at:put:</code> method, which employs the existing <code>at:put:</code> method from the Object superclass.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>at: i at: j put: data
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>        "Put data into receiver Matrix at element i,j"
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    ^self at: (self loc: i with: j) put: data.
+</span></code></pre></div>
+<p>These methods define the message interface by which a Matrix object can be accessed. This "encapsulation" protects the instance variables of an object from access by the outside world.</p>
+<p>Finally, although not strictly necessary for the problem, we will be polite and provide Smalltalk with a method to display matrices. When Smalltalk tries to display something, it looks for a method named <code>printOn:</code> in the class of the object to be displayed. We will see this method in action later:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>printOn: aStream
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>        "Send formatted Matrix to aStream"
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    1 to: self rows do: [:i|
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>        aStream nextPut: $(.
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>        1 to: (self columns)- 1 do: [:j|
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>            aStream nextPutAll:
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>            (self at: i at: j) printString,' , '].
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>        aStream nextPutAll:
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>        (self at: i at: self columns) printString,')' ;cr].
+</span></code></pre></div>
+<p>Now for the code in the class SquareMatrix. An instance of this class is created by sending the message <code>new:</code> to the class itself, in a manner similar to the creation of a Matrix used above:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>new: size
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>        "Create new SquareMatrix of order size"
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    ^(super new: size by: size) order: size
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>order: anInt
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>        "Set the order of the receiver SquareMatrix"
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    order:=anInt.
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>order
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>        "Answer the order of the receiver SquareMatrix"
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>    ^order
+</span></code></pre></div>
+<p>The <code>order:</code> method establishes the order instance variable, which is used to track the order of a SquareMatrix, i.e. the number of rows and columns. The heart of the algorithm is the following three methods, which calculate the determinant of a SquareMatrix by recursively computing the determinants of the imbedded minor matrices, until a 2 by 2 matrix is obtained, when the determinant is directly found:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>determinant
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>        "Answer determinant of receiver SquareMatrix"
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    self order=2 ifTrue: [^self determinant2by2].
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    ^(1 to: self order) inject: 0 into: [:answer :j|
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>        j odd
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>        ifTrue: [answer+
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>            ((self at: 1 at: j) * (self minor: j)determinant)]
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>        ifFalse: [answer-
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>            ((self at: 1 at: j) * (self minor: j)determinant)]].
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>determinant2by2
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>     "Answer the determinant of the receiver 2 by 2 SquareMatrix"
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>   ^((self at: 1 ) * (self at: 4)) - ((self at: 2) * (self at: 3))
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>minor: anInteger
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>        "Answer a minor matrix in the receiver formed by deleting
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>        row 1 and column anInteger"
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>    | result ir |
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>    result:=self class new: order - 1.
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>    ir:=1.
+</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>    order+1 to: order*order do: [:is|
+</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a>        (is- 1\\order)=(anInteger- 1)
+</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a>            ifFalse: [result at: ir put: (self at: is).
+</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a>            ir:=ir+1]].
+</span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a>    ^result
+</span></code></pre></div>
+<p>The polymorphic nature of the arithmetical messages such as <code>*</code> will apply integer arithmetic to integers, and fractional arithmetic to fractions.</p>
+<p>Finally the code for the class HilbertMatrix. Again, we have a class method which is used to instantiate a HilbertMatrix, and an <code>initialize</code> method to populate the matrix with fractions:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>new: size
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>        "Create new HilbertMatrix of order size"
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    ^(super new: size) initialize
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>initialize
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>        "Initialize the receiver HilbertMatrix"
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>    1 to: self order do: [:i|
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>        1 to: self order do: [:j|
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>            self at: i at: j put: (1/(i+j- 1))]].
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>    ^self
+</span></code></pre></div>
+<p>Smalltalk is largely written in Smalltalk, which is great because it means you can see how it works, learn how to program, and re-use existing code. It also means that you are bound into the North American spelling system, as indicated by the above method name. Of course you can stand firm and spell "initialise" with an "s", but unfortunately this inevitably leads to confusion and error.</p>
+<p>We can write another HilbertMatrix class method to produce a report, which will be run in a few moments:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>reportMany: orders
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>        "Show a report of the order and determinant for
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>        Hilbert matrices of order orders"
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    | report det |
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    report:=WriteStream on: String new.
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>    report nextPutAll: 'Order   Determinant' ; cr.
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>    orders do: [:order|
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>        det:=(HilbertMatrix new: order) determinant.
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>        order printOn: report.
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>        report nextPutAll: '       '.
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>        det printOn: report.
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>        report cr].
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>    Transcript nextPutAll: report contents.
+</span></code></pre></div>
+<p>Interestingly, the HilbertMatrix class itself has very little code in it. As you can see from this design, most of the code is utility code, useful in a more general context than just for finding the determinant of a Hilbert matrix.</p>
+<p>We are ready to create a Hilbert Matrix and find the determinant:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>      HilbertMatrix new: 3
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a> (1 , 1/2 , 1/3)
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>(1/2 , 1/3 , 1/4)
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>(1/3 , 1/4 , 1/5)
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>      (HilbertMatrix new: 3) determinant
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a> 1/2160
+</span></code></pre></div>
+<p>Notice how the <code>printOn:</code> method, defined in the Matrix class, is inherited by its subclasses, and quite happily displays a HilbertMatrix. The Fraction class also has its own <code>printOn:</code> method, which knows how to display the fractions themselves.</p>
+<p>Let’s now run the <code>reportMany:</code> class method, to produce a list of Hilbert Matrix determinants:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>      HilbertMatrix reportMany: (1 to: 7)
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>Order   Determinant
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>1       1
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>2       1/12
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>3       1/2160
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>4       1/6048000
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>5       1/266716800000
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>6       1/186313420339200000
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>7       1/2067909047925770649600000
+</span></code></pre></div>
+<p>The arbitrary precision arithmetic has done its stuff — the determinants are exact. This is not something we can expect to happen in APL or J.</p>
+<h2 id="the-apl-program">The APL Program<a class="headerlink" href="#the-apl-program" title="Permanent link">&para;</a></h2>
+<p>The APL version was written in the second-generation APL*PLUS II system, using a direct definition handler that I wrote some years ago, just for this kind of development. Index origin zero is used throughout.</p>
+<p>APL has no special datatype for fractions, so we will have to use an existing data structure to represent a fraction. A vector of fractions could reasonably be represented by a 2-column matrix, the first column for the numerators and the second for the denominators. In general an array of fractions would then always have an additional trailing dimension of length 2.</p>
+<p>But I have chosen to represent an array of fractions as an array of enclosed integer pairs, because it makes the application of certain operations simpler, it results in an array whose shape does not artificially include a 2, and because the default display of such arrays will always juxtapose the numerator and denominator in each fraction.</p>
+<p>A 2-element integer vector is used to represent the numerator and denominator of the fraction. The function <code>fraction</code> is used to form vectors of enclosed fractions as follows:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="w">      </span><span class="nv">fraction</span><span class="bp">:</span><span class="w"> </span><span class="bp">⍺</span><span class="o">,</span><span class="na">¨</span><span class="bp">⍵</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">      </span><span class="m">2</span><span class="w"> </span><span class="nv">fraction</span><span class="w"> </span><span class="m">3</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="m">2</span><span class="w"> </span><span class="m">3</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="nv">fraction</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">3</span>
+</span></code></pre></div>
+<p>A fraction formatter will also be useful. Here it is:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="w">    </span><span class="nv">fmt</span><span class="bp">:</span><span class="w"> </span><span class="nv">fmt</span><span class="na">¨</span><span class="bp">⍵</span><span class="w"> </span><span class="bp">:</span><span class="w"> </span><span class="m">1</span><span class="o">=≡</span><span class="bp">⍵</span><span class="w"> </span><span class="bp">:</span><span class="w"> </span><span class="p">(</span><span class="o">⍕</span><span class="m">1</span><span class="o">↑</span><span class="bp">⍵</span><span class="p">)</span><span class="o">,</span><span class="s1">'/'</span><span class="o">,</span><span class="p">(</span><span class="o">⍕</span><span class="m">1</span><span class="o">↓</span><span class="bp">⍵</span><span class="p">)</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">    </span><span class="nv">fmt</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="m">2</span><span class="na">/</span><span class="m">3</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">    </span><span class="nv">fmt</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="nv">fraction</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w"> </span><span class="m">1</span><span class="na">/</span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="na">/</span><span class="m">3</span>
+</span></code></pre></div>
+<p>The <code>fmt</code> function uses the three-segment form of direct definition, where if the middle segment evaluates to 0 then the left segment is executed, otherwise if the middle segment evaluates to 1, then the right segment is executed. The recursive definition extends the domain of the function to arrays of enclosed fractions.</p>
+<p>A Hilbert matrix of any order can then be generated by using the function HM, which is defined as follows:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="w">      </span><span class="nv">HM</span><span class="bp">:</span><span class="nv">HM</span><span class="bp">:</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="nv">fraction</span><span class="w"> </span><span class="p">(</span><span class="o">⍳</span><span class="bp">⍵</span><span class="p">)</span><span class="na">∘.</span><span class="o">+</span><span class="m">1</span><span class="o">+⍳</span><span class="bp">⍵</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">      </span><span class="nv">HM</span><span class="w"> </span><span class="m">3</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">3</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">4</span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">5</span>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="w">      </span><span class="nv">fmt</span><span class="w"> </span><span class="nv">HM</span><span class="w"> </span><span class="m">3</span>
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="w"> </span><span class="m">1</span><span class="na">/</span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="na">/</span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="na">/</span><span class="m">3</span>
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="w"> </span><span class="m">1</span><span class="na">/</span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="na">/</span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="na">/</span><span class="m">4</span>
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="w"> </span><span class="m">1</span><span class="na">/</span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="na">/</span><span class="m">4</span><span class="w"> </span><span class="m">1</span><span class="na">/</span><span class="m">5</span>
+</span></code></pre></div>
+<p>Now that we can represent fractions in APL we also need to be able to take their product and difference, in order to compute determinants. The product of a pair of fractions is just the product of their corresponding denominators and numerators. But we will also need to simplify the resulting fraction, which may not be in its reduced form. So we have:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="w">      </span><span class="nv">times</span><span class="bp">:</span><span class="w"> </span><span class="nv">simplify</span><span class="w"> </span><span class="bp">⍺</span><span class="o">×</span><span class="bp">⍵</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">      </span><span class="nv">simplify</span><span class="bp">:</span><span class="w"> </span><span class="o">⌊</span><span class="bp">⍵</span><span class="o">÷</span><span class="nv">GCD</span><span class="na">/</span><span class="bp">⍵</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">      </span><span class="nv">GCD</span><span class="bp">:</span><span class="w"> </span><span class="nv">z</span><span class="w"> </span><span class="bp">:</span><span class="w"> </span><span class="m">0</span><span class="o">≠</span><span class="nv">v</span><span class="kd">←</span><span class="o">|</span><span class="bp">⍵</span><span class="w"> </span><span class="nv">⍙</span><span class="w"> </span><span class="nv">z</span><span class="kd">←</span><span class="o">|</span><span class="bp">⍺</span><span class="w"> </span><span class="bp">:</span><span class="w"> </span><span class="nv">v</span><span class="w"> </span><span class="nv">GCD</span><span class="w"> </span><span class="nv">v</span><span class="o">|</span><span class="nv">z</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">      </span><span class="nv">⍙</span><span class="bp">:</span><span class="w"> </span><span class="bp">⍺</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">      </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="o">×</span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="m">6</span><span class="w"> </span><span class="m">12</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="w">      </span><span class="nv">simplify</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="o">×</span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="m">1</span><span class="w"> </span><span class="m">2</span>
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="w">      </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="nv">times</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a><span class="m">1</span><span class="w"> </span><span class="m">2</span>
+</span></code></pre></div>
+<p>The <code>simplify</code> function works by dividing the numerator and the denominator by the Greatest Common Divisor of the two. A reduction is performed on the integer pair using the recursive <code>GCD</code> function. (The direct definition handler automatically localises the variable <code>v</code> to the function <code>GCD</code> because it is assigned therein.) <code>⍙</code> is a statement separator utility.</p>
+<p>Fraction subtraction and addition are analogously defined as follows:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="w">      </span><span class="nv">minus</span><span class="bp">:</span><span class="w"> </span><span class="nv">simplify</span><span class="p">(</span><span class="o">-</span><span class="na">/</span><span class="bp">⍺</span><span class="o">×⌽</span><span class="bp">⍵</span><span class="p">)</span><span class="o">,</span><span class="p">(</span><span class="m">1</span><span class="o">⊃</span><span class="bp">⍺</span><span class="p">)</span><span class="o">×</span><span class="m">1</span><span class="o">⊃</span><span class="bp">⍵</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">      </span><span class="nv">plus</span><span class="bp">:</span><span class="w">  </span><span class="nv">simplify</span><span class="p">(</span><span class="o">+</span><span class="na">/</span><span class="bp">⍺</span><span class="o">×⌽</span><span class="bp">⍵</span><span class="p">)</span><span class="o">,</span><span class="p">(</span><span class="m">1</span><span class="o">⊃</span><span class="bp">⍺</span><span class="p">)</span><span class="o">×</span><span class="m">1</span><span class="o">⊃</span><span class="bp">⍵</span>
+</span></code></pre></div>
+<p>The <code>plus</code> function is shown here for interest only — it is not required for our purpose.</p>
+<p>As in the Smalltalk solution, the general determinant is found by a recursive application to each of the minor matrices in the argument matrix. A minor matrix is produced by dropping the first row and nth column of its argument, where <em>n</em> is the left argument of the function <code>minor</code>:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="w">      </span><span class="nv">minor</span><span class="bp">:</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="o">↓</span><span class="p">(</span><span class="bp">⍺</span><span class="o">≠⍳</span><span class="m">1</span><span class="o">↑⍴</span><span class="bp">⍵</span><span class="p">)</span><span class="na">/</span><span class="bp">⍵</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">      </span><span class="nv">fmt</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="nv">minor</span><span class="w"> </span><span class="nv">HM</span><span class="w"> </span><span class="m">3</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w"> </span><span class="m">1</span><span class="na">/</span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="na">/</span><span class="m">4</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w"> </span><span class="m">1</span><span class="na">/</span><span class="m">4</span><span class="w"> </span><span class="m">1</span><span class="na">/</span><span class="m">5</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="w">      </span><span class="nv">minors</span><span class="bp">:</span><span class="w"> </span><span class="p">(</span><span class="o">⍳</span><span class="m">1</span><span class="o">↑⍴</span><span class="bp">⍵</span><span class="p">)</span><span class="nv">minor</span><span class="na">¨</span><span class="o">⊂</span><span class="bp">⍵</span>
+</span></code></pre></div>
+<p>where the function <code>minors</code> generates every possible minor matrix. So the determinant functions are as follows:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="w">      </span><span class="nv">determinant</span><span class="bp">:</span><span class="w"> </span><span class="o">⊃</span><span class="nv">minus</span><span class="na">/</span><span class="bp">⍵</span><span class="sr">[</span><span class="m">0</span><span class="sr">;]</span><span class="nv">times</span><span class="na">¨</span><span class="nv">determinant</span><span class="na">¨</span><span class="nv">minors</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">                 </span><span class="bp">:</span><span class="w"> </span><span class="m">2</span><span class="o">=</span><span class="m">1</span><span class="o">↑⍴</span><span class="bp">⍵</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="w">                 </span><span class="bp">:</span><span class="w"> </span><span class="nv">determinant2by2</span><span class="w"> </span><span class="bp">⍵</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="w">      </span><span class="nv">determinant2by2</span><span class="w"> </span><span class="bp">:</span><span class="o">⊃</span><span class="nv">minus</span><span class="na">/</span><span class="nv">times</span><span class="na">/</span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="o">⊖</span><span class="bp">⍵</span>
+</span></code></pre></div>
+<p>where the second function produces determinants for matrices of order 2 or less. Let’s try it out now:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="w">      </span><span class="nv">fmt</span><span class="w"> </span><span class="nv">determinant</span><span class="w"> </span><span class="nv">HM</span><span class="w"> </span><span class="m">3</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w"> </span><span class="m">1</span><span class="na">/</span><span class="m">2160</span>
+</span></code></pre></div>
+<p>Finally we can write a reporting utility as we did in Smalltalk:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="w">      </span><span class="nv">report</span><span class="bp">:</span><span class="w"> </span><span class="p">(</span><span class="o">⍕</span><span class="bp">⍵</span><span class="p">)(</span><span class="nv">fmt</span><span class="w"> </span><span class="nv">determinant</span><span class="w"> </span><span class="nv">HM</span><span class="w"> </span><span class="bp">⍵</span><span class="p">)</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="w">      </span><span class="nv">reportMany</span><span class="bp">:</span><span class="w"> </span><span class="s1">'Order'</span><span class="w"> </span><span class="s1">'Determinant'</span><span class="o">⍪↑</span><span class="nv">report</span><span class="na">¨</span><span class="bp">⍵</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="w">      </span><span class="nv">report</span><span class="w"> </span><span class="m">3</span>
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="na">/</span><span class="m">2160</span>
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="w">      </span><span class="nv">reportMany</span><span class="w"> </span><span class="m">1</span><span class="o">+⍳</span><span class="m">7</span>
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a><span class="w"> </span><span class="nv">Order</span><span class="w"> </span><span class="nv">Determinant</span>
+</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a><span class="w"> </span><span class="m">1</span><span class="w">      </span><span class="m">1</span><span class="na">/</span><span class="m">1</span>
+</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a><span class="w"> </span><span class="m">2</span><span class="w">      </span><span class="m">1</span><span class="na">/</span><span class="m">12</span>
+</span><span id="__span-27-11"><a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a><span class="w"> </span><span class="m">3</span><span class="w">      </span><span class="m">1</span><span class="na">/</span><span class="m">2160</span>
+</span><span id="__span-27-12"><a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a><span class="w"> </span><span class="m">4</span><span class="w">      </span><span class="m">1</span><span class="na">/</span><span class="m">6048000</span>
+</span><span id="__span-27-13"><a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a><span class="w"> </span><span class="m">5</span><span class="w">      </span><span class="m">1</span><span class="na">/</span><span class="m">266716800000</span>
+</span><span id="__span-27-14"><a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a><span class="w"> </span><span class="m">6</span><span class="w">      </span><span class="m">0</span><span class="na">/</span><span class="m">1</span>
+</span><span id="__span-27-15"><a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a><span class="w"> </span><span class="m">7</span><span class="w">      </span><span class="m">0</span><span class="na">/</span><span class="m">1</span>
+</span></code></pre></div>
+<p>Notice that APL’s 4-byte integer precision is insufficient for the exact computation of Hilbert matrix determinants beyond order 4. The order 5 result is correct "by accident", thanks to the trailing zeros in the result. We can expect to encounter the same behaviour in the J program, to which we now turn our attention.</p>
+<h2 id="the-j-program">The J Program<a class="headerlink" href="#the-j-program" title="Permanent link">&para;</a></h2>
+<p>At first sight one might think that the J version of this problem would be very similar to the APL solution, and in many ways it is.</p>
+<p>The representation of a fraction is however, subtly different in J. Instead of a 2-element pair of integers, a <em>boxed</em> 2-element pair of integers is used. But isn’t that just the same as enclosing the fraction in APL? Yes, but in the APL solution a fraction was carefully defined as an integer pair, not an enclosed integer pair. A major reason for this decision is that in APL2-type systems, the reduction operator applies the function between the disclosed elements of its argument data and not between the elements themselves. So by defining an APL fraction as an integer pair, we could use reduction to apply functions such as minus and times to vectors of enclosed fractions. The alternative would have been to apply a somewhat artificial enclose-each operation prior to any reduction on vectors of fractions.</p>
+<p>J does not perform implicit operations when its analogous insertion operation is performed, so we can represent a fraction as a scalar, a boxed integer pair, which is constructed by the following verb called <code>fraction</code>. This verb is defined for clarity in terms of the utility adverb <code>each</code>, which is used again later.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>      each=. &amp;.&gt;
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>      fraction=. ,each
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>      1 fraction 2 3
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>┌───┬───┐
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>│1 2│1 3│
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>└───┴───┘
+</span></code></pre></div>
+<p>Programming in J encourages an even greater degree of modular decomposition than in APL, particularly if you want to develop code "on the fly", or if you want to be able to read your code later.</p>
+<p>The denominators of the fractions in a Hilbert matrix can be generated with the <code>HMden</code> verb, which as before builds an addition table. The verb demonstrates the application of the monadic hook <code>+/&gt;:</code> in which the verbs <code>&gt;:</code> (increment) and <code>+/</code> (table) are a monad and a dyad respectively.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>      0 1 2 +/ 1 2 3
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>1 2 3
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>2 3 4
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>3 4 5
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>      (+/&gt;:) 0 1 2
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>1 2 3
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>2 3 4
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>3 4 5
+</span><span id="__span-29-9"><a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a>
+</span><span id="__span-29-10"><a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a>      HMden=. (+/&gt;:)@i.
+</span><span id="__span-29-11"><a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a>
+</span><span id="__span-29-12"><a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a>      HMden 3
+</span><span id="__span-29-13"><a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a>1 2 3
+</span><span id="__span-29-14"><a id="__codelineno-29-14" name="__codelineno-29-14" href="#__codelineno-29-14"></a>2 3 4
+</span><span id="__span-29-15"><a id="__codelineno-29-15" name="__codelineno-29-15" href="#__codelineno-29-15"></a>3 4 5
+</span></code></pre></div>
+<p>The Hilbert matrix verb is formed by composing the verbs <code>fraction</code> and <code>HMden</code>, as follows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>      HM=. 1&amp;fraction@den
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>      HM 3
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>┌───┬───┬───┐
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>│1 1│1 2│1 3│
+</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>├───┼───┼───┤
+</span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>│1 2│1 3│1 4│
+</span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>├───┼───┼───┤
+</span><span id="__span-30-9"><a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>│1 3│1 4│1 5│
+</span><span id="__span-30-10"><a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>└───┴───┴───┘
+</span></code></pre></div>
+<p>The J fraction formatter is built from two components, one which formats a number as an integer, and one which sticks a slash between two character vectors, as follows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>      f=. 0&amp;":
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>      c=. ,'/'&amp;,
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>      f 2
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>2
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>      '2' c '3'
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>2/3
+</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>      2 c&amp;f 3
+</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>2/3
+</span><span id="__span-31-9"><a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>      c&amp;f/ 2 3
+</span><span id="__span-31-10"><a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>2/3
+</span></code></pre></div>
+<p>The dyads <code>c</code> and <code>f</code> are composed and inserted between the numerator and the denominator of the fraction. But the J fractions are boxed, so the expression must first be modified with the <code>each</code> adverb, as follows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>      fmt=. c&amp;f/each
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>      fmt 1 fraction 2 3
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>┌───┬───┐
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>│1/2│1/3│
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>└───┴───┘
+</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a>      fmt HM 3
+</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a>┌───┬───┬───┐
+</span><span id="__span-32-9"><a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a>│1/1│1/2│1/3│
+</span><span id="__span-32-10"><a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a>├───┼───┼───┤
+</span><span id="__span-32-11"><a id="__codelineno-32-11" name="__codelineno-32-11" href="#__codelineno-32-11"></a>│1/2│1/3│1/4│
+</span><span id="__span-32-12"><a id="__codelineno-32-12" name="__codelineno-32-12" href="#__codelineno-32-12"></a>├───┼───┼───┤
+</span><span id="__span-32-13"><a id="__codelineno-32-13" name="__codelineno-32-13" href="#__codelineno-32-13"></a>│1/3│1/4│1/5│
+</span><span id="__span-32-14"><a id="__codelineno-32-14" name="__codelineno-32-14" href="#__codelineno-32-14"></a>└───┴───┴───┘
+</span></code></pre></div>
+<p>The verbs <code>c</code> and <code>f</code> were used to simplify and clarify the development process, and need not be referenced in the definition of <code>fmt</code>. These references can be removed by "fixing" the verb with the <code>f.</code> adverb, as follows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>      fmt
+</span></code></pre></div>
+<p><img alt="The boxed display of fmt: c &amp; f, boxed with /, then &amp;. and &gt;" src="fmt.png" /></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>      fmt=.fmt f.
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>      fmt
+</span></code></pre></div>
+<p><img alt="The boxed display of the fixed fmt: , with / &amp; , boxed together, &amp; , and 0 &amp; &quot;: , all boxed with /, then &amp;. and &gt;" src="fmtfixed.png" /></p>
+<p>The next job is to write the verbs for multiplying and subtracting fractions. A <code>simplify</code> verb similar to the APL function is used, but this time we can exploit the fact that J provides us with a primitive GCD operation, the <code>+.</code> verb:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>      2 6 % +./2 6
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>1 3
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a>      simplify=. %+./
+</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>
+</span><span id="__span-35-6"><a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a>      simplify
+</span></code></pre></div>
+<p><img alt="The boxed display of simplify: % beside a box of +. and /" src="simplify.png" /></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>      simplify 2 6
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>1 3
+</span></code></pre></div>
+<p>The monad <code>simplify</code> is a monadic hook, where the GCD-insert prong <code>+./</code> is a monad, and the divide prong <code>%</code> is a dyad. The <code>times</code> verb is formed by composing <code>simplify</code> with <code>multiply</code>, as follows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>      times=. simplify@:*each
+</span></code></pre></div>
+<p>Note the use of the <code>@:</code> conjunction (at) rather than <code>@</code> (atop). The use of <code>@</code> would cause the rank of the derived verb to be the same as the rank of multiply, i.e. zero, whereas the infinite-rank <code>@:</code> ensures that <code>simplify</code> is applied once to the entire argument, in this case a two-item list of numbers, rather than to each of the two scalars. The <code>each</code> adverb is used to open the boxes before the operation is applied to the corresponding pairs of boxed fractions.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>      fmt (2 fraction 3) times (3 fraction 4)
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>┌───┐
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>│1/2│
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>└───┘
+</span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>      fmt times/2 3 fraction 3 4
+</span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a>┌───┐
+</span><span id="__span-38-7"><a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a>│1/2│
+</span><span id="__span-38-8"><a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a>└───┘
+</span></code></pre></div>
+<p>Subtracting two fractions is a little harder: the resultant numerator is the product of the first numerator and the second denominator, minus the product of the first denominator and the second numerator. Put more concisely, it is the difference of crossed products of pairs, as follows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>      dcp=. -/@(*|.)
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>      2 3 dcp 3 4
+</span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a>_1
+</span></code></pre></div>
+<p>The hook <code>*|.</code> takes the product of the left argument with the reverse of the right argument. The product of the two denominators yields the denominator of the result, as in the following verb <code>pot</code>, product of tails:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>      pot=. *&amp;{:
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>      2 3 pot 3 4
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>12
+</span></code></pre></div>
+<p>These two verbs can be composed under the "append items" verb (<code>,</code>), using a dyadic fork, as shown in the completed verb <code>minus</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>      minus=. simplify@(dcp,pot)
+</span></code></pre></div>
+<p>As before, the analogous verb <code>plus</code> is not required here, but is included for interest:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>      scp=. +/@(*|.)
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>      plus=. simplify@(scp,pot)
+</span></code></pre></div>
+<p>The Dictionary of J reveals that a determinant primitive is provided; the dot conjunction used with <code>-/</code> and <code>*</code> as follows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>      i.2 2
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>0 1
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>2 3
+</span><span id="__span-43-4"><a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a>      -/ . * i.2 2
+</span><span id="__span-43-5"><a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a>_2
+</span></code></pre></div>
+<p>This being J of course, we can substitute our defined verbs <code>minus</code> and <code>times</code> for the primitives in the above definition. Furthermore, the J primitive is already defined recursively for higher order matrices. So we can say:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>      determinant=. (minus each) / . (times each)
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>      fmt determinant HM 3
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>┌──────┐
+</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>│1/2160│
+</span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>└──────┘
+</span></code></pre></div>
+<p>Again, the verbs are modified with the <code>each</code> adverb in order to open the boxed pairs before applying the operation, and to box them again afterwards. Finally we can write the reporting utilities:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>      report=. ;fmt@determinant@HM
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>      reportMany=. ('Order';'Determinant')&amp;(,report"0)
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>
+</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>      report 3
+</span><span id="__span-45-5"><a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a>┌─┬──────┐
+</span><span id="__span-45-6"><a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a>│3│1/2160│
+</span><span id="__span-45-7"><a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a>└─┴──────┘
+</span><span id="__span-45-8"><a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a>      reportMany &gt;:i.7
+</span><span id="__span-45-9"><a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a>┌─────┬───────────────────────────┐
+</span><span id="__span-45-10"><a id="__codelineno-45-10" name="__codelineno-45-10" href="#__codelineno-45-10"></a>│Order│Determinant                │
+</span><span id="__span-45-11"><a id="__codelineno-45-11" name="__codelineno-45-11" href="#__codelineno-45-11"></a>├─────┼───────────────────────────┤
+</span><span id="__span-45-12"><a id="__codelineno-45-12" name="__codelineno-45-12" href="#__codelineno-45-12"></a>│1    │1/1                        │
+</span><span id="__span-45-13"><a id="__codelineno-45-13" name="__codelineno-45-13" href="#__codelineno-45-13"></a>├─────┼───────────────────────────┤
+</span><span id="__span-45-14"><a id="__codelineno-45-14" name="__codelineno-45-14" href="#__codelineno-45-14"></a>│2    │1/12                       │
+</span><span id="__span-45-15"><a id="__codelineno-45-15" name="__codelineno-45-15" href="#__codelineno-45-15"></a>├─────┼───────────────────────────┤
+</span><span id="__span-45-16"><a id="__codelineno-45-16" name="__codelineno-45-16" href="#__codelineno-45-16"></a>│3    │1/2160                     │
+</span><span id="__span-45-17"><a id="__codelineno-45-17" name="__codelineno-45-17" href="#__codelineno-45-17"></a>├─────┼───────────────────────────┤
+</span><span id="__span-45-18"><a id="__codelineno-45-18" name="__codelineno-45-18" href="#__codelineno-45-18"></a>│4    │1/6048000                  │
+</span><span id="__span-45-19"><a id="__codelineno-45-19" name="__codelineno-45-19" href="#__codelineno-45-19"></a>├─────┼───────────────────────────┤
+</span><span id="__span-45-20"><a id="__codelineno-45-20" name="__codelineno-45-20" href="#__codelineno-45-20"></a>│5    │1/266716800000             │
+</span><span id="__span-45-21"><a id="__codelineno-45-21" name="__codelineno-45-21" href="#__codelineno-45-21"></a>├─────┼───────────────────────────┤
+</span><span id="__span-45-22"><a id="__codelineno-45-22" name="__codelineno-45-22" href="#__codelineno-45-22"></a>│6    │1/186313420308152800       │
+</span><span id="__span-45-23"><a id="__codelineno-45-23" name="__codelineno-45-23" href="#__codelineno-45-23"></a>├─────┼───────────────────────────┤
+</span><span id="__span-45-24"><a id="__codelineno-45-24" name="__codelineno-45-24" href="#__codelineno-45-24"></a>│7    │1/2067909088097816940000000│
+</span><span id="__span-45-25"><a id="__codelineno-45-25" name="__codelineno-45-25" href="#__codelineno-45-25"></a>└─────┴───────────────────────────┘
+</span></code></pre></div>
+<p>As with the APL solution, the order 6 and 7 results are not correct, as can be verified by comparing them with the exact Smalltalk answers.</p>
+<h2 id="comparing-the-solutions">Comparing the Solutions<a class="headerlink" href="#comparing-the-solutions" title="Permanent link">&para;</a></h2>
+<h3 id="development">Development<a class="headerlink" href="#development" title="Permanent link">&para;</a></h3>
+<p>It is difficult for me to estimate objectively the development time for each program; the Smalltalk code was produced while on a relatively steep part of a learning curve, as was the J code, to a lesser extent.</p>
+<p>Furthermore, the development time would depend on how much of the utility code already exists in each case. In the case of J, it was not necessary to code some of the hard algorithmic parts (GCD, determinant) because they are primitives in the language. With Smalltalk, a lot of useful code becomes naturally available via inheritance when the new classes are inserted at an appropriate place in the class hierarchy.</p>
+<p>In any event, the problem bears little resemblance to a typical commercial program, where a large proportion of the effort is normally associated with user input, output and data validation issues.</p>
+<p>Nevertheless, I was impressed by the short time it took to get the Smalltalk solution working; although there is a larger code volume it was straightforward and quick to write, and the testing and debugging facilities are a dream compared with either APL or J.</p>
+<h3 id="execution-speed">Execution Speed<a class="headerlink" href="#execution-speed" title="Permanent link">&para;</a></h3>
+<p>The following table summarises comparative execution speeds. Each entry is the time in seconds to generate a Hilbert Matrix and find its determinant (but not to output the result).</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">order</th>
+<th style="text-align: right;">Smalltalk</th>
+<th style="text-align: right;">APL</th>
+<th style="text-align: right;">J</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.04</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.13</td>
+<td style="text-align: right;">0.14</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.60</td>
+<td style="text-align: right;">0.55</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">3.1</td>
+<td style="text-align: right;">2.7</td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1.7</td>
+<td style="text-align: right;">19.7</td>
+<td style="text-align: right;">16.5</td>
+</tr>
+<tr>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">13.4</td>
+<td style="text-align: right;">142</td>
+<td style="text-align: right;">114</td>
+</tr>
+</tbody>
+</table>
+<p>We must be careful not to infer generalisations from these timings; for example, the highly modular APL model is certainly not optimal as far as execution speed is concerned. Nevertheless, the Smalltalk timings were a pleasant surprise, particularly when you remember that it is performing arbitrary precision arithmetic.</p>
+<p>The use of the <code>f.</code> "fix verb" primitive did not result in a significant performance improvement to the J <code>determinant</code> verb.</p>
+<h3 id="code-re-use">Code Re-use<a class="headerlink" href="#code-re-use" title="Permanent link">&para;</a></h3>
+<p>It is interesting to review the situation from the point of code re-use. There are two aspects to this: first, how much code can be raided from existing sources in order to develop the application; and second, how much code which might be re-used elsewhere did the development generate.</p>
+<p>This was my first excursion with Smalltalk. Although I had no existing code to raid, inserting the new classes beneath the Array class meant I inherited all of the superclass code for free. In APL I was able to raid the <code>GCD</code> function and the trivial <code>⍙</code> statement separator utility. In J, only the <code>each</code> adverb was needed.</p>
+<p>What about the prospects for re-using any of the Hilbert Matrix code? We can attempt a crude re-usability metric by scoring each module as follows:</p>
+<blockquote>
+<p>0 — module is specific to this application<br>
+1 — module could be re-used in a similar application<br>
+2 — module could be re-used in any application</p>
+</blockquote>
+<p>In Smalltalk, we might expect the module re-usability index to increase as we climb higher up the class hierarchy, as the classes become more and more general. In this application however, I have rated the 9 methods in the Matrix class and the 6 methods in the SquareMatrix classes at 1, as I feel that the difference in usability between the two classes is slight. The 3 HilbertMatrix methods get a score of 0, producing an index of 15 for a total of 18 modules.</p>
+<p>It’s interesting to see what a small fraction of the Smalltalk code is specific to this problem; it implies that levels of re-use will be particularly high when raiding code for the development of similar applications, something that is not necessarily the case in APL or J, where stronger programmer discipline is required to generate re-usable code. (Modifying a copy of a function is a very poor form of code re-use.)</p>
+<p>I rate the APL function <code>⍙</code> at 2 points, the functions <code>HM</code>, <code>determinant</code>, <code>determinant2by2</code>, <code>report</code> and <code>reportMany</code> at 0, and the remainder at 1, giving a re-usability index total of 10 for 14 modules.</p>
+<p>I rate the J <code>each</code> adverb as 2, the verbs <code>HM</code>, <code>HMden</code>, <code>determinant</code>, <code>determinant2by2</code>, <code>report</code> and <code>reportMany</code> at 0, and the remainder at 1, giving a total of 9 for 13 modules.</p>
+<p>Dividing through gives a code re-use index per module of .8, .7 and .7 for the Smalltalk, APL and J solutions respectively. I’m not sure how meaningful this is for such a small application, or even if this is an appropriate scoring method for comparison across languages and environments. Perhaps further studies will reveal if Smalltalk’s claim for high re-use can be supported.</p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<p>The developments and timings were made using an Olympic 486 33Mhz machine, running Windows 3.1. The application software was Smalltalk V/Windows version 1.1, APL*PLUS II/386 version 4.0 and J PC version 5, all running under Windows. The original of this document was created using Windows Write, and Adrian Smith’s TrueType APL font. Thanks to Jonathan Barman and Richard Green for feedback during the preparation of this article.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<p>[1] <em>Smalltalk V/Windows Tutorial and Programming Handbook</em>, Digitalk, 1991</p>
+<p>[2] <em>There &amp; Back Again — A Quick Trip To ObjectLand</em>, Gene Korienek &amp; Tom Wrench, Artifact Inc, 1991</p>
+<p>[3] <em>ISI Dictionary of J</em>, Kenneth E. Iverson, Iverson Software Inc., 1991</p>
+<p>[4] <em>An Introduction to J</em>, Kenneth E. Iverson, Iverson Software Inc., 1992</p></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">language design</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">APL in perspective</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">programming techniques</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+    
+  </body>
+</html>

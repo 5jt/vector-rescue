@@ -1,0 +1,181 @@
+<html><head>
+<title>CD Labels and More</title>
+<link rel=stylesheet type=text/css href=../vector.css>
+</head>
+
+<body>
+
+<!-- breadcrumbs for articles -->
+<p style="font-size:80%">
+<a href="http://www.vector.org.uk"><img src="../../icons/iconsky.gif" align="middle" border=0 alt="Vector home"></a>
+<a href="http://www.vector.org.uk" title="VECTOR home">www.vector.org.uk</a> &gt;
+<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt;
+<a href="index.htm">contents of Vector 17.2</a></p>
+
+<h1 align=center>CD Labels and More</h1>
+<p class=author align=center><i>by Cliff Reiter (<mailto:"reiterc@lafayette.edu">reiterc@lafayette.edu>)</i></p>
+
+<h2>Prologue</h2>
+<p>The title of this note gives away the fact that the utility described here can be useful. If I had instead used the title “Mapping Rectangles to Annular Sectors” and claimed that was exciting and useful, you would have thought that I was joking. My goal in this note is to convince you that I am not joking—not entirely.</p>
+<p>I recently have mapped rectangular images onto a segment portion of an annulus. While I would not have described it that way at the time, this has come up in three contexts in the past couple years. The first was when some students and I took images with repetitive symmetry and created circular images that resulted from wrapping the pattern around the origin <a href="#ref1">[1]</a>. An example of that is given below. Second, as I started archiving materials on CD-R discs, I found that having an image on the CD label was handy and it was especially nice when sending a CD to other people. Wrapping text around the CD label can also be striking. Third, I created a design for printing on a flying sport disc. The design included text running around the outside of a hyperbolic pattern. I plan to say more about that in a subsequent note. </p>
+<p>My solutions to the first two problems worked, but they were tied to the particular applications. I decided that I should think about a general utility that would work in a broad context that would include all three of these cases. </p>
+
+<h2>The Annular Insertion Utility</h2>
+<p>The appendix gives the definition of the conjunction <tt>AnIns</tt> which is our utility. Its definition is fairly straightforward; it is a couple dozen lines long. How <tt>AnIns</tt> works will be briefly described in the appendix. It is also defined in the script <i>anins.ijs</i> that is available for downloading from <a href="#ref3">[3]</a>. </p>
+<p>Here we will focus on the syntax and application of <tt>AnIns</tt>. The conjunction has two arguments that are used to define the annular region and the derived function has two arguments that are the target and insertion arrays. </p>
+<p>Consider the following example.</p>
+<pre>   load 'anins'
+
+   (15 15$0) 0.5 1 AnIns 1r2p1 0 (10+i.5 8)
+0 0 0 0 0 0 0 10  0  0  0  0  0  0  0
+0 0 0 0 0 0 0 18 19 19 12  0  0  0  0
+0 0 0 0 0 0 0 26 27 28 20 21  0  0  0
+0 0 0 0 0 0 0 34 35 36 29 30 22  0  0
+0 0 0 0 0 0 0  0  0 45 38 30 23 15  0
+0 0 0 0 0 0 0  0  0  0 46 39 31 24  0
+0 0 0 0 0 0 0  0  0  0  0 40 32 24  0
+0 0 0 0 0 0 0  0  0  0  0 41 33 25 17
+0 0 0 0 0 0 0  0  0  0  0  0  0  0  0
+0 0 0 0 0 0 0  0  0  0  0  0  0  0  0
+0 0 0 0 0 0 0  0  0  0  0  0  0  0  0
+0 0 0 0 0 0 0  0  0  0  0  0  0  0  0
+0 0 0 0 0 0 0  0  0  0  0  0  0  0  0
+0 0 0 0 0 0 0  0  0  0  0  0  0  0  0
+0 0 0 0 0 0 0  0  0  0  0  0  0  0  0</pre>
+<p>In that example, the derived function had the 15 by 15 matrix of zeros as its target array and the insertion array given by <tt>10+i.5 8</tt> as its right argument. Not every entry from the insertion array appeared, and some appeared more than once. That is a result of the natural distortion occurring in this type of insertion. </p>
+<p>The left conjunction argument specifies the radial range as a fraction of the maximal inscribed radius. Thus <tt>0.5 1</tt> indicated that the insert was to go from one-half the maximal radius up to the maximal radius. The right argument <tt>1r2p1 0</tt> specifies that the angles should go from <font face="Symbol">p/2</font> radians (90 degrees) to 0 as the insert is placed clockwise. </p>
+<p>The argument matrices may be raw <tt>&quot;a.&quot;</tt> data. For example, the following inserts a three-fourths radius semicircle of the letter <tt>&quot;M&quot;</tt> in a character array of digits.</p>
+<pre>   (15 15$'01234') 0 0.75 AnIns 0 _1p1 (10 10$'M')
+012340123401234
+012340123401234
+012340123401234
+012340123401234
+012340123401234
+012340123401234
+012340123401234
+01MMMMMMMMMMM34
+01MMMMMMMMMMM34
+012MMMMMMMMM234
+012MMMMMMMMM234
+0123MMMMMMM1234
+012340MMM401234
+012340123401234
+012340123401234</pre>
+<p>In general, the target and insert arrays must have the same type, but they can be higher dimensional arrays. For example, they might be arrays of RGB triples. However, the target array is assumed to be square in the sense that its first two axes have the same length—and hence the inscribed radius is the same horizontally and vertically. </p>
+<p>The radial fractions should be between 0 and 1. A reversal of the order of those fractions results in a radial reversal of the inserted region. </p>
+<p>The angles should be specified in radians between <font face="Symbol">-p</font> and <font face="Symbol">p</font>. Reversal of those angles results in the reversal of the clockwise/counterclockwise sense of the insertion. Clockwise motion maintains the usual left to right order of the insertion image and hence the angles specified in our examples will usually be decreasing. </p>
+<p align=center>
+<img src="cd-1.gif" alt="square diagram">
+
+<br>
+<font size=-1><b>Figure 1. A Chaotic Attractor with Repetitive Symmetry</b></font></p>
+
+<h2>Application to Symmetric Fractals</h2>
+<p>The image <i>nearp4m.bmp</i> is shown in Figure 1. It is a chaotic attractor from <a href="#ref2">[2]</a>. We will use a function from the script <i>raster4.ijs</i> in order to read the bitmap into J. Both the image and the script are available from <a href="#ref3">[3]</a> with the materials for <a href="#ref2">[2]</a>. We assume that the image and script have been placed in a subdirectory <i>fvj2</i> of the main J directory. Use a path appropriate for where you placed those files. The result of reading the file is a boxed list giving the palette for the image and the matrix of indices into the palette. We see below that the image has 256 colors, color index 0 is white, and the image is 750 by 750.</p>
+<pre>   load 'fvj2\raster4'
+   'p b'=: readbmp8 'fvj2\nearp4m.bmp'
+   $p
+256 3
+   0{p
+255 255 255
+   $b
+750 750</pre>
+<p align=center>
+<img src="cd-2.gif" alt="circular diagram"><br>
+
+<font size=-1><b>Figure 2. The Chaotic Attractor Mapped onto a Circle</b></font></p>
+<p>Next we create a white 1000 by 1000 array and replicate the image from Figure 1 three times as our insertion array. We then apply AnIns on the full disk. </p>
+<p>That is, the radius is from 0 to 1 and the angle from <font face="Symbol">p</font> to <font face="Symbol">-p</font>.</p>
+<pre>   blank=: 1000 1000$0
+   insert=: b,.b,.b
+   result=: blank 0 1 AnIns 1p1 _1p1 insert
+   (p;result) writebmp8 'figure2.bmp'</pre>
+<p>The result was written as a bitmap using writebmp8. It appears in Figure 2. </p>
+<p>The application of AnIns on a 1000 by 1000 image is not trivial. J4.04 required about 32 seconds and 10M on a 733MHz PC (J4.03 required 80 seconds and 13M—so J4.04 offers an impressive gain in speed). </p>
+
+<h2>Application to CD Labels</h2>
+<p>Creating CD labels using <tt>AnIns</tt> is easy too, although there are usually a few more details to consider. Here we will aim to create a CD label for the CD containing several dozen digital images from a trip. The image <i>keys.bmp</i> is available from <a href="#ref3">[3]</a> with materials for <a href="#ref2">[2]</a>. Assuming <i>raster4.ijs</i> is loaded and the image is in the <i>fvj2</i> directory, we can read the image as follows. Also, since this is a 24-bit image, the result is a 3-dimensional array. Thus we make our blank array a three dimensional array.</p>
+<pre>   $insert=: readbmp24 'fvj2\keys.bmp'
+300 450 3
+   blank=: 1000 1000 3$255</pre>
+<p>Since the width of a CD label is 4.5 inches and its center hole has width 1.625 inches, we should let the radius run from 0.36111 to 1 in order to lie on the CD label. We will insert the <i>keys.bmp</i> image into an angular quarter of the label.</p>
+<pre>   1.625%4.5
+0.361111
+   temp=: blank 0.361111 1 AnIns 1p1 1r2p1 insert
+   temp writebmp24 'temp.bmp'</pre>
+<p>We also want to put some text onto our image. Since the insertion needs to be an array representing a 24 bit image, the text needs to be rendered and saved in a suitable format. Here we find it convenient to use a utility from the script <i>dwin.ijs</i> from <a href="#ref2">[2]</a> and available at <a href="#ref3">[3]</a> to open a graphics window. Then, we place some text in the window using standard J graphics commands.</p>
+<pre>   load 'fvj2\dwin'
+   WINSHAPE=: 600 100
+   dwin 'keys'
+   glfont '&quot;Times New Roman&quot; 400 bold'
+   gltextxy 10 990
+   gltext 'Marilyn and Cliff    20th Anniversary'
+   gltextxy 10 490
+   gltext '    Trip to the Keys, December 1999'
+   glshow ''
+   glfile 'keystext.bmp'
+   glsavebmp 1200 200</pre>
+<p>Now we load the file with text and insert it.</p>
+<pre>   text=: readbmp24 'keystext.bmp'
+   temp2=: temp 0.361111 1 AnIns 1r4p1 _3r4p1 text
+   temp2 writebmp24 'keys_cd_label.bmp'</pre>
+<p>
+Now the file <i>keys_cd_label.bmp</i> contains our CD label. One detail remains: we need to print the label so that it is the correct size and it falls on the correct place on a sheet of blank CD labels. This may be accomplished in a Word Processor or other program that allows images to be sized and margins to be set. We print on Avery 5824 labels which requires a 4.5 inch image with a top margin of 0.5 inches and a left margin of 2 inches. We recommend a trial printing on scrap paper although the label created here printed perfectly the first time. Figure 3 shows the label on a CD.</p>
+
+<p align=center>
+<img src="cd-3.gif
+" alt="picture of CD label"><br>
+<font size=-1><b>Figure 3. A CD Label with an Image and Text</b></font></p>
+
+<h2>Postlogue</h2>
+<p>We have seen that the utility AnIns can be used to wrap images onto an annulus. This allowed us to create an interesting complex image with circular symmetry and we also used this to insert an image and text into circular sectors on a CD label. </p>
+<p>We kept our examples brief, but consider the following possibilities. The two lines of text in Figure 3 would look better if different font sizes had been used. That can be accomplished by inserting one <tt>glfont</tt> command in our text construction. Also, the distortion of images is less noticeable when using smaller sectors. Using multiple images can be attractive. Our examples always began with a blank target array. How could you add text to the image from Figure 2 used as the target image? How could you create a blank circular window in the image center? What would the image look like if you repeated the image from Figure 2 and inserted it onto a CD label?</p>
+
+<h2>Appendix</h2>
+<p>The following is a conjunction for annular insertion. It is defined in <i>anins.ijs</i> which is available on the web at <a href="#ref3">[3]</a>. The conjunction is based on the following approach. The “while-loop” runs through each scan line of the resulting array <tt>z</tt>. The pixel coordinates of each scan line in the result array are converted to semi-normal coordinates by <tt>j.&amp;i2s</tt>. That is, the pixel coordinates are scaled to a coordinate system with lower left <tt>_1 _1</tt> and upper right <tt>1 1</tt>. The local function np converts pixel coordinates into normalized polar coordinates. That is, radii and angles given as fractions of the positions in the region defined by the annular sector. Only results which lie between 0 and 1 in both those coordinates correspond to the insertion region and the scan line is amended to suitably change such pixels. </p>
+<pre>   AnIns=: 2 : 0
+
+:
+imsz=.#x.
+'r0 r1'=.m.
+'a0 a1'=.n.
+i2s=.&lt;:@(*&amp;(2%imsz-1))        NB. image coord to seminormal
+nr=.(%r0-r1)&quot;_ * 10&amp;o. - r1&quot;_      NB. normalized radius
+na=.(%a1-a0)&quot;_ * 12&amp;o. - a0&quot;_      NB. normaized angle
+np=.(nr,na)@+@j.&amp;i2s  f.           NB. normalized polar
+i=.0
+z=.i.0,imsz,2}.$x.
+while. i&lt;imsz do.
+  npc=.(i.imsz) np i
+  q=.*./ |: (0&amp;&lt;: *. &lt;:&amp;1)npc
+  od=.i{x.
+  if. 0&lt;+/q do.
+    id=. (&lt;&quot;1 &lt;. 0.5+(&lt;:2{.$y.)*&quot;1 q#npc){y.
+    z=.z,id(q#i.imsz)}od
+  else.
+    z=.z,od
+  end.
+  i=.&gt;:i
+end.
+z
+)</pre>
+
+<h2>References </h2>
+<ol>
+ <li><a name="ref1">Nathan C. Carter, Stephen M. Grimes, and Clifford A. Reiter, Frieze and Wallpaper Chaotic Attractors with a Polar Spin, <i>Computers &amp; Graphics</i>, <b>22</b> 6 (1998) 765-779.
+ <li><a name="ref2">Clifford A. Reiter, <i>Fractals, Visualization and J, Second Edition</i>, Jsoftware, Toronto, 2000.
+ <li><a name="ref3">Clifford A. Reiter, J materials, <i><a href="http://www.lafayette.edu/~reiterc/j/index.html">http://www.lafayette.edu/~reiterc/j/index.html</a></i>.
+</ol>
+
+<hr>
+
+<!-- breadcrumbs for articles -->
+<p style="font-size:80%">
+<a href="http://www.vector.org.uk"><img src="../../icons/iconsky.gif" align="middle" border=0 alt="Vector home"></a>
+<a href="http://www.vector.org.uk" title="VECTOR home">www.vector.org.uk</a> &gt;
+<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt;
+<a href="index.htm">contents of Vector 17.2</a></p>
+
+</body></html>
+
+

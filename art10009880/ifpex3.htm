@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<link type="text/css" rel="stylesheet" href="/css/paper.css"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Exhibit 3 | Industrial FP: a case study | Stephen Taylor | Vector 21.3</title>
+	<meta name="description" content="VECTOR article">
+	<meta name="author" content="Stephen Taylor">
+	<meta name="generator" content="Notepad2">
+	<link rel="stylesheet" type="text/css" href="../../paper.css">
+</head>
+
+
+<body>
+
+<div class="exhibit">
+
+<h3>Exhibit 3: Alternative ending to <tt class="apl">parseFile</tt></h3>
+
+<pre class="apl">
+     nstacks←1∘↓¨¨∘{(crs∘(re¨))onflat ⍵}            ⍝ nesting stacks: discard initial 1
+     heads bodies←separate segment crlf lineate ⍵   ⍝ retain segment structure (segs are truncated)
+     stacks←nstacks heads                           ⍝ nesting stacks
+     namshp←{⊃{(2↓⍺)(fshp ⍵)}/2↑'('part ⍵}          ⍝ field name and shape
+     names shapes←flip flip¨namshp¨¨heads           ⍝ field names and shapes
+     full←bodies fretby¨×/¨¨stacks,¨¨shapes         ⍝ undo truncations and fret to fields
+
+     ⊃∘(,/)¨stacks names shapes full                ⍝ remove segment structure
+ }
+</pre>
+
+</div>
+
+</body>
+</html>
