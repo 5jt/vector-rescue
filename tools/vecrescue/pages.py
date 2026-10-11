@@ -509,6 +509,30 @@ def tag_id(label):
     return "tag-" + label.replace(" ", "-")
 
 
+def apply_article_tags(path, docs):
+    """Tag the article pages in DOCS from PATH (transcriptions/article-tags.yaml,
+    {vid: [tags]}): the pages converted from the online text, which have no
+    transcription to carry tags (#261). A page that already has tags keeps
+    them. Returns the vids in PATH with no page."""
+    path, docs = Path(path), Path(docs)
+    tags = yaml.safe_load(path.read_text(encoding="utf-8")) or {} if path.is_file() else {}
+    missing = []
+    for vid, labels in tags.items():
+        page = docs / f"art{vid}" / "index.md"
+        if not page.is_file():
+            missing.append(str(vid))
+            continue
+        text = page.read_text(encoding="utf-8")
+        if not text.startswith("---\n"):
+            continue
+        _, head, body = text.split("---", 2)
+        if (yaml.safe_load(head) or {}).get("tags"):
+            continue
+        head += yaml.safe_dump({"tags": list(labels)}, allow_unicode=True, width=1000)
+        page.write_text(f"---{head}---{body}", encoding="utf-8")
+    return missing
+
+
 def write_tags_page(vocabulary, docs):
     """The Tags page (#95): each tag of VOCABULARY (transcriptions/tags.yaml)
     with the article pages in DOCS that carry it, in printed order. Returns
@@ -527,8 +551,7 @@ def write_tags_page(vocabulary, docs):
             pages[t][-1] = dict(fm, _href=page.parent.name)
     unknown = sorted(set(pages) - set(known))
     lines = [_front("Tags"),
-             "The transcribed articles by subject. An article may carry more than one tag. "
-             "Tagging follows the transcription, volume by volume.", ""]
+             "The articles by subject. An article may carry more than one tag.", ""]
     lines += [" · ".join(f"[{t}](#{tag_id(t)}) ({len(pages[t])})" for t in known if pages[t]), ""]
     for t in tags:
         items = pages.get(t["label"])

@@ -387,3 +387,26 @@ def test_every_tag_used_is_in_the_vocabulary():
         if text.startswith("---\n"):
             for t in yaml.safe_load(text.split("---", 2)[1]).get("tags") or []:
                 assert t in known, (f, t)
+
+
+def test_article_tags_tag_untagged_pages(tmp_path):
+    from vecrescue.pages import apply_article_tags
+    docs = tmp_path / "docs"
+    for name, fm in (("art1", "title: A"), ("art2", "title: B\ntags:\n- humour")):
+        (docs / name).mkdir(parents=True)
+        (docs / name / "index.md").write_text(f"---\n{fm}\n---\n\nText\n")
+    tags = tmp_path / "article-tags.yaml"
+    tags.write_text('"1": [graphics, APL community]\n"2": [graphics]\n"3": [humour]\n')
+    assert apply_article_tags(tags, docs) == ["3"]
+    assert (docs / "art1" / "index.md").read_text() == "---\ntitle: A\ntags:\n- graphics\n- APL community\n---\n\nText\n"
+    assert "- humour\n---" in (docs / "art2" / "index.md").read_text()   # its own tags kept
+
+
+def test_article_tags_are_in_the_vocabulary():
+    import yaml
+    root = Path(__file__).parents[1] / "transcriptions"
+    known = {t["label"] for t in yaml.safe_load((root / "tags.yaml").read_text())["tags"]}
+    tags = yaml.safe_load((root / "article-tags.yaml").read_text())
+    for vid, labels in tags.items():
+        assert labels and set(labels) <= known, (vid, labels)
+        assert not (root / f"art{vid}.md").is_file(), vid   # a transcription carries its own tags
