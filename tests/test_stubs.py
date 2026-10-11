@@ -249,3 +249,14 @@ def test_transcription_placement_overrides_the_index(tmp_path):
     finally:
         stubs.pdf_pages = stubs_pages
     assert results["10001000"]["pdf"] == "1/2/v12.pdf#page=67"
+
+
+def test_page_runs_follow_an_offset_that_changes():
+    from vecrescue.stubs import page_runs, pdf_page
+    head = ["VECTOR\n\n%d\n" % (n - 2) for n in range(1, 12)]            # PDF pages 1-11: printed -1 … 9
+    insert = ["order form\n", "more of the form\n"]                         # two unnumbered pages
+    tail = ["VECTOR\n\n%d\n" % n for n in range(10, 21)]                    # printed 10-20 after them
+    runs = page_runs(head + insert + tail)
+    assert runs == [[0, 9, 2], [10, 20, 4]]
+    assert pdf_page(runs, 9) == 11 and pdf_page(runs, 10) == 14
+    assert page_runs(head) is None and pdf_page(2, 5) == 7
