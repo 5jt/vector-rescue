@@ -237,10 +237,9 @@ def run_site(src, out, config, wayback=None, corrections=None, transcriptions=No
     write_volume_pages(inventory, issues, src, docs, more, thumbs, contents, links)
     write_home_page(inventory, issues, docs, thumbs)
     write_index_page(inventory, issues, docs, contents, links)
-    status = config.parent / "pages" / "status.md"  # the project status page (#93)
-    if status.is_file():
-        (docs / "status").mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(status, docs / "status" / "index.md")
+    for page in sorted((config.parent / "pages").glob("*.md")):  # status (#93), comparison with the archive (#282)
+        (docs / page.stem).mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(page, docs / page.stem / "index.md")
     mark_issue_tabs(inventory, issues, docs)
     if transcriptions:
         untagged = apply_article_tags(Path(transcriptions) / "article-tags.yaml", docs)

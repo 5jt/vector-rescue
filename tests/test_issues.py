@@ -240,6 +240,7 @@ def test_nav_lists_home_full_index_and_volumes():
                           '  { "Volumes" = [')
     assert '{ "Volume 25, 2011–2012" = "25/index.md" }' in nav
     assert nav.index('"Volume 1') < nav.index('"Volume 24') < nav.index('"Volume 25')
+    assert nav.endswith('  ] },\n  { "Comparison with the archive" = "archive-review/index.md" },\n]')   # last (#282)
 
 
 def test_full_index_tables_every_article_in_printed_order(tmp_path):

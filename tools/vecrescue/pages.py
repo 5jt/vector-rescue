@@ -423,14 +423,15 @@ def write_volume_pages(inventory, issues, root, docs, more_pdfs=None, thumbs=Non
 
 
 def nav_toml(inventory, issues):
-    """The Zensical nav: Home, the full index (#79), then the volumes under
-    “Volumes” (#68)."""
+    """The Zensical nav: Home, the full index (#79), the volumes under
+    “Volumes” (#68), then the comparison with the archive (#282)."""
     entries = [f'{{ "{_volume_title(vol, span)}" = "{vol}/index.md" }}'
                for vol, _, span in volumes(inventory, issues)]
     return ('nav = [\n  { "Home" = "index.md" },\n  { "Project status" = "status/index.md" },\n'
             '  { "Full index" = "full-index/index.md" },\n  { "Tags" = "tags/index.md" },\n'
             '  { "Volumes" = [\n    '
-            + ",\n    ".join(entries) + ",\n  ] },\n]")
+            + ",\n    ".join(entries) + ",\n  ] },\n"
+            '  { "Comparison with the archive" = "archive-review/index.md" },\n]')
 
 
 QUALITY = (  # worst to best (#83)
