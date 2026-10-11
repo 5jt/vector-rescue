@@ -21,7 +21,7 @@ Expected next steps (updated 2026-10-11).
 
 - [x] Transcribed the 25 indexed articles of Volumes 22–23 never online (#267: 22:1 #270, 22:2 #272, 22:4 #274, 23:3 #276, 23:4 #279, 23:4.1 #281). 23:4's Contents and PDF now follow the printed issue (issues/v234.pdf is pre-press).
 - [ ] Transcribe the placeholders 10009100 (20:4 K day) and 10004730 (12:1 Langlet, A Quite Different New Primitive) (#267).
-- [ ] 22:2's scan lacks printed pp.47–50, so its PDF has two page offsets (+2 before, −2 after); `page_offset` takes one, so the early pages' links land 4 pages short. Survey all PDFs for this and fix (#268).
+- [x] PDFs with more than one page offset (#268): 8:1 (two unnumbered order-form pages after p.20), 16:3 (four after p.112), 22:2 (pp.47–50 missing); links now follow each run of pages.
 
 ## Index corrections
 

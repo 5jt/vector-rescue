@@ -155,8 +155,11 @@ def write_stub_pages(inventory, issues, pdfs, out, transcriptions=None, damaged=
             if ident not in cache:
                 cache[ident] = {"offset": stubs.page_offset(pages_of(pdf)), "checks": {}}
             entry = cache[ident]
+            if "runs" not in entry:  # more than one offset (#268)
+                entry["runs"] = stubs.page_runs(pages_of(pdf))
+            offset = entry["runs"] or entry["offset"]
             if entry["offset"] is not None:
-                n = int(r["page"]) + entry["offset"]
+                n = stubs.pdf_page(offset, int(r["page"]))
                 check = f"{stubs.CHECK_RULE}:{r['id']}:{n}:{r['title']}"
                 if check not in entry["checks"]:
                     pp = pages_of(pdf)
@@ -170,7 +173,7 @@ def write_stub_pages(inventory, issues, pdfs, out, transcriptions=None, damaged=
                     following = [p for p in starts.get(key, ()) if p > int(r["page"])]
                     last = min(min(following) - 1 if following else 10_000, int(r["page"]) + 19)
                     pp = pages_of(pdf)
-                    entry["checks"][ocr_key] = stubs.ocr_block(pp[n - 1:min(len(pp), last + entry["offset"])],
+                    entry["checks"][ocr_key] = stubs.ocr_block(pp[n - 1:min(len(pp), stubs.pdf_page(offset, last))],
                                                                stubs.OCR_SUMMARY if whole else stubs.DAMAGED_SUMMARY)
                 ocr = entry["checks"].get(ocr_key)
         own = article_pdf(r, src) if src else None
@@ -207,7 +210,7 @@ def pdf_links(pdfs, out):
     for key, pdf in pdfs.items():
         entry = cache.get(f"{pdf.name}:{pdf.stat().st_size}")
         if entry and entry.get("offset") is not None:
-            links[key] = (f"{key[0]}/{key[1]}/{pdf.name}", entry["offset"])
+            links[key] = (f"{key[0]}/{key[1]}/{pdf.name}", entry.get("runs") or entry["offset"])
     return links
 
 

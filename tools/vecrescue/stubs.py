@@ -103,6 +103,47 @@ def page_offset(pages):
     return diffs.most_common(1)[0][0] if diffs else None
 
 
+def page_runs(pages):
+    """Where a PDF's pages do not keep one offset from the printed numbers
+    (#268: pages missing from the scan, or unnumbered pages inserted), the
+    runs of printed pages with their offsets, [[first, last, offset], ...];
+    None where one offset holds throughout. A run is at least three pages
+    whose printed numbers sit at the same offset, in order."""
+    obs = []
+    for i, text in enumerate(pages, start=1):
+        lines = [line.strip() for line in text.splitlines() if line.strip()]
+        found = {i - int(n) for line in lines[:2] + lines[-2:] for n in NUMBER.findall(" " + line + " ")
+                 if -5 <= i - int(n) <= 12}
+        if len(found) == 1:
+            obs.append((i - found.pop(), i))
+    common = Counter(i - n for n, i in obs)
+    keep = {d for d, k in common.items() if k >= 3}
+    runs = []
+    for n, i in sorted((n, i) for n, i in obs if i - n in keep):
+        d = i - n
+        if runs and runs[-1][2] == d:
+            runs[-1][1] = n
+        else:
+            runs.append([n, n, d])
+    runs = [r for r in runs if r[1] - r[0] >= 2]
+    merged = []
+    for r in runs:  # an interruption (a stray number) between runs of the same offset
+        if merged and merged[-1][2] == r[2]:
+            merged[-1][1] = r[1]
+        else:
+            merged.append(r)
+    return merged if len(merged) > 1 else None
+
+
+def pdf_page(offset, printed):
+    """The PDF page of PRINTED page number: OFFSET is the PDF's single offset,
+    or its runs (page_runs), where a page between two runs takes the nearer."""
+    if not isinstance(offset, list):
+        return printed + offset
+    best = min(offset, key=lambda r: 0 if r[0] <= printed <= r[1] else min(abs(printed - r[0]), abs(printed - r[1])))
+    return printed + best[2]
+
+
 def _norm(s):
     return re.sub(r"[^a-z0-9]", "", (s or "").lower())
 

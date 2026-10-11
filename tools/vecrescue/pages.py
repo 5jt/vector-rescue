@@ -300,7 +300,7 @@ def publish_unindexed(transcriptions, docs, pdf_links=None):
         link = None
         if key in (pdf_links or {}) and str(fm.get("page") or "").isdigit():
             rel, offset = pdf_links[key]
-            link = f"../{rel}#page={int(fm['page']) + offset}"
+            link = f"../{rel}#page={stubs.pdf_page(offset, int(fm['page']))}"
         record = {"id": None, "page": fm.get("page")}
         written.append(stubs.write_transcribed(record, docs, path, link and link[3:], name=path.stem))
     return written
@@ -326,7 +326,7 @@ def issue_rows(docs, contents, index_rows, pdf_link=None):
 
     def pdf_href(page):
         if pdf_link and str(page or "").isdigit():
-            return f"{pdf_link[0]}#page={int(page) + pdf_link[1]}"
+            return f"{pdf_link[0]}#page={stubs.pdf_page(pdf_link[1], int(page))}"
         return None
 
     rows = []
