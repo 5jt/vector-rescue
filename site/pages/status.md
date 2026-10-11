@@ -28,7 +28,6 @@ A development build of the recovered *Vector* archive: every issue’s contents,
 
 - **Review**: every transcription is a draft until a reviewer checks it against the scan; see the [review checklist](https://github.com/5jt/vector-rescue/blob/main/plans/pdf-review-checklist.md).
 - **Missing sources**: no scan has been found of 2:2, and the copies of 3:4, 7:4 and 16:4 are damaged ([help find them](https://github.com/5jt/vector-rescue/issues/62)).
-- **Placeholders**: two articles whose web pages were only placeholders (12:1 Langlet, *A Quite Different New Primitive*; 20:4 Smith, *BAA Anniversary K day*) link to the scan, and await transcription.
 - **A Second Pass**, if resources allow: transcribe what the First Pass only links to the PDF.
 
 The quality of each article’s text is shown in the [full index](../full-index/).
