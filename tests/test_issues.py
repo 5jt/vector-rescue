@@ -409,4 +409,6 @@ def test_article_tags_are_in_the_vocabulary():
     tags = yaml.safe_load((root / "article-tags.yaml").read_text())
     for vid, labels in tags.items():
         assert labels and set(labels) <= known, (vid, labels)
-        assert not (root / f"art{vid}.md").is_file(), vid   # a transcription carries its own tags
+        transcription = root / f"art{vid}.md"   # where a converted page also has one, they agree
+        if transcription.is_file():
+            assert labels == yaml.safe_load(transcription.read_text().split("---", 2)[1])["tags"], vid

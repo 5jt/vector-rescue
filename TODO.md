@@ -14,9 +14,18 @@ Expected next steps (updated 2026-10-11).
 
 ## Tags
 
-- [x] Volumes 22–26 tagged (#261): `transcriptions/article-tags.yaml`, applied by the build to the converted pages.
-- [ ] Tag the articles of Volumes 10–21 converted from the online text (they have no transcription; add them to `article-tags.yaml`).
-- [ ] Consider extending the vocabulary (drawn from Volumes 1–4). Subjects that recur from Volume 22 on: object orientation; K/q and other array languages; .NET and the web; testing and tools; history and obituaries.
+- [x] Every article with text tagged (#261, #263): transcriptions carry their own tags; the converted pages' tags are in `transcriptions/article-tags.yaml`, applied by the build.
+- [ ] Converted pages that show the wrong text, or none, found while tagging (tagged by title; to check against the index and sources):
+    - 10005080 APL+Santa Fe preview (22:2): shows part of the Naples report.
+    - 10011390 news from Kx (22:4): shows the Kx meeting report (10011270).
+    - 10003550, 10007130 (22:2) and 10011230, 10011240, 10011260 (22:4): each letter shows its whole letters section.
+    - 10011440–10011470 (23:1) Kx news items: one shared Sustaining Members' News text.
+    - 10013600 Review of Pocket APL (19:2): shows the APL2002 Madrid report (10000300).
+    - 10008880 VML (16:4): its source is the Finnish Forests report, `trad/v164/finn164.htm` (10003190).
+    - 10009230 and 10013650: the same R.Net article twice.
+    - 10009100 BAA Anniversary K day and 10004730 A Quite Different New Primitive: placeholders, no text.
+    - 10012820 Abstracts (11:1): shows an APL94 announcement.
+    - Bylines to check: 10010800 (Smith's notes on Wheeler's talk), 10007300 (Reiter's review of Peelle's book). Placement to check: 10012110 (indexed 6:2 p.999; cites 5:3).
 
 ## Index corrections
 
