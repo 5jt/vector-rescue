@@ -19,8 +19,9 @@ Expected next steps (updated 2026-10-11).
 
 ## PDF-only articles, Volumes 22–23
 
-- [ ] Transcribe the 25 indexed articles of Volumes 22–23 that were never online (now PDF stubs; list with `tools/scratch/todo.py`), including 10005080 (22:2 Santa Fe) and 10011390 (22:4 news from Kx); also the placeholders 10009100 (20:4 K day) and 10004730 (12:1 Langlet).
-- [ ] 22:2's PDF has two page offsets (+2 early, −2 late); `page_offset` takes one, so the early pages' links land 4 pages short. Survey all PDFs for this and fix.
+- [x] Transcribed the 25 indexed articles of Volumes 22–23 never online (#267: 22:1 #270, 22:2 #272, 22:4 #274, 23:3 #276, 23:4 #279, 23:4.1 #281). 23:4's Contents and PDF now follow the printed issue (issues/v234.pdf is pre-press).
+- [ ] Transcribe the placeholders 10009100 (20:4 K day) and 10004730 (12:1 Langlet, A Quite Different New Primitive) (#267).
+- [ ] 22:2's scan lacks printed pp.47–50, so its PDF has two page offsets (+2 before, −2 after); `page_offset` takes one, so the early pages' links land 4 pages short. Survey all PDFs for this and fix (#268).
 
 ## Index corrections
 

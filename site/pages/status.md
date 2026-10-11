@@ -2,7 +2,7 @@
 title: Project status
 ---
 
-*Updated 11 October 2026, after Volume 21, the tagging of every article, and corrections to pages that showed the wrong text.*
+*Updated 11 October 2026, after the First Pass through Volume 23, the tagging of every article, and corrections to pages that showed the wrong text.*
 
 ## What this is
 
@@ -17,6 +17,7 @@ A development build of the recovered *Vector* archive: every issue’s contents,
     - in Volumes 1–4, the pieces the index omitted from the meetings, general and technical sections also transcribed (150 pieces), and published;
     - everything else on the Contents pages linked to its page in the issue PDF.
 - **The First Pass through Volumes 10–21** (1993–2005): from Volume 10 onward most indexed articles were published online and are converted from that text; the indexed articles that were not online (12 in Volume 10, 38 in Volume 11, 60 in Volume 12, 64 in Volume 13, 56 in Volume 14, 34 in Volume 15, 21 in Volume 16, 28 in Volume 17, 36 in Volume 18, 40 in Volume 19, 38 in Volume 20, 24 in Volume 21) have been transcribed from the scans, with the same checks; one article in Volume 12 and one in Volume 21 are left for transcription by hand, and the four in 16:4 survive only as machine-read text.
+- **The First Pass through Volumes 22–23** (2005–2008): the 25 indexed articles never published online (2 in 22:1, 1 in 22:2, 2 in 22:4, 3 in 23:3, 15 in 23:4, 2 in the Dyalog at 25 supplement) transcribed: 23:4 and the supplement from the typeset issues’ sources, the rest from the scans. The only scan of 22:2 lacks four pages of APL+SantaFe previewed, and 23:4’s Contents and PDF now follow the printed issue.
 - **Every other issue**: its articles listed from its Contents page and linked to the issue PDF (with its machine-read text) where we have one; articles with their own scan link to that too.
 - **Subject tags** for every article with text, transcribed or converted, from a vocabulary of 20 subjects; see [Tags](../tags/). Articles linked only to the PDF, and section introductions, are not tagged.
 - **Index corrections**: the editors’ index was compiled by hand; where it disagrees with the printed Contents pages (pages, issue, authors, titles), the Contents pages have been followed. 79 records were corrected; each correction is listed in the build report.
@@ -26,7 +27,7 @@ A development build of the recovered *Vector* archive: every issue’s contents,
 
 - **Review**: every transcription is a draft until a reviewer checks it against the scan; see the [review checklist](https://github.com/5jt/vector-rescue/blob/main/plans/pdf-review-checklist.md).
 - **Missing sources**: no scan has been found of 2:2, and the copies of 3:4, 7:4 and 16:4 are damaged ([help find them](https://github.com/5jt/vector-rescue/issues/62)).
-- **Volumes 22–23, not online**: 25 indexed articles of Volumes 22 and 23 were never published online; they link to the scan, and await transcription.
+- **Placeholders**: two articles whose web pages were only placeholders (12:1 Langlet, *A Quite Different New Primitive*; 20:4 Smith, *BAA Anniversary K day*) link to the scan, and await transcription.
 - **A Second Pass**, if resources allow: transcribe what the First Pass only links to the PDF.
 
 The quality of each article’s text is shown in the [full index](../full-index/).
