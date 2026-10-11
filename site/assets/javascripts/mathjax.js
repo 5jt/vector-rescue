@@ -1,5 +1,6 @@
 // MathJax for the mathematics marked by arithmatex (#285): only those
 // elements are typeset, so APL, J and K text elsewhere is left alone.
+// SVG output: glyphs are drawn as paths, needing no web fonts or styles.
 window.MathJax = {
   tex: {
     inlineMath: [["\\(", "\\)"]],
@@ -10,14 +11,17 @@ window.MathJax = {
   options: {
     ignoreHtmlClass: ".*|",
     processHtmlClass: "arithmatex"
-  }
+  },
+  svg: { fontCache: "global" }
 };
 
-// Typeset again after each instant-navigation page load.
+// Typeset again when instant navigation brings in a new page; MathJax
+// typesets the first page itself.
 if (typeof document$ !== "undefined") {
+  let first = true;
   document$.subscribe(() => {
-    if (!window.MathJax.typesetPromise) return;
-    MathJax.startup.output.clearCache();
+    if (first) { first = false; return; }
+    if (!window.MathJax || !MathJax.typesetPromise) return;
     MathJax.typesetClear();
     MathJax.texReset();
     MathJax.typesetPromise();
