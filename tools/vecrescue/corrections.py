@@ -3,8 +3,10 @@
 Defects that need human judgement are corrected here, not guessed at by
 converter rules: corrections.yaml lists, per article, text replacements
 applied to the decoded source before parsing, an encoding override, or a
-decision to hold back or release an article; corrections to the issue
-catalogue; and corrections to index records (#211). Every entry says why and who decided. A replacement whose text
+decision to hold back or release an article, or the part of a source shared
+by several articles that is this one's (#265); corrections to the issue
+catalogue; and corrections to index records (#211), including a record that
+duplicates another (#265). Every entry says why and who decided. A replacement whose text
 is no longer found is reported as stale.
 """
 
@@ -27,6 +29,23 @@ def _check(entry, where):
             raise CorrectionError(f"{where}: every correction needs '{k}'")
 
 
+def _keep(text, e, notes):
+    """Of the body of TEXT, keep only the part from `keep.from` (inclusive) up
+    to `keep.to` (exclusive; else the end of the body): one article's part of
+    a source several articles share (#265)."""
+    body = re.search(r"<body[^>]*>", text, re.I)
+    end = re.search(r"</body\s*>", text, re.I)
+    start = body.end() if body else 0
+    stop = end.start() if end else len(text)
+    i = text.find(e["keep"]["from"], start)
+    j = text.find(e["keep"]["to"], i + 1) if i >= 0 and e["keep"].get("to") else stop
+    if i < 0 or j < 0 or j > stop:
+        notes.append({"kind": "correction-stale", "keep": e["keep"]})
+        return text
+    notes.append({"kind": "corrected", "why": e["why"], "decided": e["decided"]})
+    return text[:start] + text[i:j] + text[stop:]
+
+
 class Corrections:
     def __init__(self, data=None):
         data = data or {}
@@ -40,7 +59,7 @@ class Corrections:
             _check(e, f"issue {key}")
         for vid, e in self.records.items():
             _check(e, f"record {vid}")
-            if not set(e) & set(RECORD_FIELDS):
+            if not set(e) & set(RECORD_FIELDS + ("duplicate_of",)):
                 raise CorrectionError(f"record {vid}: nothing to correct")
 
     @classmethod
@@ -56,6 +75,8 @@ class Corrections:
         return [e for e in self.articles.get(str(vid), []) if key in e]
 
     def apply_text(self, vid, text, notes):
+        for e in self._entries(vid, "keep"):
+            text = _keep(text, e, notes)
         for e in self._entries(vid, "find"):
             find, new, nth = e["find"], e.get("replace", ""), e.get("nth")
             if nth:  # only the nth occurrence
@@ -129,6 +150,8 @@ class Corrections:
                 log.append({"id": vid, "field": None, "old": None, "new": None,
                             "by": "corrections.yaml: no such record"})
                 continue
+            if e.get("duplicate_of"):
+                r["duplicate_of"] = str(e["duplicate_of"])
             for field in RECORD_FIELDS:
                 if field in e:
                     new = [str(a) for a in e[field]] if field == "authors" else str(e[field])
