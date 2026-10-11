@@ -16,8 +16,14 @@ Expected next steps (updated 2026-10-11).
 
 - [x] Pieces left out by the First Pass and noted in its queries: 26 transcribed into `transcriptions/unindexed/` and put on their issues' Contents files; three earlier pieces linked (#297).
 - [x] Swept Volumes 5–21 for further unindexed pieces (#299): 226 added to the Contents files, linked to the scan, not yet transcribed. 74 finds left out (section editorials, which are their Contents line's own text; pieces already inside a held transcription; house notices, captions, parts of reports): listed in #299. Not swept: 7:4, 16:4 and 21:4 (damaged scans; 21:4 was transcribed from another copy).
-- [ ] Transcribe the 226 pieces found by the sweep (Contents lines with a `note:` "not on the Contents page" and neither `vid` nor `file`).
+- [x] Transcribed the sweep's pieces (#301): 210 files in `transcriptions/unindexed/`. 16 Contents lines removed, as their text is already published inside an indexed transcription (13:4, 14:1, 14:4, 15:2, 19:2, 7:2, 8:2).
+- [ ] 12:2 p.113, “Microsoft Announces APL for the 8088 – almost 20 years late!” (Adrian Smith): blocked by the output content filter (long quotations from the book *Gates*); left linked to the scan, for transcription by hand.
 - [ ] Contents lines with neither text nor transcription, e.g. 11:2 “Duncan Pearson's DDE and DLL Workshop” (p.48): the rest of the Second Pass.
+
+## Metadata
+
+- [ ] Publish a machine-readable full index, `vector-index.json`, written by the build (#303). It also settles the index-corrections item below, as `index.xml` cannot be corrected in place.
+- [ ] When the site goes public: Highwire `citation_*` tags on article pages, for Google Scholar and Zotero (#302). No Dublin Core on pages.
 
 ## Tags
 
