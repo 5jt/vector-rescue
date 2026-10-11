@@ -12,7 +12,11 @@ Expected next steps (updated 2026-10-11).
 - [ ] Phase 3: review checklists (`plans/pdf-review-checklist*.md`), ordered by interest; little-code articles need only their queries checked.
 - [x] Report: OCR words missing from each transcription (build/report.md, last section); 63 flagged.
 - [x] Triaged the 63 flagged (2026-10-11): no omitted passages; misses come from neighbouring articles on shared pages, figures and listings kept as images, and deliberate omissions under queries. Fixed: two wrong page ranges (10004320, 10010900), one missing byline (10006380). XPL (10001020) is the abandoned transcription.
-- [ ] Unindexed pieces left out of transcriptions but transcribed nowhere, e.g. Ray Cannon's letter *The Hungarian Naming Convention* (beside 10006850), Adrian Smith's *Towers of Hanoi from 15 Years Ago* (beside 10010130): candidates for `transcriptions/unindexed/` and #44.
+## Second Pass (decided 2026-10-11, #44: unindexed pieces are worth indexing and republishing)
+
+- [x] Pieces left out by the First Pass and noted in its queries: 26 transcribed into `transcriptions/unindexed/` and put on their issues' Contents files; three earlier pieces linked (#297).
+- [ ] Sweep Volumes 5–21 for further unindexed pieces inside listed sections (no query mentions them).
+- [ ] Contents lines with neither text nor transcription, e.g. 11:2 “Duncan Pearson's DDE and DLL Workshop” (p.48): the rest of the Second Pass.
 
 ## Tags
 

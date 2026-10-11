@@ -135,3 +135,53 @@ They are set aside here, unpublished, for editorial review.
 | [v9n1-p30-two-mathematical-functions.md](v9n1-p30-two-mathematical-functions.md) | 9:1 | 30–31 | Two Mathematical Functions | C.E. Williams | art10005920 (inside its index range) |
 | [v11n4-p13-apl95-software-exchange.md](v11n4-p13-apl95-software-exchange.md) | 11:4 | 13 | The APL95 Software Exchange | Dick Holt | art10000180 |
 | [v12n3-p131-miaou-cat.md](v12n3-p131-miaou-cat.md) | 12:3 | 131–132 | Miaou = Cat! | Claude Henriod | art10010120 |
+| [v4n1-p49-recent-meetings.md](v4n1-p49-recent-meetings.md) | 4:1 | 49 | Recent Meetings (section introduction) | — |  |
+| [v4n1-p50-successful-expert-systems.md](v4n1-p50-successful-expert-systems.md) | 4:1 | 50–54 | Introductory Notes; Successful Expert Systems, Royal Station Hotel, York, February 17th 1987 | Adrian Smith |  |
+| [v4n1-p54-quality-control-meeting.md](v4n1-p54-quality-control-meeting.md) | 4:1 | 54–59 | Quality Control in Application Development, 20th February 1987 at the Royal Over-Seas League | Adrian Smith, Anthony Camacho |  |
+| [v4n1-p59-graphics-meeting.md](v4n1-p59-graphics-meeting.md) | 4:1 | 59 | Graphics, 20th March 1987 at the Royal Over-Seas League (introduction) | Adrian Smith |  |
+| [v4n1-p91-technical-section.md](v4n1-p91-technical-section.md) | 4:1 | 91 | Technical Section (section introduction) | — |  |
+| [v4n1-p123-submitting-articles-for-vector.md](v4n1-p123-submitting-articles-for-vector.md) | 4:1 | 123–126 | Submitting Articles for Vector | Jonathan Barman, Anthony Camacho |  |
+| [v4n2-p61-recent-meetings.md](v4n2-p61-recent-meetings.md) | 4:2 | 61 | Recent Meetings (section introduction) | — |  |
+| [v4n2-p69-general-articles.md](v4n2-p69-general-articles.md) | 4:2 | 69 | General Articles (section introduction) | — |  |
+| [v4n2-p72-metaapl-an-apl-preprocessor.md](v4n2-p72-metaapl-an-apl-preprocessor.md) | 4:2 | 72–82 | MetaAPL: an APL Preprocessor | Glen Tickner, Norval R Oswald |  |
+| [v4n2-p89-technical-section.md](v4n2-p89-technical-section.md) | 4:2 | 89 | Technical Section (section introduction) | — |  |
+| [v4n2-p90-photo-caption-competition-result.md](v4n2-p90-photo-caption-competition-result.md) | 4:2 | 90–91 | Prize Competition Result: APL86 Photo Caption | Dave Ziemann |  |
+| [v4n2-p93-technical-correspondence.md](v4n2-p93-technical-correspondence.md) | 4:2 | 93–97 | Technical Correspondence (Sullivan, Barker, Branson) | John Sullivan, Simon Barker, Peter Branson |  |
+| [v4n2-p113-baa-software-library.md](v4n2-p113-baa-software-library.md) | 4:2 | 113–122 | The British APL Association Software Library: Call for Software; Full Catalogue | Dave Ziemann |  |
+| [v4n3-p47-recent-meetings.md](v4n3-p47-recent-meetings.md) | 4:3 | 47 | Recent Meetings (section introduction) | — |  |
+| [v4n3-p73-general-articles.md](v4n3-p73-general-articles.md) | 4:3 | 73 | General Articles (section introduction) | — |  |
+| [v4n3-p101-technical-section.md](v4n3-p101-technical-section.md) | 4:3 | 101 | Technical Section (section introduction) | — |  |
+| [v4n3-p102-technical-editorial-direct-definition.md](v4n3-p102-technical-editorial-direct-definition.md) | 4:3 | 102–103 | Technical Editorial – Direct Definition | Jonathan Barman, Dave Ziemann |  |
+| [v4n3-p104-technical-correspondence.md](v4n3-p104-technical-correspondence.md) | 4:3 | 104–108 | Technical Correspondence (Small, Yet More Benchmarks; Thomson, trees in APL2) | Nicholas Small, Norman Thomson |  |
+| [v4n4-p55-recent-meetings-apl88.md](v4n4-p55-recent-meetings-apl88.md) | 4:4 | 55 | Recent Meetings: APL 88 (section introduction) | — |  |
+| [v4n4-p56-impressions-of-sydney.md](v4n4-p56-impressions-of-sydney.md) | 4:4 | 56–57 | Impressions of Sydney | John Sullivan |  |
+| [v4n4-p58-impressions-of-apl88.md](v4n4-p58-impressions-of-apl88.md) | 4:4 | 58–61 | Impressions of APL 88 | Anthony Camacho |  |
+| [v4n4-p61-workshop-secondary-school-mathematics.md](v4n4-p61-workshop-secondary-school-mathematics.md) | 4:4 | 61–66 | Workshop: Secondary School Mathematics using APL | Adrian Smith |  |
+| [v4n4-p67-apl88-session-reports.md](v4n4-p67-apl88-session-reports.md) | 4:4 | 67–88 | APL 88: session reports, plenaries, panel and exhibition | — |  |
+| [v4n4-p89-technical-section.md](v4n4-p89-technical-section.md) | 4:4 | 89 | Technical Section (section introduction) | — |  |
+| [v4n4-p90-prize-competition-missionaries-and-cannibals.md](v4n4-p90-prize-competition-missionaries-and-cannibals.md) | 4:4 | 90–91 | Prize Competition: Rules; Missionaries and Cannibals | Anne Wilson |  |
+| [v4n4-p92-technical-correspondence.md](v4n4-p92-technical-correspondence.md) | 4:4 | 92–102 | Technical Correspondence (Sullivan; Piper; Hayward; Bykerk; Donnelly; Prys-Williams) | — |  |
+| [v7n3-p38-within-asl-basic-statistics.md](v7n3-p38-within-asl-basic-statistics.md) | 7:3 | 38–40 | Within ASL - Basic Statistics | — | follows art10006250, within The Random Vector |
+| [v9n1-p9-hungarian-naming-convention.md](v9n1-p9-hungarian-naming-convention.md) | 9:1 | 9 | The Hungarian Naming Convention | Ray Cannon | precedes art10006850, in General Correspondence |
+| [v9n1-p107-random-vector-editorial.md](v9n1-p107-random-vector-editorial.md) | 9:1 | 107–108 | The Random Vector: Editorial | David Eastwood | precedes art10003590, opening The Random Vector |
+| [v9n1-p129-stirling-numbers.md](v9n1-p129-stirling-numbers.md) | 9:1 | 129 | Stirling Numbers | David Appleton | follows art10009980, in Technical Correspondence |
+| [v9n2-p34-comments-on-aslgreg-review.md](v9n2-p34-comments-on-aslgreg-review.md) | 9:2 | 34–35 | Comments on the ASLGREG Review | Alan Sykes | follows art10007490, within The Random Vector |
+| [v9n2-p35-corrections-to-known-bugs-in-aslgreg.md](v9n2-p35-corrections-to-known-bugs-in-aslgreg.md) | 9:2 | 35–36 | Corrections to Known Bugs in ASLGREG (September 1992) | Alan Sykes | follows art10007490 and unindexed/v9n2-p34-comments-on-aslgreg-review.md, within The Random Vector |
+| [v9n2-p88-bektop-at-st-petersburg.md](v9n2-p88-bektop-at-st-petersburg.md) | 9:2 | 88–92 | APL92 — BEKTOP at St Petersburg | Ray Cannon | follows art10000130, in Recent Meetings |
+| [v9n3-p100-apl2-packages.md](v9n3-p100-apl2-packages.md) | 9:3 | 100 | APL2 Packages: a Cautionary Tale | Nicholas Small | in Technical Correspondence, before art10000880 |
+| [v9n4-p8-apl93-invitation.md](v9n4-p8-apl93-invitation.md) | 9:4 | 8–12 | APL93: Invitation and Preliminary Program | — | precedes art10000140 |
+| [v9n4-p80-apl-new-release.md](v9n4-p80-apl-new-release.md) | 9:4 | 80 | APL — New Release | Jon Sandles | in the Reviews Section, follows art10000660 |
+| [v9n4-p122-more-on-apl-packages.md](v9n4-p122-more-on-apl-packages.md) | 9:4 | 122 | More on APL Packages | A.J. Brown | in Technical Correspondence, before art10002790 |
+| [v10n4-p44-j-at-greenock.md](v10n4-p44-j-at-greenock.md) | 10:4 | 44 | J at Greenock | Norman Thomson | in Recent Meetings, precedes art10005100 on the same page |
+| [v11n2-p42-chairmans-impressions.md](v11n2-p42-chairmans-impressions.md) | 11:2 | 42–44 | Chairman’s Impressions: What you Saw was (more or less) what you Got | Adrian Smith | opens the report “British APL Association Meeting: *APL in Business* at EBMS, Swansea”, before art10007520 |
+| [v11n2-p47-logol-workshop.md](v11n2-p47-logol-workshop.md) | 11:2 | 47 | Gareth Brentnall’s Logol Workshop | Jon Sandles | follows art10007520, within the report on *APL in Business* at EBMS, Swansea |
+| [v11n3-p65-namespaces-special-feature.md](v11n3-p65-namespaces-special-feature.md) | 11:3 | 65 | Namespaces Special Feature | — | introduces art10002890, art10005000 and art10004310 |
+| [v12n4-p32-towers-of-hanoi.md](v12n4-p32-towers-of-hanoi.md) | 12:4 | 32 | Towers of Hanoi from 15 Years Ago | Adrian Smith | follows the references of art10010130, within The Education Vector |
+| [v18n1-p37-limbering-up-polyadic-functions.md](v18n1-p37-limbering-up-polyadic-functions.md) | 18:1 | 37–38 | Limbering Up: Polyadic Functions | Gary A. Bergquist | follows art10014440 |
+| [v18n2-p43-limbering-up-killing-comments.md](v18n2-p43-limbering-up-killing-comments.md) | 18:2 | 43–44 | Limbering Up: Killing Comments | Gary A. Bergquist | follows art10014430 |
+| [v18n2-p44-primitive-pointers.md](v18n2-p44-primitive-pointers.md) | 18:2 | 44–45 | Primitive Pointers | Gary A. Bergquist | follows the Limbering Up column after art10014430 |
+| [v18n2-p45-combin-timings.md](v18n2-p45-combin-timings.md) | 18:2 | 45–46 | Editor’s Note: COMBIN Timings | — | follows the Zark reprint note after art10014430 |
+| [v18n3-p42-limbering-up-generalised-searching.md](v18n3-p42-limbering-up-generalised-searching.md) | 18:3 | 42–45 | Limbering Up: Generalised Searching | Gary A. Bergquist | follows art10014410 |
+| [v18n4-p35-limbering-up-generalised-searching.md](v18n4-p35-limbering-up-generalised-searching.md) | 18:4 | 35–37 | Limbering Up: Generalised Searching | Gary A. Bergquist | follows art10014390 |
+| [v19n1-p36-limbering-up-elvis-elbows.md](v19n1-p36-limbering-up-elvis-elbows.md) | 19:1 | 36–37 | Limbering Up: Elvis Elbows | Gary A. Bergquist | follows art10014370 |
+| [v19n4-p14-apl-and-the-pocket-pc.md](v19n4-p14-apl-and-the-pocket-pc.md) | 19:4 | 14 | APL and the Pocket PC | Philip Bath | follows art10007110, under Correspondence |
