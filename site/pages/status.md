@@ -2,7 +2,7 @@
 title: Project status
 ---
 
-*Updated 11 October 2026, after Volume 21 and the tagging of Volumes 22–26.*
+*Updated 11 October 2026, after Volume 21 and the tagging of every article.*
 
 ## What this is
 
@@ -18,7 +18,7 @@ A development build of the recovered *Vector* archive: every issue’s contents,
     - everything else on the Contents pages linked to its page in the issue PDF.
 - **The First Pass through Volumes 10–21** (1993–2005): from Volume 10 onward most indexed articles were published online and are converted from that text; the indexed articles that were not online (12 in Volume 10, 38 in Volume 11, 60 in Volume 12, 64 in Volume 13, 56 in Volume 14, 34 in Volume 15, 21 in Volume 16, 28 in Volume 17, 36 in Volume 18, 40 in Volume 19, 38 in Volume 20, 24 in Volume 21) have been transcribed from the scans, with the same checks; one article in Volume 12 and one in Volume 21 are left for transcription by hand, and the four in 16:4 survive only as machine-read text.
 - **Every other issue**: its articles listed from its Contents page and linked to the issue PDF (with its machine-read text) where we have one; articles with their own scan link to that too.
-- **Subject tags**, from a vocabulary of 20 subjects, for the transcribed articles of Volumes 1–21 and every article of Volumes 22–26; see [Tags](../tags/). The articles of Volumes 10–21 that were converted from the online text are not yet tagged.
+- **Subject tags** for every article with text, transcribed or converted, from a vocabulary of 20 subjects; see [Tags](../tags/). Articles linked only to the PDF, and section introductions, are not tagged.
 - **Index corrections**: the editors’ index was compiled by hand; where it disagrees with the printed Contents pages (pages, issue, authors, titles), the Contents pages have been followed. 79 records were corrected; each correction is listed in the build report.
 - **Damaged copies**: for three issues whose only copy is truncated (3:4, 7:4, 16:4), the machine-read text has been recovered and shown.
 
