@@ -55,7 +55,7 @@ def run_convert(src, out, corrections=None):
     listed = read_codingprobs(src)
     todo, skipped = [], {}
     for r in inventory:
-        found = r["id"] and article_source(r)
+        found = r["id"] and not r.get("duplicate_of") and article_source(r)
         if not found:
             continue
         fmt, path = found
@@ -131,6 +131,11 @@ def write_stub_pages(inventory, issues, pdfs, out, transcriptions=None, damaged=
 
     for r in inventory:
         if not r.get("id") or r["id"] in converted:  # what convert wrote, not what is on disk
+            continue
+        if r.get("duplicate_of"):  # indexed twice: its address redirects to its twin (#265)
+            stubs.write_duplicate(r, docs)
+            results[r["id"]] = {"pdf": None, "match": None, "transcribed": None, "own_pdf": None,
+                                "page": True, "duplicate_of": r["duplicate_of"]}
             continue
         transcription = Path(transcriptions or "") / f"art{r['id']}.md"
         transcription = transcription if transcriptions and transcription.is_file() else None

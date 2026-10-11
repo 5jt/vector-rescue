@@ -10,10 +10,12 @@
 #       - encoding: <codec>                    # read the source in this encoding
 #       - hold: true                           # do not convert (yet)
 #       - release: true                        # convert despite the mapped-APL checks
+#       - keep: { from: <text>, to: <text> }   # only this part of a source several articles share
 #   catalogue:
 #     "<vol>:<issue>": { title, year, month, pdf, doc }   # correct or add an issue
 #   records:
 #     "<art ID>": { title, authors, volume, issue, page }  # correct an index record (#211)
+#     "<art ID>": { duplicate_of: <art ID> }               # the index has the article twice (#265)
 #
 # A `find` that is no longer in its source is reported as stale in build/report.md.
 #
@@ -21,6 +23,85 @@
 # leaves no real choice; "proposed by Claude" marks a judgement awaiting a ruling.
 
 articles:
+
+  # Shared sources: each record shows only its part (#265) ------------------
+
+  "10005230":   # Mansour, 22:2 letters
+    - keep: { from: '<a name="steve"></a>', to: '<h1><a name="quario">' }
+      why: idioms.htm holds the three letters of 22:2; this is the first.
+      decided: Claude (evidence)
+  "10007130":   # Quario, 22:2
+    - keep: { from: '<h1><a name="quario">', to: '<h1><a name="henriod">' }
+      why: idioms.htm holds the three letters of 22:2; this is the second.
+      decided: Claude (evidence)
+  "10003550":   # Henriod, 22:2
+    - keep: { from: '<h1><a name="henriod">', to: '<!-- End of galley -->' }
+      why: idioms.htm holds the three letters of 22:2; this is the third.
+      decided: Claude (evidence)
+  "10011210":   # Starmap, 22:4 letters
+    - keep: { from: '<h1><a name="starmap">', to: '<h1><a name="barnetson">' }
+      why: letters.htm holds the four letters of 22:4; this is the first.
+      decided: Claude (evidence)
+  "10011230":   # Barnetson, 22:4
+    - keep: { from: '<h1><a name="barnetson">', to: '<h1><a name="sexton">' }
+      why: letters.htm holds the four letters of 22:4; this is the second.
+      decided: Claude (evidence)
+  "10011240":   # Sexton, 22:4
+    - keep: { from: '<h1><a name="sexton">', to: "\n<table width=100% border=\"0\" cellspacing=\"0\" cellpadding=\"4\">" }
+      why: letters.htm holds the four letters of 22:4; this is the third, up to the e-mail header of the fourth.
+      decided: Claude (evidence)
+  "10011260":   # Butler, 22:4
+    - keep: { from: '<h1><a name="sage">', to: '<p class="crumb">' }
+      why: letters.htm holds the four letters of 22:4; this is the fourth, from its heading (the e-mail header before it is dropped).
+      decided: Claude (evidence)
+  "10011430":   # Dyalog, 23:1 Sustaining Members
+    - keep: { from: '<h2><a name="dy"', to: '<h2><a name="kx"' }
+      why: susmemnews.htm holds the 23:1 news; this record has the Dyalog section (its other items are not indexed).
+      decided: Claude (evidence)
+  "10011440":   # Kx, 23:1
+    - keep: { from: '<h3>Kx Welcomes New Customers</h3>', to: '<h3>Mac OS X Support' }
+      why: susmemnews.htm holds the 23:1 news; this is one Kx item.
+      decided: Claude (evidence)
+  "10011450":   # Kx, 23:1
+    - keep: { from: '<h3>Mac OS X Support for Kdb+</h3>', to: '<h3>New A-Team' }
+      why: susmemnews.htm holds the 23:1 news; this Kx item, with the unindexed one after it (See Kx at SIFMA).
+      decided: Claude (evidence)
+  "10011460":   # Kx, 23:1
+    - keep: { from: '<h3>New A-Team', to: '<h3>The Cross-Asset' }
+      why: susmemnews.htm holds the 23:1 news; this is one Kx item.
+      decided: Claude (evidence)
+  "10011470":   # Kx, 23:1
+    - keep: { from: '<h3>The Cross-Asset Trading Challenge</h3>', to: '</div><!-- pageblock -->' }
+      why: susmemnews.htm holds the 23:1 news; this is the last Kx item.
+      decided: Claude (evidence)
+
+  # No text online: the page links the scan (#265) --------------------------
+
+  "10011390":   # news from Kx, 22:4
+    - hold: true
+      why: Its source, kx224.htm, is the Kx Users' Meeting report (10011270); the news from Kx was not published online.
+      decided: Claude (evidence)
+  "10009100":   # K day, 20:4
+    - hold: true
+      why: The source kday204.htm is a placeholder ("[File to do...]").
+      decided: Claude (evidence)
+  "10004730":   # Langlet, 12:1
+    - hold: true
+      why: The source langlet121_93.htm is a placeholder ("a dummy stub, placed here until we can find the original source document").
+      decided: Claude (evidence)
+
+  # Bylines (#265) -----------------------------------------------------------
+
+  "10010800":   # 10:3
+    - find: "<p class=author>by James Wheeler"
+      replace: "<p class=author>James Wheeler at Cocking &amp; Drury, 10th December 1993; notes by Adrian Smith"
+      why: The printed byline (10:3 p.60) reads “James Wheeler at Cocking & Drury / 10th December 1993 / notes by Adrian Smith”; the web source has “by James Wheeler”.
+      decided: Claude (evidence)
+  "10007300":   # 21:4
+    - find: book review by Howard A. Peelle
+      replace: book review by Cliff Reiter
+      why: The printed byline (21:4 p.97) reads “book review by Cliff Reiter”; the web source names the book's author.
+      decided: Claude (evidence)
 
   # In-page references -------------------------------------------------------
 
@@ -707,7 +788,7 @@ records:
 
   "10010800":   # 10:3
     authors: [Adrian Smith]
-    why: The Contents names Adrian Smith; the page reads “James Wheeler at Cocking & Drury / notes by Adrian Smith”. Wheeler gave the talk; the web source's byline “by James Wheeler” is kept in the text.
+    why: The Contents names Adrian Smith; the page reads “James Wheeler at Cocking & Drury / notes by Adrian Smith”. Wheeler gave the talk; the web source's byline is corrected under articles (#265).
     decided: "Claude (evidence: Contents page), authorised by Stephen Taylor 2026-10-10"
 
   "10003190":   # 16:4
@@ -740,3 +821,31 @@ records:
     page: 127
     why: The letter is in Technical Correspondence on printed pp.127–130 (transcription, from the scan); the index gives p.12.
     decided: "Claude (evidence: the printed page), authorised by Stephen Taylor 2026-10-10"
+
+  # Articles the index lists twice: the twin with the text is kept (#265) ----
+
+  "10008880":   # 16:4
+    duplicate_of: "10013490"
+    why: The Contents has VML once (p.62); this record's source is the Finnish Forests report (finn164.htm), its twin's the article (vml164.htm).
+    decided: Claude (evidence)
+  "10013650":   # 20:2
+    duplicate_of: "10009230"
+    why: The Contents has R.Net once (p.136); this record is a copy filed under 21:1 (trad/v211/rcs202.htm, the same text with a broken download link).
+    decided: Claude (evidence)
+  "10004630":   # 6:2
+    duplicate_of: "10012110"
+    why: The Contents has APL “RISC” Programming Style once (p.23); this record has no text, its twin (at p.999) the article.
+    decided: Claude (evidence)
+  "10013600":   # 19:2
+    duplicate_of: "10000300"
+    why: The Contents has APL2002 Conference Reports once (p.60); this record, titled “Review of Pocket APL” after its source's <title>, has the same Madrid report (madrid.htm) as its twin (mad192.htm).
+    decided: Claude (evidence)
+
+  "10012820":   # 10:4, filed under 11:1
+    title: Update on APL94
+    authors: [Alain Delmotte]
+    volume: "10"
+    issue: "4"
+    page: "7"
+    why: Its text (apl111_7.htm) is the Update on APL94 by Alain Delmotte, printed in 10:4 p.7 (Contents and scan), not the 11:1 APL94 Abstracts (10000160).
+    decided: Claude (evidence)

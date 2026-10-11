@@ -412,3 +412,32 @@ def test_article_tags_are_in_the_vocabulary():
         transcription = root / f"art{vid}.md"   # where a converted page also has one, they agree
         if transcription.is_file():
             assert labels == yaml.safe_load(transcription.read_text().split("---", 2)[1])["tags"], vid
+
+
+def test_keep_takes_one_articles_part_of_a_shared_source():
+    from vecrescue.corrections import Corrections
+    c = Corrections.from_text("articles:\n  '1':\n  - keep: {from: '<h1 id=b>', to: '<h1 id=c>'}\n    why: w\n    decided: d\n"
+                              "  '2':\n  - keep: {from: '<h1 id=c>'}\n    why: w\n    decided: d\n"
+                              "  '3':\n  - keep: {from: '<h1 id=z>'}\n    why: w\n    decided: d\n")
+    src = "<html><body><h1 id=a>A</h1><h1 id=b>B</h1>b<h1 id=c>C</h1>c</body></html>"
+    notes = []
+    assert c.apply_text("1", src, notes) == "<html><body><h1 id=b>B</h1>b</body></html>"
+    assert c.apply_text("2", src, notes) == "<html><body><h1 id=c>C</h1>c</body></html>"
+    assert c.apply_text("3", src, notes) == src and notes[-1]["kind"] == "correction-stale"
+
+
+def test_a_duplicate_record_redirects_and_leaves_one_row(tmp_path):
+    from vecrescue.corrections import Corrections
+    from vecrescue.pages import issue_rows
+    from vecrescue import stubs
+    records = [{"id": "1", "title": "A", "volume": "5", "issue": "1", "page": "9", "authors": []},
+               {"id": "2", "title": "A again", "volume": "5", "issue": "1", "page": "999", "authors": []}]
+    Corrections.from_text("records:\n  '2': {duplicate_of: '1', why: w, decided: d}\n").apply_records(records)
+    assert records[1]["duplicate_of"] == "1"
+    docs = tmp_path / "docs"
+    (docs / "art1").mkdir(parents=True)
+    (docs / "art1" / "index.md").write_text("---\ntitle: A\n---\n\nText\n")
+    text = stubs.write_duplicate(records[1], docs).read_text()
+    assert "redirect: ../art1/" in text and "](../art1/)" in text
+    rows = issue_rows(docs, {"items": [{"title": "A", "page": 9, "vid": ["1", "2"]}]}, records)
+    assert [(r["title"], r.get("href")) for r in rows] == [("A", "art1/")]

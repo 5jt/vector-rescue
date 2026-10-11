@@ -162,6 +162,20 @@ def review_note(fm):
 OWN_PDF = "Read it in the article’s own PDF"
 
 
+def write_duplicate(record, docs):
+    """docs/art<ID>/index.md for a record that duplicates another (#265): the
+    old address kept working, redirecting to its twin's page."""
+    twin = record["duplicate_of"]
+    fm = {"vid": record["id"], "title": record["title"] or f"Article {record['id']}",
+          "duplicate_of": twin, "redirect": f"../art{twin}/"}
+    lines = ["---", yaml.safe_dump(fm, sort_keys=False, allow_unicode=True, width=1000).rstrip(), "---", "",
+             f"The editors’ index lists this article twice. It is [here](../art{twin}/).", ""]
+    path = Path(docs) / f"art{record['id']}" / "index.md"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(lines), encoding="utf-8")
+    return path
+
+
 def write_stub(record, docs, pdf=None, ocr=None, warning=None, note=None, own=None):
     """docs/art<ID>/index.md for a record with no text. PDF is the issue PDF's
     path from the site root, with #page=N; OWN, the file name of the

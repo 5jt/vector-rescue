@@ -42,6 +42,13 @@ def _converted(docs, vid):
     return vid and (Path(docs) / f"art{vid}" / "index.md").exists()
 
 
+def _duplicate(docs, vid):
+    """Whether VID's page only redirects to its twin: the index lists the
+    article twice (#265)."""
+    path = Path(docs) / f"art{vid}" / "index.md"
+    return bool(vid) and path.exists() and "\nduplicate_of: " in path.read_text(encoding="utf-8").split("\n---", 1)[0]
+
+
 def _label(issue):
     return "&".join(issue.get("numbers") or [issue["issue"]])
 
@@ -324,11 +331,13 @@ def issue_rows(docs, contents, index_rows, pdf_link=None):
 
     rows = []
     if not contents:
-        for r in sorted(index_rows, key=lambda r: (_num(r.get("page")), r.get("title") or "")):
+        for r in sorted((r for r in index_rows if not _duplicate(docs, r["id"])),
+                        key=lambda r: (_num(r.get("page")), r.get("title") or "")):
             rows.append(article(r["id"], 0))
         return rows
     for item in contents.get("items", []):
-        files, vids = _as_list(item.get("file")), _as_list(item.get("vid"))
+        files = _as_list(item.get("file"))
+        vids = [v for v in _as_list(item.get("vid")) if not _duplicate(docs, v)]  # one row for an article indexed twice
         indent = item.get("indent", 0)
         if "section" in item:
             row = {"section": True, "indent": 0, "page": item.get("page"), "title": item["section"],
@@ -486,7 +495,8 @@ def write_index_page(inventory, issues, docs, contents=None, pdf_links=None):
                 heading = link and not r.get("page") and not r.get("href")  # a group heading on the Contents page
                 if not r.get("section") and not heading:
                     add(v, n, r)
-    online = [r for r in inventory if r.get("id") and not r.get("volume") and _converted(docs, r["id"])]
+    online = [r for r in inventory if r.get("id") and not r.get("volume") and _converted(docs, r["id"])
+              and not _duplicate(docs, r["id"])]
     for r in sorted(online, key=lambda r: (r.get("online") or "9999", r["id"])):
         q, doubtful = quality(docs, r["id"])
         add("", "", {"title": r.get("title"), "author": ", ".join(r.get("authors") or []), "href": f"art{r['id']}/",
@@ -497,10 +507,11 @@ def write_index_page(inventory, issues, docs, contents=None, pdf_links=None):
             "Use your browser’s Find to search it.", "",
             "Quality of the text: " + " · ".join(f"{_badge(q)} {totals[q]}" for q, _ in QUALITY)
             + f" (of {sum(totals.values())})", "",
+            '<div class="full-index" markdown>', "",
             "| volume | issue | page | quality | article | author |", "|:---:|:---:|---:|:---:|---|---|"]
     path = docs / "full-index" / "index.md"
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text("\n".join(head + lines) + "\n", encoding="utf-8")
+    path.write_text("\n".join(head + lines + ["", "</div>"]) + "\n", encoding="utf-8")
     return path
 
 
