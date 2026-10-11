@@ -466,3 +466,13 @@ def test_fix_comments_touches_only_comments():
     assert fix_comments("⍝  <-----3-----> <--2-->") == "⍝  <-----3-----> <--2-->"   # #283
     assert fix_comments("a<!-->b<!----------->c") == "a<!---->b<!---->c"
     assert fix_comments("<!-- open") == "<!-- open"
+
+
+def test_corrections_have_no_duplicate_keys():
+    import re
+    from collections import Counter
+    text = (Path(__file__).parents[1] / "corrections.yaml").read_text()
+    sections = [(m.start(), m.group(1)) for m in re.finditer(r"^(articles|catalogue|records):", text, re.M)]
+    keys = Counter((max(s for s in sections if s[0] <= m.start())[1], m.group(1))
+                   for m in re.finditer(r'^  "([\d:.]+)":', text, re.M))
+    assert [k for k, n in keys.items() if n > 1] == []   # a second key silently replaces the first
