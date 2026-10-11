@@ -49,9 +49,30 @@ def decode(data, keep_undefined=False):
     return "".join(out), "mixed" if utf8_seen else "cp1252"
 
 
+COMMENT_OPEN = re.compile(r"<!-{2,}")
+COMMENT_CLOSE = re.compile(r"-{2,}>")
+
+
 def fix_comments(text):
-    """Jake's 'extended' comments, <!------- … ------->, as present.php did."""
-    return re.sub(r"-{3,}>", "-->", re.sub(r"<!-{3,}", "<!--", text))
+    """Jake's 'extended' comments, <!------- … ------->, as present.php did:
+    each comment's opening and its closing made standard. Only comments are
+    touched: a run of hyphens before > in the text, such as an APL comment's
+    <-----3----->, is kept (#283). A comment of hyphens only is made empty."""
+    out, i = [], 0
+    while (m := COMMENT_OPEN.search(text, i)):
+        out.append(text[i:m.start()])
+        if text.startswith(">", m.end()):  # <!-->, <!------->: empty
+            out.append("<!---->")
+            i = m.end() + 1
+            continue
+        close = COMMENT_CLOSE.search(text, m.end())
+        if not close:
+            out.append(text[m.start():])
+            return "".join(out)
+        out.append("<!--" + text[m.end():close.start()] + "-->")
+        i = close.end()
+    out.append(text[i:])
+    return "".join(out)
 
 
 def mapped_apl(text, path, listed, unicode=False):
