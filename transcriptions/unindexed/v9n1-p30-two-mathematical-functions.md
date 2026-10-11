@@ -10,12 +10,14 @@ transcribed: from page images of VOL.9-NO.1-JULY-1992.pdf, pages 32–33 (printe
 review: draft
 tags:
 - mathematics and statistics
+queries:
+- "The author’s home address, printed after his name in the first sentence, is omitted as private data."
 ---
 
 by C.E. Williams
 { .byline }
 
-C.E. Williams (Cold Keld, Loweswater, Cockermouth, Cumbria) writes: a couple of functions which may be of use to someone. The function `CHAR4`, to find the characteristic equation of a 4×4 matrix, uses Bocher’s formulas which is a good illustration of APL’s ease of programming. It is easy to adapt for any order of matrix.
+C.E. Williams writes: a couple of functions which may be of use to someone. The function `CHAR4`, to find the characteristic equation of a 4×4 matrix, uses Bocher’s formulas which is a good illustration of APL’s ease of programming. It is easy to adapt for any order of matrix.
 
 ```
 [0]     RES←CHAR4 A;B;C;D;A1;A2;A3;A4;S1;S2;S3;S4

@@ -28,6 +28,6 @@ A development build of the recovered *Vector* archive: every issue’s contents,
 
 - **Review**: every transcription is a draft until a reviewer checks it against the scan; see the [review checklist](https://github.com/5jt/vector-rescue/blob/main/plans/pdf-review-checklist.md).
 - **Missing sources**: no scan has been found of 2:2, and the copies of 3:4, 7:4 and 16:4 are damaged ([help find them](https://github.com/5jt/vector-rescue/issues/62)).
-- **A Second Pass**, if resources allow: transcribe what the First Pass only links to the PDF.
+- **A Second Pass**, now begun: transcribe what the First Pass only links to the PDF. Its first step, the pieces printed inside a listed section but missing from the editors’ index and left out by the First Pass (letters, reports, columns), is done for those the First Pass noted: 26 more, in Volumes 7–19, each now on its issue’s line in the full index.
 
 The quality of each article’s text is shown in the [full index](../full-index/).
