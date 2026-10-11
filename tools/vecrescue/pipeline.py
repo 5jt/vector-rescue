@@ -12,7 +12,7 @@ from .convert import convert
 from .inventory import (article_source, correct_from_contents, merge_wayback, php_index, php_renderings,
                         read_index, read_issues)
 from .legacy import decode, mapped_apl, read_codingprobs
-from .pages import (_catalogue, damaged_issue_pdfs, issue_pdfs, mark_issue_tabs, nav_toml, publish_unindexed,
+from .pages import (_catalogue, apply_article_tags, damaged_issue_pdfs, issue_pdfs, mark_issue_tabs, nav_toml, publish_unindexed,
                     read_contents, wayback_issue_pdfs, write_home_page, write_index_page, write_tags_page,
                     write_volume_pages)
 from . import stubs
@@ -238,6 +238,9 @@ def run_site(src, out, config, wayback=None, corrections=None, transcriptions=No
         shutil.copyfile(status, docs / "status" / "index.md")
     mark_issue_tabs(inventory, issues, docs)
     if transcriptions:
+        untagged = apply_article_tags(Path(transcriptions) / "article-tags.yaml", docs)
+        if untagged:
+            print("Warning: article-tags.yaml names articles with no page:", ", ".join(untagged))
         write_tags_page(Path(transcriptions) / "tags.yaml", docs)
     toml = config.read_text(encoding="utf-8")
     toml = re.sub(r"^nav = \[.*?\]$", lambda _: nav_toml(inventory, issues), toml, count=1, flags=re.M)

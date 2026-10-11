@@ -12,6 +12,12 @@ Expected next steps (updated 2026-10-11).
 - [ ] Phase 3: review checklists (`plans/pdf-review-checklist*.md`), ordered by interest; little-code articles need only their queries checked.
 - [ ] Report: list OCR words missing from each transcription (planned, not yet built).
 
+## Tags
+
+- [x] Volumes 22–26 tagged (#261): `transcriptions/article-tags.yaml`, applied by the build to the converted pages.
+- [ ] Tag the articles of Volumes 10–21 converted from the online text (they have no transcription; add them to `article-tags.yaml`).
+- [ ] Consider extending the vocabulary (drawn from Volumes 1–4). Subjects that recur from Volume 22 on: object orientation; K/q and other array languages; .NET and the web; testing and tools; history and obituaries.
+
 ## Index corrections
 
 - [ ] Correct `index.xml` records from the scanned Contents pages (authoritative; decided by Stephen Taylor 2026-10-10: correct without review, log every correction). Discrepancies are noted on the Contents lines in `transcriptions/contents/`.
