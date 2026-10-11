@@ -458,3 +458,11 @@ def test_byline_is_lifted_under_the_title(tmp_path):
     other.parent.mkdir()
     other.write_text('<h1 id="__skip">T</h1>\n<h2>Letters</h2>\n<p class="byline">from B</p>')
     assert lift_bylines(tmp_path) == 0   # a byline under a later heading stays put
+
+
+def test_fix_comments_touches_only_comments():
+    from vecrescue.legacy import fix_comments
+    assert fix_comments("<!------- note ------->x") == "<!-- note -->x"
+    assert fix_comments("⍝  <-----3-----> <--2-->") == "⍝  <-----3-----> <--2-->"   # #283
+    assert fix_comments("a<!-->b<!----------->c") == "a<!---->b<!---->c"
+    assert fix_comments("<!-- open") == "<!-- open"

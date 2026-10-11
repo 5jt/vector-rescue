@@ -10,7 +10,7 @@ title: Comparison with the archive
 
 - **Coverage.** The archive shows text for 630 of the 1,499 records in its index; this site has text for 1,430 of its 1,503. The archive’s own full index links only 661 articles; the other 838 records have an empty page there. This site gives every record a page, and lists everything on every issue’s Contents page (2,553 items), not only what the editors indexed.
 - **Where both have text** (620 articles), the words agree exactly in 460. Most of the rest are APL characters: in 89 articles the archive shows the bytes of a pre-Unicode APL font (`©` for `⍝`, `„` for `←`), where this site shows the APL.
-- **The archive is better** in only one respect found: one line of code in one article, which our converter damaged (below).
+- **The archive is better** in no respect now found: the one line of code our converter had damaged is mended (below).
 - **Scans.** The archive offers the PDFs of 12 issues (21:4, 23:4, the Dyalog at 25 supplement and Volumes 24–26) and 24 articles’ own PDFs. This site links a scan of 97 issues (all but 2:2, of which no copy has been found, and 3:4, 7:4 and 16:4, whose only copies are damaged) and the same 24 article PDFs, each Contents line to its page.
 
 ## The index
@@ -69,7 +69,7 @@ The 620 articles converted from the same web pages were compared word for word w
 
 **Web addresses.** Links that *Vector* printed to `archive.vector.org.uk` appear at the archive rewritten to `britishaplassociation.co.uk`; this site keeps them as published, and serves the old `/art<ID>` addresses itself.
 
-**Where the archive is right and this site wrong.** One line of code in the report of the [San Quirico Moot](../art10011760/) (23:3): the source has `⍝  <-----3----->`, the archive shows it so, and our converter has dropped three hyphens ([#283](https://github.com/5jt/vector-rescue/issues/283)).
+**Where the archive was right and this site wrong.** One line of code in the report of the [San Quirico Moot](../art10011760/) (23:3): the source has `⍝  <-----3----->`, the archive shows it so, and our converter dropped three hyphens, taking them for the end of an HTML comment. Mended ([#283](https://github.com/5jt/vector-rescue/issues/283)).
 
 ## Other differences
 
