@@ -181,3 +181,21 @@ def test_stub_pages_are_counted_not_checked(tmp_path):
     md = (out / "report.md").read_text()
     assert "## Articles with no source" in md and "1 indexed articles have no page" in md
     assert "## Pages without text" in md and "and 1 transcribed from the printed issue (draft 1)." in md
+
+
+def test_ocr_missing_counts_vocabulary_words_the_transcription_lacks(tmp_path, monkeypatch):
+    import subprocess as sp
+    from vecrescue import report
+    tr = tmp_path / "transcriptions"
+    tr.mkdir()
+    fm = "---\ntranscribed: 'from page images of X.pdf, pages 3–4 (printed 1–2); Claude'\n---\n"
+    (tr / "art1.md").write_text(fm + "the quick brown foxes jumped")
+    for i in (2, 3, 4):   # the vocabulary: words in at least three articles
+        (tr / f"art{i}.md").write_text("---\ntitle: t\n---\nquick brown foxes jumped lazily")
+    pdfdir = tmp_path / "pdfs"
+    pdfdir.mkdir()
+    (pdfdir / "X.pdf").write_bytes(b"%PDF")
+    monkeypatch.setattr(report.subprocess, "run",
+                        lambda *a, **k: sp.CompletedProcess(a, 0, stdout="Quick brown foxes jumped lazily. Zqxwv"))
+    out = report.ocr_missing(tr, tmp_path / "docs", (pdfdir,))
+    assert out["1"] == {"ocr_words": 5, "missing": 1, "words": ["lazily"]}   # not the OCR garble zqxwv
