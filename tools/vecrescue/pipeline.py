@@ -248,7 +248,7 @@ def run_site(src, out, config, wayback=None, corrections=None, transcriptions=No
         write_tags_page(Path(transcriptions) / "tags.yaml", docs)
     toml = config.read_text(encoding="utf-8")
     toml = re.sub(r"^nav = \[.*?\]$", lambda _: nav_toml(inventory, issues), toml, count=1, flags=re.M)
-    toml = re.sub(r'"(assets/[^"?]+\.css)"', lambda m: f'"{m[1]}?v={_digest(config.parent / m[1])}"', toml)
+    toml = re.sub(r'"(assets/[^"?]+\.(?:css|js))"', lambda m: f'"{m[1]}?v={_digest(config.parent / m[1])}"', toml)
     (out / "zensical.toml").write_text(toml, encoding="utf-8")
     shutil.rmtree(out / "overrides", ignore_errors=True)
     shutil.copytree(config.parent / "overrides", out / "overrides")
