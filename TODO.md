@@ -15,7 +15,8 @@ Expected next steps (updated 2026-10-11).
 ## Second Pass (decided 2026-10-11, #44: unindexed pieces are worth indexing and republishing)
 
 - [x] Pieces left out by the First Pass and noted in its queries: 26 transcribed into `transcriptions/unindexed/` and put on their issues' Contents files; three earlier pieces linked (#297).
-- [ ] Sweep Volumes 5–21 for further unindexed pieces inside listed sections (no query mentions them).
+- [x] Swept Volumes 5–21 for further unindexed pieces (#299): 226 added to the Contents files, linked to the scan, not yet transcribed. 74 finds left out (section editorials, which are their Contents line's own text; pieces already inside a held transcription; house notices, captions, parts of reports): listed in #299. Not swept: 7:4, 16:4 and 21:4 (damaged scans; 21:4 was transcribed from another copy).
+- [ ] Transcribe the 226 pieces found by the sweep (Contents lines with a `note:` "not on the Contents page" and neither `vid` nor `file`).
 - [ ] Contents lines with neither text nor transcription, e.g. 11:2 “Duncan Pearson's DDE and DLL Workshop” (p.48): the rest of the Second Pass.
 
 ## Tags
