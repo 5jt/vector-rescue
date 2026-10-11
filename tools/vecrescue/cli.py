@@ -119,7 +119,8 @@ def main(argv=None):
             print("site:", pipeline.run_site(a.src, a.out, a.config, a.wayback if a.wayback.is_dir() else None, corrections,
                                               a.transcriptions if a.transcriptions.is_dir() else None, php))
         elif step == "report":
-            t = run_report(a.src, a.out, corrections)["totals"]
+            t = run_report(a.src, a.out, corrections, a.transcriptions if a.transcriptions.is_dir() else None,
+                           (a.wayback, a.src / "issues"))["totals"]
             print(f"report: {a.out / 'report.md'}: {t['articles']} articles, "
                   f"{t['text_differing_words']} differing words, "
                   f"{t['code_mismatched']} code blocks mismatched, "

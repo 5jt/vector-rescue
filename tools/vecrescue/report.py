@@ -9,10 +9,12 @@ import copy
 import difflib
 import json
 import re
+import subprocess
 from collections import Counter
 from pathlib import Path
 
 import lxml.html
+import yaml
 
 from .head import extract_head
 from .convert import load_source
@@ -174,7 +176,7 @@ def _add(total, part):
         total[k] = total.get(k, 0) + v
 
 
-def run_report(src, out, corrections=None):
+def run_report(src, out, corrections=None, transcriptions=None, pdf_roots=()):
     src, out = Path(src), Path(out)
     inventory = json.loads((out / "inventory.json").read_text(encoding="utf-8"))
     notes = json.loads((out / "notes.json").read_text(encoding="utf-8"))
@@ -240,10 +242,52 @@ def run_report(src, out, corrections=None):
     report = {"totals": totals, "previous": previous, "articles": articles, "skipped": skipped,
               "stubs": stubs, "titles": {r["id"]: r["title"] for r in inventory if r.get("id") in stubs},
               "stale": {k: v for k, v in stale.items() if v},
-              "index_corrections": _load(out / "index-corrections.json", [])}
+              "index_corrections": _load(out / "index-corrections.json", []),
+              "ocr_missing": ocr_missing(transcriptions, out / "docs", pdf_roots) if transcriptions else {}}
     path.write_text(json.dumps(report, indent=1, ensure_ascii=False), encoding="utf-8")
     (out / "report.md").write_text(render_markdown(report), encoding="utf-8")
     return report
+
+
+# OCR words missing from transcriptions (plans/pdf-conversion.md) -------------
+
+OCR_WORD = re.compile(r"[a-z]{5,}")
+OCR_RANGE = re.compile(r"images of ([\w.\-]+\.pdf)(?: \([^)]*\))?, pages? (\d+)(?:–(\d+))?")
+
+
+def ocr_missing(transcriptions, docs, pdf_roots):
+    """For each transcription made from page images, the words of five or
+    more letters in the OCR text of its pages that its text lacks: a sign of
+    an omitted passage, or of pages shared with another article. Only words
+    that occur in at least three of the archive's articles are counted, to
+    leave out the OCR's own misreadings. {vid: {ocr_words, missing, words}}."""
+    pdfs = {}
+    for root in pdf_roots:
+        for path in sorted(Path(root).rglob("*.pdf")) if Path(root).is_dir() else []:
+            pdfs.setdefault(path.name, path)
+    vocab, texts = Counter(), {}
+    for path in sorted(Path(transcriptions).glob("art*.md")):
+        head, body = path.read_text(encoding="utf-8").split("---", 2)[1:]
+        texts[path.stem[3:]] = (yaml.safe_load(head) or {}, body)
+        vocab.update(set(OCR_WORD.findall(body.lower())))
+    for path in Path(docs).glob("art*/index.md"):
+        if path.parent.name[3:] not in texts:
+            vocab.update(set(OCR_WORD.findall(path.read_text(encoding="utf-8").lower())))
+    out = {}
+    for vid, (fm, body) in texts.items():
+        m = OCR_RANGE.search(str(fm.get("transcribed") or ""))
+        if not m or m.group(1) not in pdfs:
+            continue
+        first = int(m.group(2))
+        last = int(m.group(3) or first)
+        ocr = subprocess.run(["pdftotext", "-f", str(first), "-l", str(last), str(pdfs[m.group(1)]), "-"],
+                             capture_output=True, text=True).stdout.lower().replace("-\n", "")
+        have = set(OCR_WORD.findall(re.sub(r"\\[a-z]+", " ", body.lower())))
+        words = Counter(w for w in OCR_WORD.findall(ocr) if vocab[w] >= 3)
+        missing = Counter({w: n for w, n in words.items() if w not in have})
+        out[vid] = {"ocr_words": sum(words.values()), "missing": sum(missing.values()),
+                    "words": [w for w, _ in missing.most_common(15)]}
+    return out
 
 
 # Markdown rendering ----------------------------------------------------------
@@ -359,6 +403,18 @@ def render_markdown(report):
             lines.append(f"- art{vid}: {a['title']} ({a['code']['mismatched']})")
         lines.append("")
     lines += index_corrections_md(report.get("index_corrections") or [])
+    om = {k: v for k, v in (report.get("ocr_missing") or {}).items()
+          if v["missing"] >= 10 and v["missing"] >= 0.1 * v["ocr_words"]}
+    if om:
+        lines += ["## OCR words missing from transcriptions", "",
+                  "Words of the scan's OCR text (of the pages named in each transcription) that the transcription "
+                  "lacks, where they are at least 10 and a tenth of the OCR's words. A high share may mean an "
+                  "omitted passage, or pages shared with a neighbouring article.", "",
+                  "| Article | OCR words | Missing | Commonest missing |", "| --- | ---: | ---: | --- |"]
+        for vid, v in sorted(om.items(), key=lambda kv: -kv[1]["missing"] / max(1, kv[1]["ocr_words"])):
+            lines.append(f"| art{vid} | {v['ocr_words']} | {v['missing']} ({100 * v['missing'] // max(1, v['ocr_words'])}%) | "
+                         + ", ".join(v["words"][:10]) + " |")
+        lines.append("")
     return "\n".join(lines)
 
 

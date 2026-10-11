@@ -10,7 +10,8 @@ Expected next steps (updated 2026-10-11).
 - [x] Sullivan (10009460): query on Series/Sequence in place.
 - [ ] Add unindexed pieces found along the way to `transcriptions/unindexed/` and to #44.
 - [ ] Phase 3: review checklists (`plans/pdf-review-checklist*.md`), ordered by interest; little-code articles need only their queries checked.
-- [ ] Report: list OCR words missing from each transcription (planned, not yet built).
+- [x] Report: OCR words missing from each transcription (build/report.md, last section); 63 flagged.
+- [ ] Triage the 63 flagged: genuine omissions to transcribe, page ranges shared with neighbours to note.
 
 ## Tags
 
