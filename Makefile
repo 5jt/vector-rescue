@@ -1,9 +1,24 @@
 .PHONY: all build inventory convert site report review test clean publish fetch-wayback fetch-php
 
 RUN = uv run vecrescue
+MATHJAX = vendor/mathjax-3.2.2
+MATHJAX_SHA1 = c754d7b46a679d7f3fa03543d6b8bf124ddf9f6b
 
-all build:
+all build: $(MATHJAX)
 	$(RUN) all
+
+# MathJax, served from the site (#285): fetched once, checked against the npm
+# registry's SHA-1, and only the parts the SVG output loads are kept.
+$(MATHJAX):
+	mkdir -p vendor && curl -sSL -o vendor/mathjax.tgz https://registry.npmjs.org/mathjax/-/mathjax-3.2.2.tgz
+	echo "$(MATHJAX_SHA1)  vendor/mathjax.tgz" | shasum -c -
+	rm -rf vendor/package && tar xzf vendor/mathjax.tgz -C vendor
+	mkdir -p $@/input/tex
+	cp vendor/package/es5/tex-svg.js $@/
+	cp -R vendor/package/es5/input/tex/extensions $@/input/tex/
+	cp -R vendor/package/es5/a11y vendor/package/es5/ui vendor/package/es5/sre $@/
+	cp vendor/package/LICENSE $@/
+	rm -rf vendor/package vendor/mathjax.tgz
 
 inventory convert site report:
 	$(RUN) $@

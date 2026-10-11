@@ -12,7 +12,7 @@ from .convert import convert
 from .inventory import (article_source, correct_from_contents, merge_wayback, php_index, php_renderings,
                         read_index, read_issues)
 from .legacy import decode, mapped_apl, read_codingprobs
-from .pages import (_catalogue, apply_article_tags, damaged_issue_pdfs, issue_pdfs, mark_issue_tabs, nav_toml, publish_unindexed,
+from .pages import (_catalogue, apply_article_tags, lift_bylines, damaged_issue_pdfs, issue_pdfs, mark_issue_tabs, nav_toml, publish_unindexed,
                     read_contents, wayback_issue_pdfs, write_home_page, write_index_page, write_tags_page,
                     write_volume_pages)
 from . import stubs
@@ -248,11 +248,18 @@ def run_site(src, out, config, wayback=None, corrections=None, transcriptions=No
         write_tags_page(Path(transcriptions) / "tags.yaml", docs)
     toml = config.read_text(encoding="utf-8")
     toml = re.sub(r"^nav = \[.*?\]$", lambda _: nav_toml(inventory, issues), toml, count=1, flags=re.M)
-    toml = re.sub(r'"(assets/[^"?]+\.(?:css|js))"', lambda m: f'"{m[1]}?v={_digest(config.parent / m[1])}"', toml)
+    toml = re.sub(r'"(assets/[^"?]+\.(?:css|js))"',  # versioned by content; vendored files by their path
+                  lambda m: f'"{m[1]}?v={_digest(config.parent / m[1])}"' if (config.parent / m[1]).is_file() else m[0], toml)
     (out / "zensical.toml").write_text(toml, encoding="utf-8")
     shutil.rmtree(out / "overrides", ignore_errors=True)
     shutil.copytree(config.parent / "overrides", out / "overrides")
     shutil.copytree(config.parent / "assets", docs / "assets", dirs_exist_ok=True)  # incl. fonts
+    mathjax = config.parent.parent / "vendor" / "mathjax-3.2.2"  # fetched by make (#285)
+    if mathjax.is_dir():
+        shutil.copytree(mathjax, docs / "assets" / mathjax.name, dirs_exist_ok=True)
+    else:
+        print(f"Warning: {mathjax} not found: run make; the site's mathematics will not be typeset")
     zensical = Path(sys.executable).with_name("zensical")
     subprocess.run([str(zensical), "build"], cwd=out, check=True)
+    lift_bylines(out / "site")
     return out / "site"

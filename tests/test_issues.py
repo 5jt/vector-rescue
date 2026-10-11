@@ -442,3 +442,19 @@ def test_a_duplicate_record_redirects_and_leaves_one_row(tmp_path):
     assert "redirect: ../art1/" in text and "](../art1/)" in text
     rows = issue_rows(docs, {"items": [{"title": "A", "page": 9, "vid": ["1", "2"]}]}, records)
     assert [(r["title"], r.get("href")) for r in rows] == [("A", "art1/")]
+
+
+def test_byline_is_lifted_under_the_title(tmp_path):
+    from vecrescue.pages import lift_bylines
+    page = tmp_path / "art1" / "index.html"
+    page.parent.mkdir()
+    page.write_text('<h1 id="__skip">T</h1>\n<p class="printed">Vector 1:1</p>\n<div class="transcribed-text">'
+                    '<p class="transcribed">note</p>\n<p class="byline"><em>by A</em></p>\n<p>Text</p></div>')
+    assert lift_bylines(tmp_path) == 1
+    html = page.read_text()
+    assert html.startswith('<h1 id="__skip">T</h1>\n<p class="byline transcribed-text"><em>by A</em></p>\n<p class="printed">')
+    assert html.count("byline") == 1
+    other = tmp_path / "art2" / "index.html"
+    other.parent.mkdir()
+    other.write_text('<h1 id="__skip">T</h1>\n<h2>Letters</h2>\n<p class="byline">from B</p>')
+    assert lift_bylines(tmp_path) == 0   # a byline under a later heading stays put
