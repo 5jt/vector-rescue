@@ -13,6 +13,7 @@ tags:
 - applications
 - APL community
 queries:
+- "Following the project rule for individuals’ contact details, the contact details printed for JAD Software (David Crossley) are omitted: each is one person trading under a firm’s name at a private address; other companies’ addresses are kept."
 - "Printed heading “APL Product Guide - Updates”, byline “compiled by Gill Smith”; printed 34 has a second heading, “Product Guide - Updates and Vendor Addresses”. Only the updates are printed: APL Packages, APL Consultancy, Changed or New Addresses, and the full Vendor Addresses list. The foot of printed 37 carries a boxed BAA house notice, “Vector Back Numbers”, not transcribed."
 - "Tables follow the printed columns; where a row continues the previous company, the Company cell is left blank. Names printed over two lines (“APL Interest Group, South Africa”, “Association Francophone pour / la promotion d’APL”, “APL Bay Area Users Group / APLBUG”) are joined in one cell."
 - "Following the project rule for individuals’ contact details, the street addresses, telephone numbers and personal e-mail or CompuServe addresses of Dr Anne D Wilson (Andrews, her own consultancy), Anthony Camacho (also under I-APL Ltd), Ray Cannon, Paul Chapman, David Crossley, Michael Hughes, Ellis Morgan, Rex Swain, Ian A. Clark (IAC/Human Interfaces) and Peter Cyriax (Peter Cyriax Systems), and of the user-group contacts Lewis H. Robinson (APLBUG), Dieter Lattermann (APL Club Germany), Joseph de Kerf (BACUS), Larry Mysz (Chicago SIG), Per Gjerlof (Danish User Group) and John Manges (SE APL Users Group), are omitted; so are the telephone and fax numbers of Mike Montgomery (APL Interest Group, South Africa) and the telephone numbers of Stuart Yarus (SWAPL, with his CompuServe number), Gian Medri (SwedAPL), Rob Hodgkinson (Sydney APLUG) and Marc Griffiths (Toronto SIG), whose groups’ postal boxes are kept. Companies’, firms’ and institutions’ addresses, telephone numbers and e-mail addresses are kept, as in the full guide of Vector 11:1."
@@ -133,7 +134,7 @@ Mike Montgomery has asked us to include his address details as a focus for APL i
 | Interprocess Systems Inc. | Stella Chamberlain | 11660 Alpharetta Highway, Suite 455, Roswell, Georgia 30076, USA<br>Tel: (404) 410-1700. Fax: (404) 410-1773 Cserve: 70373,2676 |
 | Intelligent Programs Ltd | Mike Bucknall | 9 Gun Wharf, 130 Wapping High St, London E1 9NH Tel: 071-265-1120 |
 | Iverson Software Inc. | Eric Iverson | 33 Major Street, Toronto, Ontario, Canada M5S 2K9 Tel:(416) 925-6096<br>Fax: (416) 488-7559 |
-| JAD Software | David Crossley | 580 Eyer Drive, #81 Pickering, Ontario, Canada L1W 3B7<br>Tel: (905) 837-1895 Fax:(905) 831-5172 |
+| JAD Software | David Crossley | [address and telephone number omitted] |
 | Japan APL Association | | 23-2-302 Hiromichi, Adachi-ku, Tokyo 120, Japan |
 | Kestrel Consulting | Mark Harris | Business & Technology Centre, Bessemer Drive, Stevenage, Herts SG1 2DX Tel:0438-310155 Fax:0438-310131 |
 | Lingo Allegro USA Inc. | Walter G. Fil | 318 Half Day Road, Suite 297, Buffalo Grove, IL 60089 USA<br>Tel: (312) 203-4926 Fax: (708) 459-8501 Cserve: 71303,3224 |

@@ -729,3 +729,59 @@ They are set aside here, unpublished, for editorial review.
 | [v13n4-p17-news-from-sustaining-members.md](v13n4-p17-news-from-sustaining-members.md) | 13:4 | 17–20 | News from Sustaining Members | Gill Smith | Contents line (#305) |
 | [v13n4-p21-the-education-vector.md](v13n4-p21-the-education-vector.md) | 13:4 | 21–22 | The Education Vector | Ian Clark | Contents line (#305) |
 | [v13n4-p37-apl-product-guide.md](v13n4-p37-apl-product-guide.md) | 13:4 | 37–50 | APL Product Guide: Fully Revised | Gill Smith | Contents line (#305) |
+| [v14n1-p5-quick-reference-diary.md](v14n1-p5-quick-reference-diary.md) | 14:1 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v14n1-p7-optimizing-the-antecedent-precipitation-index.md](v14n1-p7-optimizing-the-antecedent-precipitation-index.md) | 14:1 | 7 | Optimizing the Antecedent Precipitation Index | Norman Thomson | Contents line (#305) |
+| [v14n1-p11-british-apl-association-news.md](v14n1-p11-british-apl-association-news.md) | 14:1 | 11–12 | British APL Association News | — | Contents line (#305) |
+| [v14n1-p12-agm-and-annual-accounts.md](v14n1-p12-agm-and-annual-accounts.md) | 14:1 | 12–14 | AGM and Annual Accounts | Sylvia Camacho, Nicholas Small | Contents line (#305) |
+| [v14n1-p15-news-from-sustaining-members.md](v14n1-p15-news-from-sustaining-members.md) | 14:1 | 15–17 | News from Sustaining Members | Gill Smith | Contents line (#305) |
+| [v14n1-p19-apl-product-guide.md](v14n1-p19-apl-product-guide.md) | 14:1 | 19–32 | APL Product Guide | Gill Smith | Contents line (#305) |
+| [v14n2-p5-quick-reference-diary.md](v14n2-p5-quick-reference-diary.md) | 14:2 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v14n2-p7-apl98-conference-information.md](v14n2-p7-apl98-conference-information.md) | 14:2 | 7–10 | APL98 - Conference Information | — | Contents line (#305) |
+| [v14n2-p19-apl-product-guide.md](v14n2-p19-apl-product-guide.md) | 14:2 | 19–32 | APL Product Guide | Gill Smith | Contents line (#305) |
+| [v14n3-p7-quick-reference-diary.md](v14n3-p7-quick-reference-diary.md) | 14:3 | 7 | Quick Reference Diary | — | Contents line (#305) |
+| [v14n3-p9-apl99-call-for-participation.md](v14n3-p9-apl99-call-for-participation.md) | 14:3 | 9–10 | APL99 — Call for Participation | — | Contents line (#305) |
+| [v14n3-p13-news-from-sustaining-members.md](v14n3-p13-news-from-sustaining-members.md) | 14:3 | 13–15 | News from Sustaining Members | — | Contents line (#305) |
+| [v14n3-p16-apl-product-guide.md](v14n3-p16-apl-product-guide.md) | 14:3 | 16–29 | APL Product Guide | Gill Smith | Contents line (#305) |
+| [v14n4-p7-quick-reference-diary.md](v14n4-p7-quick-reference-diary.md) | 14:4 | 7 | Quick Reference Diary | — | Contents line (#305) |
+| [v14n4-p17-news-from-sustaining-members.md](v14n4-p17-news-from-sustaining-members.md) | 14:4 | 17–18 | News from Sustaining Members | — | Contents line (#305) |
+| [v14n4-p19-apl-product-guide.md](v14n4-p19-apl-product-guide.md) | 14:4 | 19–32 | APL Product Guide | Gill Smith | Contents line (#305) |
+| [v15n1-p5-quick-reference-diary.md](v15n1-p5-quick-reference-diary.md) | 15:1 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v15n1-p22-apl-product-guide.md](v15n1-p22-apl-product-guide.md) | 15:1 | 22–35 | APL Product Guide | Gill Smith | Contents line (#305) |
+| [v15n2-p5-quick-reference-diary.md](v15n2-p5-quick-reference-diary.md) | 15:2 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v15n2-p12-apl-product-guide.md](v15n2-p12-apl-product-guide.md) | 15:2 | 12–25 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v15n3-p5-quick-reference-diary.md](v15n3-p5-quick-reference-diary.md) | 15:3 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v15n3-p8-apl-product-guide.md](v15n3-p8-apl-product-guide.md) | 15:3 | 8–21 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v15n4-p5-quick-reference-diary.md](v15n4-p5-quick-reference-diary.md) | 15:4 | 5–6 | Quick Reference Diary | — | Contents line (#305) |
+| [v15n4-p7-nested-array-idiom-library.md](v15n4-p7-nested-array-idiom-library.md) | 15:4 | 7 | Vector’s APL Nested Arrays Idiom Library | Ajay Askoolum | Contents line (#305) |
+| [v15n4-p9-news-from-sustaining-members.md](v15n4-p9-news-from-sustaining-members.md) | 15:4 | 9–10 | News from Sustaining Members | — | Contents line (#305) |
+| [v15n4-p11-apl-product-guide.md](v15n4-p11-apl-product-guide.md) | 15:4 | 11–24 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v15n4-p41-crossword-solution-and-crossword.md](v15n4-p41-crossword-solution-and-crossword.md) | 15:4 | 41–43 | Solution to Crossword from Vector 15.3 and Crossword | — | Contents line (#305) |
+| [v16n1-p5-quick-reference-diary.md](v16n1-p5-quick-reference-diary.md) | 16:1 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v16n1-p12-british-apl-association-news.md](v16n1-p12-british-apl-association-news.md) | 16:1 | 14 | British APL Association News | — | Contents line (#305) |
+| [v16n1-p25-apl-product-guide.md](v16n1-p25-apl-product-guide.md) | 16:1 | 25–38 | APL Product Guide | Gill Smith | Contents line (#305) |
+| [v16n1-p39-microsoft-announce-new-apl.md](v16n1-p39-microsoft-announce-new-apl.md) | 16:1 | 39–41 | Microsoft Announce New APL | — | Contents line (#305) |
+| [v16n1-p42-zark-newsletter-extracts.md](v16n1-p42-zark-newsletter-extracts.md) | 16:1 | 42–51 | Zark Newsletter Extracts | Jon Sandles | Contents line (#305) |
+| [v16n1-p95-windows-bmp-files-and-j.md](v16n1-p95-windows-bmp-files-and-j.md) | 16:1 | 95–106 | Windows BMP Files and J | Brook Anthony Schofield | Contents line (#305) |
+| [v16n2-p5-quick-reference-diary.md](v16n2-p5-quick-reference-diary.md) | 16:2 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v16n2-p13-british-apl-association-news.md](v16n2-p13-british-apl-association-news.md) | 16:2 | 13 | British APL Association News | — | Contents line (#305) |
+| [v16n2-p19-apl-product-guide.md](v16n2-p19-apl-product-guide.md) | 16:2 | 19–32 | APL Product Guide | Gill Smith | Contents line (#305) |
+| [v16n2-p33-zark-newsletter-extracts.md](v16n2-p33-zark-newsletter-extracts.md) | 16:2 | 33–37 | Zark Newsletter Extracts | Jon Sandles | Contents line (#305) |
+| [v16n3-p5-quick-reference-diary.md](v16n3-p5-quick-reference-diary.md) | 16:3 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v16n3-p12-apl-product-guide.md](v16n3-p12-apl-product-guide.md) | 16:3 | 12–26 | APL Product Guide | Gill Smith | Contents line (#305) |
+| [v16n3-p27-zark-newsletter-extracts.md](v16n3-p27-zark-newsletter-extracts.md) | 16:3 | 27–36 | Zark Newsletter Extracts | Jon Sandles | Contents line (#305) |
+| [v17n1-p5-quick-reference-diary.md](v17n1-p5-quick-reference-diary.md) | 17:1 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v17n1-p16-apl-product-guide.md](v17n1-p16-apl-product-guide.md) | 17:1 | 16–29 | APL Product Guide | Gill Smith | Contents line (#305) |
+| [v17n1-p30-zark-newsletter-extracts.md](v17n1-p30-zark-newsletter-extracts.md) | 17:1 | 30–31 | Zark Newsletter Extracts | Jon Sandles | Contents line (#305) |
+| [v17n1-p32-crossword.md](v17n1-p32-crossword.md) | 17:1 | 32–34 | Crossword | — | Contents line (#305) |
+| [v17n1-p106-technical-correspondence.md](v17n1-p106-technical-correspondence.md) | 17:1 | 106–109 | Technical Correspondence: Vector Jan 2000: Utility Corner (pp. 27-35) | H.J. Veenendaal | Contents line (#305) |
+| [v17n2-p5-quick-reference-diary.md](v17n2-p5-quick-reference-diary.md) | 17:2 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v17n2-p10-apl-product-guide.md](v17n2-p10-apl-product-guide.md) | 17:2 | 10–24 | APL Product Guide | Gill Smith | Contents line (#305) |
+| [v17n2-p32-crossword.md](v17n2-p32-crossword.md) | 17:2 | 32–34 | Crossword | — | Contents line (#305) |
+| [v17n3-p5-quick-reference-diary.md](v17n3-p5-quick-reference-diary.md) | 17:3 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v17n3-p6-notice-of-annual-general-meeting.md](v17n3-p6-notice-of-annual-general-meeting.md) | 17:3 | 6–7 | Notice of Annual General Meeting | — | Contents line (#305) |
+| [v17n3-p12-apl-product-guide.md](v17n3-p12-apl-product-guide.md) | 17:3 | 12–26 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v17n3-p37-crossword.md](v17n3-p37-crossword.md) | 17:3 | 37–39 | Crossword | — | Contents line (#305) |
+| [v17n4-p7-apl2001-information-and-abstracts.md](v17n4-p7-apl2001-information-and-abstracts.md) | 17:4 | 7–8 | APL2001: Information and Abstracts | — | Contents line (#305) |
+| [v17n4-p11-apl-product-guide.md](v17n4-p11-apl-product-guide.md) | 17:4 | 11–25 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v17n4-p26-zark-newsletter-extracts.md](v17n4-p26-zark-newsletter-extracts.md) | 17:4 | 26–27 | Zark Newsletter Extracts: Limbering Up: Combinations | Jon Sandles | Contents line (#305) |
+| [v17n4-p28-crossword.md](v17n4-p28-crossword.md) | 17:4 | 28–30 | Solution and New Crossword | — | Contents line (#305) |

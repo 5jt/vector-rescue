@@ -13,6 +13,7 @@ tags:
 - applications
 - APL community
 queries:
+- "Following the project rule for individuals’ contact details, the contact details printed for Andrews (Dr Anne D Wilson), JAD Software (David Crossley), J Austria (Joachim Hoffmann) are omitted: each is one person trading under a firm’s name at a private address; other companies’ addresses are kept."
 - "Printed byline “compiled by Gill Smith”. The guide runs to printed 51, ending with the World Wide Web and FTP sites; printed 52 begins the PRODUCT REVIEWS section. The address list is headed “ADDRESSES” (“ORGANISATION / CONTACT”) where the introduction and Vector 13:1 have “Vendor Addresses”."
 - "This guide repeats most of that of Vector 13:1 (unindexed/v13n1-p33-apl-product-guide.md), with the updates of Vector 13:2 and new entries (among them Iverson Software’s J price list, J Austria’s distributorships, Uniware’s products, RE Time Tracker’s packages, Phil Last, Shepp & Associates and RusAPL); every row was checked against the page images of this issue."
 - "Tables follow the printed columns. Where a row continues the previous company, the Company cell is left blank; sub-labels printed in the Company column, such as “(mainframe)”, “(microcomputer)”, “(for VSAPL)” and “(for APL2)”, are kept in that cell. Organisation names printed over two lines are joined in one cell. Stacked prices and details (Peter Cyriax’s rates) are joined with line breaks in one cell; under APL Software the stacked “Run-time / poa” and “Dyalog APL / 1000-10,000” are given as two rows; Iverson Software’s indented price list (“J on the Web online registration ...”, “Books and accessories (discounts for reg users)”) is given row by row."
@@ -375,7 +376,7 @@ All contributions and updates to the APL Product Guide should be sent to Gill Sm
 | Adaptable Systems | Lois & Richard Hill | 49 First Street, Black Rock 3193, Australia.<br>Tel: +61 3 9589 5578 Fax: +61 3 9589 3220 Email: adsys@ibm.net |
 | Adaytum Software | Douglas Rowley | 13 Great George Street, BRISTOL BS1 5RR UK Tel: 0117-921 5555 |
 | Adfee | Bernard Smoor | Dorpsstraat 50, 4128 BZ Lexmond, Netherlands.<br>Tel +31 347 342 337 Fax: +31 347 342 342 Email: adfee@concepts.nl |
-| Andrews | Dr Anne D Wilson | 23, The Green, Acomb, YORK YO2 5LL, UK Tel: 01904-792670 |
+| Andrews | Dr Anne D Wilson | [address and telephone number omitted] |
 | APL-385 | Adrian Smith | Brook House, Gilling East, York YO6 4JJ UK. Tel: 01439-788385<br>Fax: 01439-788194 Email: 100331.644@compuserve.com |
 | APL Bay Area APLBUG | Lewis H. Robinson (Sec) | [address, telephone number and e-mail address omitted] |
 | APL Club Austria | Harald F. Nelson | c/o N-TECH, Siebenbrunnenfeldg. 4-6, A-1050 Wien, Austria.<br>Tel: +43 1 5458063 Fax: +43 1 5458063-17 |
@@ -427,8 +428,8 @@ All contributions and updates to the APL Product Guide should be sent to Gill Sm
 | Intelligent Programs Ltd | Mike Bucknall | 9 Gun Wharf, 130 Wapping High St, London E1 9NH Tel: 0171-265 1120 |
 | Interprocess Systems Inc. | Stella Chamberlain | 11660 Alpharetta Highway, Suite 455, Roswell, Georgia 30076, USA<br>Tel: +1 (404) 410-1700. Fax: +1 (404) 410-1773 Cserve: 70373,2676 |
 | Iverson Software Inc. | Eric Iverson | 33 Major Street, Toronto, Ontario, Canada M5S 2K9 Tel: +1 (416) 925-6096; Fax: +1 (416) 488-7559 Email: info@jsoftware.com |
-| J Austria | Joachim Hoffmann | Münzgrabenstr. 68, A-8010 Graz, Austria. Tel: +43 (0)316 814529<br>Fax: +43 (0)316 816683 Email: JoHo@magnet.at |
-| JAD Software | David Crossley | 580 Eyer Drive, #81 Pickering, Ontario, Canada L1W 3B7<br>Tel: +1 (905) 837-1895 Fax: +1 (905) 831-5172 |
+| J Austria | Joachim Hoffmann | [address, telephone number and e-mail address omitted] |
+| JAD Software | David Crossley | [address and telephone number omitted] |
 | Japan APL Association | | 23-2-302 Hiromichi, Adachi-ku, Tokyo 120, Japan |
 | Kestrel Consulting | Mark Harris | Business & Technology Centre, Bessemer Drive, Stevenage, Herts SG1 2DX UK. Tel: 01438-310155 Fax: 01438-310131 |
 | Phil Last | Phil Last | [address and telephone number omitted] |

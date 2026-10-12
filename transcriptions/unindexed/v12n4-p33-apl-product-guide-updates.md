@@ -13,6 +13,7 @@ tags:
 - applications
 - APL community
 queries:
+- "Following the project rule for individuals’ contact details, the contact details printed for Andrews (Dr Anne D Wilson), JAD Software (David Crossley) are omitted: each is one person trading under a firm’s name at a private address; other companies’ addresses are kept."
 - "Printed heading “APL Product Guide - Updates”, byline “compiled by Gill Smith”. The updates fill printed 34; printed 35–37 reprint the full Vendor Addresses list."
 - "Only the updates are printed: the introduction lists eight groups, but this issue has entries only under APL Interpreters, APL Packages, APL Consultancy, Overseas Associations, Vendor Addresses, and World Wide Web and FTP Sites."
 - "The Vendor Addresses list matches that of Vector 12:3 (unindexed/v12n3-p33-apl-product-guide.md) but for a new entry for Dinosoft OY and new contact details for John Manges (SE APL Users Group); the readings were checked against these page images."
@@ -109,7 +110,7 @@ All contributions and updates to the APL Product Guide should be sent to Gill Sm
 | Adaptable Systems | Lois & Richard Hill | 49 First Street, Black Rock 3193, Australia.<br>Tel: +61 3 589 5578 Fax: +61 3 589 3220 |
 | Adaytum Systems | | 13 Great George Street, BRISTOL BS1 5RR UK Tel: 0117-921 5555 |
 | Adfee | Bernard Smoor | Dorpsstraat 50, 4128 BZ Lexmond, Netherlands.<br>Tel +31-3474-2337, Fax: +31-3474-2342 |
-| Andrews | Dr Anne D Wilson | 23, The Green, Acomb, YORK YO2 5LL, UK Tel: 01904-792670 |
+| Andrews | Dr Anne D Wilson | [address and telephone number omitted] |
 | APL-385 | Adrian Smith | Brook House, Gilling East, York YO6 4JJ UK. Tel: 01439-788385<br>Fax: 01439-788194 Email: 100331.644@compuserve.com |
 | APL Bay Area Users Group APLBUG | Lewis H. Robinson (Sec) | [address, telephone number and e-mail address omitted] |
 | APL Club Austria | Erich Gall | IBM Österreich, Obere Donaustrasse 95, A-1020 Wien, Austria |
@@ -159,7 +160,7 @@ All contributions and updates to the APL Product Guide should be sent to Gill Sm
 | Intelligent Programs Ltd | Mike Bucknall | 9 Gun Wharf, 130 Wapping High St, London E1 9NH Tel: 0171-265 1120 |
 | Interprocess Systems Inc. | Stella Chamberlain | 11660 Alpharetta Highway, Suite 455, Roswell, Georgia 30076, USA<br>Tel: +1 (404) 410-1700. Fax: +1 (404) 410-1773 Cserve: 70373,2676 |
 | Iverson Software Inc. | Eric Iverson | 33 Major Street, Toronto, Ontario, Canada M5S 2K9<br>Tel: +1 (416) 925-6096; Fax: +1 (416) 488-7559 |
-| JAD Software | David Crossley | 580 Eyer Drive, #81 Pickering, Ontario, Canada L1W 3B7<br>Tel: +1 (905) 837-1895 Fax: +1 (905) 831-5172 |
+| JAD Software | David Crossley | [address and telephone number omitted] |
 | Japan APL Association | | 23-2-302 Hiromichi, Adachi-ku, Tokyo 120, Japan |
 | Kestrel Consulting | Mark Harris | Business & Technology Centre, Bessemer Drive, Stevenage, Herts SG1 2DX UK. Tel: 01438-310155 Fax: 01438-310131 |
 | Lingo Allegro USA Inc. | Victoria H. Fil | 113 McHenry Road, Suite 161, Buffalo Grove, IL 60089 USA<br>Tel:+1 (708) 459-7529 Fax:+1 (708) 459-8501 Email: info@lingo.com |

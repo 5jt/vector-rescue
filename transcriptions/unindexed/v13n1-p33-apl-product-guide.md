@@ -13,6 +13,7 @@ tags:
 - applications
 - APL community
 queries:
+- "Following the project rule for individuals’ contact details, the contact details printed for Andrews (Dr Anne D Wilson), JAD Software (David Crossley), J Austria (Joachim Hoffmann) are omitted: each is one person trading under a firm’s name at a private address; other companies’ addresses are kept."
 - "Printed byline “compiled by Gill Smith”. The guide runs to printed 47, ending with the World Wide Web and FTP sites (lower half of printed 47 blank)."
 - "Tables follow the printed columns. Where a row continues the previous company, the Company cell is left blank; sub-labels printed in the Company column, such as “(mainframe)”, “(microcomputer)”, “(for VSAPL)”, “(for APL2)”, “(for APL\\*PLUS/PC)” and “(for Dyalog 7.2 & 8)”, are kept in that cell. Organisation names printed over two lines are joined in one cell. Stacked prices and details (the Uniware site-licence prices, Peter Cyriax’s rates, the APL-385 tool list) are joined with line breaks in one cell; under APL Software the stacked “Run-time / poa” and “Dyalog APL / 1000-10,000” are given as two rows."
 - "Following the project rule for individuals’ contact details, and as in the guide of Vector 13:2 (unindexed/v13n2-p41-apl-product-guide-updates.md), the street addresses, telephone numbers and personal e-mail, CompuServe and Reuternet addresses printed for Anthony Camacho (under Camacho and under I-APL Ltd), Ray Cannon, Paul Chapman, David Crossley (his own row; JAD Software’s is kept), Michael Hughes, Ellis Morgan, Rex Swain, Ian A. Clark (IAC/Human Interfaces) and Peter Cyriax (Peter Cyriax Systems), and of the user-group contacts Lewis H. Robinson (APLBUG), Dieter Lattermann (APL Club Germany), Joseph de Kerf (BACUS), Larry Mysz (Chicago SIG) and John Manges (SE APL Users Group), are omitted; so are the telephone number, CompuServe number and e-mail address of Stuart Yarus (SWAPL), the telephone number of Rob Hodgkinson (Sydney APLUG) and the personal e-mail addresses of the user-group contacts Per Gjerlof (Danish User Group), John Martin (Potomac APL SIG), Gary Dennis (Rochester APL), Mario Sacco (Rome/Italy SIG), Alexander Skomorokhov (SovAPL) and Ben Best (Toronto SIG). The groups’ post-office boxes and web addresses are kept, as are the addresses of companies, firms, groups and institutions (among them Andrews’, Dr Anne D Wilson, and Adaptable Systems’, though some may be a consultant’s own), the SE APL Users Group’s e-mail address (seapldoc, kept as the group’s), and Gill Smith’s contact address at Brook House (APL-385, Vector production)."
@@ -369,7 +370,7 @@ All contributions and updates to the APL Product Guide should be sent to Gill Sm
 | Adaptable Systems | Lois & Richard Hill | 49 First Street, Black Rock 3193, Australia.<br>Tel: +61 3 9589 5578 Fax: +61 3 9589 3220 Email: adsys@ibm.net |
 | Adaytum Systems | | 13 Great George Street, BRISTOL BS1 5RR UK Tel: 0117-921 5555 |
 | Adfee | Bernard Smoor | Dorpsstraat 50, 4128 BZ Lexmond, Netherlands.<br>Tel +31-3474-2337 Fax: +31-3474-2342 |
-| Andrews | Dr Anne D Wilson | 23, The Green, Acomb, YORK YO2 5LL, UK Tel: 01904-792670 |
+| Andrews | Dr Anne D Wilson | [address and telephone number omitted] |
 | APL-385 | Adrian Smith | Brook House, Gilling East, York YO6 4JJ UK. Tel: 01439-788385<br>Fax: 01439-788194 Email: 100331.644@compuserve.com |
 | APL Bay Area Users Group APLBUG | Lewis H. Robinson (Sec) | [address, telephone number and e-mail address omitted] |
 | APL Club Austria | Harald F. Nelson | c/o N-TECH, Siebenbrunnenfeldg. 4-6, A-1050 Wien, Austria.<br>Tel: +43 1 5458063 Fax: +43 1 5458063-17 |
@@ -420,8 +421,8 @@ All contributions and updates to the APL Product Guide should be sent to Gill Sm
 | Intelligent Programs Ltd | Mike Bucknall | 9 Gun Wharf, 130 Wapping High St, London E1 9NH Tel: 0171-265 1120 |
 | Interprocess Systems Inc. | Stella Chamberlain | 11660 Alpharetta Highway, Suite 455, Roswell, Georgia 30076, USA<br>Tel: +1 (404) 410-1700. Fax: +1 (404) 410-1773 Cserve: 70373,2676 |
 | Iverson Software Inc. | Eric Iverson | 33 Major Street, Toronto, Ontario, Canada M5S 2K9<br>Tel: +1 (416) 925-6096; Fax: +1 (416) 488-7559 |
-| J Austria | Joachim Hoffmann | Münzgrabenstr. 68, A-8010 Graz, Austria. Tel: +43 (0)316 814529<br>Fax: +43 (0)316 816683 Email: JoHo@magnet.at |
-| JAD Software | David Crossley | 580 Eyer Drive, #81 Pickering, Ontario, Canada L1W 3B7<br>Tel: +1 (905) 837-1895 Fax: +1 (905) 831-5172 |
+| J Austria | Joachim Hoffmann | [address, telephone number and e-mail address omitted] |
+| JAD Software | David Crossley | [address and telephone number omitted] |
 | Japan APL Association | | 23-2-302 Hiromichi, Adachi-ku, Tokyo 120, Japan |
 | Kestrel Consulting | Mark Harris | Business & Technology Centre, Bessemer Drive, Stevenage, Herts SG1 2DX UK. Tel: 01438-310155 Fax: 01438-310131 |
 | Lingo Allegro USA Inc. | Victoria H. Fil | 113 McHenry Road, Suite 161, Buffalo Grove, IL 60089 USA<br>Tel:+1 (708) 459-7529 Fax:+1 (708) 459-8501 Email: info@lingo.com |
