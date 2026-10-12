@@ -395,3 +395,15 @@ They are set aside here, unpublished, for editorial review.
 | [v20n4-p13-news-from-sustaining-members.md](v20n4-p13-news-from-sustaining-members.md) | 20:4 | 13 | News from Sustaining Members | — | within Apl news (sweep, #301) |
 | [v21n1-p76-erratum-tabula.md](v21n1-p76-erratum-tabula.md) | 21:1 | 76 | Erratum: TABULA | Ian Clark | within Recent meetings; printed “ERRATUM”, unsigned; title and author ours (sweep, #301) |
 | [v21n3-p3-letter-to-the-editor.md](v21n3-p3-letter-to-the-editor.md) | 21:3 | 3 | Letter to the Editor | Devon H. McCormick | within Editorial (sweep, #301) |
+| [v6n1-p3-editorial.md](v6n1-p3-editorial.md) | 6:1 | 3 | Editorial: Join the British APL Association | Peter Donnelly | Contents line (#305) |
+| [v6n1-p5-quick-reference-diary.md](v6n1-p5-quick-reference-diary.md) | 6:1 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v6n1-p7-apl-course-diary.md](v6n1-p7-apl-course-diary.md) | 6:1 | 7 | APL Course Diary | — | Contents line (#305) |
+| [v6n1-p8-apl90-information.md](v6n1-p8-apl90-information.md) | 6:1 | 8–11 | APL90 Information | — | Contents line (#305) |
+| [v6n1-p13-british-apl-association-news.md](v6n1-p13-british-apl-association-news.md) | 6:1 | 13 | British APL Association News | Graham Parkhouse | Contents line (#305) |
+| [v6n1-p14-special-achievement-award-to-ba.md](v6n1-p14-special-achievement-award-to-ba.md) | 6:1 | 14–16 | The British APL Association Special Achievement Award for 1989 | — | Contents line (#305) |
+| [v6n1-p18-news-from-sustaining-members.md](v6n1-p18-news-from-sustaining-members.md) | 6:1 | 18–22 | News from Sustaining Members | Alison Chatterton | Contents line (#305) |
+| [v6n1-p23-the-education-vector.md](v6n1-p23-the-education-vector.md) | 6:1 | 23–24 | The Education Vector | Alan Sykes | Contents line (#305) |
+| [v6n1-p39-apl-product-guide.md](v6n1-p39-apl-product-guide.md) | 6:1 | 39–48 | APL Product Guide | Alison Chatterton | Contents line (#305) |
+| [v6n1-p57-using-ibms-apl2-on-the-pc.md](v6n1-p57-using-ibms-apl2-on-the-pc.md) | 6:1 | 57–60 | Experience of Using IBM's APL2/PC | Anthony Camacho | Contents line (#305) |
+| [v6n1-p61-impressions-dyalog-apl-for-ms-dos.md](v6n1-p61-impressions-dyalog-apl-for-ms-dos.md) | 6:1 | 61–62 | Dyalog APL for 386 DOS PC's | Jonathan Martin | Contents line (#305) |
+| [v6n1-p90-hackers-corner.md](v6n1-p90-hackers-corner.md) | 6:1 | 90 | Hacker's Corner: Where to Zap APL*PLUS Version-8 | Adrian Smith | Contents line (#305) |
