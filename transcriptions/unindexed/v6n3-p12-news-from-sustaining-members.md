@@ -14,7 +14,7 @@ tags:
 queries:
 - "Printed byline “Compiled by Alison Chatterton”. The piece ends on printed 16, whose lower part is blank."
 - "HMW Computing: Val Lusmore’s home telephone number, printed for out-of-hours calls, is omitted; the office number is kept."
-- "APL People: the evening and weekend number (0225 333618) is printed as the agency’s contact and is kept; it may be a home number."
+- "APL People: following the project rule for individuals’ contact details, the evening and weekend number, probably a home number, is omitted; the agency’s office number is kept."
 - "Kept as printed: “One such tools is the User Command Processor”; “APL*PLUS PC System” (without the slash)."
 ---
 
@@ -51,7 +51,7 @@ We also intend to expand our tailor-made training service for companies, offerin
 
 Delia Marlow has joined Jill Moss in the Bath office, where she will be helping Jill with the ever expanding agency business.
 
-So, whether you're looking for staff, or looking for a new job, call Jill or Delia on 0225 462602 (0225 333618 eves and weekends)!
+So, whether you're looking for staff, or looking for a new job, call Jill or Delia on 0225 462602 ([telephone number omitted] eves and weekends)!
 
 ## Dyadic Systems Ltd
 

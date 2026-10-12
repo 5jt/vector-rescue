@@ -16,7 +16,7 @@ queries:
 - "Printed byline “Compiled by Cathy Dargue”. The guide runs from printed 36 to 45; New Product Announcements follows on printed 46 (unindexed/v5n2-p46-new-product-announcements.md)."
 - "The introduction lists ten groups, but the guide prints only eight sections: there is no “APL Training Courses” section, “APL character set printers” is headed “APL PRINTERS”, “APL-based packages” “APL PACKAGES”, and “Other services” “OTHER PRODUCTS”."
 - "Tables follow the printed columns. Where a row continues the previous company, the Company cell is left blank; sub-labels printed in the Company column, such as “(microcomputer)”, “(for VSAPL)” and “(for APL2)”, are kept in that cell on the row they precede. Product names printed on two lines (“FINANCIAL AND / STATISTICAL LIB.”, “PROGRAMMER TOOLS & / UTILITIES”, “APL*PLUS/PC FIN. & / STAT.LIBRARY”) are joined in one cell."
-- "Vendor addresses and telephone numbers are kept as business contact details, including those of sole consultants (Anthony Camacho, Paul Chapman, Peter Cyriax) listed as vendors. The compiler’s contact address and telephone number for contributions are kept as printed."
+- "Companies’ addresses and telephone numbers are kept. Following the project rule for individuals’ contact details, the street addresses and telephone numbers of the sole consultants listed as vendors (Anthony Camacho, Paul Chapman, Peter Cyriax) are omitted. Cathy Dargue’s street address and telephone number, given for contributions, are likewise omitted."
 - "I.P. Sharp’s interpreter rows include a row with price 1,000+ (“For IBM mainframes”) and no product name, as printed."
 - "The New Product Announcements (printed 46) refer readers to “the entry for Cocking and Drury in the Product Guide” for APL*PLUS II, but no APL*PLUS II row appears under Cocking/Drury in this issue’s guide."
 - "Kept as printed (several look like lost ‘fi’/‘fl’ ligatures): “15f8if5 anti-reex screen, low prole keyboard” (Farnell); “Std. conguration” (MicroAPL Spectrum); “Dynamic nancial modelling”; “Integrated Ofsu3suce System” (M.B.T. RHOMBUS); “Tony Checkseld” (Datatrade); “W1P 9LE16 Tel: 01436 9481” (Cocking & Drury); “Mackintosh” (Portable); “APL*PLUS Unx”; “Relation Data Base System”; “Comparable in feature to”."
@@ -53,10 +53,7 @@ Every effort has been made to avoid errors in these listings but no responsibili
 All contributions to the APL Product Guide should be sent to:
 
 > Cathy Dargue,<br>
-> 60 Downhall Ley,<br>
-> BUNTINGFORD,<br>
-> Herts SG9 9TL.<br>
-> Tel: 0895-31313 x3038
+> [address and telephone number omitted]
 
 ## COMPLETE APL SYSTEMS
 
@@ -405,8 +402,8 @@ All contributions to the APL Product Guide should be sent to:
 | Beta-plan APS | Kim Andreasen | Stengrade 75 , DK-3000 Helsingor, Denmark. Tel:45 2 21 48 48 |
 | Buckland Management Systems | John Buckland | Westwood, 9 Grove Road, Camberley, Surrey, GU15 2DN Tel: 0276 684327 |
 | Butel Technology Ltd. | Mike Munro | Butel House, 3 Great West Rd., London W4 5QJ Tel: 01-995-1433 |
-| Anthony Camacho | | 2 Blenheim Road, St. Albans, Herts AL1 4NR. Tel: St. Albans (0727) 60130 |
-| Paul Chapman | | 18, Trevelyan Road, London, SW17 9LN Tel: 01-767 4254 |
+| Anthony Camacho | | [address and telephone number omitted] |
+| Paul Chapman | | [address and telephone number omitted] |
 | Cocking & Drury Ltd. | Romilly Cocking | 180 Tottenham Court Road, LONDON, W1P 9LE16 Tel: 01436 9481 |
 | | | 155 Friar Street Reading RG1 1HE. Tel: 0734-588835 |
 | Datatrade Ltd. | Tony Checkseld | 38 Billing Road, Northampton, NN1 5DQ. Tel: 0604-22289 |
@@ -426,7 +423,7 @@ All contributions to the APL Product Guide should be sent to:
 | MicroAPL Ltd. | David Eastwood | South Bank Technopark, 90 London Road, LONDON SE1 6LN Tel: 01-922 8866 |
 | M.T.I. | Ray Cannon | 7 Pine Wood, Sunbury-on-Thames, Middx. TW16 6SH Tel: 09327 80848 |
 | Parallax Systems Inc. | Kevin Weaver | 60 West 9th Street, New York, New York 10011, U.S.A. Tel: 212-475-4001 |
-| Peter Cyriax Systems | Peter Cyriax | 213 Goldhurst Terrace, London NW6 3ER Tel: 01-624 7013 (Answerphone) 0860-377963 (Mobile) |
+| Peter Cyriax Systems | Peter Cyriax | [address and telephone numbers omitted] |
 | Portable Software | Richard Smith | 60 Aberdeen Ave, Cambridge, Mass. U.S.A. 02138. Tel: 617-547-2918 |
 | QB On-Line Systems | Philip Bulmer | 5 Surrey House,Portsmouth Rd Camberley, Surrey, GU15 1LB. Tel: 0276-20789 |
 | The Rochester Group | Robert Pullman | 164 Pinnacle Rd., Rochester NY 14620 Tel:716-461-3169 |

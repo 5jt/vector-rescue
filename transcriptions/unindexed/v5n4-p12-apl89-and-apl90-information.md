@@ -12,8 +12,8 @@ tags:
 queries:
 - "Contents line “APL89 and APL90 Information”, but printed 12–15 carry only the APL90 call for papers: a title page (APL90 Denmark “For the Future” logo and the Dansk Dataforening logo), “APL90 in Denmark” (with the ACM logo), “APL90 Program Statement:” and “APL90 Addresses:”. Nothing on APL89 is printed here. Printed 16 is a Cocking & Drury advertisement (“A single source for APL”), not transcribed."
 - "A later version of the same call is transcribed as unindexed/v6n1-p8-apl90-information.md; the texts differ (this one has no poster-session paragraph, and a different list of addresses)."
-- "The home addresses printed for Per Gjerlov, Hans J. Helms, Ivan Jensen and Andreas Werder are omitted; their organisations, work addresses and mailboxes are kept. The conference address c/o Kim S. Andreasen is kept as the conference’s published contact address."
-- "Kept as printed: “Snerlevej 3”; “S-2210 Lund”; “Neunbrunnenstrasse”; “P.O Box 10”."
+- "The home addresses printed for Per Gjerlov, Hans J. Helms, Ivan Jensen and Andreas Werder are omitted; their organisations, work addresses and mailboxes are kept. Following the project rule for individuals’ contact details, the street address of the conference contact c/o Kim S. Andreasen and his personal BIX mailbox are also omitted; the companies’ telefax numbers and the Conference Bureau’s address are kept."
+- "Kept as printed: “S-2210 Lund”; “Neunbrunnenstrasse”; “P.O Box 10”."
 ---
 
 ## APL90 — For the Future
@@ -75,8 +75,7 @@ APL implementations continue to evolve, with extensions to the language itself, 
 
 > APL90 Conference<br>
 > c/o Kim S. Andreasen<br>
-> Snerlevej 3<br>
-> DK-3000 Helsingoer, Denmark
+> [address omitted]
 
 | | |
 |---|---|
@@ -84,7 +83,7 @@ APL implementations continue to evolve, with extensions to the language itself, 
 | Mailbox: | IPSA ........ APL90 |
 | | IBM ........ GJERLOV at CPHVM1 |
 | | EARN/BITNET ........ APL90 at DKUCCC11 |
-| | BIX ........ kandreasen |
+| | BIX ........ [omitted] |
 
 Conference Chair:<br>
 Gitte Christensen, I. P. Sharp, Denmark<br>

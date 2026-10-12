@@ -12,7 +12,7 @@ tags:
 - APL community
 queries:
 - "The Contents page lists “Committee Activities” beneath the heading “British APL Association News”; the printed heading is “British APL Association News”, by Graham Parkhouse. The piece ends at the top of printed 16; the rest of that page is an APL Consulting advertisement, and printed 14 is an advertisement (“The APL Employment Agency”), neither transcribed."
-- "Valerie Lusmore’s daytime telephone number is kept as an Association contact number (it looks like a business number in Bath, close to APL Consulting’s); the Hon. Secretary’s university department address is kept."
+- "Following the project rule for individuals’ contact details, Valerie Lusmore’s daytime telephone number is omitted; the Hon. Secretary’s university department address is kept."
 - "Kept as printed: “benefitted”."
 ---
 
@@ -29,7 +29,7 @@ A post-mortem at the September committee meeting did not prevent disaster overta
 
 A solution to our problems may come in the pleasant form of Alison Chatterton, our new paid part-time administrator. Alison has two young children, the youngest at playschool, and it suits her to take on some BAA administration to do at home. She is being equipped with a PC clone and software to be able to set up articles for VECTOR, manage the software library, keep our records up to date, and print off labels. We are not giving her an answerphone!
 
-Valerie Lusmore wants to re-recruit as many experienced APLers as she can, who may have enjoyed corporate membership of the BAA in the past through previous employment. If you know of any such people please give Valerie a ring on 0225 62601 in the daytime.
+Valerie Lusmore wants to re-recruit as many experienced APLers as she can, who may have enjoyed corporate membership of the BAA in the past through previous employment. If you know of any such people please give Valerie a ring on [telephone number omitted] in the daytime.
 
 ### Outstanding Achievement Award
 

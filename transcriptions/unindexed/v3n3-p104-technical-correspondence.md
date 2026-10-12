@@ -16,6 +16,7 @@ tags:
 queries:
 - "Piper’s four listings are dot-matrix printouts, transcribed as printed. Listing 4 is printed with the comments set beside the output (“Comments added after execution”); kept as printed. ∆TSO, ∆STACK and S∆TEST are printed with a solid triangle for ∆."
 - "Slips transcribed as printed: “Assember Function DAN”, “ITEM?” (ITEM3?)."
+- "Following the project rule for individuals’ contact details, Neil Mitchison’s street address is omitted; Cocking and Drury’s address is kept."
 ---
 
 ## Watch Your Step
@@ -33,9 +34,7 @@ Obviously the problem would be trivial in a nested-arrays version.
 Yours sincerely,
 
 Neil Mitchison  
-Bremlaan 55  
-1900 Overijse  
-Belgium
+[address omitted]
 
 *(Editor: Thanks for your letter Neil, and thanks also for colouring the zeroes pink in your entry – it would otherwise have been quite difficult to distinguish them from the letter Os in your local variable names! The result of the Watch Your Step competition appears later in this issue.)*
 

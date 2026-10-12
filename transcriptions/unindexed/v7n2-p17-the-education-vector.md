@@ -14,7 +14,7 @@ tags:
 queries:
 - "The section’s own text only: its title page (printed 17, with its own contents list) and Alan Sykes’s editorial (printed 18, headed “Editorial”, unsigned), with the notice “Help wanted urgently” printed aslant below it. The pieces it lists are transcribed separately: unindexed/v7n2-p19-puzzle-corner-chess-board-pattern.md; the letters (unindexed/v7n2-p20-dayofweek-education-vector-7-1.md, unindexed/v7n2-p21-reading-ascii-files-into-i-apl.md, unindexed/v7n2-p24-dbase-and-lotus-files-into-i-apl.md, unindexed/v7n2-p25-i-apl-constraints.md); and art10009610 (Searching for Strings in Strings, with Adrian Smith’s “An Even Sneakier String Search!”)."
 - "The section’s contents list gives “APL Booklist”, Ed Shaw, p.32; printed 32 is a Renaissance Data Systems advertisement (“ALL APL BOOKS IN PRINT”), not transcribed."
-- "The Secretary’s address and telephone number are kept, as in the other Education Vectors: Anthony Camacho’s address appears as a vendor’s business address in the APL Product Guide."
+- "Following the project rule for individuals’ contact details, the street address and telephone number of the Secretary, Anthony Camacho, are omitted (also in “Help wanted urgently”); the university address of the editor is kept."
 ---
 
 ## The Education Vector
@@ -23,7 +23,7 @@ queries:
 
 **Editor Alan Sykes**
 
-This Education Vector has been reprinted from VECTOR Vol.7 No.2. VECTOR is the Quarterly Journal of the British APL Association; for more information about the British APL Association, contact the Secretary: Anthony Camacho, 2 Blenheim Rd, St Albans, Herts AL1 4NR Tel: 0727 860130.
+This Education Vector has been reprinted from VECTOR Vol.7 No.2. VECTOR is the Quarterly Journal of the British APL Association; for more information about the British APL Association, contact the Secretary: Anthony Camacho, [address and telephone number omitted].
 
 ### Contents
 
@@ -56,4 +56,4 @@ Once again I have included a puzzle corner which I hope will provoke some intere
 >
 > Greg Morse has just completed the OS9 port of I-APL. Do you have an OS9 computer, a little skill in handling its operating system and some time to help turn a completed port into a stock of disks ready for the mailing house to supply against cash with order?
 >
-> If so please telephone Anthony Camacho on 0727-860130.
+> If so please telephone Anthony Camacho on [telephone number omitted].

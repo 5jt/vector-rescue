@@ -14,7 +14,7 @@ tags:
 - programming techniques
 - system interfaces
 queries:
-- "Three letters: John Sullivan (How to Unlock Locked Functions in APL2), Simon Barker (More about APL2), and Peter Branson’s (Idioms and Oddities); the last is signed at its end. The writers’ addresses, as printed, are kept."
+- "Three letters: John Sullivan (How to Unlock Locked Functions in APL2), Simon Barker (More about APL2), and Peter Branson’s (Idioms and Oddities); the last is signed at its end. Following the project rule for individuals’ contact details, the street addresses of Simon Barker and Peter Branson are omitted; National Westminster Bank’s address is kept."
 - "⎕AF and ⎕FX are printed with small capitals after the quad; transcribed as ⎕AF, ⎕FX."
 - "IDIOM is printed with a crossed slash before X←A2, read as ⌿ (rows), and ⍉ for the transpose glyph. Checked: selecting rows by the mask as read gives both printed results: SURELY THERE MUST BE A BETTER WAY!, and a 0 4 matrix for THIS THIS THIS THAT THAT."
 - "Slips transcribed as printed: “Natonal Westminster Bank”, “heiroglyphic”."
@@ -97,7 +97,7 @@ I am currently using APL2 release 2, running under CMS, at my workplace. Prior t
 
 Keep up the good work on VECTOR - it’s much better than Quote Quad, and at a cheaper price.
 
-<p style="margin-left: 2em">Simon Barker<br>55 Conisborough Crescent<br>Catford<br>LONDON SE6 2SP</p>
+<p style="margin-left: 2em">Simon Barker<br>[address omitted]</p>
 
 ## Idioms and Oddities
 
@@ -161,4 +161,4 @@ Up until recently I have successfully managed to avoid VS APL, but the mortgage 
 
 Can anyone tell me whether this problem is specific to VS APL, or do similar things happen with other APL implementations?
 
-<p style="margin-left: 2em">Dr Peter Branson<br><br>Oaklands Cottage<br>Wray Common<br>Reigate,<br>Surrey RH2 0LE</p>
+<p style="margin-left: 2em">Dr Peter Branson<br><br>[address omitted]</p>

@@ -16,6 +16,7 @@ queries:
 - "Letters with the editors’ italic replies, transcribed as italic paragraphs. Smith’s letter answers the first example in v1n3-p120-surely-there-must-be-a-better-way.md."
 - "CHECK: lines [4] and [6] both read `5 6 [¯1↑X]`, as printed; IF is a user-defined (‘multi-way IF’) function, not shown. The editor’s one-liner is printed `R←5 6 1 2 5 6[2⊥C]`."
 - "“Lewis Carrol” is printed so."
+- "Following the project rule for individuals’ contact details, Mark Bassett’s street address is omitted; the addresses of the firms Adrian Smith and Andrew Wiggins wrote from are kept."
 ---
 
 ## From Adrian Smith, 15 May 1985
@@ -78,9 +79,6 @@ No amount of search sufficed to discover a non-looping method so this is one obv
 Yours faithfully,
 
 M.S. Bassett  
-20 Coval Lane,  
-Chelmsford,  
-Essex,  
-CM1 1TD.
+[address omitted]
 
 *Editor: It seemed more appropriate to include Mark’s problem in the “Surely there must be a better way” column, and so that’s where it is, along with some examples and Mark’s solution.*

@@ -17,7 +17,7 @@ queries:
 - "The guide largely repeats that of Vector 6.1 (unindexed/v6n1-p39-apl-product-guide.md); this transcription was made by checking that one against these pages. Changes here: Uniware’s interpreter entries (all “call”, with APL*PLUS II for 386 computers; the PortaAPL rows are gone) and microcomputer packages (all “call”, with PLOT*PLUS added); a new consultancy and vendor entry for Ian A. Clark; QB On-Line at 250; the Rochester Group’s telephone number; a fax number for Uniware."
 - "The introduction lists ten groups, but the guide prints only eight sections: there is no “APL Training Courses” section, “APL character set printers” is headed “APL PRINTERS”, “APL-based packages” “APL PACKAGES”, and “Other services” “OTHER PRODUCTS”."
 - "Tables follow the printed columns. Where a row continues the previous company, the Company cell is left blank; sub-labels printed in the Company column, such as “(microcomputer)”, “(for VSAPL)” and “(for APL2)”, are kept in that cell on the row they precede."
-- "Vendor addresses and telephone numbers are kept as business contact details, including those of sole consultants (Anthony Camacho, Paul Chapman, Peter Cyriax, Ian A. Clark) listed as vendors."
+- "Vendor addresses and telephone numbers are kept as business contact details. Following the project rule for individuals’ contact details, the street addresses and telephone numbers of the sole consultants listed as vendors (Anthony Camacho, Paul Chapman, Peter Cyriax of Peter Cyriax Systems and Ian A. Clark) are omitted; companies’ addresses are kept."
 - "Kept as printed (several look like lost ‘fi’/‘fl’ ligatures): “15f8if5 anti-reex screen, low prole keyboard” (Farnell); “Std. conguration” (MicroAPL Spectrum); “Dynamic nancial modelling”; “Integrated Ofsu3suce System” (M.B.T. RHOMBUS); “Tony Checkseld” (Datatrade); “W1P 9LE16 Tel: 01436 9481” (Cocking & Drury); “Mackintosh” (Portable); “APL*PLUS Unx”; “Relation Data Base System”; “Comparable in feature to”."
 ---
 
@@ -374,8 +374,8 @@ All contributions to the APL Product Guide should be sent to Alison Chatterton, 
 | Beta-plan APS | Kim Andreasen | Stengrade 75 , DK-3000 Helsingor, Denmark. Tel:45 2 21 48 48 |
 | Buckland Management Systems | John Buckland | Westwood, 9 Grove Road, Camberley, Surrey, GU15 2DN Tel: 0276 684327 |
 | Butel Technology Ltd. | Mike Munro | Butel House, 3 Great West Rd., London W4 5QJ Tel: 01-995-1433 |
-| Anthony Camacho | | 2 Blenheim Road, St. Albans, Herts AL1 4NR. Tel: St. Albans (0727) 60130 |
-| Paul Chapman | | 18, Trevelyan Road, London, SW17 9LN Tel: 01-767 4254 |
+| Anthony Camacho | | [address and telephone number omitted] |
+| Paul Chapman | | [address and telephone number omitted] |
 | Cocking & Drury Ltd. | Romilly Cocking | 180 Tottenham Court Road, LONDON, W1P 9LE16 Tel: 01436 9481 |
 | Datatrade Ltd. | Tony Checkseld | 38 Billing Road, Northampton, NN1 5DQ. Tel: 0604-22289 |
 | Delphi Consultation | David Crossley | Church Green House, Stanford-in-the-Vale, Oxon SN7 8LQ. Tel: 03677-384 |
@@ -386,7 +386,7 @@ All contributions to the APL Product Guide should be sent to Alison Chatterton, 
 | FASTCODE | Andrew Dickey | P.O. Box 281, Croton-on-Hudson, New York 10520, U.S.A. Tel:(914) 271-3200 |
 | General Software Ltd. | M.E. Martin | 22 Russell Road, Northolt, Middx. UB5 4QS. Tel: 01-864 9537 |
 | H.M.W. Computing Ltd. | Stan Wilkinson | Hamilton House, 1 Temple Avenue, Victoria Embankment, LONDON EC4Y 0HA Tel: 01-353 4212<br>Telex: 926604 HAMHSEG Fax: 01-353 3325 |
-| Ian A. Clark | | 9 Hill End, Frosterley, Bp. Auckland, Co. Durham DL13 2SX Tel: 038852-7190 |
+| Ian A. Clark | | [address and telephone number omitted] |
 | IBM UK Ltd | Nat.Enq. Centre | 414 Chiswick High Rd, London W4 5TF Tel: 01-747 0747 |
 | Inner Product Ltd. | Dominic Murphy | Eagle House, 73 Clapham Common Southside, London SW4 9DG. Tel: 01-673 3354 |
 | Lloyd Savage Ltd | Philip Johnson | Cambridge House, Oxford Road, Uxbridge, Middx, UB8 2UD.Tel: 0895-59826 |
@@ -395,7 +395,7 @@ All contributions to the APL Product Guide should be sent to Alison Chatterton, 
 | MicroAPL Ltd. | David Eastwood | South Bank Technopark, 90 London Road, LONDON SE1 6LN Tel: 01-922 8866 |
 | M.T.I. | Ray Cannon | 7 Pine Wood, Sunbury-on-Thames, Middx. TW16 6SH Tel: 09327 80848 |
 | Parallax Systems Inc. | Kevin Weaver | 60 West 9th Street, New York, New York 10011, U.S.A. Tel: 212-475-4001 |
-| Peter Cyriax Systems | Peter Cyriax | 213 Goldhurst Terrace, London NW6 3ER Tel: 01-624 7013 (Answerphone) 0860-377963 (Mobile) |
+| Peter Cyriax Systems | Peter Cyriax | [address and telephone numbers omitted] |
 | Portable Software | Richard Smith | 60 Aberdeen Ave, Cambridge, Mass. U.S.A. 02138. Tel: 617-547-2918 |
 | QB On-Line Systems | Philip Bulmer | 5 Surrey House,Portsmouth Rd Camberley, Surrey, GU15 1LB. Tel: 0276-20789 |
 | The Rochester Group | Robert Pullman | 164 Pinnacle Rd., Rochester NY 14620 Tel:716-454-4641 |

@@ -559,3 +559,103 @@ They are set aside here, unpublished, for editorial review.
 | [v7n3-p93-field-trip-to-rowntree-mackintosh.md](v7n3-p93-field-trip-to-rowntree-mackintosh.md) | 7:3 | 93–97 | Field Trip to Rowntree Mackintosh | Sylvia Camacho, Jonathan Martin | Contents line (#305) |
 | [v7n3-p99-apl91-update.md](v7n3-p99-apl91-update.md) | 7:3 | 99–101 | APL91 Update | Charles Schulz | Contents line (#305) |
 | [v7n3-p125-hackers-corner-check-that-disk.md](v7n3-p125-hackers-corner-check-that-disk.md) | 7:3 | 125 | Hackers Corner: Check that Disk! | Adrian Smith | Contents line (#305) |
+| [v8n1-p3-editorial.md](v8n1-p3-editorial.md) | 8:1 | 3–4 | Editorial: Windows and APL | Jonathan Barman | Contents line (#305) |
+| [v8n1-p5-quick-reference-diary.md](v8n1-p5-quick-reference-diary.md) | 8:1 | 5 | Quick Reference Diary 1991 | — | Contents line (#305) |
+| [v8n1-p8-summary-of-accounts.md](v8n1-p8-summary-of-accounts.md) | 8:1 | 8–9 | British APL Association: Summary of Annual Accounts | Nicholas Small | Contents line (#305) |
+| [v8n1-p11-news-from-sustaining-members.md](v8n1-p11-news-from-sustaining-members.md) | 8:1 | 11–16 | News from Sustaining Members | Alison Chatterton | Contents line (#305) |
+| [v8n1-p17-the-education-vector.md](v8n1-p17-the-education-vector.md) | 8:1 | 17–18 | The Education Vector | Alan Sykes | Contents line (#305) |
+| [v8n1-p33-the-random-vector.md](v8n1-p33-the-random-vector.md) | 8:1 | 33–35 | The Random Vector | David Eastwood | Contents line (#305) |
+| [v8n1-p49-apl-product-guide.md](v8n1-p49-apl-product-guide.md) | 8:1 | 49–58 | APL Product Guide | Alison Chatterton | Contents line (#305) |
+| [v8n1-p61-sovapl-5th-anniversary-conference.md](v8n1-p61-sovapl-5th-anniversary-conference.md) | 8:1 | 61–64 | SovAPL 5th Anniversary Conference “APL Methodology and Application” 23-25 April 1991, Leningrad, USSR | Thomas M Olsen, Alain Delmotte | Contents line (#305) |
+| [v8n2-p3-guest-editorial.md](v8n2-p3-guest-editorial.md) | 8:2 | 3–4 | Guest Editorial: Wanted: Programmer Support | Gregg W Taylor | Contents line (#305) |
+| [v8n2-p5-quick-reference-diary.md](v8n2-p5-quick-reference-diary.md) | 8:2 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v8n2-p7-apl92-program-statement.md](v8n2-p7-apl92-program-statement.md) | 8:2 | 7–10 | APL - The Language in Common: APL 92 Program Statement | — | Contents line (#305) |
+| [v8n2-p13-news-from-sustaining-members.md](v8n2-p13-news-from-sustaining-members.md) | 8:2 | 13–16 | News from Sustaining Members | Alison Chatterton | Contents line (#305) |
+| [v8n2-p17-the-education-vector.md](v8n2-p17-the-education-vector.md) | 8:2 | 17–18 | The Education Vector | Alan Mayer | Contents line (#305) |
+| [v8n2-p33-the-random-vector.md](v8n2-p33-the-random-vector.md) | 8:2 | 33–34 | The Random Vector | David Eastwood | Contents line (#305) |
+| [v8n2-p56-conference-roundup.md](v8n2-p56-conference-roundup.md) | 8:2 | 56–60 | APL 91 Report: Conference Round Up | Anthony Camacho, Jonathan Barman, John Searle, Ray Cannon | Contents line (#305) |
+| [v8n2-p61-sunday-4th-aug.md](v8n2-p61-sunday-4th-aug.md) | 8:2 | 61–64 | Sunday 4 August | Anthony Camacho, Sylvia Camacho, Lee Ann Estep, Jonathan Barman | Contents line (#305) |
+| [v8n2-p65-monday-5th-aug.md](v8n2-p65-monday-5th-aug.md) | 8:2 | 65–69 | Monday 5 August | Jonathan Barman, Adrian Smith, Sylvia Camacho, Anthony Camacho, Ray Cannon, John Searle | Contents line (#305) |
+| [v8n2-p70-tuesday-6th-aug.md](v8n2-p70-tuesday-6th-aug.md) | 8:2 | 70–76 | Tuesday 6 August | Anthony Camacho, Sylvia Camacho, Jonathan Barman, Ray Cannon | Contents line (#305) |
+| [v8n2-p87-thursday-8th-aug.md](v8n2-p87-thursday-8th-aug.md) | 8:2 | 87–92 | Thursday 8 August | Sylvia Camacho, Jonathan Barman, Ray Cannon, John Searle, Dave Ziemann | Contents line (#305) |
+| [v8n2-p93-survival-strategies-for-apl-puddle-dwellers.md](v8n2-p93-survival-strategies-for-apl-puddle-dwellers.md) | 8:2 | 93–94 | Selected Survival Strategies for APL Puddle-dwellers | Adrian Smith | Contents line (#305) |
+| [v8n3-p3-editorial-j-is-for-january.md](v8n3-p3-editorial-j-is-for-january.md) | 8:3 | 3–4 | Editorial: J is for January | Jonathan Barman | Contents line (#305) |
+| [v8n3-p5-quick-reference-diary.md](v8n3-p5-quick-reference-diary.md) | 8:3 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v8n3-p7-baa-meetings-for-1992.md](v8n3-p7-baa-meetings-for-1992.md) | 8:3 | 7 | British APL Association Meetings for 1992 | — | Contents line (#305) |
+| [v8n3-p8-apl91-final-report.md](v8n3-p8-apl91-final-report.md) | 8:3 | 8–10 | APL91 Final Report | Charles Schultz | Contents line (#305) |
+| [v8n3-p12-news-from-sustaining-members.md](v8n3-p12-news-from-sustaining-members.md) | 8:3 | 12–16 | News from Sustaining Members | Alison Chatterton | Contents line (#305) |
+| [v8n3-p17-the-education-vector.md](v8n3-p17-the-education-vector.md) | 8:3 | 17–18 | The Education Vector | Alan Mayer | Contents line (#305) |
+| [v8n3-p33-the-random-vector.md](v8n3-p33-the-random-vector.md) | 8:3 | 33–34 | The Random Vector | David Eastwood | Contents line (#305) |
+| [v8n3-p57-apl-product-guide.md](v8n3-p57-apl-product-guide.md) | 8:3 | 57–66 | APL Product Guide | Alison Chatterton | Contents line (#305) |
+| [v8n3-p90-j-questionnaire.md](v8n3-p90-j-questionnaire.md) | 8:3 | 90–93 | J Questionnaire | Jonathan Barman | Contents line (#305) |
+| [v8n4-p3-guest-editorial-now-is-the-time-for-apl.md](v8n4-p3-guest-editorial-now-is-the-time-for-apl.md) | 8:4 | 3–4 | Guest Editorial: Now is the Time for APL | Peter Donnelly | Contents line (#305) |
+| [v8n4-p5-quick-reference-diary.md](v8n4-p5-quick-reference-diary.md) | 8:4 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v8n4-p6-apl-course-diary.md](v8n4-p6-apl-course-diary.md) | 8:4 | 6 | APL Course Diary | Gill Smith | Contents line (#305) |
+| [v8n4-p9-minutes-of-agm.md](v8n4-p9-minutes-of-agm.md) | 8:4 | 9–10 | Minutes of the AGM of the British APL Association at the IEE on 7 June 1991 | Anthony Camacho | Contents line (#305) |
+| [v8n4-p10-data-protection-act.md](v8n4-p10-data-protection-act.md) | 8:4 | 10 | Note to Members on the Data Protection Act | — | Contents line (#305) |
+| [v8n4-p11-news-from-sustaining-members.md](v8n4-p11-news-from-sustaining-members.md) | 8:4 | 11–15 | News from Sustaining Members | Gill Smith | Contents line (#305) |
+| [v8n4-p17-the-education-vector.md](v8n4-p17-the-education-vector.md) | 8:4 | 17–19 | The Education Vector | Alan Mayer | Contents line (#305) |
+| [v8n4-p33-the-random-vector.md](v8n4-p33-the-random-vector.md) | 8:4 | 33–34 | The Random Vector | David Eastwood | Contents line (#305) |
+| [v8n4-p49-provisional-programme-and-abstracts.md](v8n4-p49-provisional-programme-and-abstracts.md) | 8:4 | 49–56 | APL92: Provisional Programme and Abstracts | — | Contents line (#305) |
+| [v8n4-p57-notes-on-visit-to-st-petersburg.md](v8n4-p57-notes-on-visit-to-st-petersburg.md) | 8:4 | 57–60 | Report on St Petersburg Visit | Anthony Camacho | Contents line (#305) |
+| [v8n4-p61-apl-product-guide.md](v8n4-p61-apl-product-guide.md) | 8:4 | 61–71 | APL Product Guide | Gill Smith | Contents line (#305) |
+| [v8n4-p72-ibm-systems-journal-apl-edition.md](v8n4-p72-ibm-systems-journal-apl-edition.md) | 8:4 | 72–75 | IBM Systems Journal: APL 25th Anniversary Edition | Adrian Smith | Contents line (#305) |
+| [v8n4-p76-byte-classic-languages-article-on-apl.md](v8n4-p76-byte-classic-languages-article-on-apl.md) | 8:4 | 76 | Byte ‘Classic Languages’ Article on APL | Adrian Smith | Contents line (#305) |
+| [v8n4-p77-apl-goes-fuzzy.md](v8n4-p77-apl-goes-fuzzy.md) | 8:4 | 77–80 | APL Goes Fuzzy | Oleg Pöhl | Contents line (#305) |
+| [v8n4-p82-typesetting-j-some-comments.md](v8n4-p82-typesetting-j-some-comments.md) | 8:4 | 82–83 | Typesetting J: some Comments | R.H. Oates | Contents line (#305) |
+| [v8n4-p112-hackers-corner-reshaping-your-mouse.md](v8n4-p112-hackers-corner-reshaping-your-mouse.md) | 8:4 | 112 | Hackers’ Corner: Reshaping your Mouse | Adrian Smith | Contents line (#305) |
+| [v8n4-p136-author-index-vols-1-8.md](v8n4-p136-author-index-vols-1-8.md) | 8:4 | 136–141 | Index to Back Numbers, Vols 1 - 8 inclusive, Alphabetical by Author | — | Contents line (#305) |
+| [v9n1-p5-quick-reference-diary.md](v9n1-p5-quick-reference-diary.md) | 9:1 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v9n1-p7-apl-course-diary.md](v9n1-p7-apl-course-diary.md) | 9:1 | 7 | APL Course Diary | Gill Smith | Contents line (#305) |
+| [v9n1-p13-committee-news-annual-accounts.md](v9n1-p13-committee-news-annual-accounts.md) | 9:1 | 13–16 | Committee News & Annual Accounts | Anthony Camacho | Contents line (#305) |
+| [v9n1-p19-news-from-sustaining-members.md](v9n1-p19-news-from-sustaining-members.md) | 9:1 | 19–20 | News from Sustaining Members | Gill Smith | Contents line (#305) |
+| [v9n1-p23-the-education-vector.md](v9n1-p23-the-education-vector.md) | 9:1 | 23–24 | The Education Vector | Alan Mayer | Contents line (#305) |
+| [v9n1-p39-apl-product-guide.md](v9n1-p39-apl-product-guide.md) | 9:1 | 39–49 | APL Product Guide | Gill Smith | Contents line (#305) |
+| [v9n1-p50-six-months-in-the-life-of-vector.md](v9n1-p50-six-months-in-the-life-of-vector.md) | 9:1 | 50–51 | Six Months in the Life of VECTOR | John Searle | Contents line (#305) |
+| [v9n2-p5-quick-reference-diary.md](v9n2-p5-quick-reference-diary.md) | 9:2 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v9n2-p8-news-from-sustaining-members.md](v9n2-p8-news-from-sustaining-members.md) | 9:2 | 8–12 | News from Sustaining Members | Gill Smith | Contents line (#305) |
+| [v9n2-p13-the-education-vector.md](v9n2-p13-the-education-vector.md) | 9:2 | 13–15, to the middle of printed 15 | The Education Vector | Alan Mayer | Contents line (#305) |
+| [v9n2-p29-the-random-vector.md](v9n2-p29-the-random-vector.md) | 9:2 | 29–30 | The Random Vector | David Eastwood | Contents line (#305) |
+| [v9n2-p41-apl-product-guide.md](v9n2-p41-apl-product-guide.md) | 9:2 | 41–51 | APL Product Guide | Gill Smith | Contents line (#305) |
+| [v9n2-p93-pictures-at-an-exhibition.md](v9n2-p93-pictures-at-an-exhibition.md) | 9:2 | 93 | Pictures at an Exhibition | — | Contents line (#305) |
+| [v9n2-p94-quotable-quotes-from-apl-92.md](v9n2-p94-quotable-quotes-from-apl-92.md) | 9:2 | 94 | Quotable Quotes from APL 92 | John Searle | Contents line (#305) |
+| [v9n2-p126-apl92-caption-contest.md](v9n2-p126-apl92-caption-contest.md) | 9:2 | 126 | APL92 Caption Contest | — | Contents line (#305) |
+| [v9n3-p5-quick-reference-diary.md](v9n3-p5-quick-reference-diary.md) | 9:3 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v9n3-p7-apl-training-courses-for-1993.md](v9n3-p7-apl-training-courses-for-1993.md) | 9:3 | 7 | APL Training Courses for 1993 | Gill Smith | Contents line (#305) |
+| [v9n3-p10-projects-officers-report.md](v9n3-p10-projects-officers-report.md) | 9:3 | 10–11 | Projects Officer’s Report | George MacLeod | Contents line (#305) |
+| [v9n3-p12-news-from-sustaining-members.md](v9n3-p12-news-from-sustaining-members.md) | 9:3 | 12–16 | News from Sustaining Members | Gill Smith | Contents line (#305) |
+| [v9n3-p17-the-education-vector.md](v9n3-p17-the-education-vector.md) | 9:3 | 17–18 | The Education Vector | Alan Mayer | Contents line (#305) |
+| [v9n3-p33-apl-product-guide.md](v9n3-p33-apl-product-guide.md) | 9:3 | 33–43 | APL Product Guide | Gill Smith | Contents line (#305) |
+| [v9n4-p5-quick-reference-diary.md](v9n4-p5-quick-reference-diary.md) | 9:4 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v9n4-p7-apl-training-courses-for-1993.md](v9n4-p7-apl-training-courses-for-1993.md) | 9:4 | 7 | APL Training Courses for 1993 | Gill Smith | Contents line (#305) |
+| [v9n4-p18-chairmans-report.md](v9n4-p18-chairmans-report.md) | 9:4 | 18–20 | Chairman’s Report | David Eastwood | Contents line (#305) |
+| [v9n4-p20-the-apl-review.md](v9n4-p20-the-apl-review.md) | 9:4 | 20–21 | “The APL Review” | Alan Mayer | Contents line (#305) |
+| [v9n4-p22-news-from-sustaining-members.md](v9n4-p22-news-from-sustaining-members.md) | 9:4 | 22–26 | News from Sustaining Members | Gill Smith | Contents line (#305) |
+| [v9n4-p27-the-education-vector.md](v9n4-p27-the-education-vector.md) | 9:4 | 27–28 | The Education Vector | Alan Mayer | Contents line (#305) |
+| [v9n4-p43-apl-product-guide.md](v9n4-p43-apl-product-guide.md) | 9:4 | 43–53 | APL Product Guide | Gill Smith | Contents line (#305) |
+| [v10n1-p3-editorial-apl-in-business.md](v10n1-p3-editorial-apl-in-business.md) | 10:1 | 3–4 | Editorial: APL in Business | Anthony Camacho | Contents line (#305) |
+| [v10n1-p5-quick-reference-diary.md](v10n1-p5-quick-reference-diary.md) | 10:1 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v10n1-p11-baa-gui-workshop.md](v10n1-p11-baa-gui-workshop.md) | 10:1 | 11–12 | BAA-GUI Workshop: November 26th 1993 | Duncan Pearson | Contents line (#305) |
+| [v10n1-p12-apl-in-business-conference-prospectus.md](v10n1-p12-apl-in-business-conference-prospectus.md) | 10:1 | 12–13 | “APL in Business” Conference Prospectus | — | Contents line (#305) |
+| [v10n1-p14-annual-accounts.md](v10n1-p14-annual-accounts.md) | 10:1 | 14 | British APL Association - Summary of Annual Accounts 1992/93 | Nicholas Small | Contents line (#305) |
+| [v10n1-p15-agm-report.md](v10n1-p15-agm-report.md) | 10:1 | 15–17 | Minutes of the Annual General Meeting at the IEE on the 11th June 1993 | David Eastwood | Contents line (#305) |
+| [v10n1-p19-news-from-sustaining-members.md](v10n1-p19-news-from-sustaining-members.md) | 10:1 | 19–23 | News from Sustaining Members | Gill Smith | Contents line (#305) |
+| [v10n1-p25-the-education-vector.md](v10n1-p25-the-education-vector.md) | 10:1 | 25–26 | The Education Vector | Alan Mayer | Contents line (#305) |
+| [v10n1-p41-apl-product-guide.md](v10n1-p41-apl-product-guide.md) | 10:1 | 41–51 | APL Product Guide | Gill Smith | Contents line (#305) |
+| [v10n2-p3-editorial-apl-93-at-toronto.md](v10n2-p3-editorial-apl-93-at-toronto.md) | 10:2 | 3–4 | Editorial: APL 93 at Toronto | Anthony Camacho | Contents line (#305) |
+| [v10n2-p5-quick-reference-diary.md](v10n2-p5-quick-reference-diary.md) | 10:2 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v10n2-p7-the-apl-93-russian-fund.md](v10n2-p7-the-apl-93-russian-fund.md) | 10:2 | 7–10 | The APL 93 Russian Fund | Ben Best | Contents line (#305) |
+| [v10n2-p13-news-from-sustaining-members.md](v10n2-p13-news-from-sustaining-members.md) | 10:2 | 13–16 | News from Sustaining Members | Gill Smith | Contents line (#305) |
+| [v10n2-p17-the-education-vector.md](v10n2-p17-the-education-vector.md) | 10:2 | 17–18 | The Education Vector | Alan Mayer | Contents line (#305) |
+| [v10n2-p33-apl-product-guide.md](v10n2-p33-apl-product-guide.md) | 10:2 | 33–43 | APL Product Guide | Gill Smith | Contents line (#305) |
+| [v10n2-p87-workshop-a-gui-standard-for-apl.md](v10n2-p87-workshop-a-gui-standard-for-apl.md) | 10:2 | 87–91 | Workshop — A GUI Standard for APL — Facilitator: David Crossley | Anthony Camacho, Jonathan Barman | Contents line (#305) |
+| [v10n3-p5-quick-reference-diary.md](v10n3-p5-quick-reference-diary.md) | 10:3 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v10n3-p6-conference-prospectus.md](v10n3-p6-conference-prospectus.md) | 10:3 | 6–7 | Conference Prospectus | — | Contents line (#305) |
+| [v10n3-p9-news-from-sustaining-members.md](v10n3-p9-news-from-sustaining-members.md) | 10:3 | 9–16 | News from Sustaining Members | Gill Smith | Contents line (#305) |
+| [v10n3-p17-the-education-vector.md](v10n3-p17-the-education-vector.md) | 10:3 | 17–19 | The Education Vector | Alan Mayer | Contents line (#305) |
+| [v10n3-p33-apl-product-guide-updates.md](v10n3-p33-apl-product-guide-updates.md) | 10:3 | 33–34 | APL Product Guide — Updates | Gill Smith | Contents line (#305) |
+| [v10n4-p5-quick-reference-diary.md](v10n4-p5-quick-reference-diary.md) | 10:4 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v10n4-p10-obituary-mike-gregory.md](v10n4-p10-obituary-mike-gregory.md) | 10:4 | 10 | Obituary: Mike Gregory | John Searle | Contents line (#305) |
+| [v10n4-p11-news-from-sustaining-members.md](v10n4-p11-news-from-sustaining-members.md) | 10:4 | 11–16 | News from Sustaining Members | Gill Smith | Contents line (#305) |
+| [v10n4-p17-the-education-vector.md](v10n4-p17-the-education-vector.md) | 10:4 | 17–18 | The Education Vector | Alan Mayer | Contents line (#305) |
+| [v10n4-p33-apl-product-guide-updates.md](v10n4-p33-apl-product-guide-updates.md) | 10:4 | 33–38 | APL Product Guide: Updates | Gill Smith | Contents line (#305) |

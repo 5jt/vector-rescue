@@ -10,10 +10,11 @@ tags:
 - conference reports
 - APL community
 queries:
+- "Following the project rule for individuals’ contact details, Kim S. Andreasen’s street address, given as the APL90 conference address, is omitted."
 - "Contents line “APL90 Information”; four printed pages: a title page (“APL 90 — APL For The Future … CALL FOR PAPERS”), “APL90 in Denmark”, “APL90 Program Statement:” and “APL90 Addresses:”. Printed headings kept as ## headings."
 - "The SAS “Official carrier” box on printed 11 is kept as text."
 - "The conference address is given c/o Kim S. Andreasen in Helsingoer; kept as the conference’s published contact address."
-- "Kept as printed: “Snerlevej3” (no space); “Association of Computing Machinery”; “Treasury” for the treasurer; “IPSA Mailbox” and “IPSA mailbox”; “the APL90 address shown at the back of this folder” (the text was evidently taken from a conference leaflet)."
+- "Kept as printed: “Association of Computing Machinery”; “Treasury” for the treasurer; “IPSA Mailbox” and “IPSA mailbox”; “the APL90 address shown at the back of this folder” (the text was evidently taken from a conference leaflet)."
 ---
 
 ## APL 90
@@ -75,8 +76,7 @@ APL implementations continue to evolve, with extensions to the language itself, 
 ### APL90 Conference:
 
 > c/o Kim S. Andreasen<br>
-> Snerlevej3,<br>
-> DK-3000 Helsingoer, Denmark
+> [address omitted]
 
 | Mailbox: | |
 |---|---|

@@ -14,7 +14,7 @@ queries:
 - "The catalogue pages carry no heading of their own: the title is the Contents line’s. They are the listings of the APL Product Guide (unindexed/v5n3-p39-apl-product-guide.md), compiled by Cathy Dargue, whose introduction on printed 39 lists the groups. The catalogue ends on printed 49 (its lower half blank)."
 - "The introduction lists ten groups, but the catalogue prints eight sections: there is no “APL Training Courses” section, “APL character set printers” is headed “APL PRINTERS”, “APL-based packages” “APL PACKAGES”, and “Other services” “OTHER PRODUCTS”."
 - "Tables follow the printed columns. Where a row continues the previous company, the Company cell is left blank; sub-labels printed in the Company column, such as “(mainframe)”, “(microcomputer)”, “(for VSAPL)” and “(for APL2)”, are kept in that cell on the row they precede. Product names printed over two lines (“PROGRAMMER TOOLS & UTILITIES”, “APL*PLUS/PC FIN. & STAT.LIBRARY”) are joined."
-- "Vendor addresses and telephone numbers are kept as business contact details, including those of sole consultants (Anthony Camacho, Paul Chapman, Peter Cyriax) listed as vendors."
+- "Vendor addresses and telephone numbers are kept as business contact details. Following the project rule for individuals’ contact details, the street addresses and telephone numbers of the sole consultants listed as vendors (Anthony Camacho, Paul Chapman and Peter Cyriax of Peter Cyriax Systems) are omitted; companies’ addresses are kept."
 - "In “Update 2 to 2.6” (Cocking/Drury, microcomputer) the point is faint or missing in the scan."
 - "Kept as printed (several look like lost ‘fi’/‘fl’ ligatures): “Std. conguration” (MicroAPL Spectrum); “15f8if5 anti-reex screen, low prole keyboard” (Farnell); “Dynamic nancial modelling” (E&S BMS); “Integrated Ofsu3suce System” (M.B.T. RHOMBUS); “Tony Checkseld” (Datatrade); “W1P 9LE16 Tel: 01436 9481” (Cocking & Drury); “Mackintosh” (Portable); “APL*PLUS Unx”; “Relation Data Base System”; “Comparable in feature to”; “Includes. MetaScreen” (MetaTechnics MetaPack); the ditto marks under “Sharp APL/PC V2”; the I.P. Sharp row priced 1,000+ “For IBM mainframes” with no product name."
 ---
@@ -354,8 +354,8 @@ queries:
 | Beta-plan APS | Kim Andreasen | Stengrade 75 , DK-3000 Helsingor, Denmark. Tel:45 2 21 48 48 |
 | Buckland Management Systems | John Buckland | Westwood, 9 Grove Road, Camberley, Surrey, GU15 2DN Tel: 0276 684327 |
 | Butel Technology Ltd. | Mike Munro | Butel House, 3 Great West Rd., London W4 5QJ Tel: 01-995-1433 |
-| Anthony Camacho | | 2 Blenheim Road, St. Albans, Herts AL1 4NR. Tel: St. Albans (0727) 60130 |
-| Paul Chapman | | 18, Trevelyan Road, London, SW17 9LN Tel: 01-767 4254 |
+| Anthony Camacho | | [address and telephone number omitted] |
+| Paul Chapman | | [address and telephone number omitted] |
 | Cocking & Drury Ltd. | Romilly Cocking | 180 Tottenham Court Road, LONDON, W1P 9LE16 Tel: 01436 9481 |
 | | | 155 Friar Street Reading RG1 1HE. Tel: 0734-588835 |
 | Datatrade Ltd. | Tony Checkseld | 38 Billing Road, Northampton, NN1 5DQ. Tel: 0604-22289 |
@@ -375,7 +375,7 @@ queries:
 | MicroAPL Ltd. | David Eastwood | South Bank Technopark, 90 London Road, LONDON SE1 6LN Tel: 01-922 8866 |
 | M.T.I. | Ray Cannon | 7 Pine Wood, Sunbury-on-Thames, Middx. TW16 6SH Tel: 09327 80848 |
 | Parallax Systems Inc. | Kevin Weaver | 60 West 9th Street, New York, New York 10011, U.S.A. Tel: 212-475-4001 |
-| Peter Cyriax Systems | Peter Cyriax | 213 Goldhurst Terrace, London NW6 3ER Tel: 01-624 7013 (Answerphone) 0860-377963 (Mobile) |
+| Peter Cyriax Systems | Peter Cyriax | [address and telephone numbers omitted] |
 | Portable Software | Richard Smith | 60 Aberdeen Ave, Cambridge, Mass. U.S.A. 02138. Tel: 617-547-2918 |
 | QB On-Line Systems | Philip Bulmer | 5 Surrey House,Portsmouth Rd Camberley, Surrey, GU15 1LB. Tel: 0276-20789 |
 | The Rochester Group | Robert Pullman | 164 Pinnacle Rd., Rochester NY 14620 Tel:716-461-3169 |
