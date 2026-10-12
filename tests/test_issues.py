@@ -91,6 +91,18 @@ def test_tabs_are_headed_by_colour_thumbnails(tmp_path):
     assert (docs / "covers" / "v2501.jpg").read_bytes() == b"jpg"
 
 
+def test_thumbnails_fall_back_to_a_second_folder(tmp_path):
+    from vecrescue.pages import thumbnail
+    first, second = tmp_path / "a", tmp_path / "b"
+    first.mkdir(); second.mkdir()
+    (first / "v2501.jpg").write_bytes(b"one")
+    (second / "v2501.jpg").write_bytes(b"two")
+    (second / "v2604.jpg").write_bytes(b"four")
+    assert thumbnail([first, second], "25", "1").read_bytes() == b"one"
+    assert thumbnail([first, second], "26", "4").read_bytes() == b"four"
+    assert thumbnail([first, second], "26", "3") is None
+
+
 def test_home_page_tables_the_volumes_and_lists_online_only(tmp_path):
     from vecrescue.pages import tab_id
     docs, _ = pages(tmp_path)

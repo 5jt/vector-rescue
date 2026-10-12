@@ -172,11 +172,15 @@ def tab_id(issue):
 
 def thumbnail(thumbs, vol, no):
     """The issue's 32×45 colour cover thumbnail in THUMBS (images/covers/32x45
-    in the source tree: v0101.jpg for 1:1), or None (#68)."""
+    in the source tree: v0101.jpg for 1:1), or None (#68). THUMBS may be a
+    list of such folders, searched in order."""
     if not thumbs or not (vol.isdigit() and no.isdigit()):
         return None
-    path = Path(thumbs) / f"v{int(vol):02d}{int(no):02d}.jpg"
-    return path if path.is_file() else None
+    for folder in [thumbs] if isinstance(thumbs, (str, Path)) else thumbs:
+        path = Path(folder) / f"v{int(vol):02d}{int(no):02d}.jpg"
+        if path.is_file():
+            return path
+    return None
 
 
 def _thumb(thumbs, docs, key, prefix, label=None):

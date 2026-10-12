@@ -236,7 +236,9 @@ def run_site(src, out, config, wayback=None, corrections=None, transcriptions=No
     links = pdf_links(pdfs, out)
     publish_unindexed(transcriptions, docs, links)
     contents = read_contents(Path(transcriptions) / "contents") if transcriptions else {}
-    thumbs = src / "images" / "covers" / "32x45"
+    thumbs = [src / "images" / "covers" / "32x45"]
+    if php is not None:  # covers the older copy lacks, e.g. 26:4
+        thumbs.append(Path(php) / "images" / "covers" / "32x45")
     write_volume_pages(inventory, issues, src, docs, more, thumbs, contents, links)
     write_home_page(inventory, issues, docs, thumbs)
     write_index_page(inventory, issues, docs, contents, links)
