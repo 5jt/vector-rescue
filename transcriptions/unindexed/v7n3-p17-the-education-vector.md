@@ -14,7 +14,7 @@ tags:
 queries:
 - "The section’s own text only: its title page (printed 17, with its own contents list) and Alan Sykes’s editorial (printed 18, with a reply slip). The pieces it lists are transcribed separately: unindexed/v7n3-p19-letters-on-string-manipulations-in-apl.md (Letters), art10009620 (An APL SCRIPT Function) and art10009630 (A to B or not A to B?)."
 - "The section’s contents list gives “APL Booklist”, by Ed Shaw, at p.32; it has no line on the issue’s Contents page and is not transcribed here."
-- "The Secretary’s address and telephone number are kept as the Association’s published contact details."
+- "Following the project rule for individuals’ contact details, the street address and telephone number of the Secretary, Anthony Camacho, are omitted; the editor’s university address is kept."
 - "Kept as printed: the section’s contents list gives “A To B Or Not A To B: That Is The Question”."
 ---
 
@@ -24,7 +24,7 @@ queries:
 
 ***Editor Alan Sykes***
 
-This Education Vector has been reprinted from VECTOR Vol.7 No.3. VECTOR is the Quarterly Journal of the British APL Association; for more information about the British APL Association, contact the Secretary: Anthony Camacho, 2 Blenheim Rd, St Albans, Herts AL1 4NR Tel: 0727 860130.
+This Education Vector has been reprinted from VECTOR Vol.7 No.3. VECTOR is the Quarterly Journal of the British APL Association; for more information about the British APL Association, contact the Secretary: Anthony Camacho, [address and telephone number omitted].
 
 ### Contents
 

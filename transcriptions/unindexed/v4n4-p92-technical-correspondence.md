@@ -11,7 +11,7 @@ tags:
 - development practice
 - reviews
 queries:
-- "Several letters under one heading; writers’ addresses kept as printed."
+- "Several letters under one heading. Following the project rule for individuals’ contact details, the street addresses of D.B. Piper, Iain Hayward and Bob Bykerk are omitted; the addresses of National Westminster Bank, Dyadic Systems and the University of Wales are kept."
 - "Sullivan’s GETSCR is printed `GETSCR: GETSCR ⍵,⎕AV[⎕IO],V : 0=⍴V←⍞ : ⍵`; the input glyph after V← is read as ⍞ (quote-quad), as screen input requires."
 - "Bykerk’s idiom is printed `(1=+/R∧.=⍉R)/R` in a crude font; read with ⌿ (rows). It keeps only rows that occur once, as Branson’s del-all-dupes does (v4n2-p93)."
 - "Donnelly’s numbered points skip 8 (7 is followed by 9); transcribed as printed."
@@ -102,7 +102,7 @@ In future, let’s have more of the high quality code and less (preferably none)
 
 Yours faithfully,
 
-<p style="margin-left: 2em">D.B.Piper<br>41, Sandown Drive<br>Rainham<br>Kent ME8 9DT.</p>
+<p style="margin-left: 2em">D.B.Piper<br>[address omitted]</p>
 
 ## In Defense of Dyalog
 
@@ -120,7 +120,7 @@ The impression I get is that you didn’t have time to get to know this product 
 
 Yours faithfully
 
-<p style="margin-left: 2em">Iain Hayward<br>9 rue de Clairefontaine<br>1341 Luxembourg<br>Grand Duchy of Luxembourg</p>
+<p style="margin-left: 2em">Iain Hayward<br>[address omitted]</p>
 
 ## In defence of VIA …
 
@@ -140,7 +140,7 @@ I suggest that he takes a little more time to learn a product before he criticiz
 
 Yours sincerely
 
-<p style="margin-left: 2em">Bob Bykerk<br>55, Rue Charles Arendt<br>Luxembourg</p>
+<p style="margin-left: 2em">Bob Bykerk<br>[address omitted]</p>
 
 **Editor’s note:**
 

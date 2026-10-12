@@ -16,6 +16,7 @@ tags:
 queries:
 - "Contents list gives “Sullivan, Buckland, Horton & Last”. Editors’ replies are italic, transcribed as italic paragraphs."
 - "Last’s four functions are printed in a small monospace APL face, header and body lines without line numbers or ∇; transcribed as printed. Checked by simulating each (right-to-left evaluation, index origin 1) on 500 random cases: DUPSOUT gives the unique elements in first-occurrence order, DYOTA gives V⍳V, DIOTA gives V⍳A, MEMBER gives A∊B. DIOTA alone tests group starts with `L≠¯1⌽L`, not `¯1↓(1+¯1↑L),L`; it gives an INDEX ERROR when every element of V,A is equal. Transcribed as printed."
+- "Following the project rule for individuals’ contact details, the street addresses of John Buckland and Phil Last are omitted; the addresses of National Westminster Bank and Pfizer are kept."
 - "Slips transcribed as printed: “on the face of,”, “Camberely”, “continous”, “util”, “inadvertantly”, “rightargument”, “fulfill”."
 ---
 
@@ -51,10 +52,7 @@ I hope this is of interest.
 Yours Sincerely,
 
 John Buckland,  
-Westwood,  
-9 Grove Road,  
-Camberely,  
-Surrey, GU15 2DN.
+[address omitted]
 
 *Editor: John’s function is reproduced in ‘Surely There Must Be a Better Way’.*
 
@@ -87,9 +85,7 @@ The use of origin zero does not provide a neat way of ignoring the zeros used fo
 Sincerely,
 
 Phil Last,  
-19 Stanley Road,  
-Lower Edmonton,  
-London N9.
+[address omitted]
 
 *Editor: Glad we’ve got that straight!*
 
@@ -159,8 +155,6 @@ And why IBM (and others) haven’t done anything about this before?
 Sincerely,
 
 Phil Last,  
-19 Stanley Road,  
-Lower Edmonton,  
-London N9.
+[address omitted]
 
 *Editor: We hope the code has been reproduced correctly, lengthy lines of APL can be difficult to copy. Phil’s comment about running grade-up twice and still coming out faster can be explained by the fact that the time taken for sorting is approximately linear; double the number of elements and the cpu time will be only a little more than double. Searching in the way dyadic iota is implemented will tend to increase with the square of the number of elements. These functions are good candidates for the ‘Surely There Must Be a Better Way’ column. Has anyone got a solution that eliminates the second grade-up?*

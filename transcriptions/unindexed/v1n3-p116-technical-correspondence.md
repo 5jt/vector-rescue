@@ -18,6 +18,7 @@ queries:
 - "Smith’s ∆PMAX and ∆PMIN checked by hand: with a trailing partition, `⌽+\\⌽MSK` numbers the partitions from the end, so grading `VEC+(1+⌈/VEC)×-⌽+\\⌽MSK` up (or the `+` form down) sorts partition by partition, and `MSK/` picks the last, i.e. largest (smallest), value of each."
 - "Bassett’s XR: line [8] is printed `¯2↑ I I ,⍴X` (read as `1 1`, as in [9]); in [11] the arrow is read as `1↑⍴X` (rows), which XR’s logic needs; the glyph before X is `⍉`. In CHANGEWORD [42] `J/` (compress) is printed with a slash through J’s right edge, like `≠`; read as compress. [50] `(B⊖R)[2;]`."
 - "Slips transcribed as printed: “sepcified”, “occurence”."
+- "Following the project rule for individuals’ contact details, Mark Bassett’s street address is omitted."
 ---
 
 ## From Andrew Tarr, 28th June 1984
@@ -194,6 +195,6 @@ One use for CHANGEWORD I have already found is a function that relabels others t
     ∇
 ```
 
-M.S. Bassett, 26 Falconwood Ct., Montpelier Row, Blackheath, London SE3 0RS.
+M.S. Bassett, [address omitted].
 
 *Editor: We hope to get some feedback on Mark’s function as we have not had the time to test it.*

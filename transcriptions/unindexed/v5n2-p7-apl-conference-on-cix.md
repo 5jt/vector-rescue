@@ -13,7 +13,7 @@ tags:
 - system interfaces
 queries:
 - "A letter in General Correspondence, From: Craig Lomas, 28th October 1988. The section’s standing introduction (“The VECTOR working group welcomes correspondence …”) precedes it and is not transcribed here. It is followed by Anthony Camacho’s “I-APL and the APL Keyboard” (unindexed/v5n2-p8-i-apl-and-the-apl-keyboard.md)."
-- "The writer’s own telephone number is omitted; CIX’s public dial-in number is kept."
+- "The writer’s own telephone number and his CIX address are omitted; CIX’s public dial-in number is kept."
 - "Kept as printed: “becase”, “amoung”, “PC’s”; the third and last paragraphs lack a full stop."
 ---
 
@@ -28,7 +28,7 @@ I invite the APL community to take an active part in this conference, to help sp
 
 CIX can be joined by simply dialling (01) 399-5252 with a V21/V22/V23 modem and then enrolling on-line. For those outside the London area CIX can be contacted via your local Mercury X25 node, you do not have to have a Mercury account.
 
-I can be contacted on [telephone number omitted], or send messages to ‘CJL’ on CIX
+I can be contacted on [telephone number omitted], or send messages to [CIX address omitted] on CIX
 
 Yours sincerely
 

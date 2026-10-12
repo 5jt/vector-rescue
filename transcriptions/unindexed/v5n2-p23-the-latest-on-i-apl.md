@@ -15,7 +15,7 @@ tags:
 queries:
 - "Contents line “The Latest on I-APL” (the Education Vector’s own contents list: “The Latest I-APL News”); the printed heading is “I-APL NEWSLETTER No 7 / October 1988”, with the byline “by Anthony Camacho, Old World Chairman of the I-APL project”."
 - "The Contents page gives page 26; the newsletter begins on printed 23 (supplement page 7) and ends on printed 26. The Contents line’s page is corrected to 23."
-- "The writer’s St Albans address is kept: it is the business address under which Anthony Camacho is listed as a vendor in this issue’s APL Product Guide (unindexed/v5n2-p36-apl-product-guide.md). The BAA Software Library’s and I-APL’s order addresses are also kept."
+- "Following the project rule for individuals’ contact details, the street addresses of Anthony Camacho (the writer, listed as a sole consultant in the Product Guide) and of Alison Chatterton (given for the BAA Software Library, c/o her) are omitted; I-APL’s order address is kept."
 - "Kept as printed: “We are very grateful to Vector to Alan Sykes”; “Zdenek V Jizbas” (later “Zdenek V. Jizba”); “Tama Traberman”; “microbee”; “APL◇385” (printed with a diamond)."
 ---
 
@@ -52,8 +52,7 @@ Version 1.1 of I-APL/PC will be available (disk only) in December from the BAA s
 
 > The BAA Software Library,<br>
 > c/o Alison Chatterton,<br>
-> 9 Oak Grove,<br>
-> Hertford, SG13 8AT.
+> [address omitted]
 
 Ask for I-APL version 1.1 (and while you are about it why not order Morten Kromberg's GRAF, the FinnAPL statistics and Zdenek V Jizbas tutorial disks at the same time). The price is £2 a disk for APL Association members and £3 for non-members plus £1 for post and packing. I-APL Ltd will continue to sell the books on their own, and disks when a manual is ordered at the same time.
 
@@ -66,7 +65,7 @@ The address for orders is:
 > Weston-Super-Mare,<br>
 > Avon BS22 8DU.
 
-My address is: 2 Blenheim Road, St Albans, Herts AL1 4NR. The reprint of the manual will also cover Tony Cheal's BBC version (even if we cannot yet issue it).
+My address is: [address omitted]. The reprint of the manual will also cover Tony Cheal's BBC version (even if we cannot yet issue it).
 
 ### Ports to Other Machines
 

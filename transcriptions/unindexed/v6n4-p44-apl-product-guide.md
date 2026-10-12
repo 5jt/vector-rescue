@@ -13,12 +13,13 @@ tags:
 - applications
 - APL community
 queries:
+- "Following the project rule for individuals’ contact details, the addresses and telephone numbers printed for I-APL Ltd (Anthony Camacho) are omitted, as they are the consultant’s own; companies’ addresses are kept."
 - "Printed heading “Fully Revised APL Product Guide”, byline “Compiled by Alison Chatterton”. The guide ends on printed 52 (its lower half blank)."
 - "Printed 53, before the next Contents line (APL\\*PLUS/PC Release 9, printed 54), carries a separate untranscribed piece with no Contents line: “Reviews Section — introduction by Adrian Smith”."
 - "The introduction lists eight groups; the sections are headed COMPLETE APL SYSTEMS, APL TIMESHARING SERVICES (not in the list), APL INTERPRETERS, APL VISUAL DISPLAY UNITS, APL PRINTERS, APL PACKAGES, APL CONSULTANCY, OTHER PRODUCTS and VENDOR ADDRESSES."
 - "Tables follow the printed columns. Where a row continues the previous company, the Company cell is left blank; sub-labels printed in the Company column, such as “(for VSAPL)”, “(for APL2)”, “(for PC’s)”, “(mainframe)” and “(PC)”, are kept in that cell on the row they precede. The packages from LOGOL to “All 5 modules site licence” (printed 49) continue the Mercia entry, as printed; the I-APL book “APL Programs for the Mathematics Classroom” runs over two printed lines, its price and details on the second."
 - "Dyadic’s two Dyalog APL interpreter rows are printed misaligned: “for DOS/386” and “for Unix Systems” stand in the PRICES column and the prices (995; 995-12,000) begin the DETAILS; kept as printed. In the DOS/386 row the printed “δSM” is read as ⎕SM (the Screen Manager system function)."
-- "Vendor addresses and telephone numbers are kept as business contact details, including those of sole consultants (Anthony Camacho, Paul Chapman, Peter Cyriax, Ian A. Clark) listed as vendors."
+- "Vendor addresses and telephone numbers are kept as business contact details. Following the project rule for individuals’ contact details, the street addresses and telephone numbers of the sole consultants listed as vendors (Anthony Camacho, Paul Chapman, Peter Cyriax of Peter Cyriax Systems and Ian A. Clark) are omitted; companies’ addresses are kept, including I-APL Ltd’s."
 - "Kept as printed: “Std. conguration” (MicroAPL Spectrum); “IBM 's and compatibles”; “one years maintenance”; “BULLetc.”; “Relation Data Base System”; “Comparable to all APL\\*PLUS file systems”; “palette o 256” (Shandell); “Quen-data”; “APL6800” (APL People consultancy); “Tony Checkseld” (Datatrade); “Tel: 01436 9481” (Cocking & Drury); “Clarence ST”; “U.S.A..”; “David Alis” (APL Software)."
 ---
 
@@ -282,8 +283,8 @@ All contributions to the APL Product Guide should be sent to Alison Chatterton, 
 | APL People | Jill Moss | The Old Malthouse, Clarence St, BATH, BA1 5NS. Tel: 0225-462602 |
 | APL Software | David Alis<br>Jill Moss | The Old Malthouse, Clarence ST, BATH, BA1 5NS.Tel: 0225-462602 |
 | Buckland Management Systems | John Buckland | Westwood, 19 Grange Road, Camberley, Surrey, GU15 2DH<br>Tel: 0276 684327 |
-| Anthony Camacho | | 2 Blenheim Road, St. Albans, Herts AL1 4NR.<br>Tel: St. Albans (0727) 60130 |
-| Paul Chapman | | 18, Trevelyan Road, London, SW17 9LN Tel: 01-767 4254 |
+| Anthony Camacho | | [address and telephone number omitted] |
+| Paul Chapman | | [address and telephone number omitted] |
 | Cocking & Drury Ltd. | Romilly Cocking | 180 Tottenham Court Road, LONDON, W1P 9LE<br>Tel: 01436 9481 Fax: 01-436 0524 |
 | Datatrade Ltd. | Tony Checkseld | 38 Billing Road, Northampton, NN1 5DQ. Tel: 0604-22289 |
 | Delphi Consultation | David Crossley | Church Green House, Stanford-in-the-Vale, Oxon SN7 8LQ.<br>Tel: 03677-384 |
@@ -291,15 +292,15 @@ All contributions to the APL Product Guide should be sent to Alison Chatterton, 
 | E & S Associates | Frank Evans | 19 Homesdale Road, Orpington, Kent BR5 1JS. Tel: 0689-24741 |
 | H.M.W. Computing Ltd. | Stan Wilkinson | Hamilton House, 1 Temple Avenue, Victoria Embankment, LONDON EC4Y 0HA Tel: 01-353 4212<br>Telex: 926604 HAMHSEG Fax: 01-353 3325 |
 | HRH Systems | Dick Holt | Box 4496, Silver Spring, Maryland 20904 |
-| Ian A. Clark | | 9 Hill End, Frosterley, Bp. Auckland, Co. Durham DL13 2SX<br>Tel: 038852-7190 |
-| I-APL Ltd | Anthony Camacho | 2 Blenheim Road, St. Albans, AL1 4NR. Phone 0727-60130 for queries, order forms, bulk orders |
+| Ian A. Clark | | [address and telephone number omitted] |
+| I-APL Ltd | Anthony Camacho | [address and telephone number omitted] for queries, order forms, bulk orders |
 | | J C Business Services | 56 The Crescent, Milton, Weston-super-Mare, Avon, BS22 8DU N.B. PAID ORDERS ONLY |
 | IBM UK Ltd | Nat.Enq. Centre | 414 Chiswick High Rd, London W4 5TF Tel: 01-747 0747 |
 | Interprocess Systems | Stella Chamberlain | 9040 Roswell Road, Suite 690, Atlanta, Georgia 30350-1131<br>Tel: (404) 992-8400 |
 | Mercia Software Ltd. | Gareth Brentnall | Aston Science Park, Love Lane, Birmingham B7 4BJ. Tel: 021-359 5096 |
 | MicroAPL Ltd. | David Eastwood | South Bank Technopark, 90 London Road, LONDON SE1 6LN<br>Tel: 01-922 8866 |
 | M.T.I.C. | Ray Cannon | 7 Pine Wood, Sunbury-on-Thames, Middx. TW16 6SH Tel: Sunbury(09327) 80848 |
-| Peter Cyriax Systems | Peter Cyriax | 213 Goldhurst Terrace, London NW6 3ER Tel: 01-624 7013 (Answerphone) 0860-377963 (Mobile) |
+| Peter Cyriax Systems | Peter Cyriax | [address and telephone numbers omitted] |
 | QB On-Line Systems | Philip Bulmer | 5 Surrey House,Portsmouth Rd Camberley, Surrey, GU15 1LB.<br>Tel: 0276-20789 |
 | Renaissance Data Systems | Ed Shaw | P.O. Box 20023, Park West Finance Station, New York, NY 10025-1510, U.S.A.. Tel: (212)864-3078 |
 | The Rochester Group | Robert Pullman | 50 S.Union St., Rochester NY 14607, U.S.A. Tel:716-454-4360 or 716-454-4641 |

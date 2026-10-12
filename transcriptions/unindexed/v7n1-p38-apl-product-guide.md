@@ -13,14 +13,15 @@ tags:
 - applications
 - APL community
 queries:
+- "Following the project rule for individuals’ contact details, the addresses and telephone numbers printed for I-APL Ltd (Anthony Camacho) are omitted, as they are the consultant’s own; companies’ addresses are kept."
 - "Printed byline “Compiled by Alison Chatterton”."
 - "The guide ends on printed 46. Printed 47, before the next Contents line (Dyalog APL for MS DOS, printed 49), carries a separate untranscribed piece, “Reviews Section — introduction by Adrian Smith”; printed 48 is a Dyalog APL advertisement."
 - "The introduction lists ten groups, but the guide prints eight sections: there is no “APL Training Courses” section, “APL character set printers” is headed “APL PRINTERS”, “APL-based packages” “APL PACKAGES”, and “Other services” “OTHER PRODUCTS”."
 - "Tables follow the printed columns. Where a row continues the previous company, the Company cell is left blank; sub-labels printed in the Company column, such as “(mainframe)”, “(microcomputer)”, “(for APL2)” and “(for PC's)”, are kept in that cell on the row they precede. Cocking/Drury’s APL Packages entries continue from printed 41 onto printed 42 without the company name repeated; Mercia’s TWIGS modules (T, W, I, G, S) and the two module-bundle prices continue from printed 42 onto 43; “Wickliffe / Computer Ltd” is split across printed 44 and 45 and is given here as one row."
 - "Dyadic’s two Dyalog APL interpreter rows print the platform (“for DOS/386”, “for Unix Systems”) in the price column and the price at the start of the details; they are given here as product and price. In the DOS/386 entry the quad of “⎕SM Screen Manager” is printed as a stray glyph (like ‘ô’), read as ⎕."
 - "In I-APL Ltd’s Other Products rows the prices are run on to the titles (“(2nd Edn)5.50”); they are given here in the price column. “APL Programs for the Mathematics Classroom (Springer-Verlag)” spans the columns on its own line, its price and details on the next; the packing-charge note spans the columns."
-- "Vendor addresses and telephone numbers are kept as business contact details, including those of sole consultants (Anthony Camacho, Paul Chapman, Peter Cyriax, Ian A. Clark, Rex Swain) listed as vendors."
-- "Kept as printed: “Std. conguration” (MicroAPL Spectrum); “IBM 's and compatibles”; “one years maintenance”; “BULLetc.”; “Quen-data”; “Relation Data Base System”; “Assembler written replacement function”; “Comparable to all APL*PLUS file systems”; “APL6800”; “PL and/or mainframe” (Rex Swain); “palette o 256”; “Tony Checkseld” (Datatrade); “Tel: 071436 9481 Fax: 01-436 0524” (Cocking & Drury); “Clarence ST”; “CT O6793”; “U.S.A..”; “Mike Sutler” (I.P.S.A.)."
+- "Vendor addresses and telephone numbers are kept as business contact details. Following the project rule for individuals’ contact details, the street addresses and telephone numbers of the sole consultants listed as vendors (Anthony Camacho, Paul Chapman, Peter Cyriax of Peter Cyriax Systems, Ian A. Clark and Rex Swain) are omitted; companies’ addresses are kept, including I-APL Ltd’s."
+- "Kept as printed: “Std. conguration” (MicroAPL Spectrum); “IBM 's and compatibles”; “one years maintenance”; “BULLetc.”; “Quen-data”; “Relation Data Base System”; “Assembler written replacement function”; “Comparable to all APL*PLUS file systems”; “APL6800”; “PL and/or mainframe” (Rex Swain); “palette o 256”; “Tony Checkseld” (Datatrade); “Tel: 071436 9481 Fax: 01-436 0524” (Cocking & Drury); “Clarence ST”; “U.S.A..”; “Mike Sutler” (I.P.S.A.)."
 ---
 
 *Compiled by Alison Chatterton*
@@ -282,8 +283,8 @@ All contributions to the APL Product Guide should be sent to Alison Chatterton, 
 | APL People | Jill Moss | The Old Malthouse, Clarence St, BATH, BA1 5NS. Tel: 0225-462602 |
 | APL Software | David Alis<br>Jill Moss | The Old Malthouse, Clarence ST, BATH, BA1 5NS.Tel: 0225-462602 |
 | Buckland Management Systems | John Buckland | Westwood, 19 Grange Road, Camberley, Surrey, GU15 2DH<br>Tel: 0276 684327 |
-| Anthony Camacho | | 2 Blenheim Road, St. Albans, Herts AL1 4NR.<br>Tel: St. Albans (0727) 60130 |
-| Paul Chapman | | 18, Trevelyan Road, London, SW17 9LN Tel: 081-767 4254 |
+| Anthony Camacho | | [address and telephone number omitted] |
+| Paul Chapman | | [address and telephone number omitted] |
 | Cocking & Drury Ltd. | Romilly Cocking | 180 Tottenham Court Road, LONDON, W1P 9LE<br>Tel: 071436 9481 Fax: 01-436 0524 |
 | Datatrade Ltd. | Tony Checkseld | 38 Billing Road, Northampton, NN1 5DQ. Tel: 0604-22289 |
 | Delphi Consultation | David Crossley | Church Green House, Stanford-in-the-Vale, Oxon SN7 8LQ.<br>Tel: 03677-384 |
@@ -292,8 +293,8 @@ All contributions to the APL Product Guide should be sent to Alison Chatterton, 
 | General Software Ltd | M.E. Martin | 22 Russell Road, Northolt, Middx, UB5 4QS. Tel: 081-864 9537 |
 | H.M.W. Computing Ltd. | Stan Wilkinson | Hamilton House, 1 Temple Avenue, Victoria Embankment, LONDON EC4Y 0HA Tel: 071-353 4212<br>Telex: 926604 HAMHSEG Fax: 01-353 3325 |
 | HRH Systems | Dick Holt | Box 4496, Silver Spring, Maryland 20904 |
-| Ian A. Clark | | 9 Hill End, Frosterley, Bp. Auckland, Co. Durham DL13 2SX<br>Tel: 038852-7190 |
-| I-APL Ltd | Anthony Camacho | 2 Blenheim Road, St. Albans, AL1 4NR. Phone 0727-60130 for queries, order forms, bulk orders |
+| Ian A. Clark | | [address and telephone number omitted] |
+| I-APL Ltd | Anthony Camacho | [address and telephone number omitted] for queries, order forms, bulk orders |
 | | J C Business Services | 56 The Crescent, Milton, Weston-super-Mare, Avon, BS22 8DU N.B. PAID ORDERS ONLY |
 | IBM UK Ltd | Nat.Enq. Centre | 414 Chiswick High Rd, London W4 5TF Tel: 081-747 0747 |
 | Interprocess Systems | Stella Chamberlain | 9040 Roswell Road, Suite 690, Atlanta, Georgia 30350-1131<br>Tel: (404) 992-8400 |
@@ -303,7 +304,7 @@ All contributions to the APL Product Guide should be sent to Alison Chatterton, 
 | Mercia Software Ltd. | Gareth Brentnall | Aston Science Park, Love Lane, Birmingham B7 4BJ. Tel: 021-359 5096 |
 | MicroAPL Ltd. | David Eastwood | South Bank Technopark, 90 London Road, LONDON SE1 6LN<br>Tel: 071-922 8866 |
 | M.T.I.C. | Ray Cannon | 7 Pine Wood, Sunbury-on-Thames, Middx. TW16 6SH Tel: Sunbury(09327) 80848 |
-| Peter Cyriax Systems | Peter Cyriax | 213 Goldhurst Terrace, London NW6 3ER Tel: 071-624 7013 (Answerphone) 0860-377963 (Mobile) |
+| Peter Cyriax Systems | Peter Cyriax | [address and telephone numbers omitted] |
 | Parallax Systems Inc. | Kevin Weaver | Avery Road, Box 319, Garrison, NY 10524, U.S.A. Tel: 914-424-4265 |
 | QB On-Line Systems | Philip Bulmer | 6 Surrey House,Portsmouth Rd Camberley, Surrey, GU15 1LB.<br>Tel: 0276-20789 |
 | Renaissance Data Systems | Ed Shaw | P.O. Box 20023, Park West Finance Station, New York, NY 10025-1510, U.S.A.. Tel: (212)864-3078 |
@@ -311,6 +312,6 @@ All contributions to the APL Product Guide should be sent to Alison Chatterton, 
 | Shandell Systems Ltd. | Maurice Shanahan | Chiltern House, High Street, Chalfont St. Giles, Bucks., HP8 4QH. Tel: 02407-2027. Fax:02407-3118 |
 | I.P.S.A. Ltd. | Mike Sutler | 7th Floor B Block, Coventry Point, Market Way, Coventry CV1 1EA<br>Tel: 0203 256562 |
 | Sugar Mill Software Corp. | Lawrence H. Nitz | 1180 Kika Place, Kailua, Hawaii 96734 Tel: (808) 261-7536 |
-| Rex Swain | | 8 South Street, Washington, CT O6793, U.S.A. Tel:203-868-0131 or 212-242-5816 |
+| Rex Swain | | [address and telephone numbers omitted] |
 | Wickliffe Computer Ltd | Nick Telfer | 76 Victoria Rd., Whitehaven, Cumbria, CA28 6JD. Tel:0946-692588 |
 | Warwick Univ. | Prof.Jeff Harrison | Dept of Statistics, University of Warwick, Coventry, CV4 7AL<br>Tel:0203-523369 |

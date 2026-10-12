@@ -14,7 +14,7 @@ tags:
 queries:
 - "The section’s own text only: its title page (printed 33, with its own contents list), David Eastwood’s editorial and the list of the ASL Management Team (printed 34 to the top of printed 35). The pieces it lists are transcribed separately: unindexed/v7n3-p35-asl-news-and-status-december-1990.md, art10006250 (The Genesis of ASL), unindexed/v7n3-p38-within-asl-basic-statistics.md and art10006260 (WAGS)."
 - "No byline is printed on the editorial; David Eastwood is named as the newsletter’s editor, and the section’s contents list gives him as author of the Editorial and of The ASL team."
-- "John Searle’s entry gives a home address and a telephone number marked “(home)”; both are omitted. The university and company addresses of the other members are kept. The Secretary’s address is kept as the Association’s published contact details."
+- "John Searle’s entry gives a home address and a telephone number marked “(home)”; both are omitted. The university and company addresses of the other members are kept. Following the project rule for individuals’ contact details, the Secretary’s (Anthony Camacho’s) street address and telephone number are also omitted."
 - "Kept as printed: the section’s contents list gives “The ASL team” (the heading is “The ASL Management Team”), “ASL News” and “The Basic Statistics Volume”; the editorial dates the Swansea conference to “Vector 7.3”, this issue; it promises a look at “Basic Graphics”, where the issue has “Within ASL - Basic Statistics” and WAGS."
 ---
 
@@ -26,7 +26,7 @@ queries:
 
 ***Editor David Eastwood***
 
-This *Random Vector* has been reprinted from VECTOR Vol.7 No.3. VECTOR is the Quarterly Journal of the British APL Association; for more information about the British APL Association, contact the Secretary: Anthony Camacho, 2 Blenheim Rd, St Albans, Herts AL1 4NR Tel: 0727 860130.
+This *Random Vector* has been reprinted from VECTOR Vol.7 No.3. VECTOR is the Quarterly Journal of the British APL Association; for more information about the British APL Association, contact the Secretary: Anthony Camacho, [address and telephone number omitted].
 
 ### Contents
 

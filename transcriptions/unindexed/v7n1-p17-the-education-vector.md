@@ -16,7 +16,7 @@ queries:
 - "The section’s contents list gives “APL Booklist”, Ed Shaw, p.32; printed 32 is a Renaissance Data Systems advertisement (“ALL APL BOOKS IN PRINT”, with an order form), not transcribed."
 - "The title page is dated “April 1990”, though the issue is July 1990."
 - "Kept as printed: the section’s contents list gives “Function Sampling With IAPL”, “Walter G Spunde” and “Some More String Manipulations”."
-- "The Secretary’s address is kept: Anthony Camacho’s address appears as a vendor’s business address in the APL Product Guide."
+- "Following the project rule for individuals’ contact details, the street address of the Secretary, Anthony Camacho, is omitted; the university address of the editor is kept."
 ---
 
 ## The Education Vector
@@ -25,7 +25,7 @@ queries:
 
 **Editor Alan Sykes**
 
-This Education Vector has been reprinted from VECTOR Vol.7 No.1. VECTOR is the Quarterly Journal of the British APL Association; for more information about the British APL Association, contact the Secretary: Anthony Camacho, 2 Blenheim Rd, St Albans, Herts AL1 4NR.
+This Education Vector has been reprinted from VECTOR Vol.7 No.1. VECTOR is the Quarterly Journal of the British APL Association; for more information about the British APL Association, contact the Secretary: Anthony Camacho, [address omitted].
 
 ### Contents
 

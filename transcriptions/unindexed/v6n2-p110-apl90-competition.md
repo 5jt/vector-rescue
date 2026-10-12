@@ -13,7 +13,7 @@ tags:
 - competitions and puzzles
 queries:
 - "Contents line “APL90 Competition”, credited to Jill Moss; the piece carries no byline. Printed 110 announces the draw; printed 111 is the “APL90 Prize Draw: Entry Form”, whose blank fields (name, organisation, address, telephone and date joined of the existing and the new member) are not transcribed; its introductory note, the address to send it to, and its Rules are kept. Printed 112 is a Brookteam Computer Recruitment advertisement (“The APL Connection”)."
-- "The address for entries, “BAA Administration, Alison Chatterton, 9 Oak Grove, HERTFORD SG13 8AT”, is kept as printed as the Association’s administration address."
+- "Following the project rule for individuals’ contact details, the street address given for entries (BAA Administration, Alison Chatterton) is omitted; companies’ addresses are kept."
 ---
 
 ## British APL Association Prize Draw
@@ -43,8 +43,7 @@ Membership of the British APL Association is open to anyone interested in APL. T
 Please send the completed form to:
 
 > BAA Administration,<br>
-> Alison Chatterton, 9 Oak Grove,<br>
-> HERTFORD SG13 8AT
+> Alison Chatterton, [address omitted]
 
 ### Rules
 

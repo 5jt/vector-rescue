@@ -11,6 +11,8 @@ review: draft
 tags:
 - conference reports
 - APL community
+queries:
+- "Following the project rule for individuals’ contact details, Dick Holt’s street address, to which software was to be sent, is omitted; the ACM list address is kept."
 ---
 
 from Dick Holt
@@ -18,7 +20,7 @@ from Dick Holt
 
 I want three things from you:
 
-- I want new or recently updated material for the APL95 Software Exchange. Any flavor of APL, J, or related software, in English or other languages, is welcome. Send your disk, by 5 May 1995, to 3802 N. Richmond St. Arlington VA 22207. Include a brief ASCII file describing what the software does.
+- I want new or recently updated material for the APL95 Software Exchange. Any flavor of APL, J, or related software, in English or other languages, is welcome. Send your disk, by 5 May 1995, to [address omitted]. Include a brief ASCII file describing what the software does.
 - What we do: I want your suggestions about how SIGAPL can improve the quality, timeliness, and relevance of the Software Exchange. We’ve never asked APLers what they want or need. We dump 20 megs of stuff on the table once a year and a few people pick it up.
 - How we do it: I want your suggestions about how SIGAPL can use this asset better. Here’s the problem: once a year we collect a huge amount of software (APL93 was 9 disks). It’s readily available one week per year to conference attenders (they constitute 2% of the APL community), and not so readily available to the other 98% for the rest of the year. It’s like a python eating a pig -- one huge gulp followed by a long sleep. Electronic distribution helps, but the BBS\APL and FTP sites can’t always get Software Exchange material easily or on time.
 
