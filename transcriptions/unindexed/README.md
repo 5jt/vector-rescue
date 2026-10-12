@@ -407,3 +407,155 @@ They are set aside here, unpublished, for editorial review.
 | [v6n1-p57-using-ibms-apl2-on-the-pc.md](v6n1-p57-using-ibms-apl2-on-the-pc.md) | 6:1 | 57–60 | Experience of Using IBM's APL2/PC | Anthony Camacho | Contents line (#305) |
 | [v6n1-p61-impressions-dyalog-apl-for-ms-dos.md](v6n1-p61-impressions-dyalog-apl-for-ms-dos.md) | 6:1 | 61–62 | Dyalog APL for 386 DOS PC's | Jonathan Martin | Contents line (#305) |
 | [v6n1-p90-hackers-corner.md](v6n1-p90-hackers-corner.md) | 6:1 | 90 | Hacker's Corner: Where to Zap APL*PLUS Version-8 | Adrian Smith | Contents line (#305) |
+| [v5n1-p3-editorial.md](v5n1-p3-editorial.md) | 5:1 | 3 | Editorial: Don’t Lose Touch | Adrian Smith | Contents line (#305) |
+| [v5n1-p4-topics-for-future-meetings.md](v5n1-p4-topics-for-future-meetings.md) | 5:1 | 4 | Suggested Topics for BAA Meetings | Jonathan Martin | Contents line (#305) |
+| [v5n1-p5-quick-reference-diary.md](v5n1-p5-quick-reference-diary.md) | 5:1 | 5 | Quick Reference Diary | Adrian Smith | Contents line (#305) |
+| [v5n1-p6-apl-ication-latest-details.md](v5n1-p6-apl-ication-latest-details.md) | 5:1 | 6–8 | APL-ication: Latest Details | Philip Goacher | Contents line (#305) |
+| [v5n1-p11-general-correspondence.md](v5n1-p11-general-correspondence.md) | 5:1 | 11 | General Correspondence | — | Contents line (#305) |
+| [v5n1-p19-report-on-the-1987-88-year.md](v5n1-p19-report-on-the-1987-88-year.md) | 5:1 | 19–20 | British APL Association News: Report on the Achievements of the 1987/88 Committee | Graham Parkhouse | Contents line (#305) |
+| [v5n1-p21-accounts-and-minutes-of-the-1988-agm.md](v5n1-p21-accounts-and-minutes-of-the-1988-agm.md) | 5:1 | 21, 23–26 | Accounts and Minutes of the 1988 AGM | Graham Parkhouse | Contents line (#305) |
+| [v5n1-p26-apl-bibliography.md](v5n1-p26-apl-bibliography.md) | 5:1 | 26–27 | Finding out about APL | David Eastwood | Contents line (#305) |
+| [v5n1-p28-news-from-sustaining-members.md](v5n1-p28-news-from-sustaining-members.md) | 5:1 | 28–31 | News from Sustaining Members | Cathy Dargue | Contents line (#305) |
+| [v5n1-p33-the-education-vector.md](v5n1-p33-the-education-vector.md) | 5:1 | 33–34 | The Education Vector | Norman Thomson | Contents line (#305) |
+| [v5n1-p39-apl-product-guide.md](v5n1-p39-apl-product-guide.md) | 5:1 | 39–48 | APL Product Guide | Cathy Dargue | Contents line (#305) |
+| [v5n1-p56-algorithmics-by-harel.md](v5n1-p56-algorithmics-by-harel.md) | 5:1 | 56–58 | Algorithmics by Harel | Anthony Camacho | Contents line (#305) |
+| [v5n1-p64-real-time-processes-in-a-brewery.md](v5n1-p64-real-time-processes-in-a-brewery.md) | 5:1 | 64 | Controlling Real-time Processes in a Brewery (with APL) | Robert Poate | Contents line (#305) |
+| [v5n1-p102-hackers-corner-a-little-bit-of-c.md](v5n1-p102-hackers-corner-a-little-bit-of-c.md) | 5:1 | 102 | Hacker’s Corner: a little bit of C | Adrian Smith | Contents line (#305) |
+| [v5n2-p3-editorial.md](v5n2-p3-editorial.md) | 5:2 | 3–4 | Editorial: OOPS and WIMPS and the Way Ahead | Adrian Smith | Contents line (#305) |
+| [v5n2-p5-quick-reference-diary.md](v5n2-p5-quick-reference-diary.md) | 5:2 | 5 | Quick Reference Diary | Jonathan Martin | Contents line (#305) |
+| [v5n2-p7-general-correspondence.md](v5n2-p7-general-correspondence.md) | 5:2 | 7 | General Correspondence | — | Contents line (#305) |
+| [v5n2-p15-committee-activities.md](v5n2-p15-committee-activities.md) | 5:2 | 15–16 | Committee Activities | Graham Parkhouse | Contents line (#305) |
+| [v5n2-p17-the-education-vector.md](v5n2-p17-the-education-vector.md) | 5:2 | 17–18 | The Education VECTOR | Alan Sykes | Contents line (#305) |
+| [v5n2-p18-report-on-the-1988-summer-course.md](v5n2-p18-report-on-the-1988-summer-course.md) | 5:2 | 18–19 | A Report on the Second Winchester Summer Course in APL | John Clift | Contents line (#305) |
+| [v5n2-p20-a-pilot-course-in-apl.md](v5n2-p20-a-pilot-course-in-apl.md) | 5:2 | 20–22 | A Pilot Course in APL | Bruce Dickson | Contents line (#305) |
+| [v5n2-p20-apl-at-mill-hill-school.md](v5n2-p20-apl-at-mill-hill-school.md) | 5:2 | 20 | APL at Mill Hill School | Bruce Dickson | Contents line (#305) |
+| [v5n2-p23-the-latest-on-i-apl.md](v5n2-p23-the-latest-on-i-apl.md) | 5:2 | 23–26 | I-APL Newsletter No 7, October 1988 | Anthony Camacho | Contents line (#305) |
+| [v5n2-p27-counting-in-apl.md](v5n2-p27-counting-in-apl.md) | 5:2 | 27–32 | Counting in APL | Alan Sykes | Contents line (#305) |
+| [v5n2-p33-news-from-sustaining-members.md](v5n2-p33-news-from-sustaining-members.md) | 5:2 | 33–35 | News from Sustaining Members | Cathy Dargue | Contents line (#305) |
+| [v5n2-p36-apl-product-guide.md](v5n2-p36-apl-product-guide.md) | 5:2 | 36–45 | APL Product Guide | Cathy Dargue | Contents line (#305) |
+| [v5n2-p46-new-product-announcements.md](v5n2-p46-new-product-announcements.md) | 5:2 | 46 | New Product Announcements | — | Contents line (#305) |
+| [v5n2-p47-apl-as-a-tool-of-thought-v.md](v5n2-p47-apl-as-a-tool-of-thought-v.md) | 5:2 | 47–48 | “APL as a Tool of Thought V”: Proceedings of the 5th Annual Professional Development Seminar 24/10/1987 | Derek Wilson | Contents line (#305) |
+| [v5n2-p49-statgraphics.md](v5n2-p49-statgraphics.md) | 5:2 | 49–53 | Statgraphics | Gavin Schwarzenbach | Contents line (#305) |
+| [v5n2-p61-conference-highlights.md](v5n2-p61-conference-highlights.md) | 5:2 | 61 | Conference Highlights | Adrian Smith | Contents line (#305) |
+| [v5n2-p62-notes-on-given-papers.md](v5n2-p62-notes-on-given-papers.md) | 5:2 | 62–70 | Notes on Given Papers | Adrian Smith | Contents line (#305) |
+| [v5n2-p71-panel-the-apl-market-niche.md](v5n2-p71-panel-the-apl-market-niche.md) | 5:2 | 71–73 | Panel Discussion: a Market Niche for APL | Peter Donnelly, Brian Drury, Tim Perry, Richard Nabavi | Contents line (#305) |
+| [v5n2-p77-computers-in-the-boardroom.md](v5n2-p77-computers-in-the-boardroom.md) | 5:2 | 77 | Computers in the Boardroom | David Preedy | Contents line (#305) |
+| [v5n2-p82-prize-caption-competition.md](v5n2-p82-prize-caption-competition.md) | 5:2 | 82 | Prize Caption Competition | — | Contents line (#305) |
+| [v5n2-p121-short-catalogue.md](v5n2-p121-short-catalogue.md) | 5:2 | 121–123 | Short Catalogue | David Ziemann | Contents line (#305) |
+| [v5n3-p3-guest-editorial.md](v5n3-p3-guest-editorial.md) | 5:3 | 3–5 | Guest editorial: Plus ca change ... | David Preedy | Contents line (#305) |
+| [v5n3-p7-quick-reference-diary.md](v5n3-p7-quick-reference-diary.md) | 5:3 | 7 | Quick Reference Diary | — | Contents line (#305) |
+| [v5n3-p10-general-correspondence.md](v5n3-p10-general-correspondence.md) | 5:3 | 10 | General Correspondence | — | Contents line (#305) |
+| [v5n3-p13-news-from-sustaining-members.md](v5n3-p13-news-from-sustaining-members.md) | 5:3 | 13–15 | News from Sustaining Members | Cathy Dargue | Contents line (#305) |
+| [v5n3-p17-the-education-vector.md](v5n3-p17-the-education-vector.md) | 5:3 | 17–18 | The Education Vector | Alan Sykes | Contents line (#305) |
+| [v5n3-p33-british-apl-association-news.md](v5n3-p33-british-apl-association-news.md) | 5:3 | 33 | British APL Association News | Graham Parkhouse | Contents line (#305) |
+| [v5n3-p35-1989-design-award-to-metapraxis.md](v5n3-p35-1989-design-award-to-metapraxis.md) | 5:3 | 35–36 | 1989 British Design Award to 'Resolve' from Metapraxis | David Preedy | Contents line (#305) |
+| [v5n3-p39-apl-product-guide.md](v5n3-p39-apl-product-guide.md) | 5:3 | 39 | APL Product Guide | Cathy Dargue | Contents line (#305) |
+| [v5n3-p40-new-product-announcements.md](v5n3-p40-new-product-announcements.md) | 5:3 | 40 | New Product Announcements | — | Contents line (#305) |
+| [v5n3-p41-product-catalogue.md](v5n3-p41-product-catalogue.md) | 5:3 | 41–49 | Product Catalogue | — | Contents line (#305) |
+| [v5n3-p51-apl-is-easy-apl2-at-a-glance.md](v5n3-p51-apl-is-easy-apl2-at-a-glance.md) | 5:3 | 51–53 | APL is Easy!/APL2 at a Glance | Bill Ross | Contents line (#305) |
+| [v5n3-p56-apl-at-the-leading-edge.md](v5n3-p56-apl-at-the-leading-edge.md) | 5:3 | 56 | APL at the Leading Edge: Nov 18th at the Royal Over-Seas League | Adrian Smith | Contents line (#305) |
+| [v5n3-p84-apl-future-plans.md](v5n3-p84-apl-future-plans.md) | 5:3 | 84–85 | February 17th: APL: Future Plans | Adrian Smith | Contents line (#305) |
+| [v5n3-p108-technical-editorial.md](v5n3-p108-technical-editorial.md) | 5:3 | 108–109 | Technical Editorial: Second Generation APL on Personal Computers | Jonathan Barman, Dave Ziemann | Contents line (#305) |
+| [v5n4-p3-editorial.md](v5n4-p3-editorial.md) | 5:4 | 3–5 | Editorial: In which Piglet meets a Heffalump | Adrian Smith | Contents line (#305) |
+| [v5n4-p7-quick-reference-diary.md](v5n4-p7-quick-reference-diary.md) | 5:4 | 7 | Quick Reference Diary | — | Contents line (#305) |
+| [v5n4-p9-apl-course-diary.md](v5n4-p9-apl-course-diary.md) | 5:4 | 9 | APL Course Diary | — | Contents line (#305) |
+| [v5n4-p10-general-correspondence.md](v5n4-p10-general-correspondence.md) | 5:4 | 10 | General Correspondence | — | Contents line (#305) |
+| [v5n4-p12-apl89-and-apl90-information.md](v5n4-p12-apl89-and-apl90-information.md) | 5:4 | 12–15 | APL89 and APL90 Information | — | Contents line (#305) |
+| [v5n4-p17-a-guide-to-conference-going.md](v5n4-p17-a-guide-to-conference-going.md) | 5:4 | 17–18 | An APLer's Guide to Conference Going | John Searle | Contents line (#305) |
+| [v5n4-p19-agm-and-election-results.md](v5n4-p19-agm-and-election-results.md) | 5:4 | 19–22 | AGM and Election Results | — | Contents line (#305) |
+| [v5n4-p22-incoming-committee-statements.md](v5n4-p22-incoming-committee-statements.md) | 5:4 | 22–23 | Incoming Committee Statements | — | Contents line (#305) |
+| [v5n4-p24-news-from-sustaining-members.md](v5n4-p24-news-from-sustaining-members.md) | 5:4 | 24–26 | News from Sustaining Members | Alison Chatterton | Contents line (#305) |
+| [v5n4-p27-the-education-vector.md](v5n4-p27-the-education-vector.md) | 5:4 | 27–29 | The Education Vector | Alan Sykes | Contents line (#305) |
+| [v5n4-p43-apl-product-guide.md](v5n4-p43-apl-product-guide.md) | 5:4 | 43–52 | APL Product Guide | Alison Chatterton | Contents line (#305) |
+| [v5n4-p54-second-generation-apls-on-the-pc.md](v5n4-p54-second-generation-apls-on-the-pc.md) | 5:4 | 54 | Second Generation APLs on the PC | Adrian Smith | Contents line (#305) |
+| [v5n4-p55-apl-plus-ii-technical.md](v5n4-p55-apl-plus-ii-technical.md) | 5:4 | 55–60 | APL*PLUS II: STSC’s Second Generation APL System for 80386 Machines | Peter Cyriax | Contents line (#305) |
+| [v5n4-p61-apl-plus-ii-applications.md](v5n4-p61-apl-plus-ii-applications.md) | 5:4 | 61–66 | APL*PLUS II for 80386 PCs | Ajay Askoolum | Contents line (#305) |
+| [v5n4-p67-sax.md](v5n4-p67-sax.md) | 5:4 | 67–77 | SAX | Michael J.A. Berry | Contents line (#305) |
+| [v5n4-p86-score-scoring-of-tests.md](v5n4-p86-score-scoring-of-tests.md) | 5:4 | 86–92 | SCORE: An APL Program for the Scoring of Tests | Jerry M. Brennan, Jennifer E. Daly | Contents line (#305) |
+| [v5n4-p94-caption-competition.md](v5n4-p94-caption-competition.md) | 5:4 | 94 | Prize Caption Competition (Result) | David Ziemann | Contents line (#305) |
+| [v5n4-p123-new-entries.md](v5n4-p123-new-entries.md) | 5:4 | 123 | British APL Association Software Library: New Entries to the List | Alison Chatterton | Contents line (#305) |
+| [v5n4-p126-provisional-contents-of-vector-6-1.md](v5n4-p126-provisional-contents-of-vector-6-1.md) | 5:4 | 126 | Provisional Contents of VECTOR 6.1 | — | Contents line (#305) |
+| [v6n2-p3-editorial.md](v6n2-p3-editorial.md) | 6:2 | 3 | Editorial: We are not Alone! | Adrian Smith | Contents line (#305) |
+| [v6n2-p5-quick-reference-diary.md](v6n2-p5-quick-reference-diary.md) | 6:2 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v6n2-p7-general-correspondence.md](v6n2-p7-general-correspondence.md) | 6:2 | 7 | General Correspondence | — | Contents line (#305) |
+| [v6n2-p11-british-apl-association-news.md](v6n2-p11-british-apl-association-news.md) | 6:2 | 11–12 | British APL Association News | Graham Parkhouse | Contents line (#305) |
+| [v6n2-p13-news-from-sustaining-members.md](v6n2-p13-news-from-sustaining-members.md) | 6:2 | 13–16 | News from Sustaining Members | Alison Chatterton | Contents line (#305) |
+| [v6n2-p17-the-education-vector.md](v6n2-p17-the-education-vector.md) | 6:2 | 17–19 | The Education Vector | Anthony Camacho | Contents line (#305) |
+| [v6n2-p33-apl-product-guide.md](v6n2-p33-apl-product-guide.md) | 6:2 | 33–42 | APL Product Guide | Alison Chatterton | Contents line (#305) |
+| [v6n2-p44-new-product-announcements.md](v6n2-p44-new-product-announcements.md) | 6:2 | 44 | Software Received for Review | Adrian Smith | Contents line (#305) |
+| [v6n2-p59-introduction.md](v6n2-p59-introduction.md) | 6:2 | 59 | Recent Meetings: APL 89 — Introduction | Adrian Smith | Contents line (#305) |
+| [v6n2-p60-conference-roundup.md](v6n2-p60-conference-roundup.md) | 6:2 | 60–64 | An APL 89 Roundup | Anthony Camacho | Contents line (#305) |
+| [v6n2-p65-statistics-tutorial-day.md](v6n2-p65-statistics-tutorial-day.md) | 6:2 | 65 | The Statistics Tutorial Day | Chris Brady | Contents line (#305) |
+| [v6n2-p66-conference-summary.md](v6n2-p66-conference-summary.md) | 6:2 | 66–69 | Conference Summary | Peter Merritt | Contents line (#305) |
+| [v6n2-p70-notes-on-the-papers.md](v6n2-p70-notes-on-the-papers.md) | 6:2 | 70–100 | Notes on the Papers | Maurice Jordan, Chris Brady, Anthony Camacho, John Searle, Sylvia Camacho, Paul Chapman, David Ziemann | Contents line (#305) |
+| [v6n2-p101-tutorial-sessions.md](v6n2-p101-tutorial-sessions.md) | 6:2 | 101–105 | APL89 - Tutorial Sessions | Jonathan Martin | Contents line (#305) |
+| [v6n2-p106-the-exhibition.md](v6n2-p106-the-exhibition.md) | 6:2 | 106–107 | The Exhibition | David Ziemann | Contents line (#305) |
+| [v6n2-p108-the-bonfire-of-the-variables.md](v6n2-p108-the-bonfire-of-the-variables.md) | 6:2 | 108–109 | The Bonfire of the Variables | John Searle | Contents line (#305) |
+| [v6n2-p110-apl90-competition.md](v6n2-p110-apl90-competition.md) | 6:2 | 110–111 | British APL Association Prize Draw: Win A Free Trip to APL90 In Denmark! | Jill Moss | Contents line (#305) |
+| [v6n2-p114-hackers-corner-256-vga-colours.md](v6n2-p114-hackers-corner-256-vga-colours.md) | 6:2 | 114 | Hacker's Corner: Getting Another 128 Colours on your EGA | Adrian Smith | Contents line (#305) |
+| [v6n2-p118-apl-standards-update.md](v6n2-p118-apl-standards-update.md) | 6:2 | 118–122 | APL Standard Update | David Ziemann | Contents line (#305) |
+| [v6n3-p3-editorial.md](v6n3-p3-editorial.md) | 6:3 | 3–4 | Editorial: Is There Room for APL? | Adrian Smith | Contents line (#305) |
+| [v6n3-p5-quick-reference-diary.md](v6n3-p5-quick-reference-diary.md) | 6:3 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v6n3-p7-apl-course-diary.md](v6n3-p7-apl-course-diary.md) | 6:3 | 7 | APL Training Courses for 1990 | Adrian Smith | Contents line (#305) |
+| [v6n3-p9-general-correspondence.md](v6n3-p9-general-correspondence.md) | 6:3 | 9 | General Correspondence | — | Contents line (#305) |
+| [v6n3-p11-british-apl-association-news.md](v6n3-p11-british-apl-association-news.md) | 6:3 | 11 | British APL Association News | Graham Parkhouse | Contents line (#305) |
+| [v6n3-p12-news-from-sustaining-members.md](v6n3-p12-news-from-sustaining-members.md) | 6:3 | 12–16 | News from Sustaining Members | Alison Chatterton | Contents line (#305) |
+| [v6n3-p17-the-education-vector.md](v6n3-p17-the-education-vector.md) | 6:3 | 17–19 | The Education VECTOR | Alan Sykes | Contents line (#305) |
+| [v6n3-p33-apl90-accepted-papers.md](v6n3-p33-apl90-accepted-papers.md) | 6:3 | 33–35 | APL90: Accepted Papers | — | Contents line (#305) |
+| [v6n3-p37-apl-product-guide.md](v6n3-p37-apl-product-guide.md) | 6:3 | 37–46 | APL Product Guide | Alison Chatterton | Contents line (#305) |
+| [v6n3-p49-is-apl-plus-getting-overweight.md](v6n3-p49-is-apl-plus-getting-overweight.md) | 6:3 | 49–50 | Is APL*PLUS Getting Overweight? | Adrian Smith | Contents line (#305) |
+| [v6n3-p57-introduction.md](v6n3-p57-introduction.md) | 6:3 | 57–58 | Notes on Recent Meetings: Introduction | Adrian Smith | Contents line (#305) |
+| [v6n3-p59-the-apl-statistics-library-conference-at-greg-y-nog.md](v6n3-p59-the-apl-statistics-library-conference-at-greg-y-nog.md) | 6:3 | 59–67 | The APL Statistics Library Conference at Greg-y-nog | Alan Sykes, Tony O'Hagan | Contents line (#305) |
+| [v6n3-p70-the-bapla-at-british-airways.md](v6n3-p70-the-bapla-at-british-airways.md) | 6:3 | 70–72 | Field Trip to British Airways: 27 October 1989 | Sylvia Camacho | Contents line (#305) |
+| [v6n3-p90-hackers-corner-beware-the-m61.md](v6n3-p90-hackers-corner-beware-the-m61.md) | 6:3 | 90 | Hacker's Corner: Beware the M61 | Adrian Smith | Contents line (#305) |
+| [v6n4-p3-editorial-network-survival-kit.md](v6n4-p3-editorial-network-survival-kit.md) | 6:4 | 3–4 | Editorial: A Network Survival Kit | Adrian Smith | Contents line (#305) |
+| [v6n4-p5-quick-reference-diary.md](v6n4-p5-quick-reference-diary.md) | 6:4 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v6n4-p7-apl-course-diary.md](v6n4-p7-apl-course-diary.md) | 6:4 | 7 | APL Course Diary | Adrian Smith | Contents line (#305) |
+| [v6n4-p9-british-apl-association-news.md](v6n4-p9-british-apl-association-news.md) | 6:4 | 9 | British APL Association News | Graham Parkhouse | Contents line (#305) |
+| [v6n4-p11-news-from-sustaining-members.md](v6n4-p11-news-from-sustaining-members.md) | 6:4 | 11–15 | News from Sustaining Members | Alison Chatterton | Contents line (#305) |
+| [v6n4-p17-the-education-vector.md](v6n4-p17-the-education-vector.md) | 6:4 | 17–18 | The Education VECTOR | Alan Sykes | Contents line (#305) |
+| [v6n4-p33-apl90-invitation-and-abstracts.md](v6n4-p33-apl90-invitation-and-abstracts.md) | 6:4 | 33–43 | APL90: Invitation and Abstracts | — | Contents line (#305) |
+| [v6n4-p44-apl-product-guide.md](v6n4-p44-apl-product-guide.md) | 6:4 | 44–52 | APL Product Guide | Alison Chatterton | Contents line (#305) |
+| [v6n4-p58-apl25-for-the-microwriter-agenda.md](v6n4-p58-apl25-for-the-microwriter-agenda.md) | 6:4 | 58–59 | IBM’s APL2.5 for the RS/6000 and Microwriter AgendA | Adrian Smith | Contents line (#305) |
+| [v6n4-p60-recent-meetings-introduction.md](v6n4-p60-recent-meetings-introduction.md) | 6:4 | 60–61 | Recent Meetings: Introduction | Adrian Smith | Contents line (#305) |
+| [v6n4-p62-arthur-whitney-on-a.md](v6n4-p62-arthur-whitney-on-a.md) | 6:4 | 62–63 | More on ‘A’ by Arthur Whitney | Ed Shaw | Contents line (#305) |
+| [v6n4-p125-index-to-vol-6.md](v6n4-p125-index-to-vol-6.md) | 6:4 | 125 | Index to Vol 6 | Adrian Smith | Contents line (#305) |
+| [v6n4-p126-goodbye-and-thanks-for-all-the-fish.md](v6n4-p126-goodbye-and-thanks-for-all-the-fish.md) | 6:4 | 126 | Goodbye, and thanks for all the Fish! | — | Contents line (#305) |
+| [v7n1-p3-reliability-of-apl-systems.md](v7n1-p3-reliability-of-apl-systems.md) | 7:1 | 3–4 | Editorial: Reliability of APL Systems | Jonathan Barman | Contents line (#305) |
+| [v7n1-p5-quick-reference-diary.md](v7n1-p5-quick-reference-diary.md) | 7:1 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v7n1-p7-apl-course-diary.md](v7n1-p7-apl-course-diary.md) | 7:1 | 7 | APL Course Diary | Adrian Smith | Contents line (#305) |
+| [v7n1-p9-british-apl-association-news.md](v7n1-p9-british-apl-association-news.md) | 7:1 | 9–11 | British APL Association News | Graham Parkhouse | Contents line (#305) |
+| [v7n1-p12-news-from-sustaining-members.md](v7n1-p12-news-from-sustaining-members.md) | 7:1 | 12–16 | News from Sustaining Members | Alison Chatterton | Contents line (#305) |
+| [v7n1-p17-the-education-vector.md](v7n1-p17-the-education-vector.md) | 7:1 | 17–19 | The Education VECTOR | Alan Sykes | Contents line (#305) |
+| [v7n1-p33-apl91-conference-announcement.md](v7n1-p33-apl91-conference-announcement.md) | 7:1 | 33–37 | APL91: Conference Announcement | Curtis Jones | Contents line (#305) |
+| [v7n1-p38-apl-product-guide.md](v7n1-p38-apl-product-guide.md) | 7:1 | 38–46 | APL Product Guide | Alison Chatterton | Contents line (#305) |
+| [v7n1-p60-vendor-forum-20th-april-1990.md](v7n1-p60-vendor-forum-20th-april-1990.md) | 7:1 | 60–66 | Vendor Forum: 20th April 1990 | Adrian Smith | Contents line (#305) |
+| [v7n1-p110-hackers-corner-lots-more-vga-colours.md](v7n1-p110-hackers-corner-lots-more-vga-colours.md) | 7:1 | 110–111 | Hackers Corner: Lots More VGA Colours | Adrian Smith | Contents line (#305) |
+| [v7n1-p124-apl-standards-update.md](v7n1-p124-apl-standards-update.md) | 7:1 | 124–126 | APL Standards Update | Dave Ziemann | Contents line (#305) |
+| [v7n1-p143-submitting-material-to-vector.md](v7n1-p143-submitting-material-to-vector.md) | 7:1 | 143 | Submitting Material to Vector | — | Contents line (#305) |
+| [v7n2-p3-editorial-namespaces.md](v7n2-p3-editorial-namespaces.md) | 7:2 | 3–4 | Editorial: Namespaces | Jonathan Barman | Contents line (#305) |
+| [v7n2-p5-quick-reference-diary.md](v7n2-p5-quick-reference-diary.md) | 7:2 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v7n2-p7-apl-training-courses-1990-91.md](v7n2-p7-apl-training-courses-1990-91.md) | 7:2 | 7 | APL Training Courses for 1990-91 | Alison Chatterton | Contents line (#305) |
+| [v7n2-p9-outstanding-achievement-award.md](v7n2-p9-outstanding-achievement-award.md) | 7:2 | 9–10 | 1990 Outstanding Achievement Award | David Eastwood | Contents line (#305) |
+| [v7n2-p11-news-from-sustaining-members.md](v7n2-p11-news-from-sustaining-members.md) | 7:2 | 11–16 | News from Sustaining Members | Alison Chatterton | Contents line (#305) |
+| [v7n2-p17-the-education-vector.md](v7n2-p17-the-education-vector.md) | 7:2 | 17–18 | The Education VECTOR | Alan Sykes | Contents line (#305) |
+| [v7n2-p33-apl-product-guide.md](v7n2-p33-apl-product-guide.md) | 7:2 | 33–41 | APL Product Guide | Alison Chatterton | Contents line (#305) |
+| [v7n2-p43-apl-makes-the-front-page-in-the-ussr.md](v7n2-p43-apl-makes-the-front-page-in-the-ussr.md) | 7:2 | 42–48 | Russian Magazine Devotes an Issue to APL | Peter Saunders | Contents line (#305) |
+| [v7n2-p76-apl-90-and-the-ideal-apl-conference.md](v7n2-p76-apl-90-and-the-ideal-apl-conference.md) | 7:2 | 76–79 | APL 90 and the Ideal APL Conference | Anthony Camacho | Contents line (#305) |
+| [v7n2-p80-a-personal-view-on-apl-90.md](v7n2-p80-a-personal-view-on-apl-90.md) | 7:2 | 80 | A Personal View on APL 90 | Ray Cannon | Contents line (#305) |
+| [v7n2-p83-reports-on-the-presentations.md](v7n2-p83-reports-on-the-presentations.md) | 7:2 | 83–93 | Reports on the Presentations | Sylvia Camacho, Anthony Camacho, Ray Cannon | Contents line (#305) |
+| [v7n2-p95-apl90-reflections.md](v7n2-p95-apl90-reflections.md) | 7:2 | 95–96 | APL90 Reflections | John Searle | Contents line (#305) |
+| [v7n2-p97-pictures-at-an-exhibition.md](v7n2-p97-pictures-at-an-exhibition.md) | 7:2 | 97–98 | Pictures at an Exhibition | — | Contents line (#305) |
+| [v7n2-p132-hackers-corner-unlocking-in-dyalog-apl.md](v7n2-p132-hackers-corner-unlocking-in-dyalog-apl.md) | 7:2 | 132 | Hackers’ Corner: Unlocking Functions in Dyalog APL for MS DOS | Ray Cannon | Contents line (#305) |
+| [v7n3-p3-editorial.md](v7n3-p3-editorial.md) | 7:3 | 3–4 | Editorial: Solving Problems with APL | Jonathan Barman | Contents line (#305) |
+| [v7n3-p5-quick-reference-diary.md](v7n3-p5-quick-reference-diary.md) | 7:3 | 5–6 | Quick Reference Diary | — | Contents line (#305) |
+| [v7n3-p7-apl-training-courses-1991.md](v7n3-p7-apl-training-courses-1991.md) | 7:3 | 7 | APL Training Courses 1991 | Alison Chatterton | Contents line (#305) |
+| [v7n3-p9-projects-report.md](v7n3-p9-projects-report.md) | 7:3 | 9 | Projects Report | John Searle | Contents line (#305) |
+| [v7n3-p13-news-from-sustaining-members.md](v7n3-p13-news-from-sustaining-members.md) | 7:3 | 13–16 | News from Sustaining Members | Alison Chatterton | Contents line (#305) |
+| [v7n3-p17-the-education-vector.md](v7n3-p17-the-education-vector.md) | 7:3 | 17–18 | The Education Vector | Alan Sykes | Contents line (#305) |
+| [v7n3-p33-the-random-vector.md](v7n3-p33-the-random-vector.md) | 7:3 | 33–35, to the top of printed 35 | The Random Vector | David Eastwood | Contents line (#305) |
+| [v7n3-p50-apl-product-guide.md](v7n3-p50-apl-product-guide.md) | 7:3 | 50–59 | APL Product Guide | Alison Chatterton | Contents line (#305) |
+| [v7n3-p61-windows-3-the-implications-for-apl.md](v7n3-p61-windows-3-the-implications-for-apl.md) | 7:3 | 61–64 | Windows 3: the Implications for APL | Adrian Smith | Contents line (#305) |
+| [v7n3-p93-field-trip-to-rowntree-mackintosh.md](v7n3-p93-field-trip-to-rowntree-mackintosh.md) | 7:3 | 93–97 | Field Trip to Rowntree Mackintosh | Sylvia Camacho, Jonathan Martin | Contents line (#305) |
+| [v7n3-p99-apl91-update.md](v7n3-p99-apl91-update.md) | 7:3 | 99–101 | APL91 Update | Charles Schulz | Contents line (#305) |
+| [v7n3-p125-hackers-corner-check-that-disk.md](v7n3-p125-hackers-corner-check-that-disk.md) | 7:3 | 125 | Hackers Corner: Check that Disk! | Adrian Smith | Contents line (#305) |
