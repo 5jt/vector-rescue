@@ -13,6 +13,7 @@ tags:
 - applications
 - APL community
 queries:
+- "Following the project rule for individuals’ contact details, the contact details printed for Delphi Consultation (David Crossley) are omitted: a one-person firm at a private address, like his later JAD Software."
 - "Following the project rule for individuals’ contact details, the addresses and telephone numbers printed for Peter Cyriax Systems and IAC/Human Interfaces (Ian A. Clark) are omitted, as they are the consultant’s own; companies’ addresses are kept."
 - "Printed byline “Compiled by Gill Smith”; running head “Vector Product Guide”. The guide runs from printed 39 to 49; the next Contents line (Six Months in the Life of VECTOR) begins on printed 50."
 - "The boxed notice says entries marked with sidebars await replies and may be removed from Vol 9.2. Sidebars are printed beside two Vendor Addresses entries only: Parallax Systems Inc. and Sugar Mill Software Corp. (which has no product entry in this guide)."
@@ -344,7 +345,7 @@ All contributions and updates to the APL Product Guide should be sent to Gill Sm
 | CPC UG | Lynne Startz | Capital PC User Group, 51 Monroe Street, Suite PE-2, Rockville, Maryland 20850, USA. Tel: 301-762-9372. |
 | CYBEX AB | Lars Wentzel | Gruvgatan 35B, S-421 30 V. Frölunda, Sweden.<br>Tel: (46) 31-45 37 40. Fax: (46) 31-45 24 23. |
 | Datatrade Ltd. | Ian Tomlin | 1 & 2 Sterling Business Park, Salthouse Road, Brackmills, Northampton, NN4 0EX. Tel: 0604-760241 |
-| Delphi Consultation | David Crossley | Church Green House, Stanford-in-the-Vale, Oxon SN7 8LQ.<br>Tel: 0367-710384 |
+| Delphi Consultation | David Crossley | [address and telephone number omitted] |
 | Dutch APL U.G. | Bernard Smoor (Sec) | Postbus 1341, 3430BH Nieuwegein. Tel: 03474-2337 |
 | Dyadic Systems Ltd. | Peter Donnelly | Riverside View, Basing Road, Old Basing, Basingstoke, Hants RG24 0AL.<br>Tel: 0256-811125 Fax: 0256-811130 |
 | E & S Associates | Frank Evans | 19 Homesdale Road, Orpington, Kent BR5 1JS. Tel: 0689-824741 |

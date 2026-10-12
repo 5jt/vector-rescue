@@ -846,3 +846,202 @@ They are set aside here, unpublished, for editorial review.
 | [v22n4-p18-product-guide.md](v22n4-p18-product-guide.md) | 22:4 | 18–29 | The Vector Product Guide | Gill Smith | Contents line (#305) |
 | [v22n4-p129-complete-index-to-volumes-13-22.md](v22n4-p129-complete-index-to-volumes-13-22.md) | 22:4 | 129–142 | Complete Index to Volumes 13-22 | Gill Smith, Adrian Smith | Contents line (#305) |
 | [v23n4-p5-quick-reference-diary.md](v23n4-p5-quick-reference-diary.md) | 23:4 | 5 | Quick reference diary | — | Contents line (#305) |
+| [v1n1-p3-editorial.md](v1n1-p3-editorial.md) | 1:1 | 3 | EDITORIAL: Back to BASICs? | Robert Bittlestone | Contents line (#305) |
+| [v1n1-p5-letters-to-the-editor.md](v1n1-p5-letters-to-the-editor.md) | 1:1 | 5–7 | Letters to the Editor | Richard Bowman, Alan Hawkes, Anthony Camacho | Contents line (#305) |
+| [v1n1-p8-quick-reference-apl-diary.md](v1n1-p8-quick-reference-apl-diary.md) | 1:1 | 8 | Quick-Reference APL Diary | David Preedy | Contents line (#305) |
+| [v1n1-p9-british-apl-association-news.md](v1n1-p9-british-apl-association-news.md) | 1:1 | 9–13 | British APL Association News | Robert Bittlestone | Contents line (#305) |
+| [v1n1-p15-1983-report-and-accounts.md](v1n1-p15-1983-report-and-accounts.md) | 1:1 | 15–16 | 1983 Report and Accounts | Jonathan Barman | Contents line (#305) |
+| [v1n1-p17-international-apl-news.md](v1n1-p17-international-apl-news.md) | 1:1 | 17–20 | International APL News | Robert Bittlestone | Contents line (#305) |
+| [v1n1-p21-british-computer-society-news.md](v1n1-p21-british-computer-society-news.md) | 1:1 | 21–22 | British Computer Society News | Philip Goacher | Contents line (#305) |
+| [v1n1-p23-news-from-sustaining-members.md](v1n1-p23-news-from-sustaining-members.md) | 1:1 | 23–24 | News from Sustaining Members | David Preedy | Contents line (#305) |
+| [v1n1-p25-apl-product-guide.md](v1n1-p25-apl-product-guide.md) | 1:1 | 25–32 | APL Product Guide | David Preedy | Contents line (#305) |
+| [v1n1-p35-apl-and-graphics.md](v1n1-p35-apl-and-graphics.md) | 1:1 | 35 | APL and Graphics | Adrian Smith | Contents line (#305) |
+| [v1n2-p3-editorial.md](v1n2-p3-editorial.md) | 1:2 | 3 | Editorial: Time to Adopt the Missionary Position? | Robert Bittlestone | Contents line (#305) |
+| [v1n2-p5-general-correspondence.md](v1n2-p5-general-correspondence.md) | 1:2 | 5–7 | General Correspondence | Simon Witcomb, Andrew Tarr, Alan Hawkes, Philip Goacher, G.N. Lance, L. Llewellyn-Jones | Contents line (#305) |
+| [v1n2-p8-quick-reference-apl-diary.md](v1n2-p8-quick-reference-apl-diary.md) | 1:2 | 8 | Quick-Reference APL Diary | David Preedy | Contents line (#305) |
+| [v1n2-p9-british-apl-association-news.md](v1n2-p9-british-apl-association-news.md) | 1:2 | 9–11 | British APL Association News | Robert Bittlestone | Contents line (#305) |
+| [v1n2-p12-international-apl-news.md](v1n2-p12-international-apl-news.md) | 1:2 | 12–20 | International APL News | Robert Bittlestone | Contents line (#305) |
+| [v1n2-p21-british-computer-society-news.md](v1n2-p21-british-computer-society-news.md) | 1:2 | 21–24 | British Computer Society News | Philip Goacher | Contents line (#305) |
+| [v1n2-p25-news-from-sustaining-members.md](v1n2-p25-news-from-sustaining-members.md) | 1:2 | 25–27 | News from Sustaining Members | David Preedy | Contents line (#305) |
+| [v1n2-p29-apl-product-guide.md](v1n2-p29-apl-product-guide.md) | 1:2 | 29–39 | APL Product Guide | David Preedy | Contents line (#305) |
+| [v1n2-p41-book-reviews.md](v1n2-p41-book-reviews.md) | 1:2 | 41–43 | Book Reviews | David Preedy, Ole Immanuel Franksen | Contents line (#305) |
+| [v1n2-p44-software-review-apat.md](v1n2-p44-software-review-apat.md) | 1:2 | 44–45 | Software Review — APAT: First Impressions | Bernard King | Contents line (#305) |
+| [v1n3-p3-guest-editorial-the-evolution-of-apl.md](v1n3-p3-guest-editorial-the-evolution-of-apl.md) | 1:3 | 3 | Guest Editorial: The Evolution of APL | Adrian Smith | Contents line (#305) |
+| [v1n3-p5-general-correspondence.md](v1n3-p5-general-correspondence.md) | 1:3 | 5–6 | General Correspondence | J. Sullivan, John Garland, Bob Pullman | Contents line (#305) |
+| [v1n3-p7-quick-reference-apl-diary.md](v1n3-p7-quick-reference-apl-diary.md) | 1:3 | 7 | Quick-reference APL Diary | David Preedy | Contents line (#305) |
+| [v1n3-p8-activities-programme-1985.md](v1n3-p8-activities-programme-1985.md) | 1:3 | 8–9 | Activities Programme 1985 | — | Contents line (#305) |
+| [v1n3-p8-british-apl-association-news.md](v1n3-p8-british-apl-association-news.md) | 1:3 | 8–13 | British APL Association News | Robert Bittlestone | Contents line (#305) |
+| [v1n3-p14-international-apl-news.md](v1n3-p14-international-apl-news.md) | 1:3 | 14–19 | International APL News | Adrian Smith | Contents line (#305) |
+| [v1n3-p21-british-computer-society-news.md](v1n3-p21-british-computer-society-news.md) | 1:3 | 21 | British Computer Society News | Philip Goacher | Contents line (#305) |
+| [v1n3-p22-news-from-sustaining-members.md](v1n3-p22-news-from-sustaining-members.md) | 1:3 | 22–25 | News from Sustaining Members | David Preedy | Contents line (#305) |
+| [v1n3-p27-apl-product-guide.md](v1n3-p27-apl-product-guide.md) | 1:3 | 27–38 | APL Product Guide | David Preedy | Contents line (#305) |
+| [v1n3-p39-book-review-legrand.md](v1n3-p39-book-review-legrand.md) | 1:3 | 39–41 | Book Review: Learning and Applying APL, by B. Legrand | Anthony Comacho | Contents line (#305) |
+| [v1n3-p41-book-reviews-general.md](v1n3-p41-book-reviews-general.md) | 1:3 | 41–44 | Book Reviews - General | Robert Bittlestone | Contents line (#305) |
+| [v1n3-p45-software-review-ureg.md](v1n3-p45-software-review-ureg.md) | 1:3 | 45 | Software Review: U-REG (User-friendly Regression) | Teresa Jones | Contents line (#305) |
+| [v1n4-p3-editorial.md](v1n4-p3-editorial.md) | 1:4 | 3 | Editorial: Your Association Needs You | Robert Bittlestone | Contents line (#305) |
+| [v1n4-p5-general-correspondence.md](v1n4-p5-general-correspondence.md) | 1:4 | 5 | General Correspondence | Ole Immanuel Franksen, Dick Bowman | Contents line (#305) |
+| [v1n4-p6-british-apl-association-news.md](v1n4-p6-british-apl-association-news.md) | 1:4 | 6–7 and 9–17 | British APL Association News | David Ziemann | Contents line (#305) |
+| [v1n4-p8-free-apl-computer.md](v1n4-p8-free-apl-computer.md) | 1:4 | 8 | Free APL Computer | David Ziemann | Contents line (#305) |
+| [v1n4-p18-international-apl-news.md](v1n4-p18-international-apl-news.md) | 1:4 | 18–25 and 27–30 | International APL News — APL86 | David Ziemann | Contents line (#305) |
+| [v1n4-p31-british-computer-society-news.md](v1n4-p31-british-computer-society-news.md) | 1:4 | 31–32 | British Computer Society News | Philip Goacher | Contents line (#305) |
+| [v1n4-p33-news-from-sustaining-members.md](v1n4-p33-news-from-sustaining-members.md) | 1:4 | 33–36 | News from Sustaining Members | David Preedy | Contents line (#305) |
+| [v1n4-p37-apl-product-guide.md](v1n4-p37-apl-product-guide.md) | 1:4 | 37–50 | APL Product Guide | David Preedy | Contents line (#305) |
+| [v1n4-p51-book-reviews.md](v1n4-p51-book-reviews.md) | 1:4 | 51 and 53 | Book Reviews | Robert Bittlestone | Contents line (#305) |
+| [v1n4-p54-software-review.md](v1n4-p54-software-review.md) | 1:4 | 54–60 | Software Reviews: IBM PC/APL, APL*PLUS/PC and PC/AT, M68000.APL on Sage IV | Adrian Smith | Contents line (#305) |
+| [v2n1-p3-editorial-the-men-who-run-vector.md](v2n1-p3-editorial-the-men-who-run-vector.md) | 2:1 | 3–4 | EDITORIAL: The men who run VECTOR | David Preedy | Contents line (#305) |
+| [v2n1-p5-general-correspondence.md](v2n1-p5-general-correspondence.md) | 2:1 | 5–6 | General Correspondence | Anthony Camacho, Heinz Reutersberg, Savas Pavlides, Curtis A. Jones | Contents line (#305) |
+| [v2n1-p7-british-apl-association-news.md](v2n1-p7-british-apl-association-news.md) | 2:1 | 7–14 | British APL Association News | Anthony Camacho, Philip Goacher | Contents line (#305) |
+| [v2n1-p15-international-news.md](v2n1-p15-international-news.md) | 2:1 | 15 | International APL News | David Preedy | Contents line (#305) |
+| [v2n1-p19-news-from-sustaining-members.md](v2n1-p19-news-from-sustaining-members.md) | 2:1 | 19, 21–23 | News from Sustaining Members | Steve Lyus | Contents line (#305) |
+| [v2n1-p24-apl-product-guide.md](v2n1-p24-apl-product-guide.md) | 2:1 | 24–38 | APL Product Guide | Steve Lyus | Contents line (#305) |
+| [v2n1-p40-product-reviews.md](v2n1-p40-product-reviews.md) | 2:1 | 40–43 | Product Reviews | David Preedy | Contents line (#305) |
+| [v2n1-p127-back-numbers-of-vector.md](v2n1-p127-back-numbers-of-vector.md) | 2:1 | 127 | Back numbers of VECTOR | — | Contents line (#305) |
+| [v2n3-p3-editorial-apl-usp-or-rip.md](v2n3-p3-editorial-apl-usp-or-rip.md) | 2:3 | 3–4 | EDITORIAL: APL – USP or RIP? | David Preedy | Contents line (#305) |
+| [v2n3-p5-quick-reference-diary.md](v2n3-p5-quick-reference-diary.md) | 2:3 | 5 | Quick-Reference Diary | David Preedy | Contents line (#305) |
+| [v2n3-p7-general-correspondence.md](v2n3-p7-general-correspondence.md) | 2:3 | 7–8 | General Correspondence | Paul Barnetson, Kim Andreasen | Contents line (#305) |
+| [v2n3-p9-british-apl-association-news.md](v2n3-p9-british-apl-association-news.md) | 2:3 | 9–10 | British APL Association News | David Preedy | Contents line (#305) |
+| [v2n3-p11-education-officers-report.md](v2n3-p11-education-officers-report.md) | 2:3 | 11 | Education Officer’s Report | Dick Gray | Contents line (#305) |
+| [v2n3-p12-portsmouth-grammar-school.md](v2n3-p12-portsmouth-grammar-school.md) | 2:3 | 12 | APL Computer for Portsmouth Grammar School | Romilly Cocking | Contents line (#305) |
+| [v2n3-p13-news-from-sustaining-members.md](v2n3-p13-news-from-sustaining-members.md) | 2:3 | 13–16 | News From Sustaining Members | Steve Lyus | Contents line (#305) |
+| [v2n3-p19-british-computer-society-news.md](v2n3-p19-british-computer-society-news.md) | 2:3 | 19 | British Computer Society News | Dick Bowman | Contents line (#305) |
+| [v2n3-p21-apl-press-review.md](v2n3-p21-apl-press-review.md) | 2:3 | 21–22 | APL Press Review | Steve Lyus | Contents line (#305) |
+| [v2n3-p23-apl-product-guide.md](v2n3-p23-apl-product-guide.md) | 2:3 | 23–30 | APL Product Guide | Steve Lyus | Contents line (#305) |
+| [v2n3-p33-book-reviews.md](v2n3-p33-book-reviews.md) | 2:3 | 33–37 | Book Reviews | David Preedy | Contents line (#305) |
+| [v2n3-p38-apl86-preview.md](v2n3-p38-apl86-preview.md) | 2:3 | 38–47 | APL86 Preview | — | Contents line (#305) |
+| [v2n4-p3-guest-editorial.md](v2n4-p3-guest-editorial.md) | 2:4 | 3–4 | Guest Editorial: APL86 – Be there | Dick Bowman | Contents line (#305) |
+| [v2n4-p5-general-correspondence.md](v2n4-p5-general-correspondence.md) | 2:4 | 5 | General Correspondence | Curtis Jones | Contents line (#305) |
+| [v2n4-p6-quick-reference-diary.md](v2n4-p6-quick-reference-diary.md) | 2:4 | 6 | Quick-reference diary | David Preedy | Contents line (#305) |
+| [v2n4-p7-british-apl-association-news.md](v2n4-p7-british-apl-association-news.md) | 2:4 | 7–10 | British APL Association News | Dick Bowman, Anthony Camacho | Contents line (#305) |
+| [v2n4-p11-news-from-sustaining-members.md](v2n4-p11-news-from-sustaining-members.md) | 2:4 | 11–13 | News from Sustaining Members | Steve Lyus | Contents line (#305) |
+| [v2n4-p15-international-apl-news.md](v2n4-p15-international-apl-news.md) | 2:4 | 15–17 | International APL news | David Preedy | Contents line (#305) |
+| [v2n4-p19-british-computer-society-news.md](v2n4-p19-british-computer-society-news.md) | 2:4 | 19–29 | British Computer Society news | Philip Goacher | Contents line (#305) |
+| [v2n4-p31-apl-product-guide.md](v2n4-p31-apl-product-guide.md) | 2:4 | 31–39 | APL Product Guide | Steve Lyus | Contents line (#305) |
+| [v2n4-p41-software-review-microspan.md](v2n4-p41-software-review-microspan.md) | 2:4 | 41–42 | Software Review: MicroSPAN | Anne Wilson, Steve Phillips | Contents line (#305) |
+| [v2n4-p43-apl86-preview.md](v2n4-p43-apl86-preview.md) | 2:4 | 43–65 | APL86 Preview | — | Contents line (#305) |
+| [v3n1-p3-editorial.md](v3n1-p3-editorial.md) | 3:1 | 3–4 | Editorial: The joys of Spring? | David Preedy | Contents line (#305) |
+| [v3n1-p5-quick-reference-diary.md](v3n1-p5-quick-reference-diary.md) | 3:1 | 5 | Quick-reference diary | David Preedy | Contents line (#305) |
+| [v3n1-p7-general-correspondence.md](v3n1-p7-general-correspondence.md) | 3:1 | 7–12 | General Correspondence | — | Contents line (#305) |
+| [v3n1-p13-british-apl-association-news.md](v3n1-p13-british-apl-association-news.md) | 3:1 | 13–14 | British APL Association News | David Preedy | Contents line (#305) |
+| [v3n1-p15-new-committee.md](v3n1-p15-new-committee.md) | 3:1 | 15 | New Committee | — | Contents line (#305) |
+| [v3n1-p17-news-from-sustaining-members.md](v3n1-p17-news-from-sustaining-members.md) | 3:1 | 17–19 | News from sustaining members | David Preedy | Contents line (#305) |
+| [v3n1-p21-british-computer-society-news.md](v3n1-p21-british-computer-society-news.md) | 3:1 | 21 | British Computer Society News | Philip Goacher | Contents line (#305) |
+| [v3n1-p23-international-apl-news.md](v3n1-p23-international-apl-news.md) | 3:1 | 23–25 | International APL news | David Preedy | Contents line (#305) |
+| [v3n1-p27-apl-press-review.md](v3n1-p27-apl-press-review.md) | 3:1 | 27–28 | APL Press Review | David Preedy | Contents line (#305) |
+| [v3n1-p29-apl-product-guide.md](v3n1-p29-apl-product-guide.md) | 3:1 | 29–36 | APL Product Guide | Steve Lyus | Contents line (#305) |
+| [v3n1-p37-apl-book-list.md](v3n1-p37-apl-book-list.md) | 3:1 | 37 | APL Book List | — | Contents line (#305) |
+| [v3n1-p39-book-reviews.md](v3n1-p39-book-reviews.md) | 3:1 | 39–40 | Book reviews | Paul Chapman | Contents line (#305) |
+| [v3n1-p41-software-review-afm.md](v3n1-p41-software-review-afm.md) | 3:1 | 41–43 | Software Review: AFM | Adrian Smith | Contents line (#305) |
+| [v3n1-p44-pc-benchmarks-updated.md](v3n1-p44-pc-benchmarks-updated.md) | 3:1 | 44 | Benchmarks Updated | Adrian Smith | Contents line (#305) |
+| [v3n1-p45-product-review-portaapl.md](v3n1-p45-product-review-portaapl.md) | 3:1 | 45–48 | Product Review: PortaAPL for the Macintosh | Normand R. Montour | Contents line (#305) |
+| [v3n1-p51-pc-graphics-cards.md](v3n1-p51-pc-graphics-cards.md) | 3:1 | 51–56 | PCs, Graphics & APL | Martyn Adams | Contents line (#305) |
+| [v3n1-p128-contents-of-volumes-1-and-2.md](v3n1-p128-contents-of-volumes-1-and-2.md) | 3:1 | 128–130 | VECTOR – contents of back-numbers | — | Contents line (#305) |
+| [v3n2-p3-guest-editorial-apl86-what-next.md](v3n2-p3-guest-editorial-apl86-what-next.md) | 3:2 | 3 | Guest Editorial: APL86 – What Next? | Dick Bowman | Contents line (#305) |
+| [v3n2-p5-quick-reference-apl-diary.md](v3n2-p5-quick-reference-apl-diary.md) | 3:2 | 4–5 | Quick Reference APL Diary | David Preedy | Contents line (#305) |
+| [v3n2-p7-general-correspondence.md](v3n2-p7-general-correspondence.md) | 3:2 | 7–12 | General Correspondence | — | Contents line (#305) |
+| [v3n2-p15-report-and-accounts.md](v3n2-p15-report-and-accounts.md) | 3:2 | 15 | British APL Association – 1986 Report and Accounts | — | Contents line (#305) |
+| [v3n2-p17-news-from-sustaining-members.md](v3n2-p17-news-from-sustaining-members.md) | 3:2 | 17–20 | News from Sustaining Members | Steve Lyus | Contents line (#305) |
+| [v3n2-p21-british-computer-society-news.md](v3n2-p21-british-computer-society-news.md) | 3:2 | 21 | British Computer Society news | David Preedy | Contents line (#305) |
+| [v3n2-p23-international-apl-news.md](v3n2-p23-international-apl-news.md) | 3:2 | 23–26 | International APL News | David Preedy | Contents line (#305) |
+| [v3n2-p27-apl-product-guide.md](v3n2-p27-apl-product-guide.md) | 3:2 | 27–35 | APL Product Guide | Steve Lyus | Contents line (#305) |
+| [v3n2-p36-apl-book-list.md](v3n2-p36-apl-book-list.md) | 3:2 | 36 | APL Book List | — | Contents line (#305) |
+| [v3n2-p37-the-education-vector.md](v3n2-p37-the-education-vector.md) | 3:2 | 37–40 | The Education VECTOR | Norman Thomson | Contents line (#305) |
+| [v3n2-p134-public-domain-software-library.md](v3n2-p134-public-domain-software-library.md) | 3:2 | 134–137 | Public Domain Software Library | — | Contents line (#305) |
+| [v3n2-p138-keyword-index.md](v3n2-p138-keyword-index.md) | 3:2 | 138 | (Keyword Index) | — | Contents line (#305) |
+| [v3n3-p3-editorial-train-up-a-child.md](v3n3-p3-editorial-train-up-a-child.md) | 3:3 | 3–4 | Editorial: “Train up a child …” | David Preedy | Contents line (#305) |
+| [v3n3-p5-quick-reference-diary.md](v3n3-p5-quick-reference-diary.md) | 3:3 | 5 | Quick-reference diary | David Preedy | Contents line (#305) |
+| [v3n3-p7-apl-course-dates.md](v3n3-p7-apl-course-dates.md) | 3:3 | 7 | APL Course dates | — | Contents line (#305) |
+| [v3n3-p9-general-correspondence.md](v3n3-p9-general-correspondence.md) | 3:3 | 9–11 | General Correspondence | Paul Barnetson, Peter Branson, Simon Barker | Contents line (#305) |
+| [v3n3-p13-committee-news.md](v3n3-p13-committee-news.md) | 3:3 | 13 | BAA Committee News | Dick Bowman | Contents line (#305) |
+| [v3n3-p14-news-from-sustaining-members.md](v3n3-p14-news-from-sustaining-members.md) | 3:3 | 14–17 | News from Sustaining members | — | Contents line (#305) |
+| [v3n3-p19-international-apl-news-journal-exchange.md](v3n3-p19-international-apl-news-journal-exchange.md) | 3:3 | 19–20 | International APL News – Journal Exchange | — | Contents line (#305) |
+| [v3n3-p21-ql-apl-user-group.md](v3n3-p21-ql-apl-user-group.md) | 3:3 | 21 | QL/APL User Group | — | Contents line (#305) |
+| [v3n3-p23-apl-product-guide.md](v3n3-p23-apl-product-guide.md) | 3:3 | 23–31 | APL Product Guide | Steve Lyus | Contents line (#305) |
+| [v3n3-p32-apl-booklist.md](v3n3-p32-apl-booklist.md) | 3:3 | 32 | APL Book list | — | Contents line (#305) |
+| [v3n3-p33-the-education-vector.md](v3n3-p33-the-education-vector.md) | 3:3 | 33–34 | The Education VECTOR | Norman Thomson | Contents line (#305) |
+| [v3n3-p36-iverson-mathematics-books-review.md](v3n3-p36-iverson-mathematics-books-review.md) | 3:3 | 36–38 | Applied Mathematics for Programmers and Mathematics and Programming – Ken Iverson | Simon Garland | Contents line (#305) |
+| [v3n3-p38-peelle-introduction-to-apl-review.md](v3n3-p38-peelle-introduction-to-apl-review.md) | 3:3 | 38–39 | Introduction to APL – Howard Peelle | Romilly Cocking | Contents line (#305) |
+| [v3n3-p40-comparing-computer-languages.md](v3n3-p40-comparing-computer-languages.md) | 3:3 | 40–44 | Comparing Computer Languages | Peter Branson | Contents line (#305) |
+| [v3n3-p47-apl68000-on-the-atari-st.md](v3n3-p47-apl68000-on-the-atari-st.md) | 3:3 | 47–51 | APL.68000 for the Atari ST | Paul Chapman | Contents line (#305) |
+| [v3n3-p51-apl-plus-pc-release-6.md](v3n3-p51-apl-plus-pc-release-6.md) | 3:3 | 51–54 | STSC APL*PLUS/PC release 6 | Martyn Adams | Contents line (#305) |
+| [v3n3-p54-apl68000-for-the-apple-macintosh.md](v3n3-p54-apl68000-for-the-apple-macintosh.md) | 3:3 | 54–57 | APL.68000 for the Apple Macintosh | M.S. Bassett | Contents line (#305) |
+| [v3n3-p133-public-domain-software-library.md](v3n3-p133-public-domain-software-library.md) | 3:3 | 133–138 | The British APL Association Public Domain Software Library | — | Contents line (#305) |
+| [v4n1-p3-editorial-professionalism.md](v4n1-p3-editorial-professionalism.md) | 4:1 | 3–5 | Editorial: Professionalism and spreading the word | Anthony Camacho | Contents line (#305) |
+| [v4n1-p6-quick-reference-diary.md](v4n1-p6-quick-reference-diary.md) | 4:1 | 6 | Quick-reference diary | David Preedy | Contents line (#305) |
+| [v4n1-p7-apl-course-diary.md](v4n1-p7-apl-course-diary.md) | 4:1 | 7 | APL Course Diary | Cathy Dargue | Contents line (#305) |
+| [v4n1-p9-minutes-of-agm-1987.md](v4n1-p9-minutes-of-agm-1987.md) | 4:1 | 9–11 | Minutes of the AGM of the British APL Association held on 5 June 1987 | Anthony Camacho | Contents line (#305) |
+| [v4n1-p13-news-from-sustaining-members.md](v4n1-p13-news-from-sustaining-members.md) | 4:1 | 13–16 | News from Sustaining Members | Cathy Dargue | Contents line (#305) |
+| [v4n1-p17-report-on-apl87.md](v4n1-p17-report-on-apl87.md) | 4:1 | 17–18 | Report on APL87 | John Sullivan | Contents line (#305) |
+| [v4n1-p19-dallas-picture-gallery.md](v4n1-p19-dallas-picture-gallery.md) | 4:1 | 19–22 | Some of David Ziemann’s photographs from Dallas | David Ziemann | Contents line (#305) |
+| [v4n1-p23-photo-caption-competition.md](v4n1-p23-photo-caption-competition.md) | 4:1 | 23 | Caption Competition | — | Contents line (#305) |
+| [v4n1-p25-the-education-vector.md](v4n1-p25-the-education-vector.md) | 4:1 | 25 | The Education Vector | Norman Thomson | Contents line (#305) |
+| [v4n1-p27-apl-et-gddm.md](v4n1-p27-apl-et-gddm.md) | 4:1 | 27–29 | Book Review: APL et GDDM; travail en plein ecran (B Legrand) | Adrian Smith | Contents line (#305) |
+| [v4n1-p31-xt-286-fortegraph-enhanced-keyboard.md](v4n1-p31-xt-286-fortegraph-enhanced-keyboard.md) | 4:1 | 31–33 | Hardware Review: The XT-286, ForteGraph, and the IBM Enhanced Keyboard | Adrian Smith | Contents line (#305) |
+| [v4n1-p34-hercules-plus.md](v4n1-p34-hercules-plus.md) | 4:1 | 34–36 | Hardware Review: Hercules-Plus Monochrome Graphics Card | Adrian Smith | Contents line (#305) |
+| [v4n1-p36-prize-draw-results.md](v4n1-p36-prize-draw-results.md) | 4:1 | 36 | Prize Draw Results | Christine McCree | Contents line (#305) |
+| [v4n1-p37-apl-product-guide.md](v4n1-p37-apl-product-guide.md) | 4:1 | 37–47 | APL Product Guide | Cathy Dargue | Contents line (#305) |
+| [v4n2-p3-editorial.md](v4n2-p3-editorial.md) | 4:2 | 3–6 | Editorial | Adrian Smith | Contents line (#305) |
+| [v4n2-p7-quick-reference-diary.md](v4n2-p7-quick-reference-diary.md) | 4:2 | 7 | Quick Reference Diary | — | Contents line (#305) |
+| [v4n2-p9-general-correspondence.md](v4n2-p9-general-correspondence.md) | 4:2 | 9–17 | General Correspondence | Dick Bowman, Richard L. Connor, E J Sargeant, Barrie Webster, Henri Brudzewsky, George MacLeod | Contents line (#305) |
+| [v4n2-p19-apl-ication.md](v4n2-p19-apl-ication.md) | 4:2 | 19–21 | APL-Ication | — | Contents line (#305) |
+| [v4n2-p23-membership-projects-scheme.md](v4n2-p23-membership-projects-scheme.md) | 4:2 | 23–24 | Membership Projects Scheme | David Eastwood | Contents line (#305) |
+| [v4n2-p25-news-from-sustaining-members.md](v4n2-p25-news-from-sustaining-members.md) | 4:2 | 25–29 | News from Sustaining Members | Cathy Dargue | Contents line (#305) |
+| [v4n2-p31-the-education-vector.md](v4n2-p31-the-education-vector.md) | 4:2 | 31–32 | The Education Vector | Norman Thomson | Contents line (#305) |
+| [v4n2-p32-report-on-winchester-summer-course.md](v4n2-p32-report-on-winchester-summer-course.md) | 4:2 | 32–35 | A Report on the Winchester Summer Course on APL | Pauline Hawkes | Contents line (#305) |
+| [v4n2-p36-apl-booklist.md](v4n2-p36-apl-booklist.md) | 4:2 | 36 | APL Booklist | — | Contents line (#305) |
+| [v4n2-p37-apl-product-guide.md](v4n2-p37-apl-product-guide.md) | 4:2 | 37–47 | APL Product Guide | Cathy Dargue | Contents line (#305) |
+| [v4n2-p49-bergquist-advanced-techniques.md](v4n2-p49-bergquist-advanced-techniques.md) | 4:2 | 49–50 | Book Review: APL - Advanced Techniques and Utilities | Dick Bowman | Contents line (#305) |
+| [v4n2-p51-the-nec-v20-processor.md](v4n2-p51-the-nec-v20-processor.md) | 4:2 | 51–52 | Hardware Review: the NEC V20 Processor | Adrian Smith | Contents line (#305) |
+| [v4n2-p53-dyalog-apl-on-the-ibm-6150.md](v4n2-p53-dyalog-apl-on-the-ibm-6150.md) | 4:2 | 53–59 | Dyalog APL on the IBM 6150 | Adrian Smith | Contents line (#305) |
+| [v4n3-p3-editorial-computers-in-mathematics.md](v4n3-p3-editorial-computers-in-mathematics.md) | 4:3 | 3–4 | Guest Editorial: Computers in Mathematics | Norman Thomson | Contents line (#305) |
+| [v4n3-p5-quick-reference-diary.md](v4n3-p5-quick-reference-diary.md) | 4:3 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v4n3-p7-apl-course-diary.md](v4n3-p7-apl-course-diary.md) | 4:3 | 7 | APL Course Diary | — | Contents line (#305) |
+| [v4n3-p8-general-correspondence.md](v4n3-p8-general-correspondence.md) | 4:3 | 8–9 | General Correspondence | Anthony Camacho | Contents line (#305) |
+| [v4n3-p10-details-of-egm-and-postal-ballot.md](v4n3-p10-details-of-egm-and-postal-ballot.md) | 4:3 | 10 | Details of EGM and Postal Ballot | Graham Parkhouse | Contents line (#305) |
+| [v4n3-p11-news-from-sustaining-members.md](v4n3-p11-news-from-sustaining-members.md) | 4:3 | 11–15 | News from Sustaining Members | Cathy Dargue | Contents line (#305) |
+| [v4n3-p18-the-education-vector.md](v4n3-p18-the-education-vector.md) | 4:3 | 18–19 | The (Nested) Education Vector | Norman Thomson | Contents line (#305) |
+| [v4n3-p20-apl-booklist.md](v4n3-p20-apl-booklist.md) | 4:3 | 20 | APL Booklist | — | Contents line (#305) |
+| [v4n3-p21-apl-product-guide.md](v4n3-p21-apl-product-guide.md) | 4:3 | 21–31 | APL Product Guide | Cathy Dargue | Contents line (#305) |
+| [v4n3-p32-murray-and-pappas-introduction-to-apl.md](v4n3-p32-murray-and-pappas-introduction-to-apl.md) | 4:3 | 32–36 | Book Review: An Introduction to APL for the IBM PC & XT by William H. Murray and Chris H. Pappas | Anthony Camacho | Contents line (#305) |
+| [v4n3-p37-i-apl-for-the-ibm-pc.md](v4n3-p37-i-apl-for-the-ibm-pc.md) | 4:3 | 37–42 | I-APL for the IBM PC | Dave Weatherby | Contents line (#305) |
+| [v4n3-p43-apl-plus-pc-version-7.md](v4n3-p43-apl-plus-pc-version-7.md) | 4:3 | 43–46 | APL*PLUS/PC Version 7.0 | Adrian Smith | Contents line (#305) |
+| [v4n4-p3-editorial.md](v4n4-p3-editorial.md) | 4:4 | 3–4 | Editorial: Keep your Eyes on the Prize | Adrian Smith | Contents line (#305) |
+| [v4n4-p5-quick-reference-diary.md](v4n4-p5-quick-reference-diary.md) | 4:4 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v4n4-p7-call-for-contributions.md](v4n4-p7-call-for-contributions.md) | 4:4 | 7 | Call for Contributions | the VECTOR Working Group | Contents line (#305) |
+| [v4n4-p8-apl-course-diary.md](v4n4-p8-apl-course-diary.md) | 4:4 | 8 | APL Course Diary | — | Contents line (#305) |
+| [v4n4-p9-general-correspondence.md](v4n4-p9-general-correspondence.md) | 4:4 | 9 | General Correspondence | — | Contents line (#305) |
+| [v4n4-p10-apl2-over-janet.md](v4n4-p10-apl2-over-janet.md) | 4:4 | 10–12 | APL2 over JANET | Paul Barnetson | Contents line (#305) |
+| [v4n4-p13-i-apl-special-baa-meeting.md](v4n4-p13-i-apl-special-baa-meeting.md) | 4:4 | 13–14 | I-APL: Special BAA Meeting | Graham Parkhouse | Contents line (#305) |
+| [v4n4-p15-news-from-sustaining-members.md](v4n4-p15-news-from-sustaining-members.md) | 4:4 | 15–21 | News from Sustaining Members | Cathy Dargue | Contents line (#305) |
+| [v4n4-p23-the-education-vector.md](v4n4-p23-the-education-vector.md) | 4:4 | 23–24 | The Education Vector | Norman Thomson | Contents line (#305) |
+| [v4n4-p24-i-apl-agm-report.md](v4n4-p24-i-apl-agm-report.md) | 4:4 | 24–25 | I-APL: Report of 1st Annual General Meeting | Anthony Camacho | Contents line (#305) |
+| [v4n4-p26-apl-in-a-japanese-high-school.md](v4n4-p26-apl-in-a-japanese-high-school.md) | 4:4 | 26–34 | APL in a Japanese High School | Makoto Kikkawa | Contents line (#305) |
+| [v4n4-p35-apl-product-guide.md](v4n4-p35-apl-product-guide.md) | 4:4 | 35–44 | APL Product Guide | Cathy Dargue | Contents line (#305) |
+| [v4n4-p45-apl-press-review.md](v4n4-p45-apl-press-review.md) | 4:4 | 45–49 | APL Press Review | Anthony Camacho | Contents line (#305) |
+| [v4n4-p50-the-apl-debugger.md](v4n4-p50-the-apl-debugger.md) | 4:4 | 50–51 | The APL Debugger (Uniware) | Alasdair Richardson | Contents line (#305) |
+| [v4n4-p52-pl-pc-apl-for-all.md](v4n4-p52-pl-pc-apl-for-all.md) | 4:4 | 52–54 | PL/PC “APL for All” | N.J. Small | Contents line (#305) |
+| [v4n4-p146-full-index.md](v4n4-p146-full-index.md) | 4:4 | 146–150 | Full Index to Issues 1.1 to 4.4 | Gavin Schwarzenbach | Contents line (#305) |
+| [v22n3-p143-submitting-material-to-vector.md](v22n3-p143-submitting-material-to-vector.md) | 22:3 | 143 | Submitting Material to Vector | — | Contents line (#305) |
+| [v24n1-p2-quick-reference-diary.md](v24n1-p2-quick-reference-diary.md) | 24:1 | 2 | Quick reference diary | — | Contents line (#305) |
+| [v24n1-p4-glorious-summer.md](v24n1-p4-glorious-summer.md) | 24:1 | 4–5 | Glorious summer | Stephen Taylor | Contents line (#305) |
+| [v24n1-p137-consultants.md](v24n1-p137-consultants.md) | 24:1 | 137–143 | Consultants | — | Contents line (#305) |
+| [v24n2-p2-quick-reference-diary.md](v24n2-p2-quick-reference-diary.md) | 24:2 | 2 | Quick reference diary | — | Contents line (#305) |
+| [v24n2-p3-editorial.md](v24n2-p3-editorial.md) | 24:2 | 3 | Editorial | Stephen Taylor | Contents line (#305) |
+| [v24n4-p2-quick-reference-diary.md](v24n4-p2-quick-reference-diary.md) | 24:4 | 2 | Quick reference diary | — | Contents line (#305) |
+| [v24n4-p10-industry-news.md](v24n4-p10-industry-news.md) | 24:4 | 10–15 | Industry news: Dyalog, Kx Systems, Optima, IBM | — | Contents line (#305) |
+| [v24n4-p106-backgammon-tools-in-j-2-wastage.md](v24n4-p106-backgammon-tools-in-j-2-wastage.md) | 24:4 | 106–109 | Backgammon tools in J: 2. Wastage | Howard A. Peelle | Contents line (#305) |
+| [v25n1-p2-quick-reference-diary.md](v25n1-p2-quick-reference-diary.md) | 25:1 | 2 | Quick reference diary | — | Contents line (#305) |
+| [v25n1-p3-editorial.md](v25n1-p3-editorial.md) | 25:1 | 3 | Editorial | Stephen Taylor | Contents line (#305) |
+| [v25n1-p17-dyalog.md](v25n1-p17-dyalog.md) | 25:1 | 17–19 | Dyalog | — | Contents line (#305) |
+| [v25n1-p38-baa-agm-2011.md](v25n1-p38-baa-agm-2011.md) | 25:1 | 38–39 | BAA Annual General Meeting 2011 | Peter Merritt | Contents line (#305) |
+| [v25n1-p40-baa-accounts-and-membership.md](v25n1-p40-baa-accounts-and-membership.md) | 25:1 | 40 | BAA accounts and membership | Nicholas Small | Contents line (#305) |
+| [v25n1-p41-baa-agm-2011-chairmans-report.md](v25n1-p41-baa-agm-2011-chairmans-report.md) | 25:1 | 41–42 | BAA AGM 2011 – Chairman’s report | Paul Grosvenor | Contents line (#305) |
+| [v25n3-p2-quick-reference-diary.md](v25n3-p2-quick-reference-diary.md) | 25:3 | 2 | Quick reference diary | — | Contents line (#305) |
+| [v25n3-p3-editorial.md](v25n3-p3-editorial.md) | 25:3 | 3 | Editorial | Kai Jaeger | Contents line (#305) |
+| [v25n3-p5-apl2000.md](v25n3-p5-apl2000.md) | 25:3 | 5–6 | APL2000 | — | Contents line (#305) |
+| [v25n3-p7-dyalog.md](v25n3-p7-dyalog.md) | 25:3 | 7–9 | Dyalog | — | Contents line (#305) |
+| [v25n3-p10-nars2000.md](v25n3-p10-nars2000.md) | 25:3 | 10–11 | NARS2000 | Bob Smith | Contents line (#305) |
+| [v25n3-p12-tryapl.md](v25n3-p12-tryapl.md) | 25:3 | 12 | TryAPL | — | Contents line (#305) |
+| [v25n3-p22-baa-chairmans-report-pre-agm.md](v25n3-p22-baa-chairmans-report-pre-agm.md) | 25:3 | 22–23 | BAA Chairman’s Report (pre AGM) | Paul Grosvenor | Contents line (#305) |
+| [v25n4-p5-dyalog.md](v25n4-p5-dyalog.md) | 25:4 | 5–9 | Dyalog | — | Contents line (#305) |
+| [v25n4-p10-kx.md](v25n4-p10-kx.md) | 25:4 | 10–11 | Kx | — | Contents line (#305) |
+| [v25n4-p12-optima.md](v25n4-p12-optima.md) | 25:4 | 12 | Optima | — | Contents line (#305) |

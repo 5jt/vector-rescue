@@ -13,6 +13,7 @@ tags:
 - applications
 - APL community
 queries:
+- "Following the project rule for individuals’ contact details, the contact details printed for Delphi Consultation (David Crossley) are omitted: a one-person firm at a private address, like his later JAD Software."
 - "Following the project rule for individuals’ contact details, the addresses and telephone numbers printed for Peter Cyriax Systems are omitted, as they are the consultant’s own; companies’ addresses are kept."
 - "Contents line “compiled by Gill Smith”; printed byline “Compiled by Gill Smith”. The guide ends on printed 71 (its lower half blank)."
 - "Drafted from earlier issues’ guides (unindexed/v8n1-p49-apl-product-guide.md and the Vector 8:3 guide) and checked line by line against the page images. Changes include: a MicroAPL “IBM RS/6000” system and no Spectrum; ISI products listed under I-APL Ltd; IBM (APL Products) interpreters and keycaps, with an IBM (APL Products) vendor address; IBM UK’s APL2 now “including MicroAPL”; MicroAPL’s APL.68000/X; “APL\\*PLUS II System” Version 4.0; no MicroAPL printers; MicroAPL packages without MicroEDIT, MicroGRID and APLCALC, and “STATGRAPHICS Rel 5”; “Managing consultant” at Cocking/Drury; BACUS among the Overseas Associations; a new address for M.T.I.C."
@@ -336,7 +337,7 @@ All contributions and updates to the APL Product Guide should be sent to Gill Sm
 | Paul Chapman | | [address and telephone number omitted] |
 | Cocking & Drury Ltd. | Romilly Cocking | 180 Tottenham Court Road, LONDON, W1P 9LE<br>Tel: 071-436 9481 Fax: 071-436 0524 |
 | Datatrade Ltd. | Tony Checksfield | 38 Billing Road, Northampton, NN1 5DQ. Tel: 0604-22289 |
-| Delphi Consultation | David Crossley | Church Green House, Stanford-in-the-Vale, Oxon SN7 8LQ.<br>Tel: 0367-710384 |
+| Delphi Consultation | David Crossley | [address and telephone number omitted] |
 | Dutch APL U.G. | Bernard Smoor (Sec) | Postbus 1341, 3430BH Nieuwegein. Tel: 03474-2337 |
 | Dyadic Systems Ltd. | Peter Donnelly | Riverside View, Basing Road, Old Basing, Basingstoke, Hants RG24 0AL.<br>Tel: 0256 811125 Fax: 0256 811130 |
 | E & S Associates | Frank Evans | 19 Homesdale Road, Orpington, Kent BR5 1JS. Tel: 0689-24741 |

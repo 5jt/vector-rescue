@@ -11,6 +11,7 @@ tags:
 - applications
 - APL community
 queries:
+- "Following the project rule for individuals’ contact details, the contact details printed for Delphi Consultation (David Crossley) are omitted: a one-person firm at a private address, like his later JAD Software."
 - "The catalogue pages carry no heading of their own: the title is the Contents line’s. They are the listings of the APL Product Guide (unindexed/v5n3-p39-apl-product-guide.md), compiled by Cathy Dargue, whose introduction on printed 39 lists the groups. The catalogue ends on printed 49 (its lower half blank)."
 - "The introduction lists ten groups, but the catalogue prints eight sections: there is no “APL Training Courses” section, “APL character set printers” is headed “APL PRINTERS”, “APL-based packages” “APL PACKAGES”, and “Other services” “OTHER PRODUCTS”."
 - "Tables follow the printed columns. Where a row continues the previous company, the Company cell is left blank; sub-labels printed in the Company column, such as “(mainframe)”, “(microcomputer)”, “(for VSAPL)” and “(for APL2)”, are kept in that cell on the row they precede. Product names printed over two lines (“PROGRAMMER TOOLS & UTILITIES”, “APL*PLUS/PC FIN. & STAT.LIBRARY”) are joined."
@@ -359,7 +360,7 @@ queries:
 | Cocking & Drury Ltd. | Romilly Cocking | 180 Tottenham Court Road, LONDON, W1P 9LE16 Tel: 01436 9481 |
 | | | 155 Friar Street Reading RG1 1HE. Tel: 0734-588835 |
 | Datatrade Ltd. | Tony Checkseld | 38 Billing Road, Northampton, NN1 5DQ. Tel: 0604-22289 |
-| Delphi Consultation | David Crossley | Church Green House, Stanford-in-the-Vale, Oxon SN7 8LQ. Tel: 03677-384 |
+| Delphi Consultation | David Crossley | [address and telephone number omitted] |
 | Dyadic Systems Ltd. | Peter Donnelly | Park House, The High Street, Alton, Hampshire. Tel: 0420-87024 |
 | E & S Associates | Frank Evans | 19 Homesdale Road, Orpington, Kent BR5 1JS. Tel: 0689-24741 |
 | Farnell International Instruments Ltd. | R. Fairbairn | Jubilee House, Sandbeck Way, Wetherby, W. Yorks. Tel: 0937-61961 |

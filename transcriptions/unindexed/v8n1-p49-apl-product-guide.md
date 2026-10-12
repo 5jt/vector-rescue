@@ -13,6 +13,7 @@ tags:
 - applications
 - APL community
 queries:
+- "Following the project rule for individuals’ contact details, the contact details printed for Delphi Consultation (David Crossley) are omitted: a one-person firm at a private address, like his later JAD Software."
 - "Following the project rule for individuals’ contact details, the addresses and telephone numbers printed for Peter Cyriax Systems are omitted, as they are the consultant’s own; companies’ addresses are kept."
 - "Printed byline “Compiled by Alison Chatterton”. The guide ends on printed 58; printed 59 begins “Reviews and Product Announcements” (Zark Update and the APL2/6000 announcement, transcribed separately)."
 - "Drafted from the previous issue’s guide (unindexed/v7n3-p50-apl-product-guide.md) and checked line by line against the page images. Changes from that issue include: no M.T.I.C. system; “Dyalog APL for Unix”; MicroAPL’s “APL\\*PLUS Rel 10”; new INFOSTROY entries (package, consultancy, address); no “(prices quoted are per day …)” note under Consultancy; APL Club Austria and Sydney APLUG among the Overseas Associations; new addresses for Peter Cyriax and Zark Incorporated; “HMW Trading Systems Ltd”."
@@ -338,7 +339,7 @@ All contributions to the APL Product Guide should be sent to Alison Chatterton, 
 | Paul Chapman | | [address and telephone number omitted] |
 | Cocking & Drury Ltd. | Romilly Cocking | 180 Tottenham Court Road, LONDON, W1P 9LE Tel: 071436 9481 Fax: 071-436 0524 |
 | Datatrade Ltd. | Tony Checksfield | 38 Billing Road, Northampton, NN1 5DQ. Tel: 0604-22289 |
-| Delphi Consultation | David Crossley | Church Green House, Stanford-in-the-Vale, Oxon SN7 8LQ. Tel: 03677-384 |
+| Delphi Consultation | David Crossley | [address and telephone number omitted] |
 | Dutch APL U.G. | Bernard Smoor (Sec) | Postbus 1341, 3430BH Nieuwegein. Tel: 03474-2337 |
 | Dyadic Systems Ltd. | Peter Donnelly | Riverside View, Basing Road, Old Basing, Basingstoke, Hants RG24 0AL. Tel: 0256 811125 Fax: 0256 811130 |
 | E & S Associates | Frank Evans | 19 Homesdale Road, Orpington, Kent BR5 1JS. Tel: 0689-24741 |

@@ -13,6 +13,7 @@ tags:
 - applications
 - APL community
 queries:
+- "Following the project rule for individuals’ contact details, the contact details printed for Delphi Consultation (David Crossley) are omitted: a one-person firm at a private address, like his later JAD Software."
 - "Following the project rule for individuals’ contact details, the addresses and telephone numbers printed for I-APL Ltd (Anthony Camacho) are omitted, as they are the consultant’s own; companies’ addresses are kept."
 - "Printed heading “Fully Revised APL Product Guide”, byline “Compiled by Alison Chatterton”. The guide ends on printed 52 (its lower half blank)."
 - "Printed 53, before the next Contents line (APL\\*PLUS/PC Release 9, printed 54), carries a separate untranscribed piece with no Contents line: “Reviews Section — introduction by Adrian Smith”."
@@ -287,7 +288,7 @@ All contributions to the APL Product Guide should be sent to Alison Chatterton, 
 | Paul Chapman | | [address and telephone number omitted] |
 | Cocking & Drury Ltd. | Romilly Cocking | 180 Tottenham Court Road, LONDON, W1P 9LE<br>Tel: 01436 9481 Fax: 01-436 0524 |
 | Datatrade Ltd. | Tony Checkseld | 38 Billing Road, Northampton, NN1 5DQ. Tel: 0604-22289 |
-| Delphi Consultation | David Crossley | Church Green House, Stanford-in-the-Vale, Oxon SN7 8LQ.<br>Tel: 03677-384 |
+| Delphi Consultation | David Crossley | [address and telephone number omitted] |
 | Dyadic Systems Ltd. | Peter Donnelly | Park House, The High Street, Alton, Hampshire, GU34 1EN. Tel: 0420-87024 |
 | E & S Associates | Frank Evans | 19 Homesdale Road, Orpington, Kent BR5 1JS. Tel: 0689-24741 |
 | H.M.W. Computing Ltd. | Stan Wilkinson | Hamilton House, 1 Temple Avenue, Victoria Embankment, LONDON EC4Y 0HA Tel: 01-353 4212<br>Telex: 926604 HAMHSEG Fax: 01-353 3325 |

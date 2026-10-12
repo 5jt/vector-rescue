@@ -13,6 +13,7 @@ tags:
 - applications
 - APL community
 queries:
+- "Following the project rule for individuals’ contact details, the contact details printed for Delphi Consultation (David Crossley) are omitted: a one-person firm at a private address, like his later JAD Software."
 - "Printed byline “Compiled by Cathy Dargue”. The guide ends at the foot of printed 48; printed 49 begins Romilly Cocking’s “Interfacing APL and C” (the next Contents line)."
 - "Following the project rule for individuals’ contact details, Cathy Dargue’s street address in Buntingford, Herts, and her telephone number, given for contributions, are omitted."
 - "The introduction lists ten groups, but the guide prints only eight sections: there is no “APL Training Courses” section, “APL character set printers” is headed “APL PRINTERS”, “APL-based packages” “APL PACKAGES”, and “Other services” “OTHER PRODUCTS”."
@@ -411,7 +412,7 @@ All contributions to the APL Product Guide should be sent to:
 | Paul Chapman | | [address and telephone number omitted] |
 | Cocking & Drury Ltd. | Romilly Cocking | 180 Tottenham Court Road, LONDON, W1P 9LE16 Tel: 01436 9481<br>155 Friar Street Reading RG1 1HE. Tel: 0734-588835 |
 | Datatrade Ltd. | Tony Checkseld | 38 Billing Road, Northampton, NN1 5DQ. Tel: 0604-22289 |
-| Delphi Consultation | David Crossley | Church Green House, Stanford-in-the-Vale, Oxon SN7 8LQ. Tel: 03677-384 |
+| Delphi Consultation | David Crossley | [address and telephone number omitted] |
 | Dyadic Systems Ltd. | Peter Donnelly | Park House, The High Street, Alton, Hampshire. Tel: 0420-87024 |
 | E & S Associates | Frank Evans | 19 Homesdale Road, Orpington, Kent BR5 1JS Tel: 0689-24741 |
 | Farnell International Instruments Ltd. | R. Fairbairn | Jubilee House, Sandbeck Way, Wetherby, W. Yorks Tel: 0937-61961 |
