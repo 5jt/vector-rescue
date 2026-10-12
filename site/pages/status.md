@@ -25,6 +25,7 @@ A development build of the recovered *Vector* archive: every issue’s contents,
 - **The Second Pass** (decided 11 October 2026): the pieces the editors’ index left out, transcribed from the scans and each put on its issue’s line in the full index:
     - pieces printed inside a listed section but missing from both the index and the Contents page (letters, reports, columns, errata): 237, found from the First Pass’s notes and by a sweep of Volumes 5–21;
     - every remaining line of the Contents pages: 650 more, among them editorials, the Quick Reference and course diaries, BAA, BCS and sustaining members’ news, the Education Vector and Random Vector introductions, conference programmes and reports, reviews, crosswords and the APL Product Guides. Volumes 22–25 were transcribed from the typeset issues. Lines whose text is already held, or that are only a heading over listed pieces, say so;
+    - short pieces printed with no line on any Contents page, mostly section introductions: 47, linked from their sections’ headings or given lines of their own;
     - not transcribed: the indexes to advertisers and the order, subscription and registration forms;
     - **contact details**: where a person rather than a company is the contact (BAA officers and editors, letter-writers, user-group secretaries, consultants trading on their own), the street address, telephone number and personal e-mail are left out, and a note says so; companies’ and institutions’ addresses are kept.
 - **Damaged copies**: for three issues whose only copy is truncated (3:4, 7:4, 16:4), the machine-read text has been recovered and shown.
@@ -34,6 +35,5 @@ A development build of the recovered *Vector* archive: every issue’s contents,
 - **Review**: every transcription is a draft until a reviewer checks it against the scan; see the [review checklist](https://github.com/5jt/vector-rescue/blob/main/plans/pdf-review-checklist.md).
 - **Missing sources**: no scan has been found of 2:2, and the copies of 3:4, 7:4 and 16:4 are damaged ([help find them](https://github.com/5jt/vector-rescue/issues/62)).
 - **Hand transcription**: three pieces the automatic transcription could not complete (XPL in 1:2, an article each in 12:1 and 21:2) and one Second Pass piece (12:2 p.113).
-- **Unlisted pieces**: about 50 short printed pieces, mostly section introductions, have no line on any Contents page; they are listed for a later sweep.
 
 The quality of each article’s text is shown in the [full index](../full-index/).

@@ -10,7 +10,7 @@ tags:
 - APL community
 queries:
 - "Following the project rule for individuals’ contact details, Kim S. Andreasen’s street address, given for APL90 enquiries, is omitted."
-- "The page also carries an announcement of APL90 (Elsinore, Denmark), under a banner set in large block letters, kept here as text. Printed 8 is a Dyalog APL advertisement. Printed 9, “APL Training Courses” (a course diary, referred to as “the Course Diary on page 9” in News from Sustaining Members), has no Contents line and is not transcribed here."
+- "The page also carries an announcement of APL90 (Elsinore, Denmark), under a banner set in large block letters, kept here as text. Printed 8 is a Dyalog APL advertisement. Printed 9, “APL Training Courses” (a course diary, referred to as “the Course Diary on page 9” in News from Sustaining Members), has no Contents line and is not transcribed here. Transcribed separately: unindexed/v5n3-p9-apl-training-courses.md."
 - "Kept as printed: “Helsingoer”."
 ---
 

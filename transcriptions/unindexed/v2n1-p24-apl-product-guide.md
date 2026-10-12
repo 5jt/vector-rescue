@@ -13,10 +13,11 @@ tags:
 - applications
 - APL community
 queries:
-- "Printed byline “Compiled by Steve Lyus”. The guide runs to printed 38. Printed 39, before the next Contents line (Product reviews, p.40), is a separate full-page APL Publications “BOOKLIST” (“List of books stocked and on sale: note special prices for members”), which has no Contents line of its own and is not transcribed here."
+- "Printed byline “Compiled by Steve Lyus”. The guide runs to printed 38. Printed 39, before the next Contents line (Product reviews, p.40), is a separate full-page APL Publications “BOOKLIST” (“List of books stocked and on sale: note special prices for members”), which has no Contents line of its own and is not transcribed here. Transcribed separately: unindexed/v2n1-p39-booklist.md."
 - "The introduction lists nine groups, but the guide's sections are headed “APL PRINTERS” (for “APL character set printers”), “APL PACKAGES” (for “APL-based packages”) and “OTHER PRODUCTS” (for “Other services”)."
 - "Tables follow the printed columns and the printed headings (“Prices £”; the Vendor addresses table has “Contact” and “Address & Telephone”). Where a row continues the previous company, the Company cell is left blank. Price ranges printed across two lines (“2000 –” over “5000”) are joined with an en dash; ranges printed on one line keep their hyphen or dash. In the Vendor addresses table the printed “or” before a second contact is kept in the Company cell."
 - "Vendor addresses and telephone numbers are kept as business contact details, as is the compiler Steve Lyus’s address at Imperial Group plc. Trading firms are kept even at a residential-looking address or with a person named as contact: APL People, APL Publications (Les Hollingbery), APL Software Technology (both contacts, John Hagger and Per Hultin), Attikale Ltd., E & S Associates, General Software Ltd. and others. Following the project rule for individuals’ contact details, the street addresses and telephone numbers of Anthony Camacho and S.H. Packer (sole consultants listed under their own names) and of Delphi Consultation Ltd. (David Crossley, a one-person firm) are omitted; the names and rows are kept."
+- "APL Publications is L.R. Hollingbery trading from his home: following the project rule for one-person firms at a private address, its address and telephone number are omitted, as in the booklists of 1:4 and 2:1."
 - "Kept as printed: “VIZ::APL” (double colon, twice); “ERICSON” beside “Ericsson”; “Mellordata”; “Phillips GP300”; “IBM Twinex”; “Quen-data”; “replacement function for commonly used CPU-consuming APL functions”; “IBM(UK)” in the Interpreters table and “IBM UK Ltd” in the addresses; “Common Southside” here and “Common South Side” in News from Sustaining Members; “M.J. Fennel”; the two MicroAPL rows in the Interpreters table, each with the company name."
 ---
 
@@ -279,7 +280,7 @@ Bristol BS99 7JR
 | Company | Contact | Address & Telephone |
 |---|---|---|
 | APL People | Valerie Lusmore | 17 Barton Street,<br>Bath, Avon.<br>Tel. 0225-62601 |
-| APL Publications | Les Hollingbery | 9 Koh-I-Noor Avenue,<br>Bushey, Herts., WD2 3EJ.<br>01-950 1044 |
+| APL Publications | Les Hollingbery | [address and telephone number omitted] |
 | APL Software Technology (UK) Ltd. (A.S.T.) | John Hagger | 14 Rosewood Avenue,<br>Alveston, Bristol BS12 2PP<br>0454-415737 |
 | or | Per Hultin | 46 Vicarage Hill,<br>South Benfleet, Essex SS7 1PB.<br>03745-50501 |
 | Attikale Ltd. | Peter Hurdley | 51 Brookside, Paulton, Bristol<br>BS18 5YR. 0761-415427 |

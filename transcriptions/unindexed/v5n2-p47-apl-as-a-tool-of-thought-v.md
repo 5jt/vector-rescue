@@ -13,7 +13,7 @@ tags:
 - APL community
 queries:
 - "Contents line “APL as a Tool of Thought(V)”; the printed heading is “\"APL as a Tool of Thought V\" Proceedings of the 5th Annual Professional Development Seminar 24/10/1987”, reviewed by Derek Wilson."
-- "The review ends near the top of printed 48. The rest of that page is a full-page drawing captioned “Ziemann: Selected musings at the VECTOR Working Group” (hand-drawn doodles of APL symbols and expressions such as ⊂1 2 3 and 1+⊂1 2 3), which has no Contents line and is not transcribed here."
+- "The review ends near the top of printed 48. The rest of that page is a full-page drawing captioned “Ziemann: Selected musings at the VECTOR Working Group” (hand-drawn doodles of APL symbols and expressions such as ⊂1 2 3 and 1+⊂1 2 3), which has no Contents line and is not transcribed here. Transcribed separately: unindexed/v5n2-p48-ziemann-selected-musings.md."
 - "Kept as printed: “differential data elements”, “Jonathon Bard”, “specially interesting”."
 ---
 
