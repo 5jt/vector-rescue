@@ -8,7 +8,7 @@ pdf,pg,x0,y0,x1,y1,out=sys.argv[1:8]
 if 'VEC_CACHE' not in os.environ: sys.exit('Set VEC_CACHE to the session scratchpad')
 C=os.path.join(os.environ['VEC_CACHE'],'r600')
 os.makedirs(C,exist_ok=True)
-key=os.path.basename(pdf)[:16].replace('.','_')
+key=os.path.basename(pdf).removesuffix('.pdf').replace('.','_')
 f=f'{C}/{key}-{int(pg):03d}.png'
 if not os.path.exists(f): subprocess.run(['pdftoppm','-r','600','-png','-gray','-f',pg,'-l',pg,'-singlefile',pdf,f[:-4]])
 im=Image.open(f); k=3
