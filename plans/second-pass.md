@@ -10,21 +10,20 @@ Conventions
 - A section line whose pieces already have files gets only its own text; with none left, `note: heading only; its pieces are listed below`. A piece not printed in the issue gets a note saying so.
 - Diaries and guides as Markdown pipe tables, a table per printed section, every entry kept. Guides may be drafted from the previous issue's file but every row is checked against the page images.
 - Page numbers corrected against the print, with a note giving the Contents page's number.
-- **Contact details** (decided 2026-10-12): wherever a person rather than a company is the contact, the street address, telephone and fax numbers and personal e-mail are omitted, with a query: BAA officers and editors, conference chairmen, user-group contacts, letter-writers, sole consultants, and one-person firms at a private address (Andrews, Phil Last Ltd, JAD Software, J Austria, AtomicVector, CoSy.com, Entropy Software, Lambent Technology Ltd, Acadvent Ltd, APL Consultants Japan, I-APL Ltd, Peter Cyriax Systems, IAC/Human Interfaces at Hill End). Companies', universities' and institutions' addresses, PO boxes and Brook House (APL 385, Vector Production) are kept. The 22:x guides also omit Alastair Kinloch Ltd, Dr. Nussbaum GmbH, Skelton Consulting GmbH and Orbien, which earlier guides keep: to review.
+- **Contact details** (decided 2026-10-12): wherever a person rather than a company is the contact, the street address, telephone and fax numbers and personal e-mail are omitted, with a query: BAA officers and editors, conference chairmen, user-group contacts, letter-writers, sole consultants, and one-person firms at a private address (Andrews, Phil Last Ltd, JAD Software, J Austria, AtomicVector, CoSy.com, Entropy Software, Lambent Technology Ltd, Acadvent Ltd, APL Consultants Japan, I-APL Ltd, Peter Cyriax Systems, IAC/Human Interfaces at Hill End). Companies', universities' and institutions' addresses, PO boxes and Brook House (APL 385, Vector Production) are kept. Every other trading firm is kept, even at a residential-looking address (APL 385, APL People, E & S Associates, M.T.I., Attikale, General Software, Buckland Management Systems, APL Software Technology, APL Impetus, QB On-Line); Stephen ruled on 2026-10-12 that Alastair Kinloch Ltd, Dr. Nussbaum GmbH, Skelton Consulting GmbH and Orbien are companies. Delphi Consultation (David Crossley, before JAD Software) is treated as a one-person firm.
 
 Progress
 --------
 
-- Wave 1, pilot 6:1 (#306); wave 2, Volumes 5–7 (#307); wave 3, Volumes 8–10 and the contact-details rule throughout (#308); wave 4, Volumes 11–13 and the First Pass's missed 11:1 APL94 Abstracts, now `art10000160` (#309); wave 5, Volumes 14–17 (#310); wave 6, Volumes 18–23 (this branch).
+- Wave 1, pilot 6:1 (#306); wave 2, Volumes 5–7 (#307); wave 3, Volumes 8–10 and the contact-details rule throughout (#308); wave 4, Volumes 11–13 and the First Pass's missed 11:1 APL94 Abstracts, now `art10000160` (#309); wave 5, Volumes 14–17 (#310); wave 6, Volumes 18–23 (#311); wave 7, Volumes 1–4 and the 30 lines of Volumes 22–25 from the typeset issues, with the early guides' contact details made consistent (this branch). In all, 650 pieces from Contents lines.
 - The 13 lines of the Dyalog at 25 supplement (23:4.1) are the section headings of How we got here (10013790), held as text; noted on each line.
 
 Remaining
 ---------
 
-- Volumes 1–4: 198 lines (1:1–4:4, without 2:2 and 3:4).
-- Volumes 22–25 lines with no wayback scan (30): from the typeset PDFs in `sources/sjt/Vector/issues/` (v241.pdf, v242.pdf, v244.pdf, v251.pdf, v253.pdf, v254.pdf), and 22:3 and 23:1.
 - 12:2 p.113 (Adrian Smith), by hand: the content filter stops it.
-- The agents' brief is `plans/second-pass-brief.md`; the work list is rebuilt (`tools/scratch/sp2_worklist.py`, then `sp2_kids.py`) from the Contents files: items with a title and page but no `file:` or `vid:`, excluding the forms and advertiser indexes, grouped by issue with the PDF and offset from `pages.issue_pdfs` and `pipeline.pdf_links`.
+- A sweep for the printed pieces with no Contents line, below.
+- The agents' brief is `plans/second-pass-brief.md`; a work list of any lines still without text is rebuilt with `tools/scratch/sp2_worklist.py`, then `sp2_kids.py`.
 
 Printed pieces with no Contents line
 ------------------------------------
@@ -74,3 +73,13 @@ Noticed by the agents and not transcribed: candidates for a further sweep. Mostl
 | 14:2 | 18 | British APL Association News (future issues, committee, AGM) no Contents line |
 | 15:1 | 5 | Quick Puzzle from Ajay Askoolum (foot of diary page) |
 | 19:3 | 5 | BAA AGM notice (Camacho) at foot of Guest Editorial |
+| 1:1 | 33 | RECENT MEETINGS introduction |
+| 3:3 | 35 | REVIEWS SECTION introduction |
+| 2:1 | 17 | APL86 APL in Action notice |
+| 2:1 | 18 | Papers for APL 86 (Camacho) |
+| 2:1 | 39 | BOOKLIST (APL Publications) |
+| 2:1 | 126 | Contents of Volume 1 |
+| 4:1 | 12 | Call for Papers, Second South African APL Symposium |
+| 4:1 | 48 | APL BOOKLIST (Warwick University Bookshop) |
+| 2:3 | 31 | APL BOOKLIST (APL Book Service) |
+| 25:4 | 2 | Quick reference diary |
