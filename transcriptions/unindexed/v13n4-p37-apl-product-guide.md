@@ -13,6 +13,7 @@ tags:
 - applications
 - APL community
 queries:
+- "Following the project rule for individuals’ contact details, the contact details printed for Andrews (Dr Anne D Wilson), JAD Software (David Crossley), J Austria (Joachim Hoffmann) are omitted: each is one person trading under a firm’s name at a private address; other companies’ addresses are kept."
 - "Printed heading “APL Product Guide — Fully Revised”; byline “compiled by Gill Smith”; running head “Vector Product Guide”. The guide ends on printed 50 with the FTP sites; printed 51 begins Jon Sandles’s Internet survey."
 - "Tables follow the printed columns. Where a row continues the previous company, the Company cell is left blank; the Strand Software and Uniware rows at the top of printed 41 continue the APL Interpreters table. Sub-labels printed in the Company column, such as “(mainframe)”, “(microcomputer)”, “(for VSAPL)” and “(for APL2)”, and sub-headings printed in the Product column (Strand Software’s “Canada” and “USA”; Iverson Software’s “J on the Web online registration ...” and “Books and accessories (discounts for reg users)”; MicroAPL’s “APL.68000 Level I” and “Level II”; I-APL Ltd’s packing-charge note), are kept in those cells. Names and products printed over two lines are joined; multi-line details are joined with line breaks where the print breaks them deliberately."
 - "Following the project rule for individuals’ contact details, the addresses, telephone numbers and personal e-mail addresses of Anthony Camacho (under Camacho and under I-APL Ltd), Ray Cannon, Paul Chapman, Michael Hughes, Ian A. Clark (IAC/Human Interfaces), Phil Last, Ellis Morgan, Rex Swain and Stephen Wynn, and of the user-group contacts Lewis H. Robinson (APLBUG), Dieter Lattermann (APL Club Germany), Ludmila Lemagnen (Association Francophone), Joseph De Kerf (BACUS), Per Gjerløv (Danish User Group), Bob Bykerk (Sydney APLUG) and John Manges (SE APL Users Group), are omitted. The telephone numbers and e-mail addresses of Bernard Smoor (Dutch APL Association), Mario Sacco (Rome/Italy SIG), Boris Makeev (RusAPL), Alexander Skomorokhov (SovAPL) and Richard Procter (Toronto SIG) are omitted; their groups’ post-office boxes are kept. (Smoor’s numbers and Procter’s e-mail address also appear, kept, as the business contacts of their firms Adfee and AUSCAN Software Ltd.) Companies’, firms’ and institutions’ addresses, telephone numbers and e-mail addresses are kept, as are user groups’ addresses care of a company or user-group office (APL Club Austria, CPCUG, SOCAL, SwedAPL, Swiss APL User Group), APL-385’s at Brook House (also given in the introduction as the address for contributions to the guide, kept as in earlier guides), and those of Andrews (Dr Anne D Wilson) and JAD Software (David Crossley), listed under firms’ names. Web sites are kept."
@@ -334,7 +335,7 @@ All contributions and updates to the APL Product Guide should be sent to Gill Sm
 | Adaptable Systems | Lois & Richard Hill | 49 First Street, Black Rock 3193, Australia.<br>Tel: +61 3 9589 5578 Fax: +61 3 9589 3220 Email: adsys@ibm.net |
 | Adaytum Software | Douglas Rowley | 13 Great George Street, BRISTOL BS1 5RR UK Tel: 0117-921 5555 |
 | Adfee | Bernard Smoor | Dorpsstraat 50, 4128 BZ Lexmond, Netherlands.<br>Tel +31 347 342 337 Fax: +31 347 342 342 Email: adfee@concepts.nl |
-| Andrews | Dr Anne D Wilson | 23, The Green, Acomb, YORK YO2 5LL, UK Tel: 01904-792670 |
+| Andrews | Dr Anne D Wilson | [address and telephone number omitted] |
 | APL-385 | Adrian Smith | Brook House, Gilling East, York YO6 4JJ UK. Tel: 01439-788385<br>Fax: 01439-788194 Email: 100331.644@compuserve.com |
 | APL Bay Area APLBUG | Lewis H. Robinson (Sec) | [address, telephone number and e-mail address omitted] |
 | APL Club Austria | Harald F. Nelson | c/o N-TECH, Siebenbrunnenfeldg. 4-6, A-1050 Wien, Austria.<br>Tel: +43 1 5458063 Fax: +43 1 5458063-17 |
@@ -374,8 +375,8 @@ All contributions and updates to the APL Product Guide should be sent to Gill Sm
 | INFOSTROY | Alexei Miroshnikov | 3 S. Tulenin Lane, St. Petersburg 191186 Russia.<br>Tel:+7 812 312-2673 Fax:+7 812 311-2184 Email:aim@infostroy.spb.su |
 | Insight Systems ApS | Morten Kromberg | Nordre Strandvej 119C, DK-3150 Hellebæk, Denmark<br>Tel:+45 49 76 20 20 Fax: +45 49 76 20 30 Email: info@insight.dk |
 | Iverson Software Inc. | Eric Iverson | 33 Major Street, Toronto, Ontario, Canada M5S 2K9 Tel: +1 (416) 925-6096; Fax: +1 (416) 488-7559 Email: info@jsoftware.com |
-| J Austria | Joachim Hoffmann | Münzgrabenstr. 68, A-8010 Graz, Austria. Tel: +43 (0)316 814529<br>Fax: +43 (0)316 816683 Email: JoHo@magnet.at |
-| JAD Software | David Crossley | 580 Eyer Drive, #81 Pickering, Ontario, Canada L1W 3B7<br>Tel: +1 (905) 837-1895 Fax: +1 (905) 831-5172 |
+| J Austria | Joachim Hoffmann | [address, telephone number and e-mail address omitted] |
+| JAD Software | David Crossley | [address and telephone number omitted] |
 | Phil Last | Phil Last | [address and telephone number omitted] |
 | Mackay Kinloch Ltd | Alastair Kinloch | 519 Webster's Land, Edinburgh EH1 2RX, Scotland, UK<br>Tel/Fax/Answerphone: 0131 228 3580 Pager/Voicemail: 01426 98 3858<br>Email: 100010.33@compuserve.com |
 | Mercia Software Ltd. | Gareth Brentnall | Holt Court North, Heneage Street West, Aston Science Park, Birmingham B7 4AX UK. Tel: 0121-359 5096. Fax: 0121-359 0375 |
