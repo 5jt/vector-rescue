@@ -785,3 +785,64 @@ They are set aside here, unpublished, for editorial review.
 | [v17n4-p11-apl-product-guide.md](v17n4-p11-apl-product-guide.md) | 17:4 | 11–25 | The Vector Product Guide | Gill Smith | Contents line (#305) |
 | [v17n4-p26-zark-newsletter-extracts.md](v17n4-p26-zark-newsletter-extracts.md) | 17:4 | 26–27 | Zark Newsletter Extracts: Limbering Up: Combinations | Jon Sandles | Contents line (#305) |
 | [v17n4-p28-crossword.md](v17n4-p28-crossword.md) | 17:4 | 28–30 | Solution and New Crossword | — | Contents line (#305) |
+| [v18n1-p5-quick-reference-diary.md](v18n1-p5-quick-reference-diary.md) | 18:1 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v18n1-p16-apl-product-guide.md](v18n1-p16-apl-product-guide.md) | 18:1 | 16–30 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v18n1-p39-crossword.md](v18n1-p39-crossword.md) | 18:1 | 39–41 | Crossword | — | Contents line (#305) |
+| [v18n2-p11-conference-site-and-call-for-papers.md](v18n2-p11-conference-site-and-call-for-papers.md) | 18:2 | 11–13 | APL2002 (APL-LPA 2002) in Madrid: Call for Papers, Tutorials and Workshops | — | Contents line (#305) |
+| [v18n2-p23-apl-product-guide.md](v18n2-p23-apl-product-guide.md) | 18:2 | 23–37 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v18n2-p47-crossword.md](v18n2-p47-crossword.md) | 18:2 | 47–49 | Solution and New Crossword | — | Contents line (#305) |
+| [v18n3-p5-quick-reference-diary.md](v18n3-p5-quick-reference-diary.md) | 18:3 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v18n3-p7-notice-of-agm-and-call-for-new-committee.md](v18n3-p7-notice-of-agm-and-call-for-new-committee.md) | 18:3 | 7 | British APL Association Annual General Meeting | — | Contents line (#305) |
+| [v18n3-p15-apl-product-guide.md](v18n3-p15-apl-product-guide.md) | 18:3 | 15–29 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v18n3-p49-crossword.md](v18n3-p49-crossword.md) | 18:3 | 49–51 | Solution and New Crossword | — | Contents line (#305) |
+| [v18n4-p7-quick-reference-diary.md](v18n4-p7-quick-reference-diary.md) | 18:4 | 7 | Quick Reference Diary | — | Contents line (#305) |
+| [v18n4-p9-accepted-papers-at-apl2002.md](v18n4-p9-accepted-papers-at-apl2002.md) | 18:4 | 9–11 | APL2002 – Madrid: Accepted Papers | — | Contents line (#305) |
+| [v18n4-p14-apl-product-guide.md](v18n4-p14-apl-product-guide.md) | 18:4 | 14–28 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v18n4-p38-crossword.md](v18n4-p38-crossword.md) | 18:4 | 38–40 | New Crossword and Solution for 18.3 | — | Contents line (#305) |
+| [v19n1-p7-quick-reference-diary.md](v19n1-p7-quick-reference-diary.md) | 19:1 | 7 | Quick Reference Diary | — | Contents line (#305) |
+| [v19n1-p14-apl-product-guide.md](v19n1-p14-apl-product-guide.md) | 19:1 | 14–28 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v19n1-p38-crossword.md](v19n1-p38-crossword.md) | 19:1 | 38–40 | Crossword | — | Contents line (#305) |
+| [v19n2-p5-quick-reference-diary.md](v19n2-p5-quick-reference-diary.md) | 19:2 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v19n2-p6-apl2003-information-and-call-for-papers.md](v19n2-p6-apl2003-information-and-call-for-papers.md) | 19:2 | 6–7 | APL2003: Stretching the Mind! | — | Contents line (#305) |
+| [v19n2-p12-apl-product-guide.md](v19n2-p12-apl-product-guide.md) | 19:2 | 12–25 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v19n2-p35-crossword.md](v19n2-p35-crossword.md) | 19:2 | 35–37 | Solution for 19.1 and New Crossword | — | Contents line (#305) |
+| [v19n3-p7-quick-reference-diary.md](v19n3-p7-quick-reference-diary.md) | 19:3 | 7 | Quick Reference Diary | — | Contents line (#305) |
+| [v19n3-p14-apl-product-guide.md](v19n3-p14-apl-product-guide.md) | 19:3 | 14–28 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v19n3-p37-crossword.md](v19n3-p37-crossword.md) | 19:3 | 37–39 | New Crossword and Solution for 19.2 | — | Contents line (#305) |
+| [v19n4-p7-quick-reference-diary.md](v19n4-p7-quick-reference-diary.md) | 19:4 | 7 | Quick Reference Diary | — | Contents line (#305) |
+| [v19n4-p17-apl-product-guide.md](v19n4-p17-apl-product-guide.md) | 19:4 | 17–31 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v19n4-p43-crossword.md](v19n4-p43-crossword.md) | 19:4 | 43–45 | New Crossword and Solution for 19.3 | — | Contents line (#305) |
+| [v20n1-p5-quick-reference-diary.md](v20n1-p5-quick-reference-diary.md) | 20:1 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v20n1-p10-apl-product-guide.md](v20n1-p10-apl-product-guide.md) | 20:1 | 10–24 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v20n1-p35-crossword-and-puzzle.md](v20n1-p35-crossword-and-puzzle.md) | 20:1 | 35–37 | 19.4 Solution, Puzzle, and New Crossword | — | Contents line (#305) |
+| [v20n2-p5-quick-reference-diary.md](v20n2-p5-quick-reference-diary.md) | 20:2 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v20n2-p11-apl-product-guide.md](v20n2-p11-apl-product-guide.md) | 20:2 | 11–25 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v20n2-p34-crossword-and-puzzle.md](v20n2-p34-crossword-and-puzzle.md) | 20:2 | 34–36 | New Crossword Puzzle and 20.1 Solution | — | Contents line (#305) |
+| [v20n3-p5-quick-reference-diary.md](v20n3-p5-quick-reference-diary.md) | 20:3 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v20n3-p7-british-apl-association-news-notice-of-agm.md](v20n3-p7-british-apl-association-news-notice-of-agm.md) | 20:3 | 7 | British APL Association News - Notice of AGM | — | Contents line (#305) |
+| [v20n3-p10-apl-product-guide.md](v20n3-p10-apl-product-guide.md) | 20:3 | 10–24 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v20n3-p40-crossword.md](v20n3-p40-crossword.md) | 20:3 | 40–42 | New Crossword and 20.2 Solution | — | Contents line (#305) |
+| [v20n3-p116-technical-correspondence.md](v20n3-p116-technical-correspondence.md) | 20:3 | 116 | Technical Correspondence | Roger Hui | Contents line (#305) |
+| [v20n4-p9-quick-reference-diary.md](v20n4-p9-quick-reference-diary.md) | 20:4 | 9 | Quick Reference Diary | — | Contents line (#305) |
+| [v20n4-p14-apl-product-guide.md](v20n4-p14-apl-product-guide.md) | 20:4 | 14–28 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v20n4-p29-crossword.md](v20n4-p29-crossword.md) | 20:4 | 29–31 | The ZARK Crosswords — 20.3 Solution and New Crossword | — | Contents line (#305) |
+| [v21n1-p6-quick-reference-diary.md](v21n1-p6-quick-reference-diary.md) | 21:1 | 6 | Quick Reference Diary | — | Contents line (#305) |
+| [v21n1-p7-apl-product-guide.md](v21n1-p7-apl-product-guide.md) | 21:1 | 7–21 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v21n1-p31-crossword-and-puzzle.md](v21n1-p31-crossword-and-puzzle.md) | 21:1 | 31–33 | 20.4 Solution, Puzzle, and New Crossword | — | Contents line (#305) |
+| [v21n2-p5-quick-reference-diary.md](v21n2-p5-quick-reference-diary.md) | 21:2 | 5 | Quick Reference Diary | — | Contents line (#305) |
+| [v21n2-p6-notice-of-annual-general-meeting.md](v21n2-p6-notice-of-annual-general-meeting.md) | 21:2 | 6 | Notice of Annual General Meeting | — | Contents line (#305) |
+| [v21n2-p12-apl-product-guide.md](v21n2-p12-apl-product-guide.md) | 21:2 | 12–26 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v21n2-p35-crossword-and-puzzle.md](v21n2-p35-crossword-and-puzzle.md) | 21:2 | 35–37 | 21.1 Solution, Puzzle, and New Crossword | — | Contents line (#305) |
+| [v21n3-p4-quick-reference-diary.md](v21n3-p4-quick-reference-diary.md) | 21:3 | 4 | Quick Reference Diary | — | Contents line (#305) |
+| [v21n3-p8-news-from-sustaining-members.md](v21n3-p8-news-from-sustaining-members.md) | 21:3 | 8–11 | News from Sustaining Members | — | Contents line (#305) |
+| [v21n3-p12-apl-product-guide.md](v21n3-p12-apl-product-guide.md) | 21:3 | 12–17 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v21n3-p27-crossword-and-puzzle.md](v21n3-p27-crossword-and-puzzle.md) | 21:3 | 27–29 | 21.3 Solution, Puzzle, and New Crossword | — | Contents line (#305) |
+| [v21n4-p10-news-from-sustaining-members.md](v21n4-p10-news-from-sustaining-members.md) | 21:4 | 10–12 | News from Sustaining Members | — | Contents line (#305) |
+| [v21n4-p13-product-guide.md](v21n4-p13-product-guide.md) | 21:4 | 13–24 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v21n4-p116-crossword-solution.md](v21n4-p116-crossword-solution.md) | 21:4 | 116 | Crossword Solution | — | Contents line (#305) |
+| [v22n1-p8-product-guide.md](v22n1-p8-product-guide.md) | 22:1 | 8–19 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v22n2-p19-british-apl-association-agm-2006.md](v22n2-p19-british-apl-association-agm-2006.md) | 22:2 | 19 | British APL Association AGM 2006 to be held in the Council Chamber at the Royal Statistical Society starting at 2 pm on Friday 19th May 2006 | — | Contents line (#305) |
+| [v22n2-p20-product-guide.md](v22n2-p20-product-guide.md) | 22:2 | 20–31 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v22n4-p18-product-guide.md](v22n4-p18-product-guide.md) | 22:4 | 18–29 | The Vector Product Guide | Gill Smith | Contents line (#305) |
+| [v22n4-p129-complete-index-to-volumes-13-22.md](v22n4-p129-complete-index-to-volumes-13-22.md) | 22:4 | 129–142 | Complete Index to Volumes 13-22 | Gill Smith, Adrian Smith | Contents line (#305) |
+| [v23n4-p5-quick-reference-diary.md](v23n4-p5-quick-reference-diary.md) | 23:4 | 5 | Quick reference diary | — | Contents line (#305) |
