@@ -13,7 +13,7 @@ tags:
 - APL community
 queries:
 - "The section’s own text only: its title page (printed 17, with its own contents list) and Alan Sykes’s editorial (printed 18). The pieces that follow are transcribed separately: unindexed/v6n4-p19-communications.md, unindexed/v6n4-p22-card-collecting-problem.md and art10009590 (Doing Useful Things with Strings)."
-- "The section’s contents list also gives “A Selection of Affordable APL Systems” (printed 30) and “Questionnaire” (Alan Sykes, printed 31), which have no line on the issue’s Contents page and are not transcribed here."
+- "The section’s contents list also gives “A Selection of Affordable APL Systems” (printed 30) and “Questionnaire” (Alan Sykes, printed 31), which have no line on the issue’s Contents page and are not transcribed here. The Selection is transcribed separately (unindexed/v6n4-p30-selection-of-affordable-apl-systems.md); the Questionnaire is a form, not transcribed."
 ---
 
 ## The Education Vector

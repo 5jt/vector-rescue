@@ -19,7 +19,7 @@ Expected next steps (updated 2026-10-11).
 - [x] Transcribed the sweep's pieces (#301): 210 files in `transcriptions/unindexed/`. 16 Contents lines removed, as their text is already published inside an indexed transcription (13:4, 14:1, 14:4, 15:2, 19:2, 7:2, 8:2).
 - [ ] 12:2 p.113, “Microsoft Announces APL for the 8088 – almost 20 years late!” (Adrian Smith): blocked by the output content filter (long quotations from the book *Gates*); left linked to the scan, for transcription by hand.
 - [x] The remaining Contents lines (#305; plan, conventions and brief in `plans/second-pass.md`): 650 pieces in seven waves (#306–#311 and wave 7), Volumes 1–25, and 11:1 APL94 Abstracts (missed by the First Pass). Contact details of individuals omitted throughout (rules of 2026-10-12). Status page updated.
-- [ ] A further sweep for printed pieces with no Contents line noticed during #305 (51, mostly section introductions; listed in `plans/second-pass.md`).
+- [x] The printed pieces with no Contents line noticed during #305 (#314): 47 transcribed, mostly section introductions; flyers, a form and an advertisement left out (`plans/second-pass.md`).
 
 ## Metadata
 

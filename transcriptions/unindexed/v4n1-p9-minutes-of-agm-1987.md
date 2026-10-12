@@ -12,7 +12,7 @@ tags:
 - APL community
 queries:
 - "Contents line “Minutes of AGM 1987”, beneath “British APL Association News”; the printed heading is “Minutes of the AGM of the British APL Association held on 5 June 1987”. No byline: the minutes are signed at the end “Anthony Camacho, retiring Hon Sec”, with the date “7 June 1987” at the right."
-- "Printed 12, before the next Contents line (News from sustaining members, printed 13), is a boxed “Call For Papers And Announcement Of The Second South African APL Symposium” (from Frederick Macaskill of INFO*PLUS), with no Contents line; not transcribed."
+- "Printed 12, before the next Contents line (News from sustaining members, printed 13), is a boxed “Call For Papers And Announcement Of The Second South African APL Symposium” (from Frederick Macaskill of INFO*PLUS), with no Contents line; not transcribed. Transcribed separately: unindexed/v4n1-p12-second-south-african-apl-symposium.md."
 - "In the candidate list a ditto mark (\") under the post above means the same post; the asterisks are kept as printed."
 - "The vote totals count a corporate vote as five: 6 × 5 + 31 = 61, 9 × 5 + 22 = 67."
 ---

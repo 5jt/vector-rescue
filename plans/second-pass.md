@@ -22,13 +22,12 @@ Remaining
 ---------
 
 - 12:2 p.113 (Adrian Smith), by hand: the content filter stops it.
-- A sweep for the printed pieces with no Contents line, below.
 - The agents' brief is `plans/second-pass-brief.md`; a work list of any lines still without text is rebuilt with `tools/scratch/sp2_worklist.py`, then `sp2_kids.py`.
 
 Printed pieces with no Contents line
 ------------------------------------
 
-Noticed by the agents and not transcribed: candidates for a further sweep. Mostly section introductions.
+Noticed by the agents during #305; transcribed in #314 (2026-10-12). Section introductions are linked from their section's heading line; other pieces have a Contents line of their own noted "not on the Contents page". Not transcribed: the two promotional flyers (10:1, 10:2), the 6:4 Education Vector questionnaire (a form) and the 7:3 APL Booklist (Renaissance Data Systems' advertisement); 8:1 p.59 is only a heading over pieces with their own lines.
 
 | Issue | Printed page | Piece |
 |---|---|---|

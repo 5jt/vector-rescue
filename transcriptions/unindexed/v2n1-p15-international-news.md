@@ -12,7 +12,7 @@ tags:
 - APL community
 queries:
 - "Printed heading “INTERNATIONAL APL NEWS”, “Compiled by David Preedy”. Printed 16 is a Mercia Software advertisement for STATGRAPHICS, not transcribed."
-- "Printed 17–18, before the next Contents line (News from sustaining members, p.19), carry two pieces with no Contents line of their own, not transcribed here: “APL86 — ‘APL in Action’” (printed 17) and “Papers for APL 86” (printed 18, signed Anthony Camacho, Programme Chairman APL 86)."
+- "Printed 17–18, before the next Contents line (News from sustaining members, p.19), carry two pieces with no Contents line of their own, not transcribed here: “APL86 — ‘APL in Action’” (printed 17) and “Papers for APL 86” (printed 18, signed Anthony Camacho, Programme Chairman APL 86). Transcribed separately: unindexed/v2n1-p17-apl86-apl-in-action.md and unindexed/v2n1-p18-papers-for-apl-86.md."
 - "Following the project rule for individuals’ contact details, the street address and telephone number given for the Swiss APL User Group, care of its president Dr. J.L. Metzger (c/o Diametal A.G.), are omitted."
 ---
 
