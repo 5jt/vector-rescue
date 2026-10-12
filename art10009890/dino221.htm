@@ -1,0 +1,968 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=UTF-8">
+<title>Using DyalogAPL based .NET Extensions  [Kallioj&auml;rvi]</title>
+<link href="../arch.css" type=text/css rel=stylesheet>
+</head>
+
+<body>
+
+<!-- breadcrumbs -->
+<table width=100%>
+  <tr>
+    <td><font size=-1>
+	<a href="http://www.vector.org.uk"><img src="../../icons/iconorng.gif" align="middle" alt="VECTOR icon" border=0 title="VECTOR home" /></a> 
+	<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt; 
+	<a href="index.htm">contents of Vector 22.1</a></font></td>
+    <td align=right><font size=-1>For best results, install <a href="../../resource/apl385.zip">APL385 Unicode</a> and use Firefox <a href="http://www.mozilla.org/products/firefox/"><img src="../firefox.gif" align="middle" border=0></a></font></td>
+  </tr>
+</table>
+
+<div class=Section1> 
+  <!-- Start of Galley -->
+
+  <h1><a name="_Toc117273387">Using
+DyalogAPL based .NET Extensions <br>
+    in ASP.NET applications</a></h1>
+
+  <p class=author>Pertti Kallioj&#xe4;rvi, Dinosoft Oy</p>
+
+  <h2><a name="_Toc117273388">Contents</a></h2>
+
+  <ul class="small">
+    <li><a href="#_Toc117273389">Introduction</a>
+
+  </li>
+    <li><a href="#_Toc117273390">PX-Web publishing system</a>
+
+  </li>
+    <li><a href="#_Toc117273391">Extensions by Dinosoft</a>
+
+  </li>
+    <li><a href="#_Toc117273392">Programming in the ASP.NET /
+.Net environment</a>
+
+  </li>
+    <li><a href="#_Toc117273393">The ASP.NET Http Pipeline</a>
+
+  </li>
+    <li><a href="#_Toc117273394">HttpModules</a>
+
+  </li>
+    <li><a href="#_Toc117273395">HttpHandlers</a>
+
+  </li>
+    <li><a href="#_Toc117273396">Using DyalogAPL with PX-Web?</a>
+
+  </li>
+    <li><a href="#_Toc117273397">Why DyalogAPL?</a>
+
+  </li>
+    <li><a href="#_Toc117273398">Building your own HttpModules</a>
+
+  </li>
+    <li><a href="#_Toc117273399">Cookie HttpModule</a>
+
+  </li>
+    <li><a href="#_Toc117273400">Case: DyalogAPL version/cookie</a>
+
+  </li>
+    <li><a href="#_Toc117273401">Building your own HttpHandlers</a>
+
+  </li>
+    <li><a href="#_Toc117273402">Case: Svg-Handler</a>
+
+  </li>
+    <li><a href="#_Toc117273403">How to build and use general plugins?</a>
+
+  </li>
+    <li><a href="#_Toc117273404">Pros and cons of using DyalogAPL</a>
+
+  </li>
+    <li><a href="#_Toc117273405">Conclusion</a>
+
+  </li>
+    <li><a href="#_Toc117273406">References</a>
+
+  </li>
+  </ul>
+
+  <div class=Section1>
+
+    <h2><a name="_Toc117273389">Introduction</a></h2>
+
+    <p>Building Web
+applications usually includes many evolutionary stages where different
+programming languages and tools have to be combined. With the new .NET-framework it is relatively easy to add dynamic DyalogAPL components as .NET
+classes into various parts of IIS/ASP.NET applications and even into the HTTP-pipeline. As a case study we will show how to add several functional extensions
+(dynamic image generation, dynamic components etc.) into a third party
+statistical web application called PX-Web. PX-Web belongs to a widely used
+family of PX-products, which are authored by a consortium of statistical
+offices in Europe (the main developer being Statistics Sweden).</p>
+
+    <p>This extended Web
+application is used to publish statistical data and automatically created
+vector graphics using techniques and languages like ASP, ASP.NET, C#, SVG,
+JavaScript and of course DyalogAPL and RainPro. We will also discuss the
+difficulties in learning and using .Net and also the pros and cons of involving
+DyalogAPL in such a complex environment.</p>
+
+    <h2><a name="_Toc117273390">PX-Web
+publishing system</a></h2>
+
+    <p>PX-Web is a system for
+storing statistical data and publishing it on the web. It belongs to the group
+of PX-products which are based on open architecture. The main platforms for
+running PX-Web are Windows 200X Server Families and IIS web servers.</p>
+
+    <p>What is PX-Web?</p>
+    <ul>
+      <li>Web publishing system developed by
+     Statistics Sweden (SCB)</li>
+      <li>PX-Web is used for distributing basic
+     statistical data</li>
+      <li>Designed for professionals to use
+     statistical data for different purposes</li>
+      <li>Used by Statistical offices and
+     international organizations in almost 20 countries</li>
+      <li>Used also by public institutions and municipalities</li>
+      <li>Development is guided by the international
+     &#147;PX-Axis reference group&#148;</li>
+    </ul>
+    <br clear=ALL>
+
+    <p>
+  <img width=575 height=432 alt="diagram" src="dino1.jpg">
+<br>
+  <b>Figure 1. Px-Web Architecture</b>
+
+  </p>
+
+    <p>PX-Web features
+include</p>
+    <ul>
+      <li>Navigation in a hierarchical database
+     structure</li>
+      <li>Text search to find certain statistical
+     tables directly</li>
+      <li>Data selection by classification</li>
+      <li>Aggregation of data</li>
+      <li>Many different download formats including
+     Excel</li>
+      <li>Basic business raster graphics + maps</li>
+      <li>Multilanguage application</li>
+    </ul>
+
+    <p>Px-DataBase features
+include</p>
+    <ul>
+      <li>All Px-products use a special file standard:
+     &#147;PX-file&#148;, which defines the layout of a statistical table</li>
+      <li>Files are stored in text format and can be
+     edited with text editors</li>
+      <li>PX-FileSystem is a standard hierarchical
+     file system with little support for concurrent updates etc.</li>
+      <li>An Xml version of the file standard is
+     currently being developed </li>
+    </ul>
+
+    <h2><a name="_Toc117273391">Extensions by
+Dinosoft</a></h2>
+
+    <p>Px-Web is an ASP
+application, which is the older version of Microsoft Active Server Pages
+technology. Eventually there will  be an ASP.NET release and we had to design our software extensions to be
+able to function correctly even with the future releases. This was a very
+strong argument in favour of independent and pluggable technical solutions. </p>
+
+    <p>Px-Web extensions can
+be grouped into four categories:</p>
+    <ul>
+      <li>a module for creating dynamic graphical
+     images using SVG vector graphics</li>
+      <li>a module for dynamic menus, which can use
+     custom authentication and authorization</li>
+      <li>a new picture database, which extends
+     static images to automatically updated dynamic ones </li>
+      <li>independent modules for logging user activities,
+     error handling, custom authentication and authorization </li>
+    </ul>
+
+    <p>In this paper we will
+not be covering the functionality of
+these extensions because other articles will be available for that purpose.
+Therefore the next sections will mainly concentrate on showing the techniques and
+basic ideas for adding modularity to your applications and how DyalogAPL
+is used in this context.</p>
+
+    <p>The next figure shows
+the PX-Web functionality after adding Dinosoft extensions:</p>
+    <br clear=ALL>
+
+    <p><img width=575 height=432 alt="diagram" src="dino2.jpg"><br>
+  <b>Figure 2. Extended Px-Web Architecture.</b></p>
+
+    <h2><a name="_Toc117273392">Programming
+in the ASP.NET / .Net environment</a></h2>
+
+    <p>Programming and
+run-time environment management for ASP.NET applications has more &#147;moving
+parts&#148; than one might guess.</p>
+
+    <p>The following list
+shows the different environments and versions into which we currently have to
+adjust our software.</p>
+    <ul>
+      <li><b>IIS</b> (Internet Information Server) as the web server: versions 5.0 (
+     W2000 Servers), 5.1 (XP Development), 6.0 (W2003 Servers), [7.0 beta]</li>
+      <li><b>ASP</b> (Active Server Pages) as
+     server application runtime environment: ASP, ASP.NET versions 1.0, 1,1, [2.0 beta]</li>
+      <li><b>.Net Framework</b>: versions 1.0, 1.1, 1.1.x.x, [2.0 beta]</li>
+      <li><b>C#</b>: versions 1.0,  [2.0 beta] </li>
+      <li><b>DyalogAPL</b>: versions 10.0, 10,1,  [11.0 beta]</li>
+      <li><b>JavaScript/EcmaScript</b> as the client side scripting languages</li>
+      <li><b>Client Browsers</b>: Internet Explorer, NetScape, FireFox,
+     Mozilla, ... </li>
+      <li><b>Client Browser Plugins</b>: Adobe&#146;s SVG Viewer, ...</li>
+      <li>Etc.</li>
+    </ul>
+
+    <p>So there is a lot of
+variety regarding possible problems with software updates, testing,
+troubleshooting etc. Sooner or later development and testing becomes a nightmare
+unless there is a way to utilize components and modularity. Especially bugs
+found in a single software module should not force any large recompilation and
+testing in other application modules. </p>
+
+    <p>Here is a sample
+screenshot, where the user has selected some statistical table from her personal
+menu and gets a graphical output image of that data. </p>
+    <br clear=ALL>
+
+    <p><img width=588 height=367 src="dino3.jpg" alt="screenshot with graph">
+  &nbsp;<br>
+
+  <b>Figure 3. Basic Screen Layout for Menu and Graphics</b></p>
+
+    <p>In the figure above </p>
+    <ul>
+      <li>The left side menu is an aspx  page (C#), which calls a  DyalogAPL class
+     for customizing menu data for each user. Client side activities use
+     JavaScript to launch new functionality to the other window frame on the
+     right.</li>
+      <li>The main part of the right-hand window is
+     an aspx page with dynamically created controls generated with C# code on
+     the server.</li>
+      <li>Graphical image in the middle is rendered by Adobe&#146;s IE plugin-software
+     and it gets its data from C# and
+     DyalogAPL based server resources. The actual data for the image is generated
+     using RainPro in DyalogAPL on the server.</li>
+    </ul>
+
+    <p>One way to add modularity
+to your applications is to use the tools provided by the .Net framework and
+ASP.NET. They can easily be utilized in software development and help you to
+build pluggable and maintainable solutions, which customers can further extend
+according to their needs. </p>
+
+    <h3><a name="_Toc117273393">The ASP.NET
+Http Pipeline</a></h3>
+
+    <p>Before going into the
+details of implementing .Net related components, let&#146;s first have a brief
+overview of the Request Pipeline and its functionality. </p>
+    <br clear=all>
+
+    <p><a href="dino4.gif"><img width=344 height=389 src="dino4.gif" alt="diagram" border="0"></a><br>
+  <b>Figure 4. HttpRequest Pipeline (Copyright Microsoft).</b></p>
+
+    <p>When the client browser
+sends a request to IIS, it maps the extension of the received request according
+to stored configuration parameters and passes .aspx, .asmx, plus other
+extensions to aspnet_isapi.dll, which is an ISAPI filter. This in turn starts a
+new ASP.NET runtime (a chain of managed objects dubbed the HTTP Pipeline). An
+object of the HttpApplication class, which is the class behind your global.asax
+file, is created and started and it acts as the host for the ASP.NET Web
+application. This functionality differs between different versions of IIS and
+ASP.NET, but usually the following steps are the same </p>
+    <ul>
+      <li>HttpApplication
+reads the application (web.config) and machine configuration files
+(machine.config).</li>
+      <li>It passes the
+request to a members of HttpModules, which return the request after providing
+some preprocessing on the request. Each module has its own functionality and
+each one responds to a certain predefined event.</li>
+      <li>HttpApplication
+figures out what type of handler can best handle the request and finally passes
+the request to the selected and instantiated handler. The selection is based on
+the verb and path of the request.</li>
+      <li>The handler
+processes the request and returns the corresponding response.</li>
+    </ul>
+
+    <p>In ASP.NET you can
+extend, replace or reconfigure any of the module or handler classes or provide
+your own custom modules and handlers. Both of these can be configured on the
+application level or globally on machine level with *.config files. </p>
+
+    <h3><a name="_Toc117273394">HttpModules</a></h3>
+
+    <p>HttpModules are in
+fact event-handlers: they respond to a certain event fired in the HttpPipeline.
+A module subscribes to an event by providing a method, which gets executed.</p>
+
+    <p>The request pipeline
+has a predefined set of events which  will all be fired in a certain order
+(BeginRequest, AuthenticateRequest,...EndRequest) during the lifetime of the
+request. There are also other events which can be processed with HttpModules
+(for instance ApplicationError). </p>
+
+    <p>It is good to remember
+that these modules will be executed for all requests and therefore performance
+issues should be considered carefully before adding your own modules into the
+pipeline.</p>
+
+    <p>For defining a module
+you need to implement the module interface <b>IHttpModule</b> in your class
+definition and add  the following section to your web.config file</p>
+
+    <pre>&lt;httpModules&gt;<br>&lt;add name = &quot;ModuleName&quot; type = &quot;ModuleType&quot;/&gt;<br>&lt;/httpModules&gt;</pre>
+
+    <p>where <i>name</i> stands for
+an arbitrary chosen module name and <i>type</i> is defined as
+&#147;ModuleNameSpace.ModuleClass, ModuleAssembly&#148;.
+</p>
+
+    <p>You hook a module to
+your application by copying its dll to /bin - directory and adding the code
+above to your web.config file.</p>
+
+    <p>HttpModules can be
+used for URL-rewriting, authentication, authorization and for anything where
+the needed data is included in the request or response. Logging user activity
+is one example.</p>
+
+    <h3><a name="_Toc117273395">HttpHandlers</a></h3>
+
+    <p>HttpHandlers are
+programs responsible for serving requests. Each time you define an aspx-page,
+you actually make a new HttpHandler. This is because a handler is defined by
+implementing an interface called <b>IHttpHandler</b> and that is what the
+System.Web.UI.Page class does. A handler for a certain resource serves the
+request by delivering a corresponding response. Defining a handler is very similar to defining a module: you
+implement the IHttpHandler interface and add some configuration information to
+your web.config file:</p>
+
+    <pre>&lt;httpHandlers&gt;<br>&lt;add verb=&quot;*&quot;path=&quot;*.<i>extension</i>&quot; type=&quot;HandlerType&quot; /&gt;<br>&lt;/httpHandler&gt;   </pre>
+
+    <p>Here <i>verb</i> stands for
+the verb used in the request (GET,SET,POST) and <i>path</i> defines path and extension
+for this handler (the URL in the request). Type is once again defined as
+&#147;HandlerNameSpace.HandlerClass, HandlerAssembly&#148;.</p>
+
+    <p>Adding a handler to
+your application works the same way as with modules: copy assembly to /bin and
+edit web.config.</p>
+
+    <p>One more thing has to
+be done, if you define a totally new extension: IIS must be configured to pass
+this request to the ASP.NET runtime. Otherwise IIS will try process it itself
+and the request will never reach your handler. </p>
+
+    <p>With handlers you can
+easily serve requests for special resources and as a side effect implement web
+pages which do not actually exist. </p>
+
+    <p>With HttpModules and
+HttpHandlers it is possible to get</p>
+    <ul>
+      <li>re-usable components and modularity</li>
+      <li>very easy installation and removal with
+     web.config</li>
+      <li>application-independent solutions</li>
+      <li>well-defined programming interfaces for
+     your components </li>
+      <li>a way to avoid the burden of recompiling existing
+     solutions </li>
+    </ul>
+
+    <h2><a name="_Toc117273396">Using
+DyalogAPL with PX-Web?</a></h2>
+
+    <h3><a name="_Toc117273397">Why
+DyalogAPL?</a></h3>
+
+    <p>The background for
+integrating DyalogAPL components into PX-Web was that we were asked to explore
+the possibility of making a vector graphics extension in addition to the
+existing Px-Web graphics component, which is still raster based. </p>
+
+    <p>As we were familiar
+with RainPro&#146;s capabilities (and that time SharpPlot did not exist) we decided
+to try to make a component in DyalogAPL. The other alternative of using various
+control libraries seemed to be too difficult to handle after trying some of
+them.</p>
+
+    <p>Because statistical
+data is often multi-dimensional, one thing soon led to another and we were &#145;forced&#146;
+to make more components in DyalogAPL.</p>
+
+    <p>We tried APL in various
+forms (AplScripts, aspx-pages, class libraries) but somehow we are gradually
+moving towards solutions where apl is only used as a pure .Net class without
+any UI components. There are several reasons for doing so, the most important
+one being the reusability of such classes. </p>
+
+    <p>Currently Px-Web
+Extensions include DyalogAPL in</p>
+    <ul>
+    
+      <li>Graphics application (SVG graphics with Rainpro)</li>
+      <li>Dynamic menu (based on each user&#146;s authorization).</li>
+      <li>Dynamic image database (which is automatically updated when source data changes)</li>
+    </ul>
+
+    <p>The technical ways of using DyalogAPL are</p>
+    <ul>
+      <li>pure independent .Net classes (used by other classes) </li>
+      <li>functional classes used with interfaces (graphics generator, menu)</li>
+      <li>pure .Net classes for database handling (custom databases i.e. picture base)</li>
+      <li>utility libraries</li>
+    </ul>
+
+    <p>Because the
+traditional use of APL is something we  are all familiar with, the next chapters
+will cover topics perhaps not so widely known. Thw first example shows how to
+design a HttpModule both in C# as well as in APL. The second case study shows a
+combination of both languages in implementing a HttpHandler.</p>
+
+    <h2><a name="_Toc117273398">Building your
+own HttpModules</a></h2>
+
+    <p>In Px-Web we have used
+custom HttpModules for</p>
+    <ul type=square>
+      <li>Custom authentication and authorization</li>
+      <li>Error logging</li>
+      <li>Session management</li>
+    </ul>
+
+    <p>While building these
+modules we needed to get access to a third party software which used a
+customized cookie-based authentication. The test phase was carried out to
+generate similar cookies in a HttpModule, which could be plugged in to any
+application. </p>
+
+    <h3><a name="_Toc117273399">Cookie
+HttpModule</a></h3>
+
+    <p>Implementing a
+HttpModule is just as simple as using the corresponding interface class as the
+base class and writing your versions of
+every needed method and property.</p>
+
+    <p>The interface for
+HttpModules contain only two methods: Init and Dispose. Init is used for
+assigning your eventhandler method to an event and Dispose is just a dummy
+method belonging to this interface.</p>
+
+    <p>So we have (in C#):</p>
+
+    <pre>namespace Graph.Modules {
+     using System;
+     using System.Web;
+   
+     public class CookieWriter: IHttpModule { 
+          public void Init (HttpApplication application) {
+                    application.BeginRequest += (new 
+                    EventHandler(this.WriteCookie));
+     }
+     public void Dispose() {
+     }  </pre>
+
+    <p>The CookieWriter class
+implements IHttpModule with two public methods. Init method just assigns our
+Writecookie method to the BeginRequest event so that this method will be called on
+every request.</p>
+
+    <p>This is very
+dangerous, but this class is only used for test purposes.</p>
+
+    <p>Then we need the code for the WriteCookie method:</p>
+
+    <pre>private void WriteCookie(Object source, EventArgs e) {
+          HttpApplication app = (HttpApplication) source;
+          HttpContext context = app.Context;
+          string cdata = String.Empty;
+          ... Get cookiedata from somewhere ....
+          cdata = ...
+          HttpCookie ck = new HttpCookie(cookiename,cdata);
+          context.Request.Cookies.Set(ck);
+        }   </pre>
+
+    <p>It gets cookie data
+from somewhere and then makes a new HttpCookie instance. This instance is added
+to the Collection of the current request. (It would have been better to use a
+copy, but this is an example.) </p>
+
+    <p>After compiling our class to a dll (Cookie.dll) and moving it to /bin directory, we only have to change our web.config by adding the following module information into &lt;httpModules&gt; section.</p>
+
+    <pre>&lt;httpModules&gt;
+  ...
+&lt;add
+         name =&quot;cookie1&quot; type = &quot;Graph.Modules.CookieWriter, Cookie&quot; /&gt;</pre>
+
+    <h3><a name="_Toc117273400">Case:
+DyalogAPL version/cookie</a></h3>
+
+    <p>The DyalogAPL version
+is quite similar, but there are minor changes. I have tested this solution and
+it works, but there might be more elegant solutions for passing the
+eventhandler information to application events. </p>
+
+    <pre class="APLU">      )ns CookieTest
+#.CookieTest  </pre>
+
+    <pre class="APLU">      )cs CookieTest
+#.CookieTest  </pre>
+
+    <pre class="APLU">      &#x2395;using&#x2190;'System' 'System.Web,System.Web.dll' 'Util, Util.dll'</pre>
+
+    <pre class="APLU">      'CookieGenerator' &#x2395;wc 'NetType' ('Interfaces' 'IHttpModule')</pre>
+
+    <pre class="APLU">      )cs CookieGenerator
+#.CookieTest.CookieGenerator  </pre>
+
+
+
+    <pre class="APLU">      )ed Init
+      )ed Dispose
+      )ed AddCookie</pre>
+
+  			
+    <pre class="APLU">
+   [0]   Init appl;eh
+   [1]   &#x235D; Init is the basic method for IHttpInterface where you
+   [2]   &#x235D; first create a new eventhandler and then assign it to
+   [3]   &#x235D; some event in the HttpPipeline
+   [4]   &#x235D; appl: HttpApplication
+   [5]
+   [6]   &#x235D; Let's create a new eventhandler to be called
+   [7]   eh&#x2206;EventHandler.New(&#x2395;OR'AddCookie')
+   [8]
+   [9]   &#x235D; Next we assign it to application BeginRequest event
+   [10]  &#x235D; Here we use a little utility class to do the
+   [11]  &#x235D; actual assigning
+   [12]  Util.EvUtil.BeReqAdd appl eh
+      
+   [0]   Dispose
+   [1]   &#x235D; Dispose is part of the IHttpModule interface
+   [2]   &#x235D; Do nothing in this context     
+
+   [0]   AddCookie x;appl;args;req;cookie
+   [1]   &#x235D; This is a callback function for some web application event
+   [2]   &#x235D; It takes standard arguments: source, args.
+   [3]
+   [4]   appl args&#x2206;x
+   [5]
+   [6]   &#x235D; Source refers to HttpApplication Object, which has a HttpContext property
+   [7]   &#x235D; which in turn has a HttpRequest property.
+   [8]
+   [9]   req&#x2206;appl.Context.Request
+   [10]
+   [11]  &#x235D; Then we generate a new HttpCookie and assing our data to it.
+   [12]  cookie&#x2206;HttpCookie.New 'mycookie' 'this is data: a very important cookie test string'
+   [13]
+   [14]  &#x235D; And finally we add this new cookie to request's CookieCollection
+   [15]  req.Cookies.Set cookie</pre>
+
+
+
+    <p>The little C#-method in the Util-namespace only assigns our event-handler to an application event (here BeginRequest):</p>
+
+    <pre>namespace Util {
+    using System;
+    using System.Web;
+    public class EvUtil {
+           public static void BeReqAdd (HttpApplication application, 
+                                           EventHandler eh) 
+           {
+           application.BeginRequest += eh;
+           }
+....
+}</pre>
+
+
+
+    <p>I moved this simple
+assignment statement outside APL due to syntax difficulties, which might occur
+with some events. The utility can also be used from any .Net language and at
+the same time one does not have to worry about operational difficulties with
+multicast delegates. So far this has only been used in test environments.</p>
+
+    <p>Next we have to assign
+the .Net related properties to our new functions:</p>
+    <ul>
+      <li>Init takes a HttpApplication argument and returns Void</li>
+      <li>Dispose takes no arguments and returns Void</li>
+      <li>AddCookie takes typical eventhandler arguments: Object and EventArgs and returns Void</li>
+    </ul>
+
+    <p>After this we are
+ready to Export our workspace to a dll library and copy it to applications /bin
+directory.</p>
+
+    <p>The last thing we
+still need to do is edit our web.config by adding information to <b>&lt;HttpModules&gt;</b>
+section before our cookiegenerator is ready to be used.</p>
+
+    <p>When the next user-request arrives for this application, each request will be added as a custom cookie by our new HttpModule.</p>
+
+    <p>I used different class
+names so that both versions actually run at the same time. The reason for this
+is the way that events are assigned: each event has several eventhandler delegates
+and they all will be called when the event (BeginRequest) fires. After that we
+have two extra cookies in our request.  
+</p>
+
+    <p>Of course you can
+always use the<i> traditional way</i> of handling application events by adding
+your code directly to the <b>global.asax</b> file, but then you have to recompile
+this (perhaps a code behind) file. In this case you will lose the dynamics of
+true plugins where code can be added and removed without touching any parts of
+the actual application. </p>
+
+    <p>In <b>global.asax </b>this
+would be :</p>
+
+    <pre>...
+protected void Application_BeginRequest(Object sender, EventArgs e)
+{
+          new CookieTest.CookieGenerator().AddCookie(sender, e);
+}
+...   </pre>
+
+
+    <h2><a name="_Toc117273401">Building your
+own HttpHandlers</a></h2>
+
+    <p>The second case study
+uses C# code for building the HttpHandler and 
+DyalogAPL classes to do the actual dirty work. Of course this time you
+can do it directly in APL without C#, but when you look at the code, you&#x2019;ll see
+a comment explaining why we use C#.  </p>
+
+    <p>Steps we need to take:</p>
+    <ul>
+      <li>
+
+  create a class
+that implements IHttpHandler
+
+  </li>
+      <li>
+
+create a
+DyalogAPL class that does the actual work (i.e. generates SVG)
+
+  </li>
+      <li>
+
+modify web.config
+
+  </li>
+      <li>
+let IIS know
+about the new resource
+</li>
+    </ul>
+
+    <p>In fact we are
+implementing the rightmost parts of the following true scenario:</p>
+    <br clear=all>
+  
+    <p><img width=575 height=432 src="dino5.jpg" alt="diagram"> <br>
+  <b>Figure 5. Basic steps in invoking dynamic graphics. </b></p>
+
+    <p>Here we have a HttpHandler
+which serves requests assigned to &#x2018;.svg&#x2019; extensions and return svg image
+definitions (xml to be precise) for the client. </p>
+
+    <h3><a name="_Toc117273402">Case:
+Svg-Handler</a></h3>
+
+    <p>Svg-handler generates
+images using url-parameters, global data from the workspace, and data from global initial
+parameters (called when the application starts) and it stores global data in the
+APL workspace.</p>
+
+    <p>The skeleton for the
+Httphandler is very simple:</p>
+
+    <pre>// DemoHandlers.cs
+// By Dinosoft
+namespace Graph.Handlers 
+{
+    using System;
+    using System.IO;
+    ....
+    /// &lt;summary&gt;
+    /// Summary description for SvgHandler.
+    /// Author: Dinosoft Oy - PK
+    /// &lt;/summary&gt;
+
+    public class SvgHandler: IHttpHandler,IRequiresSessionState 
+    {
+public override void ProcessRequest(HttpContext context) 
+{
+string output = string.Empty;
+
+// first we just check that this request is for a dynamic image
+if (context.Request.Path.IndexOf(GraphApplication.Graphserver)&gt;-1)
+{
+// Get some parameters from the request and/or from user session 
+            NameValueCollection rs=context.Request.QueryString;
+            string par1 = (rs[&quot;parname1&quot;])...;
+            string par2 = (rs[&quot;parname2&quot;])...;
+            string par3 ...
+            ...
+            // Get corresponding px-data from the picture base 
+//(which uses DyalogAPL classes)  
+            GraphFile gf=new GraphFile(par1,par2,...);<br>            // Create a instance of our graphics generator 
+ //(which is a DyalogAPL class)
+            GserverPage gp=new GserverPage(par3,par4,...);
+            
+            // Pass database information for the generator 
+// to make the desired image  
+            output=gp.MakeSvg(gf); 
+}
+else 
+{
+
+            // This request was for a static recource, 
+ // so get it from somewere else
+ // We don't want to drag this stuff into apl 
+ // do we ?
+   	
+       }
+       // and finally write the response	
+       context.Response.ContentType=&quot;image/svg+xml&quot;;
+       context.Response.Write(output);
+     }
+
+       public virtual bool IsReusable
+       {
+           get { return false; }
+       }
+}  </pre>
+
+    
+    <p>What the code above
+does is:</p>
+    <ul>
+      <li> Create a handler class from
+     IHttpHandler base class and add IRequiresSessionState interface just to be
+     able to use and store Session variables.</li>
+      <li>IHttpHandler has two methods:
+     ProcessRequest, which does all the work and IsReusable, a boolean method
+     which can be set to return false in this context.</li>
+      <li>ProcessRequest gets a HttpContext class as
+     input and uses one of its properties to find the actual Request instance.</li>
+      <li>After that we dig some variables from the
+     Request URL and use some of them to get data from the database</li>
+      <li>GraphFile class is a DyalogAPL class,
+     which manages the whole Picture Base</li>
+      <li>We get a new instance to GraphFile and
+     pass it to another DyalogAPL class called GServerPage, which in turn makes
+     graphical images with the help of RainPro</li>
+      <li>MakeSvg method of this class returns xml
+     text to be flushed into Response object.</li>
+      <li>Finally the client browser receives this
+     response and passes it to a client plugin (Adobe&#x2019;s SVG Viewer) which
+     renders this xml code into an image.  
+     </li>
+    </ul>
+
+    <p>We won&#146;t be showing
+any DyalogAPL code in this example, because  space is limited.The following
+figure will give you an idea what is happening inside the apl workspace.</p>
+    <br clear=all>
+  
+    <p>
+  <img width=575 height=402 src="dino6.jpg" alt="screenshot"><br>
+  <b>Figure
+6. DyalogAPL classes for making graphical images.</b></p>
+
+    <p>In web.config we still
+have to add some configuration information<b>:</b></p>
+
+    <pre>&lt;httpHandlers&gt;
+        &lt;add verb=&quot;*&quot; path=&quot;*.svg&quot; type=&quot;Graph.Handlers.SvgHandler,Graph.Handlers&quot; /&gt;
+....  </pre>
+
+    <p>This time we also have
+to configure IIS to pass &#145;.svg&#146; extensions to ASP.NET. That can be done easily
+using the IIS Manager.</p>
+
+    <p>Every request
+following this application path that has the extension &#145;.svg&#146; will be forwarded
+to our new HttpHandler. It is supposed to manage all internal exceptions and
+return a response corresponding the client side expectations of the responses
+contents type.  </p>
+
+    <h2><a name="_Toc117273403">How to build
+and use general plugins?</a></h2>
+
+    <p>In fact things are not
+as simple as the two examples above may suggest. If we want to pass startup
+parameters to our new modules or handlers, we should do it in a similar way:
+independently of the current application. This can also be done with web.config by
+adding a section where we place our configuration information. </p>
+
+    <p>Luckily asp.net
+provides us most of the framework needed to read this information, but complex
+data has to be dealt with otherwise. </p>
+
+    <p>Another thing is to
+find a way to use customer/third party extensions which are designed to extend
+our own application extensions i.e. when someone has derived a class from our
+base class and we should be able to use it in our application.</p>
+
+    <p>One of our HttpModules
+(coded in C#) uses this kind of approach where the customer can implement her/his
+own derived class to be used instead of our base class. The .Net Framework also
+provides the facilities for building
+such plugin solutions.</p>
+
+    <p>Here are some general
+principles for passing information and designing general plugins for both
+asp.net and windows applications.</p>
+    <ul>
+      <li>Create your own interface or a base class
+     to be derived from </li>
+      <li>Create a functional class that implements
+     this interface (or have someone program it for you )</li>
+      <li>Configure your application to find the
+     information about this new plugin class (web.config in asp.net or  App.Config in Windows.). Basically it
+     is just a new section in the configuration file.</li>
+      <li>Create a parser that reads this
+     configuration information i.e. the type of the class and perhaps some
+     parameters for it (for its constructor). Register this parser as a
+     configurationhandler. if your interface is simple enough, you can use
+     existing parsers as in the example below.</li>
+      <li>Read the configuration information,
+     instantiate the new class with a special class called <b>System.Activator</b>
+     and cast it to the base class. [Here we need the inheritance schema and
+     virtual methods from C#, because the derived class does not even exist
+     when we deliver our base class application.]</li>
+      <li>Invoke this new instance of your base
+     class by calling its methods. </li>
+    </ul>
+
+    <p>So far we haven&#146;t
+tried this in DyalogAPL, but there is actually no reason why it should not work
+after minor adjustments.</p>
+
+    <p>Below we have an
+example of a section in a configuration file, which defines a new group called
+&lt;graph.logs&gt;. This section just groups a set of subsections for us. The
+subsection &lt;userLog&gt; contains the relevant information: which implementation of userLog should be
+used. The type field has the class name and assembly information to be passed
+to our application. This class is a derived class from our base class, and was
+implemented afterwards.</p>
+
+    <pre>&lt;configuration&gt;
+          &lt;!-- Allows for a new section group to the Web.config --&gt;
+          &lt;configSections&gt;
+          &lt;sectionGroup name=&quot;graph.logs&quot;&gt;
+                    &lt;section 
+                    name=&quot;userLog&quot; 
+                    type=&quot;System.Configuration.SingleTagSectionHandler,
+                    System, Version=1.0.5000.0, Culture=neutral,
+                    PublicKeyToken=b77a5c561934e089&quot; /&gt;
+          &lt;/sectionGroup&gt;
+          &lt;/configSections&gt;
+          &lt;graph.logs&gt;
+                    &lt;userLog 
+                    type=&quot;Graph.Logs.XmlUserLog, Graph.Modules.Logs&quot;/&gt;
+   
+                    &lt;!-- 
+                    &lt;userLog 
+                    type=&quot;Graph.Logs.CompFileUserLog,
+                    Graph.Modules.Logs&quot; /&gt; 
+                    --&gt;
+          &lt;/graph.logs&gt;
+...   </pre>
+
+    <h2><a name="_Toc117273404">Pros and cons of using DyalogAPL</a></h2>
+
+    <p>Here is a short list
+of pros and cons of using DyalogAPL to be used as a reference in further
+discussions. </p>
+
+    <h3>Pros</h3>
+
+    <ul>
+      <li>It is the best language for
+     multidimensional data </li>
+      <li>Lots of tested code to be reused in .Net</li>
+      <li>Dyalog development tools (trace, thread
+     tool, ...)</li>
+      <li>Workspace structure allows special tricks
+     (if documented )</li>
+      <li>Code security: it is difficult to generate
+     source code from a runtime assembly</li>
+    </ul>
+
+    <h3>Cons</h3>
+
+    <ul>
+      <li>Installation is difficult for ASP.NET
+     applications</li>
+      <li>Debugging has to be done inside apl </li>
+      <li>Workspace structure allows special tricks
+     (if not documented)</li>
+      <li>The interface to .Net is slow</li>
+      <li>You cannot make a module instead of an
+     assembly </li>
+      <li>Sometimes it takes a long time to figure
+     out the correct syntax to use .Net from apl</li>
+      <li>Expensive to call apl from apl via .Net
+     interfaces</li>
+    </ul>
+
+    <h2><a name="_Toc117273405">Conclusion</a></h2>
+
+    <p>We have touched the
+surface of the wonderful world of HttpModules and HttpHandlers and shown some
+examples of how DyalogAPL has been used in this context. Hopefully there will be
+more elegant examples and shared solutions to be seen in the near future. </p>
+
+    <h2><a name="_Toc117273406">References</a></h2>
+
+    <p>Several articles in
+the MSDN library written by Scott Mitchell, Atif Aziz, Roy Osherove, Dino
+Esposito, Rick Strahl and others.</p>
+
+    <h3>About the Author</h3>
+
+    <p>Pertti Kallioj&#xe4;rvi is
+one of the senior partners and founders of Dinosoft Oy (Finland) and has been
+working with APL for the past 20 years.</p>
+
+    <p align="right">October 2005</p>
+  </div>
+
+  <hr noshade>
+  
+  <p align=left><font size=-1>
+	<a href="http://www.vector.org.uk"><img src="../../icons/iconorng.gif" align="middle" alt="VECTOR home" border=0 title="VECTOR home" /></a> 
+	<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt; 
+	<a href="index.htm">contents of Vector 22.1</a></font></p>
+</div>
+
+</body>
+
+</html>

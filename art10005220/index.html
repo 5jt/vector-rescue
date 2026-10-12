@@ -1,0 +1,1589 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10005220/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Arithmetic Boundary Checking - Vector archive (development)</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=588426b9">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#abstract" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive (development)" class="md-header__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive (development)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Arithmetic Boundary Checking
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive (development)" class="md-nav__button md-logo" aria-label="Vector archive (development)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Vector archive (development)
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../archive-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison with the archive
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Abstract
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relational-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Relational Functions
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#signum-difference" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Signum Difference
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intervals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Intervals
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#partitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Partitions
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-dimensional-region-checking" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Two-Dimensional Region Checking
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#differentiating-border-regions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Differentiating Border Regions
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#theoretical-considerations-and-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Theoretical Considerations and Conclusion
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Arithmetic Boundary Checking</h1>
+<p class="byline transcribed-text"><em>by Stephen M. Mansour</em></p>
+
+  <p class="printed"><a href="../21/#n2-february-2005">Vector 21:2</a>, page 119</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-programming-techniques">programming techniques</a> <a class="md-tag" href="../tags/#tag-mathematics-and-statistics">mathematics and statistics</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>Transcribed from the printed issue; not yet reviewed. <a href="../21/2/VOL.21-NO.2-SPRING-2005.pdf#page=121">Read it in the PDF of the issue, page 119</a></em></p>
+<h2 id="abstract">Abstract<a class="headerlink" href="#abstract" title="Permanent link">&para;</a></h2>
+<p>A point partitions a line into three disjoint subsets: the set of points to its left, the point itself and the set of points to its right. Relational functions produce two results 0 and 1, effectively partitioning a line into only two subsets. A technique, known as arithmetic boundary checking, uses arithmetic functions instead of relational and Boolean functions to determine where a point lies in a line or a plane.</p>
+<h2 id="relational-functions">Relational Functions<a class="headerlink" href="#relational-functions" title="Permanent link">&para;</a></h2>
+<p>Relational functions ask the question: is the statement true or false? If the statement <code>⍺&lt;⍵</code> is true, we have all the information we need, but if it is false, we don’t know whether <code>⍺=⍵</code> or <code>⍺&gt;⍵</code>. To get a complete picture, we need to perform a second test. The dynamic function <code>bp</code> performs two tests to produce a Boolean pair<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w">      </span><span class="nv">bp</span><span class="kd">←</span><span class="kt">{</span><span class="o">⊃</span><span class="p">(</span><span class="bp">⍺</span><span class="o">&lt;</span><span class="bp">⍵</span><span class="p">)(</span><span class="bp">⍺</span><span class="o">&gt;</span><span class="bp">⍵</span><span class="p">)</span><span class="kt">}</span><span class="w">  </span><span class="c1">⍝ Boolean pair (2-vector)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">      </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="nv">bp</span><span class="w"> </span><span class="m">3</span><span class="w">        </span><span class="c1">⍝ ⍺&lt;⍵←→1 0 ⋄ ⍺=⍵←→0 0 ⋄ ⍺&gt;⍵←→0 1</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span>
+</span></code></pre></div>
+<p>While this preserves information, there are two problems. First, it seems somewhat redundant to do two similar comparisons, and second, we would like a scalar result because it will allow us to work more easily with arrays of data.</p>
+<h2 id="signum-difference">Signum Difference<a class="headerlink" href="#signum-difference" title="Permanent link">&para;</a></h2>
+<p>The signum function (<code>×</code>) naturally partitions a line into three disjoint subsets, by producing three results (-1, 0, 1). We can apply signum to the difference between a value and the boundary point to produce the <em>signum difference</em>, which asks a more specific question, i.e. what is the <em>relationship</em> between <code>⍺</code> and <code>⍵</code>?</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="w">      </span><span class="nv">xd</span><span class="kd">←</span><span class="kt">{</span><span class="o">×</span><span class="bp">⍺</span><span class="o">-</span><span class="bp">⍵</span><span class="kt">}</span><span class="w">         </span><span class="c1">⍝ Signum difference</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">      </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="nv">xd</span><span class="w"> </span><span class="m">3</span><span class="w">        </span><span class="c1">⍝ ⍺&lt;⍵←→¯1 ⋄ ⍺=⍵←→0 ⋄ ⍺&gt;⍵←→1</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="m">¯1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span>
+</span></code></pre></div>
+<p>Notice that <code>bp</code> produces the two-bit binary representation of the ones complement of the result of <code>xd</code>. Alternatively, we could produce the same result as that of <code>xd</code> by subtracting the left bit from the right bit of the ones complement in the function <code>bd</code> listed below<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="w">      </span><span class="nv">bd</span><span class="kd">←</span><span class="kt">{</span><span class="p">(</span><span class="bp">⍺</span><span class="o">&gt;</span><span class="bp">⍵</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="bp">⍺</span><span class="o">&lt;</span><span class="bp">⍵</span><span class="p">)</span><span class="kt">}</span><span class="w">  </span><span class="c1">⍝ Boolean difference</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">      </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="nv">bd</span><span class="w"> </span><span class="m">3</span><span class="w">        </span><span class="c1">⍝ ⍺&lt;⍵←→¯1 ⋄ ⍺=⍵←→0 ⋄ ⍺&gt;⍵←→1</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="m">¯1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span>
+</span></code></pre></div>
+<p>However, a performance test in Dyalog Version 10 shows that <code>xd</code> runs significantly faster than <code>bd</code>:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="w">      </span><span class="nv">U</span><span class="kd">←</span><span class="m">1E¯4</span><span class="o">×</span><span class="m">500000</span><span class="o">-?</span><span class="m">100</span><span class="o">⍴</span><span class="m">1E6</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">      </span><span class="nv">V</span><span class="kd">←</span><span class="m">1E¯4</span><span class="o">×</span><span class="m">500000</span><span class="o">-?</span><span class="m">100</span><span class="o">⍴</span><span class="m">1E6</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">      </span><span class="nv">cmpx</span><span class="w"> </span><span class="s1">'U xd V'</span><span class="w"> </span><span class="s1">'U bd V'</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nv">U</span><span class="w"> </span><span class="nv">xd</span><span class="w"> </span><span class="nv">V</span><span class="w"> </span><span class="m">2.2E¯5</span><span class="w">   </span><span class="m">0</span><span class="err">%</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="nv">U</span><span class="w"> </span><span class="nv">bd</span><span class="w"> </span><span class="nv">V</span><span class="w"> </span><span class="m">3.4E¯5</span><span class="w"> </span><span class="o">+</span><span class="m">52</span><span class="err">%</span>
+</span></code></pre></div>
+<h2 id="intervals">Intervals<a class="headerlink" href="#intervals" title="Permanent link">&para;</a></h2>
+<p>An interval is indicated by two distinct points on the real line. The interval includes the interior and may include one or both of the end-points. An interval is open if it excludes the end-points; closed if it includes both of them, and half-open if it includes only one of them. A half-open interval can be open on the left or on the right. The four types of intervals can be described by combining relational functions into the operator <code>rg</code>:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="w">      </span><span class="nv">rg</span><span class="kd">←</span><span class="kt">{</span><span class="p">(</span><span class="bp">⍺</span><span class="sr">[</span><span class="m">0</span><span class="sr">]</span><span class="bp">⍺⍺</span><span class="w"> </span><span class="bp">⍵</span><span class="p">)</span><span class="o">∧</span><span class="bp">⍺</span><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="bp">⍵⍵</span><span class="w"> </span><span class="bp">⍵</span><span class="kt">}</span><span class="w">                  </span><span class="c1">⍝ Range Operator</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">&lt;</span><span class="nv">rg</span><span class="o">&gt;</span><span class="w"> </span><span class="o">⍳</span><span class="m">5</span><span class="w">  </span><span class="c1">⍝ Open Interval:              o-----------o</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">≤</span><span class="nv">rg</span><span class="o">≥</span><span class="w"> </span><span class="o">⍳</span><span class="m">5</span><span class="w">  </span><span class="c1">⍝ Closed Interval:            ●-----------●</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">&lt;</span><span class="nv">rg</span><span class="o">≥</span><span class="w"> </span><span class="o">⍳</span><span class="m">5</span><span class="w">  </span><span class="c1">⍝ Half-Open Left:             o-----------●</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">≤</span><span class="nv">rg</span><span class="o">&gt;</span><span class="w"> </span><span class="o">⍳</span><span class="m">5</span><span class="w">  </span><span class="c1">⍝ Half-Open Right:            ●-----------o</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</span></code></pre></div>
+<p>This operator is still limited in that it does not differentiate between an interior point and a boundary (limit) point.</p>
+<h2 id="partitions">Partitions<a class="headerlink" href="#partitions" title="Permanent link">&para;</a></h2>
+<p>A pair of distinct points on the real line can define two types of partitions: an interval partition and a range partition.</p>
+<p>An <em>interval partition</em> divides the real line into three disjoint subsets: the interior (between the end-points), the boundary (the two end-points themselves), and the outside (everything else).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>    Outside       Bound   Interior      Bound     Outside
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>&lt;----------------|---------------------|-----------------&gt;
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>      1          0          ¯1          0          1
+</span></code></pre></div>
+<p>The product of the signum differences between a specified point and each of the boundary points will indicate whether the point falls in the interior, the boundary, or outside. If the point is outside the interval, the differences are both positive, or both negative so their signum product is +1. If the point is on the boundary, one of the differences is zero, thus the product is zero. And if the point is in the interior, the differences have opposite signs, so the signum product is -1.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="w">      </span><span class="nv">xp</span><span class="kd">←</span><span class="kt">{</span><span class="o">×</span><span class="na">/</span><span class="o">×</span><span class="bp">⍵</span><span class="na">∘.</span><span class="o">-</span><span class="bp">⍺</span><span class="kt">}</span><span class="w">     </span><span class="c1">⍝ Signum product</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="nv">xp</span><span class="w"> </span><span class="o">⍳</span><span class="m">5</span><span class="w">         </span><span class="c1">⍝ produces interval partition</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">¯1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span>
+</span></code></pre></div>
+<p>A <em>range partition</em> divides the real line into five disjoint regions: below, lower bound (L.B.), interior, upper bound (U.B.) and above:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>    Below         L.B.     Interior     U.B.    Above
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>&lt;----------------|---------------------|-----------------&gt;
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>      ¯2         ¯1           0        +1       +2
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align: center;"><code>A←P xd LB</code></th>
+<th style="text-align: center;"><code>B←P xd UB</code></th>
+<th style="text-align: center;"><code>xp:A×B</code></th>
+<th style="text-align: center;"><code>xs: A+B</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Below</td>
+<td style="text-align: center;">-1</td>
+<td style="text-align: center;">-1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">-2</td>
+</tr>
+<tr>
+<td>Lower bound</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">-1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">-1</td>
+</tr>
+<tr>
+<td>Interior</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">-1</td>
+<td style="text-align: center;">-1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td>Upper bound</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td>Above</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><strong>Table 1: Signum Product and Signum Sum</strong></p>
+<p>The sum of the signum differences will produce five distinct values ranging from -2 to +2 and corresponding to each of the 5 regions in a range partition.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="w">      </span><span class="nv">xs</span><span class="kd">←</span><span class="kt">{</span><span class="o">+</span><span class="na">/</span><span class="o">×</span><span class="bp">⍵</span><span class="na">∘.</span><span class="o">-</span><span class="bp">⍺</span><span class="kt">}</span><span class="w">     </span><span class="c1">⍝ Signum sum</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="nv">xs</span><span class="w"> </span><span class="o">⍳</span><span class="m">5</span><span class="w">         </span><span class="c1">⍝ produces range partition</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="m">¯2</span><span class="w"> </span><span class="m">¯1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>
+</span></code></pre></div>
+<h2 id="two-dimensional-region-checking">Two-Dimensional Region Checking<a class="headerlink" href="#two-dimensional-region-checking" title="Permanent link">&para;</a></h2>
+<p>A blog entry (http://www.dapl.blogspot.com/2002_10_01_daplarchive.htm) expresses the frustration of using standard Boolean logic in two dimensions:</p>
+<hr />
+<p>Friday, October 04, 2002</p>
+<p>ONE AFTERNOON LAST WEEK while programming I wrote the following:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nv">A</span><span class="kd">←</span><span class="p">(</span><span class="nv">R</span><span class="o">&gt;</span><span class="m">0</span><span class="o">⊃</span><span class="nv">UL</span><span class="p">)</span><span class="o">∧</span><span class="nv">R</span><span class="o">&lt;</span><span class="m">0</span><span class="o">⊃</span><span class="nv">BR</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nv">A</span><span class="kd">←</span><span class="nv">A</span><span class="o">∧</span><span class="p">(</span><span class="nv">C</span><span class="o">&gt;</span><span class="m">1</span><span class="o">⊃</span><span class="nv">UL</span><span class="p">)</span><span class="o">∧</span><span class="nv">C</span><span class="o">&lt;</span><span class="m">1</span><span class="o">⊃</span><span class="nv">BR</span>
+</span></code></pre></div>
+<p>It was so bad I had to break it into two lines.</p>
+<p>Isn’t it interesting that it is immediately apparent that this code is less than optimal, just from the look of it, even if you have no knowledge of the application? As it turns out, I was adding a drag and drop feature between two ListView objects, and I needed to determine whether or not a point was in an area. In other words, given a point (R,C), and the upper left (UL) and lower right (BR) coordinates of the target, was the mouse over the target ListView?</p>
+<p>Knowing I could not live with this in my workspace, and knowing my own limitations as a programmer, I asked Brother Steve to come to the rescue. He immediately produced the following gem:</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nv">A</span><span class="kd">←</span><span class="p">(</span><span class="nv">R</span><span class="w"> </span><span class="nv">C</span><span class="p">)</span><span class="kt">{</span><span class="m">0</span><span class="o">∧</span><span class="na">.</span><span class="o">&gt;×</span><span class="na">/</span><span class="o">⊃</span><span class="bp">⍺</span><span class="o">-↓⍉⊃</span><span class="bp">⍵</span><span class="kt">}</span><span class="nv">UL</span><span class="w"> </span><span class="nv">BR</span>
+</span></code></pre></div>
+<p>which works in N-space too! And a little tweak tells you whether you are “in” the area, “on” the border, or outside in a particular direction.</p>
+<p>POSTED BY PAUL MANSOUR | 12:37 AM</p>
+<hr />
+<p>The proposed solution in the blog exploited signum difference with respect to a rectangular region. We now formally extend the concept of arithmetic boundary checking to two dimensions. You may want to know whether a point is in the interior of a rectangle, on the boundary or outside the rectangle.</p>
+<p><img alt="A rectangle: Interior (-1) inside it, Boundary (0) on its edge, Outside (1) beyond it" src="fig1.jpg" /></p>
+<p class="caption"><strong>Figure 1: Regions in the plane defined by a rectangle</strong></p>
+<p>In the following example, we have six points in various positions relative to a rectangular region in the plane. The coordinates of the upper left and lower right corners of the rectangle are (3,2) and (5,6) respectively. The signum products of each coordinate must be calculated separately.</p>
+<p><img alt="The rectangle with upper left (3,2) and lower right (5,6), and the points (2,3), (3,5), (4,4), (5,2), (6,8) and (7,6)" src="fig2.jpg" /></p>
+<p class="caption"><strong>Figure 2: Points in various positions relative to a rectangle in the plane.</strong></p>
+<p>If we take the signum product of the first coordinate with respect to the row coordinates and the signum product of the second coordinate with respect to the column coordinates, we obtain a ordered pair indicating the position in each direction.</p>
+<p>Table 2 on the next page shows this for the points in Figure 2 above.</p>
+<p>In order to be in the interior, both coordinates of the point must be in the interior of their respective intervals in each direction. If either coordinate is outside the range, then the point is outside. If both coordinates are on their respective boundaries or one is on the boundary and the other is an interior point, then the point is on the boundary. Otherwise, the point is outside. In general, the region is the larger of the row and column signum products.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Point</th>
+<th style="text-align: center;">Description</th>
+<th style="text-align: center;">Row <em>xp</em></th>
+<th style="text-align: center;">Column <em>xp</em></th>
+<th style="text-align: center;">Region (<code>⌈</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">(6,8)</td>
+<td style="text-align: center;">Outside</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: center;">(5,2)</td>
+<td style="text-align: center;">Corner</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: center;">(4,4)</td>
+<td style="text-align: center;">Interior</td>
+<td style="text-align: center;">-1</td>
+<td style="text-align: center;">-1</td>
+<td style="text-align: center;">-1</td>
+</tr>
+<tr>
+<td style="text-align: center;">(7,6)</td>
+<td style="text-align: center;">Below</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: center;">(3,5)</td>
+<td style="text-align: center;">Edge</td>
+<td style="text-align: center;">-1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: center;">(2,3)</td>
+<td style="text-align: center;">Above</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">-1</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><strong>Table 2: Various points in the plane with respect to a defined rectangular region.</strong></p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nv">xm</span><span class="kd">←</span><span class="kt">{</span><span class="o">⌈</span><span class="na">/</span><span class="o">⊃×</span><span class="na">⌿</span><span class="o">×</span><span class="bp">⍺</span><span class="o">,</span><span class="na">.</span><span class="o">-⍉</span><span class="bp">⍵</span><span class="kt">}</span><span class="w">        </span><span class="c1">⍝ Max Signum</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">      </span><span class="nv">b</span><span class="kd">←</span><span class="o">⊃</span><span class="p">(</span><span class="m">3</span><span class="w"> </span><span class="m">2</span><span class="p">)(</span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="p">)</span><span class="w">      </span><span class="c1">⍝ Upper Left and Lower Right Corners</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">      </span><span class="nv">b</span><span class="w"> </span><span class="nv">xm</span><span class="o">⊃</span><span class="p">(</span><span class="m">6</span><span class="w"> </span><span class="m">8</span><span class="p">)(</span><span class="m">5</span><span class="w"> </span><span class="m">2</span><span class="p">)(</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="p">)(</span><span class="m">7</span><span class="w"> </span><span class="m">6</span><span class="p">)(</span><span class="m">3</span><span class="w"> </span><span class="m">5</span><span class="p">)(</span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w"> </span><span class="c1">⍝ Various Points</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">¯1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span>
+</span></code></pre></div>
+<p>The left argument of the dynamic function <code>xm</code> is a 2 x 2 matrix containing the coordinates of the upper-left and lower-right corners of a rectangular region. The right argument is a 2-element vector or 2-column matrix containing the coordinates of various points in the plane.</p>
+<h2 id="differentiating-border-regions">Differentiating Border Regions<a class="headerlink" href="#differentiating-border-regions" title="Permanent link">&para;</a></h2>
+<p>Sometimes it is necessary to divide the borders of a dialog box into specific regions. For example when the cursor is over an edge, it will resize the window in one direction. If it is over a corner, it will resize the window in two directions. The particular edge or corner selected also determines the position of the resized window.</p>
+<p>A rectangular region naturally subdivides the <em>x-y</em> plane into 25 regions, 5 in the <em>x</em> direction by 5 in the <em>y</em> direction<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>. The following regions are shown in Figure 3: 1 interior region, four corners, four edges, and 16 outside regions.<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"></th>
+<th style="text-align: center;"></th>
+<th style="text-align: center;"></th>
+<th style="text-align: center;"></th>
+<th style="text-align: center;"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Outside (8)</td>
+<td style="text-align: center;">Outside (8)</td>
+<td style="text-align: center;">Outside (8)</td>
+<td style="text-align: center;">Outside (8)</td>
+<td style="text-align: center;">Outside (8)</td>
+</tr>
+<tr>
+<td style="text-align: center;">Outside (8)</td>
+<td style="text-align: center;">Upper Left Corner (-4)</td>
+<td style="text-align: center;">Upper Edge (-3)</td>
+<td style="text-align: center;">Upper Right Corner (-2)</td>
+<td style="text-align: center;">Outside (8)</td>
+</tr>
+<tr>
+<td style="text-align: center;">Outside (8)</td>
+<td style="text-align: center;">Left Edge (-1)</td>
+<td style="text-align: center;">Interior (0)</td>
+<td style="text-align: center;">Right Edge (1)</td>
+<td style="text-align: center;">Outside (8)</td>
+</tr>
+<tr>
+<td style="text-align: center;">Outside (8)</td>
+<td style="text-align: center;">Lower Left Corner (2)</td>
+<td style="text-align: center;">Bottom Edge (3)</td>
+<td style="text-align: center;">Lower Right Corner (4)</td>
+<td style="text-align: center;">Outside (8)</td>
+</tr>
+<tr>
+<td style="text-align: center;">Outside (8)</td>
+<td style="text-align: center;">Outside (8)</td>
+<td style="text-align: center;">Outside (8)</td>
+<td style="text-align: center;">Outside (8)</td>
+<td style="text-align: center;">Outside (8)</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><strong>Figure 3: 25 Regions defined by a rectangle</strong></p>
+<p>The signum sum applied to each coordinate generates an ordered pair. If we wish to identify all 25 regions uniquely, we can use base value with a root of 5 to generate the integers -12 to +12 with 0 representing the interior. More likely, we only wish to identify the 9 relevant regions, disregarding the 14 outside regions. We can use base value with a root of 3. This will produce the values -4 to +4 with 0 representing the interior. We will assign the value 8 to the outside regions. We can identify a point in the outside region if the ordered pair of its signum sums contains the value 2 or -2. The function <code>xr</code> generates the appropriate value.</p>
+<div class="language-apl highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="w">      </span><span class="nv">xr</span><span class="kd">←</span><span class="kt">{</span><span class="nv">d</span><span class="kd">←</span><span class="o">⍉⊃+</span><span class="na">/</span><span class="o">×</span><span class="bp">⍵</span><span class="o">,</span><span class="na">.</span><span class="o">-⍉</span><span class="bp">⍺</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="p">((</span><span class="m">2</span><span class="o">∨</span><span class="na">.</span><span class="o">=|</span><span class="nv">d</span><span class="p">)</span><span class="na">/</span><span class="nv">d</span><span class="p">)</span><span class="kd">←</span><span class="m">2</span><span class="w"> </span><span class="p">⋄</span><span class="w"> </span><span class="m">3</span><span class="o">⊥</span><span class="nv">d</span><span class="kt">}</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">      </span><span class="nv">b</span><span class="w"> </span><span class="nv">xr</span><span class="w"> </span><span class="o">⊃</span><span class="p">(</span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="p">)(</span><span class="m">3</span><span class="w"> </span><span class="m">5</span><span class="p">)(</span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="p">)(</span><span class="m">5</span><span class="w"> </span><span class="m">2</span><span class="p">)(</span><span class="m">6</span><span class="w"> </span><span class="m">8</span><span class="p">)(</span><span class="m">7</span><span class="w"> </span><span class="m">6</span><span class="p">)</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="m">8</span><span class="w"> </span><span class="m">¯3</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">8</span>
+</span></code></pre></div>
+<h2 id="theoretical-considerations-and-conclusion">Theoretical Considerations and Conclusion<a class="headerlink" href="#theoretical-considerations-and-conclusion" title="Permanent link">&para;</a></h2>
+<p>Arithmetic boundary checking is based upon the topological properties of the real line and the Euclidean 2-space <em>R</em><sup>2</sup>[1]. The boundaries of an interval or a rectangle correspond to limit points in topology. An open interval corresponds to the interior set, whereas a closed interval corresponds to the union of the boundary set and the interior set. A <em>k</em>-cell is defined as an closed interval on the real line where <em>k</em>=1 or a closed rectangle in the plane, where <em>k</em>=2. [2]</p>
+<p>While Boolean functions are useful if binary results are adequate, they do not work as well when more information is required. Location on the real line or in the plane can be determined arithmetically without the use of Booleans. The ternary nature of signum is exploited to handle boundary conditions.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<p>[1] Jerrold Marsden, <em>“Elementary Classical Analysis”</em> W.H.Freeman &amp; Co. 1974, Chapter 2, Topology of <em>R</em><sup>n</sup>, pp 32-44.</p>
+<p>[2] Walter Rudin, <em>“Principles of Mathematical Analysis, Third Edition”</em>, McGraw-Hill 1976, pp. 31-32.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Note: all APL expressions assume <code>⎕IO←0</code> and <code>⎕ML←3</code>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>The function <em>bd</em> can be expressed succinctly in J as a fork: <code>bd=: &gt;-&lt;</code>&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>This is based on the fact that there are 5 disjoint subsets in a range partition on the real line.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>It is unimportant to distinguish these from each other&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">programming techniques</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">mathematics and statistics</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+        <script src="../assets/javascripts/mathjax.js?v=d492dfd7"></script>
+      
+        <script src="../assets/mathjax-3.2.2/tex-svg.js"></script>
+      
+    
+  </body>
+</html>

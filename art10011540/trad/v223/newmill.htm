@@ -1,0 +1,408 @@
+<html>
+
+<!-- This is the blank for 22:1 -->
+
+<head>
+<title>APL in the New Millennium - Ken Iverson</title>
+<style>
+tt {font-size:100%}
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="../arch.css" type="text/css" rel="stylesheet">
+<!-- in-page styles go here if there are any -->
+
+</head>
+
+<body>
+<!-- breadcrumbs -->
+<table width=100%>
+  <tr>
+    <td><font size=-1>
+	<a href="http://www.vector.org.uk"><img src="../../icons/iconnavy.gif" align="middle" alt="VECTOR icon" border=0 title="VECTOR home" /></a>
+	<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt;
+	<a href="index.htm">contents of Vector 22.3</a></font></td>
+    <td align=right><font size=-1>For best results, install <a href="../../resource/apl385.zip">APL385 Unicode</a> and use Firefox <a href="http://www.mozilla.org/products/firefox/"><img src="../firefox.gif" align="middle" border=0></a></font></td>
+  </tr>
+</table>
+
+<div class=Section1>
+  <!-- Start of Galley -->
+
+  <h1>APL in the New Millennium </h1>
+
+  <p class="author">by Kenneth E. Iverson </p>
+
+  <p>Since IBM&#146;s APL\360 became available in 1966
+many dialects have been developed, and competition has led to emphasis on their
+differences, an emphasis reflected in their distinctive names: APL\1130,
+APL\360, APLSV, APL2, SHARP APL, Nial, Dyalog APL, A, APL2000, J, K, and others.</p>
+
+  <p>Although natural to healthy competition, the
+emphasis on differences has discouraged the sharing of ideas, and still tends
+to blind programmers to the ease of moving between dialects, an ease not shared
+by programmers unschooled in the core ideas of APL. </p>
+
+  <p>As emphasized in [<a href="#ref1">1</a>], these core ideas were: </p>
+  <ul>
+
+    <li>The adoption from Tensor Analysis of a
+systematic treatment of arrays, in which every entity is an array, and
+different <i>ranks</i> lead to <i>scalars</i>, <i>vectors</i> (or <i>lists)</i>, <i>matrices</i> (or <i>tables)</i>, and <i>higher-dimensional
+arrays</i> (or<i> reports</i>).</li>
+
+<li>Operators (in the sense introduced
+by Heaviside [2]), which apply to functions to produce related functions.</li>
+
+<li>In this paper I will review developments in
+the APL dialects, emphasizing similarities and the ways in which competing
+ideas have been, and could be, shared and adapted to competing systems. My hope
+is to encourage the relatively small APL family to mute their differences, and
+present a more united face to the programming world. </li>
+</ul>
+
+<h2>Alphabets</h2>
+
+  <p>Although the particular alphabet, or even
+the font used, is a most superficial aspect of a language, it can make a
+dramatic assault on a beginning reader &#150; as anyone who first met German in the
+Gothic font can testify. First encounters with the unfamiliar alphabet of the
+earliest APL has certainly discouraged many, in spite of its highly-mnemonic
+character.  </p>
+
+  <p>At the time of its design there was no
+adopted standard, and it seemed reasonable to exploit the newly available IBM
+Selectric typewriter (with its easily-changed <i>typeball</i>) to design our own alphabet, and to use the backspace
+ability of the typewriter to produce composite (<i>overstruck</i>) characters. </p>
+
+  <p> The APL community was too small to influence
+the design of the now widely-used ASCII alphabet, and our use of special
+characters led to a series of unforeseen difficulties that have significantly
+inhibited the use of APL: </p>
+
+<ul>
+<li>When the &#x201c;glass terminal&#x201d; provided
+by the cathode ray tube supplanted the typewriter, it was incapable of backspacing
+to provide the composite characters of APL.</li>
+
+<li>APL characters were not provided by
+early printers, and there was a considerable delay before specialized alphabets
+could be downloaded to them.</li>
+
+<li>Such difficulties have led some
+dialects (such as Nial) to adopt ordinary names as <i>reserved words</i>, an approach that the special characters had allowed us to avoid.</li>
+
+<li>Use of the internet also poses problems,
+because APL characters are not generally handled by browsers.</li>
+</ul>
+
+  <p> J and K use only the ASCII alphabet, but yet
+avoid the use of reserved words. K uses mainly single-character
+non-alphabetics, and J supplements these by a scheme that uses a suffixed
+period or colon. For example, <tt> &lt;  </tt> denotes <i>less-than</i>,<tt>  &lt;.   </tt>denotes <i>lesser-of</i> (minimum), and<tt>  =:   </tt>denotes
+assignment. </p>
+
+  <p> It would, of course, be impractical for any
+APL system to switch to a rival alphabet, and this discussion is meant only to
+suggest supplements based on rival ideas. For example: </p>
+
+<ol>
+<li>Many ASCII symbols (such as <tt>@</tt>  ,  <tt>&amp;</tt>  ,  <tt>^</tt>  , and  <tt>%</tt>  ) go unused in
+most APL systems, and could be used in various ways:<br>
+  <br>
+One or two might be used as suffixes, as in  <tt>&lt;@</tt>   or  <tt>nub@</tt>   as names for
+primitives.<br>
+  <br>
+The  *   adopted for power in APL\360 has since become universally
+recognized as the symbol for multiplication, and might better be replaced by
+the  <tt>^</tt>  ,
+as first proposed by De Morgan in mathematics, and recently adopted in some
+non-APL languages. </li>
+
+<li>The percent symbol (which signifies &#147;divided
+by 100&#148;) has been adopted for division by some non-APL systems, and could be
+more widely adopted in APL. After all, the APL symbol <tt>&#xf7;</tt>   is
+no longer familiar as a symbol for division.  </li>
+</ol>
+
+  <h2> Number Representation </h2>
+
+  <p> APL\360 introduced the useful representation
+of a negative number distinct from the negation function ( <tt>-</tt> ) that might
+produce it. This has been continued in all APLs in forms that vary from the
+special overbar symbol used in APL\360. Constrained to ASCII symbols, J uses
+the underbar, and K uses juxtaposition:  <tt>-3</tt>   for a negative number, as
+contrasted with  <tt>- 3   </tt>for negation. </p>
+
+  <p> APL systems use the exponential notation
+adopted from Fortran, some using the uppercase  <tt>E</tt>  , and some the lowercase. The
+notion has been extended to other kinds of numbers, as in  <span class="APLU">2d45</span>   for a
+complex number in polar representation (APL2);  <span class="APLU">3j4</span>   for a complex number
+(SHARP APL); and  <tt>2r3</tt>   for a rational number&nbsp;(J).  </p>
+
+  <h2> Grammar </h2>
+
+  <p> The grammar (parsing rules) of APL\360 were
+simple and relatively uniform, with no precedence among functions, but with
+operators given precedence over functions.  </p>
+
+  <p> In particular, the relative positions of
+functions and arguments were fixed; for example, factorial n was written as  !<i><tt>n</tt>  , not  <tt>n</tt></i>!  . There are, however a
+few characteristics that merit comment. </p>
+
+  <h3>Name assignment </h3>
+
+  <p>A left arrow was used to assign names to
+arrays of numbers and characters, but a quite different mechanism was used for
+assigning names to functions, and there was no provision for defining
+operators. </p>
+
+  <p>In APL2, operator definition was introduced
+by extending the system for function definition to allow further parameters.
+Most systems have adopted this scheme, but J uses a single copula (the<tt>  =:   </tt>mentioned
+earlier) for all three cases, and Dyalog APL uses it for two. </p>
+
+  <h3>Valence</h3>
+
+  <p>APL\360 systematically adopted the double
+use of symbols from the scheme suggested by subtraction ( <span class="APLU">3-2</span> ) and
+negation (<span class="APLU"> -2 </span>) in mathematics, calling the two cases <i>dyadic</i> and <i>monadic</i>. For
+example,  !n   denotes the factorial, and  m!n   denotes the related
+binomial coefficients. </p>
+
+  <p>Most systems (with the exception of Nial)
+continued this <i>ambivalent</i> use of
+primitives, but did not extend it to the <i>derived</i>
+functions produced by operators. In J, <i>all</i>
+functions are ambivalent. For example,  <tt>+/ y</tt>   denotes <i>sum over</i>  <tt>y</tt>  , and   <tt>x&nbsp;+/&nbsp;y</tt>   denotes the
+addition table; that is, the plus-outer-product denoted by  <span class="APLU">x
+&#x2218; .+ y</span>   in
+APL\360 and APL2. </p>
+
+  <h3> Indexing </h3>
+
+  <p> Because of the need for multiple index
+arguments for a multi-dimensional array, APL\360 adapted from Fortran the
+notation  <span class="APLU">A[I;J;K]</span>  , departing from the normal form for a dyadic function. In
+particular, it was not possible to assign a name to the complete index
+argument. </p>
+
+  <p>The introduction of <i>nested arrays</i> in APL2 made possible the treatment of a set of
+indices such as<span class="APLU">  I;J;K</span>   as a single entity. However, with the exception of J, APL systems
+did not fully exploit this to rationalize indexing.  </p>
+
+  <p>APL\360 introduced a further anomaly in
+indexing by providing either 1-origin or 0-origin indexing, set originally by a
+<i>system command</i> of    the form  <span class="APLU">)IO</span>  , and later by a <i>system
+variable</i>  <span class="APLU">&#x2395;IO</span>  . </p>
+
+  <p> This choice of index origin has been
+maintained in most systems, but J is restricted to  0  -origin. Since indexing in J
+is a normal dyadic function, an operator can be used to modify it, as well as
+the related index generator analogous to the iota of APL\360. </p>
+
+  <p> The restriction to  0  -origin has simplified the introduction
+of <i>negative indexing</i>, with indices
+for  <tt>n</tt>
+items running from negative  <tt>n</tt>   to  <tt>n-1</tt>  . </p>
+
+  <p> The <i>indexed
+assignment</i> <span class="APLU">A[I;J]"M</span>  is a
+further convenient (though grammatically anomalous) scheme introduced in
+APL\360. It is maintained in most systems, although the three essential
+arguments can be handled by an <i>amend</i>
+operator, such as the  <tt>}</tt>   used in J in the form:  <tt>M ind } A</tt>  .   </p>
+
+  <h3>Terminology</h3>
+
+  <p>Coming from a common background in math, we
+naturally adopted mathematical terminology in APL\360, in spite of the facts
+that: </p>
+
+<ul>
+<li>The term <i>operator</i>
+(used in the sense of Heaviside) conflicts with its common use in elementary
+mathematics as a synonym for function.</li>
+
+<li>The term <i>variable</i>
+used for a name assigned to a quantity suggests that its meaning might <i>vary</i> due to possible re-assignment. But
+the same possibility exists for defined functions, and the terms <i>variable</i> and <i>function</i> do not adequately reflect the possible cases. </li>
+</ul>
+
+
+  <p> Terms from English grammar can provide the
+necessary distinctions, using the close analogy between <i>function</i> and <i>verb</i> as
+denoting <i>actions</i>, together with the <i>nouns</i> and (variable) <i>pronouns</i> on which they act.  </p>
+
+  <p> Moreover, <i>adverbs</i> are analogous to <i>operators</i>
+(such as  <tt>/  </tt>) that modify a single verb, and <i>conjunctions</i>
+(such as the copulative conjunction <i>and</i>
+in the phrase &#x201c;run and hide&#x201d;) are analogous to operators (such as the
+inner-product) that apply to two verbs.  </p>
+
+  <p> Finally, the familiar English terms <i>list</i>, <i>table</i>, and <i>report</i> are
+more commonly understood (and are fully as accurate as) the terms <i>vector</i>, <i>matrix</i>, and <i>higher-dimensional
+array</i>. </p>
+
+  <h2> Opportunities </h2>
+
+  <p> Most APL systems share unexploited cases
+that may be introduced without conflict. We will illustrate these opportunities
+by three classes.   &#xa0; </p>
+
+  <h3> Complex arguments </h3>
+
+  <p> Although complex numbers serve primarily in
+mathematical expressions, their two parts (real and imaginary) can be
+convenient in functions that require the specification of two independent parameters.
+ </p>
+
+  <p> For example, a format function  <tt>F</tt>   might be defined
+so that  <tt>12j3 F x</tt>   formats  <tt>x</tt>   with a width of  12   spaces and with  3   digits following the decimal point. A list of such complex
+arguments could be used to specify each column of the format of a table  <tt>x</tt>  . </p>
+
+  <h3> Vector arguments </h3>
+
+  <p> In APL\360, the expression  <span class="APLU">&#x2373; 5</span>   produced a list
+of five successive integers, but the domain of  <span class="APLU">&#x2373;</span>   did
+not include a vector argument. A useful non-conflicting extension could be
+defined to apply to a list of <tt>n</tt> integers to produce an array of successive
+integers of rank  <tt>n</tt>   (as in J) or a nested array of indices of an array of the same rank
+(as in Dyalog APL). </p>
+
+  <h3>Trains </h3>
+
+  <p>In calculus, the expression  <tt>f+g   </tt>is sometimes
+used to define a function equivalent to the sum of the functions  <tt>f</tt>   and  <tt>g</tt>  , and<tt>  f*g</tt>   is used for
+their product. Moreover, such a train of three functions is treated as an error
+in most APL systems, and could therefore be introduced without conflict. </p>
+
+  <p> Any three functions may be used. For example<tt>
+ +/</tt>
+divided-by  <tt>$   </tt>(the number of elements) defines the <i>mean</i> function, and  <tt>f,g</tt>   defines a function that catenates results, as in  <tt>+/,*/</tt>  . </p>
+
+  <p> More generally, a train of any odd number of
+functions defines a function, the last three defining a function as stated
+above, and this function entering into a similar definition with the remaining
+train.  </p>
+
+  <p> For example, the identity function followed
+by  <tt>-</tt>
+(subtraction) followed by the preceding three-element train for the mean
+defines the function &#x201c;centre on the mean&#x201d;. </p>
+
+  <h2> Extensions </h2>
+
+  <p> Functions and operators new to any system
+can of course be adapted from other systems without conflict. In early systems
+the choice of symbols posed a problem, soon solved in a general way by the
+adoption of a class of &#147;<span class="APLU">&#x2395;</span>  names&#148;; alphabetic names
+preceded by the quad character. This solution appears to continue in systems
+that adhere to the special APL character set. </p>
+
+  <p>We will now discuss a few of the many
+functions and operators that are candidates for adoption. </p>
+
+  <h3>GCD and LCM </h3>
+
+  <p>The logical <i>or</i> and <i>and</i> could be
+construed as special cases of <i>maximum</i>
+and <i>minimum</i> (when restricted to the
+Boolean domain  <tt>0</tt>   and  <tt>1</tt>)  , or as special cases of <i>greatest
+common divisor</i> (GCD) and <i>least common
+multiple</i> (LCM).  </p>
+
+  <p> E.E. McDonnell noted that only the latter
+functions possessed the same identity elements as <i>or</i> and <i>and</i>, and he
+ensured that the logical functions were extended to GCD and LCM in the SHARP
+APL system. The same extension could be made without conflict in any APL
+system.  </p>
+
+  <h3> Repeatable random numbers </h3>
+
+  <p> In debugging a program it is often useful to
+generate &#x201c;random&#x201d; arguments in a repeatable manner. This can be done by
+resetting the random seed. It is more convenient to provide a random number
+generator (denoted, perhaps, by  <tt>?.</tt>  ) that resets the seed on each use. </p>
+
+  <h3> Variants </h3>
+
+  <p> APLSV used the <i>system variable</i>  <span class="APLU">&#x2395;CT</span>   to specify the comparison tolerance to be used in relations such as
+ <span class="APLU">&lt;</span> and  <span class="APLU">=</span>  . Such control can be made more convenient by a variant operator, as
+in  <tt>= VAR 0</tt>   for exact comparison. </p>
+
+  <p>A more interesting opportunity for variants
+occurs in the case of the <i>rising</i> and <i>falling </i>factorial functions, defined by  <span class="APLU">*/x+s*&#x2373; n</span>  , for  <span class="APLU">s</span>   assigned the values  <span class="APLU">1</span>   and  <span class="APLU">&#xaf;1</span>  ,
+respectively. Moreover, a zero value for  <span class="APLU">s</span>   gives the function  <span class="APLU">x</span>   to the power  <span class="APLU">n</span>  , and these
+functions (including the useful case of non-integer values for  <span class="APLU">s</span>  ) can all be
+treated as variants of the power function. </p>
+
+  <h3>Ties </h3>
+
+  <p>The sum  <tt>a+b+c+d+e   </tt>can be written as
+the reduction  <tt>+/a,b,c,d,e</tt>  . Moreover, the continued fraction  <tt>a+b &#xf7; c+d &#xf7; e   </tt>might lend itself
+to a similar reduction, except that it requires the <i>two</i> functions of addition and division. </p>
+
+  <p> Such a pair of functions (or any number) can
+be provided by a  <tt>TIE</tt>   operator, to be used in the form  <tt>+TIE &#xf7;  /
+a,b,c,d,e  </tt>.  </p>
+
+  <p> The result of a tie can be used in other
+ways, as with a <i>case</i> operator, in
+which<tt>  f TIE g TIE h CASE i   </tt>uses the index produced by the function  <tt>i</tt>   to select one of the
+functions for execution. In particular, the tie of two functions can be used to
+make a recursive definition. </p>
+
+  <h3> Universal sorting </h3>
+
+  <p> A strict ranking can be imposed on <i>all</i> arrays (including characters, real
+and complex numbers, and open and nested arrays of any rank) so that sorting
+can be applied to <i>anything</i>. An
+example of such ranking is provided in J, and could be adapted to any system. </p>
+
+  <h2> The Workspace </h2>
+
+  <p> When first proposed by Adin Falkoff for
+APL\360, the (32K) workspace provided a convenient and efficient organization
+of memory. However, the fixed size, and other characteristics of the workspace,
+have come to inhibit the use of APL. </p>
+
+  <p> In particular, the workspace organization
+did not facilitate the exploitation of the memory management offered by later
+machines and operating systems. Arthur Whitney made the first step in employing
+these facilities in his A    system, and used text (<i>script</i>) files rather than workspaces. </p>
+
+  <p> The advantages of text files are beginning
+to be recognized. In an item on page 59 of the April issue of <i>Vector</i> (Vol. 16 No. 4), Anssi Sepp&#xe4;l&#xe4; is
+quoted as follows: &#147;the more I can work with text files, the easier it is &#150; I
+am no longer a fan of the APL workspace&#148;. </p>
+
+  <h2> Acknowledgment </h2>
+
+  <p> I am indebted to Chris Burke for many
+helpful comments, particularly for his suggestion to discuss the matter of the
+workspace versus script files. </p>
+
+  <h2> References  </h2>
+<blockquote>
+<ol>
+<li>
+<a name="ref1"></a>Iverson, K.E., <i>A Personal View of
+APL</i>, IBM Systems Journal, Vol 30, No. 4, 1991.</li>
+
+<li><a name="ref2"></a>Heaviside, Oliver, See the 1971
+Chelsea Edition of <i>Heaviside&#x2019;s Electromagnetic Theory </i>and the article by
+P. Nahin in the June 1990 issue of <i>Scientific American</i>.</li>
+</ol>
+</blockquote>
+
+</div>
+<hr noshade>
+
+
+<p class="crumb"><font size=-1>
+	<a href="http://www.vector.org.uk"><img src="../../icons/iconnavy.gif" align="middle" alt="VECTOR home" border=0 title="VECTOR home" /></a>
+	<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt;
+	<a href="index.htm">contents of Vector 22.3</a></font></p>
+
+</body>
+</html>

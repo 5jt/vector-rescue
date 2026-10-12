@@ -1,0 +1,152 @@
+<html><head><title>An APL Unicode Font</title></head>
+<body><font face="Book Antiqua">
+
+
+<!-- breadcrumbs for articles -->
+<p style="font-size:80%">
+<a href="http://www.vector.org.uk"><img src="../../icons/iconsky.gif" align="middle" border=0 alt="Vector home"></a>
+<a href="http://www.vector.org.uk" title="VECTOR home">www.vector.org.uk</a> &gt;
+<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt;
+<a href="index.htm">contents of Vector 16.1</a></p>
+
+<div align=center><h1>An APL Unicode Font</h1>
+</p>
+<p><i>by Phil Chastney</i></p></div>
+<p>
+The Vector website has another APL font for downloading. The font is called SImPL.TTF and, as the file extension suggests, it is a TrueType font for use on the PC. (<a href="../../resource/xsimpttf.zip"><i>Download the zip file, 93K</i></a>.)
+</p>
+<h2>Some Details</h2>
+<p>Describing the thing as an &#147;APL font&#148; is a little bit of an over-simplification. One of the design aims of the font was to provide a complete set of all known APL symbols, plus sufficient characters to allow prompts, comments, etc., to be expressed in every European language known to be in current use. Basically, that means the Latin, Greek and Cyrillic alphabets, plus accented and variant letter forms as required for other European languages using these alphabets.</p>
+<p>This is not going to fit into the usual 256-character strait-jacket: the lowercase Latin letter &#147;a&#148;, for instance, exists in 16 variant forms &#151; so far. By limiting the spec to modern European usage, we have excluded variants used in phonetics, African written forms, Vietnamese, &#133;</p>
+<p>If an 8-bit character code is too limiting, the obvious thing to do is go for 16-bit Unicode, and the SImPL font is a properly constituted Unicode font: each character has been given its proper Unicode value, and may be viewed in Unicode order using the Windows &#147;Character Map&#148; applet.</p>
+<p>It is obvious by this stage that I am addressing a small audience, comprised of those internationally-minded APLers working under recent versions of Windows.</p>
+<p>In that case, then, why bother? And in particular, why bother designing a new font? The reasons are partly idealistic, partly practical and partly historical. </p>
+<h2>The Reasons Why</h2>
+<p>Hitherto, hard-copy APL listings have always been a bit of a nuisance. On an individual basis, solutions could be found using a locally-attached printer, but life became a little more difficult when using networked or mainframe printers. Success here depended almost entirely on the goodwill of the people controlling the network or mainframe. Were they, for instance, prepared to set up a comb printer or a band printer capable of switching to APL? Where this goodwill was lacking, life become difficult. On one occasion, a user having trouble with a departmental printer was told the problem was caused by his attempts to print APL. In fact, the connector at the back of the printer was falling to pieces, which was soon fixed, and is the reason I always carry a screwdriver with me nowadays. (This did not fix the &#147;attitude&#148; problem, however.)</p>
+<p>Now that the world has switched to Windows, Adrian&#146;s APL2741 font has been a real god-send, but different character sets are required in different situations, and translate tables are often required between the originating processor and the target printer, because it is difficult, and possibly ill-advised, to re-arrange the characters within the font.</p>
+<p>It is also difficult to extend the character set to include new items: I recently found myself unable to print the broken vertical bar when I wanted it. Back in the DOS-only days, a personal desire to include the Greek lambda in the APL character set meant hacking the character tables included in the APLFONT utility provided with APL*Plus, for proper screen display. This was not too difficult, but editing the DeskJet font for proper printing was rather more tedious. Both worked fine (eventually), but extensions to the character set no longer seemed so desperately important. Nevertheless, I managed to hook up a system which could display on-screen any item from a set of approximately seven hundred 9-by-16 characters.</p>
+<p>The rest of the world, however, had moved on, and it was time to catch up. But how? I was working in an international environment, using DOS, Windows and Unix. The &#147;national use&#148; characters defined in Unix looked as though they might be useful but, to take an actual example, if a Brit in Luxembourg receives a file from a German in Madrid, what can we assume about national character use? In truth, the national characters are no use whatever in the international arena.</p>
+<p>The DOS code was recycled. It was not possible, at that time, to have 1024 characters in a single TrueType font, so the thing was re-organised as four separate &#147;pages&#148; of 256 characters each, one page for Latin-1, another for additional accented Latin letters, a third for Greek and Cyrillic, and finally a pageful of APL and other symbols. A stream of Unicode values was mapped onto the appropriate codepoint of the appropriate font (where possible). Messy, but it worked. I was particularly pleased that I could display all three scripts simultaneously, in the same font. </p>
+<p>This was my first experience of building a font from scratch. The result displayed OK, even at low resolution, and printed nicely on my DeskJet, and that was enough for the time being. And now I could add in all the additional characters I wanted.</p>
+<p>But the world has moved on again. Recent versions of Windows have Unicode fonts. Check out the Character Map applet, and you will see that standard stuff like Arial, Courier and Times Roman now includes Greek and Cyrillic scripts as standard.</p>
+<p>But no APL.</p>
+<p>Even Bitstream&#146;s Cyberbit font &#151; a magnificent achievement which includes everything you are likely to need for modern Chinese, Japanese and Korean usage &#151; does not trouble itself with APL. (In fairness, it should be noted that Cyberbit does not trouble itself with mathematical symbols, either, so we should not feel unjustly discriminated against.)</p>
+<p>So &#151; back to the original question: why design a new font? Answer:
+<ul type=disc>
+<li>because I want to be able to print APL characters (<i>all</i> APL characters);
+<li>because I want to be able to add in other characters;
+<li>because I want to be able to print out prompts and comments in other languages;
+<li>because I want a to do this with the same font, for consistency of appearance;
+<li>and, finally, because there is no font yet which meets those criteria.
+</ul>
+<h2>The File Format</h2>
+<p>It might seem that the choice of PC TrueType format was a foregone conclusion. Not so. Well, not entirely so. Certainly a PC .TTF is the most convenient way of displaying and printing under Windows, but it is not the only way. Adobe Type1 fonts are preferred by professionals. Robin Williams, in her book &#147;Bossing Your Fonts Around&#148;, is quite scathing of TrueType fonts, and recommends sticking to Type 1 fonts, where possible. </p>
+<p>The problem is that TrueType fonts are not well-behaved, when used with high resolution type-setting equipment. Three possible reasons spring to mind:</p>
+<ul type=disc>
+<li>TrueType uses quadratic splines, whereas Type1 uses cubic splines. Quadratic splines are easier to calculate, which means faster rasterisation, but the fonts themselves may be more &#147;brittle&#148;. If you have ever had a font which would print correctly only up to 24 points, say, or only above 24 points, or would rasterise correctly only for some characters, then you will know what I mean.
+<li>The TrueType standard is incomplete. This may mean that interaction between settings is not well-defined.
+<li>The TrueType standard is obscure or ill-defined. The manual for Fontographer 4.1 states, &#147;.. there are a fair number of fields that we don&#146;t really know the purpose of ..&#148; so there is little chance of an amateur succeeding here.
+</ul>
+<p>I once had a TrueType font which would crash the system completely &#150; requiring a power off/power on reboot &#150; if I so much as clicked on its name. Don&#146;t ask me how or why it did that: I was simply relieved when I finally managed to delete it. Also, I know of one case where a photo-typesetting agency lost a contract when a client found out they had allowed TrueType fonts on the premises.
+<p>Notwithstanding all that, TrueType is a convenient format for distribution, easy to install, and (provided Fontographer is trusted to provide sensible default settings) can be made to work more than adequately at sizes from 8 to 144 points.</p>
+<h2>The Character Set</h2>
+<p>Languages are disappearing. We are losing diversity, and this is immensely regrettable. It would be nice to be able to prepare text, display windows, etc., in all languages, but the resources required prohibit this, so we must settle for the lesser goal of supporting all modern European languages. I do not know a word of Welsh, and it is unlikely that I shall ever bother learning Welsh, but I would not wish to see it disappear. This new font, therefore, contains all the accented characters required for Welsh. And Catalan. And Macedonian. And . . . (And, as it happens, all the characters necessary for Pin-Yin Chinese and Romanised Sanskrit.)</p>
+<p>At the time of writing, the font contains about 1000 characters. For Unicode devotees, this includes the whole of Latin-1, the whole of Latin Extended A, much of Latin Extended B, very little from Latin Extended Additional, and whatever seemed necessary from the Greek and Cyrillic blocks.</p>
+<p>There are no less than 5 versions of the A-to-Z of the basic Latin alphabet:</p>
+<ul type=disc>
+<li>uppercase A-Z
+<li>small caps <font size=-1>A-Z</font>:<br>
+Small caps can be faked by simply switching to a smaller font size, but this is not entirely satisfactory because the stroke weight and any serifs are thereby scaled down, when what you really want to do is maintain stroke weight, maintain serif size, but reduce the overall height. In essence, you want to scale down the vertical distances between horizontal black bits; in practice, you have to redraw each character. The small caps are not immediately available to users, although Windows provides a GSUB (for &#147;glyph substitution&#148;) mechanism which will allow them to temporarily replace the lowercase letters. 
+<li>lowercase a-z:<br>
+The usual 26 character complement is extended by the inclusion of the Eth and Thorn characters from Icelandic, the Yogh from Middle English (which is also used for the Ezh character found in Lappish) plus some alternative forms: a loop-tailed &#147;g&#148;, a long &#147;s&#148; and a round-tailed &#147;y&#148;. (I was delighted to discover that Eric Gill also used to do something similar in his fonts.)
+<li>tiny capitals:<br>
+The tiny capitals are not intended for general use, but are used to construct the &#147;control pictures&#148; (Unicode values U-2400 et seq.) which allow control characters to be represented literally. The control pictures are omitted from most Unicode fonts, but can still be useful to those of us struggling to communicate with external modems.
+<li>underlined capitals <u>A-Z</u>:<br>
+The atomic vector for IBM mainframe implementations contains an underlined uppercase alphabet, in addition to the normal uppercase and lowercase alphabets. This is more than a little odd, when more useful characters could have been included in the codeset, but if that is what IBM decides, then these characters must perforce be included in the SImPL font.
+</ul>
+<p>Modern Greek typography seems to be in a state of flux. The most common diacritical marking in modern Greek is the &#147;tonos&#148;, which denotes stress, and this is variously represented as an acute accent, a caron, or a downward pointed triangle, among others. I have used the acute accent with lowercase letters, and an apostrophe with uppercase letters, because this seemed to be the accepted practice when I started drawing this font. There may be a problem here: classical Greek used apostrophes as breathing marks, to indicate whether an aspirate (an &#147;h&#148; sound) occurred before any words beginning with a vowel. Recently, however, I have seen breathing marks used in modern Greek. If this practice becomes widespread, it may be necessary to redraw the uppercase vowels.</p>
+<p>The main problem with Cyrillic is likely to be missing characters. The script is used for such a variety of languages beside Russian, that it is more than probable that something has been omitted from one of the minority languages.</p>
+<p>There are some alternative characters in the font. The ampersand exists in two forms. The ess-zet ligature exists in three forms, the one normally available being a fairly literal ligature of a long-s with the normal lowercase s, rather than a beta character which has been stood in the sun for too long.</p>
+<h2>The Numerals and Currency Symbols</h2>
+<p>The obvious set of digits 0-9 is provided, in two forms. Digits and currency symbols are normally drawn to the full f-height. (The letter &#145;f&#146; is usually the tallest lowercase character, so the term &#147;f-height&#148; denotes the highest point reached by a lowercase letter. Similarly, the &#147;g-height&#148; denotes the lowest point, and the &#147;fg-height&#148; measures from top to bottom.)</p>
+<p>The habit of drawing digits at the full f-height is a comparatively recent introduction. The logarithm tables I had at school (approx. 3 million years ago) used the so-called &#147;old style numerals&#148; or &#147;lining numerals&#148; or &#147;x-height numerals&#148;. (Typographers seem largely unaware of the difference between a &#147;digit&#148; and a &#147;numeral&#148;.) Some people prefer these old-style numerals, finding them easier to read, so SImPL provides both types &#150; f-height and x-height.</p>
+<p>Fractions have been a real pain. This is not the time to go into all the detail, but the fixed-width chosen for this font does not leave much room for two digits and a slash. All the fractions included in Unicode are provided, without slashes, because that is what the Financial Times does in its pages of share prices. Traditionalists are catered for by an alternative set of fractions using a slash. There may be a call for yet another set, with a shorter, shallower, slash, and any such call will be acknowledged, noted and probably ignored until I am happy with the present offerings. There are no facilities for constructing your own fractions.</p>
+<h2>The Symbol Set</h2>
+<p>The obvious items are included for punctuation and accents. I have also included whatever arrows, mathematical operators and miscellaneous technical symbols seemed appropriate. (The APL characters are found at the end of the section of &#147;Miscellaneous Technical Symbols&#148;.)</p>
+<p>My choice of symbols may strike you as idiosyncratic, not to say egregious. Certainly, the Unicode set of APL symbols strikes me as odd. While I have drawn glyphs for each of these characters, I cannot help wondering who uses them, what for, and are they really necessary. Nor is it clear why we need to duplicate nand, nor and circle-star. I might add that some of these glyphs are visually unappealing, though they do not have to be quite so ugly as the samples shown in the Unicode standard.</p>
+<p>Be that as it may, if the font is missing any other characters from other APL dialects, they can be included with little difficulty (though access without a Unicode value may be difficult).</p>
+<p>For backwards compatibility, the font includes the box drawing characters included in previous APL codesets, although it seems unlikely that anybody in a position to utilise this font is still drawing boxes using these characters.</p>
+<h2>Font Design</h2>
+<p>Traditionally, APL has used a Courier Italic font. Actually, Iverson&#146;s original text did not: the association between APL and Courier Italic started with the 2741, IBM&#146;s golf-ball printer.</p>
+<p>My interest in APL was sparked in the first place by the font it used. To someone struggling to express his ideas in a 48-character code which did not even have lowercase, it seemed so expansive, wild and free. Clearly I am not going to rush to break that association. </p>
+<p>Let us review, then, the characteristics of Courier:</p>
+<ul type=disc>
+<li>First and foremost, it is a fixed-width, or monospaced, font. That is to say, each letter occupies precisely the same amount of horizontal space, so the letter &#147;m&#148; has to be squashed up, while the letter &#147;i&#148; has to be stretched out. While not necessary for printing, it helps screen display if we add the restriction that all characters require exactly the same amount of vertical space.
+<li>It is a slab-serif design. This helps readability. The serifs on the lowercase &#147;i&#148; require more ink than the basic letter, but they help to lead the eye in and out to the next letter. This principle seems to be easily forgotten: most Courier versions of Greek leave the iota standing alone in a huge white space, which slows down the way the brain recognises a word.
+<li>The x-height (the distance from the baseline to the top of a flat-topped lowercase character without an ascender) is a relatively high proportion of the f-height. This, too, aids readability.
+<li>Unusually, the cap height is lower than the f-height, and the uppercase M is approximately square. There is no stress: vertical, horizontal and diagonal lines all have the same width. Although distinctive, these three characteristics do not bear on the choice of Courier as a model for the SImPL font.
+</ul>
+<p>It is possible to use proportional fonts for code listings. I have used PostScript routines which output C listings in Helvetica or Times, and been generally happy with the results. The vertical alignment of the opening and closing braces goes awry occasionally, double and single quotes are not easily distinguished, and it is difficult to tell how many spaces are contained in a string but, all in all, the results were quite acceptable.</p>
+<p>There are still reasons for preferring fixed-width fonts, however, especially with the rather denser (typographically denser, that is) code encountered in APL. Vertical alignment is less critical, and it is important that the operator symbols do not visually overpower the symbols for the operands. Where vertical alignment is important, in multi-line comments, for instance, this is more easily achieved with a fixed-width font. Also &#150; and this is of interest to the font-designer and the advanced user &#150; it is easier to place diacritical markings (accents) in a fixed-width font.</p>
+<p>The SImPL font, then, is based on Courier, though there are a few differences.</p>
+<p>In the first place, it is a semi-bold font. The Windows Courier font is a Light font, i.e. the vertical strokes are relatively thin. I preferred the Courier font supplied with the printer, being thicker and blacker and easier to read, and this is the effect I aimed for with SImPL. (This may have been a mistake. Some of the Cyrillic characters, and some ligatures, proved difficult to fit into the prescribed width, and a lighter stroke weight might have made this easier. Redrawing everything, however, is not an option at this stage.)</p>
+<p>In the second place, it is an upright font. The 2741 APL golf-ball used an Italic font for the letters, and left everything else upright. This was rather splendid &#150; it gave the code a sense of urgency, somehow, and I have always liked the effect. A true Italic font, however, requires a completely redrawn set of characters. Compare Times Roman with its Italic version. Much that is labelled &#147;Italic&#148; is more properly described as &#147;Oblique&#148;. Oblique, or &#147;slanted&#148;, characters can be generated by applying a simple mathematical transform to the outline of the upright character, so SImPL provides outlines only for the upright characters, and leaves the user to generate oblique versions at runtime, should these be deemed necessary. It would be perfectly possible to write a listing program which slanted those letters used in the code as identifiers, and left upright those letters appearing in comments and literals.</p>
+<p>Accents and punctuation are rounder and blacker. Courier proper uses a square &#147;dot&#148; over the lowercase &#147;i&#148;, and then uses the same square dot in the semicolon. SImPL punctuation uses more rounded forms. Many fonts have quite insignificant diacritical markings, but not SImPL. </p>
+<p>Most importantly, the uppercase A has a flying serif. In this respect, SImPL differs from APL2741.TTF and follows Courier. Intriguingly, the APLPLUS.TTF claims to be based on a monospaced version of the Rockwell font, yet Rockwell&#146;s &#147;A&#148; has two flying serifs, while APLPLUS follows Courier in having just the one.</p>
+<p>I have gone so far with serifs as to add them to the &#147;clicks&#148; found in Latin Extended B. These characters are used in Khosa and Zulu, so if there are any Zulu APLers reading this, and they think the result looks weird, they will have to let me know, and I will change it.</p>
+<h2>The Font in Use</h2>
+<p>The following is an extract from Bitstream&#146;s documentation:</p>
+
+<blockquote>To create documents that use any of the characters in Cyberbit, you need an application that supports Unicode, and you need to know how to enter the Unicode character codes in your application. Otherwise, you&#146;re limited to using the characters in the languages that Windows 95 or NT supports.</blockquote>
+<p>Quite! To paraphrase:</p>
+<ul type=disc>
+<li>Applications support for Unicode is desperately thin.
+<li>That is your problem.
+<li>If you cannot find what you need, you will have to write it yourself.
+<li>At least, you now have a font to work with.
+</ul>
+<h2>Reviews</h2>
+<p>The objectives were</p>
+<ol type="i">
+<li>to support all modern European languages,
+<li>to support APL,
+<li>and to do so in a visually acceptable manner.
+</ol>
+<p>How well have these objectives been met?</p>
+<p>I was in the bath, after an evening spent adding some obscure accented characters to the font, and was just sliding beneath the water level, with a smug satisfied feeling of a job completed, when I felt like I had been hit on the head. There is a great gaping hole in the European coverage: no Yiddish. Yiddish uses the Hebrew script (in fact, they were using the Hebrew script before modern Hebrew was invented), but its vocabulary is 80% German, and although declining, it is still in current use and undeniably European. This is a problem. Most Hebrew fonts are script or sans-serif: a monospaced font, similar to Courier, appears to be an impossibility. Stretch some of those characters too far horizontally, and they turn into different characters. The only solution appears to be a heavy, blocked, unstressed font, with white space showing around the narrow characters. If anybody who knows of a Courier-style Hebrew font, I&#146;d love to see it.</p>
+<p>Having thus been snapped out of my complacency, I checked what else might be missing. Europe, I was always told, ended at the Urals. But where is the southern boundary? If it is the Caucasian mountains, what languages qualify as European? Georgian and Armenian scripts could be included, I suppose, but the work involved seems intimidating.</p>
+<p>There may be other smaller omissions, but it is difficult to be sure.</p>
+<p>To quote Bitstream again:</p>
+<blockquote>Bitstream has &#147;delta-hinted&#148; its most popular text sizes (10 and 12 point, at screen resolutions of 96 and 120 dpi; and 14 point, at a screen resolution of 96 dpi).</blockquote>
+<p>Well, you do not get that level of service here. The font looks OK on my screen at 10, 12, 24 and 36 points, except that &#147;q&#148; and &#147;g&#148; looked a bit untidy at 24 points. I have manually edited the hints, and that seems to have fixed it. You may get different results on your screen: this will depend on what resolution you are using, the size of the screen, the dot-pitch of the phosphor dots and (possibly) the software driver. I have absolutely no intention of editing bitmaps for improved screen display &#150; the amount of work involved is horrific. In addition, the font prints legibly at 10, 12, 24, 36 and 72 points, without any obvious nasties. That, I am afraid, is the extent of my testing.</p>
+<p>The letter forms in this font have been developed over a number of years, and as a result some inconsistencies have crept in. These are most visible in the Greek section, where artistic licence took over at one stage, and the strict design principles of the Courier font were set aside. This area needs revisiting. Likewise, some of the Cyrillic forms could be a little more relaxed. On the whole, though, I am not dissatisfied with the results.</p>
+<h2>The Future</h2>
+<p>Some of the letter shapes could be improved, and some of the letter forms could be better aligned with each other. This will happen slowly.</p>
+<p>The selection of pre-formed composites (i.e. a base character plus diacritical marking(s) available under a single Unicode value) will be slowly extended.</p>
+<p>The Unicode Standard says, with reference to the Latin Extended Additional block:</p>
+<blockquote>The characters in this block constitute a number of precomposed combinations of Latin letters with one or more general diacritical marks. ... Each of the characters contained in this block may be alternatively represented with a base letter followed by one or more general diacritical mark characters found in the Combining Diacritical Marks block.</blockquote>
+<p>This might seem to suggest that a half-decent rendering machine would not need these pre-formed characters, but would be able to generate them on-the-fly, from the base character and its diacritics. In fact, placing accents is not easy to do under program control. Far better to resolve the incoming stream of base+composite into a single Unicode codepoint, and then access a fully-formed glyph from the font. If support for Vietnamese is to become a reality, for instance, it will have to be done this way.</p>
+<p>Yiddish, Georgian and Armenian are best regarded as being on hold, indefinitely.</p>
+<p>You are entitled to a contrary opinion on my aesthetic preferences, but it is unlikely I shall take any notice, though I am open to input on other matters. </p>
+<p>Details of missing characters will always get a swift and sympathetic response. If, for instance, you prefer to write all your comments in Gibberish, but find yourself handicapped by the absence of the dotless-j-bar-with-hook, then one will be provided instanter.</p>
+<p>The font could be made available in other formats. A Type 1 version is no problem; I believe a Macintosh version is a possibility, but I have never done one. There will not be a separate Ghostscript font.</p>
+<p>The real need, now, is for utilities:</p>
+<ul type=disc>
+<li>a basic Unicode interpreter, capable at least of displaying the characters in this font;
+<li>some form of access to those font elements (e.g., small caps) without a Unicode value;
+<li>some way of toggling alternative character forms, such as old-style numerals;
+<li>some means of glyph substitution, so that the font can be extended or partially replaced with glyphs from another file.
+</ul>
+<p>Any volunteers? </p>
+
+<hr>
+
+
+<!-- breadcrumbs for articles -->
+<p style="font-size:80%">
+<a href="http://www.vector.org.uk"><img src="../../icons/iconsky.gif" align="middle" border=0 alt="Vector home"></a>
+<a href="http://www.vector.org.uk" title="VECTOR home">www.vector.org.uk</a> &gt;
+<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt;
+<a href="index.htm">contents of Vector 16.1</a></p>
+
+</font></body></html>

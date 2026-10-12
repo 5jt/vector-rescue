@@ -1,0 +1,116 @@
+17:02 using: VARCH v1.0 1 VARCH44 langlet62_23 -->
+<!-- new template created: 05Dec2005 16:43  VARCH36 -->
+
+<link href="../arch.css" type=text/css rel=stylesheet>
+
+<title>APL &ldquo;RISC Programming Style&rdquo;</title>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+
+</head>
+<body>
+
+<!-- breadcrumbs -->
+<table width=100%><tr>
+<td><font size=-1>
+<a href="http://www.vector.org.uk"><img src="../../icons/iconppl.gif"
+ align="middle" alt="VECTOR icon" home border=0" title="VECTOR home" /></a>
+<a href="../../index.php?submit=page&area=vol&page=backiss">back issues</a> &gt;
+<a href="index.htm">contents of Vector 6.2</a></font></td>
+<td align=right><font size=-1>
+For best results, install <a href="../../resource/apl385.zip">APL385 Unicode</a>
+ and use <a href="http://www.mozilla.org/products/firefox/">Firefox</a>
+</font></td></tr>
+</table>
+
+
+<div class=Section1> <!-- Start of Galley -->
+
+
+<h1>APL &ldquo;RISC Programming Style&rdquo;</h1>
+<p class=author>by G&eacute;rard Langlet
+
+<!--
+ <span class=affil>-*-</span>
+ <span class=email>(<A href="mailto:-*-">-*-</A>)</span>
+-->
+
+</p>
+
+<!-------------
+<h1 align=center>APL &ldquo;RISC Programming Style&rdquo;</h1>
+<p class=author> <i>by G&eacute;rard Langlet</i> -*-(<A href="mailto:-*-">-*-</A>)</p>
+--------------->
+
+
+<p>In general, APL functions listed as examples in books or tutorials can be improved in many ways. Let us take as an example the nice COUNTALL function presented by Alan Sykes in Vector Vol.5 No.3 page 31. This well known algorithm returns the frequency table of vector X with unique values in ascending order within the first column.</p>
+<pre class="aplu">
+      &nabla;R&larr;COUNTALL X;I;N
+[1]   X&larr;X[&#x234B;X] &#x22C4; R&larr;1 2 &#x2374;(1&uarr;X),&#x2374;X
+[2]   &rarr;(X[1]=X[&#x2374;X])/0
+[3]   I&larr;(1&#x233D;X)&ne;X &#x22C4; N&larr;I/&#x2373;&#x2374;I
+[4]   R&larr;(I/X),[1.5]N-0,&macr;1&darr;N
+      &nabla;
+</pre>
+
+<p>It works perfectly except when X is not a vector (RANK ERROR), <tt class="aplu">&#x2395;IO</tt> is set to 0 (INDEX ERROR), or X is an empty vector (INDEX ERROR). Let us now introduce the following version.</p>
+<pre class="aplu">
+      &nabla;R&larr;COUNTALLV X
+[1]   X&larr;,X &#x22C4; R&larr;&macr;1+1&uarr;X&larr;X[&#x234B;X] &#x22C4; R&larr;X&ne;1&#x233D;X&larr;R,X &#x22C4; X&larr;1&darr;R/X &#x22C4;
+     R&larr;X,[&#x2395;IO+.5]1&darr;R-&macr;1&#x233D;R&larr;R/&#x2373;&#x2374;R
+      &nabla;
+</pre>
+<pre class="aplu">
+      &#x2395;NSIZE&#x0027;COUNTALL&#x0027;
+272&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Size of object in APL*PLUS/PC)
+      &#x2395;NSIZE&#x0027;COUNTALLV&#x0027;
+192&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(i.e. 40% less)
+</pre>
+
+<p>COUNTALLV runs correctly for any numeric array in either origin. Both functions still produce DOMAIN ERROR when X contains characters; people would probably prefer to take another algorithm for counting words in a text anyway. Benchmarks have shown that both functions consume the same CPU time in various situations, e.g. about 2 seconds on an 8MHz PC-AT for <tt class="aplu">100=&#x2374;X</tt>.</p>
+
+<p>Why use goto, locals and, most of all parentheses when their use is absolutely unnecessary, even for didactic purposes?</p>
+
+<p>I have written thousands of functions in APL.68000, Dyalog, APL90, Sharp and APL*PLUS without labels, branches, parentheses (except for <tt class="aplu">&#x2395;SS</tt> in APL.68000) - and of course without any diamond in APL2 and I-APL. Moreover, the use of matrices or higher arrays is to be avoided when possible. So many nice algorithms can be developed with vectors! Matrices are nice for output only ... when the specification requires them. One can also almost completely discard execute and also encode, decode, transpose, outer product, <tt class="aplu">&#x005E;&#x233F;</tt>, <tt class="aplu">+&#x233F;</tt>, and catenate on large objects. The use of trigonometric functions and of the domino can be drastically reduced in graphics with a minimum of thinking. The &rsquo;each&rsquo; operator will also remain a monster as long as APL interpreters or compilers do not really optimise its effects.</p>
+
+<p>The "RISC" style will consist in using:</p>
+<ol type="a">
+<li>Simple and fast primitives, most of the time on vectors only.</li>
+<li>Structured programming so that any function will always be executed from the first to the last line.</li>
+<li>Short modules: no unlocked function should exceed one screen in size.</li>
+</ol>
+
+<p>I even strongly discourage people from buying or reading books in which branches are a strong topic. In all cases, functions provided in courses should take care of the <tt class="aplu">&#x2395;IO</tt> effects, and give no errors or yield explicit messages when arguments are empty or have the wrong rank; they should respect the ISO standard, be executable in several implementations without pernicious side effects and continue to work when the workspace is almost full; the use of locals, parentheses or long lines often eats space unnecessarily. People should teach how to build APL applications from small bug-free modules and how to avoid the traps.</p>
+
+<p>P.S. A compromise between size, readability, execution time and portability has to be permanently found; this is true for all programming languages, but very difficult with APL. It was a good reason to discard the parentheses, especially when I discovered that parenthesis-free code was executed 20% faster, on average, by APL.68000. You can read it quicker, you are obliged to split your expressions, you get less WS FULL hazards.</p>
+<pre class="aplu">
+(If you
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(have
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(friends
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(within
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(the
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Lisp community)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
+)
+</pre>
+
+<p>It might be a good suggestion there too.</p>
+
+
+</div> <!-- End of galley -->
+
+<hr noshade>
+<p class="crumb"><font size=-1>
+<a href="http://www.vector.org.uk">
+<img src="../../icons/iconppl.gif" align="middle" 
+alt="VECTOR icon" home border=0" title="VECTOR home" /></a>
+<a href="../../index.php?submit=page&area=vol&page=backiss">back issues</a>
+ &gt;
+<a href="index.htm">contents of Vector 6.2</a></font></p>
+
+
+<p style="{font:italic 80%;color:silver}">(webpage generated: 1 January 2007, 17:02)</p>
+
+</body></html>

@@ -1,0 +1,257 @@
+<html><head><title>Puzzle: Funny Cube</title>
+<LINK REL="stylesheet" TYPE="text/css" HREF="../vector.css"></head>
+
+<style>
+<!--
+  pre {margin-left:0pt}
+-->
+</style>
+<body>
+
+<!-- breadcrumbs for articles -->
+<p style="font-size:80%">
+<a href="http://www.vector.org.uk"><img src="../../icons/icongrey.gif" align="middle" border=0 alt="Vector home"></a>
+<a href="http://www.vector.org.uk" title="VECTOR home">www.vector.org.uk</a> &gt;
+<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt;
+<a href="index.htm">contents of Vector 16.3</a></p>
+
+<h1 align=center>Puzzle: Funny Cube</h1>
+<p class=author align=center><i>by Bernard Legrand</i></p>
+<p>During a recent exhibition, PROGILOG, held in Paris last November, the company Euriware gave me a funny advertising object: a little 3D puzzle.</p>
+
+<table border=0>
+<td>
+<p>The puzzle is made of six pieces, which are in fact the faces of a cube. The aim is to build the cube by embedding the pieces one into the other. </p>
+<p>Only 6 pieces: it looks very easy! </p>
+<p>In fact the multiple possibilities make the trick more complex than one might think.
+<td align=center>
+<img src="cube163.jpg" width=257 height=221 alt="[pic of cube]">
+</table>
+
+That gave me the idea of a little problem that I am offering both to the members of the French APL association (AFAPL), and to the readers of <i>Vector.</i></p>
+
+<h2>Representations</h2>
+<table border=0>
+<td>
+<p>Each piece is a 5 by 5 square, the sides of which are notched as shown here.</p>
+<p>The piece thickness is equal to 1, which makes it possible to fit pieces.</p>
+<td align=center>
+<img src="cube01.gif" width=215 height=212 alt="[pic of piece]">
+</table>
+
+<table border=0>
+<td>
+<p>In APL, one can represent such an object by a binary matrix, like this:
+<td align=center><pre><font face="APL2741" size=+1>
+1 0 1 0 0
+1 1 1 1 1
+0 1 1 1 0
+1 1 1 1 1
+0 1 0 1 1
+</font></pre>
+</table>
+
+<p>Of course one may rotate that piece by multiples of <font face="Symbol">p</font>/2, to obtain four configurations, which will be named  “State 0” to “State 3”, depending on the number of <font face="Symbol">p</font>/2 rotations applied.</p>
+
+<table width=80% border=1 cellpadding=4 cellspacing=0>
+<tr><th>State 0</th><th>State 1</th><th>State 2</th><th>State 3</th></tr>
+<tr><td align=center><pre><font face=APL2741 size=+1>
+1 0 1 0 0
+1 1 1 1 1
+0 1 1 1 0
+1 1 1 1 1
+0 1 0 1 1
+</font></pre>
+
+<td align=center><pre><font face=APL2741 size=+1>
+0 1 0 1 1
+0 1 1 1 1
+1 1 1 1 0
+0 1 1 1 1
+1 1 0 1 0
+</font></pre>
+
+<td align=center><pre><font face=APL2741 size=+1>
+1 1 0 1 0
+1 1 1 1 1
+0 1 1 1 0
+1 1 1 1 1
+0 0 1 0 1
+</font></pre>
+
+<td align=center><pre><font face=APL2741 size=+1>
+0 1 0 1 1
+1 1 1 1 0
+0 1 1 1 1
+1 1 1 1 0
+1 1 0 1 0
+</font></pre></tr>
+</table>
+
+<p>But: it is strictly forbidden to turn the piece over.</p>
+
+<h2>Input Data</h2>
+<p>You are given the 6 matrices which represent the six pieces, each given in its original position (State 0); here they are:</p>
+
+<table width=80% border=0>
+<tr><th>Piece 1</th><th>Piece 2</th><th>Piece 3</th></tr>
+<tr><td align=center><pre><font face=APL2741 size=+1>
+1 0 1 0 0
+1 1 1 1 1
+0 1 1 1 0
+1 1 1 1 1
+0 1 0 1 1
+</font></pre>
+
+<td align=center><pre><font face=APL2741 size=+1>
+0 0 1 0 1
+0 1 1 1 1
+1 1 1 1 0
+0 1 1 1 1
+0 1 0 1 1
+</font></pre>
+
+<td align=center><pre><font face=APL2741 size=+1>
+0 1 0 1 0
+1 1 1 1 0
+0 1 1 1 1
+1 1 1 1 0
+1 1 0 1 1
+</font></pre></tr>
+
+<tr><th>Piece 4</th><th>Piece 5</th><th>Piece 6</th></tr>
+<tr><td align=center><pre><font face=APL2741 size=+1>
+0 0 1 0 0
+1 1 1 1 0
+0 1 1 1 1
+1 1 1 1 0
+0 0 1 0 0
+</font></pre>
+
+<td align=center><pre><font face=APL2741 size=+1>
+1 1 0 1 0
+0 1 1 1 0
+1 1 1 1 1
+0 1 1 1 0
+0 1 0 1 0
+</font></pre>
+
+<td align=center><pre><font face=APL2741 size=+1>
+1 0 1 0 0
+1 1 1 1 0
+0 1 1 1 1
+1 1 1 1 0
+0 0 1 0 0
+</font></pre></tr>
+</table>
+
+<p>That set will be represented, in APL by a unique binary array, <tt><font face=APL2741 size=+1>Bin</font></tt>, of dimensions <tt><font face=APL2741 size=+1>6×5×5</font></tt>. Because one could imagine many different shapes for the pieces, that binary array <tt><font face=APL2741 size=+1>Bin</font></tt> will be our input data.</p>
+
+<pre><font face=APL2741 size=+1>
+© Generate the example data (paste into your APL session!)
+ Bin„6 5 5½0
+ Bin[1;;]„5 5½1 0 1 0 0,1 1 1 1 1,0 1 1 1 0,1 1 1 1 1,0 1 0 1 1
+ Bin[2;;]„5 5½0 0 1 0 1,0 1 1 1 1,1 1 1 1 0,0 1 1 1 1,0 1 0 1 1
+ Bin[3;;]„5 5½0 1 0 1 0,1 1 1 1 0,0 1 1 1 1,1 1 1 1 0,1 1 0 1 1
+ Bin[4;;]„5 5½0 0 1 0 0,1 1 1 1 0,0 1 1 1 1,1 1 1 1 0,0 0 1 0 0
+ Bin[5;;]„5 5½1 1 0 1 0,0 1 1 1 0,1 1 1 1 1,0 1 1 1 0,0 1 0 1 0
+ Bin[6;;]„5 5½1 0 1 0 0,1 1 1 1 0,0 1 1 1 1,1 1 1 1 0,0 0 1 0 0
+</font></pre>
+
+
+<h2>The Game</h2>
+<p>You just have to find out ALL the valid possible ways of building the cube (maybe there are more than one, who knows?)</p>
+<p>But how can we represent each solution? Here again, we need conventions. We have decided on the following conventions:</p>
+<ol>
+ <li>Among the different representations of a cube, we have chosen the following one, where the faces have been named “A” to “F”:
+ <p><img src="cube02.gif" width=340 height=235 alt="[pic of faces]">
+ <li>It is also decided that the face “A”, in the leftmost position, will be occupied by the piece used as an example in the first paragraph, in its original state (piece number 1, in 0 state). It will be called “<i>Base piece</i>”.
+ <li>In order to represent each element of the solution, just give the piece number (1 to 6), followed by its rotation state (0 to 3).
+</ol>
+
+<table><td>
+<p>With these conventions, any solution can be represented as shown here:</p>
+<p>(but, sorry: this is <b>not</b> a solution)</p>
+
+<td><table border=1 cellspacing=0 cellpadding=4>
+<tr><th>Place</th><th>Piece</th><th>State</th><td> </td></tr>
+<tr align=center><td><tt><font face="APL2741" size=+1>A</font></tt>
+</td><td><tt><font face="APL2741" size=+1>1</font></tt>
+</td><td><tt><font face="APL2741" size=+1>0</font></tt>
+</td><td><i>(Base piece)</i><tr>
+
+<tr align=center><td><tt><font face="APL2741" size=+1>B</font></tt>
+</td><td><tt><font face="APL2741" size=+1>4</font></tt>
+</td><td><tt><font face="APL2741" size=+1>2</font></tt>
+</td><td><tt><font face="APL2741" size=+1> </font></tt></tr>
+
+<tr align=center><td><tt><font face="APL2741" size=+1>C</font></tt>
+</td><td><tt><font face="APL2741" size=+1>3</font></tt>
+</td><td><tt><font face="APL2741" size=+1>0</font></tt>
+</td><td><tt><font face="APL2741" size=+1> </font></tt></tr>
+
+<tr align=center><td><tt><font face="APL2741" size=+1>D</font></tt>
+</td><td><tt><font face="APL2741" size=+1>6</font></tt>
+</td><td><tt><font face="APL2741" size=+1>1</font></tt>
+</td><td><tt><font face="APL2741" size=+1> </font></tt></tr>
+
+<tr align=center><td><tt><font face="APL2741" size=+1>E</font></tt>
+</td><td><tt><font face="APL2741" size=+1>5</font></tt>
+</td><td><tt><font face="APL2741" size=+1>1</font></tt>
+</td><td><tt><font face="APL2741" size=+1> </font></tt></tr>
+
+<tr align=center><td><tt><font face="APL2741" size=+1>F</font></tt>
+</td><td><tt><font face="APL2741" size=+1>2</font></tt>
+</td><td><tt><font face="APL2741" size=+1>3</font></tt>
+</td><td><tt><font face="APL2741" size=+1> </font></tt></td></tr>
+</table>
+</table>
+<br clear=right>
+
+<table width=60%>
+<td>Each solution can simply be represented by a 6×2 APL matrix.<br>
+The “solution” above would give:
+<td width=50><tt><font face="APL2741" size=+1>
+1 0<br>
+4 2<br>
+3 0<br>
+6 1<br>
+5 1<br>
+2 3</font></tt>
+</table>
+
+<h2>Your Program</h2>
+<p>Your (monadic) program should take, as its right operand, the <tt><font face=APL2741 size=+1>6×5×5</font></tt> binary matrix <tt><font face=APL2741 size=+1>Bin</font></tt>, given above, and produce as its result an <tt><font face=APL2741 size=+1>N×6×2</font></tt> numeric array, where <tt><font face=APL2741 size=+1>N</font></tt> is the number of solutions, each of which is represented as a <tt><font face=APL2741 size=+1>6×2</font></tt> matrix, according to the conventions given in the previous section.</p>
+
+<h2>Extension</h2>
+<p>The problem can be extended if you are allowed to turn one or more pieces over, except the <i>Base piece</i>, which must remain unchanged (just to avoid symmetrical solutions). </p>
+<p>To have the same representations for everybody, I suggest two additional conventions:</p>
+<ul>
+ <li>the pieces will be turned over using a “reverse” along the last dimension:  <tt><font face=APL2741 size=+1>²</font></tt>
+ <li>the rotations will be made <b>after</b> a piece has been turned over.
+</ul>
+<p>You can write a second program which will have an optional left operand, like this:</p>
+<blockquote>0 : pieces cannot be turned (the default)<br>
+1 : pieces can be turned upside down.</blockquote>
+<p>This new program will give a result of 3 columns:</p>
+<ul>
+ <li>Piece number (1 to 6)
+ <li>Has it been turned over (0 or1) ?
+ <li>Number of <font face="Symbol">p</font>/2 rotations applied (0 to 3)
+</ul>
+<p>Send your solutions (in any APL, J, K, 0, <a href="http://www.apl-385.demon.co.uk/rcs/programs/java/java.htm">R</A>, …) to <i>Vector</i>, of course, [email: <a href="mailto:apl385@compuserve.com">apl385@compuserve.com</a>. Postal address c/o Vector Production, Brook House, Gilling East, York YO62 4JJ, UK], but please also email them to the French APL Association secretary, Mrs Ludmila Lemagnen, at the following address: <a href="mailto:lemagnen@aol.com">lemagnen@aol.com</a>.</p>
+<p>I hope you will have fun with the game!</p>
+
+<address>Bernard Legrand, Legrand Consultants<br>
+President of the French APL Association AFAPL</address>
+
+<hr noshade>
+
+<!-- breadcrumbs for articles -->
+<p style="font-size:80%">
+<a href="http://www.vector.org.uk"><img src="../../icons/icongrey.gif" align="middle" border=0 alt="Vector home"></a>
+<a href="http://www.vector.org.uk" title="VECTOR home">www.vector.org.uk</a> &gt;
+<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt;
+<a href="index.htm">contents of Vector 16.3</a></p>
+
+</body></html>

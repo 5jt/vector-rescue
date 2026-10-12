@@ -1,0 +1,88 @@
+NB. [Session started: 2006 2 22 18 27 38.253]
+   eqn0=: 3 : '+/*:y.'                 NB. Set up equations
+   eqn1=: 3 : '*/2-/\y.,{.y.'
+   diffeqns=: 3 : '(eqn0 y.)-eqn1 y.'  NB. and differencer.
+
+NB. Pick wide range of random arguments...
+   (<./,>./)rndn=. (_1e4+?1e5$20001)%>:?1e5$1e3 
+_9879 9658
+
+   (<./,>./)|diffs=. 3 diffeqns\rndn
+0.010086928 5.5282426e10
+
+   close1s=. 10{./:|diffs     NB. Pick 10 closest results as
+   seeds=. close1s{3[\rndn    NB.  starting points...
+_0.63838384 0.37931034  _17.451852
+ _6.4783599  5.4468339   6.1741868
+. . .
+_0.10789474 0.10091743   0.3027933
+
+   diffeqns"1 seeds
+0.010086928 0.011770021 _0.023991408 ... 0.096197183
+
+NB. Start with 1st seed and look a little bit around it in 3-space: 
+   $&.>nn=. (0{seeds) +&.>/ <steps _1 1 11
++--+--+--+
+|11|11|11|
++--+--+--+
+NB. where
+steps=: 3 : 0
+NB.* steps: vector of numbers from num, to num, in numsteps steps.
+   'from to numsteps'=. y. 
+   from+(to-from)*(numsteps-1)%~i.numsteps
+)
+
+NB. Make 11x11x11 neighborhood of seed (use odd number->0 0 0 to
+NB. include original point so we can do no worse).
+   $>>,&.>/&.>/ nn 
+11 11 11 3
+
+   <./,|dd=. diffeqns&> >,&.>/&.>/ nn
+0.006545809
+NB. This is an improvement.  Point on which it is based:
+   >ix=. <($dd)#:(,|dd)i.<./,|dd
+5 5 0
+
+NB. Value of the new point:
+   >ix{>,&.>/&.>/ nn
+_0.63838384 0.37931034 _17.461852
+   diffeqns >ix{>,&.>/&.>/ nn NB. Check it...
+0.0065475394
+
+NB. Use this point as new centroid for tighter neighborhood: 
+   nn=. (>ix{>,&.>/&.>/ nn) +&.>/ <steps _0.1 0.1 11
+   <./,|dd=. diffeqns&> >,&.>/&.>/ nn
+0.00054704513
+NB. Is further improvement...
+   >ix=. <($dd)#:(,|dd)i.<./,|dd 
+5 5 4
+   >ix{>,&.>/&.>/ nn          NB. New point...
+_0.63838384 0.37931034 _17.481852
+
+NB. and so on until no significant improvement.
+
+NB. Start with another seed...
+   nn=. (1{seeds) +&.>/ <steps _1 1 11 
+   <./,|dd=. diffeqns&> >,&.>/&.>/ nn
+0.011770021
+   diffeqns 1{seeds
+0.011770021
+NB. No improvement, so tighten the search neighborhood:
+   nn=. (1{seeds) +&.>/ <steps _0.1 0.1 13
+   <./,|dd=. diffeqns&> >,&.>/&.>/ nn
+0.0029753954
+   >ix=. <($dd)#:(,|dd)i.<./,|dd
+8 4 4
+   >ix{>,&.>/&.>/ nn
+_6.4450266 5.4135006 6.1408534 
+
+NB. Tighter around better point...
+   nn=. (>ix{>,&.>/&.>/ nn) +&.>/ <steps _0.001 0.001 13
+   <./,|dd=. diffeqns&> >,&.>/&.>/ nn
+9.0611054e_5
+   >ix=. <($dd)#:(,|dd)i.<./,|dd 
+3 12 12
+   >ix{>,&.>/&.>/ nn
+_6.4455266 5.4145006 6.1418534
+
+   NB. And so on...
