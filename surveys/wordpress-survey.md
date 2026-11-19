@@ -14,7 +14,7 @@ Not in the dump: the uploaded files (`wp-content/uploads/`). The database lists 
 | Issue pages, category *Journal* | 101 | One per issue, Volume 1 No. 1 to Volume 26 No. 4 (posted 2024): contents list and PDF link |
 | Articles already held | 32 | Including 3 duplicate posts; matched by body text |
 | **Articles not held** | **11** | 10 published 2019–2022, plus a short notice |
-| Video posts | 9 | Talks at BAA meetings, May 2016; a short abstract and an embedded video each |
+| Video posts | 8 | Seven talks at the BAA meeting of 20 May 2016 (one posted twice); a short abstract and a YouTube video each |
 | Unpublished | 3 | A draft article, a pending test post, a styling sample |
 | Pages | 13 | Site furniture (About Us, Past Publications, member pages) |
 
@@ -88,7 +88,9 @@ Held but not on WordPress: 10501680 (Optima welcomes James Heslip) and 10501770 
 
 ## Video posts
 
-Talks at the BAA meeting of 20 May 2016, each a short abstract and an embedded video: *File functions in Dyalog 15* (Richard Smith), *A Memo Operator* (Roger Hui), *About PresentAPL* and *Markdown & MarkAPL* (Kai Jaeger), *XAML and APL on the Web* (Michael and Chris Hughes; two posts), *Git in the APL Room* (Stephen Taylor), *Pi for Brains* (Romilly Cocking). Not articles; whether to list them is an editorial question.
+Seven talks at the BAA meeting of 20 May 2016, in eight posts, each a short abstract (mostly the programme blurb) and a video: *File functions in Dyalog 15* (Richard Smith), *A Memo Operator* (Roger Hui), *About PresentAPL* and *Markdown & MarkAPL* (Kai Jaeger), *XAML and APL on the Web* (Michael Hughes; posted twice, 1157 and 1878), *Git in the APL Room* (Stephen Taylor), *Pi for Brains* (Romilly Cocking). All seven videos are live on the British APL Association’s YouTube channel (checked 2026-11-19). The category’s other two members are page-builder layouts.
+
+**Ruling (Stephen Taylor, 2026-11-19):** one page for the meeting’s talks, with speakers, abstracts and video links, filed beside the 2016 AGM minutes (10501690). Drafted as `transcriptions/wordpress/baa-2016-talks.md`; it awaits an `art` ID with the other WordPress additions.
 
 ## Unpublished
 

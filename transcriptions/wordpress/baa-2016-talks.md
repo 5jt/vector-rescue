@@ -1,0 +1,80 @@
+---
+title: 'BAA meeting, 20 May 2016: talks'
+date: '2016-05-20'
+in_press: true
+transcribed: 'compiled from eight vector.org.uk WordPress posts in category Video (posts 944, 1132, 1157, 1240, 1876, 1878, 1881, 1884; dump of 2026-11-17); Claude, 2026-11-19'
+review: draft
+tags:
+- APL community
+- conference reports
+queries:
+- "Not an article: one page for the seven talks, decided by Stephen Taylor 2026-11-19 (#316). It files beside the Minutes of Annual General Meeting 2016 (10501690), held the same afternoon."
+- "Each abstract is the WordPress post’s text, kept as written; the programme blurbs are in the future tense. Kept as written: “make access the host file system both easier and platform independent” (Richard Smith)."
+- "XAML and APL on the Web was posted twice (1157, 1878) with the same video. The text is 1157’s; the Userware link is 1878’s. 1878 also lists Chris Hughes as an author, but the video title and 1157 name Michael Hughes alone."
+- "The order of the talks is not recorded (the posts’ times are when they were posted); this order follows the posts’ IDs, Kai Jaeger’s two talks together. Affiliations (Dyalog) are from the AGM minutes’ attendance list."
+- "Every video is on the British APL Association’s YouTube channel; all seven checked live 2026-11-19."
+---
+
+The British APL Association met at the Royal Society of Arts, London, on Friday 20 May 2016. Seven talks were recorded; the Annual General Meeting followed (see its [minutes](../art10501690/)).
+
+## File functions in Dyalog 15
+
+Richard Smith (Dyalog)
+
+Dyalog version 15.0 will include new functions designed to make access the host file system both easier and platform independent. In this interactive session, Richard will discuss their design, demonstrate them in action and invite audience participation.
+
+[Video](https://www.youtube.com/watch?v=uN3oKgkT9cU)
+
+## A Memo Operator
+
+Roger Hui (Dyalog)
+
+Some functions are simply stated and easily understood as multiply-recursive functions. For example, the Fibonacci numbers are `{1≥⍵:⍵ ⋄ (∇ ⍵-2)+∇ ⍵-1}`. A drawback of multiple recursion is the abysmal performance even for moderate-sized arguments, consequently motivating resorts to circumlocutions. The memo operator addresses the performance problem and restores multiple recursion to the toolkit of thought. We present a memo operator modeled as a 6-line d-operator.
+
+[Video](https://www.youtube.com/watch?v=1adJ8qo6Vkc)
+
+## About PresentAPL
+
+Kai Jaeger
+
+The presentation is held in PresentAPL, a Dyalog class that produces a single HTML5 file from a Markdown file. The resulting stand-alone file comes with embedded CSS and JavaScript which acts like a PowerPoint presentation in every modern browser.
+
+[Video](https://www.youtube.com/watch?v=QaRcUoJ7I7s)
+
+## Markdown & MarkAPL
+
+Kai Jaeger
+
+Kai Jaeger presents Markdown and MarkAPL. He gives examples of its use and some tools to work with it. Kai explains that there are different implementations of markdown and that hopefully there will soon to be an official web standard.
+
+Kai describes his experiences in implementing a Markdown compiler in APL. He recalls thinking it would be a straightforward exercise but instead found it to be quite the challenge.
+
+Kai implemented a Markdown to HTML compiler in APL.
+
+[Video](https://www.youtube.com/watch?v=mcVbHLFHh5k)
+
+## XAML and APL on the Web
+
+Michael Hughes
+
+Dyalog WPF provides an excellent GUI for native windows however it is limited to native Windows platforms, excluding the web browsers or Linux.
+
+This project aims to address this deficiency using a product from [Userware](http://www.cshtml5.com) which compiles standard C# and XAML files into html5, javascript and css files. Freeing a Dyalog WPF application to run on other platforms.
+
+[Video](https://www.youtube.com/watch?v=5r0CYZRblsA)
+
+## Git in the APL Room
+
+Stephen Taylor
+
+An introduction to the APL room and the use of Git and GitHub for projects and code libraries.
+
+[Video](https://www.youtube.com/watch?v=R__WNtjt9Y0)
+
+## Pi for Brains
+
+Romilly Cocking
+
+Take a look at neural network experiments running in APL on the multi-core Raspberry Pi 3 and the new £4 Raspberry Pi Zero.
+
+[Video](https://www.youtube.com/watch?v=2FLNXQ6wszw)
