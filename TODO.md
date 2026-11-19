@@ -33,7 +33,7 @@ Expected next steps (updated 2026-11-19).
 - [x] Catalogue: `surveys/wordpress-survey.md`. IDs from 10501780 by post date. BAA 2016 talks page drafted (`transcriptions/art10501780.md`).
 - [x] The build adds a record for each transcription marked `added:` (#323); the talks page is published.
 - [x] Converted the 11 new articles (`transcriptions/art10501790.md`–`art10501890.md`), images from vector.org.uk; published.
-- [ ] Ask Jake for `wp-content/uploads`: two images are lost (Langlet's figure 1, 10501810; the pivot with totals, 10501860). Confirm Daniel Krizian reviewed *Fun Q* (10501870). Ask Dan Baronet for the `]find` output markers lost in 10501800.
+- [ ] Ask Jake for `wp-content/uploads`: two images are lost (Langlet's figure 1, 10501810; the pivot with totals, 10501860). Confirm Daniel Krizian reviewed *Fun Q* (10501870). Ask Jake for any source documents of Dan Baronet's *Finding text in files* (10501800; Dan died in 2016, so the post of 2019 came from an earlier text), for the `]find` output markers lost there.
 - [ ] Compare the 12 duplicate posts that score below 0.85 with the held texts; better sources for 10501740–10501760.
 - [ ] Push to `official` once the ZIP and SQL content are digested.
 
