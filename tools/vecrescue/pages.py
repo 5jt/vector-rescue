@@ -98,8 +98,17 @@ def wayback_issue_pdfs(wayback_root):
     """{(volume, issue): path} of whole-issue PDFs published on vector.org.uk
     (uploaded to its WordPress site in 2022 and 2024; some, like 26:4, were
     made in the PHP era), as captured by the Wayback Machine."""
+    return _complete_issue_pdfs(Path(wayback_root) / "vector.org.uk" / "wp-content" / "uploads")
+
+
+def wordpress_issue_pdfs(wordpress_root):
+    """{(volume, issue): path} of whole-issue PDFs fetched from vector.org.uk
+    itself (#321): complete copies of issues whose captures are truncated."""
+    return _complete_issue_pdfs(Path(wordpress_root) / "wp-content" / "uploads")
+
+
+def _complete_issue_pdfs(uploads):
     found = {}
-    uploads = Path(wayback_root) / "vector.org.uk" / "wp-content" / "uploads"
     for path in sorted(uploads.rglob("*.pdf")) if uploads.is_dir() else []:
         key = _issue_of(path.name)
         if key and is_complete_pdf(path.read_bytes()):  # some captures are truncated

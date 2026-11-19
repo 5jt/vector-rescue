@@ -488,3 +488,19 @@ def test_corrections_have_no_duplicate_keys():
     keys = Counter((max(s for s in sections if s[0] <= m.start())[1], m.group(1))
                    for m in re.finditer(r'^  "([\d:.]+)":', text, re.M))
     assert [k for k, n in keys.items() if n > 1] == []   # a second key silently replaces the first
+
+
+from vecrescue.pages import wordpress_issue_pdfs
+
+
+def test_wordpress_copy_replaces_a_truncated_capture(tmp_path):
+    """Complete copies fetched from vector.org.uk (#321) sit in
+    sources/wordpress/wp-content/uploads/, with no host folder."""
+    w = tmp_path / "wayback/vector.org.uk/wp-content/uploads/2022/07"
+    w.mkdir(parents=True)
+    (w / "VOL.3-NO.4-APRIL-1987.pdf").write_bytes(b"%PDF-1.3\n" + b"0" * 100)        # truncated
+    p = tmp_path / "wordpress/wp-content/uploads/2022/07"
+    p.mkdir(parents=True)
+    (p / "VOL.3-NO.4-APRIL-1987.pdf").write_bytes(b"%PDF-1.3\n...\n%%EOF\n")
+    assert wayback_issue_pdfs(tmp_path / "wayback") == {}
+    assert wordpress_issue_pdfs(tmp_path / "wordpress") == {("3", "4"): p / "VOL.3-NO.4-APRIL-1987.pdf"}
