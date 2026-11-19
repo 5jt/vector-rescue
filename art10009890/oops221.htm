@@ -1,0 +1,1083 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=UTF-8">
+<title>An Introduction to Object Oriented Programming for APL Programmers</title>
+<link href="../arch.css" type=text/css rel=stylesheet>
+</head>
+
+<body>
+
+<!-- breadcrumbs -->
+<table width=100%><tr>
+  <td><font size=-1>
+	<a href="http://www.vector.org.uk"><img src="../../icons/iconorng.gif" align="middle" alt="VECTOR icon" home border=0" title="VECTOR home" /></a> 
+	<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt; 
+	<a href="index.htm">contents of Vector 22.1</a></font></td>
+  <td align=right><font size=-1>For best results, install <a href="../../resource/apl385.zip">APL385 Unicode</a> and use <a href="http://www.mozilla.org/products/firefox/">Firefox</a></font></td></tr>
+</table>
+
+<div class=Section1> <!-- Start of Galley -->
+
+  <h1>An Introduction to Object Oriented Programming for APL Programmers</h1>
+
+  <p class="author">Morten Kromberg, Dyalog Ltd, October 2005</p>
+
+  <h2><a name="_Toc117440111">Introduction</a></h2>
+
+  <p>Our goal has been not only to explain the
+details of new functionality in version 11.0 of Dyalog APL, but also be mildly
+provocative and entertaining, to convey a flavour of the thinking which is
+behind the object oriented extensions to APL, and something about how the
+development team imagines that you might make use of the new features &#x2013; in the
+belief that this will make them easier to understand and use.</p>
+
+  <p>It is recommended that you have version 11.0 of
+Dyalog APL available for experiments as you work through the notes, and use it
+to verify your understanding of the new features as they are introduced. </p>
+
+  <p>If you have an electronic copy, and the &#x201c;Paste
+Text as Unicode&#x201d; option enabled (see Options|Configure|Trace/Edit), you should
+be able to copy and paste code from the text into the Dyalog APL editor and
+session. Alternatively, the folder <span class="APLU">OO4APL</span>, included with the version 11.0
+installation, contains a workspace for each of the classes and namespaces used
+in the examples.</p>
+
+  <h2>Classes in Dyalog 11.0</h2>
+
+  <p>Version
+11.0 of Dyalog APL introduces <i>Classes</i>
+to the APL language. A class is a blueprint from which one or more <i>Instances</i> of the class can be created
+(instances are sometimes also referred to as <i>Objects). </i>For example, the following defines a very simple class
+which implements a simple timeseries analysis module:</p>
+
+  
+
+  <pre class="APLU">:Class TimeSeries
+    
+    :Field Public Obs      &#9053; Observed values
+    :Field Public Degree&#8592;3 &#9053; 3rd degree polynomials by default
+    
+    &#8711; r&#8592;PolyFit x;coeffs
+      :Access Public
+      &#9053; Fit polynomial to observed points to compute values at x 
+      coeffs&#8592;Obs&#9017;(&#9075;&#9076;Obs)&#8728;.*0,&#9075;Degree &#9053; Find polynomial coeffs
+      r&#8592;coeffs+.&#xd7;&#9033;x&#8728;.*0,&#9075;Degree      &#9053; Compute fitted f(x)
+    &#8711;
+    
+    &#8711; make args
+      :Access Public
+      :Implements Constructor 
+      Obs&#8592;args
+    &#8711;
+    
+ :EndClass &#9053; Class TimeSeries    </pre>
+
+  <p>The above
+description declares that instances of <span class="APLU">TimeSeries</span><a href="#_ftn1" name="_ftnref1" title="">[1]</a> will have four <i>Members</i>: two <i>Public Fields</i>
+called <span class="APLU">Obs</span> and <span class="APLU">Degree</span> (the latter having a default value
+of 3), a <i>Public Method</i> called <span class="APLU">PolyFit</span> (header plus 4 lines of code) and a
+<i>Constructor</i>, which is implemented by
+the function <span class="APLU">make</span> (header plus 3 lines of code). Note that methods (or functions) begin
+and end with a <span class="APLU">&#8711;</span>. The term <i>Public </i>means that
+the methods are for &#x201c;public consumption&#x201d; by all users of the class.</p>
+
+  <p>The system
+function &#9109;<span class="APLU">NEW</span> is used to create new instances
+using the class definition. The first element of the right argument to <span class="APLU">&#9109;NEW</span> must be a class, the second element contains <i>instance parameters</i>, which are passed to
+the constructor:</p>
+
+  <pre class="APLU">      ts1&#8592;&#9109;NEW TimeSeries (1 2 2.5 3 6)</pre>
+
+  <p>During
+instantiation, the constructor function make is called, and it initialises the
+instance by storing its argument in the public field <span class="APLU">Obs</span>. We can now use the instance <span class="APLU">ts1</span> in much the same way as if it were
+a namespace:<br>
+  </p>
+
+  <pre class="APLU">      ts1.Obs
+1 2 2.5 3 6
+ 
+      ts1.PolyFit &#9075;5
+0.9714285714 2.114285714 2.328571429 3.114285714 5.971428571
+ 
+      1&#9045;ts1.(Obs-PolyFit &#9075;&#9076;Obs)
+0.0 &#xaf;0.1 0.2 &#xaf;0.1 0.0</pre>
+
+  <p>The <span class="APLU">Degree</span> field allows us to decide the
+degree of the polynomial function used when fitting the curve. The following
+selects a straight line:</p>
+
+  <pre class="APLU">      ts1.Degree&#8592;1
+      ts1.PolyFit &#9075;5
+0.7 1.8 2.9 4 5.1</pre>
+
+  <p>Arrays of
+instances are handled in much the same way as arrays of namespaces:</p>
+
+  <pre class="APLU">      &#9109;rl&#8592;16807 &#9053; Value in CLEAR WS - so we get the same random numbers       
+      tss&#8592;{&#9109;NEW TimeSeries ((10&#xd7;&#9075;5)+?5&#9076;5)}&#xa8;&#9075;4
+      
+      &#8593;tss.Obs 
+11 24 33 43 52
+11 24 34 45 52
+13 25 31 41 53
+14 21 32 41 53
+      
+      tss.Degree&#8592;2 3 2 1
+ 
+      1&#9045;&#8593;tss.PolyFit &#8834;&#9075;10
+ 11.4 23.0 33.6 43.2 51.8 59.4 66.0 71.6 76.2  79.8
+ 11.1 23.5 34.8 44.5 52.1 57.2 59.2 57.6 52.0  41.8
+ 14.0 22.7 32.0 41.9 52.4 63.4 75.0 87.2 99.9 113.2
+ 12.6 22.4 32.2 42.0 51.8 61.6 71.4 81.2 91.0 100.8</pre>
+
+  <p>APL developers
+have often used naming standards, and in recent versions of Dyalog APL
+namespaces, to collect related functionality into modules. Users of Dyalog APL
+will recognise that an instance is very similar to a <i>Namespace</i>. One of the big advantages of classes is that they make
+it possible to &#x201c;clone&#x201d; a namespace and create multiple data &#x201c;contexts&#x201d;, without
+copying the code. This saves space, but more importantly it means that you are
+less likely to lose track of where the source code is.</p>
+
+  <p>Imagine
+that we have prototyped our way through to a &#x201c;classical&#x201d; solution to fitting
+multiple polynomials. Looking back, we are able to copy the following
+expressions from our session:</p>
+
+  <pre class="APLU">      data&#8592;(4&#9076;&#8834;10&#xd7;&#9075;5)+?4&#9076;&#8834;5&#9076;5       &#9053; Generate some test data
+      exp&#8592;0,&#xa8;&#9075;&#xa8;2 3 2 1              &#9053; Our polynomials vary by degree
+      coeffs&#8592;data&#9017;&#xa8;(&#8834;&#9075;5)&#8728;.*&#xa8;exp
+      1&#9045;&#8593;coeffs+.&#xd7;&#xa8;&#9033;&#xa8;(&#8834;&#9075;10)&#8728;.*&#xa8;exp
+ 14.2 23.0 32.8 43.6 55.4 &#x2026;etc&#x2026;</pre>
+
+  <p>After
+thinking a bit more about it, we might identify a couple of potential
+functions. If we use dynamic functions, we can refactor our solution as
+follows:</p>
+
+  <pre><span class="APLU">      polyfit&#8592;{&#9077;&#9017;(&#9075;&#9076;&#9077;)&#8728;.*0,&#9075;&#9082;}
+      polycalc&#8592;{&#9082;+.&#xd7;&#9033;&#9077;&#8728;.*&#xaf;1+&#9075;&#9076;&#9082;}
+      1&#9045;&#8593;(2 3 2 1 polyfit&#xa8;data) polycalc&#xa8;&#8834;&#9075;10
+14.2 23.0 32.8 43.6 55.4 &#x2026;etc&#x2026;  </span>&#xa0;&#xa0;&#xa0; </pre>
+
+  <p>In a
+traditional APL system, we could now create a workspace called <span class="APLU">POLY</span> with these functions inside, write
+some documentation explaining how to call them, and then store that
+documentation in a variable in the workspace, or in a separate document. Anyone
+wanting to use the functions would have to find the relevant documentation and
+make sure that he did not already have any functions with these names in his
+application (or variables with the same name as the documentation). A namespace
+could be used to isolate the names from our application code.</p>
+
+  
+
+  <p>Classes
+make it possible for the developer to encapsulate functionality in a way which
+keeps related code and data together, avoids name conflicts <b>and</b> provides some degree of
+documentation which suggests and can limit how the solution is used. This makes
+the module easier to learn to use, while the control over how the module can be
+used makes it easier to maintain. At the same time, splitting an application
+into objects with well defined behaviour and interfaces is a valuable tool of
+thought when dealing with complex design issues.</p>
+
+  
+
+  <p>On the
+other hand, it is also clear that the simple functions <span class="APLU">polyfit</span> and <span class="APLU">polycalc</span> are more <i>generally</i> useful than the <span class="APLU">PolyFit</span> method of the class <span class="APLU">TimeSeries</span>, which exposes a specific use of
+polynomial fitting. The encapsulation of data within instances can make it
+harder, slower, and sometimes virtually impossible to go &#x201c;across the grain&#x201d; and
+use the properties and methods in a way which is different from that which was
+intended by the class designer. OO fans may argue that OO will help you think
+more carefully about how things will be used and this is to your advantage.
+However, APL is often used in problem areas where requirements change <i>very</i> unexpectedly. Providing a flexible
+solution with OO design is as much of an art, and requires the same insight into
+where the solution might be heading, as any other technique.</p>
+
+  <p>A key
+design goal for version 11.0 has been to make it as easy as possible to blend
+the array and functional paradigms which already make APL so productive, with
+the object oriented view of data, a Tool of Thought in its own right.</p>
+
+  <p>This is one
+of the reasons why, if you have a namespace <span class="APLU">POLY</span> which contains the two dynamic fns
+we developed above, you can add a line which says:</p>
+
+  <pre class="APLU">    :Include #.POLY</pre>
+
+  <p>&#x2026; at the
+beginning of <span class="APLU">:Class TimeSeries</span>, and subsequently write <span class="APLU">PolyFit</span> as:</p>
+
+  <pre class="APLU">    &#8711; r&#8592;PolyFit x;coeffs
+      :Access Public
+      &#9053; Use cubic fit of observed points to compute values at x 
+ 
+      coeffs&#8592;Degree polyfit Obs &#9053; Find polynomial coeffs
+      r&#8592;coeffs polycalc x       &#9053; Compute fitted f(x)
+    &#8711;</pre>
+
+  <p>This <i>Introduction to Object Oriented Programming for APL Programmers</i> will attempt to illuminate the issues and put the
+reader in a better position to decide when and how to combine array, functional
+and object thinking. In order to achieve this, we will:</p>
+  <ul>
+
+
+    <li>First, briefly explore the thinking which lead to the emergence of OO, in order to
+understand the type of problems which OO is likely to help us solve.</li>
+    <li>Introduce the fundamentals of OO programming using a number of examples written in Dyalog
+APL version 11.0.</li>
+    <li>Illustrate how the new OO functionality in Dyalog APL makes it easier than ever before to
+implement components which can be &#x201c;consumed&#x201d; by other development tools.</li>
+    <li>Where possible, try to remember to discuss alternative solutions, and present some
+guidelines on how to choose between the various techniques which are available.
+Given that the temperament and environment of the developer, the department and
+the company will weigh heavily on any choice of technique, it is clear from the
+outset that there will be no universal answers.</li>
+  </ul>
+
+  <h2><a name="_Toc117440112">Origins</a></h2>
+
+  <p>Although OO
+feels like a recent invention to many of us, the first OO language saw the
+light of day around the same time as the first APL interpreter. SIMULA
+(SIMUlation LAnguage) was designed and implemented by Ole-Johan Dahl and
+Kristen Nygaard at the Norwegian Computing Centre between 1962 and 1967, based
+on ideas which Nygaard had developed during the 1950&#x2019;s<a href="#_ftn2" name="_ftnref2" title="">[2]</a>.
+At the same time that Ken Iverson was working on new ways to conceptualise
+algebra and computation involving large groups of numbers, Nygaard was
+searching for ways to conceptualise a different type of systems using symbolic
+notation<a href="#_ftn3" name="_ftnref3" title="">[3]</a>.</p>
+    
+  <p>The focus
+of the NCC work was on the simulation of complex systems. Nygaard explained the
+rationale behind SIMULA as follows:</p>
+    
+  <p class="indent"><i>SIMULA represents an
+effort to meet this need with regard to discrete-event networks, that is, where
+the flow may be thought of as being composed of discrete units demanding
+service at discrete service elements, and entering and leaving the elements at
+definite moments [sic] of time. Examples of such systems are ticket counter
+systems, production lines, production in development programs, neuron systems,
+and concurrent processing of programs on computers.</i></p>
+
+  <p>The desire
+to describe and model so-called discrete-event networks led to object-oriented
+notation, in which the description of the ways in which the &#x201c;service elements&#x201d;
+interacted with each other is separated from the details of how each service
+element (or <i>object</i>) manages its
+internal state. As with APL, the language subsequently evolved into a notation
+which could be executed by computers.</p>
+
+  <p>SIMULA
+turned out to be a powerful notation for simulating complex systems, and other
+OO languages followed. Initially, OO languages were used for planning and
+simulation applications (much the same areas as APL has been most successfully
+applied to), but with the arrival of graphical user interfaces, which are a
+form of discrete-event network, and concurrent or networked computing systems,
+OO languages proved that they had more to offer. As systems and teams used to
+implement them have grown in size and complexity, OO has grown from a humble
+start as a specialist modelling technique to become the most popular paradigm
+for describing computer systems.</p>
+
+  <p>With Dyalog
+APL version 11.0, Arrays, Functions and Objects are now happily married. It is
+possible to have arrays of instances, and instances can contain arrays (of more
+instances, if necessary). The challenge is to pick the best architecture for a
+given problem!</p>
+
+  <h3><a name="_Toc117440113">Queue
+SIMULAtion</a></h3>
+
+  <p>As an
+illustration, let us take a look at one of the classical examples which the
+inventors of SIMULA used the new language to model: The <i>queue</i>. Customers arrive at random intervals and enter the queue. An
+algorithm simulates the time required to process each customer. The goal is to
+run a number of simulations with different parameters and see how long the
+queue gets and how long customers have to wait. With luck, we will discover how
+the queue or system of queues can be optimized, and measure the effect of
+improving the system without having to perform expensive experiments. In the
+post-modern age, these systems are probably being used to see how much <i>longer</i> the queues will get if the Post
+Office spends <i>less</i> money. Assuming
+that the planning department has not already been terminated.</p>
+
+  <p>The following is a simple <span class="APLU">Queue</span> class, written in Dyalog APL version 11.0<a href="#_ftn4" name="_ftnref4" title="">[4]</a>.</p>
+
+  <pre class="APLU">:Class Queue    
+       
+   :Field Public Instance History&#8592;&#9068;   
+       Customers&#8592;&#9068;
+       
+       &#8711; r&#8592;Length 
+         :Access Public
+          r&#8592;1&#8835;&#9076;Customers 
+       &#8711;
+       
+       &#8711; Join Customer
+         :Access Public
+         Customers&#8592;Customers,&#8834;Customer,(3&#8835;&#9109;AI),1+&#9076;Customers
+         :If 1=&#9076;Customers &#8900; Serve&amp;0 &#8900; :EndIf
+       &#8711;
+           
+       &#8711; Serve dummy;t;elapsed
+       &#9053; Start serving queue in new thread when queue length grows to 1
+       &#9053; Stop when queue is empty.     
+               
+         :Repeat              
+             &#9109;DL 9+?11 &#9053; Processing takes between 10 and 20 seconds
+             elapsed&#8592;(3&#8835;&#9109;AI)-1 2&#8835;Customers &#9053; Since customer entered queue
+             History,&#8592;&#8834;(elapsed,1&#8835;Customers)[2 1 4] 
+             &#9053; History records (Cust#, Total Time, Initial Queue Length)
+             Customers&#8592;1&#8595;Customers &#9053; Customer has left the building
+         :Until 0=&#9076;Customers
+       &#8711;
+           
+    :EndClass &#9053; Class Queue</pre>
+
+
+
+  <p>The class
+has two <i>public methods</i> called <span class="APLU">Join</span> and <span class="APLU">Length</span>, which are used to add customers to
+the end of the queue and report the current length of the queue, respectively. </p>
+
+  <p>There is a <i>public field</i> <span class="APLU">History</span> which contains a record of
+customers who passed through the system. Note that <i>members</i> of a class are <i>private</i>
+unless they are declared to be public. Private members cannot be referenced
+from outside the class.</p>
+
+  <p>While the <span class="APLU">TimeSeries</span> class in the previous chapter only
+had public members, <span class="APLU">Queue</span> has a <i>private field</i> called <span class="APLU">Customers</span>, and a <i>private method</i> called <span class="APLU">Serve</span>, which is launched in a background thread when
+there are customers in the queue (thread-savvy readers are requested to ignore
+the potential race condition if <span class="APLU">Server</span> drops the last element of <span class="APLU">Customers</span> at the same time as <span class="APLU">Join</span> adds one).</p>
+
+  <p>&#xa0;If we have
+a workspace containing the above class<a
+href="#_ftn5" name="_ftnref5" title="">[5]</a>,
+we can experiment with it from the session:</p>
+
+
+
+  <pre class="APLU">      aQueue&#8592;&#9109;NEW Queue
+      aQueue.Join&#xa8;1 2 3   &#9053; 3 customers stormed in together
+      aQueue.Length       &#9053; Result will depend on how quickly you type
+2
+      &#9109;&#8592;&#9109;DL 60
+60.022
+      aQueue.Length
+0</pre>
+
+
+
+  <p>The
+variable <span class="APLU">History</span> contains a log of the customers who passed through the queue, the time
+they spent in line and the length of the queue when they entered it. Since <span class="APLU">History</span> was declared as a public field, we
+can refer to it from &#x201c;outside&#x201d;:</p>
+
+  
+
+  <pre class="APLU">      &#8593;aQueue.History        &#9053; Complete history
+1 11032  1 
+2 26800  2 
+3 41833  3
+   
+      &#8968;/aQueue.(&#xaf;2&#8593;&#xa8;History) &#9053; Longest wait and max queue length
+ 41833 3</pre>
+
+  <h3><a name="_Toc117440114">Encapsulation</a></h3>
+
+  <p>In our <span class="APLU">Queue</span> class, we have decided that the <span class="APLU">Customer</span> field, which contains the list of
+customers in the queue, is <i>private</i>.
+We do not want users of our class to reference it. We have provided a public
+method <span class="APLU">Length</span> which
+makes it possible to determine how long it is. </p>
+
+  <p>Why have we
+not simply made the variable public and allowed the user to inspect <span class="APLU">aQueue.Customers</span> using <span class="APLU">&#9076; </span>or other primitive functions, rather than doing extra work to implement
+a method ourselves? We would typically do this if we want to reserve the right
+to change this part of the implementation in the future, or if we do not wish
+to take responsibility for the potential bugs resulting from the use of these
+members (&#x201c;Warranty void if seal broken&#x201d;).</p>
+
+  <p>If we had
+exposed <span class="APLU">Customers</span>
+directly, users would have the right to expect that we would continue to have a
+one-dimensional vector called <span class="APLU">Customers</span> with similar characteristics in the future. It would be virtually
+impossible for us (as class designers) to estimate the impact of a change to
+this variable, without reading all the application code to see <i>exactly</i> how it was being used. And even
+then, we would probably get it wrong. The user might also feel tempted to
+change the variable, which might cause bugs to be reported to us, even though
+there were no errors in our code.</p>
+
+  <p>If our
+class evolved into a more general tool where the contents of the queue were not
+necessarily customers, we could not rename it &#x2013; so we would end up with a system
+where variable names were misleading<a
+href="#_ftn6" name="_ftnref6" title="">[6]</a>.
+We cannot turn it into a 2-dimensional matrix, store it on file, or make any
+other architectural changes which might be convenient as requirements evolve
+and we need to store more or different types of information about the queue.</p>
+
+  <p>We have
+thought ahead and decided that it will always be reasonable for users of the Queue class to ask what the current
+length of the queue is, and therefore we have exposed a public method for this
+purpose.</p>
+
+  <p><i>Encapsulation</i>, sometimes also referred to as <i>information hiding</i>, is one of the
+cornerstones of OO. The ability to decide which members of a class are visible
+to the users on the one hand and the developer of the class on the other is
+seen as the key to reduced workload, improved reliability and maintainability
+of the code on <i>both</i> sides of the
+divide. Dyalog APL version 11.0 takes a strict view of encapsulation. It is <i>not</i> possible to reference private
+members (a <span class="APLU">VALUE ERROR</span> will be signalled if you try).</p>
+
+
+
+  <pre class="APLU">      aQueue.Customers
+VALUE ERROR
+      aQueue.Customers
+      ^</pre>
+
+
+
+  <p>Clearly, if
+the designer of a class you are using has decided to hide information which you
+really need before 9am tomorrow, this can be frustrating. Before you get too
+concerned, the good news is that there are a variety of techniques for getting
+past the gatekeepers in an emergency, or in a &#x201c;prototyping session&#x201d;. We will
+discuss a couple of these in the following chapters. However, to enjoy the full
+benefits of OO, it is important to have the discipline to use such tricks only
+when required, and re-factor the class in question at the first available
+opportunity.</p>
+
+  <p>The
+variable <span class="APLU">History</span> is obviously susceptible to the same problems as <span class="APLU">Customers</span>, and seasoned OO designers would
+probably consider it to be bad form to expose it. This is perfectly true,
+exposing all the result data in this form to make it easy to analyze is a
+result of &#x201c;Traditional APL thinking&#x201d;. We will investigate a number of
+alternatives which we could have used to expose data in subsequent chapters.</p>
+
+  <h2><a name="_Toc117440115">Working with Classes</a></h2>
+
+  <p>In order to
+help you successfully experiment with APL as we explore more OO functionality,
+let us take a closer look at the practical details of functionality which has
+been introduced in the first two chapters, and get comfortable with actually
+working with classes and instances.</p>
+
+  <p>The easiest
+way to create a class is probably to use the editor. Start an <span class="APLU">)ED</span> session, prefixing the name of your
+new class by a circle (ctrl+O on most keyboards). We&#x2019;re going to use a class
+for generating random numbers, to illustrate some important issues:</p>
+
+  <pre class="APLU">      )ed &#9675;Random</pre>
+
+  <p>This will
+present you with an empty class, which only contains the<span class="APLU"> :Class </span>and<span class="APLU"> :EndClass</span> statements. Insert a few lines to
+create the following simple class:</p>
+
+  <pre class="APLU">:Class Random
+              
+    :Field Private InitialSeed&#8592;42
+    &#9109;&#8592;'Default Initial Seed is: ',&#9045;InitialSeed
+       
+    &#8711; make args
+      :Implements Constructor 
+      :If 0&#8800;args &#8900; InitialSeed&#8592;args &#8900; :EndIf
+      Reset
+    &#8711;
+       
+    &#8711; Reset
+      :Access Public
+      &#9109;RL&#8592;InitialSeed
+      'Random Generator Initialised, Seed is ', &#9045;&#9109;RL
+    &#8711;
+       
+    &#8711; r&#8592;Flat x
+      :Access Public
+      &#9053; Return x random numbers in range [0,1&gt;, flat distribution
+      r&#8592;(&#xaf;1+?x&#9076;100)&#xf7;100
+    &#8711;
+       
+:EndClass &#9053; Class Random</pre>
+
+  <p>Take care to remember both the beginning and ending <span class="APLU">&#8711;</span> for each method, or you will be
+rewarded with a bewildering array of error messages.</p>
+
+  <p>This class
+can be used to generate sequences of random numbers with a &#x201c;flat&#x201d; distribution
+between 0 and 1 (with only 2 digits, to allow us to recognize them in the
+examples). One advantage of encapsulating it in a class is that it can manage
+its own seed (<span class="APLU">&#9109;RL</span>) completely separately from the
+rest of the system. We either can generate repeatable or suitably randomized
+sequences according to the requirements of our application.</p>
+
+  <p>As you exit
+from the editor, APL evaluates the class definition from top to bottom. Most of
+the script consists of function definitions, but in our class there are two APL
+expressions, which are executed as the script is fixed in the workspace:</p>
+
+  <pre class="APLU">    InitialSeed&#8592;42
+    &#9109;&#8592;'Default Initial Seed is: ',&#9045;InitialSeed</pre>
+
+
+
+  <p>As a
+result, you should see one line written to the session as you leave the editor.
+If there are errors in any of the executable lines in your script, you will see
+one or more error messages in the status window, and the class will not be
+fixed in the workspace. In the alpha release you must correct all errors
+(comment lines out if necessary) to fix the class, but in the final product you
+will be able to exit while the class contains errors. This will mean that you
+can save it and return to it later, but you will not be able to use the class
+to create instances until the errors have been corrected.</p>
+
+  <p>Let&#x2019;s
+perform some experiments with our new class:</p>
+
+  <pre class="APLU">      rand1&#8592;&#9109;NEW Random 0
+Random Generator Initialised, Seed is 42</pre>
+
+  <p>The
+constructor also has an output statement, which shows us which initial seed was
+selected for the instance.</p>
+
+  <pre class="APLU">      rand1.Flat 6
+0 0.52 0.73 0.26 0.37 0.19
+   
+      rand2&#8592;&#9109;NEW Random 0
+Random Generator Initialised, Seed is 42
+   
+      rand2.Flat 3
+0 0.52 0.73
+   
+      ?6 6 6
+1 5 3
+   
+      rand2.Flat 3
+0.26 0.37 0.19</pre>
+
+
+
+  <p>As can be
+seen above, each instance produces the same sequence of numbers, if the same
+initial seed is used. The sequence is unaffected by the use of ? in the root, or&#xa0; indeed anywhere else in the application.</p>
+
+  <pre class="APLU">      rand3&#8592;&#9109;NEW Random 7913
+Random Generator Initialised, Seed is 7913
+   
+      rand3.Flat 6
+0.06 0.85 0.1 0.29 0.78 0.62
+   
+      rand3.Reset
+Random Generator Initialised, Seed is 7913
+   
+      rand3.Flat 6
+0.06 0.85 0.1 0.29 0.78 0.62</pre>
+
+
+  <p>We can
+create a generator with a non-default initial seed, and we can reset the
+sequence. If you are accustomed to using namespaces, the above behaviour will
+not come as a surprise, as you will be accustomed to each namespace having a
+separate set of system variables. However, the encapsulation provided by an
+instance is significantly stronger, as illustrated by the following example:</p>
+
+  
+
+  <pre class="APLU">      rand4&#8592;&#9109;NEW Random 0
+Random Generator Initialised, Seed is 42
+   
+      rand4.Flat 3
+0 0.52 0.73
+   
+      rand4.(?6)
+4
+   
+      rand4.Flat 3
+0.26 0.37 0.19</pre>
+
+  <p>If <span class="APLU">rand4</span> had been a namespace rather than an
+instance, the call to <span class="APLU">?</span> inside <span class="APLU">rand4</span> would have modified <span class="APLU">&#9109;RL</span> in the namespace, and the
+subsequent call to <span class="APLU">Flat</span> would have continued from a different point in the sequence. However,
+APL expressions executed on an instance from outside are executed in an &#x201c;APL
+execution space&#x201d;, which is <i>separate</i>
+from the space in which the class members run.</p>
+
+  <p>In effect,
+when an instance of a class is created, APL encapsulates it within a namespace.
+This has always been the case for instances of COM or DotNet classes, and as a
+result, Dyalog APL also allows the use of APL expressions in parenthesis
+following the dot after the name of one of these instances. Such APL
+expressions have access to all the public members of the instance, but are
+(obviously, since Excel cannot run APL expressions) executed outside the
+instance itself, as in the following example:</p>
+
+ 
+
+  <pre class="APLU">      'XL' &#9109;WC 'OLECLIENT' 'Excel.Application'
+      XL.(Version,'/',OperatingSystem)
+11.0/Windows (32-bit) NT 5.01</pre>
+
+
+
+  <p>In this
+example (which would work the same way in version 9 or 10), there is an APL
+expression which references the public properties <span class="APLU">Version</span> and <span class="APLU">OperatingSystem</span> and catenates them together.</p>
+
+  <p>For
+consistency, the same approach is used for instances of APL-based classes,
+rather than simply running the expressions as if the instance was a namespace.
+Thus, the behaviour of an APL class will not change if it is exported to a
+DotNet Assembly or a COM DLL and subsequently used from APL.</p>
+
+  <p>When an
+instance method such as <span class="APLU">Flat</span> is reference in one of these expressions, <b><i>it</i></b> runs in the instance
+environment. For example, the example on the previous page could have been
+written:</p>
+
+
+
+  <pre class="APLU">    rand4&#8592;&#9109;NEW Random 0
+Random Generator Initialised, Seed is 42
+    rand4.Flat 6
+0 0.52 0.73 0.26 0.37 0.19
+   
+    Rand4.Reset
+Random Generator Initialised, Seed is 42
+    rand4.(&#9021;(Flat 3) (?6) (Flat 3))
+ 0 0.52 0.73  4  0.26 0.37 0.19 </pre>
+
+  
+
+  <p>The reverse
+is required because the rightmost call to <span class="APLU">Flat</span> happens first. The important point is that the call to (<span class="APLU">?6</span>) in the middle of the expression
+executes in and uses the <span class="APLU">&#9109;RL</span> in the <i>APL space</i> and does not modify the value of&#xa0; <span class="APLU">&#9109;RL</span> in the <i>instance space</i>.</p>
+
+
+
+  <p><b>Note:</b> There are a couple of small potential
+surprises which are worth mentioning: </p>
+
+  
+
+  <p>First, the
+APL space inherits the values of <span class="APLU">&#9109;IO</span>, <span class="APLU">&#9109;ML</span> and other system variables when the object was
+instantiated &#x2013; <i>not</i> where it is being
+used.&#xa0; Secondly, if you mistype the name
+of a property or field in an assignment, this will create a variable in the APL
+space. For example:</p>
+
+  
+
+  <pre class="APLU">      ts1&#8592;&#9109;NEW TimeSeries (1 3 2 4 1)
+      ts1
+#.[Instance of TimeSeries]
+      ts1.Obs
+1 3 2 4 1
+   
+      ts1.obs&#8592;1 3 2 4 2 &#9053; Lowercase &#x201c;o&#x201d;, note no error message!</pre>
+
+  
+
+  <p>This is the
+same behaviour as you would get if you made a spelling error in APL, but might
+come as a bit of a surprise in an OO setting. However, we believe that it is
+desirable to allow a user to introduce own names for analytical purposes. For
+example, if <span class="APLU">iPlan</span> is an instance of some object which exposes properties named <span class="APLU">Actual</span> and <span class="APLU">Budget</span>, you should be allowed to introduce
+a new property:</p>
+
+  
+
+  <pre class="APLU">      iPlan.(Variance&#8592;Actual-Budget)</pre>
+
+  
+
+  <p>It is
+possible that a future version of Dyalog APL will allow the class designer or
+the user to place restrictions on the introduction of new names into the APL
+space.</p>
+  
+  <h2><a name="_Toc117440116">Some
+Useful Debugging Tricks</a></h2>
+
+  <p>The <i>strict encapsulation</i> described in the
+previous chapter may be a bit disconcerting to APL developers, who are
+accustomed to having access to data on a &#x201c;want to know&#x201d; rather than a &#x201c;need to
+know&#x201d; basis. What if we want to know what value
+<span class="APLU">&#9109;RL</span> or <span class="APLU">InitialSeed</span> currently have in the instance (and
+fix it), because the instance seems to be misbehaving?</p>
+
+  
+
+  <p>The first
+thing which is important to realize is that if you set a stop in an method, or
+trace into a call, the internal environment where the method is running is
+available to you while the method is on the stack. To experience this first
+hand, create a new instance of <span class="APLU">Random</span>, trace into a call to <span class="APLU">Reset</span> or <span class="APLU">Flat</span> and examine the value of <span class="APLU">&#9109;RL</span> while one of these functions is
+suspended.</p>
+
+  
+
+  <p>It is also
+important to realize that classes and instances are dynamic in APL (as you
+would expect)! If you edit a class and fix it, all existing instances will be
+updated to include the new definition. You can also inject temporary methods
+into an instance or class. Type <span class="APLU">)ED Random.RL</span> and add a method to the class:</p>
+
+  
+
+  <pre class="APLU">   r&#8592;RL x
+   :Access Public
+   r&#8592;&#9109;RL
+   :If x&#8800;0 &#8900;&#9109;RL&#8592;x &#8900; :EndIf</pre>
+
+  
+
+  <p>As you
+leave the editor, you will see the following popup:</p>
+
+  
+
+  <p align=center><img width=326 height=130 alt="screenshot" src="oopspic.jpg"></p>
+
+  
+
+  <p>If you
+answer Yes, the new method will be inserted into the class script. It will
+immediately be injected into all existing instances of the class, and also
+appear in all new instances which are created from this moment on. If you
+answer No, the only difference is that it is not inserted into the class
+script, so the next time you edit the class, it will disappear<a href="#_ftn7" name="_ftnref7" title="">[7]</a>.</p>
+
+  
+
+  <p>Using our
+new method <span class="APLU">RL</span>, we can now query and set <span class="APLU">&#9109;RL</span> in the instance as follows:</p>
+
+  
+
+  <pre class="APLU">      rand1.RL 77
+42
+      rand1.RL 0
+77</pre>
+
+  
+
+  <p>The system
+function <span class="APLU">&#9109;CLASS</span> returns the class of an
+instance. This can be useful in a debugging situation where you are faced with
+a misbehaving instance of unknown pedigree and need to know which class to
+edit. You could just display the instance, the default display will often tell
+you the class name, but as we will learn a bit later, it is possible to change
+this &#x2013; so it is not always a reliable way to determine the class.</p>
+
+  
+
+  <pre class="APLU">      &#9109;&#8592;rand1
+#.[Instance of Random]
+         
+      &#9109;CLASS rand4
+ #.Random 
+   
+      (1&#8835;1&#8835;&#9109;CLASS rand4).&#9109;ED 'RL' &#9053; Edit RL in the relevant class</pre>
+
+  
+
+  <p>In one of
+the following chapters, we will show how it is possible to define a <i>derived</i> class. A derived class <i>extends</i> an existing class by <i>inheriting</i> its definition and adding to
+it. For an instance of a derived class, the result of <span class="APLU">&#9109;CLASS</span> will have more than one element, and document the entire class <i>hierarchy</i>. The first element always
+starts with a reference to the class which was used to create the instance.</p>
+
+  <h3><a name="_Toc117440117">The
+Mother of All Workarounds</a></h3>
+
+  <p>The
+ultimate workaround or back door to break encapsulation is of course the
+introduction of a public method with a name like <span class="APLU">Execute</span>, which allows you to execute any
+APL expression you like in the instance space. The <span class="APLU">:Include</span> keyword provides a convenient way
+to embed a namespace containing development tools in your classes. An example
+namespace called <span class="APLU">OOTools</span> can be found in the workspace of the same name in the <span class="APLU">OO4APL</span> folder. It includes a number of
+functions which may be useful during development. The functions with names
+beginning with <b>i</b> will execute in the instance space,
+those beginning with <b>s</b> will run in the shared space (more
+about the shared space later).</p>
+
+  
+
+  <p>When you
+release the application for testing, you should empty the <span class="APLU">OOTools</span> namespace to ensure that your
+application tools does not use any of these &#x201c;forbidden&#x201d; methods.</p>
+
+  
+
+  <pre class="APLU">      rand1&#8592;&#9109;NEW Random 0
+Random Generator Initialised, Seed is 42
+   
+      rand1.xxx&#8592;'Bingo'          &#9053; New variable in the APL space
+   
+      rand1.&#9109;NL 2                &#9053; Variables in the APL space
+xxx
+   
+      rand1.iNL 2                &#9053; No variables in Instance Space
+                                    &#9053; (fields do not count)
+   
+      rand1.iNC 'make'           &#9053; make is an instance Function
+3</pre>
+
+  
+
+  <p>And:</p>
+
+  
+
+  <pre class="APLU">      rand1.&#9109;RL&#8592;77
+      rand1.&#9109;RL                 &#9053; No surprise!
+77
+   
+      rand1.iExec '&#9109;RL'         &#9053; ... the instance value is unchanged
+42
+      rand1.iExec '&#9109;RL&#8592;99'      &#9053; But now we can do what we want!
+99</pre>
+
+  
+
+  
+
+  <p>The
+definition of <span class="APLU">&#9109;NL</span> is not finalised, the final version
+is likely to produce different results from those shown above. One suggestion
+is that (<span class="APLU">&#9109;NL 2</span>) return all visible &#x201c;data&#x201d; names: variables,
+fields and properties (see next chapter), and (<span class="APLU">&#9109;NL 3</span>) report all visible &#x201c;code&#x201d; names: both functions and members, but there
+are also other proposals.</p>
+
+  <h2><a name="_Toc117440118">Summary</a></h2>
+
+  <p>In the
+first four chapters, we have discussed the extensions to Dyalog APL which are
+summarized in the following table. </p>
+
+  
+  <table border=1 cellspacing=0 cellpadding=4>
+    <tr>
+      <td width=259 valign=top class="APLU">
+  
+        <p><font size="-1">)ED &#9675;MyClass</font></p>
+      </td>
+      <td width=324 valign=top>
+  
+        <p>Edits
+  the class <span class="APLU">MyClass</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width=259 valign=top class="APLU">
+  
+        <p><font size="-1">Instance&#8592;&#9109;NEW MyClass
+  Args</font></p>
+      </td>
+      <td width=324 valign=top>
+  
+        <p>Create
+  a new instance of <span class="APLU">MyClass</span>, passing <span class="APLU">Args</span> to the constructor.</p>
+      </td>
+    </tr>
+    <tr>
+      <td width=259 valign=top class="APLU">
+  
+        <p><font size="-1">:Class MyClass<br>
+  :EndClass</font></p>
+      </td>
+      <td width=324 valign=top>
+  
+        <p>Statements
+  which begin and end the class script for <span class="APLU">MyClass</span>.</p>
+      </td>
+    </tr>
+    <tr>
+      <td width=259 valign=top class="APLU">
+  
+        <p><font size="-1">:Field MyField<br>
+  :Field Private MyField</font></p>
+      </td>
+      <td width=324 valign=top>
+  
+        <p>A
+  private field (can only be used by code defined in the class)</p>
+      </td>
+    </tr>
+    <tr>
+      <td width=259 valign=top class="APLU">
+  
+        <p><font size="-1">:Field Public MyField</font></p>
+      </td>
+      <td width=324 valign=top>
+  
+        <p>A
+  public field (visible from the outside)</p>
+      </td>
+    </tr>
+    <tr>
+      <td width=259 valign=top class="APLU">
+  
+        <p><font size="-1">:Field &#x2026; MyField&#8592;expression</font></p>
+      </td>
+      <td width=324 valign=top>
+  
+        <p>A
+  field with a default value</p>
+      </td>
+    </tr>
+    <tr>
+      <td width=259 valign=top class="APLU">
+  
+        <p><font size="-1">&#8711;MyFn<br>
+  &#8711;</font></p>
+      </td>
+      <td width=324 valign=top>
+  
+        <p>Beginning
+  and end of a function or method</p>
+      </td>
+    </tr>
+    <tr>
+      <td width=259 valign=top class="APLU">
+  
+        <p><font size="-1">:Access Public</font></p>
+      </td>
+      <td width=324 valign=top>
+  
+        <p>Declares
+  the current function to be public</p>
+      </td>
+    </tr>
+    <tr>
+      <td width=259 valign=top class="APLU">
+  
+        <p><font size="-1">:Access Private</font></p>
+      </td>
+      <td width=324 valign=top>
+  
+        <p>Function
+  is private (the default)</p>
+      </td>
+    </tr>
+    <tr>
+      <td width=259 valign=top class="APLU">
+  
+        <p><font size="-1">:Implements Constructor</font></p>
+      </td>
+      <td width=324 valign=top>
+  
+        <p>Identifies
+  a method as the constructor, which is used to initialize the contents of a
+  new instance</p>
+      </td>
+    </tr>
+    <tr>
+      <td width=259 valign=top class="APLU">
+  
+        <p><font size="-1">:Include NameSpace</font></p>
+      </td>
+      <td width=324 valign=top>
+  
+        <p>Makes
+  all functions and variables in <span class="APLU">NameSpace</span> private members of the current class, unless
+  this is overridden by <span class="APLU">:Access</span> statements in the code.</p>
+      </td>
+    </tr>
+    <tr>
+      <td width=259 valign=top class="APLU">
+  
+        <p><font size="-1">&#9109;CLASS Instance</font></p>
+      </td>
+      <td width=324 valign=top>
+  
+        <p>Returns
+  the class hierarchy for an instance.</p>
+      </td>
+    </tr>
+  </table>
+
+  
+
+  <h2>Coming Next</h2>
+
+  <p>Properties,
+Constructors, Shared members, Inheritance and Interfaces</p>
+
+  <div id=ftn1>
+
+    <h3>Footnotes</h3>
+
+    <p><a href="#_ftnref1"
+name="_ftn1" title="">[1]</a> You can find
+this class in the workspace TimeSeries
+in folder OO4APL.</p>
+
+</div>
+
+<div id=ftn2>
+
+<p><a href="#_ftnref2"
+name="_ftn2" title="">[2]</a> For more on
+the fascinating story about SIMULA, see &#x201c;Compiling Simula&#x201d; by Jan Rune
+Holmevik, <u>http://www.ifi.uio.no/~cim/sim_history.html</u></p>
+
+</div>
+
+<div id=ftn3>
+
+<p><a href="#_ftnref3"
+name="_ftn3" title="">[3]</a> Ken Iverson
+was born in Canada in 1920, but Norway also figures prominently in his
+heritage. Therefore, we should have reason to hope that the paradigms are not
+incompatible J.</p>
+
+</div>
+
+<div id=ftn4>
+
+<p><a href="#_ftnref4"
+name="_ftn4" title="">[4]</a> For a
+typical SIMULA solution, see Example 2 on page <a
+href="http://staff.um.edu.mt/jskl1/talk.html#Simulation">http://staff.um.edu.mt/jskl1/talk.html#Simulation</a></p>
+
+</div>
+
+<div id=ftn5>
+
+<p><a href="#_ftnref5"
+name="_ftn5" title="">[5]</a>&#xa0; Note that all classes in this guide can be
+found in a workspace by the same name in the folder OO4APL.</p>
+
+</div>
+
+<div id=ftn6>
+
+<p><a href="#_ftnref6"
+name="_ftn6" title="">[6]</a> One-letter
+names tell no lies, of course J.</p>
+
+</div>
+
+<div id=ftn7>
+
+<p><a href="#_ftnref7"
+name="_ftn7" title="">[7]</a> The current
+intention is that this pop-up will disappear in the final release, and the
+system will always behave as if you selected Yes. Change control will be left
+to source code management systems.</p>
+
+</div>
+
+</div> <!-- End of galley -->
+
+<hr noshade>
+<p><font size=-1>
+	<a href="http://www.vector.org.uk"><img src="../../icons/iconorng.gif" align="middle" alt="VECTOR icon" home border=0" title="VECTOR home" /></a> 
+	<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt; 
+	<a href="index.htm">contents of Vector 22.1</a></font>
+</p>
+
+</body>
+
+</html>

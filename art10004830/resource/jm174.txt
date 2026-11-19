@@ -1,0 +1,286 @@
+program funnycube;
+{$APPTYPE CONSOLE}
+uses
+  SysUtils,
+  classes,
+  extctrls, windows;
+
+const
+crlf = #13#10;
+
+type
+  TPieceLabel = (A,B,C,D,E,F);
+  TPieceSide  = (Top, Right, Bottom, Left);
+  TCorner     = (TopLeft, TopRight, BottomRight, BottomLeft);
+  TPieces = set of 1..6;
+
+  TPosition = class
+  public
+    name:  char;
+    piece: word;
+    function matchesNeighbours: Boolean;
+    function matches(mySide: TPieceSide; position: TPieceLabel; side: TPieceSide): Boolean;
+    function cornerOK(myCorner: TCorner; piece1: TPieceLabel; piece1Corner: TCorner; piece2: TPieceLabel; piece2Corner: TCorner): Boolean;
+  end;
+
+  TPiece = class
+  private
+    FFlipped: Boolean;
+    procedure flip(flipState: boolean);
+  public
+    sides:    array[1..4] of Word;
+    rotation: Word;
+    constructor create(id: Integer); reintroduce;
+    function    GetSide(side: TPieceSide): Word;
+    function    GetCorner(corner: TCorner): Boolean;
+    property    flipped: Boolean read FFlipped write flip ;
+  end;
+
+  TCube  = class
+  public
+    pieces:    array[1..6] of TPiece;
+    positions: array[1..6] of TPosition;
+    constructor create;
+  end;
+
+var
+startTime, endTime: LongWord;
+results: String;
+cube: TCube;
+numSolutions: Integer;
+
+function reverse(value: word): word;
+begin
+  result := 0;
+  if 16 = (value and 16) then
+    result := 1;
+  if 8  = (value and 8)  then
+    result := result + 2;
+  if 4  = (value and 4)  then
+    result := result + 4;
+  if 2  = (value and 2)  then
+    result := result + 8;
+  if 1  = (value and 1)  then
+    result := result + 16;
+end;
+
+{ TCube }
+
+constructor TCube.create;
+var
+piece: Integer;
+begin
+for piece := low(pieces) to high(pieces) do
+  begin
+  pieces[piece]           := TPiece.create(piece);
+  positions[piece]        := TPosition.create;
+  positions[piece].piece  := piece;
+  positions[piece].name   := char(ord('A')+piece-1);
+  end;
+end;
+
+{ TPiece }
+
+constructor TPiece.create(id: Integer);
+begin
+case id of
+  1: begin
+     sides[1] := 20; //10100B
+     sides[2] := 11; //01011B
+     sides[3] := 26; //11010B
+     sides[4] := 11; //01011B
+     end;
+  2: begin
+     sides[1] := 5;  //00101B;
+     sides[2] := 27; //11011B;
+     sides[3] := 26; //11010B;
+     sides[4] := 4;  //00100B;
+     end;
+  3: begin
+     sides[1] := 10; //01010B;
+     sides[2] := 5;  //00101B;
+     sides[3] := 27; //11011B;
+     sides[4] := 26; //11010B;
+     end;
+  4: begin
+     sides[1] := 4;  //00100B;
+     sides[2] := 4;  //00100B;
+     sides[3] := 4;  //00100B;
+     sides[4] := 10; //01010B;
+     end;
+  5: begin
+     sides[1] := 26; //11010B;
+     sides[2] := 4;  //00100B;
+     sides[3] := 10; //01010B;
+     sides[4] := 5;  //00101B;
+     end;
+  6: begin
+     sides[1] := 20; //10100B;
+     sides[2] := 4;  //00100B;
+     sides[3] := 4;  //00100B;
+     sides[4] := 11; //01011B;
+     end;
+end;
+rotation := 1;
+FFlipped := false;
+end;
+
+procedure success;
+var
+position: TPosition;
+pieceNum: Integer;
+begin
+results := results+'-----' + crlf;
+for pieceNum := low(cube.positions) to high(cube.positions) do
+  begin
+  position := cube.positions[pieceNum];
+  results := results+position.name + ' ' + intToStr(position.piece) + ' '
+                    + intToStr(cube.pieces[position.piece].rotation - 1) + crlf;
+  end;
+numSolutions := numSolutions + 1;
+end;
+
+procedure testPiece(validPieces: TPieces; position: Word; flip: Boolean);
+var
+pieceNum: Word;
+rotation: Word;
+thisPosition: TPosition;
+
+  procedure doesPieceFit;
+    begin
+    cube.pieces[thisPosition.piece].rotation := rotation;
+    if thisPosition.matchesNeighbours then
+      if thisPosition.name = 'F' then
+        success
+      else
+        testPiece(validPieces - [pieceNum], position + 1, flip);
+    end;
+
+begin
+thisPosition := cube.positions[position];
+for pieceNum := 2 to 6 do
+  if pieceNum in validPieces then
+    begin
+    thisPosition.piece := pieceNum;
+    for rotation := 1 to 4 do
+      begin
+      cube.pieces[thisPosition.piece].flip(false);
+      doesPieceFit;
+      end;
+    if flip then
+      begin
+      cube.pieces[thisPosition.piece].flip(true);
+      for rotation := 1 to 4 do
+        doesPieceFit;
+      end;
+    end;
+end;
+
+procedure TPiece.flip(flipState: Boolean);
+var
+tmp: Word;
+begin
+if not flipState = FFlipped then
+  begin
+  tmp := sides[1+ord(Top)];
+  sides[1+ord(Top)]    := reverse(sides[1+ord(bottom)]);
+  sides[1+ord(bottom)] := reverse(tmp);
+  sides[1+ord(left)]   := reverse(sides[1+ord(left)]);
+  sides[1+ord(right)]  := reverse(sides[1+ord(right)]);
+  FFlipped             := flipState;
+  end;
+end;
+
+function TPiece.GetCorner(corner: TCorner): Boolean;
+begin
+case corner of
+  TopLeft:     result := 1 = (1 and GetSide(Left));
+  TopRight:    result := 1 = (1 and GetSide(Top));
+  BottomLeft:  result := 1 = (1 and GetSide(Bottom));
+  BottomRight: result := 1 = (1 and GetSide(Right));
+else
+  result := false;
+end;
+end;
+
+function TPiece.GetSide(side: TPieceSide): Word;
+var
+index: Word;
+begin
+index := ord(side) + rotation;
+if index > 4 then
+  index := index - 4;
+result := sides[index];
+end;
+
+{ TPosition }
+
+function TPosition.matchesNeighbours: Boolean;
+begin
+case name of
+  'A': result := true;
+  'B': result := matches(Left,A,Right);
+  'C': result := matches(Left,B,Right);
+  'D': result := matches(Left,C,Top)  and
+                 matches(Top,B,Top)   and
+                 matches(Right,A,Top) and
+                 cornerOK(TopRight, A, TopRight, B, TopLeft) and
+                 cornerOK(TopLeft, B, TopRight, C, TopLeft);
+  'E': result := matches(Left,C,Right) and
+                 matches(Top,D,Bottom) and
+                 matches(Right,A,Left) and
+                 cornerOK(TopLeft, C, TopRight, D, BottomLeft) and
+                 cornerOK(TopRight, A, TopLeft, D, BottomRight);
+  'F': result := matches(Top,E,Bottom)    and
+                 matches(Left,C,Bottom)   and
+                 matches(Bottom,B,Bottom) and
+                 matches(Right,A,Bottom)  and
+                 cornerOK(TopLeft, C, BottomRight, E, BottomLeft) and
+                 cornerOK(TopRight, A, BottomLeft, E, BottomRight) and
+                 cornerOK(TopLeft, C, BottomRight, E, BottomLeft) and
+                 cornerOK(BottomRight, A, BottomRight, B, BottomLeft);
+else
+  result := false;
+end;
+end;
+
+function TPosition.Matches(mySide: TPieceSide; position: TPieceLabel; side: TPieceSide): Boolean;
+var
+side1, side2: Word;
+begin
+  side1  := cube.pieces[cube.positions[1+ord(position)].piece].getSide(side);
+  side2  := cube.pieces[self.piece].getSide(mySide);
+  side2  := reverse(side2);
+  result := (14 and (side1 + side2)) = 14; //01110B = 14
+end;
+
+function TPosition.cornerOK(myCorner: TCorner; piece1: TPieceLabel;
+  piece1Corner: TCorner; piece2: TPieceLabel;
+  piece2Corner: TCorner): Boolean;
+var
+p1,p2,p3: Boolean;
+begin
+p1 := cube.pieces[cube.positions[1+ord(piece1)].piece].getCorner(piece1Corner);
+p2 := cube.pieces[cube.positions[1+ord(piece2)].piece].getCorner(piece2Corner);
+p3 := cube.pieces[self.piece].getCorner(myCorner);
+result :=  (p1 and (not p2) and (not p3)) or
+           (p2 and (not p1) and (not p3)) or
+           (p3 and (not p1) and (not p2));
+end;
+
+var
+turnover: Boolean;
+begin
+  startTime    := getTickCount;
+  numSolutions := 0;
+  cube := TCube.create;
+  if paramCount > 0 then
+    turnover := true
+  else
+    turnover := false;
+  testPiece([2..6],2, turnover);
+  endTime := getTickCount;
+  results := results+crlf+'This took '+intToStr(endTime - startTime) + 'ms'+crlf
+                    +'and found '+intToStr(numSolutions)+' solutions';
+  write(results);
+end.

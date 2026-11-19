@@ -1,0 +1,85 @@
+NB.* RegExTableTests.txt: regular expression table tests.
+
+FTHDR=: 'DESC';'REGEX';'PGM'
+
+NB.* FT: file-types: description, regular expression for name, program to run.
+FT=: tablf2mat 0 : 0
+VP funds monthly totals	^COPY OF RPT MAINSTAY VP NAV \(2\)\.XLS	(VPDIR,'History\')&moveFlsToSaveDateDir
+VP daily positions	^VP(CONS|MOD|MODGRO|GRO)[0-9]{6}\.CSV	moveVPHldFlsToDateDir
+VP Trade orders	^TRADE-VP(CONS|MOD|MODGRO|GRO)-[0-9]{6}\.CSV	moveFlsToSaveDateDir
+AAF positions	^AA FUNDS POSITION REPORT [0-9]{2}\.[0-9]{2}\.[0-9]{4}\.XLS	movePosnsToDatedDir
+VP Subscriptions/Redemptions	^SUBREDVP 20[0-9]{6}\.CSV	moveVPSubRedToDatedDir
+VP daily cash	^(57200|57210|57220|57230) [0-9]{1,2}-[0-9]{1,2}-[0-9]{2,4} CASH.XLS	moveVPCashFilesToDatedDir
+AAF daily cash	^(56580|56750|56760|56650) [0-9]{1,2}-[0-9]{1,2}-[0-9]{2,4} CASH.XLS	moveCashFilesToDatedDir
+IncMgr daily cash	^57524 CASH [0-9]{1,2}-[0-9]{1,2}-[0-9]{2,4}.XLS	(IMFHDR;<IMF)&moveCashFilesToDatedDir
+IncMgr Accounts	^(57522|57523|57525|57526|57527) CASH [0-9]{1,2}-[0-9]{1,2}-[0-9]{2,4}.XLS	(IMFHDR;<IMF)&moveCashFilesToDatedDir
+AAF daily positions	^(CONS|MOD|MODGRO|GRO)[0-9]{6}\.CSV	moveHldFlsToDateDir
+Trade order	^TRADE-(CONS|MOD|MODGRO|GRO)\.XLS	moveFlsToSaveDateDir
+PACE performance	^PERFORMANCE ANALYSIS - ASSET ALLOCATION FUNDS*	moveFlsToSaveDateDir
+Asset Manager collateral	^ASSET MANAGER [0-9]{2}-[0-9]{2}-[0-9]{2}.XLS	moveFlsToNameDateDir
+Asset Manager collateral update	^COLLATERAL UPDATED [0-9]{1,2}-[0-9]{1,2}-[0-9]{2}.*\.XLS	moveFlsToNameDateDir
+AAF trades	^AA FUNDS TRAN[S]?ACTION[S]?( REPORT)?[ \.]+[0-9]{2}\.[0-9]{2}\.[0-9]{4}\.XLS	('.';DODIR,'Old\')moveFlsToNameDateDir
+Asset Manager daily cash	^(56525|56526|56527|56528) CASH [0-9]{2}-[0-9]{2}-[0-9]{2}.XLS	moveFlsToNameDateDir
+Recent trades in Income Manager	^INCOME MANAGER TRADE LOG\.XLS	moveFlsToSaveDateDir
+)
+
+FTarg1_test_=: 'Copy of Rpt Mainstay VP NAV (2).xls';'VPModGro060222.csv';'TRADE-VPGRO-060215.CSV';'AA FUNDS POSITION REPORT 05.24.2006.XLS';'SUBREDVP 20060524.CSV';'57210 05-24-2005 CASH.xls';'56580 12-27-2005 CASH.xls';'cons051223.csv';'TRADE-CONS.XLS';'Performance Analysis - Asset Allocation Funds - -98173243919528.CSV';'Asset Manager 12-23-05.xls';'Collateral Updated 12-27-05.xls';'AA FUNDS TRANSACTIONS.12.23.2005.xls';'56525 cash 12-27-05.xls';'Income Manager trade log.xls';'57524 CASH 01-23-06.xls';'57523 CASH 01-30-06.xls';'NotRecognized';'TRADE-CONSMOD.XLS'
+
+FTtestComplete_test_=: 3 : 0
+   0 FTtestComplete y.        NB. if 1=x., show details even if all tests passed.
+:
+   coinsert 'base'
+   if. 0=#y. do. y.=. FTarg1 end.
+   y.=. toupper&.>y.
+   reconfls=. _1~:({.@:,)&>(1{"1 FT) rxmatch&.>/y.
+   sumrecon=. +/reconfls
+   try. FTtest sumrecon;<reconfls
+       if. x. do. FTshowTests sumrecon;reconfls;<y. end.
+   catch. FTshowTests sumrecon;reconfls;<y.
+   end.
+)
+
+FTtest_test_=: 3 : 0
+   'sumrecon reconfls'=. y.
+NB. Unrecognized test strings: FTarg1_test_#~-.+./reconfls
+   assert. sumrecon *./ . e. 1 0   NB. No more than 1 regex/match
+   assert. 1*./ . <:+/|:reconfls   NB. All regexes tested once or more
+   assert. 0 1 *./ . e.~ sumrecon  NB. No duplicate classification
+   1
+)
+
+FTshowTests_test_=: 3 : 0
+   'sumrecon reconfls args'=. y.
+
+   ntre=. 0=+/|:reconfls                          NB. Untested regexes
+   if. 0<pl=. +/ntre do. pl=. (1~:pl)#'es'
+       smoutput 'Untested regex',pl,':'
+       smoutput >(<'   '),&.>ntre#1{"1 FT
+   end.
+
+   retm1=. 1<+/|:reconfls                         NB. Regexes tested more than once
+   if. 0<pl=. +/retm1 do. pl=. (1~:pl)#'es'
+       smoutput 'Regex',pl,' tested more than once:'
+       smoutput >(<'   '),&.>retm1#1{"1 FT
+   end.
+
+   dupcl=. -.0 1 e.~sumrecon                      NB. Duplicate classification
+   if. 0<nd=. +/dupcl do.
+       smoutput 'Duplicate classification',('s'#~1~:nd),':'
+       for_dix. I. dupcl do.
+           smoutput FT#~dix{"1 reconfls
+           smoutput ''
+       end.
+   end.
+
+   if. 0<pl=. +/0=sumrecon do. pl=. (1~:pl)#'s'   NB. Unclassified targets
+       smoutput 'Unclassified target string',pl,':'
+       smoutput >(<'   '),&.>(0=sumrecon)#args
+   end.
+)
+
+metaTest_test_=: 0 : 0
+NB. Force duplicate classification:
+   FT=: FT,('Phony';'(57524|57525) CASH [0-9]{1,2}-[0-9]{1,2}-[0-9]{2,4}.XLS';'')
+   FT=: FT,('Phony2';'(56525|56526) CASH [0-9]{2}-[0-9]{2}-[0-9]{2}.XLS';'')
+)
