@@ -29,7 +29,7 @@ A development build of the recovered *Vector* archive: every issue’s contents,
     - not transcribed: the indexes to advertisers and the order, subscription and registration forms;
     - **contact details**: where a person rather than a company is the contact (BAA officers and editors, letter-writers, user-group secretaries, consultants trading on their own), the street address, telephone number and personal e-mail are left out, and a note says so; companies’ and institutions’ addresses are kept.
 - **Complete scans of 3:4, 7:4 and 16:4**, whose earlier copies were truncated, found on vector.org.uk (2026-11-19): their 31 indexed articles now link to the scan, with its machine-read text.
-- **WordPress content** (2016–2022): the vector.org.uk database has been catalogued; 11 articles and a page of talks it holds are not in the editors’ index. The [talks at the BAA meeting of 20 May 2016](../art10501780/) are online; the articles follow.
+- **WordPress content** (2016–2022): the vector.org.uk database has been catalogued; 11 articles and a page of talks it holds are not in the editors’ index. The [talks at the BAA meeting of 20 May 2016](../art10501780/) and the 11 articles are online, listed under In press on the [home page](../), converted from the posts (some APL characters and two figures that WordPress lost are noted on their pages).
 
 ## Remaining
 

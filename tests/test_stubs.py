@@ -260,3 +260,11 @@ def test_page_runs_follow_an_offset_that_changes():
     assert runs == [[0, 9, 2], [10, 20, 4]]
     assert pdf_page(runs, 9) == 11 and pdf_page(runs, 10) == 14
     assert page_runs(head) is None and pdf_page(2, 5) == 7
+
+
+def test_review_note_for_a_piece_added_from_wordpress():
+    """An added record (#323) was never printed: its note says where its text came from."""
+    from vecrescue.stubs import review_note
+    assert review_note({"added": "WordPress post 763", "review": "draft"}) == \
+        "From the vector.org.uk WordPress site; not yet reviewed."
+    assert review_note({"review": "draft"}) == "Transcribed from the printed issue; not yet reviewed."
