@@ -227,3 +227,27 @@ def correct_from_contents(records, contents):
                                     "by": f"Contents v{vol}n{no}"})
                         r[field] = new
     return log
+
+
+# Records the index lacks: WordPress additions (#316, #323) -------------------
+
+def add_records(records, transcriptions):
+    """RECORDS extended by each TRANSCRIPTIONS/art<ID>.md whose front matter
+    has `added:` (where its text came from) and whose ID the index lacks:
+    title, authors, date (`online`) and `in_press` from its front matter."""
+    import yaml
+    have = {r["id"] for r in records if r["id"]}
+    for path in sorted(Path(transcriptions).glob("art*.md")):
+        text = path.read_text(encoding="utf-8")
+        if not text.startswith("---"):
+            continue
+        fm = yaml.safe_load(text.split("---", 2)[1]) or {}
+        vid = str(fm.get("vid") or "")
+        if not fm.get("added") or not vid or vid in have:
+            continue
+        records.append({"id": vid, "title": fm.get("title"), "authors": list(fm.get("authors") or []),
+                        "volume": None, "issue": None, "page": None, "received": None,
+                        "online": str(fm["online"]) if fm.get("online") else None,
+                        "sources": [], "metadata": "added", "in_press": bool(fm.get("in_press"))})
+        have.add(vid)
+    return records

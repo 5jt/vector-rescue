@@ -30,9 +30,9 @@ Expected next steps (updated 2026-11-19).
 
 ## WordPress content (Phase 8, #316)
 
-- [x] Catalogue: `surveys/wordpress-survey.md`. IDs from 10501780 by post date. BAA 2016 talks page drafted (`transcriptions/wordpress/`).
-- [ ] Let the build add index records (it can only correct them now).
-- [ ] Convert the 11 new articles from the dump's HTML; fetch their images from vector.org.uk (2 of 43 gone); publish them with the talks page.
+- [x] Catalogue: `surveys/wordpress-survey.md`. IDs from 10501780 by post date. BAA 2016 talks page drafted (`transcriptions/art10501780.md`).
+- [x] The build adds a record for each transcription marked `added:` (#323); the talks page is published.
+- [ ] Convert the 11 new articles from the dump's HTML into `transcriptions/art10501790.md`–`art10501890.md` with `added:`; fetch their images from vector.org.uk (2 of 43 gone).
 - [ ] Compare the 12 duplicate posts that score below 0.85 with the held texts; better sources for 10501740–10501760.
 - [ ] Push to `official` once the ZIP and SQL content are digested.
 

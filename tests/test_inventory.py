@@ -87,3 +87,24 @@ def test_restored_index_takes_its_own_sources_first(tmp_path):
     recs = {r["id"]: r for r in php_renderings(list(recs.values()), php, src)}
     assert recs["2"]["captured"] == "../../php-site/rendered/art2.html"
     assert "captured" not in recs["1"]
+
+
+from vecrescue.inventory import add_records
+
+
+def test_transcription_marked_added_becomes_a_record(tmp_path):
+    """WordPress additions (#316): a transcription with `added:` and an ID the
+    index lacks is a new record; one the index has, or without `added:`, is not."""
+    (tmp_path / "art10501780.md").write_text(
+        "---\nvid: '10501780'\ntitle: 'BAA meeting, 20 May 2016: talks'\nauthors:\n- A. N. Other\n"
+        "online: '2016-05-20'\nin_press: true\nadded: WordPress posts 944, 1132\n---\n\nText.\n")
+    (tmp_path / "art10500650.md").write_text("---\nvid: '10500650'\ntitle: X\nadded: WordPress\n---\n\nText.\n")
+    (tmp_path / "art10501790.md").write_text("---\nvid: '10501790'\ntitle: Not added\n---\n\nText.\n")
+    records = add_records(read_index(SRC), tmp_path)
+    by_id = {r["id"]: r for r in records}
+    assert len(records) == 8 and "10501790" not in by_id
+    assert by_id["10501780"] == {
+        "id": "10501780", "title": "BAA meeting, 20 May 2016: talks", "authors": ["A. N. Other"],
+        "volume": None, "issue": None, "page": None, "received": None, "online": "2016-05-20",
+        "sources": [], "metadata": "added", "in_press": True}
+    assert by_id["10500650"]["title"] == "Tables with calculated columns"
