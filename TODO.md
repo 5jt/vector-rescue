@@ -1,6 +1,6 @@
 # TODO
 
-Expected next steps (updated 2026-10-11).
+Expected next steps (updated 2026-11-19).
 
 ## PDF-only articles (`plans/pdf-conversion.md`)
 
@@ -8,7 +8,7 @@ Expected next steps (updated 2026-10-11).
 - [x] Phase 2, Volumes 16–20: done (status page "after Volume 20").
 - [x] Phase 2, Volume 21: done (status page "after Volume 21"). 21:4 was transcribed from the text layer of `sources/sjt/Vector/issues/v214.pdf`, as the wayback scan is damaged.
 - [x] Sullivan (10009460): query on Series/Sequence in place.
-- [ ] Add unindexed pieces found along the way to `transcriptions/unindexed/` and to #44.
+- [x] Unindexed pieces found along the way: superseded by the Second Pass (below); #44 closed.
 - [ ] Phase 3: review checklists (`plans/pdf-review-checklist*.md`), ordered by interest; little-code articles need only their queries checked.
 - [x] Report: OCR words missing from each transcription (build/report.md, last section); 63 flagged.
 - [x] Triaged the 63 flagged (2026-10-11): no omitted passages; misses come from neighbouring articles on shared pages, figures and listings kept as images, and deliberate omissions under queries. Fixed: two wrong page ranges (10004320, 10010900), one missing byline (10006380). XPL (10001020) is the abandoned transcription.
@@ -48,7 +48,7 @@ Expected next steps (updated 2026-10-11).
 
 ## Awaiting decisions
 
-- [ ] #44: editorial review of the unindexed pieces.
+- [x] #44: closed 2026-10-12 (the Second Pass republished the unindexed pieces).
 - [ ] Earlier open items: proposed corrections; #34, #35.
 
 ## Housekeeping
