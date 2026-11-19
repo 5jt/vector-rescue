@@ -44,17 +44,17 @@ Updated 2026-10-02 (late).
 
 | # | Blocker | Blocks | Owner / action |
 |---|---|---|---|
-| B1 | **A copy of the WordPress database export** | Phase 8 only: articles published on WordPress (2017–2022) | Await Paul Grosvenor; ask Jake Jacob as a second route. **Fallback:** ~229 WordPress posts and pages captured by the Wayback Machine (rendered HTML, so the export remains preferable). |
+| B1 | ~~A copy of the WordPress database export~~ **Resolved 2026-11-19:** Jake Jacob sent a SQL dump (generated 2026-11-17). Catalogued in `surveys/wordpress-survey.md` (#316). | Phase 8 | — |
 | B2 | **Replacing the restored PHP site at `archive.vector.org.uk`** with the static build (Jake Jacob's server; relates to eventual integration with the BAA domain, #105) | Publishing under the original hostname | Jake, with the BAA (Paul). Not needed until Phase 6. |
 
 ## Phases
 
-### 0. Retrieve sources: PHP tree done; Wayback in progress; WordPress export outstanding
+### 0. Retrieve sources: PHP tree, Wayback and WordPress export done
 
 - PHP filetree: `sources/sjt/Vector` (338 MB, not in git).
 - Wayback Machine: fetch the 2021 index, the 19 newer articles and their images, the issue PDFs, and the captured renderings of articles we cannot convert directly (#24, `make fetch-wayback`).
 - Restored PHP site: its indexes, the 29 sources our tree lacks and their images, and its rendering of each linked article (#104, `make fetch-php`, `sources/php-site/`). The pipeline prefers the restored site to the Wayback Machine throughout (#113): its index and catalogue, its sources (all of 26:4 and the in-press articles now convert from its XHTML), and its renderings for the capture check. Wayback remains the source only of the four 2017–18 articles and the issue PDFs.
-- Still wanted for Phase 8 (B1): the WordPress export.
+- WordPress export (B1): received 2026-11-19, held outside the repository as it contains user accounts and credentials; surveyed in `surveys/wordpress-survey.md`. Its uploads (`wp-content/uploads/`) are not in it; vector.org.uk still serves most of them, including complete copies of the truncated 3:4, 7:4, 16:4 and 21:4 scans.
 - Decide where `sources/` is archived safely and publicly. **Before publishing, exclude the logs and `members/`.**
 
 ### 1–2. Surveys and groundwork: done
