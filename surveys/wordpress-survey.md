@@ -50,7 +50,7 @@ The media column counts images and files under `wp-content/uploads/` referenced 
 
 | ID | Post | Posted | Title |
 |---|---:|---|---|
-| 10501780 | 8 video posts | 2016-05-20 | BAA meeting, 20 May 2016: talks (`transcriptions/wordpress/baa-2016-talks.md`) |
+| 10501780 | 8 video posts | 2016-05-20 | BAA meeting, 20 May 2016: talks (`transcriptions/art10501780.md`) |
 | 10501790 | 170 | 2018-10-14 | APL Germany Autumn Meeting |
 | 10501800 | 763 | 2019-04-12 | Finding text in files |
 | 10501810 | 965 | 2019-05-29 | Reflections on Langlet’s APL Theory of Human Vision |
@@ -111,7 +111,7 @@ Held but not on WordPress: 10501680 (Optima welcomes James Heslip) and 10501770 
 
 Seven talks at the BAA meeting of 20 May 2016, in eight posts, each a short abstract (mostly the programme blurb) and a video: *File functions in Dyalog 15* (Richard Smith), *A Memo Operator* (Roger Hui), *About PresentAPL* and *Markdown & MarkAPL* (Kai Jaeger), *XAML and APL on the Web* (Michael Hughes; posted twice, 1157 and 1878), *Git in the APL Room* (Stephen Taylor), *Pi for Brains* (Romilly Cocking). All seven videos are live on the British APL Association’s YouTube channel (checked 2026-11-19). The category’s other two members are page-builder layouts.
 
-**Ruling (Stephen Taylor, 2026-11-19):** one page for the meeting’s talks, with speakers, abstracts and video links, filed beside the 2016 AGM minutes (10501690). Drafted as `transcriptions/wordpress/baa-2016-talks.md`; its ID is 10501780 (below).
+**Ruling (Stephen Taylor, 2026-11-19):** one page for the meeting’s talks, with speakers, abstracts and video links, filed beside the 2016 AGM minutes (10501690). Drafted as `transcriptions/art10501780.md`; its ID is 10501780 (below).
 
 ## Unpublished
 

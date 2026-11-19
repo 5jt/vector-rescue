@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 from .convert import convert
-from .inventory import (article_source, correct_from_contents, merge_wayback, php_index, php_renderings,
+from .inventory import (add_records, article_source, correct_from_contents, merge_wayback, php_index, php_renderings,
                         read_index, read_issues)
 from .legacy import decode, mapped_apl, read_codingprobs
 from .pages import (_catalogue, apply_article_tags, lift_bylines, damaged_issue_pdfs, issue_pdfs, wordpress_issue_pdfs, mark_issue_tabs, nav_toml, publish_unindexed,
@@ -32,6 +32,8 @@ def run_inventory(src, out, wayback=None, php=None, transcriptions=None, correct
         records = merge_wayback(records, wayback, src)
     if php_index(php):
         records = php_renderings(records, php, src)
+    if transcriptions:
+        records = add_records(records, transcriptions)  # WordPress additions (#323)
     log = correct_from_contents(records, read_contents(Path(transcriptions) / "contents")) if transcriptions else []
     if corrections:
         log += corrections.apply_records(records)
