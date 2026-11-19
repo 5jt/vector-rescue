@@ -46,6 +46,8 @@ The media column counts images and files under `wp-content/uploads/` referenced 
 
 ## Art IDs for the additions
 
+All twelve are published (2026-11-19, #316): `transcriptions/art10501780.md`–`art10501890.md`, converted from the posts’ HTML (not the Markdown some posts keep, which in one case is out of date). Losses in WordPress are recorded in each file’s queries: APL characters stored as “?” in 10501800 (mostly restored), two images.
+
 **Decided by Stephen Taylor, 2026-11-19:** the additions continue the PHP index's numbering, in steps of 10 from 10501780, in order of WordPress post date. The draft (2075) and test posts get none.
 
 | ID | Post | Posted | Title |

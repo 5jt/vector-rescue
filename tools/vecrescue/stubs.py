@@ -193,7 +193,7 @@ def warning_block(text, title="Doubtful transcription"):
 def review_note(fm):
     """The note heading a transcribed page: who reviewed it and when, or that
     it is not yet reviewed (issue #58)."""
-    note = "Transcribed from the printed issue"
+    note = "From the vector.org.uk WordPress site" if fm.get("added") else "Transcribed from the printed issue"
     if fm.get("review") == "reviewed":
         by, on = fm.get("reviewed_by"), fm.get("reviewed_on")
         return note + "." + (f" Reviewed by {by}" if by else " Reviewed") + (f" on {on}." if on else ".")
