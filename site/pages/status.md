@@ -28,12 +28,13 @@ A development build of the recovered *Vector* archive: every issue’s contents,
     - short pieces printed with no line on any Contents page, mostly section introductions: 47, linked from their sections’ headings or given lines of their own;
     - not transcribed: the indexes to advertisers and the order, subscription and registration forms;
     - **contact details**: where a person rather than a company is the contact (BAA officers and editors, letter-writers, user-group secretaries, consultants trading on their own), the street address, telephone number and personal e-mail are left out, and a note says so; companies’ and institutions’ addresses are kept.
-- **Damaged copies**: for three issues whose only copy is truncated (3:4, 7:4, 16:4), the machine-read text has been recovered and shown.
+- **Complete scans of 3:4, 7:4 and 16:4**, whose earlier copies were truncated, found on vector.org.uk (2026-11-19): their 31 indexed articles now link to the scan, with its machine-read text.
 
 ## Remaining
 
 - **Review**: every transcription is a draft until a reviewer checks it against the scan; see the [review checklist](https://github.com/5jt/vector-rescue/blob/main/plans/pdf-review-checklist.md).
-- **Missing sources**: no scan has been found of 2:2, and the copies of 3:4, 7:4 and 16:4 are damaged ([help find them](https://github.com/5jt/vector-rescue/issues/62)).
+- **Missing sources**: no scan has been found of 2:2 ([help find one](https://github.com/5jt/vector-rescue/issues/62)).
+- **3:4, 7:4 and 16:4**: their articles are to be transcribed from the complete scans, and their Contents checked against them.
 - **Hand transcription**: three pieces the automatic transcription could not complete (XPL in 1:2, an article each in 12:1 and 21:2) and one Second Pass piece (12:2 p.113).
 
 The quality of each article’s text is shown in the [full index](../full-index/).

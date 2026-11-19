@@ -21,6 +21,21 @@ Expected next steps (updated 2026-11-19).
 - [x] The remaining Contents lines (#305; plan, conventions and brief in `plans/second-pass.md`): 650 pieces in seven waves (#306–#311 and wave 7), Volumes 1–25, and 11:1 APL94 Abstracts (missed by the First Pass). Contact details of individuals omitted throughout (rules of 2026-10-12). Status page updated.
 - [x] The printed pieces with no Contents line noticed during #305 (#314): 47 transcribed, mostly section introductions; flyers, a form and an advertisement left out (`plans/second-pass.md`).
 
+## Complete scans of 3:4, 7:4 and 16:4 (#321)
+
+- [x] Found on vector.org.uk (#316); in `sources/wordpress/`; the build prefers them to the truncated captures. Their 31 indexed articles link to the scan, with its OCR.
+- [ ] Check the three Contents files (`transcriptions/contents/v3n4.yaml`, `v7n4.yaml`, `v16n4.yaml`) against the scans: they were transcribed from recovered OCR, which lost some page numbers.
+- [ ] First Pass: transcribe the 31 indexed articles.
+- [ ] Second Pass: the unindexed pieces of the three issues (never swept).
+
+## WordPress content (Phase 8, #316)
+
+- [x] Catalogue: `surveys/wordpress-survey.md`. IDs from 10501780 by post date. BAA 2016 talks page drafted (`transcriptions/wordpress/`).
+- [ ] Let the build add index records (it can only correct them now).
+- [ ] Convert the 11 new articles from the dump's HTML; fetch their images from vector.org.uk (2 of 43 gone); publish them with the talks page.
+- [ ] Compare the 12 duplicate posts that score below 0.85 with the held texts; better sources for 10501740–10501760.
+- [ ] Push to `official` once the ZIP and SQL content are digested.
+
 ## Metadata
 
 - [ ] Publish a machine-readable full index, `vector-index.json`, written by the build (#303). It also settles the index-corrections item below, as `index.xml` cannot be corrected in place.

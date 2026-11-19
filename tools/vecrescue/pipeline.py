@@ -12,7 +12,7 @@ from .convert import convert
 from .inventory import (article_source, correct_from_contents, merge_wayback, php_index, php_renderings,
                         read_index, read_issues)
 from .legacy import decode, mapped_apl, read_codingprobs
-from .pages import (_catalogue, apply_article_tags, lift_bylines, damaged_issue_pdfs, issue_pdfs, mark_issue_tabs, nav_toml, publish_unindexed,
+from .pages import (_catalogue, apply_article_tags, lift_bylines, damaged_issue_pdfs, issue_pdfs, wordpress_issue_pdfs, mark_issue_tabs, nav_toml, publish_unindexed,
                     read_contents, wayback_issue_pdfs, write_home_page, write_index_page, write_tags_page,
                     write_volume_pages)
 from . import stubs
@@ -220,7 +220,7 @@ def _digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()[:8]
 
 
-def run_site(src, out, config, wayback=None, corrections=None, transcriptions=None, php=None):
+def run_site(src, out, config, wayback=None, corrections=None, transcriptions=None, php=None, wordpress=None):
     """Write the home and issue pages, copy the site files from CONFIG's
     folder, and build OUT/docs into OUT/site with Zensical."""
     src, out, config = Path(src), Path(out), Path(config)
@@ -229,7 +229,8 @@ def run_site(src, out, config, wayback=None, corrections=None, transcriptions=No
     inventory, issues = load_inventory(out), read_issues(catalogue)
     if corrections:
         issues = corrections.apply_catalogue(issues)
-    more = wayback_issue_pdfs(wayback) if wayback else None
+    more = {**(wayback_issue_pdfs(wayback) if wayback else {}),
+            **(wordpress_issue_pdfs(wordpress) if wordpress else {})} or None  # complete copies from vector.org.uk (#321)
     pdfs = issue_pdfs(issues, src, more)
     damaged = {k: v for k, v in damaged_issue_pdfs(wayback).items() if k not in pdfs} if wayback else None
     write_stub_pages(inventory, issues, pdfs, out, transcriptions, damaged, src)
