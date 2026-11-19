@@ -5,6 +5,8 @@ Survey of the vector.org.uk WordPress database (#316), from a phpMyAdmin SQL dum
 
 The dump is **not held in this repository**. Besides the content it holds user accounts, password hashes, two-factor secrets, private messages, Wordfence logs and mailing-list subscribers. Only the content tables (`wp_posts`, `wp_postmeta`, `wp_terms`, `wp_term_taxonomy`, `wp_term_relationships`) were read for this survey.
 
+Jake also sent `htdocs.zip`: byte-identical to the htdocs copy of the PHP site compared on 2026-10-12, and it holds none of the articles below.
+
 Not in the dump: the uploaded files (`wp-content/uploads/`). The database lists them as 502 attachments (112 PDFs, the rest images).
 
 ## Summary
@@ -41,6 +43,25 @@ None of these is in the PHP index or the Wayback captures. Authors as recorded o
 The media column counts images and files under `wp-content/uploads/` referenced by the post. Of the 43, 41 are still served by vector.org.uk; two return 404 (`2019/04/figure1.png`, `2020/09/pivotWithTotal.png`).
 
 27:1 is the issue that never appeared in print. The PHP index already holds seven 27:1 or in-press articles (10501680–10501770); these eleven complete it, as far as WordPress records.
+
+## Art IDs for the additions
+
+**Decided by Stephen Taylor, 2026-11-19:** the additions continue the PHP index's numbering, in steps of 10 from 10501780, in order of WordPress post date. The draft (2075) and test posts get none.
+
+| ID | Post | Posted | Title |
+|---|---:|---|---|
+| 10501780 | 8 video posts | 2016-05-20 | BAA meeting, 20 May 2016: talks (`transcriptions/wordpress/baa-2016-talks.md`) |
+| 10501790 | 170 | 2018-10-14 | APL Germany Autumn Meeting |
+| 10501800 | 763 | 2019-04-12 | Finding text in files |
+| 10501810 | 965 | 2019-05-29 | Reflections on Langlet’s APL Theory of Human Vision |
+| 10501820 | 1458 | 2019-05-30 | Making images and videos of the Buddhabrot |
+| 10501830 | 1496 | 2019-05-30 | APLX is out, long live APL |
+| 10501840 | 1966 | 2019-07-05 | TAO Axioms |
+| 10501850 | 2041 | 2020-02-02 | The doctor and the doc |
+| 10501860 | 2240 | 2020-09-10 | Powerful CSV processing with kdb+ |
+| 10501870 | 2293 | 2020-11-09 | Book review — Fun Q |
+| 10501880 | 2473 | 2022-06-16 | A Vendor-Agnostic Logo for APL |
+| 10501890 | 2666 | 2022-10-31 | Hacker’s Corner: JPEG Comments |
 
 ## Articles already held
 
@@ -90,7 +111,7 @@ Held but not on WordPress: 10501680 (Optima welcomes James Heslip) and 10501770 
 
 Seven talks at the BAA meeting of 20 May 2016, in eight posts, each a short abstract (mostly the programme blurb) and a video: *File functions in Dyalog 15* (Richard Smith), *A Memo Operator* (Roger Hui), *About PresentAPL* and *Markdown & MarkAPL* (Kai Jaeger), *XAML and APL on the Web* (Michael Hughes; posted twice, 1157 and 1878), *Git in the APL Room* (Stephen Taylor), *Pi for Brains* (Romilly Cocking). All seven videos are live on the British APL Association’s YouTube channel (checked 2026-11-19). The category’s other two members are page-builder layouts.
 
-**Ruling (Stephen Taylor, 2026-11-19):** one page for the meeting’s talks, with speakers, abstracts and video links, filed beside the 2016 AGM minutes (10501690). Drafted as `transcriptions/wordpress/baa-2016-talks.md`; it awaits an `art` ID with the other WordPress additions.
+**Ruling (Stephen Taylor, 2026-11-19):** one page for the meeting’s talks, with speakers, abstracts and video links, filed beside the 2016 AGM minutes (10501690). Drafted as `transcriptions/wordpress/baa-2016-talks.md`; its ID is 10501780 (below).
 
 ## Unpublished
 

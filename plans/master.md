@@ -99,6 +99,8 @@ The target is archive.vector.org.uk, replacing the PHP site.
 
 After the archive is replaced. Publication on the WordPress site appears to have ended in 2022, so there is a case for exporting its content (B1, or its Wayback fallback) and adding it to the archive: 2017–2022 articles, with duplicates of PHP-era articles compared and ruled article by article.
 
+Started 2026-11-19 (#316): catalogue in `surveys/wordpress-survey.md`. Additions take art IDs from 10501780 in steps of 10, by post date (decided by Stephen Taylor). Next: let the build add index records (it can only correct them now), then convert the 11 articles from the dump’s HTML and publish the talks page.
+
 ## Open questions
 
 - Which hosting option in the end? (Phase 6, after B2.)
