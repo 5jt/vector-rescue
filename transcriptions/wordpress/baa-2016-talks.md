@@ -1,4 +1,5 @@
 ---
+vid: '10501780'
 title: 'BAA meeting, 20 May 2016: talks'
 date: '2016-05-20'
 in_press: true
