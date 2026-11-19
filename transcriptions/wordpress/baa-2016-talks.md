@@ -8,14 +8,14 @@ tags:
 - APL community
 - conference reports
 queries:
-- "Not an article: one page for the seven talks, decided by Stephen Taylor 2026-11-19 (#316). It files beside the Minutes of Annual General Meeting 2016 (10501690), held the same afternoon."
+- "Not an article: one page for the seven talks, decided by Stephen Taylor 2026-11-19 (#316). It files beside the Minutes of Annual General Meeting 2016 (10501690), held the same day."
 - "Each abstract is the WordPress post’s text, kept as written; the programme blurbs are in the future tense. Kept as written: “make access the host file system both easier and platform independent” (Richard Smith)."
 - "XAML and APL on the Web was posted twice (1157, 1878) with the same video. The text is 1157’s; the Userware link is 1878’s. 1878 also lists Chris Hughes as an author, but the video title and 1157 name Michael Hughes alone."
-- "The order of the talks is not recorded (the posts’ times are when they were posted); this order follows the posts’ IDs, Kai Jaeger’s two talks together. Affiliations (Dyalog) are from the AGM minutes’ attendance list."
+- "The order of the talks is not recorded (the posts’ times are when they were posted); this order is editorial, with Kai Jaeger’s two talks together. Affiliations (Dyalog) are from the AGM minutes’ attendance list."
 - "Every video is on the British APL Association’s YouTube channel; all seven checked live 2026-11-19."
 ---
 
-The British APL Association met at the Royal Society of Arts, London, on Friday 20 May 2016. Seven talks were recorded; the Annual General Meeting followed (see its [minutes](../art10501690/)).
+The British APL Association met at the Royal Society of Arts, London, on Friday 20 May 2016. Seven talks were recorded. The Annual General Meeting was held the same day (see its [minutes](../art10501690/)).
 
 ## File functions in Dyalog 15
 
