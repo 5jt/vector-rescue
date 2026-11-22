@@ -67,45 +67,51 @@ All twelve are published (2026-11-19, #316): `transcriptions/art10501780.md`–`
 
 ## Articles already held
 
-All 32 are 25:2/3, 26:2, 26:4, 27:1 or in-press articles. A score below about 0.8 means the texts differ enough to compare before ruling (README decision 5): differences in code layout and APL glyphs lower the score, but so would revision.
+All 32 are 25:2/3, 26:2, 26:4, 27:1 or in-press articles. Scores corrected 2026-11-22 (#328): the first scoring stripped everything between `<` and `>` from the held texts as if it were HTML, which in APL and J code ate whole passages. That is why twelve posts first scored below 0.85; all but one now score 0.90 or more.
+
+**Compared, 2026-11-22 (#328; README decision 5):** the twelve were diffed word by word against the held texts. **None has been revised; the held texts stand.** The differences are:
+
+- in the held texts only: bylines, link URLs, figure captions (10501760), reference links;
+- in the posts only: the Divi page builder's shortcodes (`[et_pb_section …]`, 10501640, hence its 0.82), and in *Co-operators* (10500740) one paragraph posted twice;
+- the rest is alignment noise around code.
+
+**Better sources:** none needed. 10501740, 10501750 and 10501760 are held only as Wayback renderings; their words and APL glyphs match the posts exactly.
 
 | Post | Title | Held as | Score |
 |---:|---|---|---:|
-| 1645 | Co-operators | 10500740 | 0.62 |
+| 1645 | Co-operators | 10500740 | 1.00 |
 | 1641 | Sharing code – the APLTree project | 10500730 | 0.99 |
 | 1623 | What is an Array? | 10500690 | 0.95 |
 | 300 | Minnowbrook conference review | 10501310 | 0.99 |
 | 288 | One reason that APL is so cool | 10501270 | 0.99 |
-| 318 | Squares, neighbours, probability, and J | 10501300 | 0.72 |
+| 318 | Squares, neighbours, probability, and J | 10501300 | 0.99 |
 | 315 | Writing a simple Japanese dentist office system in APL2 | 10501350 | 0.98 |
-| 320 | A tool of thought | 10501380 | 0.59 |
+| 320 | A tool of thought | 10501380 | 0.99 |
 | 290 | A letter from Dijkstra on APL | 10501260 | 0.95 |
 | 354 | Searching for the state in which Wonderful Things are inevitable | 10501360 | 1.00 |
 | 292 | Impending kOS | 10501320 | 0.98 |
-| 285 | All integer partitions: J programs compared | 10501280 | 0.43 |
-| 306 | Notation as a tool of proof | 10501240 | 0.52 |
-| 304 | Table Diff | 10501400 | 0.68 |
+| 285 | All integer partitions: J programs compared | 10501280 | 0.94 |
+| 306 | Notation as a tool of proof | 10501240 | 0.99 |
+| 304 | Table Diff | 10501400 | 0.99 |
 | 225, 2210 | A Notation for APL array Embedding and Serialization (two posts) | 10501450 | 1.00 |
 | 204, 1693 | Using J for Actuarial Applications Part 1 (two posts) | 10501580 | 0.93, 0.94 |
 | 235 | Pi, Pin and Ping | 10501470 | 0.99 |
 | 239 | Reading New Code | 10501520 | 1.00 |
-| 195 | APL and partitioned data | 10501640 | 0.68 |
-| 1800 | J-ottings 58 | 10501460 | 0.78 |
+| 195 | APL and partitioned data | 10501640 | 0.82 |
+| 1800 | J-ottings 58 | 10501460 | 0.98 |
 | 749 | Second Childhood | 10500550 | 0.97 |
 | 1723 | Book review — Q Tips | 10501500 | 1.00 |
 | 1156 | Letting data tell a story with kdb+ | 10501600 | 0.98 |
-| 1404 | Sixteen APL Amuse-Bouches | 10501480 | 0.81 |
+| 1404 | Sixteen APL Amuse-Bouches | 10501480 | 0.90 |
 | 1705 | A graphical sandbox for K | 10501610 | 0.96 |
 | 102 | Minutes of Annual General Meeting 2016 | 10501690 | 0.99 |
 | 1383 | Writing a Utility function | 10501710 | 0.98 |
 | 136 | Dyalog ’16 – an insider’s view | 10501750 | 0.99 |
 | 1390 | A modern APL system | 10501730 | 0.99 |
-| 1396 | Conquering recursion | 10501740 | 0.74 |
-| 1417 | Taming statistics with limited-domain operators | 10501700 | 0.63 |
+| 1396 | Conquering recursion | 10501740 | 0.98 |
+| 1417 | Taming statistics with limited-domain operators | 10501700 | 1.00 |
 | 1426 | J-ottings 59 Love Actuarily | 10501720 | 0.98 |
-| 1432 | Larger than life automata | 10501760 | 0.85 |
-
-**Better sources.** 10501740, 10501750 and 10501760 are held only as Wayback renderings; the dump has their HTML as written.
+| 1432 | Larger than life automata | 10501760 | 0.99 |
 
 Held but not on WordPress: 10501680 (Optima welcomes James Heslip) and 10501770 (Minutes of the BAA AGM 2017).
 
