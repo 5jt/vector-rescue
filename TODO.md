@@ -1,6 +1,6 @@
 # TODO
 
-Expected next steps (updated 2026-11-20).
+Expected next steps (updated 2026-11-22).
 
 ## PDF-only articles (`plans/pdf-conversion.md`)
 
@@ -39,7 +39,20 @@ Expected next steps (updated 2026-11-20).
 - [x] Volume 27 on the home page (#331): 27:1, never printed, with its 15 pieces (WordPress's 27:1 category plus the PHP site's `printed/271/`) in order of publication online; the 2016 talks page refiled as published online.
 - [x] Lead images for the never-printed pieces and bylines for the WordPress articles (#333).
 - [x] Authors' email addresses in 101 bylines of pages converted from the old site: retained as published (Stephen Taylor, 2026-11-22).
-- [ ] Push to `official` once the ZIP and SQL content are digested.
+- [x] Pushed `main` to `official` (VecEd/VectorArchive), 2026-11-22; keep it in step after each merge.
+- [x] Volume 27 tab shows online dates (#339); the header logo is the BAA logogram as SVG (#338); site title “Vector archive”. Favicon stays the blue V (Stephen, 2026-11-22).
+- [ ] Look into the missing author of *Dyalog '16 – an insider's view* (10501750).
+
+## CI/CD to GitHub Pages (begun 2026-11-22)
+
+Agreed scope: CI runs only the Zensical build (plus `lift_bylines`) from the Markdown tree the pipeline writes locally (`build/docs`, `zensical.toml`, `overrides/`), and deploys to GitHub Pages. `sources/` stay off GitHub.
+
+Measured 2026-11-22: input 749 MB (PDFs and images are most of it), built site 857 MB (881 MB as a tar; PDFs 510 MB, search.json 29 MB, duplicate files only 18 MB). Zensical build 34 s, 850 MB RAM. Pages limits: site ≤ 1 GB, deploy ≤ 10 min. So CI can handle it, with ~140 MB headroom.
+
+- [ ] Decide where the Markdown tree is committed. Recommended: its own repo (e.g. VecEd/VectorArchive-site), so VectorArchive stays under GitHub's 1 GB recommendation (it is 760 MB; adding the tree would make ~1.5 GB). Alternatives: a folder or orphan branch in VectorArchive. Stephen to decide.
+- [ ] Decide where the site is served: VecEd's Pages (recommended), 5jt.github.io/vector-rescue remaining the development preview; custom domain later.
+- [ ] Trial on the 5jt repo first: build and deploy from a test branch, to confirm the 10-minute deploy limit.
+- [ ] Make `lift_bylines` runnable in CI on its own (a small entry point), and a `make` target that writes and commits the Markdown tree.
 
 ## Metadata
 
