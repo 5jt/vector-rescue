@@ -37,6 +37,8 @@ Expected next steps (updated 2026-11-20).
 - [x] The WordPress scripts are kept in `tools/scratch/wordpress/` (#326, PR #327; sequence in `tools/scratch/README.md`).
 - [x] Compared the 12 low-scoring duplicate posts (#328): no revisions, the held texts stand; the low scores were a fault in the scoring. 10501740–10501760 need no better source.
 - [x] Volume 27 on the home page (#331): 27:1, never printed, with its 15 pieces (WordPress's 27:1 category plus the PHP site's `printed/271/`) in order of publication online; the 2016 talks page refiled as published online.
+- [x] Lead images for the never-printed pieces and bylines for the WordPress articles (#333).
+- [ ] 101 converted pages show an author's email address in the byline (from the old site's bylines): decide whether to strip them under the personal-details rule.
 - [ ] Push to `official` once the ZIP and SQL content are digested.
 
 ## Metadata

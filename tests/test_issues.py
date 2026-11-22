@@ -532,3 +532,25 @@ catalogue:
     home = write_home_page(inv, issues, docs).read_text(encoding="utf-8")
     assert "| [27](27/) | 2016–2022 |" in home
     assert "Late piece" not in home   # listed on its volume page, not among the unprinted
+
+
+def test_lead_images_open_their_articles(tmp_path):
+    """The large image that heads a post on vector.org.uk (#333): copied
+    beside the page and set at the head of the text, after a byline that
+    opens it; a page that is missing is reported."""
+    from vecrescue.pages import apply_lead_images
+    docs, folder = tmp_path / "docs", tmp_path / "lead-images"
+    folder.mkdir()
+    (folder / "q.jpg").write_bytes(b"jpeg")
+    (docs / "art1").mkdir(parents=True)
+    (docs / "art1" / "index.md").write_text("---\ntitle: A\n---\n\nD. Krizian\n{ .byline }\n\nText\n")
+    (docs / "art2").mkdir()
+    (docs / "art2" / "index.md").write_text("---\ntitle: B\n---\n\nText\n")
+    data = tmp_path / "lead-images.yaml"
+    data.write_text('"1": {file: q.jpg, alt: The q logo, source: x}\n"2": {file: q.jpg, alt: "", source: x}\n'
+                    '"3": {file: q.jpg, alt: "", source: x}\n')
+    assert apply_lead_images(data, folder, docs) == ["3"]
+    assert (docs / "art1" / "q.jpg").read_bytes() == b"jpeg"
+    assert (docs / "art1" / "index.md").read_text() == (
+        "---\ntitle: A\n---\n\nD. Krizian\n{ .byline }\n\n![The q logo](q.jpg){ .lead-image }\n\nText\n")
+    assert "---\n\n![](q.jpg){ .lead-image }\n\nText\n" in (docs / "art2" / "index.md").read_text()

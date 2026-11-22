@@ -586,6 +586,30 @@ def apply_article_tags(path, docs):
     return missing
 
 
+def apply_lead_images(path, folder, docs):
+    """Head articles with the large image their vector.org.uk post opened
+    with (#333), from PATH (transcriptions/lead-images.yaml, {vid: {file,
+    alt, source}}; the files in FOLDER): copied beside the page and set at
+    the head of its text, after a byline that opens it. Returns the vids in
+    PATH with no page."""
+    path, folder, docs = Path(path), Path(folder), Path(docs)
+    images = yaml.safe_load(path.read_text(encoding="utf-8")) or {} if path.is_file() else {}
+    missing = []
+    for vid, e in images.items():
+        page = docs / f"art{vid}" / "index.md"
+        if not page.is_file():
+            missing.append(str(vid))
+            continue
+        shutil.copyfile(folder / e["file"], page.parent / e["file"])
+        _, head, body = page.read_text(encoding="utf-8").split("---", 2)
+        body = body.lstrip("\n")
+        byline = re.match(r"[^\n]+\n\{ \.byline \}\n\n", body)
+        at = byline.end() if byline else 0
+        image = f"![{e.get('alt') or ''}]({e['file']}){{ .lead-image }}\n\n"
+        page.write_text(f"---{head}---\n\n{body[:at]}{image}{body[at:]}", encoding="utf-8")
+    return missing
+
+
 def write_tags_page(vocabulary, docs):
     """The Tags page (#95): each tag of VOCABULARY (transcriptions/tags.yaml)
     with the article pages in DOCS that carry it, in printed order. Returns
