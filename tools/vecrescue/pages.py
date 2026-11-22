@@ -222,7 +222,7 @@ def _issue_contents(docs, issue, rows, root, more_pdfs, vol, no):
                 files.append(("pdf", f"[PDF of the whole issue]({no}/{pdf.name})"))
                 break
     have_pdf = any(kind == "pdf" for kind, _ in files)
-    lines = []
+    lines = [issue["note"], ""] if issue.get("note") else []  # e.g. 27:1, never printed (#331)
     if rows and not have_pdf and any(not r.get("href") and not r.get("section") for r in rows):
         lines += [NO_SCAN, ""]
     if rows:

@@ -504,3 +504,31 @@ def test_wordpress_copy_replaces_a_truncated_capture(tmp_path):
     (p / "VOL.3-NO.4-APRIL-1987.pdf").write_bytes(b"%PDF-1.3\n...\n%%EOF\n")
     assert wayback_issue_pdfs(tmp_path / "wayback") == {}
     assert wordpress_issue_pdfs(tmp_path / "wordpress") == {("3", "4"): p / "VOL.3-NO.4-APRIL-1987.pdf"}
+
+
+def test_an_issue_never_printed_has_a_row_a_tab_and_its_note(tmp_path):
+    """27:1 (#331): an issue known only from corrections.yaml, with no PDF,
+    cover or page numbers, gets its row on the home page, its tab, and the
+    catalogue's note above its table."""
+    from vecrescue.corrections import Corrections
+    c = Corrections.from_text("""
+catalogue:
+  "27:1":
+    year: 2016–2022
+    note: Never printed; published online only.
+    why: test
+    decided: test
+""")
+    issues = c.apply_catalogue(read_issues(SRC))
+    inv = INVENTORY + [{"id": "7", "title": "Late piece", "authors": [], "volume": "27", "issue": "1",
+                        "page": None, "online": "2020-02-02"}]
+    docs, _ = pages(tmp_path)
+    (docs / "art7").mkdir()
+    (docs / "art7" / "index.md").write_text("x")
+    write_volume_pages(inv, issues, SRC, docs)
+    tab = (docs / "27" / "index.md").read_text(encoding="utf-8")
+    assert "N°1, 2016–2022" in tab and "Never printed; published online only." in tab
+    assert tab.index("Never printed") < tab.index("[Late piece](../art7/)")
+    home = write_home_page(inv, issues, docs).read_text(encoding="utf-8")
+    assert "| [27](27/) | 2016–2022 |" in home
+    assert "Late piece" not in home   # listed on its volume page, not among the unprinted

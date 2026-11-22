@@ -129,7 +129,7 @@ class Corrections:
                          "span": 1, "numbers": [no], "pdf": None, "doc": None}
                 issues.append(issue)
                 by[(vol, no)] = issue
-            for k in ("year", "month", "title", "pdf", "doc"):
+            for k in ("year", "month", "title", "pdf", "doc", "note"):  # note: shown on the issue’s tab (#331)
                 if k in e:
                     issue[k] = e[k]
             if "title" in e and re.match(r"Nos?\.", e["title"]):
