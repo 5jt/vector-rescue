@@ -24,7 +24,7 @@ Expected next steps (updated 2026-11-20).
 ## Complete scans of 3:4, 7:4 and 16:4 (#321)
 
 - [x] Found on vector.org.uk (#316); in `sources/wordpress/`; the build prefers them to the truncated captures. Their 31 indexed articles link to the scan, with its OCR.
-- [ ] Check the three Contents files (`transcriptions/contents/v3n4.yaml`, `v7n4.yaml`, `v16n4.yaml`) against the scans: they were transcribed from recovered OCR, which lost some page numbers.
+- [x] Checked the three Contents files against the complete scans (2026-11-22): missing page numbers added; 3:4 regains two authors' rightful items (APL88 is Neville Holmes's, the society news David Preedy's) and its APL 86 heading; 7:4's title *Thoughts on J←f g h* restored. Found in passing: 7:4's Random Vector has its own contents (p.33), including David Appleton's *Sterling's Function* (p.47), not in the index: for the Second Pass sweep.
 - [ ] First Pass: transcribe the 31 indexed articles.
 - [ ] Second Pass: the unindexed pieces of the three issues (never swept).
 
