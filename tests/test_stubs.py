@@ -268,3 +268,18 @@ def test_review_note_for_a_piece_added_from_wordpress():
     assert review_note({"added": "WordPress post 763", "review": "draft"}) == \
         "From the vector.org.uk WordPress site; not yet reviewed."
     assert review_note({"review": "draft"}) == "Transcribed from the printed issue; not yet reviewed."
+
+
+def test_transcribed_page_takes_its_issue_from_the_record(tmp_path):
+    """A WordPress addition placed in 27:1 by corrections.yaml (#331) has no
+    volume in its own front matter: the page takes it from the record, so
+    that its header reads “Vector 27:1”. The transcription's own wins."""
+    from vecrescue.stubs import read_transcription, write_transcribed
+    t = tmp_path / "art10501850.md"
+    t.write_text("---\nvid: '10501850'\ntitle: The doctor and the doc\nonline: '2020-02-02'\nadded: x\n---\nText.\n", encoding="utf-8")
+    record = {"id": "10501850", "title": "The doctor and the doc", "volume": "27", "issue": "1", "page": None}
+    fm, _ = read_transcription(write_transcribed(record, tmp_path / "docs", t))
+    assert (fm["volume"], fm["issue"], fm["online"]) == ("27", "1", "2020-02-02") and "page" not in fm
+    t.write_text(t.read_text().replace("added: x", "added: x\nvolume: '26'\nissue: '4'"), encoding="utf-8")
+    fm, _ = read_transcription(write_transcribed(record, tmp_path / "docs", t))
+    assert (fm["volume"], fm["issue"]) == ("26", "4")

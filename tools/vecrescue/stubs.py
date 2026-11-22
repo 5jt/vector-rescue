@@ -264,6 +264,8 @@ def write_transcribed(record, docs, transcription, pdf=None, name=None, own=None
     piece with no index entry, is its page folder and figure folder (#93)."""
     transcription = Path(transcription)
     fm, body = read_transcription(transcription)
+    if not fm.get("volume") and record.get("volume"):  # placed by corrections.yaml, e.g. 27:1 (#331)
+        fm.update({k: record[k] for k in ("volume", "issue", "page") if record.get(k)})
     fm["status"] = "transcribed"
     note = review_note(fm)
     if own:

@@ -36,6 +36,7 @@ Expected next steps (updated 2026-11-20).
 - [ ] Awaiting Jake's reply (asked 2026-11-20): `wp-content/uploads` for the two lost images (Langlet's figure 1, 10501810; the pivot with totals, 10501860); the source of Dan Baronet's *Finding text in files* (10501800) for the lost `]find` markers; who wrote the *Fun Q* review (credited to Daniel Krizian, 10501870); whether to archive Richard Park's unpublished *The Derivative Revisited*, and on whose consent; scans of 2:2 and 7:2 (#62). Apply what he sends.
 - [x] The WordPress scripts are kept in `tools/scratch/wordpress/` (#326, PR #327; sequence in `tools/scratch/README.md`).
 - [x] Compared the 12 low-scoring duplicate posts (#328): no revisions, the held texts stand; the low scores were a fault in the scoring. 10501740–10501760 need no better source.
+- [x] Volume 27 on the home page (#331): 27:1, never printed, with its 15 pieces (WordPress's 27:1 category plus the PHP site's `printed/271/`) in order of publication online; the 2016 talks page refiled as published online.
 - [ ] Push to `official` once the ZIP and SQL content are digested.
 
 ## Metadata
