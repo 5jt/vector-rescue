@@ -38,7 +38,7 @@ Expected next steps (updated 2026-11-20).
 - [x] Compared the 12 low-scoring duplicate posts (#328): no revisions, the held texts stand; the low scores were a fault in the scoring. 10501740–10501760 need no better source.
 - [x] Volume 27 on the home page (#331): 27:1, never printed, with its 15 pieces (WordPress's 27:1 category plus the PHP site's `printed/271/`) in order of publication online; the 2016 talks page refiled as published online.
 - [x] Lead images for the never-printed pieces and bylines for the WordPress articles (#333).
-- [ ] 101 converted pages show an author's email address in the byline (from the old site's bylines): decide whether to strip them under the personal-details rule.
+- [x] Authors' email addresses in 101 bylines of pages converted from the old site: retained as published (Stephen Taylor, 2026-11-22).
 - [ ] Push to `official` once the ZIP and SQL content are digested.
 
 ## Metadata
