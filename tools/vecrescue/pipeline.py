@@ -12,7 +12,7 @@ from .convert import convert
 from .inventory import (add_records, article_source, correct_from_contents, merge_wayback, php_index, php_renderings,
                         read_index, read_issues)
 from .legacy import decode, mapped_apl, read_codingprobs
-from .pages import (_catalogue, apply_article_tags, lift_bylines, damaged_issue_pdfs, issue_pdfs, wordpress_issue_pdfs, mark_issue_tabs, nav_toml, publish_unindexed,
+from .pages import (_catalogue, apply_article_tags, apply_lead_images, lift_bylines, damaged_issue_pdfs, issue_pdfs, wordpress_issue_pdfs, mark_issue_tabs, nav_toml, publish_unindexed,
                     read_contents, wayback_issue_pdfs, write_home_page, write_index_page, write_tags_page,
                     write_volume_pages)
 from . import stubs
@@ -254,6 +254,9 @@ def run_site(src, out, config, wayback=None, corrections=None, transcriptions=No
         if untagged:
             print("Warning: article-tags.yaml names articles with no page:", ", ".join(untagged))
         write_tags_page(Path(transcriptions) / "tags.yaml", docs)
+        lost = apply_lead_images(Path(transcriptions) / "lead-images.yaml", Path(transcriptions) / "lead-images", docs)
+        if lost:
+            print("Warning: lead-images.yaml names articles with no page:", ", ".join(lost))
     toml = config.read_text(encoding="utf-8")
     toml = re.sub(r"^nav = \[.*?\]$", lambda _: nav_toml(inventory, issues), toml, count=1, flags=re.M)
     toml = re.sub(r'"(assets/[^"?]+\.(?:css|js))"',  # versioned by content; vendored files by their path
