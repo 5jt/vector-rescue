@@ -534,6 +534,22 @@ catalogue:
     assert "Late piece" not in home   # listed on its volume page, not among the unprinted
 
 
+def test_an_issue_without_page_numbers_shows_online_dates(tmp_path):
+    """27:1 (#339): where no piece has a page number, the first column
+    gives each one's date of publication online instead."""
+    inv = INVENTORY + [{"id": "7", "title": "Late piece", "authors": [], "volume": "27", "issue": "1",
+                        "page": None, "online": "2020-02-02"}]
+    docs, _ = pages(tmp_path)
+    (docs / "art7").mkdir()
+    (docs / "art7" / "index.md").write_text("x")
+    write_volume_pages(inv, read_issues(SRC), SRC, docs)
+    tab = (docs / "27" / "index.md").read_text(encoding="utf-8")
+    assert "| Online | Article | Author |" in tab
+    assert "| 2020-02-02 | [Late piece](../art7/) |" in tab
+    printed = (docs / INVENTORY[0]["volume"] / "index.md").read_text(encoding="utf-8")
+    assert "| Page | Article | Author |" in printed
+
+
 def test_lead_images_open_their_articles(tmp_path):
     """The large image that heads a post on vector.org.uk (#333): copied
     beside the page and set at the head of the text, after a byline that

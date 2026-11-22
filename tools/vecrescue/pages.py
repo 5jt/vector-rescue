@@ -226,10 +226,13 @@ def _issue_contents(docs, issue, rows, root, more_pdfs, vol, no):
     if rows and not have_pdf and any(not r.get("href") and not r.get("section") for r in rows):
         lines += [NO_SCAN, ""]
     if rows:
-        lines += ["| Page | Article | Author |", "| ---: | --- | --- |"]
+        # an issue never printed (27:1) has no page numbers: give the dates online instead (#339)
+        dated = not any(r.get("page") for r in rows) and any(r.get("online") for r in rows)
+        lines += [f"| {'Online' if dated else 'Page'} | Article | Author |", "| ---: | --- | --- |"]
         for r in rows:
             title = _row_md(r, "../")
-            lines.append(f"| {r.get('page') or ''} | {title} | {_cell(r.get('author'))} |")
+            first = r.get("online") if dated else r.get("page")
+            lines.append(f"| {first or ''} | {title} | {_cell(r.get('author'))} |")
         if any(r.get("doubtful") for r in rows):
             lines += ["", f"⚠ {DOUBTFUL}."]
     else:
@@ -335,7 +338,8 @@ def issue_rows(docs, contents, index_rows, pdf_link=None):
         doubtful = doubtful or q == "failed"
         return {"indent": indent, "page": page if page is not None else r.get("page"),
                 "title": title or r.get("title"), "author": author if author is not None else ", ".join(r.get("authors") or []),
-                "href": f"art{vid}/" if _converted(docs, vid) else None, "q": q, "doubtful": doubtful, "vid": vid}
+                "href": f"art{vid}/" if _converted(docs, vid) else None, "q": q, "doubtful": doubtful, "vid": vid,
+                "online": r.get("online")}
 
     def pdf_href(page):
         if pdf_link and str(page or "").isdigit():
