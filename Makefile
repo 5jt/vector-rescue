@@ -68,7 +68,7 @@ OFFICIAL_SITE = https://veced.github.io/VectorArchive/
 official:
 	test -f build/zensical.toml || { echo "Run make all first"; exit 1; }
 	test -d $(OFFICIAL)/.git || git clone -q $$(git remote get-url official) $(OFFICIAL)
-	git -C $(OFFICIAL) pull -q --ff-only
+	git -C $(OFFICIAL) pull -q --ff-only origin main
 	mkdir -p $(OFFICIAL)/scripts
 	rsync -a --delete build/docs/ $(OFFICIAL)/docs/
 	rsync -a --delete build/overrides/ $(OFFICIAL)/overrides/
