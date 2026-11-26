@@ -1,0 +1,1910 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rescued articles from Vector, the journal of the British APL Association">
+      
+      
+      
+        <link rel="canonical" href="https://5jt.github.io/vector-rescue/art10501860/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.67">
+    
+    
+      
+        <title>Powerful CSV processing with kdb+ - Vector archive</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.4ae390e2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/vector.css?v=9d267849">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  
+    <meta name="robots" content="noindex">
+  
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Vector archive" class="md-header__button md-logo" aria-label="Vector archive" data-md-component="logo">
+      
+  <img src="../assets/images/baa-logogram.svg" alt="Vector archive">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vector archive
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Powerful CSV processing with kdb+
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Vector archive" class="md-nav__button md-logo" aria-label="Vector archive" data-md-component="logo">
+      
+  <img src="../assets/images/baa-logogram.svg" alt="Vector archive">
+
+    </a>
+    Vector archive
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project status
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../full-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full index
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volumes
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Volumes
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 1, 1984–1985
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 2, 1985–1986
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 3, 1986–1987
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 4, 1987–1988
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 5, 1988–1989
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 6, 1989–1990
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 7, 1990–1991
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 8, 1991–1992
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 9, 1992–1993
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 10, 1993–1994
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 11, 1994–1995
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 12, 1995–1996
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 13, 1996–1997
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 14, 1997–1998
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 15, 1998–1999
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 16, 1999–2000
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 17, 2000–2001
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 18, 2001–2002
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 19, 2002–2003
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 20, 2003–2004
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 21, 2004–2005
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 22, 2005–2006
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 23, 2008
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 24, 2008–2010
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 25, 2011–2012
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 26, 2013–2016
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume 27, 2016–2022
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../archive-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Comparison with the archive
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introduction
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-csv-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Common CSV tools
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common CSV tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux-command-line-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Linux command-line tools
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#csvkit" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        CSVKit
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xsv" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        xsv
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#type-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Type inference
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qkdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        q/kdb+
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="q&#x2f;kdb+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#type-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Type conversion
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kdb-based-one-liners" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        kdb+ based one-liners
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="kdb+ based one-liners">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selecting-columns-filtering-sorting" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Selecting columns, filtering, sorting
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Pipes
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indexing" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Indexing
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exotic-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Exotic functions
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exotic functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pivot" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Pivot
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#array-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Array columns
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#join" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Join
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Performance
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Conclusion
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conclusion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#acknowledgement" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Acknowledgement
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="__skip">Powerful CSV processing with kdb+</h1>
+<p class="byline transcribed-text">Ferenc Bodon</p>
+
+  <p class="printed"><a href="../27/#n1-20162022">Vector 27:1</a>, online 2020-09-10</p>
+
+
+  <p class="subject-tags"><a class="md-tag" href="../tags/#tag-data-and-files">data and files</a> <a class="md-tag" href="../tags/#tag-performance">performance</a> </p>
+
+<div class="transcribed-text"><p class="transcribed"><em>From the vector.org.uk WordPress site; not yet reviewed.</em></p>
+<p><img alt="CSV and q/kdb+" src="coverPhoto1200width.png" /></p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>Comma-separated text files (CSV) are the most fundamental format for data processing. All programming languages and software that support working with relational data, also provide some level of CSV handling. You can persist and process data without installing a database management system. Often you don't need a full-blown DBMS with all its features, like handling transactions and concurrent/remote access, indexing, etc… The lightweight CSV format allows for easy processing and sharing of the captured information.</p>
+<p>The CSV format predates personal computers and has been one of the most common data exchange formats for almost 50 years. CSV files will remain with us in the future. Working with this format efficiently is a core requirement of a productive developer, data engineer/scientist, DevOps person, etc… You may need to filter rows, sort by a column, select existing or derive new columns. Perhaps you need to do complex analysis that requires aggregation and grouping.</p>
+<p>This article provides a glimpse into the available tools to work with CSV files and describes how kdb+ and its query language q raise CSV processing to a new level of performance and simplicity.</p>
+<h2 id="common-csv-tools">Common CSV tools<a class="headerlink" href="#common-csv-tools" title="Permanent link">&para;</a></h2>
+<h3 id="linux-command-line-tools">Linux command-line tools<a class="headerlink" href="#linux-command-line-tools" title="Permanent link">&para;</a></h3>
+<p>Many CSV processing need to be done in a Linux or Mac environment that has a powerful terminal console with some kind of shells on it. Most shells, like Bash, support arrays. You can read a CSV line-by-line and store all fields in an array variable. You can use built-in string manipulation and integer calculations (even float calculations with e.g <code>bc -l</code>) to operate on cell values. The code will be lengthy and hard to maintain.</p>
+<p>General text processing tools like <a href="https://en.wikipedia.org/wiki/AWK"><code>awk</code></a> and <a href="https://en.wikipedia.org/wiki/Sed"><code>sed</code></a> scripts may result in shorter and simpler code. Commands like <a href="https://en.wikipedia.org/wiki/Cut_(Unix)"><code>cut</code></a>, <a href="https://en.wikipedia.org/wiki/Sort_(Unix)"><code>sort</code></a>, <a href="https://en.wikipedia.org/wiki/Uniq"><code>uniq</code></a> and <a href="https://en.wikipedia.org/wiki/Paste_(Unix)"><code>paste</code></a> further simplify CSV processing. You can specify the separator and <strong>refer to fields by positions</strong>.</p>
+<p>The world is constantly changing. So do CSV files. Position-based reference breaks if a new column is added ahead of the referred column or columns are shuffled e.g. to move related columns next to each other. The problem manifests silently: your scripts may run smoothly, but you just use a different column in your calculation! If you don’t have a regression-testing framework to safeguard your codebase, then the end-user (or your competitor) might discover the problem. This can be embarrassing.</p>
+<p>Position-based reference creates fragile code. Processing CSV by these Linux commands is great for prototyping and for quick analysis but you hit the limits once your codebase starts increasing or you share scripts with other colleagues. No wonder that in SQL the position-based column reference is limited and discouraged.</p>
+<p>The huge advantage of Linux command-line tools is that no installation is required. Your shell script will likely run on other's Linux systems. Familiarity with tools readily available in Linux is useful, but they should often be avoided for complex, long-lived, tasks.</p>
+<h3 id="csvkit">CSVKit<a class="headerlink" href="#csvkit" title="Permanent link">&para;</a></h3>
+<p>Many open-source libraries offer CSV support. The Python library <a href="https://csvkit.readthedocs.io/en/latest/#">CSVKit</a> is one of the most popular. It offers a more robust solution than native Linux commands, such as allowing <strong>reference of columns by name</strong>. The column names are stored in the first row of the CSV. Reference by name is sensitive to column renaming but this probably happens less frequently than adding or moving columns.</p>
+<p>Also, CSVKit handles the first rows better than the general-purpose text tools do. Linux command <code>sort</code> treats the first row as any other row and can place it in the middle of the output. Similarly, <code>cat</code> includes the first rows when you concatenate multiple CSV files. Commands <code>csvsort</code> and <code>csvstack</code> handle first rows properly.</p>
+<p>Finally, the CSVKit developers took special care to provide consistent command-line parameters, e.g. separator is defined by <code>-d</code>. In contrast, you need to remember that the separator is specified by <code>-t</code> for <a href="https://en.wikipedia.org/wiki/Sort_(Unix)"><code>sort</code></a> and <code>-d</code> for the other Linux commands, <a href="https://en.wikipedia.org/wiki/Cut_(Unix)"><code>cut</code></a>, <a href="https://en.wikipedia.org/wiki/Paste_(Unix)"><code>paste</code></a>.</p>
+<p>CSVKit includes the simply-named utilities, <a href="https://csvkit.readthedocs.io/en/latest/scripts/csvcut.html"><code>csvcut</code></a>, <a href="https://csvkit.readthedocs.io/en/latest/scripts/csvgrep.html"><code>csvgrep</code></a> and <a href="https://csvkit.readthedocs.io/en/latest/scripts/csvsort.html"><code>csvsort</code></a>, which replace the traditional Linux commands <code>cut</code>, <code>grep</code> and <code>sort</code>. Nonetheless, the merit of the Linux commands is their speed.</p>
+<p>You probably use Linux commands <a href="https://en.wikipedia.org/wiki/Head_(Unix)"><code>head</code></a>, <a href="https://en.wikipedia.org/wiki/Tail_(Unix)"><code>tail</code></a>, <a href="https://en.wikipedia.org/wiki/Less_(Unix)"><code>less</code></a>/<a href="https://en.wikipedia.org/wiki/More_(command)"><code>more</code></a> and <a href="https://en.wikipedia.org/wiki/Cat_(Unix)"><code>cat</code></a> to take a quick look at the content of a text file. Unfortunately, the output of these tools is not appealing for CSV files. The columns are not aligned and you will spend a lot of time squinting a monochrome screen figuring out to which column a given cell belongs. You might give up and import the data into Excel or Google Sheet. However, if the file is on a remote machine you first need to SCP it to your desktop. You can save time and work in the console by using <a href="https://csvkit.readthedocs.io/en/latest/scripts/csvlook.html"><code>csvlook</code></a>. Command <code>csvlook</code> nicely aligns column under the column name. To execute the command below, download arms dealership data and convert it to <code>data.csv</code> as <a href="https://csvkit.readthedocs.io/en/latest/tutorial/1_getting_started.html#getting-the-data">CSVKit tutorial</a> describes.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$ csvlook --max-rows 20 data.csv
+</span></code></pre></div>
+<p>Don’t worry if your console is narrow: pipe the output to <code>less -S</code> and use arrow keys to move left and right.</p>
+<p>Another useful extension included in CSVKit is the command <a href="https://csvkit.readthedocs.io/en/latest/scripts/csvstat.html"><code>csvstat</code></a>. It analyzes the file contents and displays statistics like the number of distinct values of all columns. Also, it tries to infer types. If the column type is a number then it also returns maximum, minimum, mean, median, and standard deviation of the values.</p>
+<p>To perform aggregations, filtering and grouping, you can use the CSVKit command <a href="https://csvkit.readthedocs.io/en/latest/scripts/csvsql.html"><code>csvsql</code></a> that lets you run ANSI SQL commands on CSV files.</p>
+<h3 id="xsv">xsv<a class="headerlink" href="#xsv" title="Permanent link">&para;</a></h3>
+<p>Some CSVKit commands are slow because they load the entire file into the memory and create an in-memory database. Rust developers reimplemented several traditional tools like <code>cat</code>, <code>ls</code>, <code>grep</code> and <code>find</code> and tools like <a href="https://github.com/sharkdp/bat"><code>bat</code></a>, <a href="https://github.com/ogham/exa"><code>exa</code></a>, <a href="https://github.com/BurntSushi/ripgrep"><code>ripgrep</code></a> and <a href="https://github.com/sharkdp/fd"><code>fd</code></a> were born. No wonder they also created a performant tool for CSV processing, library <a href="https://github.com/BurntSushi/xsv"><code>xsv</code></a>.</p>
+<p>The Rust library also supports selecting columns, filtering, sorting and joining CSV files. An index can be added to CSV files that are frequently processed to speed up operations. Indexing is an elegant and lightweight step towards DBMS.</p>
+<h2 id="type-inference">Type inference<a class="headerlink" href="#type-inference" title="Permanent link">&para;</a></h2>
+<p>CSV is a text format that holds no type information for the columns. A string can be converted to a datatype based on its value. If all values of a column match the pattern <code>YYYY.MM.DD</code> we can conclude that the column holds dates. But how shall we treat the literal 100000? Is it an integer, or a time 10:00:00? Maybe the source process only supports digits and omitted the time separators? In real life, information about the source is not always available and you need to reverse engineer the data. If all values of the column match the string <code>HHMMSS</code> then we <strong>can</strong> conclude with high confidence that the column holds time values. The following are two approaches we can take to make a decision.</p>
+<p>First, we could be strict: we predefine the pattern that any type needs to match. The patterns do not overlap. If time is defined as <code>HH:MM:SS</code> and integers as <code>[1-9][0-9]*</code> then 100000 is an integer.</p>
+<p>Second, we could let patterns overlap and in case of conflict we choose the type with the smaller domain or based on some rules. This approach prefers time over int for 100000 if the time pattern also contains <code>HHMMSS</code>.</p>
+<p>The CSVKit library implements the first approach.</p>
+<h2 id="qkdb">q/kdb+<a class="headerlink" href="#qkdb" title="Permanent link">&para;</a></h2>
+<p>Kdb+ is the <a href="https://kx.com/media/2018/10/Kx-FAQ.pdf">world's fastest time-series database</a>, optimized for ingesting, analyzing and storing massive amounts of structured data. Its query language, called <a href="https://code.kx.com/q4m3/">Q</a>, is a general-purpose programming language. Tables are first-class objects in q. Q tables are semantically similar to Pandas/R data frames. You can persist tables to disk, hence the solution can be considered a database, referred to as <a href="https://code.kx.com/q4m3/14_Introduction_to_Kdb+/">kdb+</a>.</p>
+<p>Exporting and importing CSV files is part of the core language. Table <code>t</code> can be saved in directory <code>dir</code> by command</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>q) save `:dir/t.csv
+</span></code></pre></div>
+<p>Here <code>q)</code> denotes the default prompt we get after starting the q interpreter.</p>
+<p>To choose a different name, e.g. <code>output.csv</code> then use the File Text operator <code>0:</code> for saving text and the utility <a href="https://code.kx.com/q/ref/doth/#hcd-csv-from-data"><code>.h.cd</code></a> to convert a kdb+ table to a list of strings</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>q) `output.csv 0: .h.cd t
+</span></code></pre></div>
+<p>You can also use <a href="https://code.kx.com/q/ref/file-text/#prepare-text">other separators</a> than a comma.</p>
+<p>To import a CSV <code>data.csv</code>, specify the column types and the separator. The following command assumes the column names are in the first row.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>q) ("SSE**F"; enlist csv) 0: `data.csv
+</span></code></pre></div>
+<p>The type encoding is available on the <a href="https://code.kx.com/q/ref/#datatypes">kdb+ reference card</a>, <code>E</code> stands for real, <code>I</code> for integer, <code>S</code> for enumeration (symbol in kdb+ parlance), <code>D</code> for date, etc… Use spaces to ignore columns. Character <code>*</code> denotes string.</p>
+<p>Specifying types manually has high maintenance costs, is laborious for wide CSV files and is prone to error. Inserting a single new column can break the code.</p>
+<p>Fortunately, Kx open-source libraries <a href="https://github.com/KxSystems/kdb/blob/master/utils/csvutil.q">csvutil</a> and <a href="https://github.com/KxSystems/kdb/blob/master/utils/csvguess.q">csvguess</a> offer a convenient and robust solution.</p>
+<p>Script <code>csvutil.q</code> contains a function to load a CSV file, analyze its values, infer types and return a kdb+ table.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>q) \l utils/csvutil.q
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>q) .csv.read `data.csv
+</span></code></pre></div>
+<p><img alt="displaying CSV content by .csv.read" src="csvread.png" /></p>
+<p>Script <code>csvguess.q</code> lets you save a metadata about the columns into a text file. Developers can review and adjust the type column and use the metadata in production to load a CSV with the correct types. The two scripts have different users. Data scientists prefer <code>csvutil.q</code> for ad hoc analyses. When IT staff configure a kdb+ CSV feed then they use the assisted metadata export and import feature of <code>csvguess.q</code>. The type hints provide a less error-prone solution than manually entering types for all columns.</p>
+<h3 id="type-conversion">Type conversion<a class="headerlink" href="#type-conversion" title="Permanent link">&para;</a></h3>
+<p>Library <code>csvutil.q</code> supports both type conversions - the strict mode is implemented by <code>.csv.basicread</code>, while the <code>.csv.read</code> function checks more patterns to infer types.</p>
+<p>Function <code>.csv.read</code> is just a wrapper around the general function <code>.csv.data</code> that accepts a filename and a meta-data table. The meta-data can be generated by <code>.csv.basicinfo</code> and <code>.csv.info</code> depending on the inference rule set we would like to employ. You can see the function definition in the q interpreter by typing the function name the press Enter.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>q) .csv.read
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>{[file] data[file; info[file]]}
+</span></code></pre></div>
+<p>The column metadata table is a bit similar to <code>csvstat</code> output.</p>
+<p><img alt="CSV meta-information by csvinfo" src="csvinfo.png" /></p>
+<p>Each row belongs to a column and each field stores some useful information about the column, like name (<code>c</code>), inferred type (<code>t</code>), max width (<code>mw</code>), etc… Field <code>gr</code> short for <em>granularity</em> is particularly interesting as it indicates how well the column values compress and if they should be stored as an enumeration rather than as strings. For more details about the columns, please see the <a href="https://github.com/KxSystems/kdb/blob/master/utils/csv.md">documentation</a>.</p>
+<p>You can control the number of lines to be examined for type inference by variable <code>READLINES</code>. The default value is 5555. The smaller this number the more chance of an inference rule to be coincidental. For example in the sample table (that was also used in the CSVKit tutorial) column <code>fips</code> matches the pattern <code>HMMSS</code> for the first 916 rows, so we could infer time as type. The pattern matching breaks from line 917 with values like <code>31067</code>. To disable partial file-based type inference, just change <code>READLINES</code>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>q) .csv.READLINES: count read0 `data.csv
+</span></code></pre></div>
+<h2 id="kdb-based-one-liners">kdb+ based one-liners<a class="headerlink" href="#kdb-based-one-liners" title="Permanent link">&para;</a></h2>
+<p>Let us wrap the q interpreter and the load of <code>csvutil.q</code> into a simple shell function to create a powerful command-line CSV processing utility.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$ function qcsv { q -c 25 320 -s $(nproc --all) &lt;&lt;&lt; 'system "l utils/csvutil.q";'"$1"; }
+</span></code></pre></div>
+<p>The <code>-c 25 320</code> command-line parameter modifies the default 25×80 console size to display wide tables better. Switch <code>-s</code> allocates multiple threads for parallel processing. We set this value to the number of cores in your machine. Use <code>$(sysctl -n hw.ncpu)</code> if you work on a Mac. You can verify the setting by executing</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>$ qcsv 'system "s"'
+</span></code></pre></div>
+<p>to display the number of worker threads allocated for <code>qcsv</code>.</p>
+<p>This simple wrapper can easily achieve what <code>csvlook</code>, <code>csvcut</code>, <code>csvgrep</code> and <code>csvsort</code> are built for… and even more. For example,</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>$ qcsv '.csv.read10 `data.csv'
+</span></code></pre></div>
+<p>mocks <code>csvlook</code> and displays the first 10 rows of <code>data.csv</code> nicely aligned. You can pipe the output to <code>less -S</code> for wide tables.</p>
+<p><img alt="qcsv mocks csvlook" src="qmockscsvlook.png" /></p>
+<p>Whenever you would like to see a leading or a trailing subset of a table, use the <a href="https://code.kx.com/q/ref/sublist/">sublist</a> function.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>$ qcsv '20 sublist .csv.read `data.csv'
+</span></code></pre></div>
+<h3 id="selecting-columns-filtering-sorting">Selecting columns, filtering, sorting<a class="headerlink" href="#selecting-columns-filtering-sorting" title="Permanent link">&para;</a></h3>
+<p>Once we have a kdb+ table, we can use the full power of qSQL to do any data manipulation. To select columns</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>$ qcsv 'select nsn,item_name from .csv.read `data.csv'
+</span></code></pre></div>
+<p>Perhaps, you dislike the idea of devoting resources to analyze columns, load them into memory, then discard them. Good news! We have a shortcut.</p>
+<p>In kdb+, function <code>.csv.infoonly</code> accepts a list of columns to restrict the column analyses. We can plug the output into the generic <code>.csv.read</code>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>$ qcsv '.csv.data[`data.csv; .csv.infoonly[`data.csv; `nsn`item_name]]'
+</span></code></pre></div>
+<p>Using qSQL again, we can further filter our results to select matching rows.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>$ qcsv 'select from .csv.read `data.csv where item_name like "RIFLE*", fips &gt; 31100'
+</span></code></pre></div>
+<p>We can use q keywords <code>xasc</code> and <code>xdesc</code> to mock <code>csvsort</code>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>$ qcsv '`fips xdesc .csv.read `data.csv'
+</span></code></pre></div>
+<h3 id="pipes">Pipes<a class="headerlink" href="#pipes" title="Permanent link">&para;</a></h3>
+<p>A remarkable feature of the Unix-based system is piping: pass the output from a command as the input to another command. CSVKit also follows this principle. Once the content of a CSV is converted to a kdb+ table, you probably want to stay in this place as the power of q offers a convenient and powerful data-processing environment.</p>
+<p>In some cases, however, it can happen that you need to execute a black-box script that accepts the input via STDIN. Our <code>qcsv</code> command can convert a kdb+ table to produce the required output. For example, in the command below we massage the input CSV via an anonymous function then send the output to command <code>blackboxcommand</code>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>$ qcsv '-1 .h.cd { // do something here } .csv.read `data.csv;' | blackboxcommand
+</span></code></pre></div>
+<p>Remember the trailing semi-colon if you want to process the standard input.</p>
+<p>Using pipe is the most elegant solution if you would like to run a <code>csvsql</code> query on a table that does not fit into the memory, and the query contains a WHERE clause that can be used to reduce the table size. For example, instead of doing</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>$ csvsql --query "select ... FROM data WHERE item_name like "RIFLE*" data.csv
+</span></code></pre></div>
+<p>that builds a large in-memory database, you can do</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>$ csvgrep -c item_name -r "RIFLE*" data.csv | csvsql --query "select ... FROM STDIN"
+</span></code></pre></div>
+<p>Unfortunately, the capability of the <code>csvgrep</code> filtering is limited. You can specify columns and a single value or a regular expression. Even ANSI SQL can express more complex filtering.</p>
+<p>Libraries <code>csvutil.q</code> and <code>csvguess.q</code> offer the full power of the q language in pre-filtering the input table. During batch load function <code>POSTLOADEACH</code> gets the input CSV segment and its output will be appended to the final result. To avoid creating a bulky one-liner I used the q interpreter and executed all statements one-by-one.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>$ q
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>q) \l utils/csvutil.q
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>q) POSTLOADEACH: {x where x[`item_name] like "RIFLE*"};
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>q) DATA: ();
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>q) bulkload[`data.csv; .csv.info[`data.csv]];
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>q) select ... from DATA
+</span></code></pre></div>
+<p>In the q functions, you can do anything: use business or utility functions, do mathematics operations, call out to an external server, etc…</p>
+<p>Function <code>POSTLOADALL</code> is executed after the bulk load is finished. This post processing is particularly useful in the load script generated by <code>csvguess.q</code>. For example, several columns (e.g. <code>root_stone</code>) in the <a href="https://data.cityofnewyork.us/Environment/2015-Street-Tree-Census-Tree-Data/pi5s-9p35">NY Street tree data</a> contain <code>Yes/No</code> values, that you can easily convert to boolean by</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>POSTLOADALL: {update `Yes=root_stone from x}
+</span></code></pre></div>
+<h3 id="indexing">Indexing<a class="headerlink" href="#indexing" title="Permanent link">&para;</a></h3>
+<p>The index feature of xsv speeds up queries by creating a binary file with extension <code>idx</code> next to the CSV.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>$ xsv index data.csv
+</span></code></pre></div>
+<p>The recommended way of CSVKit to use indices and speed up SQL queries is to move the content of the CSV into an <a href="https://sqlite.org/">SQLite</a> database and use its CLI to create an index and query the data. All these assume that you have permission to create files on the computer.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>$ csvsql --db sqlite:///data.db --insert data.csv
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>$ sqlite3 data.db 'CREATE INDEX idx ON data(county)'
+</span></code></pre></div>
+<p>To get a nicely formatted output of a query, use command line options <code>-header</code> and <code>-csv</code>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>$ sqlite3 -header -csv data.db 'SELECT county, COUNT(*) AS NR FROM data GROUP BY county;'
+</span></code></pre></div>
+<p>Similarly, you can get a huge performance improvement if you convert the CSV to the proprietary kdb+ format and you can get further gain if you add indices to columns you query often. You can also sort the table before saving. The <a href="https://code.kx.com/q4m3/8_Tables/#881-sorted-s">sorted attribute</a> is attached to the column and several operations speed up by e.g. replacing linear searches with binary searches.</p>
+<p>In the command below, I create the kdb+ equivalent of <code>data.csv</code> as table <code>t</code> in directory <code>db</code> and <a href="https://code.kx.com/q4m3/8_Tables/#88-attributes">apply an index</a> on column <code>county</code> via attribute <a href="">`g#</a></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>$ mkdir db
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>$ qcsv '`:db/t/ set .Q.en[hsym `db] update `g#county from .csv.read `data.csv'
+</span></code></pre></div>
+<p>You don't need the <code>qcsv</code> wrapper around the q interpreter to run queries.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>$ q db &lt;&lt;&lt; 'select nr: count i by county from t'
+</span></code></pre></div>
+<p>If we have limited hardware resources and the CSV does not fit into the memory, then we can use <code>csvguess.q</code> that supports batch loading and saving.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>$ q csvguess.q data.csv -savescript -exit
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a># overwrite POSTSAVEALL definition in data.load.q to
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a># POSTSAVEALL: {@[SAVEPATH[]; `county; `g#]}
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>$ q data.load.q -bulksave -savedb kdb -savename t -exit
+</span></code></pre></div>
+<p>Note that kdb+ is a columnar database and each column has its own file representation. When you run query <code>select count i by county from t</code> then only column <code>county</code> is read and requires resources. This lets you run queries on tables that do not fit into the memory and <code>csvsql</code> exits with an error message.</p>
+<p>Comparing SQLite and kdb+ is beyond the scope of this paper, however, a quick comparison on a table with 3.1 million rows suggest that there is a huge difference in performance.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">operation</th>
+<th style="text-align: right;">SQLite</th>
+<th style="text-align: right;">kdb+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>exec time of importing a CSV</strong></td>
+<td style="text-align: right;">223 sec</td>
+<td style="text-align: right;">6 sec</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>memory need of importing a CSV</strong></td>
+<td style="text-align: right;">5841 kbyte</td>
+<td style="text-align: right;">178 kbyte</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>exec time of a query</strong></td>
+<td style="text-align: right;">6693 msec</td>
+<td style="text-align: right;">16 msec</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exotic-functions">Exotic functions<a class="headerlink" href="#exotic-functions" title="Permanent link">&para;</a></h2>
+<p><strong>qSQL is a superset of ANSI SQL</strong>. With our one-liner <code>qcsv</code> we can express complex logic that ANSI SQL cannot handle. Furthermore, qSQL is just a part of the q programming language. All the features, libraries and functions of q are available to further massage a CSV file. These include vector operations, functional programming, advanced iterators, date/time and string manipulation, etc.</p>
+<p>Kdb+ has more tricks up in its sleeves. We can load the business logic that we use in production. <strong>It is like employing the stored procedures of our DBMS to analyze a local CSV. Kdb+ provides a single solution for streaming, in-memory, historic data processing that you can also leverage in your ad hoc data analyses.</strong></p>
+<p>The possibilities do not end here. Besides loading existing scripts you can also connect to existing kdb+ services easily. For example, to evoke q function <code>fn</code> on a remote kdb+ server at e.g. <code>72.7.9.248:5001</code> with the parameter of the content of the CSV, you can use make use of the <a href="https://code.kx.com/q/basics/ipc/#sync-request-get">one-shot</a> TCP request.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>qcsv '`:72.7.9.248:5001 (`fn; .csv.read `data.csv)'
+</span></code></pre></div>
+<p>With kdb+ you get full flexibility to plug scripts and services into a one-liner to process a CSV file. Simple and powerful, right?</p>
+<p>Let us examine three areas to get a feel for how far you can go in analyzing CSV files.</p>
+<h3 id="pivot">Pivot<a class="headerlink" href="#pivot" title="Permanent link">&para;</a></h3>
+<p>Pivoting a table is a frequently-used function in data analyses. It provides a more compact view of the data by transforming column values to new columns. The new view allows for examining related values side-by-side. The technique is often used to visualize the output of aggregation with multiple grouping.</p>
+<p>I put a <a href="https://github.com/BodonFerenc/kdbutils/blob/master/doc/md/pvt.md">wrapper function</a> around the most <a href="https://code.kx.com/q/kb/pivoting-tables/#a-very-general-pivot-function-and-an-example">wide-spread pivot implementation</a> into <code>utils/pivot.q</code>. All we need is to load library <code>pivot.q</code> and prepend <code>.pvt.pivot</code>. It requires a <a href="https://code.kx.com/q4m3/8_Tables/#84-primary-keys-and-keyed-tables">keyed table</a>, typically the result of an aggregation with multiple group-bys. The pivot column is the last key column. See how pivoting converts a narrow, hard-to-digest table to a square-shaped format that nicely fits the console.</p>
+<p><img alt="pivot" src="pivot.png" /></p>
+<p>The q language lets you easily extend pivot tables by total columns and total rows provided you are ready to leave the convenient world of select statements and use functional forms. Exploring the functional equivalent of any select statement is beyond the scope of this paper. Here, I only show the solution to demonstrate feasibility.</p>
+<p><img alt="pivot with totals" src="pivotWithTotal.png" /></p>
+<p>Note, that the median of the totals cannot be directly derived from the raw pivot table. Three additional select statements are executed under the hood.</p>
+<h3 id="array-columns">Array columns<a class="headerlink" href="#array-columns" title="Permanent link">&para;</a></h3>
+<p>Nothing prevents you from putting a list of values into a cell of a CSV. You just need to use a separator other than a comma, e.g. whitespace or semicolon. Unlike ANSI SQL, kdb+ can handle array columns.</p>
+<p>We already used function <a href="https://code.kx.com/q/ref/doth/#hcd-csv-from-data">.h.cd</a> to convert a kdb+ table to a list of strings before saving that to a CSV. <code>.h.cd</code> handles array columns as expected. You can set the secondary delimiter via <a href="https://code.kx.com/q/ref/doth/#hd-delimiter">.h.d</a>. Although a string in q is a list of characters, <code>.h.cd</code> does not insert secondary delimiters between the characters. This is the behavior most users expect.</p>
+<p>When reading the array column of a CSV it will be stored as a string column. Kdb+ function <a href="https://code.kx.com/q/ref/vs/">vs</a> (that abbreviates <strong>v</strong>ector from <strong>s</strong>tring) splits a string by a separator string.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>q)" " vs "10 31 -42"
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>"10"
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>"31"
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>"-42"
+</span></code></pre></div>
+<p>You can convert a list of strings to a list of integers by integer cast, denoted by <code>"I"$</code>.</p>
+<p>Like many functions in kdb+, <code>vs</code> can be used with either infix or bracket notation.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>q) vs[" "; "10 31 -42"]
+</span></code></pre></div>
+<p>Kdb+ supports functional programming. You can easily apply a unary function to a list with <code>each</code>. This is similar to Python's <code>map</code> function. Furthermore, you can derive a unary function from a binary function by binding a parameter. This is called <a href="https://code.kx.com/q4m3/6_Functions/#64-projection">projection</a>. Putting this together we can split a list of strings by whitespaces as per</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>q) vs[" "] each ("10 31 -42"; "104 105 107")
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>"10"  "31"  "-42"
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>"104" "105" "107"
+</span></code></pre></div>
+<p>or more elegantly with the Each iterator (denoted by <code>'</code>) if the separator is a single character.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>q) " " vs' ("10 31 -42"; "104 105 107")
+</span></code></pre></div>
+<p>A table column can be a list of strings. Suppose column <code>A</code> contains whitespace-separated integers. Function <code>.csv.read</code> returns a string column that we can easily convert to an array column.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>q) update "I"$" " vs' A from .csv.read `data.csv
+</span></code></pre></div>
+<p>Just to illustrate the power of the q language, suppose <code>data.csv</code> has another array column called <code>IDX</code> containing indices. For each row, we need to calculate the sum of array column <code>A</code> restricted to the indices specified by <code>IDX</code>. Let me delve inside indexing a little bit.</p>
+<p>In q you can index a list the same way as you do in other programming languages.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>q) list: 4 1 6 3    // this is an integer list
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>q) list[2]
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>6
+</span></code></pre></div>
+<p>Q is a vector language. Many operators accept not only scalars but lists as well. Indexing is such an operation.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>q) list[2 1]
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>6 1
+</span></code></pre></div>
+<p>The square brackets are just syntactic sugar. You can instead use the <code>@</code> operator with infix notation.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>q) list @ 2 1
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>6 1
+</span></code></pre></div>
+<p>When passing a list of lists as both arguments of the <code>@</code> operator then we need the Each iterator again. Putting it all together, we add new column <code>sum_A_of</code> by</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>$ qcsv $'
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>t:update "I"$" " vs\' A, "I"$" " vs\' IDX from .csv.read `data.csv;
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>update sum_A_of: sum each A@\'IDX from t'
+</span></code></pre></div>
+<p><img alt="operations on array columns" src="array.png" /></p>
+<p>I split the expression into multiple lines for readability, but from the shell’s perspective, it is still a single command.</p>
+<p>The Each iterator (<code>'</code>) needs to be escaped and we need to use ANSI-C quoting, hence the <code>$</code> before the opening quotation mark.</p>
+<h3 id="join">Join<a class="headerlink" href="#join" title="Permanent link">&para;</a></h3>
+<p>Joining two CSV files is already supported by the Linux command <code>join</code>. Command <code>csvjoin</code> goes further and supports all types of SQL joins: inner, left, right and outer. Q also supports these classic join operations.</p>
+<p>For timeseries another type of join is frequently used. This is called <a href="https://code.kx.com/q/ref/asof/">asof</a> and its generalization <a href="https://code.kx.com/q/ref/wj/">window join</a>. If you have two streams of data and the times are different then asof join can merge the two streams.</p>
+<p>Let me demonstrate the usage of window join in a real-life scenario to profile distributed processes. Our main process sends requests to worker processes. Each request results in multiple tasks. We store the <code>start</code> and <code>end</code> times of the requests and the <code>start</code> times and <code>duration</code> of the tasks. We would like to see the ratio of times the worker devoted to each request. Due to network delay, the start time of a task follows the start time of a request. An example of the main process’ data is below.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">requestID</th>
+<th style="text-align: right;">workerID</th>
+<th style="text-align: right;">start</th>
+<th style="text-align: right;">end</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">RQ1</td>
+<td style="text-align: right;">SL1</td>
+<td style="text-align: right;">12:31</td>
+<td style="text-align: right;">12:52</td>
+</tr>
+<tr>
+<td style="text-align: right;">RQ2</td>
+<td style="text-align: right;">SL2</td>
+<td style="text-align: right;">12:31</td>
+<td style="text-align: right;">12:50</td>
+</tr>
+<tr>
+<td style="text-align: right;">RQ3</td>
+<td style="text-align: right;">SL1</td>
+<td style="text-align: right;">12:54</td>
+<td style="text-align: right;">12:59</td>
+</tr>
+<tr>
+<td style="text-align: right;">RQ4</td>
+<td style="text-align: right;">SL3</td>
+<td style="text-align: right;">12:51</td>
+<td style="text-align: right;">13:00</td>
+</tr>
+<tr>
+<td style="text-align: right;">RQ5</td>
+<td style="text-align: right;">SL1</td>
+<td style="text-align: right;">13:10</td>
+<td style="text-align: right;">13:13</td>
+</tr>
+</tbody>
+</table>
+<p>And merged workers data is</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">workerID</th>
+<th style="text-align: right;">taskID</th>
+<th style="text-align: right;">start</th>
+<th style="text-align: right;">duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">SL1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">12:32</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td style="text-align: right;">SL1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">12:35</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td style="text-align: right;">SL1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">12:37</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr>
+<td style="text-align: right;">SL2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">12:31</td>
+<td style="text-align: right;">17</td>
+</tr>
+<tr>
+<td style="text-align: right;">SL1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">12:55</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td style="text-align: right;">SL1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">12:56</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr>
+<td style="text-align: right;">SL3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">12:52</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr>
+<td style="text-align: right;">SL3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">12:58</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td style="text-align: right;">SL1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">13:10</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
+<p>Function <code>wj1</code> helps find the tasks with given workerID values that fall within a time window specified by the main table's <code>start</code> and <code>end</code> columns.</p>
+<div class="language-text highlight"><pre><span></span><code>q) m: .csv.read `main.csv
+q) s: .csv.read `worker.csv
+q) wj1[(m.start;m.end); `workerID`start; m; (`workerID`start xasc s; (::; `taskID))]
+requestID workerID start end   taskID
+------------------------------------
+1         sl1     12:31 12:52 1 2 3h
+2         sl2     12:31 12:50 ,1h
+3         sl1     12:54 12:59 4 5h
+4         sl3     12:51 13:00 1 2h
+5         sl1     13:10 13:13 ,6h
+</code></pre></div>
+<p>Character <code>h</code> at the end of the integer list in column <code>taskID</code> denotes the <em>short</em> datatype, i.e. an integer is stored in two bytes. Function <code>.csv.info</code> tries to save memory and use the integer and floating-point representation that requires the least space while preserving all information.</p>
+<p>To get the ratio, we need to work with elapsed times.</p>
+<div class="language-text highlight"><pre><span></span><code>q) select requestID, rate: duration % end-start from
+     wj1[(m.start;m.end); `workerID`start; m;
+       (`workerID`start xasc s; (sum; `duration))]
+</code></pre></div>
+<p><img alt="advanced join operation" src="windowjoin.png" /></p>
+<h2 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h2>
+<p>Let us compare the performance of executing a simple aggregation on publicly available CSV used in benchmarking the <code>xsv</code> package. The 145 MByte file contains nearly 32 million lines.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>$ curl -LO https://burntsushi.net/stuff/worldcitiespop.csv
+</span></code></pre></div>
+<p>We would like to see the top 10 regions by population. We need to sum the population of the cities of each region. Package xsv does not support aggregation, so it is out of the game.</p>
+<p>The q query is simple.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>$ qcsv '10 sublist `Population xdesc select sum Population by Region from .csv.basicread `worldcitiespop.csv'
+</span></code></pre></div>
+<p>The aggregation requires columns <code>Population</code> and <code>Region</code> only so we can speed up the query by omitting type conversion of the unused columns.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>$ qcsv '10 sublist `Population xdesc select sum Population by Region from .csv.data[`worldcitiespop.csv; .csv.infoonly[`worldcitiespop.csv; `Population`Region]]
+</span></code></pre></div>
+<p>The <code>csvsql</code> is quite similar</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>$ csvsql --query "select Region, SUM(Population) AS Population FROM worldcitiespop GROUP BY Region ORDER BY Population DESC LIMIT 10" worldcitiespop.csv
+</span></code></pre></div>
+<p>We can also disable type inference and dialect sniffing by command-line options <code>--no-inference --snifflimit 0</code>. This speeds up the command execution by a factor of two.</p>
+<p>Several other open-source tools run SQL statements on CSV files. I also evaluated two packages written in Go.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>$ textql -header -sql "select Region, SUM(Population) AS Population FROM worldcitiespop GROUP BY Region ORDER BY Population DESC LIMIT 10" worldcitiespop.csv
+</span></code></pre></div>
+<p>The run times in seconds are displayed below. The second row corresponds to the experiment with the same CSV bloated by repeating its content five times.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">CSVKit</th>
+<th style="text-align: right;">textql</th>
+<th style="text-align: right;">csvq</th>
+<th style="text-align: right;">kdb+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">116</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td style="text-align: right;">OUT OF MEM</td>
+<td style="text-align: right;">102</td>
+<td style="text-align: right;">OUT OF MEM</td>
+<td style="text-align: right;">6</td>
+</tr>
+</tbody>
+</table>
+<p>The following table contains the memory needs in kbytes</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">CSVKit</th>
+<th style="text-align: right;">textql</th>
+<th style="text-align: right;">csvq</th>
+<th style="text-align: right;">kdb+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">5224</td>
+<td style="text-align: right;">216</td>
+<td style="text-align: right;">4343</td>
+<td style="text-align: right;">172</td>
+</tr>
+</tbody>
+</table>
+<p>Kdb+ is famous for its stunning speed. Benchmarks tend to focus on data that resides either in-memory or on disk using its proprietary format. CSV support is a useful feature of the language. However, the extreme optimization, the support of vector operations and the inherent parallelization pays off: kdb+ significantly outperforms tools purpose-built for CSV analysis. The execution speed translates directly to productivity. How much does it cost you if the query returns in almost two minutes instead of 2 seconds? What do developers do if repeatedly interrupted by minutes-long wait phases?</p>
+<p>The support is also a key factor when selecting a tool. Pet projects and other non-profit solutions with increasing maintenance costs can easily be abandoned. The vendor of q/kdb+, <a href="https://kx.com/">Kx Systems</a>, was founded in 1993 and provides a stable background, professional support channels, and <a href="https://code.kx.com/q/">high quality documentation</a> for kdb+ developers.</p>
+<p>The test ran on a <code>n1-standard-4</code> GCP virtual machine. The run times of the kdb+ solution would further drop with machines of more cores, as kdb+ 4.0 makes use of <a href="https://code.kx.com/q/kb/mt-primitives/">multithreaded primitives</a>.</p>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>There are myriads of libraries out there to process CSV files, and many have its reasons to exist. Kdb+ has an excellent open-source library <code>csvutil.q</code>/<code>csvguess.q</code> with a sophisticated type-inference engine. Once you convert CSV into a kdb+ in-memory table, you can easily cope with problems other tools handle only with difficulty - if at all. You can express complex logic in a readable way, that is easy to maintain, simply by wrapping the q interpreter that loads the library into a shell function. The solution is <a href="https://kx.com/blog/kdb-enables-green-computing/">greener</a> than alternative approaches as it executes faster and requires a smaller amount of memory.</p>
+<h4 id="acknowledgement">Acknowledgement<a class="headerlink" href="#acknowledgement" title="Permanent link">&para;</a></h4>
+<p>I would like to express my gratitude to <a href="https://www.linkedin.com/in/stephen-taylor-b5ba78/">Stephen Taylor</a>, <a href="https://www.linkedin.com/in/tthornton6/">Tim Thornton</a>, <a href="https://www.linkedin.com/in/kellyr13/">Rebecca Kelly</a> and <a href="https://github.com/rianoc">Rian O'Cuinneagain</a> who provided valuable feedback and improved the content considerably.</p></div>
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">data and files</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">performance</span>
+      
+    
+  </nav>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.instant","search.highlight"],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.67a597eb.min.js"></script>
+      
+        <script src="../assets/javascripts/mathjax.js?v=d492dfd7"></script>
+      
+        <script src="../assets/mathjax-3.2.2/tex-svg.js"></script>
+      
+    
+  </body>
+</html>

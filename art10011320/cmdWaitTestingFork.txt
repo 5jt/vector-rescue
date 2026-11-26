@@ -1,0 +1,81 @@
+                                cmdWaitTestingFork.txt
+                                ----------------------
+   6!:2 '_1 fork ''cmd /c wait 5'''   NB. Sometimes initial invocation is slow.
+9.6700656
+   6!:2 '_1 fork ''cmd /c wait 5'''
+5.4788475
+   6!:2 '_1 fork ''cmd /c wait 8'''
+8.0502921
+
+NB. Works fine except that it pops up DOS window: how to get rid of it?
+   _1 fork 'wait 5'
+   _1 fork 'cmd /c wait 5'
+   _1 fork 'cmd /c wait 5 | NUL'
+NB. These didn't work.  What's the difference between a desktop shortcut that runs
+NB. with a normal window versus a minimized one?
+   wmin=. fread '\amisc\Wait3WinMin.lnk'
+   wnorm=. fread '\amisc\Wait3WinNorm.lnk'
+   wmin-:wnorm
+0
+NB. The difference is this one byte in position 60.
+   I. wmin~:wnorm
+60
+   a. i. 60{&>wmin;<wnorm
+7 1
+NB. Values for minimized versus normal.  But can we invoke a .LNK from command
+NB. line?
+   _1 fork 'cmd /c C:\amisc\Wait3WinMin.lnk'
+   _1 fork 'C:\amisc\Wait3WinMin.lnk'
+   _1 fork 'cmd /c C:\amisc\Wait3WinNorm.lnk'
+NB. These don't work.
+
+NB. Run test suite used on other command waiters:
+   load '\amisc\j\nycjug\200603\commandWait.ijs'
+   6!:2 'tmtsk=. testWaitGapTask 10'
+55.895464
+   tmtsk
+ 1 1.9605981
+ 2 1.9954598
+ 3 2.9473634
+ 4 4.0659215
+ 5 5.0212745
+ 6 5.9370571
+ 7 7.0856086
+ 8 7.9757402
+ 9 8.9272701
+10 9.9783364
+   tmtsk=. tmtsk,testWaitGapTask 10 [ tmtsk=. tmtsk,testWaitGapTask 10 [ ...
+   $tmtsk
+4 10 2
+   tmtsk=. tmtsk,testWaitGapTask 10 [ tmtsk=. tmtsk,testWaitGapTask 10 [ ...
+   dd=. 'C:\amisc\J\NYCJUG\200603\'
+   (dd) fileVar 'tmtsk'              NB. Save these timings and get the others.
++-+---------+
+|1|TMTSK.DAT|
++-+---------+
+   (<'C:\amisc\J\NYCJUG\200602\') unfileVar_WS_&.> 'tmwts';'tmwe'
++-----------------------------------------------+------------------------...
+|+-+-------------------------------------------+|+-+---------------------...
+||1|+-------------------------+---------+-----+|||1|+--------------------...
+|| ||C:\amisc\J\NYCJUG\200602\|TMWTS.DAT|tmwts|||| ||C:\amisc\J\NYCJUG\20...
+|| |+-------------------------+---------+-----+||| |+--------------------...
+|+-+-------------------------------------------+|+-+---------------------...
++-----------------------------------------------+------------------------...
+   $tmwts
+10 10 2
+   $tmtsk
+11 10 2
+
+   >,&.>}."1&.>mean &.>tmwe;tmwts;tmtsk
+1.59798 2.25568 3.22976 3.77794 5.78405 6.77765 6.83266 7.66218 8.58564 9.55089
+1.02312 2.02381 3.01202 3.97675 4.99607 6.01084 7.05268 8.00437 8.96521 9.99008
+1.06253 2.00606 2.99934  4.0352 4.98803 6.00605 6.99741 8.01578 8.97279 10.0006
+   >,&.>}."1&.>stddev &.>tmwe;tmwts;tmtsk
+0.584813  0.678296   1.17039   1.31878  0.634437  0.467846   2.14851    2.6231   2.11798   2.86598
+0.401127 0.0330933 0.0299177 0.0394623 0.0152714 0.0276781 0.0526376 0.0477404 0.0262925  0.032303
+0.314534 0.0604375 0.0418279 0.0269598 0.0278296 0.0496729 0.0616933 0.0539134 0.0450852 0.0332828
+   plot >,&.>}."1&.>mean &.>tmwe;tmwts;tmtsk
+   plot >,&.>}."1&.>stddev &.>tmwe;tmwts;tmtsk
+   NB. the latter 2 are much more congruent...
+   6!:2 'tmtsk60=. testWaitGapTask 60'
+1770.5921

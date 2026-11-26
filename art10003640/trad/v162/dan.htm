@@ -1,0 +1,882 @@
+<html><head>
+<title>SHARP APL vs. APL2 coding style</title>
+<LINK REL="stylesheet" TYPE="text/css" HREF="../vector.css"></head>
+
+<body>
+
+
+<!-- breadcrumbs for articles -->
+<p style="font-size:80%">
+<a href="http://www.vector.org.uk"><img src="../../icons/iconppl.gif" align="middle" border=0 alt="Vector home"></a>
+<a href="http://www.vector.org.uk" title="VECTOR home">www.vector.org.uk</a> &gt;
+<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt;
+<a href="index.htm">contents of Vector 16.2</a></p>
+
+
+
+<div ALIGN=CENTER>
+<p><Font size=-1>Note that this article contains quite a bit of APL code - this is in APL2741 font, <a href="../../resource/apl2741.zip">downloadable</a> from this site (32K). There is a new problem in showing the {match} symbol in IE5 (it is treated as an optional hyphen), so it has now been duplicated in the font at position ch(166) which will paste into APL*PLUS as the split-stile character. If you already have the font, please check the build date (double-click the font in your fonts folder) and re-install it if you don't have the October 29th 1999 version.</font></p>
+
+<h1>SHARP APL vs. APL2 coding style</h1>
+
+<P><I>by Dan Baronet (<a href="mailto:danb@dsuper.net">danb@dsuper.net</a>)</I></P></div>
+
+<H2>Introduction</H2>
+
+<P>Following Solitonís announcement
+to unleash their APL into the Linux community I decided to review
+the differences between SHARP APL and APL2 style APLs (IBMís
+APL2, Dyalog, APL+Win). I have divided the report into several
+articles, each with a different topic.</P>
+
+<P>This article is the first of the series. It should be read
+before any of the others.</P>
+
+<P>Not having a current version of IBMís APL2 on hand I have
+been making my observations based on Dyalogís APL using <CODE><font face="APL2741" size=+1>
+åml=2</font></code>,
+which, like APL+Win, follows APL2 closely.</P>
+
+<P>When reading this text keep in mind the date it was written
+(September 1999) as languages change and may render this information
+incorrect in the future.</P>
+
+<H2>Conventions</H2>
+
+<P>In the text <I>italicized</I> words
+have a special meaning and often precede their definition.</P>
+
+<P><I>SAPL</I> refers to SHARP APL, including <I>SAM</I> which
+is SAPL under MVS and <I>SAX</I> which is SAPL under Unix. SAX
+is the one also running under Linux and compared to APL2 here.</P>
+
+<P>Variables and workspace names are enclosed in ëquotesí.
+Functions and files are enclosed in &lt;angle brackets&gt;.</P>
+
+<P>The term <I>atom</I> refers to a numeric or character scalar
+only. The term <I>item</I> refers to any scalar.</P>
+
+<P>Whenever possible I will show examples in SAPL and APL2 side
+by side.</P>
+
+<H2>A bit of history</H2>
+
+<P>SHARP APL (SAPL) used to be a mainframe
+product only until a PC version appeared in 1984 (release V17
+of SAM and rel V20 later on). It remained pretty much so as the
+PC version never took off. The PC version ran under DOS and lacked
+many features. Because it was emulating the S/370 it was also
+very slow.</P>
+
+<P>SAPL really is a product as opposed to a language. There are
+various components including a batch scheduler, a file system,
+many shared variable processors, sorting utilities, etc. More
+importantly, SAPL tasks may spawn and <B>control</B> other APL
+tasks with system functions, something no other APL has ever achieved.
+Very large secure systems can be (and have been) written in SAPL.</P>
+
+<P>By contrast, in IBMís APL2<sup><a href="#footnote1">1</a></sup>, everything but the language
+is external and only available through auxiliary processors (APs).
+There are no quad functions, for example, to perform file operations.</P>
+
+<P>There are pros and cons for using each APL and the purpose
+of this article is not to take sides but rather to show the differences
+between them as objectively as possible.</P>
+
+<P>SAX came to life in the early 90ís and is a more flexible
+version of SAM. It is based on ìthe Dictionary of APLî
+by Ken Iverson. It extends SAM V21. It more closely resembles
+J. (Think of J on APL char set.) The Linux version is the same
+as the Unix version.</P2>
+
+<P>At some point there was a shift in philosophy using the first
+versus the last axis in function operations (ex: <CODE><font face="APL2741" size=+1>/</font></code>
+ vs. <CODE><font face="APL2741" size=+1>ö</font></code>
+) and some newer functions were defined in
+terms of the latter. APL2 has remained pretty much a ìlast
+axis favouredî language.</P>
+
+<H2>Enclosed Arrays</H2>
+
+<P>In SAPL the term ìenclosed arrayî
+is used. In APL2 the term used is ìnested arrayî. They
+are, practically, the same thing. The term ìboxed arrayî
+(SAX) is also sometimes seen but wonít be used here.</P>
+
+<P>Letís assume we have the following variables on hand:</P>
+
+<pre><font face="APL2741" size=+1>aÑ'text'™ bÑ1 2 3 ™ cÑ2 3Ωa ™ dÑ2 4 3Ωº33</font></pre>
+
+<P>The simplest way to create an enclosed
+item is to use the expression</P>
+
+<table width=60%> <th>SAX APL2</th><th>APL2</th><tr> <td align=center><code><font face="APL2741" size=+1>xÑ&lt;anyvalue</font></code></td> <td align=center><code><font face="APL2741" size=+1>xÑõanyvalue</font></code>
+</table>
+
+<P>In SAPL there is no maximum level
+(depth) of enclosure. Thus <CODE><font face="APL2741" size=+1>&lt;&lt;&lt;a</font></code>
+ is ëaí enclosed 3 times. In IBMís
+APL2 there is a limit.</P>
+
+<P>Items must be <I>opened</I> before applying a function to them.
+If <CODE><font face="APL2741" size=+1>xÑ&lt;2 3 4</font></code> then</P>
+<pre><font face="APL2741" size=+1>  +/&gt;x                  +/úx</font></pre>
+
+<P>will result in the sum of the values
+in ëxí.</P>
+
+<P>To create a list (vector) of enclosed items we can use the
+usual <I>catenate</I> function (<CODE><font face="APL2741" size=+1>,</font></code>
+):</P>
+
+<pre><font face="APL2741" size=+1>   xÑ(&lt;a),(&lt;b),&lt;c       xÑ(õa),(õb),õc</font></pre>
+
+<P>This will ALWAYS work in all interpreters
+I know. But there is an easier (incompatible) way to do this:</P>
+
+<pre><font face="APL2741" size=+1>   xÑaúbúc              xÑ a b c</font></pre>
+
+<P>Which brings us to the way things
+are presented to the interpreter.</P>
+
+<H3>Notation</H3>
+
+<P>APL2 uses what is known as <I>strand</I>
+notation. Using this notation, arrays are created by putting items
+together side by side, without using catenate (ë<CODE><font face="APL2741" size=+1>,</font></code>í)
+as in the example above. Sometimes it is handier than using ë<CODE><font face="APL2741" size=+1>,</font></code>í.
+SAX does not support that notation and requires the use of functions
+ë<CODE><font face="APL2741" size=+1>,</font></code>í to catenate items together or ë<CODE><font face="APL2741" size=+1>ú</font></code>í to <I>link</I> them if they are to be enclosed.</P>
+
+<H3>Link</H3>
+
+<P><I>Link</I> is a specific
+SAPL function to ëenclose and catenateí with a twist.
+To understand its use letís look at the monadic case first:</P>
+
+<H4>Monadic ëlinkí</H4>
+
+<P>This is another function specific to SAPL. The formal definition
+is: ë<I>enclose</I> the argument IF it does NOT contain already
+enclosed item(s)í. Sort of a conditional enclose. In fact
+<I>conditional</I> <I>enclose</I> is its real name. See its usage<sup><a href="#footnote2">2</a></sup>:</P>
+
+<pre><font face="APL2741" size=+1>   xÑúvar           ñ(1&lt;|¶xÑvar)/'xÑõvar'</font></pre>
+
+<H4>Determining if an array is enclosed</H4>
+
+<P>An application of this is to determine whether we are dealing
+with an enclosed array or not:</P>
+
+<pre><font face="APL2741" size=+1>   x¶úx              1&lt;|¶x</font></pre>
+
+<P>will return 1 if ëxí is
+enclosed. There is no <I>depth</I> function in SAPL.</P>
+
+<H4>Dyadic ëlinkí</H4>
+
+<P><CODE><font face="APL2741" size=+1>aúb</font></code>
+will enclose ëaí and catenate it to the enclosure of
+ëbí <B>if ëbí does NOT contain enclosed elements</B>.
+Formally,</P>
+
+
+  <P><CODE><font face="APL2741" size=+1>aúb</font></code>
+  is the same as
+  <CODE><font face="APL2741" size=+1> (&lt;a),úb</font></code>
+
+<P>Why not use <CODE><font face="APL2741" size=+1>(&lt;a),&lt;b</font></code>
+? The reason is to avoid <I>enclosing</I>
+a list repeatedly. Imagine what would happen if it were to always
+enclose the right argument in the expression <CODE><font face="APL2741" size=+1>
+aúbúc</font></code>.
+This would result in <CODE><font face="APL2741" size=+1>(&lt;a)</font></code>
+,<CODE><font face="APL2741" size=+1>&lt;(&lt;b)</font></code>,<CODE><font face="APL2741" size=+1>&lt;c</font></code>
+, a two-element list. This is not what we
+want. A consequence of this is that one must explicitly code the
+enclosure of the last item if the last value MUST be enclosed,
+as in <CODE><font face="APL2741" size=+1>xÑaúbú&lt;m</font></code>
+ (with <CODE><font face="APL2741" size=+1>mÑ2
+3Ω&lt;a</font></code>), to get
+a three-element list.</P>
+
+<P>On the other hand, if we want to, say, catenate <CODE><font face="APL2741" size=+1>
+&lt;a</font></code>
+before each row of ëmí then <CODE><font face="APL2741" size=+1>aúm
+ </font></code>will
+do whereas <CODE><font face="APL2741" size=+1>(õa),m
+ </font></code>is
+required in APL2.</P>
+
+<H3>Heterogeneous arrays</H3>
+
+<P>Both APLs support arrays containing
+a mixture of items of different data types, namely characters,
+numbers and enclosures although they must be explicitly catenated
+in SAX:</P>
+
+<pre><font face="APL2741" size=+1>   xÑ1,'s'                   xÑ1 's'
+   xÑ1,'s',&lt;'sa'             xÑ1 's' 'sa'
+   xÑ1,'s','sa'ú2 3          xÑ1 's' 'sa'(2 3)</font></pre>
+
+<H3>Disclosing multiple items at a time</H3>
+
+<P>Entire arrays can be disclosed in
+one fell swoop with only space and maximum rank (127) restrictions:</P>
+
+<pre><font face="APL2741" size=+1>   2 3 ¶ Ω&gt;1ú'dsa'    2 3 ¶ Ωú1'dsa'</font></pre>
+
+<P>In Dyalog there is a ìsame rankî restriction<sup><a href="#footnote3">3</a></sup>. Not in SAX:</P>
+
+<TABLE width=80% cellpadding=6><TD><CODE><font face="APL2741" size=+1>4 2 4 4 ¶Ω&gt;aúbúcúd</font></code></td>
+<td align=right>(RANK ERROR in Dyalog and APL+PLUS II)</td>
+</table>
+
+<P>Disclosing an array results in another
+array of the shape of the array disclosed, followed by the largest
+of the shapes of ALL items disclosed with proper fill elements
+to fill where necessary.</P>
+
+<H3>Atom enclosure/disclosure</H3>
+
+<P>A major difference between SAPL and
+APL2 is in the handling of atoms (simple scalars) upon enclosing
+them. In SAPL enclosing ANYTHING adds a level of enclosure. Not
+so in APL2 where an atom can NEVER be enclosed. Thus:</P>
+
+<pre><font face="APL2741" size=+1>   ~2¶&lt;2         2¶õ2</font></pre>
+
+<P>This has several implications as
+we shall see in a later article.</P>
+
+<P>The disclosure of an atom is permissible in both APLs. Thus</P>
+
+<pre><font face="APL2741" size=+1>   2¶&gt;2          2¶ú2</font></pre>
+
+<H2>Operations on arrays</H2>
+
+<P>SAPL offers a few operators to work
+with (enclosed) arrays. I will discuss only the basics in this
+article. The next article will cover the subject in more depth
+(no pun intended).</P>
+
+<H3><I>With, Under, Each </I>(<CODE><font face="APL2741" size=+1>®</font></code>)</H3>
+
+<P>Although <I>Under</I> is the official
+name under SAX, people often refer to it as <I>With</I>. APL2
+uses the term <I>Each.</I></P>
+
+<P>With ë<CODE><font face="APL2741" size=+1>/</font></code>
+í this is the most used operator in
+ALL APLs. It is probably best explained starting with an example:</P>
+
+<pre><font face="APL2741" size=+1>   Ω®&gt;x          Ω®x</font></pre>
+
+<P>Here we wish to return the <I>shape</I>
+of each item by first disclosing (each) cell of ëxí,
+getting its <I>shape</I> and re-enclosing it, ending with a result
+of the same shape as the original argument.</P>
+
+<P>In SAPL<CODE><font face="APL2741" size=+1> </font></code><CODE><font face="APL2741" size=+1>
+®</font></code>
+is dyadic, allowing for a different right function. The people
+at APL2 probably felt that since <I>disclose/enclose</I> is used
+most of the time it was better to make <CODE><font face="APL2741" size=+1>®</font></code>
+ monadic and include these functions implicitly
+whereas at I.P.Sharp (where SAPL came from) people tried to be
+more general.</P>
+
+<P>Some interesting combinations can
+be made with 2 functions and <CODE><font face="APL2741" size=+1>®</font></code>
+ although
+ 99% of the time
+<I>disclose</I> (<CODE><font face="APL2741" size=+1>&gt;</font></code>
+) is used.</P>
+
+<P>An example is multiplication:</P>
+<p>
+<code><font face="APL2741" size=+1>A◊B</font></code> is<code><font face="APL2741" size=+1> *(µA)+(µB)</font></code> or<code><font face="APL2741" size=+1> A+®µB</font></code>
+</p>
+<P>The real APL2 definition is: ìfor
+each cell:</P>
+
+<UL type=disc>
+    <li>disclose the cell
+    <li>apply the (ambivalent) function of ®
+    <li>enclose the cell î
+</UL>
+
+<P>The real SAPL definition is: ìfor
+each cell:</P>
+
+<UL type=disc>
+    <li>apply the right function of ® (usually &gt;)
+    <li>apply the left (ambivalent) function of <CODE><font face="APL2741" size=+1>®</font></code>
+    <li>apply the inverse of the right function of <CODE><font face="APL2741" size=+1>®</font></code>
+     (usually†<CODE><font face="APL2741" size=+1>&lt;</font></code>)î
+</UL>
+
+<P>Or, given <B>f </B><B><CODE><font face="APL2741" size=+1>
+®</font></code>g
+y</B>, for each cell: ì<B>g<sup>-1</sup> f g y[j]</B>î.</P>
+
+<P>This, of course, implies that someone
+in the interpreter department goes over all the suitable right
+hand argument functions and determines an inverse for each one
+of them. And it was done. For example, <CODE><font face="APL2741" size=+1>&lt;</font></code>
+ and <CODE><font face="APL2741" size=+1>&gt;</font></code>
+ are inverses of each other. <CODE><font face="APL2741" size=+1>
+≥</font></code>
+is its own inverse.</P>
+
+<H3>Dyadic <I>With</I> reviewed</H3
+
+<P>This is the same operator except
+that <B>f</B> (the left function) is used dyadically<sup><a href="#footnote4">4</a></sup>. In more
+complicated terms, <B>x f </B><B><CODE><font face="APL2741" size=+1>®</font></code>
+g y</B>
+is, for each corresponding cell:</P>
+
+<p>ì<b>g<sup>-1</sup> (g x[j]) f (g y[j])</b>î.
+
+<P>Where ëxí is the left argument.</P>
+
+<P>Examples:</P>
+
+<P><CODE><font face="APL2741" size=+1>&nbsp;&nbsp;&nbsp;p Ω®&gt; q &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p Ω®
+  q</font></code>&nbsp;&nbsp;&nbsp; (reshape
+  each)<BR>
+  <CODE><font face="APL2741" size=+1>&nbsp;&nbsp;&nbsp;t1,®&gt;t2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; t1,® t2</font></code>&nbsp;&nbsp;(catenate each)
+
+<H3>Scalar functions</H3>
+
+<P>In APL2, the use of the <I>each</I>
+operator is assumed for scalar functions (like +
+) and derived functions, enclosed or not.
+There is no need to specify it. Ex:</P>
+
+<pre><font face="APL2741" size=+1>   x+®&gt;y        x+y</font></pre>
+
+<P>Moreover, the function is applied
+recursively so long as the lengths are respected at each (nested)
+level. This is not possible in SAX.</P>
+
+<P>The reason is that since <I>disclose</I>
+is implied and that an <I>atom</I> can NEVER be enclosed in APL2
+then the <I>each</I> specification can be omitted. Structural
+functions like <I>take</I> must use <I>each</I> to remove ambiguities.</P>
+
+<P>This is also why <CODE><font face="APL2741" size=+1>
++/x</font></code> and
+<CODE><font face="APL2741" size=+1>+/®x
+</font></code>mean two different things
+in APL2. In SAX those would be coded as <CODE><font face="APL2741" size=+1>+®&gt;/x</font></code>
+ and <CODE><font face="APL2741" size=+1>+/®&gt;x</font></code>
+ respectively.</P>
+
+<H3><I>On</I> (<CODE><font face="APL2741" size=+1></font></code>)</H3>
+
+<P>This operator is similar to <I>with</I>
+except that the result of each cell is not modified by the inverse
+of<B> g.</b>
+
+<p><CODE><font face="APL2741" size=+1>®</font></code>
+ and <CODE><font face="APL2741" size=+1></font></code>
+ are called composition
+operators. The only difference between them is in the absence
+of inverse for the right argument function of
+<CODE><font face="APL2741" size=+1></font></code>.
+ For example,
+using <CODE><font face="APL2741" size=+1>f</font></code><CODE><font face="APL2741" size=+1>
+&gt; y</font></code>
+is the same as doing</P>
+
+<pre><font face="APL2741" size=+1>   &gt;f®&gt; y       úf® y</font></pre>
+
+<P>This may seem trivial but I will
+show in a subsequent article, along with another operator, the
+implications of using this operator.</P>
+
+<H2>Other differences</H2>
+
+<P>SAPL supports the use of alpha (<CODE><font face="APL2741" size=+1>∏</font></code>)
+and omega (<CODE><font face="APL2741" size=+1>æ</font></code>) as APL identifiers for variables, functions and labels.
+These were introduced when the <CODE><font face="APL2741" size=+1>∏/æ</font></code>
+ìdirect definitionî notation was popular (late seventies).
+The wisdom of their usage in code is debatable but they are available.
+Also SAPL literature often refers to the left argument as alpha
+and the right argument as omega. Something to keep in mind.</P>
+
+<H3>Complex numbers</H3>
+
+<P>These are not available in SAX yet.</P>
+
+<H3>Control structures</H3>
+
+<P>These are not APL2 but are worth
+a mention anyway. They do not exist in SAX. In a subsequent article
+I will show how to emulate them in a control version system that
+Soliton provides.</P>
+
+<H3>Defined operators</H3>
+
+<P>SAPL does not allow you to define
+your own operators.</P>
+
+<H3>Error trapping</H3>
+
+<P>Similar to Dyalog APL. Even the event
+numbers are almost the same. A notable difference: the ability
+to trap value errors ìin lineî and resume after solving
+the error. This allows you to easily do ìdemand pagingî
+of objects.</P>
+
+<H3>File operations</H3>
+
+<P>In SAPL those are more like APL+Win.
+System functions donít start with an ëFí (<CODE><font face="APL2741" size=+1>
+åread</font></code>
+, not <CODE><font face="APL2741" size=+1>å<B>
+f</B>read</font></code>
+). All file operations
+return a result, that is <CODE><font face="APL2741" size=+1>val
+åreplace tc</font></code> returns
+<CODE><font face="APL2741" size=+1>0 0Ω0</font></code>
+. This allows someone to use them with operators.</P>
+
+<H3>Format by example</H3>
+
+<P>SAX allows the usage of a character
+left argument to the format primitive <CODE><font face="APL2741" size=+1>ï</font></code>
+. This is the same as IBMís APL2 (not
+found in Dyalog or APL+Win).</P>
+
+<H3>Multiple assignments</H3>
+
+<P>It is possible, in both APLs, to
+ìassign with discloseî several values to several variables
+by using quotes around the variables<sup><a href="#footnote5">5</a></sup>:</P>
+
+<pre><font face="APL2741" size=+1>   'a b'Ñ2 5ú'cxz'         (a b)Ñ(2 5)'czx'</font></pre>
+
+
+<P>There is a peculiarity using this
+technique where the number of variables is 1:</P>
+
+<pre><font face="APL2741" size=+1>   'a b c'Ñ1ú1 2ú1 2 3     ('c' is 1 2 3)
+   'b c'Ñ1 2ú1 2 3         (again, 'c' is 1 2 3)
+   'c'Ñú1 2 3              (now 'c' is &lt;1 2 3, NOT 1 2 3)</font></pre>
+
+<P>This behaviour is found on ALL APLs
+(also in J!).</P>
+
+<P>Personally, I think this is inconsistent.
+If there are no quotes (or parentheses) it should be a direct
+assignment. If there are some it should ALWAYS remove one level
+of nesting before assigning the value(s).</P>
+
+<H3>From</H3>
+
+<P><I>From</I>
+is an alternative to bracket indexing. The beauty with <I>from</I>
+is that since it IS a function it does not suffer bracket syntax
+problems and can be used with operators.</P>
+
+<P><I>From</I>
+selects elements along the first dimension. Used with list arguments
+it selects individual items:</P>
+
+<pre><font face="APL2741" size=+1>   n{list                 nú®õlist</font></pre>
+
+<P><I>Pick</I>
+(dyadic <CODE><font face="APL2741" size=+1>ú
+</font></code>in APL2) and <I>First</I>
+(monadic <CODE><font face="APL2741" size=+1>Ü</font></code>
+) are not available under SAX. You can still
+use <CODE><font face="APL2741" size=+1>&gt;</font></code> with brackets [x] or use <I>from</I> (<CODE><font face="APL2741" size=+1>{</font></code>):</P>
+
+<pre><font face="APL2741" size=+1>   xÑ&gt;atom{list           xÑatomúlist</font></pre>
+
+<P>Note that <I>from</I> is <CODE><font face="APL2741" size=+1>
+åio</font></code>
+independent. It uses an <I>offset</I> instead of an origin dependent
+position (index). <I>from</I> also allows you to select items
+from the end of the array by supplying negative offsets. Ex:</P>
+
+<pre><font face="APL2741" size=+1>   't'=3{a                't'=(3+åio)úa
+   't'^.=0 3{a            't'^.=a[1 4] (in åio 1)
+   'x'=Ø2{a               'x'=a[åio+(Ωa)+Ø2]</font></pre>
+
+<H3>Prototyping</H3>
+
+<P>In APL2 prototypes are used to fill
+holes created by <CODE><font face="APL2741" size=+1>\</font></code>
+ or <font face="APL2741" size=+1>Ü</font></code>
+. Ex: <CODE><font face="APL2741" size=+1>2
+2¶ΩÜ0Ωõ2 2Ω5</font></code>
+. SAPL has no prototype. If ëxí
+is an <I>item</I>, the expression ë<CODE><font face="APL2741" size=+1>0\x</font></code>
+í always returns either 0 for a number,
+blank for a character or <CODE><font face="APL2741" size=+1>&lt;º0</font></code>
+ for an enclosed object.</P>
+
+<H3>Reduce N-wise</H3>
+
+<P>IBMís APL2 allows you to reduce
+along an axis in sections of length N (N <B>f</B>/ x). Not in
+SAPL.</P>
+
+<H3>Stop, Trace</H3>
+
+<P>Those are set using <CODE><font face="APL2741" size=+1>
+åstop </font></code>
+and <CODE><font face="APL2741" size=+1>åtrace</font></code>
+ system functions as in Dyalog APL. IBMís
+APL2 uses ë<CODE><font face="APL2741" size=+1>të</font></code>
+í and ë<CODE><font face="APL2741" size=+1>së</font></code>
+í special name prefixes to do the same.</P>
+
+<H3>Take and drop</H3>
+
+<P>In SAX these functions work on the
+leading axis of an array without having to specify them all. Ex
+(<CODE><font face="APL2741" size=+1>?=</font></code><CODE><font face="APL2741" size=+1>ΩΩ
+m</font></code>):</P>
+
+<pre><font face="APL2741" size=+1>   2Üm              (2,1áΩm)Üm
+   2ám              ((1óΩΩm)Ü2)ám</font></pre>
+
+<P>IBMís APL2 allows you to use
+<I>take</I> with <B>one</B> axis as in</P>
+
+<pre><font face="APL2741" size=+1>   3ám              3á[1]m</font></pre>
+
+<H3>Scattered indexing</H3>
+
+<P>When the argument has a rank higher
+than 1 then indices should be enclosed:</P>
+
+<pre><font face="APL2741" size=+1>   (&lt;1 2){d         (õ1 2)ú d
+   (1 2ú0 1){d      (1 2)(0 1)úd (åio 0)</font></pre>
+
+<P>But you can pick an entire row (or
+first dimension elements) by supplying the offset only:</P>
+
+<pre><font face="APL2741" size=+1>   2 3 ¶ Ω 1 3 { 4 3 Ω º12</font></pre>
+
+<H3>Swap</H3>
+
+<P>This operator merely swaps the arguments
+to a function. Dyalog uses <CODE><font face="APL2741" size=+1>˛</font></code> for that. For ex:</P>
+
+<pre><font face="APL2741" size=+1>   2=7-õ9</font></pre>
+
+<H2>Unique features in SAX</H2>
+
+<P>Here is a list of features not found
+in any other APL.</P>
+
+<H3>Index (iota underbar)</H3>
+
+<P>This function returns the index of
+the first occurrence using epsilon underbar (<CODE><font face="APL2741" size=+1>
+∫</font></code>)as
+primary function:</P>
+
+<pre><font face="APL2741" size=+1>   2 3¶(4 5Ωº20)•2 2 Ω 8 9 13 14 (åio 1)</font></pre>
+
+<H3>Jot</H3>
+
+<P><CODE><font face="APL2741" size=+1>∞</font></code>
+is a constant whose value is <CODE><font face="APL2741" size=+1>&lt;º0</font></code>
+. This is the constant used for overtake
+and <CODE><font face="APL2741" size=+1>\</font></code>
+with enclosed or heterogeneous arrays.</P>
+
+<H3>Nub (monadic take)</H3>
+
+<P>This one is not unique to SAX (Dyalogís
+equivalent is <CODE><font face="APL2741" size=+1>û</font></code>) but it handles higher rank arrays:</P>
+
+<pre><font face="APL2741" size=+1>   5 2 ¶ Ü 9 Ω 5 2
+   (Üm[7Ωº3;] ) ¶ mÑ3 4 Ω 'johnmarypaul'</font></pre>
+
+<H3>Nubin (monadic <CODE><font face="APL2741" size=+1>=</font></code>)
+, nubsieve (monadic <CODE><font face="APL2741" size=+1>¨</font></code>
+)</H3>
+
+<P><CODE><font face="APL2741" size=+1>=x</font></code>
+is the equivalent of <CODE><font face="APL2741" size=+1>(Üx)∞.=x</font></code>
+ for vectors</P>
+
+<P><CODE><font face="APL2741" size=+1>¨</font></code>
+returns a boolean indicating where each element is first encountered.
+This is the equivalent of <CODE><font face="APL2741" size=+1>((vºv)=ºΩv)</font></code>
+ for vectors. Works on matrices too such
+that</P>
+
+<pre><font face="APL2741" size=+1>   1 0 1 0 1 0 ¶ ¨ 2ö m</font></pre>
+
+<H3>Output redirection</H3>
+
+<P>It is possible to send all input/output
+to a file using <CODE><font face="APL2741" size=+1>åout 0,tie</font></code>
+.</P>
+
+<H3>Packages</H3>
+
+<P>Packages are unique to SAPL and are
+very useful. A series of system functions can be used with them,
+all of which start with <code><font face="APL2741"
+size=+1>åp</font></code>
+ as in <CODE><font face="APL2741" size=+1>åpack</font></code>
+, <CODE><font face="APL2741" size=+1>åpdef</font></code>
+, etc. For example, to define variable ëxí
+with objects (variables, functions) ëaí and &lt;f&gt;
+(for example to be stored on file) you would do</P>
+
+<pre><font face="APL2741" size=+1>   xÑåpack 'a f'</font></pre>
+
+<P>Think of them as static namespaces
+(found only in Dyalog). You cannot ìenterì a package
+and run something from within it. For example, if you wish to
+use its contents in a local environment you must first localize
+the names. For example, this function &lt;execin&gt; will execute
+an expression using a packageís contents:</P>
+
+<pre><font face="APL2741" size=+1>      írÑexp execin pack;f
+   [1]ñåfx&gt;('f',,';',åpnames pack)ú'åpdef pack ™ rÑ',exp
+      í</font></pre>
+
+<H3>Pass, Stop</H3>
+
+<P>These two functions are probably
+the simplest ever conceived yet very useful.</p>
+<p><I>Stop</I>:</P>
+
+<pre><font face="APL2741" size=+1>   Åådl 5                  0 0Ωådl 5
+   xÑ2ÅyÑ5                 yÑ5 ™ xÑ2</font></pre>
+
+<P><I>Pass</I>:</P>
+
+<pre><font face="APL2741" size=+1>   §xÑ1 2 3                åÑxÑ1 2 3</font></pre>
+
+<P>This last function is more useful
+than it looks. For example, if space is important and you do not
+want the interpreter to keep a copy of the argument to a function
+you could do</P>
+
+<pre><font face="APL2741" size=+1>   myfn (åex 'x')§x</font></pre>
+
+<P>This effectively erases the variable
+AFTER passing it as an argument to &lt;myfn&gt;. The interpreter
+is then able to free up the memory space, should the need arise
+later on (for example after you reassign the argument within &lt;myfn&gt;).
+I donít know of any other <B>general</B> way to do this with
+any other interpreter.</P>
+
+<H3>I-beam functions</H3>
+
+<P>These are a leftover from the 60ís.
+If you think you know what they are you probably werenít
+there. They are kept for compatibility reasons with SAM (many
+are no-ops) and will not be explained here.</P>
+
+<H3>Less</H3>
+
+<P>This one is not unique to SAPL (most
+APLs handle the vector case) but it accepts higher rank arrays:</P>
+
+<pre><font face="APL2741" size=+1>   12 7 ¶1 7 12 5 ~ º6
+   'john' ¶ ,m~m[2 3;]</font></pre>
+
+<H3>Raze</H3>
+
+<P>This is an interesting monadic function
+(in terms of raison díÍtre). Its formal definition
+is</P>
+
+<pre><font face="APL2741" size=+1>   Æ®&gt;ö</font></pre>
+
+<P>In other words, ìworking from
+the first dimension: catenate on the first dimension all items.î</P>
+
+<P>My guess is that this came from a
+requirement to create in SAPL a function reminiscent of APL2ís
+monadic <code><font face="apl2741"
+size=+1>π</font></code>
+which puts everything in ravel order regardless of structural
+depth<sup><a href="#footnote6">6</a></sup>. Before <I>raze</I> programmers would often need to get
+text (or numbers) from enclosed lists together, sort of <CODE><font face="APL2741" size=+1>
+&gt;,®&gt;/</font></code>
+but SAM wouldnít allow it resulting in expressions like ì<CODE><font face="APL2741" size=+1>,</font></code><CODE><font face="APL2741" size=+1>
+ïx</font></code>î
+(plus <CODE><font face="APL2741" size=+1>åfi</font></code>
+ if numeric) being used resulting in high
+CPU costs. Hence <I>raze</I> was created. Plus it can be useful.</P>
+
+<H3>Shared variables</H3>
+
+<P><CODE><font face="APL2741" size=+1>åsvs</font></code>
+returns the status of a variable</P>
+
+<P><CODE><font face="APL2741" size=+1>åsc</font></code>
+is used to wait on ANY shared variable event. It can also be assigned
+a ìmaximum wait timeî.</P>
+
+<P><CODE><font face="APL2741" size=+1>åsvn</font></code>
+is used to uniquely identify your task when multi-tasking.</P>
+
+<H3>System commands</H3>
+
+<P>SAX commands are similar to other
+APLs.</P>
+
+<P><CODE><font face="APL2741" size=+1>)copy</font></code>
+allows the copying of system variables.</P>
+
+<P><CODE><font face="APL2741" size=+1>)load</font></code>
+and <CODE><font face="APL2741" size=+1>)clear</font></code>
+ allow you to specify initial <CODE><font face="APL2741" size=+1>
+åwa</font></code>.
+Ex:</P>
+
+<P><CODE><font face="APL2741" size=+1>)clear 200000000</font></code>
+ will give you a workspace of 200M if you
+have the room!</P>
+
+<H3>System functions</H3>
+
+<H4>Workspace reporting</H4>
+
+<P>Various workspace elements (name,
+stack) can be found using <CODE><font face="APL2741" size=+1>åws</font></code>
+.</P>
+
+<H4>Function definition</H4>
+
+<P><CODE><font face="APL2741" size=+1>åfd</font></code>
+can be used to manipulate function representations (similar to
+<CODE><font face="APL2741" size=+1>ådef</font></code>
+, <CODE><font face="APL2741" size=+1>åvr</font></code>
+ in APL+Win).</P>
+
+<P>Of course ISO standard functions
+like <CODE><font face="APL2741" size=+1>åcr</font></code>
+ and <CODE><font face="APL2741" size=+1>åfx</font></code>
+ also exist.</P>
+
+<H3>System variables</H3>
+
+<P><CODE><font face="APL2741" size=+1>åps</font></code>
+controls the formatting of enclosed arrays. It is a four-elements
+integer list of
+
+<ol>
+    <li>where to position each item in
+    its own box (<CODE><font face="APL2741" size=+1>Ø
+    1</font></code>=left,
+    <CODE><font face="APL2741" size=+1>0</font></code>=centre, <CODE><font face="APL2741" size=+1>1</font></code>=right)
+    <li>where to position each item in
+    its own box (<CODE><font face="APL2741" size=+1>Ø
+    1</font></code>=up,
+    <CODE><font face="APL2741" size=+1>0</font></code>=centre, <CODE><font face="APL2741" size=+1>1</font></code>=down)
+    <li>horizontal spacing between items
+    <li>vertical spacing between items
+</oL>
+
+<P>The default <CODE><font face="APL2741" size=+1>Ø1
+Ø1 0 1</font></code> fits most
+cases.</P>
+
+<P><CODE><font face="APL2741" size=+1>åsp</font></code>
+is used to store values. It stays the same between<CODE><font face="APL2741" size=+1> </font></code><CODE><font face="APL2741" size=+1>
+)loads</font></code>
+. Probably one of the most valuable system
+variables ever created.</P>
+
+<P><CODE><font face="APL2741" size=+1>10{åav</font></code>
+is the character used as line delimiter. Not <CODE><font face="APL2741" size=+1>
+13{åav</font></code>.
+One should exercise caution with this.</P>
+
+<H3>Table (monadic comma bar, <CODE><font face="APL2741" size=+1>
+Æ</font></code>)</H3>
+
+<P>This function restructures any structure
+into a matrix, something like</P>
+
+<pre><font face="APL2741" size=+1>   (2Ü(Ωt),1 1)Ωt</font></pre>
+
+<P><I>Table</I>
+turns a scalar into a 1 by 1, a vector into a 1 column table,
+anything else into a table.</P>
+
+<H3>Task spawning</H3>
+
+<P>This is possible in SAX and will
+be the subject of another article.</P>
+
+<H2>Conclusion</H2>
+
+<P>SAPL and APL2 are quite different
+in many respects but each (!) has its own merits. For anyone wishing
+to delve into the APL/Linux world there is, right now, little
+choice but to examine SAPL. Personally I am comfortable with both.
+I found SAPL to be fast, reliable and, with the tools Soliton
+is providing, a serious product.</P>
+
+<P>The next article will deal with special
+SAPL operators (hoof, rank, cut, numeric with, }). Another one
+will deal with multi-task operations. If time permits, another
+one will talk about intrinsic functions and one of Solitonís
+products, <I>logos</I>.</P>
+
+<H3>Footnotes</H3>
+<ol>
+  <li><a name="footnote1">Dyalog and APL+Win do include system functions for APL files operations
+  <li><a name="footnote2">The | is necessary only in Dyalog where ¶ can be negative if the structure 
+doesnít have a constant depth.
+  <li><a name="footnote3">I do not know what IBMís APL2 and APL+Win do here.
+  <li><a name="footnote4">This adverb canít be found in the English dictionary. Yet.
+  <li><a name="footnote5">In Dyalog the parentheses are not necessary around the variables leading 
+to potential conflicts.
+  <li><a name="footnote6">The design of raze had nothing to do with monadic epsilon in APL2. It is 
+much superior, as it preserves lower-level structure. Some consider the 
+design of monadic epsilon to be largely useless in real applications.
+</ol>
+<H2>References</H2>
+
+<ol>
+    <li>Bernecky, R: An Introduction
+    to Function Rank in APL88 Conference Proceedings, ACM SIGAPL
+    Quote Quad 18:2, 1987, pp. 39ñ43
+    <li>Bernecky, R and Iverson, K E:
+    Operators and Enclosed Arrays, (APL) Users Meeting 1980, I.P.
+    Sharp Associates Limited
+
+</OL>
+
+<P>Please direct questions/remarks to
+<a href="mailto:"danb@dsuper.net">danb@dsuper.net</a>.</P>
+
+<address>
+  Dan Baronet<BR>
+  Montreal<BR>
+  Canada
+</address>
+
+
+<hr noshade>
+
+
+<!-- breadcrumbs for articles -->
+<p style="font-size:80%">
+<a href="http://www.vector.org.uk"><img src="../../icons/iconppl.gif" align="middle" border=0 alt="Vector home"></a>
+<a href="http://www.vector.org.uk" title="VECTOR home">www.vector.org.uk</a> &gt;
+<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt;
+<a href="index.htm">contents of Vector 16.2</a></p>
+
+
+
+</body></html>

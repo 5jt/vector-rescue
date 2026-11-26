@@ -1,0 +1,318 @@
+<html><head>
+<title>FlexGrid with APL+Win</title></head>
+
+<BODY><font face="Book Antiqua">
+
+<!-- breadcrumbs for articles -->
+<p style="font-size:80%">
+<a href="http://www.vector.org.uk"><img src="../../icons/iconverm.gif" align="middle" border=0 alt="Vector home"></a>
+<a href="http://www.vector.org.uk" title="VECTOR home">www.vector.org.uk</a> &gt;
+<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt;
+<a href="index.htm">contents of Vector 15.3</a></p>
+<div align=center>
+<p><font size=-1>[The APL text in this article uses <A HREF="../../resource/apl2741.zip">APL2741</A> (45K download).]</font></p>
+
+<h2>VideoSoft FlexGrid Pro with APL+Win</h2>
+<p><i>by Jonathan Barman</i></p></div>
+
+<p><b><font size=+1>Introduction</b></font><br>
+A couple of months ago VideoSoft released Version 6.0 of their FlexGrid Pro control. It contains a mass of new features which make the standard Microsoft FlexGrid Version 5 look a very pedestrian affair. The Help About button of the Microsoft version says &#147;Portions of this product were developed by VideoSoft&#148;, so I assume that this really means that Microsoft took VideoSoft&#146;s previous version and made a few modifications so that they could call it their own.</p>
+
+<p>The major problem with the standard FlexGrid is that you cannot edit cells in place. Although it is reasonably straightforward to place an edit box over a cell so that it looks as though you are editing it, I never actually did that as the alternative grid TrueGrid (or the Microsoft Data Bound Grid) allows in-cell editing. Now that FlexGrid Pro allows in-cell editing and has so many seductive features I will be using it much more in future.</p>
+
+<p>The thing I particularly like about VideoSoft is that they publish fully working software on the Internet (<A HREF="http://www.componentone.com">www.componentone.com</A>). If you haven&#146;t paid for it then you get an annoying message every time you run it. This means that you can download the OCX and really get down to business to see if you want to use it.</p>
+<p>This is a short exposition of the FlexGrid Pro features using APL+Win.</p>
+<p><b><font size=+1>Creating a Basic Grid</b></font><br>
+In order to play with the features we need a basic grid populated with some data. I usually define <code><font face=APL2741>&#140;io&#132;0</font></code> as all the FlexGrid properties are index origin zero.
+<pre><font face=APL2741>     &#146; vsFlexGridDemo;headings;data
+[1]  &#169; Generate headings and some data
+[2]   headings&#132;'Region' 'Product' 'Type' 'Sales'
+[3]   data&#132;(4/'France' 'Germany' 'UK'),(12&#189;2/'Gold' 'Silver'),(12&#189;'I' 'E'),[1.5]&#149;&#168;?12&#189;200
+[4]  &#169; Create the form and the grid
+[5]   DemoForm&#132;'fmFG'&#140;wi'New' 'Form' 'Close' ('scale' 4)('caption' 'VideoSoft ...')('where' 0 0 20 40)
+[6]   DemoGrid&#132;&#140;wself&#132;'fmFG.vsfgDemo'&#140;wi 'New' ':-) VideoSoft FlexGrid Control'
+[7]  &#169; Make sure the grid fills the form
+[8]   DemoForm &#140;wi 'onResize' 'FGonResize' &#169; ...</font></pre>
+<p>The <code><font face=APL2741>FGonResize</font></code> function just contains the statement
+<pre><font face=APL2741>DemoGrid &#140;wi 'where' (0 0, 2&#134;&#140;warg)</font></pre>
+<p>At this point the grid is displayed with the default settings of 50 rows and 10 columns with a fixed row and a fixed column:
+<p><img src=barman1.gif></p>
+<p>Now assign the headings and data:
+<pre><font face=APL2741>
+[9]  &#169; Define the heading row and cols
+[10]  &#140;wi'xRows' 1
+[11]  &#140;wi'xFixedRows' 1
+[12]  &#140;wi'xCols' (1+&#189;headings)
+[13]  &#140;wi'xFixedCols' 1
+[14]  &#140;wi'xColWidth' 0 300
+[15] &#169; Assign the headings
+[16]  &#140;wi (&#155;'Set'), &#155;[2](&#155;'xTextMatrix'),0,(&#188;&#189;headings) ,[1.5]headings
+[17] &#169; Align the heading cells, from 0 1 to 0 4
+[18]  &#140;wi 'xCell' flexcpAlignment 0 1 0 ,(&#189;headings),flexAlignCenterCenter
+[19] &#169; Add rows using the Add Item method which needs a tab between each element
+[20]  &#140;wi&#168;(&#155;&#155;'XAddItem'),&#168;&#155;&#168;,/&#140;tcht,&#168;data</font></pre>
+<p>APL+Win requires that you prefix any OCX control properties with an x, methods with a X and events with onX. Rather annoyingly, I found that that I could not assign values to the Cell property without specifying all the arguments. In VB the syntax is (setting, R1, C1, R2, C2)=value and you can omit the R2 and C2 parameters for a single cell and the R1 and C1 parameters to assign the current cell. Also, in theory, I should have been able to assign the headings using <code><font face=APL2741>&#140;wi 'xCell' flexcpText 0 1 0 4 (&#175;1&#135;&#185;headings,&#168;&#140;tcnl)</font></code>, but for some reason this does not seem to work properly for multiple columns.
+<p>I use global variables containing the constant parameters as it is much easier to read <code><font face=APL2741>flexAlignLeftCenter</font></code> rather than trying to remember what a 4 means. The constants and their values are in the help text so it is very easy to copy and paste them into a function which assigns all the variables.
+<p>We have now got a grid with some data that we can play with:
+<p><img src=barman2.gif></p>
+<p>There are a few more things to improve the functioning of the basic grid. The <code><font face=APL2741>AllowUserResizing</font></code> property allows the user to resize rows, columns or both. The <code><font face=APL2741>ExplorerBar</font></code> property allows the user to click in the header to sort a column, as in Explorer, and to move columns around. The options are None, Move, Sort and Sort and Move.
+<pre><font face=APL2741>[21] &#169; Allow column and row resizing
+[22]  &#140;wi 'xAllowUserResizing' flexResizeBoth
+[23] &#169; Allow user to sort and move columns around.
+[24]  &#140;wi 'xExplorerBar' flexExSortAndMove</font></pre>
+<p>I also like to use the keyboard to move rows and columns around and to insert and delete rows. Implementing the KeyPress event is quite simple:
+<pre><font face=APL2741>[25] &#169; Key Press event to move rows and columns about
+[26]  &#140;wi 'onXKeyDown' 'FGvsonKeyDown'</font></pre>
+<p>The functions needed to implement the event are as follows:
+<pre><font face=APL2741>     &#146; FGvsonKeyDown
+[1]  &#169; on Key Down event handler for vs Flex Grid
+[2]   :select &#140;warg
+[3]    :case 37 4 &#169; Alt-Left
+[4]     GridMove &#175;1 'xCol' 'xFixedCols' 'xCols' 'XColPosition'
+[5]    :case 38 4 &#169; Alt-Up
+[6]     GridMove &#175;1 'xRow' 'xFixedRows' 'xRows' 'XRowPosition'
+[7]    :case 39 4 &#169; Alt-Right
+[8]     GridMove 1 'xCol' 'xFixedCols' 'xCols' 'XColPosition'
+[9]    :case 40 4 &#169; Alt-Down
+[10]    GridMove 1 'xRow' 'xFixedRows' 'xRows' 'XRowPosition'
+[11]   :case 45 4 &#169; Alt-Insert
+[12]    DemoGrid &#140;wi 'XAddItem' ((4&#189;&#140;tcht),'0')(DemoGrid &#140;wi 'Row')
+[13]   :case 46 4 &#169; Alt-Delete
+[14]    DemoGrid &#140;wi 'XRemoveItem' (DemoGrid &#140;wi 'Row')
+[15]  :endselect
+     &#146;</font></pre>
+<p>Notice that the AddItem method allows us to set the default values for the new row directly.
+<pre><font face=APL2741>     &#146; GridMove a;move;posNm;minNm;maxNm;fnNm;newpos;curpos;min; max;&#140;wself
+[1]  &#169; Move a grid row/column
+[2]  &#169; 5 element vector of Move, Position name, Min name,Max name, Function name
+[3]   (move posNm minNm maxNm fnNm)&#132;a
+[4]   &#140;wself&#132;DemoGrid
+[5]  &#169; Current position and new position
+[6]   newpos&#132;move+curpos&#132;&#140;wi posNm
+[7]  &#169; get min and max
+[8]   (min max)&#132;&#140;wi&#168;minNm maxNm
+[9]  &#169; Wrap around
+[10]  :if newpos&lt;min &#170; newpos&#132;max+newpos-min &#170; :endif
+[11]  :if newpos&#137;max &#170; newpos&#132;min+newpos-max &#170; :endif
+[12] &#169; move
+[13]  &#140;wi fnNm curpos newpos
+[14] &#169; Set current position
+[15]  &#140;wi posNm newpos
+     &#146;</font></pre>
+<p><b><font size=+1>In-cell Editing</b></font><br>
+The default value for the Editable is False, so we have to set it before any editing can be carried out. However, this allows any sort of rubbish to be typed into the cells. If we want to limit some of the columns to a list then we can set the <code><font face=APL2741>ColComboList</font></code> property to provide a combo or list drop-down. There are many options. You can choose between a combo or a list drop-down, you can translate the data from codes to text and you can have multiple column lists and highlight one of the columns. In this short article there is not enough room to explore all the alternatives. One flaw is that the pipe character used to separate elements cannot be altered, so none of the list elements can contain a pipe character.
+<pre><font face=APL2741>[27] &#169; Allow editing
+[28]  &#140;wi 'xEditable' &#175;1
+[29] &#169; Restrict the Product and Type to lists
+[30]  &#140;wi 'xColComboList' 2 'Gold|Silver |Platinum |Iridium'
+[31]  &#140;wi 'xColComboList' 3 ('I',&#140;tcht,'Import|E',&#140;tcht,'Export')</font></pre>
+<p>Note the use of the split bar, as APL+Win seems to hijack the vertical bar. The horizontal tab <code><font face=APL2741>&#140;tcht</font></code> is the separator for multiple columns in the drop down list.
+<p>We can now use drop-down lists in the Product and Type columns.
+<p><img src=barman3.gif> 
+<p>If you need to do more elaborate work you can set the <code><font face=APL2741>ColComboList</font></code> property to an ellipsis. A button is displayed in the cell and when the user clicks it the control fires the CellButtonClick event, at which point you can do clever things. The following is a contrived example, just to illustrate the facilities rather than doing anything useful, where we pop up an edit box just below the cell.
+<pre><font face=APL2741>[32] &#169; Pop up an edit box when user clicks country
+[33]  DemoEdit&#132; &#140;wi ':edCountry.New' 'Edit' ('visible' &#175;1)('onUnfocus' 'FGedonUnfocus')
+[34]  &#140;wi 'xColComboList' 1 '...'
+[35]  &#140;wi 'onXCellButtonClick' 'FGvsonCellButtonClick'</font></pre>
+<pre><font face=APL2741>     &#146; FGvsonCellButtonClick;top;height;left;text
+[1]  &#169; Pop up edit box when user clicks button
+[2]  &#169; Find out where to place edit box and what to put in it
+[3]   (top height left text)&#132;DemoGrid &#140;wi 'Ref' 'xCellTop' 'xCellHeight' 'xCellLeft'('xCell' flexcpText)
+[4]   DemoEdit &#140;wi 'Set' ('visible' 1)('text' text)('where' (top+height),left)
+[5]   DemoEdit &#140;wi 'Focus'
+     &#146;</font></pre>
+<p>Because the user can resize the rows and the columns it is essential to access the CellTop, CellHeight and CellLeft properties to get the cell position. A fully working system should also check that there is enough room to display the pop-up in the intended position.
+<p>The simple way out of the edit box is for it to hide itself as soon as it loses focus. Generally, you would want to have OK and Cancel buttons where the operation was sufficiently complex to warrant a pop-up.
+<pre><font face=APL2741>     &#146; FGedonUnfocus;t;&#140;wself
+[1]  &#169; Edit box has lost focus
+[2]   t&#132;DemoEdit &#140;wi 'text'
+[3]   DemoEdit &#140;wi 'visible' &#175;1
+[4]   &#140;wself&#132;DemoGrid
+[5]   &#140;wi 'xText' t
+     &#146;</font></pre>
+<p>There are many more features for controlling editing. A check box can be displayed for Yes/No type columns. The EditMask property allows detailed control over the characters to be input. The editing properties can be set on a cell by cell basis as well as for complete columns. There is a full set of before, after and validate events so that detailed control can be exercised over each cell. There is a separate set of key down/up/press events which fire when edit mode is active, so a different set of routines can be coded to control in-cell editing.
+<p>You have to watch out when coding the before and after edit routines if you allow the user to move columns about. For example, if editing was not allowed in the Sales column then the code would have to look like this:
+<pre><font face=APL2741>     &#146; FGvsonBeforeEdit
+[1]   :if 'Sales'&#173;DemoGrid &#140;wi 'xTextMatrix' 0,&#140;warg[2] 
+[2]     &#140;wres[3]&#132;&#175;1 
+[3]   :endif
+     &#146;</font></pre>
+<p><b><font size=+1>Merge Cells</b></font><br>
+Cells may be merged in a number of ways. We start by allowing a merge on the left hand 3 columns and then specifying that all items in those columns may be merged:
+<pre><font face=APL2741>&#140;wi (&#155;'Set'),(&#155;&#155;'xMergeCol'),&#168;(&#188;3),&#168;&#175;1
+&#140;wi 'xMergeCells' flexMergeFreeThe following shows what happens before and after moving the Type column:</font></pre>
+<p><img src=barman4.gif> 
+<p>If we now restrict the merge then the lower order columns are not merged:
+<pre><font face=APL2741>&#140;wi 'xMergeCells' flexMergeRestrictAll</font></pre>
+<p>The following shows the results before and after sorting the Type column by clicking in the header:
+<p><img src=barman5.gif> 
+<p>I particularly like the ability to change groups of merged cells in one operation.
+<p>Rows can be merged in exactly the same way as columns. Also, the merging can be restricted to the fixed columns or rows so that you can have pretty headings without having to merge the data.
+<p>Finally, the <code><font face=APL2741>flexMergeSpill</font></code> setting allows a spreadsheet style of merge where long items spill into the next column if it is blank:
+<p><img src=barman6.gif></p>
+<p><b><font size=+1>Outlining</b></font><br>
+This is best demonstrated on the original data grid. First we have to specify what outlining we want and clear any existing outline:
+<pre><font face=APL2741>'xOutlineBar' flexOutlineBarComplete
+&#140;wi 'xSubTotalPosition' flexSTAbove
+&#140;wi 'XSubtotal' flexSTClear</font></pre>
+<p>The Subtotal method has 10 arguments and all but the first are optional. The last statement above illustrates a call to the method specifying the first, mandatory, parameter which is the required action.
+<p>Each of the following Subtotal calls specifies:
+<ul>
+<li>Action, in this case flexSTSum
+<li>Grouping column, or &#175;1 for a grand total
+<li>Column to be summed
+<li>Format string
+<li>Background colour
+<li>Foreground colour
+<li>Bold
+</ul>
+<p>The remaining items can be left at their default values. 
+<p>The grand total is added by specifying <code><font face=APL2741>&#175;1</font></code> as the grouping column.
+<pre><font face=APL2741>&#140;wi 'XSubtotal' flexSTSum &#175;1 4 '#,' 1 (256&#131;3&#189;255) &#175;1</font></pre>
+<p><img src=barman7.gif></p>
+<p>Each of the next groupings are specified by column numbers starting from the left. By using the last two of the 10 arguments to the SubTotal method you can specify groupings across arbitrary sets of columns.
+<p>The next set of totals is indicated by a dark grey background.
+<pre><font face=APL2741>&#140;wi 'XSubtotal' flexSTSum 1 4 '#,',(256&#131;3 2&#189;64 255),&#175;1</font></pre>
+<p><img src=barman8.gif></p>
+<p>Finally, the Products are grouped with a pale grey background.
+<pre><font face=APL2741>&#140;wi 'XSubtotal' flexSTSum 2 4 '#,',(256&#131;3 2&#189;192 255),0</font></pre>
+<p><img src=barman9.gif></p>
+<p>The user can then click on the outline symbols to collapse or expand the totals:
+<p><img src=barman10.gif></p>
+<p>Instead of getting the method to generate totals (with flexSTSum) you can specify Percentage of Total, Count, Average, Max, Min, Standard Deviation and Variance.
+<p>If you don&#146;t want totals inserted then there is an RowOutlineLevel method which allows you to specify the outline level of every row to get the precise effects that you need.
+<p><b><font size=+1>Speed</b></font><br>
+There are several techniques for posting data into the grid. If you want to display big APL arrays in the grid then some speed test are required to see which is best.
+<p>The AddItem method adds a row, but requires tabs between each column together with a leading tab if there is a fixed column. The TextMatrix and Cell properties are designed for assigning data on a cell by cell basis. The Clip property allows a bunch of selected cells to be assigned in one go, but you have to have a character vector with tabs between columns and new line characters between rows.
+<p>The following are some little timing functions to see which method is fastest.
+<pre><font face=APL2741>     &#146; FGTimeAddItemEach data;rows;cols
+[1]   (rows cols)&#132;&#189;data
+[2]   &#140;wi 'xRedraw' 0
+[3]   &#140;wi 'xCols' (1+cols)
+[4]   &#140;wi&#168;(&#155;&#155;'AddItem'),&#168;&#155;&#168;,/&#140;tcht,&#168;data
+[5]   &#140;wi 'xRedraw' 1
+     &#146;</font></pre>
+<pre><font face=APL2741>     &#146; FGTimeAddItemLoop data;rows;cols;i;t
+[1]   (rows cols)&#132;&#189;data
+[2]   &#140;wi 'xRedraw' 0
+[3]   &#140;wi 'xCols' (1+cols)
+[4]   t&#132;(&#140;wi 'xFixedCols')&#189;&#140;tcht
+[5]   :for i :in &#188;rows
+[6]     &#140;wi 'AddItem'(t,1&#135;&#185;&#140;tcht,&#168;data[i;])
+[7]   :endfor
+[8]   &#140;wi 'Redraw' 1
+     &#146;</font></pre>
+<pre><font face=APL2741>     &#146; FGTimeTextMatrixLoop data;rows;cols;r;c
+[1]   (rows cols)&#132;&#189;data
+[2]   &#140;wi 'xRedraw' 0
+[3]   &#140;wi 'Set' ('xRows' (1+rows))('xCols' (1+cols))
+[4]   :for r :in &#188;rows
+[5]     :for c :in &#188;cols
+[6]       &#140;wi 'xTextMatrix' r c (&#156;data[r;c])
+[7]     :endfor
+[8]   :endfor
+[9]   &#140;wi 'Redraw' 1
+     &#146;</font></pre>
+<pre><font face=APL2741>     &#146; FGTimeClipAssign data;d;rows;cols;blocks;i
+[1]   (rows cols)&#132;&#189;data
+[2]   d&#132;(1&#135;&#168;,/&#140;tcht,&#168;data),&#168;&#140;tcnl
+[3]   &#140;wi 'xRedraw' 0
+[4]   &#140;wi 'Set' ('xRows'(1+rows))('xCols'(1+cols))
+[5]   blocks&#132;rows&#152;1000&#215;&#188;&#151;rows&#247;1000
+[6]   :for i :in (&#175;1&#135;0,blocks),&#168;blocks
+[7]     &#140;wi 'XSelect' (1+1&#156;i) 1 (2&#156;i) cols
+[8]     &#140;wi 'xClip' (&#185;d[(1&#156;i)+&#188;--/i])
+[9]   :endfor
+[10]  &#140;wi 'XSelect' 1 1
+[11]  &#140;wi 'xRedraw' 1
+     &#146;</font></pre>
+<pre><font face=APL2741>     &#146; r&#132;FGTime data;t1;t2;&#140;wself
+[1]  &#169; Time various methods of loading Flex Grid with data
+[2]   &#140;wself&#132;DemoGrid
+[3]  &#169; Set up the result
+[4]   r&#132;1 2&#189;'Method' 'Seconds'
+[5]  &#169; Add item method. Use Each
+[6]   &#140;wi 'Set' ('xRows' 1)('xCols' 1) &#169; Reset grid
+[7]   t1&#132;&#140;ts &#170; FGTimeAddItemEach data &#170; t2&#132;&#140;ts
+[8]   r&#132;r&#174;('AddItem Each')(Seconds t2 t1)
+[9]  &#169; Add item method. Loop to avoid WS Full
+[10]  &#140;wi 'Set' ('xRows' 1)('xCols' 1) &#169; Reset grid
+[11]  t1&#132;&#140;ts &#170; FGTimeAddItemLoop data &#170; t2&#132;&#140;ts
+[12]  r&#132;r&#174;('AddItem Loop')(Seconds t2 t1)
+[13] &#169; Text Matrix property in loop
+[14]  &#140;wi 'Set' ('xRows' 1)('xCols' 1) &#169; Reset grid
+[15]  t1&#132;&#140;ts &#170; FGTimeTextMatrixLoop data &#170; t2&#132;&#140;ts
+[16]  r&#132;r&#174;('TextMatrix Loop')(Seconds t2 t1)
+[17] &#169; Select cells and assign Clip property. Max size 500k
+[18]  &#140;wi 'Set' ('xRows' 1)('xCols' 1) &#169; Reset grid
+[19]  t1&#132;&#140;ts &#170; FGTimeClipAssign data &#170; t2&#132;&#140;ts
+[20]  r&#132;r&#174;('Clip assign')(Seconds t2 t1)
+     &#146;</font></pre>
+<p>I have cheated slightly in the FGTimeAddItemEach function as it should really check to see how many fixed columns there are rather than assuming that there is exactly one. The job is done properly in the FGTimeAddItemLoop function. The loop in the FGTimeClipAssign function is required because any attempt to assign more than 500K in one go results in a GPF. The 1000 rows is just a guess that the columns won&#146;t be bigger than 512 bytes on average.
+<p>The results on a 1000 by 10 array are as follows:
+<pre><font face=APL2741>FGTime &#149;&#168;(100&#215;&#188;1000)&#176;.+&#188;10</font></pre>
+<table cellpadding=3><tr><td>
+<B>Method</B><td align=right> <B>Seconds</B><tr><td width=164>
+AddItem Each<td align=right> 0.33<tr><td>
+AddItem Loop<td align=right> 0.44<tr><td>
+TextMatrix Loop<td align=right> 2.36<tr><td>
+<p>Clip assign<td align=right> 0.22</tr></table>
+<p>Obviously, APL is slow when looping like crazy assigning the TextMatrix property on every cell. Interestingly, the Flex Grid help says that assigning data using the TextMatrix property should be faster than using the AddItem method. However, the winner is selecting the required range and assigning the Clip property.
+<p>Running the timings on a bigger array shows that the looping version of AddItem is slightly faster than using Each, but the winner is still the assignment to the Clip property:
+<pre><font face=APL2741>FGTime &#149;&#168;(100&#215;&#188;10000)&#176;.+&#188;10</font></pre>
+<table cellpadding=3><tr><td>
+<B>Method</B><td  align=right> <B>Seconds</B><tr><td width=164>
+AddItem Each<td align=right>4.99<tr><td>
+AddItem Loop<td align=right>4.45<tr><td>
+TextMatrix Loop<td align=right>23.35<tr><td>
+<p>Clip assign<td align=right>2.75</tr></table>
+<p>My initial efforts indicated that the Clip assignment was much the slowest at 58.5 seconds! An analysis of the problem showed that it was line [8] that was causing all the delay. The Editor kindly pointed out that if I changed <code><font face=APL2741>'xClip' (&#156;,/d[(1&#156;i)+&#188;--/i]</font></code>) to be <code><font face=APL2741>'xClip' (&#185;d[(1&#156;i)+&#188;--/i])</font></code> then the times would be dramatically improved. It just goes to show that you have to know your version of APL to get the best out of it.
+<p><b><font size=+1>Other Things</b></font><br>
+The Autosearch property allows the user to search for an item by typing the first few letters of the text. You can set it to search from the top every time or from the cursor. This enables you to use the grid like a sophisticated list box.
+<p>The AutoSize method and the AutoSizeMode property allow you to fit column widths or row heights to the data. It is easy to get two-row headings in this way:
+<pre><font face=APL2741>&#140;wi 'xSelect' 0 1 0 4
+&#140;wi 'xClip' (1&#135;&#185;&#140;tcht,&#168;'Region name' 'Product code' 'Import / Export' 'Sales'))
+&#140;wi 'xWordWrap' 1 &#169; True
+&#140;wi 'xAutoSizeMode' flexAutoSizeRowHeight
+&#140;wi 'XAutoSize' 1 4 &#169; Columns to be sized</font></pre>
+<p><img src=barman11.gif></p>
+<p>OLE Drag and Drop enables the user to highlight cells and drag them into another application. The following is a picture of where I am in the process of dragging a group of cells into Excel:
+<p><img src=barman12.gif></p>
+<p>You can display a tool tip on the scroll bar by setting the ScrollTips property to True and assigning a function to the BeforeScrollTip event, which in turn assigns a value to the ScrollTipText property. For example:
+<pre><font face=APL2741>'xScrollTips' 1
+&#140;wi 'onXBeforeScrollTip' 'FGvsonBeforeScrollTip'
+     &#146; FGvsonBeforeScrollTip
+[1]   DemoGrid &#140;wi 'xScrollTipText' ('Row: ',&#149;&#140;warg)
+     &#146;</font></pre>
+<p><img src=barman13.gif></p>
+<p>You can save the contents of the grid to a file using the SaveGrid method and then get it back again using the LoadGrid method. There is also an Archive method which enables you to save a number of different files in single, compressed, file. I found this particularly useful when putting together a little demo which needed the contents of several grids to be saved together.
+<p>Copy and Paste are nicely implemented, though Paste always seems to need extensive code to check that the values being pasted are all OK.
+<p><b><font size=+1>Failures</b></font><br>
+There are several things that I have not been able to get to work from APL+Win, largely through lack of time and experience.
+<p>It ought to be possible to put icons on a grid using the Imagelist control, but I could not work out how it should be done.
+<p>There does not seem to be a tooltip property for the grid. If there was I could have assigned the following function to the MouseMove event:
+<pre><font face=APL2741>     &#146; FGvsonMouseMove;pos;&#140;wself
+[1]  &#169; Display tool tip on mouse move
+[2]   &#140;wself&#132;DemoGrid
+[3]   pos&#132;&#140;wi 'Ref' 'xMouseRow' 'xMouseCol'
+[4]   :if 0&#185;pos
+[5]     &#140;wi 'tooltip' ''
+[6]    :else
+[7]     &#140;wi 'tooltip' ('This is ',&#140;wi 'xCell' flexcpText pos)
+[8]   :endif
+     &#146;</font></pre>
+<p>I did not attempt to try and get the BindToArray method to work as I would not expect APL to know anything about the address of a VB array. It would be marvellous to have this facility in APL as the array expands and shrinks in line with the size of the grid and you can link several grids together in useful ways. It is also very fast.
+<p>These little failures would seem to be an excellent set of topics for the Hackers&#146; Corner in <i>Vector</i>! Is there anyone out there who can fix the problems?
+<p><b><font size=+1>Conclusion</b></font><br>
+I am an enthusiastic convert to this OCX which is stuffed full of facilities that save coding time. I have no doubt that it might be possible to replicate most of the features in APL, but why bother when it is all available?
+<HR>
+</p>
+<!-- breadcrumbs for articles -->
+<p style="font-size:80%">
+<a href="http://www.vector.org.uk"><img src="../../icons/iconverm.gif" align="middle" border=0 alt="Vector home"></a>
+<a href="http://www.vector.org.uk" title="VECTOR home">www.vector.org.uk</a> &gt;
+<a href="../../?area=vect&amp;page=content/archive">back issues</a> &gt;
+<a href="index.htm">contents of Vector 15.3</a></p>
+
+</FONT></body>
+</html>
