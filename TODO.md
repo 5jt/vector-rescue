@@ -49,9 +49,10 @@ Agreed scope: CI runs only the Zensical build (plus `lift_bylines`) from the Mar
 
 Measured 2026-11-22: input 749 MB (PDFs and images are most of it), built site 857 MB (881 MB as a tar; PDFs 510 MB, search.json 29 MB, duplicate files only 18 MB). Zensical build 34 s, 850 MB RAM. Pages limits: site ≤ 1 GB, deploy ≤ 10 min. So CI can handle it, with ~140 MB headroom.
 
-- [ ] Decide where the Markdown tree is committed. Recommended: its own repo (e.g. VecEd/VectorArchive-site), so VectorArchive stays under GitHub's 1 GB recommendation (it is 760 MB; adding the tree would make ~1.5 GB). Alternatives: a folder or orphan branch in VectorArchive. Stephen to decide.
-- [ ] Decide where the site is served: VecEd's Pages (recommended), 5jt.github.io/vector-rescue remaining the development preview; custom domain later.
-- [ ] Trial on the 5jt repo first: build and deploy from a test branch, to confirm the 10-minute deploy limit.
+- [x] Where: `official` (VecEd/VectorArchive) gets the Markdown tree and the scan PDFs, with an Actions workflow to Pages; later it becomes the single source of truth and vec-rescue is archived (Stephen, 2026-11-26). Until the handover `official` is generated output: never edit by hand.
+- [x] Deploy limits: the existing gh-pages deploy of the full 857 MB site (GitHub's own Pages workflow) takes about 90 s, of which deploy 31 s (run 45059054714). No trial needed.
+- [ ] Replace `official`'s `main` (the code history pushed 2026-11-22) with the tree and the workflow: awaiting Stephen's go-ahead. Stephen enables Pages (source: GitHub Actions) in VecEd's settings.
+- [ ] Before the handover: a README for `official` on what it is and how to edit and publish it, including the pages that become hand-kept (volume tabs, full index, tags, home, nav).
 - [ ] Make `lift_bylines` runnable in CI on its own (a small entry point), and a `make` target that writes and commits the Markdown tree.
 
 ## Metadata
