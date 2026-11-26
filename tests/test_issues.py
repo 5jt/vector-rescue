@@ -472,6 +472,22 @@ def test_byline_is_lifted_under_the_title(tmp_path):
     assert lift_bylines(tmp_path) == 0   # a byline under a later heading stays put
 
 
+def test_byline_lifter_runs_on_its_own(tmp_path):
+    """official's workflow runs bylines.py alone, with only the standard
+    library and no vecrescue package (#341)."""
+    import shutil, subprocess, sys
+    from pathlib import Path
+    script = tmp_path / "lift_bylines.py"
+    shutil.copyfile(Path(__file__).parent.parent / "tools" / "vecrescue" / "bylines.py", script)
+    page = tmp_path / "site" / "art1" / "index.html"
+    page.parent.mkdir(parents=True)
+    page.write_text('<h1 id="__skip">T</h1>\n<p class="printed">Vector 1:1</p>\n<p class="byline">by A</p>\n<p>Text</p>')
+    out = subprocess.run([sys.executable, "-I", "-S", str(script), str(tmp_path / "site")],
+                         capture_output=True, text=True, check=True)
+    assert "1 pages" in out.stdout
+    assert page.read_text().startswith('<h1 id="__skip">T</h1>\n<p class="byline">by A</p>')
+
+
 def test_fix_comments_touches_only_comments():
     from vecrescue.legacy import fix_comments
     assert fix_comments("<!------- note ------->x") == "<!-- note -->x"
