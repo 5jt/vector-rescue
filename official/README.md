@@ -12,7 +12,7 @@ What is here
 - `overrides/`: Zensical template overrides
 - `zensical.toml`: the site configuration, including the navigation
 - `scripts/lift_bylines.py`: a step run after the build, setting each article's byline under its title
-- `.github/workflows/publish.yml`: builds the site with [Zensical](https://zensical.org) and publishes it to GitHub Pages (run by hand until Pages is enabled; then on every push to `main`)
+- `.github/workflows/publish.yml`: builds the site with [Zensical](https://zensical.org) and publishes it to GitHub Pages on every push to `main`
 
 Generated: do not edit by hand (yet)
 ------------------------------------
