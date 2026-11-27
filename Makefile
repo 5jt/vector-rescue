@@ -59,12 +59,12 @@ publish:
 	rm -rf build/publish
 
 # Push Zensical's input (build/docs, overrides, zensical.toml) to the official
-# repository, VecEd/VectorArchive, whose workflow builds it and publishes it to
+# repository, BritAPL/VectorArchive, whose workflow builds it and publishes it to
 # GitHub Pages (#341). The files under official/ (workflow, README) go with it,
 # and the byline step as scripts/lift_bylines.py. One commit per run, naming the
 # vector-rescue commit it came from. Does not rebuild: run make all first.
 OFFICIAL = build/official
-OFFICIAL_SITE = https://veced.github.io/VectorArchive/
+OFFICIAL_SITE = https://britapl.github.io/VectorArchive/
 official:
 	test -f build/zensical.toml || { echo "Run make all first"; exit 1; }
 	test -d $(OFFICIAL)/.git || git clone -q $$(git remote get-url official) $(OFFICIAL)

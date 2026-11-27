@@ -3,7 +3,7 @@ The Vector Archive
 
 The archive of *Vector*, the journal of the British APL Association, 1984–2022: every issue's contents, the articles as text, and the scans of the printed issues.
 
-Published at https://veced.github.io/VectorArchive/
+Published at https://britapl.github.io/VectorArchive/
 
 What is here
 ------------
