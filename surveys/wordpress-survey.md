@@ -123,7 +123,7 @@ Seven talks at the BAA meeting of 20 May 2016, in eight posts, each a short abst
 
 ## Unpublished
 
-- 2075, draft, 2021-01-21: *The Derivative Revisited* (Richard Park). A full article never published; needs the author’s or editor’s consent.
+- 2075, draft, 2021-01-21: *The Derivative Revisited* (Richard Park). A full article never published in *Vector*. **Excluded (Stephen Taylor, 2026-11-27):** it is another author's work, eventually published elsewhere, not in *Vector*.
 - 2182, pending: *A test post as author*. Not content.
 - 2007: *Swatch sample for styling*. Not content.
 

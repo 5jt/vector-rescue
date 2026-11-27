@@ -35,7 +35,7 @@ Expected next steps (updated 2026-11-27).
 - [x] Converted the 11 new articles (`transcriptions/art10501790.md`–`art10501890.md`), images from vector.org.uk; published.
 - [ ] Awaiting Jake's reply (asked 2026-11-20): `wp-content/uploads` for the lost Langlet figure 1 (10501810, `2019/04/figure1.png`; Stephen may also track it down); the source of Dan Baronet's *Finding text in files* (10501800) for the lost `]find` markers (not in the 1984–2016 material nor Dyalog's 12.1/13.0 User Commands guides; an old Dyalog running the examples would show them); scans of 2:2 and 7:2 (#62). Apply what he sends.
 - [x] Bodon's pivot-with-totals figure (10501860) restored from KDnuggets, the article's first publication (#343). *Fun Q* reviewer confirmed as Daniel Krizian (Stephen, 2026-11-26).
-- [ ] Stephen to ask Richard Park whether to archive his unpublished *The Derivative Revisited* (WordPress draft 2075, 2021-01-21); message drafted 2026-11-26.
+- [x] *The Derivative Revisited* (WordPress draft 2075): excluded, as another author's work published elsewhere, not in *Vector* (Stephen, 2026-11-27). No message to Richard Park needed.
 - [x] The WordPress scripts are kept in `tools/scratch/wordpress/` (#326, PR #327; sequence in `tools/scratch/README.md`).
 - [x] Compared the 12 low-scoring duplicate posts (#328): no revisions, the held texts stand; the low scores were a fault in the scoring. 10501740–10501760 need no better source.
 - [x] Volume 27 on the home page (#331): 27:1, never printed, with its 15 pieces (WordPress's 27:1 category plus the PHP site's `printed/271/`) in order of publication online; the 2016 talks page refiled as published online.
